@@ -1,6 +1,0 @@
-información-general
-repaso
-regresión-lineal
-repaso-funciones-de-densidad
-álgebra-matricial-para-econometría
-supuestos-del-modelo-clásico-de-regresión-lineal

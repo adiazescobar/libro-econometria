@@ -7,3 +7,4 @@ rmd_files: [
   "03-Matrices.Rmd", 
   "04-Supuestos.Rmd"
 ]
+output_dir: "docs"
