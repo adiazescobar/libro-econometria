@@ -1,7 +1,7 @@
 # Repaso
 
 
-```{r setup-poblacion, include=FALSE}
+```{r setup-poblacion2, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(pacman)
 p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel)
