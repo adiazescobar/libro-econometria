@@ -421,3 +421,5 @@ Interprete el coeficiente \( \beta_1 \) en los siguientes modelos de regresión 
           allowfullscreen></iframe>
 </div>
 
+
+
