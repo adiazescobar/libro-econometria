@@ -1,16 +1,4 @@
----
-title: "Econometría"
-subtitle: "Capítulo 2: Regresión lineal"
-author: "Ana María Díaz"
-date: "`r format(Sys.time(), '%d %B %Y')`"
-output:
-  xaringan::moon_reader:
-    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']
-    nature:
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
+
 
 ```{r setup-poblacion, include=FALSE}
 options(htmltools.dir.version = FALSE)
