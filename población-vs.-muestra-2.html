@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 2 Población vs. muestra | 01-intro.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 2 Población vs. muestra | 01-intro.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 2 Población vs. muestra | 01-intro.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="población-vs.-muestra-1.html"/>
+<link rel="next" href="regresión-lineal.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#poblaci%C3%B3n-vs.-muestra"><i class="fa fa-check"></i>Población vs. Muestra</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="población-vs.-muestra.html"><a href="población-vs.-muestra.html"><i class="fa fa-check"></i><b>0.1</b> El proceso generador de datos (PGD)</a></li>
+<li class="chapter" data-level="0.2" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i><b>0.2</b> Construimos una población “de juguete”</a></li>
+<li class="chapter" data-level="0.3" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i><b>0.3</b> La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path=""><a href="#poblaci%C3%B3n-vs.-muestra-1"><i class="fa fa-check"></i><b>1</b> Población vs. muestra</a></li>
+<li class="chapter" data-level="2" data-path=""><a href="#poblaci%C3%B3n-vs.-muestra-2"><i class="fa fa-check"></i><b>2</b> Población vs. muestra</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="población-vs.-muestra-2.html"><a href="población-vs.-muestra-2.html"><i class="fa fa-check"></i><b>2.1</b> Incertidumbre</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path=""><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i><b>3.1</b> El estimador</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mco.html"><a href="mco.html"><i class="fa fa-check"></i><b>4</b> MCO</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="mco.html"><a href="mco.html#formalmente"><i class="fa fa-check"></i><b>4.1</b> Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mco-propiedades-y-supuestos.html"><a href="mco-propiedades-y-supuestos.html"><i class="fa fa-check"></i><b>5</b> MCO: Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="mco-propiedades-y-supuestos.html"><a href="mco-propiedades-y-supuestos.html#propiedades"><i class="fa fa-check"></i><b>5.1</b> Propiedades</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="el-tradeoff..html"><a href="el-tradeoff..html"><i class="fa fa-check"></i><b>6</b> El tradeoff.</a></li>
+<li class="chapter" data-level="7" data-path="mco-supuestos-y-propiedades.html"><a href="mco-supuestos-y-propiedades.html"><i class="fa fa-check"></i><b>7</b> MCO: Supuestos y propiedades</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path=""><a href="#los-supuestos-del-modelo-cl%C3%A1sico-de-regresi%C3%B3n-lineal-est%C3%A1n-resumidos-en-la-siguiente-tabla"><i class="fa fa-check"></i><b>7.1</b> Los supuestos del modelo clásico de regresión lineal están resumidos en la siguiente tabla:</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path=""><a href="#s1-lineal-en-par%C3%A1metros"><i class="fa fa-check"></i><b>8</b> S1: Lineal en parámetros</a></li>
+<li class="chapter" data-level="9" data-path=""><a href="#s1-lineal-en-par%C3%A1metros-1"><i class="fa fa-check"></i><b>9</b> S1: Lineal en parámetros</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path=""><a href="#modelos-de-regresi%C3%B3n"><i class="fa fa-check"></i><b>9.1</b> Modelos de Regresión</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="s2-exogeneidad-estricta.html"><a href="s2-exogeneidad-estricta.html"><i class="fa fa-check"></i><b>10</b> S2: Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="11" data-path="s3-colinealidad-imperfecta.html"><a href="s3-colinealidad-imperfecta.html"><i class="fa fa-check"></i><b>11</b> S3: Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="12" data-path=""><a href="#s3-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i><b>12</b> S3: Perturbaciones Esféricas</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="s3-perturbaciones-esféricas.html"><a href="s3-perturbaciones-esféricas.html"><i class="fa fa-check"></i><b>12.1</b> Homocedasticidad</a></li>
+<li class="chapter" data-level="12.2" data-path=""><a href="#no-autocorrelaci%C3%B3n"><i class="fa fa-check"></i><b>12.2</b> No Autocorrelación</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path=""><a href="#s3-perturbaciones-esf%C3%A9ricas-1"><i class="fa fa-check"></i><b>13</b> S3: Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="14" data-path=""><a href="#s3-perturbaciones-esf%C3%A9ricas-2"><i class="fa fa-check"></i><b>14</b> S3: Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="15" data-path=""><a href="#s3-perturbaciones-esf%C3%A9ricas-3"><i class="fa fa-check"></i><b>15</b> S3: Perturbaciones Esféricas</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="población-vs.-muestra-2" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Población vs. muestra<a href="#poblaci%C3%B3n-vs.-muestra-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Pregunta:</strong> ¿Por qué nos importa la <em>población vs. muestra</em>?</p>
+<p><strong>Respuesta:</strong> La incertidumbre es importante.</p>
+<p><span class="math inline">\(\hat{\beta}\)</span> en sí mismo es una variable aleatoria, dependiente de la muestra aleatoria. Cuando tomamos una muestra y realizamos una regresión, no sabemos si es una muestra ‘buena’ ( <span class="math inline">\(\hat{\beta}\)</span> está cerca de <span class="math inline">\(\beta\)</span>) o una muestra ‘mala’ (nuestra muestra difiere significativamente de la población).</p>
+<div id="incertidumbre" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Incertidumbre<a href="población-vs.-muestra-2.html#incertidumbre" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mantener un registro de esta incertidumbre será un concepto clave a lo largo de nuestro curso.</p>
+<ul>
+<li><p>Estimación de errores estándar para nuestras estimaciones.</p></li>
+<li><p>Pruebas de hipótesis.</p></li>
+<li><p>Corrección para la heteroscedasticidad y autocorrelación.</p></li>
+</ul>
+<p>Primero, repasemos cómo obtenemos estas estimaciones (inciertas) de regresión.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="población-vs.-muestra-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresión-lineal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": false,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

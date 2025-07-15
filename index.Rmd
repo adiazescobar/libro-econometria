@@ -1,0 +1,106 @@
+
+--- 
+title: "Econometría Avanzada"
+author: "Ana María Díaz"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
+
+
+
+# Información general
+
+| Campo | Detalle |
+|-------|---------|
+| **Curso** | Econometría Avanzada (Cod 1420) |
+| **Docente** | Ana María Díaz |
+| **Oficina / Atención** | Séptimo piso Edificio 20 \| Lunes 9–11 a.m. (o por Teams) |
+| **Sitio web** | <http://adiazescobar.com> |
+| **Correo** | <a.diaze@javeriana.edu.co> |
+| **Prerequisito** | Econometría I |
+| **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 67‑208 y 67‑314 |
+| **Monitor** | Miguel Ángel Cortés — horarios y oficina por definir |
+
+## Descripción del curso {-}
+
+El objetivo principal es proporcionar herramientas para el análisis econométrico de datos de corte transversal, series de tiempo y panel. Se revisa el modelo clásico de regresión lineal, las consecuencias de violar sus supuestos, modelos para variables dependientes discretas o limitadas y técnicas básicas de series de tiempo y panel. Al finalizar, el estudiante podrá ejecutar regresiones múltiples, diagnosticar problemas comunes y aplicar soluciones apropiadas.
+
+## Material bibliográfico {-}
+
+### Libro obligatorio {-}
+
+- Verbeek, Marno (2004). *A Guide to Modern Econometrics*. Wiley.
+
+### Libros recomendados {-}
+
+1. Greene, William (2003). *Econometric Analysis*. Prentice Hall.  
+2. Wooldridge, Jeffrey (2003). *Introductory Econometrics: A Modern Approach*. Thomson.  
+3. Wooldridge, Jeffrey (2002). *Econometric Analysis of Cross Section and Panel Data*. MIT Press.  
+4. Montenegro, Álvaro (2009). *Series de Tiempo*. Javegraf, PUJ.  
+5. Stock, J. & Watson, M. (2006). *Introduction to Econometrics*. Addison‑Wesley.  
+6. Hayashi, Fumio (2000). *Econometrics*. Princeton UP.  
+7. Angrist, J.D. & Pischke, J.S. (2009). *Mostly Harmless Econometrics*. Princeton UP.  
+8. Cameron, A.C. & Trivedi, P.K. (2009). *Microeconometrics Using Stata*. Stata Press.  
+9. *Stata 11 Time Series Reference Manual*. Stata Press.  
+10. Rosales R. et al. (2010). *Fundamentos de Econometría Intermedia*. CEDE.
+
+## Evaluación {-}
+
+| Porcentaje | Actividad |
+|-----------:|-----------|
+| 25 % | Parcial 1 teórico |
+| 25 % | Parcial 2 teórico |
+| 3 %  | Talleres en clase |
+| 7 %  | Monitorías |
+| 15 % | Trabajo final |
+| 25 % | Examen final |
+| +0.5 (para el mejor) | Video‑bono examen final |
+
+Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumplimiento se sanciona según el reglamento de integridad académica.
+
+## Programa semanal {-}
+
+| Semana | Tema principal | Lecturas clave |
+|:------:|---------------|---------------|
+| **1** | Supuestos del MCRL | Verbeek cap. 1‑2 (oblig.)  \| Hayashi cap. 1; Wooldridge cap. 1‑2 (opc.) |
+| **2** | Regresión simple vs múltiple; Teorema FWL | Verbeek cap. 1‑2  \| *The Stata Journal* (2013) 13(1): 92‑106 |
+| **3** | Propiedades de MCO en muestras finitas; Teorema Gauss‑Markov | Verbeek cap. 2 |
+| **4** | Inferencia y predicción; Propiedades asintóticas de MCO | Verbeek cap. 3 |
+| **5** | **Primer parcial** | — |
+| **6** | No linealidad; Multicolinealidad | Verbeek cap. 3‑4 |
+| **7** | Heterocedasticidad | Verbeek cap. 4 |
+| **8** | Endogeneidad: simultaneidad, omitidas, medición | Verbeek cap. 5 |
+| **9** | Variables instrumentales, MCO2E, GMM | Verbeek cap. 5 |
+| **10** | Modelos LPM, logit y probit | Verbeek cap. 7 |
+| **11** | Máximo verosimilitud; DID, RD, duración, cuantílica (opc.) | — |
+| **12** | Semana Santa / Receso | — |
+| **13** | **Segundo parcial** | — |
+| **14** | Series de tiempo: conceptos básicos | Verbeek cap. 8 |
+| **15** | AR, MA y VAR estacionarios | Verbeek cap. 9 |
+| **16** | Datos de panel: pooled, between, FE, RE | Verbeek cap. 10 |
+| **17** | **Examen final** | — |
+
+## Recursos adicionales {-}
+
+- [Ben Lambert – Econometrics on YouTube](https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU)  
+- [Mastering Econometrics (MRU)](https://mru.org/mastering-econometrics)  
+- [AEA *Journal of Economic Perspectives* – Classroom](https://www.aeaweb.org/journals/jep/classroom)  
+- [Google Dataset Search](https://toolbox.google.com/datasetsearch)  
+- [Stata Cheat Sheets](https://geocenter.github.io/StataTraining/pdf/AllCheatSheets.pdf)  
+- [Seeing Theory – Visual Probability](https://seeing-theory.brown.edu)
+
+## Inclusión {-}
+
+Este curso da la bienvenida a personas de todas las edades, orígenes, creencias, etnias, géneros, identidades, orientaciones sexuales y capacidades. Se espera un ambiente respetuoso e inclusivo.
+
+## Integridad académica {-}
+
+La Universidad Javeriana fomenta la honestidad y establece sanciones por fraude o plagio según el reglamento de estudiantes. Cualquier uso no autorizado de materiales durante evaluaciones se considera falta grave.
+
+

@@ -1,0 +1,423 @@
+# Supuestos del Modelo Clásico de Regresión Lineal
+
+## Proceso Generador de Datos {-}
+
+El modelo de regresión lineal parte de la siguiente estructura:
+
+\[
+Y_i = X_i \beta + \epsilon_i
+\]
+
+Donde:
+- \( Y_i \): variable dependiente (observación i)
+- \( X_i \): vector fila con los regresores de la observación i
+- \( \beta \): vector de parámetros poblacionales
+- \( \epsilon_i \): error poblacional (componentes no observables)
+- \( i = 1, 2, ..., n \)
+
+> Esta formulación describe el proceso generador de datos (PGD), base para los supuestos del MCO.
+
+
+
+## Tabla Resumen de Supuestos {-}
+
+| Supuesto                         | Notación                                        | Implicación principal                                                   |
+|----------------------------------|--------------------------------------------------|-------------------------------------------------------------------------|
+| S1. Linealidad en los parámetros | \( y_i = X_i \beta + \epsilon_i \)              | El modelo es lineal en los parámetros                                  |
+| S2. Exogeneidad estricta         | \( \mathbb{E}[\epsilon_i \mid X] = 0 \)         | No hay correlación entre regresores y error                            |
+| S3. Colinealidad imperfecta      | \( \text{Rango}(X) = K \)                       | No hay multicolinealidad perfecta; modelo identificable                |
+| S4. Perturbaciones esféricas     | \( \text{Var}(\epsilon_i \mid X) = \sigma^2 \), \( \text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0 \) | Homocedasticidad y no autocorrelación                                 |
+| S5. Regresores no estocásticos   | \( X \) es fija en repetidas muestras           | Simplifica demostraciones teóricas                                     |
+| S6. Normalidad                   | \( \epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I) \) | Solo necesaria para inferencia exacta                                  |
+
+
+
+## S1. Linealidad en los Parámetros {-}
+
+El valor esperado de \( y \) está relacionado linealmente con los regresores:
+
+\[
+\mathbb{E}[Y_i \mid X_i] = X_i \beta
+\]
+
+Esto permite distintas formas funcionales (lineales en parámetros):
+
+- Lineal: \( y_i = \beta_1 + \beta_2 x_i + \epsilon_i \)
+- Log-log: \( \log(y_i) = \beta_1 + \beta_2 \log(x_i) + \epsilon_i \)
+- Log-lineal: \( \log(y_i) = \beta_1 + \beta_2 x_i + \epsilon_i \)
+- Lineal-log: \( y_i = \beta_1 + \beta_2 \log(x_i) + \epsilon_i \)
+- Cuadrático: \( y_i = \beta_1 + \beta_2 x_i + \beta_3 x_i^2 + \epsilon_i \)
+- Interactuado: \( y_i = \beta_1 + \beta_2 x_1 + \beta_3 x_2 + \beta_4(x_1 x_2) + \epsilon_i \)
+
+
+
+## S2. Exogeneidad Estricta {-}
+
+\[
+\mathbb{E}[\epsilon_i \mid X] = 0
+\]
+
+>Esto implica que no existe relación sistemática entre los regresores y el término de error.
+
+Ejemplos:
+
+- \( \mathbb{E}[u \mid X = 1] = 0 \)
+- \( \mathbb{E}[u \mid X_2 = \text{Mujer}] = 0 \)
+
+Demostración (Ley de la esperanza iterada):
+
+\[
+\mathbb{E}[\epsilon_i] = \mathbb{E}\left[ \mathbb{E}[\epsilon_i \mid X] \right] = \mathbb{E}[0] = 0
+\]
+
+Equivalencia: 
+Si \( \mathbb{E}[\epsilon_i \mid X] = 0 \), entonces:
+
+\[
+\text{Cov}(\epsilon_i, X_j) = 0 \quad \forall j
+\]
+
+
+Pero qué quiere decir?
+
+Una forma de pensar en esta definición es:
+
+> Para *cualquier* valor de  $X$, el valor esperado de los residuos debe ser igual a cero
+
+- _E.g._, $\mathop{E}\left[ u \mid X=1 \right]=0$ *and* $\mathop{E}\left[ u \mid X=100 \right]=0$
+
+- _E.g._, $\mathop{E}\left[ u \mid X_2=\text{Mujer} \right]=0$ *and* $\mathop{E}\left[ u \mid X_2=\text{Hombre} \right]=0$
+
+- Note: $\mathop{E}\left[ u \mid X \right]=0$ es más restrictivo que  $\mathop{E}\left[ u \right]=0$
+
+Graficamente...
+
+```{R, conditional_expectation_setup, include = F, cache = T}
+# Setup ----------------------------------------------------------------------------------
+  # Options
+  options(stringsAsFactors = F)
+  # Packages
+  library(pacman)
+library(knitr)
+  p_load(ggridges)
+
+# Data work ------------------------------------------------------------------------------
+  # Set seed
+  set.seed(12345)
+  # Sample size
+  n <- 1e5
+  # Exogenous
+  e_good <- tibble(
+    x = runif(n = n, min = -4, max = 4),
+    e = rnorm(n)
+  ) %>% mutate(x = round(x))
+  # Endogenous
+  e_bad <- tibble(
+    x = runif(n = n, min = -4, max = 4),
+    e = rnorm(n) + 0.5 * x
+  ) %>% mutate(x = round(x))
+
+# Figures: Joint densities ---------------------------------------------------------------
+  # The joint plot: good
+  joint_good <- ggplot(data = e_good, aes(x = e)) +
+    geom_density() +
+    theme_pander()
+  # The joint plot: bad
+  joint_bad <- ggplot(data = e_bad, aes(x = e)) +
+    geom_density() +
+    theme_pander()
+
+# Figures: Conditional densities ---------------------------------------------------------
+  cond_good <- ggplot(data = e_good, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = after_stat(x)),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("e") +
+    ylab("X") +
+    theme_pander(base_family = "Fira Sans Book", base_size = 18) +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(angle = 0, vjust = 0.5, family = "MathJax_Math", size = 22),
+      axis.title.x = element_text(family = "MathJax_Math", size = 22)
+    )
+  cond_bad <- ggplot(data = e_bad, aes(x = e, y = as.factor(x))) +
+    geom_density_ridges_gradient(
+      aes(fill = after_stat(x)),
+      color = "white",
+      scale = 2.5,
+      size = 0.2
+    ) +
+    # geom_vline(xintercept = 0, alpha = 0.3) +
+    scale_fill_viridis(option = "magma") +
+    xlab("e") +
+    ylab("X") +
+    theme_pander(base_family = "Fira Sans Book", base_size = 18) +
+    theme(
+      legend.position = "none",
+      axis.title.y = element_text(angle = 0, vjust = 0.5, family = "MathJax_Math", size = 22),
+      axis.title.x = element_text(family = "MathJax_Math", size = 22)
+    )
+```
+
+Exogeneidad Estricta se Incumple, _i.e._, $\mathop{E}\left[ \epsilon \mid X \right] \neq 0$
+
+
+## S3. Colinealidad Imperfecta {-}
+
+\[
+\text{Rango}(X) = K
+\]
+
+Para que el modelo esté identificado, debe cumplirse que el número de observaciones sea mayor que el número de regresores: \( n > K \).
+
+Violaciones comunes:
+
+1. Regresor constante: \( X_j = c \)
+2. Dos variables idénticas: \( X_j = X_k \)
+3. Combinación lineal exacta: \( X_3 = X_1 + X_2 \) *Trampa de las variables binarias*
+
+Ejemplo de matriz con rango 3:
+
+\[
+A = \begin{bmatrix}
+1 & 2 & 3 \\
+3 & 5 & 7 \\
+4 & 6 & 5 \\
+\end{bmatrix}
+\quad \Rightarrow \text{Rango}(A) = 3
+\]
+
+Ejemplo de matriz con rango **menor a 3**:
+
+\[
+B = \begin{bmatrix}
+1 & 3 & 1 \\
+3 & 8 & 2 \\
+2 & 9 & 5 \\
+\end{bmatrix}
+\quad \Rightarrow \text{Rango}(B) \neq 3
+\]
+
+> La tercera columna de \( B \) es combinación lineal de las otras dos:  
+> \( C_3 = -2 \cdot C_1 + C_2 \)
+
+Wooldridge (2003) aclara que este supuesto **permite que los regresores estén correlacionados**, siempre que no haya una relación lineal exacta entre ellos.
+
+## S4. Perturbaciones Esféricas {-}
+
+Este supuesto se compone de dos condiciones:
+
+ 🔹 Homocedasticidad
+
+\[
+\text{Var}(\epsilon_i \mid X) = \sigma^2 \quad \forall i
+\]
+
+La dispersión del término de error es constante para todos los individuos. Esto significa que la varianza de los errores no depende de los regresores.
+
+
+🔹 No autocorrelación
+
+\[
+\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0 \quad \text{para } i \neq j
+\]
+
+Los errores no están correlacionados entre sí. Es especialmente relevante en series de tiempo, pero también puede violarse en datos de corte transversal (e.g., por correlación espacial).
+
+
+
+🔸 Implicación conjunta
+
+Cuando se cumplen homocedasticidad y no autocorrelación:
+
+\[
+\text{Var}(\epsilon \mid X) = \sigma^2 I
+\]
+
+La matriz de varianzas-covarianzas de los errores es **escalar y diagonal**, también llamada **matriz esférica**.
+
+
+
+ 🧠 Derivación paso a paso {-}
+
+\[
+\text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon' \mid X] - \mathbb{E}[\epsilon \mid X] \cdot \mathbb{E}[\epsilon' \mid X]
+\]
+
+Por el supuesto de exogeneidad estricta (S2), sabemos que:
+
+\[
+\mathbb{E}[\epsilon \mid X] = 0 \quad \Rightarrow \quad \text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon' \mid X]
+\]
+
+Entonces, la matriz resultante es:
+
+\[
+\text{Var}(\epsilon \mid X) =
+\begin{bmatrix}
+\mathbb{E}[\epsilon_1^2 \mid X] & \mathbb{E}[\epsilon_1 \epsilon_2 \mid X] & \cdots & \mathbb{E}[\epsilon_1 \epsilon_n \mid X] \\
+\mathbb{E}[\epsilon_2 \epsilon_1 \mid X] & \mathbb{E}[\epsilon_2^2 \mid X] & \cdots & \mathbb{E}[\epsilon_2 \epsilon_n \mid X] \\
+\vdots & \vdots & \ddots & \vdots \\
+\mathbb{E}[\epsilon_n \epsilon_1 \mid X] & \mathbb{E}[\epsilon_n \epsilon_2 \mid X] & \cdots & \mathbb{E}[\epsilon_n^2 \mid X]
+\end{bmatrix}
+\]
+
+Aplicando los supuestos:
+
+- \( \text{Var}(\epsilon_i \mid X) = \sigma^2 \)
+- \( \text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0 \) para \( i \neq j \)
+
+\[
+\Rightarrow \text{Var}(\epsilon \mid X) =
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{bmatrix}
+= \sigma^2 I
+\]
+
+
+> Este supuesto es necesario para garantizar la eficiencia del estimador MCO bajo los supuestos clásicos (Teorema de Gauss-Markov).
+
+
+
+## S5. Regresores No Estocásticos {-}
+
+Este supuesto establece que la matriz de regresores \( X \) **no es aleatoria**: sus valores permanecen fijos en repeticiones del experimento o entre muestras.
+
+\[
+X = \text{constante} \quad \text{(no varía entre muestras)}
+\]
+
+ 🔹 ¿Qué significa?
+
+Aunque en la práctica \( X \) proviene de una muestra aleatoria, asumir que es no estocástica permite tratarlo como fijo en la teoría. Esto implica que cualquier inferencia o estimación se **condiciona sobre \( X \)**.
+
+ ✅ Ventajas teóricas
+
+- Simplifica la demostración de propiedades como insesgamiento y varianza mínima.
+- Permite eliminar la distinción entre:
+  - valor esperado **condicional**: \( \mathbb{E}[\hat{\beta} \mid X] \)
+  - y valor esperado **incondicional**: \( \mathbb{E}[\hat{\beta}] \)
+
+ ⚠️ En la práctica...
+
+Este supuesto rara vez se cumple literalmente, ya que \( X \) normalmente proviene de una muestra aleatoria. Sin embargo, es común en teoría clásica porque:
+
+- No afecta la validez del MCO si se asume que \( X \) es **independiente de** \( \epsilon \).
+- Se puede relajar en contextos de modelos más generales (paneles, variables instrumentales, etc.).
+
+> En modelos con regresores estocásticos, se requiere en cambio que \( \mathbb{E}[\epsilon \mid X] = 0 \), lo que recupera el supuesto de exogeneidad estricta (S2).
+
+
+
+
+## S6. Normalidad del Error {-}
+
+\[
+\epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I)
+\]
+
+Este supuesto establece que los errores, **condicionales a los regresores**, siguen una distribución normal multivariada con media cero y matriz de varianza-covarianza esférica \( \sigma^2 I \).
+
+ 🎯 ¿Para qué sirve?
+
+Este supuesto **no es necesario** para que el estimador de Mínimos Cuadrados Ordinarios (MCO) sea:
+
+- Insesgado (S2 ya garantiza eso),
+- Eficiente entre estimadores lineales insesgados (por el Teorema de Gauss-Markov).
+
+Sin embargo, **sí es crucial** para que se cumpla la distribución exacta de ciertos estadísticos en muestras pequeñas.
+
+
+
+ ✅ Aplicaciones de la normalidad:
+
+- Validez de las pruebas **t** para significancia individual.
+- Validez de las pruebas **F** para restricciones conjuntas.
+- Construcción exacta de intervalos de confianza para \( \beta \).
+
+
+
+ 🧠 ¿Qué pasa en muestras grandes?
+
+Gracias al **Teorema Central del Límite** y **La Ley de los Grandes Números*, incluso si \( \epsilon \) no es normal, el estimador \( \hat{\beta} \) tenderá a seguir una distribución normal asintótica:
+
+\[
+\hat{\beta} \overset{approx}{\sim} \mathcal{N}\left(\beta, \sigma^2 (X'X)^{-1}\right)
+\]
+
+> Por eso, la normalidad puede **relajarse** si \( n \) es suficientemente grande.
+
+
+
+
+## Glosario de Símbolos {-}
+
+| Símbolo | Significado                         |
+|---------|-------------------------------------|
+| \( Y_i \) | Variable dependiente               |
+| \( X_{ij} \) | Regresor j para observación i    |
+| \( \beta_j \) | Parámetro poblacional           |
+| \( \epsilon_i \) | Error poblacional               |
+| \( n \) | Número de observaciones              |
+| \( k \) | Número de regresores (sin constante) |
+
+
+## 📘 Preguntas de repaso {-}
+
+📘 1. Conceptuales
+
+Defina brevemente los siguientes términos:
+
+- Econometría teórica  
+- Econometría aplicada
+
+¿Qué papel juega cada uno de los seis supuestos del modelo clásico de regresión lineal en garantizar las propiedades del estimador de MCO?
+
+
+🧮 2. Clasificación de modelos
+
+ Clasifique los siguientes modelos como **lineales en parámetros** o **no lineales**:
+
+1. \( y_i = \beta_0 + \beta_1 x_i + \epsilon_i \)  
+2. \( \log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i \)  
+3. \( y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i \)  
+4. \( y_i = \frac{\beta_0}{1 + e^{-\beta_1 x_i}} + \epsilon_i \)  
+5. \( y_i = \alpha + \theta^{x_i} + \epsilon_i \)
+
+
+ 📏 3. Interpretación de la pendiente
+
+Interprete el coeficiente \( \beta_1 \) en los siguientes modelos de regresión lineal simple:
+
+1. \( y_i = \beta_0 + \beta_1 x_i + \epsilon_i \)  
+2. \( \log(y_i) = \beta_0 + \beta_1 x_i + \epsilon_i \)  
+3. \( y_i = \beta_0 + \beta_1 \log(x_i) + \epsilon_i \)  
+4. \( \log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i \)
+
+> En cada caso, explique qué representa un aumento marginal en \( x_i \), y si los efectos son absolutos, porcentuales o elásticos.
+
+### 🎥 Recursos audiovisuales {-}
+
+<div style="margin-bottom: 1em;">
+  <strong>¿Qué hacen los economistas? (Video 1)</strong><br>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/iiYKRD8ochA" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen></iframe>
+</div>
+
+<div style="margin-bottom: 1em;">
+  <strong>An Uneven Paying Field (Video 2)</strong><br>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/ZWSv-7PjHIM" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen></iframe>
+</div>
+

@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Población vs. Muestra: Simulación en R</title>
+  <meta name="description" content="Población vs. Muestra: Simulación en R" />
+  <meta name="generator" content="bookdown #bookdown:version# and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Población vs. Muestra: Simulación en R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Población vs. Muestra: Simulación en R" />
+  
+  
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Población vs. Muestra: Simulación en R</h1>
+<h2 class="subtitle"><em>Una introducción práctica a la incertidumbre en econometría</em></h2>
+<p class="author"><em>Ana María Díaz</em></p>
+<p class="date"><em>2025-07-01</em></p>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+<!--bookdown:toc2:start-->
+<ul>
+<li><a href="#el-proceso-generador-de-datos-pgd" id="toc-el-proceso-generador-de-datos-pgd"><span class="toc-section-number">0.1</span> El proceso generador de datos (PGD)</a></li>
+<li><a href="#construimos-una-poblaci%C3%B3n-de-juguete" id="toc-construimos-una-población-de-juguete"><span class="toc-section-number">0.2</span> Construimos una población “de juguete”</a></li>
+<li><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n" id="toc-la-relación-verdadera-en-la-población"><span class="toc-section-number">0.3</span> La relación verdadera en la población</a></li>
+<li><a href="#poblaci%C3%B3n-vs.-muestra" id="toc-población-vs.-muestra"><span class="toc-section-number">1</span> Población vs. muestra</a></li>
+<li><a href="#poblaci%C3%B3n-vs.-muestra-1" id="toc-población-vs.-muestra-1"><span class="toc-section-number">2</span> Población vs. muestra</a>
+<ul>
+<li><a href="#incertidumbre" id="toc-incertidumbre"><span class="toc-section-number">2.1</span> Incertidumbre</a></li>
+</ul></li>
+<li><a href="#regresi%C3%B3n-lineal" id="toc-regresión-lineal"><span class="toc-section-number">3</span> Regresión lineal</a>
+<ul>
+<li><a href="#el-estimador" id="toc-el-estimador"><span class="toc-section-number">3.1</span> El estimador</a></li>
+</ul></li>
+<li><a href="#mco" id="toc-mco"><span class="toc-section-number">4</span> MCO</a>
+<ul>
+<li><a href="#formalmente" id="toc-formalmente"><span class="toc-section-number">4.1</span> Formalmente</a></li>
+</ul></li>
+<li><a href="#mco-propiedades-y-supuestos" id="toc-mco-propiedades-y-supuestos"><span class="toc-section-number">5</span> MCO: Propiedades y supuestos</a>
+<ul>
+<li><a href="#propiedades" id="toc-propiedades"><span class="toc-section-number">5.1</span> Propiedades</a></li>
+</ul></li>
+<li><a href="#el-tradeoff." id="toc-el-tradeoff."><span class="toc-section-number">6</span> El tradeoff.</a></li>
+<li><a href="#mco-supuestos-y-propiedades" id="toc-mco-supuestos-y-propiedades"><span class="toc-section-number">7</span> MCO: Supuestos y propiedades</a>
+<ul>
+<li><a href="#los-supuestos-del-modelo-cl%C3%A1sico-de-regresi%C3%B3n-lineal-est%C3%A1n-resumidos-en-la-siguiente-tabla" id="toc-los-supuestos-del-modelo-clásico-de-regresión-lineal-están-resumidos-en-la-siguiente-tabla"><span class="toc-section-number">7.1</span> Los supuestos del modelo clásico de regresión lineal están resumidos en la siguiente tabla:</a></li>
+</ul></li>
+<li><a href="#s1-lineal-en-par%C3%A1metros" id="toc-s1-lineal-en-parámetros"><span class="toc-section-number">8</span> S1: Lineal en parámetros</a></li>
+<li><a href="#s1-lineal-en-par%C3%A1metros-1" id="toc-s1-lineal-en-parámetros-1"><span class="toc-section-number">9</span> S1: Lineal en parámetros</a>
+<ul>
+<li><a href="#modelos-de-regresi%C3%B3n" id="toc-modelos-de-regresión"><span class="toc-section-number">9.1</span> Modelos de Regresión</a></li>
+</ul></li>
+<li><a href="#s2-exogeneidad-estricta" id="toc-s2-exogeneidad-estricta"><span class="toc-section-number">10</span> S2: Exogeneidad Estricta</a></li>
+<li><a href="#s3-colinealidad-imperfecta" id="toc-s3-colinealidad-imperfecta"><span class="toc-section-number">11</span> S3: Colinealidad Imperfecta</a></li>
+<li><a href="#s3-perturbaciones-esf%C3%A9ricas" id="toc-s3-perturbaciones-esféricas"><span class="toc-section-number">12</span> S3: Perturbaciones Esféricas</a>
+<ul>
+<li><a href="#homocedasticidad" id="toc-homocedasticidad"><span class="toc-section-number">12.1</span> Homocedasticidad</a></li>
+<li><a href="#no-autocorrelaci%C3%B3n" id="toc-no-autocorrelación"><span class="toc-section-number">12.2</span> No Autocorrelación</a></li>
+</ul></li>
+<li><a href="#s3-perturbaciones-esf%C3%A9ricas-1" id="toc-s3-perturbaciones-esféricas-1"><span class="toc-section-number">13</span> S3: Perturbaciones Esféricas</a></li>
+<li><a href="#s3-perturbaciones-esf%C3%A9ricas-2" id="toc-s3-perturbaciones-esféricas-2"><span class="toc-section-number">14</span> S3: Perturbaciones Esféricas</a></li>
+<li><a href="#s3-perturbaciones-esf%C3%A9ricas-3" id="toc-s3-perturbaciones-esféricas-3"><span class="toc-section-number">15</span> S3: Perturbaciones Esféricas</a></li>
+</ul>
+<!--bookdown:toc2:end-->
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Población vs. Muestra: Simulación en R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<!--bookdown:toc:end-->
+<!--bookdown:body:start-->
+<blockquote>
+<p>Fragmento adaptado de las diapositivas de Edward Rubin. Este capítulo ilustra, mediante simulaciones en <strong>R</strong>, la diferencia conceptual entre el modelo poblacional y el modelo muestral, así como la incertidumbre asociada a la estimación.</p>
+</blockquote>
+<div id="el-proceso-generador-de-datos-pgd" class="section level2 hasAnchor" number="0.1">
+<h2 class="hasAnchor"><span class="header-section-number">0.1</span> El proceso generador de datos (PGD)<a href="#el-proceso-generador-de-datos-pgd" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Denotemos el modelo <em>poblacional</em> como</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_i + u_i,\]</span></p>
+<p>donde <span class="math inline">\(u_i\)</span> captura todo lo que <strong>no</strong> medimos (habilidad, contactos, suerte). Por desgracia sólo vemos <span class="math inline">\(y_i\)</span> y <span class="math inline">\(x_i\)</span>, nunca al error.</p>
+<p>Cuando tomamos una <em>muestra</em> y corremos una regresión obtenemos estimadores</p>
+<p><span class="math display">\[y_i = \hat\beta_0 + \hat\beta_1 x_i + e_i,\]</span></p>
+<p>que producen predicciones</p>
+<p><span class="math display">\[\hat y_i = \hat\beta_0 + \hat\beta_1 x_i.\]</span></p>
+<p>La recta <span class="math inline">\(\hat y_i\)</span> es la mejor aproximación a la recta verdadera <span class="math inline">\(y_i\)</span> <em>dentro de la muestra</em>… pero no necesariamente fuera de ella. La distancia entre ambas es la raíz de toda incertidumbre que veremos más adelante.</p>
+</div>
+<div id="construimos-una-población-de-juguete" class="section level2 hasAnchor" number="0.2">
+<h2 class="hasAnchor"><span class="header-section-number">0.2</span> Construimos una población “de juguete”<a href="#construimos-una-poblaci%C3%B3n-de-juguete" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para hacer tangible la discusión generaremos con <strong>R</strong> una población de 100 individuos:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> (años de educación) sigue una normal con media 5 y desviación 1.5.</li>
+<li><span class="math inline">\(y\)</span> depende linealmente de <span class="math inline">\(x\)</span> con pendiente 0.5 y un término aleatorio <span class="math inline">\(u\sim N(0,1)\)</span>.</li>
+</ul>
+<p><img src="01-intro_files/figure-html/pop1-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+</div>
+<div id="la-relación-verdadera-en-la-población" class="section level2 hasAnchor" number="0.3">
+<h2 class="hasAnchor"><span class="header-section-number">0.3</span> La relación verdadera en la población<a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En la siguiente gráfica los puntos representan a los 100 graduados y la línea rosa es la verdadera relación <span class="math inline">\(y = 3 + 0.5x\)</span>:</p>
+<p><img src="01-intro_files/figure-html/scatter1-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Esa línea está fuera de nuestro alcance en la vida real porque requeriría encuestar a <em>todos</em> los egresados.</p>
+<p><span class="math display">\[ y_i = 2.53 + 0.57 x_i + u_i \]</span></p>
+<p><span class="math display">\[ y_i = \beta_0 + \beta_1 x_i + u_i \]</span></p>
+<p>Tomemos ahora 30 graduados al azar y ajustemos una regresión con ellos. ¿Se parece al PGD?</p>
+<p><img src="01-intro_files/figure-html/sample1-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/sample1%20scatter-1.svg" width="1008" style="display: block; margin: auto;" />
+<strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 2.36 + 0.61 x_i\)</span></p>
+<p><img src="01-intro_files/figure-html/sample2-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/sample2%20scatter-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 2.79 + 0.56 x_i\)</span></p>
+<p><img src="01-intro_files/figure-html/sample3-1.svg" width="1008" style="display: block; margin: auto;" />
+<img src="01-intro_files/figure-html/sample3%20scatter-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 3.21 + 0.45 x_i\)</span></p>
+<p>Ahora repitamos esto <strong>10,000 veces</strong>.</p>
+<p>(Este ejercicio se llama ejercicio de Montecarlo)</p>
+<p><img src="01-intro_files/figure-html/simulation%20scatter-1.png" width="3150" style="display: block; margin: auto;" /></p>
+</div>
+<div id="población-vs.-muestra" class="section level1 hasAnchor" number="1">
+<h1 class="hasAnchor"><span class="header-section-number">1</span> Población vs. muestra<a href="#poblaci%C3%B3n-vs.-muestra" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Pregunta:</strong> ¿Por qué nos importa la <em>población vs. muestra</em>?</p>
+<p><img src="01-intro_files/figure-html/simulation%20scatter2-1.png" width="3150" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>En <strong>promedio</strong>, nuestras líneas de regresión se ajustan muy bien a la línea de la población.</p></li>
+<li><p>Sin embargo, las <strong>líneas individuales</strong> (muestras) pueden desviarse significativamente.</p></li>
+<li><p>Las diferencias entre las muestras individuales y la población generan <strong>incertidumbre</strong> para el econometrista.</p></li>
+</ul>
+</div>
+<div id="población-vs.-muestra-1" class="section level1 hasAnchor" number="2">
+<h1 class="hasAnchor"><span class="header-section-number">2</span> Población vs. muestra<a href="#poblaci%C3%B3n-vs.-muestra-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Pregunta:</strong> ¿Por qué nos importa la <em>población vs. muestra</em>?</p>
+<p><strong>Respuesta:</strong> La incertidumbre es importante.</p>
+<p><span class="math inline">\(\hat{\beta}\)</span> en sí mismo es una variable aleatoria, dependiente de la muestra aleatoria. Cuando tomamos una muestra y realizamos una regresión, no sabemos si es una muestra ‘buena’ ( <span class="math inline">\(\hat{\beta}\)</span> está cerca de <span class="math inline">\(\beta\)</span>) o una muestra ‘mala’ (nuestra muestra difiere significativamente de la población).</p>
+<div id="incertidumbre" class="section level2 hasAnchor" number="2.1">
+<h2 class="hasAnchor"><span class="header-section-number">2.1</span> Incertidumbre<a href="#incertidumbre" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Mantener un registro de esta incertidumbre será un concepto clave a lo largo de nuestro curso.</p>
+<ul>
+<li><p>Estimación de errores estándar para nuestras estimaciones.</p></li>
+<li><p>Pruebas de hipótesis.</p></li>
+<li><p>Corrección para la heteroscedasticidad y autocorrelación.</p></li>
+</ul>
+<p>Primero, repasemos cómo obtenemos estas estimaciones (inciertas) de regresión.</p>
+</div>
+</div>
+<div id="regresión-lineal" class="section level1 hasAnchor" number="3">
+<h1 class="hasAnchor"><span class="header-section-number">3</span> Regresión lineal<a href="#regresi%C3%B3n-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="el-estimador" class="section level2 hasAnchor" number="3.1">
+<h2 class="hasAnchor"><span class="header-section-number">3.1</span> El estimador<a href="#el-estimador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Podemos estimar una línea de regresión en .mono[Stata] (<code>reg y x</code>) y en .mono[R] (<code>lm(y ~ x, my_data)</code>). Pero, ¿de dónde provienen estas estimaciones?</p>
+<blockquote>
+<p><span class="math display">\[ \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \]</span>
+que nos da la línea de <em>mejor ajuste</em> a través de nuestro conjunto de datos.</p>
+</blockquote>
+<p>¿qué queremos decir con “línea de mejor ajuste”?</p>
+<p><strong>Pregunta:</strong> ¿Qué queremos decir con <em>línea de mejor ajuste</em>?</p>
+<p><strong>Respuestas:</strong></p>
+<ul>
+<li>En general (en econometría), <em>línea de mejor ajuste</em> significa la línea que minimiza la suma de residuos al cuadrado (SRC):</li>
+</ul>
+<p><span class="math inline">\(\text{SRC} = \sum_{i = 1}^{n} \epsilon_i^2\quad\)</span> donde <span class="math inline">\(\quad \epsilon_i = y_i - \hat{y}_i\)</span></p>
+<ul>
+<li>Los <strong>mínimos cuadrados ordinarios</strong> (<strong>MCO</strong>) minimizan la suma de residuos al cuadrado.</li>
+<li>Basado en un conjunto de supuestos (GAUSS MARKOV), MCO es:
+<ul>
+<li>Es insesgado (y consistente)</li>
+<li>Es el <em>mejor</em> (estimador insesgado lineal de mínima varianza <em>MELI</em>)</li>
+</ul>
+Usemos los datos anteriores</li>
+</ul>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%201-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Para cada línea <span class="math inline">\(\left(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\right)\)</span></p>
+<p><img src="01-intro_files/figure-html/vs%20lines%202-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Para cada línea <span class="math inline">\(\left(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\right)\)</span>, podemos calcular los errores: <span class="math inline">\(\epsilon_i = y_i - \hat{y}_i\)</span></p>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%203-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>ara cada línea <span class="math inline">\(\left(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\right)\)</span>, podemos calcular los errores: <span class="math inline">\(\epsilon_i = y_i - \hat{y}_i\)</span></p>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%204-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Para cada línea <span class="math inline">\(\left(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\right)\)</span>, podemos calcular los errores: <span class="math inline">\(\epsilon_i = y_i - \hat{y}_i\)</span></p>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%205-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>SRC es igual a: <span class="math inline">\(\left(\sum e_i^2\right)\)</span>: Errores más grandes reciben penalizaciones más grandes.</p>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%206-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>La estimación de MCO es la combinación de <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimiza la SRC</p>
+<p><img src="01-intro_files/figure-html/ols%20vs%20lines%207-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="mco" class="section level1 hasAnchor" number="4">
+<h1 class="hasAnchor"><span class="header-section-number">4</span> MCO<a href="#mco" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="formalmente" class="section level2 hasAnchor" number="4.1">
+<h2 class="hasAnchor"><span class="header-section-number">4.1</span> Formalmente<a href="#formalmente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En una regresión lineal simple, el estimador de MCO proviene de escoger <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimice la suma de residuos al cuadrado (SRC), <em>i.e.</em>,</p>
+<p><span class="math display">\[ \min_{\hat{\beta}_0,\, \hat{\beta}_1} \text{SRC} \]</span></p>
+<p>donde
+<span class="math display">\[ \text{SRC} = \sum_{i = 1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i = 1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2 \]</span>
+El estimador de MCO es el valor de <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimiza la SRC.</p>
+<p>pero nosotros sabemos que <span class="math inline">\(\text{SRC} = \sum_i \tilde{\epsilon_i}^2\)</span>. Now use the definitions of <span class="math inline">\(\tilde{\epsilon_i}\)</span> and <span class="math inline">\(\hat{y}\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+  \tilde{\epsilon_i}^2 &amp;= \left( y_i - \hat{y}_i \right)^2 = \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \right)^2 \\
+  &amp;= y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2
+\end{aligned}
+\]</span></p>
+<p><strong>Recordatorio:</strong> Minimizar una función multivariada requiere (<strong>1</strong>) que las primeras derivadas sean iguales a cero (las <em>condiciones de primer orden</em>) y (<strong>2</strong>) las condiciones de segundo orden (concavidad).</p>
+<p>Nos estamos acercando. Necesitamos <strong>minimizar la SRC</strong>.</p>
+<p><span class="math display">\[ \text{SRE} = \sum_i \tilde{e_i}^2 = \sum_i \left( y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2 \right) \]</span></p>
+<p>For the first-order conditions of minimization, we now take the first derivates of SSE with respect to <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
+<p><span class="math display">\[
+\begin{aligned}
+  \dfrac{\partial \text{SRC}}{\partial \hat{\beta}_0} &amp;= \sum_i \left( 2 \hat{\beta}_0 + 2 \hat{\beta}_1 x_i - 2 y_i \right) = 2n \hat{\beta}_0 + 2 \hat{\beta}_1 \sum_i x_i - 2 \sum_i y_i \\
+  &amp;= 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y}
+\end{aligned}
+\]</span></p>
+<p>donde <span class="math inline">\(\overline{x} = \frac{\sum x_i}{n}\)</span> y <span class="math inline">\(\overline{y} = \frac{\sum y_i}{n}\)</span> son medias muestrales de <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> (de tamaño <span class="math inline">\(n\)</span>).</p>
+<p>Las condiciones de primer orden establecen que las derivadas deben ser iguales a cero:
+<span class="math display">\[ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_0} = 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y} = 0 \]</span></p>
+<p>Lo que implica</p>
+<p><span class="math display">\[ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} \]</span>
+Ahora para <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
+<p>Tomemos la derivada de la SRC con respecto a <span class="math inline">\(\hat{\beta}_1\)</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+  \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} &amp;= \sum_i \left( 2 \hat{\beta}_0 x_i + 2 \hat{\beta}_1 x_i^2 - 2 y_i x_i \right) = 2 \hat{\beta}_0 \sum_i x_i + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i \\
+  &amp;= 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i
+\end{aligned}
+\]</span>
+Igualarlo a cero</p>
+<p><span class="math display">\[ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} = 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
+y reemplazarlo <span class="math inline">\(\hat{\beta}_0\)</span>, <em>i.e.</em>, <span class="math inline">\(\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\)</span>. Thus,</p>
+<p><span class="math display">\[
+2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0
+\]</span>
+Continuando</p>
+<p><span class="math display">\[ 2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
+<span class="math display">\[ 2n \overline{y}\,\overline{x} - 2n \hat{\beta}_1 \overline{x}^2 + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
+<span class="math display">\[ \implies 2 \hat{\beta}_1 \left( \sum_i x_i^2 - n \overline{x}^2 \right) = 2 \sum_i y_i x_i - 2n \overline{y}\,\overline{x} \]</span></p>
+<p><span class="math display">\[ \implies \hat{\beta}_1 = \dfrac{\sum_i y_i x_i - 2n \overline{y}\,\overline{x}}{\sum_i x_i^2 - n \overline{x}^2} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} \]</span>
+LISTOO!</p>
+<p>Ahora tenemos nuestros lindos estimadores</p>
+<p><span class="math display">\[ \hat{\beta}_1 = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} \]</span>
+and the intercept</p>
+<p><span class="math display">\[ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} \]</span></p>
+<p>Y ahora saben de dónde la
+Y ahora sabes de dónde proviene la parte de <em>mínimos cuadrados</em> en el término “mínimos cuadrados ordinarios”. 🎊</p>
+<p>Ahora pasamos a los supuestos y propiedades (implícitas) de los Mínimos Cuadrados Ordinarios (MCO / OLS).</p>
+</div>
+</div>
+<div id="mco-propiedades-y-supuestos" class="section level1 hasAnchor" number="5">
+<h1 class="hasAnchor"><span class="header-section-number">5</span> MCO: Propiedades y supuestos<a href="#mco-propiedades-y-supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="propiedades" class="section level2 hasAnchor" number="5.1">
+<h2 class="hasAnchor"><span class="header-section-number">5.1</span> Propiedades<a href="#propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Pregunta:</strong> ¿Qué propiedades podrían ser importantes para un estimador?
+<strong>Tangente:</strong> Primero revisemos las propiedades estadísticas.
+<strong>Repaso:</strong> Funciones de densidad</p>
+<p>Recordemos que utilizamos las <strong>funciones de densidad de probabilidad</strong> (FDP- PDF) para describir la probabilidad de que una <strong>variable aleatoria continua</strong> tome valores en un rango dado. (El área total = 1).</p>
+<p>Estas FDPs caracterizan distribuciones de probabilidad, y las distribuciones más comunes/famosas/populares reciben nombres (por ejemplo, normal, <em>t</em>, Gamma).</p>
+<p><strong>Repaso:</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor entre -2 y 0: <span class="math inline">\(\mathop{\text{P}}\left(-2 \leq X \leq 0\right) = 0.48\)</span></p>
+<p><img src="01-intro_files/figure-html/example:%20pdf-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Repaso:</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor entre -1.96 y 1.96: <span class="math inline">\(\mathop{\text{P}}\left(-1.96 \leq X \leq 1.96\right) = 0.95\)</span></p>
+<p><img src="01-intro_files/figure-html/example:%20pdf%202-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Repaso</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor mayor a 2: <span class="math inline">\(\mathop{\text{P}}\left(X &gt; 2\right) = 0.023\)</span></p>
+<p><img src="01-intro_files/figure-html/example:%20pdf%203-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Imaginemos que estamos tratando de estimar un parámetro desconocido <span class="math inline">\(\beta\)</span>, y conocemos las distribuciones de tres estimadores competitivos. ¿Cuál de ellos elegimos? ¿Cómo decidimos?</p>
+<p><img src="01-intro_files/figure-html/competing_pdfs-1.png" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Pregunta:</strong> ¿Qué propiedades podrían ser importantes para un estimador?
+<strong>Respuesta uno: Sesgo (Bias).</strong>
+En promedio (después de <em>muchas</em> repeticiones), ¿el estimador tiende hacia el valor correcto?
+<strong>Más formalmente:</strong> ¿La media de la distribución del estimador es igual al parámetro que estima?
+<span class="math display">\[ \mathop{\text{Sesgo}}_\beta \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] - \beta \]</span></p>
+<p><strong>Respuesta uno: Sesgo (Bias).</strong></p>
+<p><strong>Estimador Insesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] = \beta\)</span></p>
+<p><img src="01-intro_files/figure-html/unbiased_pdf-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Estimador Sesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \neq \beta\)</span></p>
+<p><img src="01-intro_files/figure-html/biased%20pdf-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Respuesta 2: Varianza.</strong></p>
+<p>Las tendencias centrales (medias) de las distribuciones competidoras no son lo único que importa. También nos preocupa la <strong>varianza</strong> de un estimador..</p>
+<p><span class="math display">\[ \mathop{\text{Var}} \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \left( \hat{\beta} - \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \right)^2 \right] \]</span></p>
+<p>Los estimadores con menor varianza significan que obtenemos estimaciones más cercanas a la media en cada muestra.</p>
+<p><strong>Respuesta dos: varianza</strong></p>
+<p><img src="01-intro_files/figure-html/variance%20pdf-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><strong>Respuesta uno: Sesgo </strong></p>
+<p><strong>Respuesta dos: Varianza</strong></p>
+<p><strong>El trade off: sesgo vs varianza</strong> .</p>
+<p>¿Deberíamos estar dispuestos a aceptar un poco de sesgo para reducir la varianza?</p>
+<p>En econometría, generalmente nos adherimos a estimadores insesgados (o consistentes). Pero en otras disciplinas (especialmente ciencias de la computación), se reflexiona un poco más sobre este compromiso.</p>
+</div>
+</div>
+<div id="el-tradeoff." class="section level1 hasAnchor" number="6">
+<h1 class="hasAnchor"><span class="header-section-number">6</span> El tradeoff.<a href="#el-tradeoff." class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><img src="01-intro_files/figure-html/variance%20bias-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+</div>
+<div id="mco-supuestos-y-propiedades" class="section level1 hasAnchor" number="7">
+<h1 class="hasAnchor"><span class="header-section-number">7</span> MCO: Supuestos y propiedades<a href="#mco-supuestos-y-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ul>
+<li>MCO is <strong>insesgado</strong>.</li>
+<li>MCO tiene la <strong>menor varianza</strong> de todos los estiamdores lineales e insesgados
+# MCO: Supuestos y propiedades
+# Supuestos
+# MCO: Supuestos y propiedades</li>
+</ul>
+<div id="los-supuestos-del-modelo-clásico-de-regresión-lineal-están-resumidos-en-la-siguiente-tabla" class="section level2 hasAnchor" number="7.1">
+<h2 class="hasAnchor"><span class="header-section-number">7.1</span> Los supuestos del modelo clásico de regresión lineal están resumidos en la siguiente tabla:<a href="#los-supuestos-del-modelo-cl%C3%A1sico-de-regresi%C3%B3n-lineal-est%C3%A1n-resumidos-en-la-siguiente-tabla" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="66%" />
+</colgroup>
+<thead>
+<tr>
+<th>Supuesto</th>
+<th>Implicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A1. Lineal</td>
+<td><span class="math inline">\(y=X\beta+\epsilon\)</span></td>
+</tr>
+<tr>
+<td>A2. Exogeneidad Estricta</td>
+<td><span class="math inline">\(\mathop{E}\left[\epsilon_{i} \mid X \right]=0\)</span></td>
+</tr>
+<tr>
+<td>A3. Colinealidad Imperfecta</td>
+<td><span class="math inline">\(X\)</span> es una matriz <span class="math inline">\(nxK\)</span> con rango <span class="math inline">\(K\)</span></td>
+</tr>
+<tr>
+<td>A4. Perturbaciones Esféricas</td>
+<td><span class="math inline">\(\mathop{Var}\left[\epsilon_{i} \mid X \right]=\sigma^{2}\)</span></td>
+</tr>
+<tr>
+<td></td>
+<td><span class="math inline">\(\mathop{Cov}\left[\epsilon_{i},\epsilon_{j}\mid X \right]=0\)</span></td>
+</tr>
+<tr>
+<td>A5. Regresores no estocásticos</td>
+<td><span class="math inline">\(X\)</span> es una matriz <span class="math inline">\(nxK\)</span> no estocástica</td>
+</tr>
+<tr>
+<td>A6. Normalidad</td>
+<td><span class="math inline">\(\epsilon \mid X\sim N(0,\sigma^{2}I)\)</span></td>
+</tr>
+<tr>
+<td>A.2, A.4-A.6</td>
+<td><span class="math inline">\(\epsilon \mid X\sim i.i.d\quad N(0,\sigma^{2}I)\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="s1-lineal-en-parámetros" class="section level1 hasAnchor" number="8">
+<h1 class="hasAnchor"><span class="header-section-number">8</span> S1: Lineal en parámetros<a href="#s1-lineal-en-par%C3%A1metros" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El valor esperado de la distribución de y está relacionada con el
+valor de <span class="math inline">\(X_{i}\)</span> de una manera lineal:</p>
+<p><span class="math display">\[E[Y|X_{i}=x]=f(X_{i})=X_{i}\beta\]</span>
+Por lo tanto el proceso generador de datos es igual a</p>
+<p><span class="math display">\[Y_{i}=X\beta+\epsilon\]</span></p>
+</div>
+<div id="s1-lineal-en-parámetros-1" class="section level1 hasAnchor" number="9">
+<h1 class="hasAnchor"><span class="header-section-number">9</span> S1: Lineal en parámetros<a href="#s1-lineal-en-par%C3%A1metros-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="modelos-de-regresión" class="section level2 hasAnchor" number="9.1">
+<h2 class="hasAnchor"><span class="header-section-number">9.1</span> Modelos de Regresión<a href="#modelos-de-regresi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><p><strong>Lineal</strong>: <span class="math inline">\(y_{i} = \beta_{1} + \beta_{2}x_{i} + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Log-log</strong>: <span class="math inline">\(ln(y_{i}) = \beta_{1} + \beta_{2}ln(x_{i}) + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Log-lineal</strong>: <span class="math inline">\(ln(y_{i}) = \beta_{1} + \beta_{2}x_{i} + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Lineal-log</strong>: <span class="math inline">\(y_{i} = \beta_{1} + \beta_{2}ln(x_{i}) + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Recíproco</strong>: <span class="math inline">\(y_{i} = \beta_{1} + \beta_{2}\frac{1}{x_{i}} + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Cuadrático</strong>: <span class="math inline">\(y_{i} = \beta_{1} + \beta_{2}x_{i} + \beta_{3}x_{i}^{^{2}} + \epsilon_{i}\)</span></p></li>
+<li><p><strong>Interactuado</strong>: <span class="math inline">\(y_{i} = \beta_{1} + \beta_{2}x_{i1} + \beta_{3}x_{i2} + \beta_{4}(x_{i1}\times x_{i2}) + \epsilon_{i}\)</span></p></li>
+</ul>
+<p>En general, un modelo de regresión es no lineal cuando ni es lineal en su formación original, ni se puede convertir en un modelo lineal mediante alguna transformación.</p>
+</div>
+</div>
+<div id="s2-exogeneidad-estricta" class="section level1 hasAnchor" number="10">
+<h1 class="hasAnchor"><span class="header-section-number">10</span> S2: Exogeneidad Estricta<a href="#s2-exogeneidad-estricta" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Para muchas de las aplicaciones de la economía el supuesto más importante es la <strong>EXOGENEIDAD</strong></p>
+<p><span class="math display">\[
+\begin{align}
+  \mathop{E}\left[ \epsilon \mid X \right] = 0
+\end{align}
+\]</span>
+Pero qué quiere decir?</p>
+<p>Una forma de pensar en esta definición es:</p>
+<blockquote>
+<p>Para <em>cualquier</em> valor de <span class="math inline">\(X\)</span>, el valor esperado de los residuos debe ser igual a cero</p>
+</blockquote>
+<ul>
+<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X=1 \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X=100 \right]=0\)</span></p></li>
+<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Mujer} \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Hombre} \right]=0\)</span></p></li>
+<li><p>Note: <span class="math inline">\(\mathop{E}\left[ u \mid X \right]=0\)</span> es más restrictivo que <span class="math inline">\(\mathop{E}\left[ u \right]=0\)</span></p></li>
+</ul>
+<p>Graficamente…</p>
+<p>Exogeneidad Estricta se cumple, <span class="math inline">\(\mathop{E}\left[ \epsilon \mid X \right] = 0\)</span></p>
+<p><img src="01-intro_files/figure-html/ex_good_exog-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p>Exogeneidad Estricta se Incumple, <em>i.e.</em>, <span class="math inline">\(\mathop{E}\left[ \epsilon \mid X \right] \neq 0\)</span></p>
+<p><img src="01-intro_files/figure-html/ex_bad_exog-1.svg" width="1008" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado3.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado1.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado8.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado5.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado6.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado7.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado9.png" width="60%" style="display: block; margin: auto;" /></p>
+<p><img src="01-intro_files/figure-html/pegado10.jpeg" width="60%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="s3-colinealidad-imperfecta" class="section level1 hasAnchor" number="11">
+<h1 class="hasAnchor"><span class="header-section-number">11</span> S3: Colinealidad Imperfecta<a href="#s3-colinealidad-imperfecta" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><span class="math display">\[\begin{equation}
+X\,\textrm{es una matriz }nxK\textrm{ con rango }K
+\end{equation}\]</span></p>
+<p>Wooldridge (2003), este supuesto permite que las variables independientes estén correlacionadas, siempre y cuando no lo hagan de forma perfecta.</p>
+</div>
+<div id="s3-perturbaciones-esféricas" class="section level1 hasAnchor" number="12">
+<h1 class="hasAnchor"><span class="header-section-number">12</span> S3: Perturbaciones Esféricas<a href="#s3-perturbaciones-esf%C3%A9ricas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="homocedasticidad" class="section level2 hasAnchor" number="12.1">
+<h2 class="hasAnchor"><span class="header-section-number">12.1</span> Homocedasticidad<a href="#homocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(Var(\epsilon_{i}|X)=\sigma^{2}\textrm{ para }i=1,...,n\)</span></p>
+<p>Homocedasticidad significa que la dispersión alrededor de la recta
+de regresión es igual para los diversos valores de <span class="math inline">\(X\)</span>.</p>
+</div>
+<div id="no-autocorrelación" class="section level2 hasAnchor" number="12.2">
+<h2 class="hasAnchor"><span class="header-section-number">12.2</span> No Autocorrelación<a href="#no-autocorrelaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math inline">\(Cov(\epsilon_{i},\epsilon_{j}|X)=0\textrm{ para }i\neq j\)</span></p>
+<p>La no autocorrelación significa que los errores no se encuentran relacionados
+entre sí. La autocorrelación generalmente aparece en datos de series
+de tiempo aunque también puede presentarse en el caso de una muestra
+de corte transversal (e.g., correlación espacial).</p>
+</div>
+</div>
+<div id="s3-perturbaciones-esféricas-1" class="section level1 hasAnchor" number="13">
+<h1 class="hasAnchor"><span class="header-section-number">13</span> S3: Perturbaciones Esféricas<a href="#s3-perturbaciones-esf%C3%A9ricas-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><span class="math display">\[\begin{align*}
+Var(\epsilon|X) &amp;= E[\epsilon\epsilon&#39;|X]-E[\epsilon|X]E[\epsilon&#39;|X] \\
+&amp;= E[\epsilon\epsilon&#39;|X]-\underbrace{E[\epsilon|X]E[\epsilon&#39;|X]}_{0}\textrm{ por supuesto A2.} \\
+&amp;= E\left[\left[\begin{array}{c}
+\epsilon_{1}\\
+\epsilon_{2}\\
+\vdots\\
+\epsilon_{n}
+\end{array}\right]\left[\begin{array}{cccc}
+\epsilon_{1} &amp; \epsilon_{2} &amp; \cdots &amp; \epsilon_{n}\end{array}\right]|X\right]
+\end{align*}\]</span></p>
+</div>
+<div id="s3-perturbaciones-esféricas-2" class="section level1 hasAnchor" number="14">
+<h1 class="hasAnchor"><span class="header-section-number">14</span> S3: Perturbaciones Esféricas<a href="#s3-perturbaciones-esf%C3%A9ricas-2" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><span class="math display">\[\begin{align*}
+Var(\epsilon|X) &amp;=  \left[\begin{array}{cccc}
+E[\epsilon_{1}\epsilon_{1}|X] &amp; E[\epsilon_{1}\epsilon_{2}|X] &amp; \cdots &amp; E[\epsilon_{1}\epsilon_{n}|X]\\
+E[\epsilon_{2}\epsilon_{1}|X] &amp; E[\epsilon_{2}\epsilon_{2}|X] &amp; \cdots &amp; E[\epsilon_{2}\epsilon_{n}|X]\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+E[\epsilon_{n}\epsilon_{1}|X] &amp; E[\epsilon_{n}\epsilon_{1}|X] &amp; \cdots &amp; E[\epsilon_{n}\epsilon_{n}|X]
+\end{array}\right] \\
+&amp;= \left[\begin{array}{cccc}
+Var[\epsilon_{1}|X] &amp; Cov[\epsilon_{1}\epsilon_{2}|X] &amp; \cdots &amp; Cov[\epsilon_{1}\epsilon_{n}|X]\\
+Cov[\epsilon_{2}\epsilon_{1}|X] &amp; Var[\epsilon_{2}|X] &amp; \cdots &amp; Cov[\epsilon_{2}\epsilon_{n}|X]\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+Cov[\epsilon_{n}\epsilon_{1}|X] &amp; Cov[\epsilon_{n}\epsilon_{1}|X] &amp; \cdots &amp; Var[\epsilon_{n}|X]
+\end{array}\right] \\
+&amp;= \left[\begin{array}{cccc}
+\sigma^{2} &amp; 0 &amp; \cdots &amp; 0\\
+0 &amp; \sigma^{2} &amp; \cdots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp; \sigma^{2}
+\end{array}\right]\textrm{ por supuesto A4.}
+\end{align*}\]</span></p>
+</div>
+<div id="s3-perturbaciones-esféricas-3" class="section level1 hasAnchor" number="15">
+<h1 class="hasAnchor"><span class="header-section-number">15</span> S3: Perturbaciones Esféricas<a href="#s3-perturbaciones-esf%C3%A9ricas-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><span class="math display">\[\begin{equation}
+Var[\epsilon|X]=E[\epsilon\epsilon&#39;|X]=\sigma^{2}I
+\end{equation}\]</span></p>
+</div>
+<!--bookdown:body:end-->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<!--bookdown:link_prev-->
+<!--bookdown:link_next-->
+    </div>
+  </div>
+<!--bookdown:config-->
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

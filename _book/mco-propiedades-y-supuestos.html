@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 MCO: Propiedades y supuestos | Econometría</title>
+  <meta name="description" content="4 MCO: Propiedades y supuestos | Econometría" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 MCO: Propiedades y supuestos | Econometría" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 MCO: Propiedades y supuestos | Econometría" />
+  
+  
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-15" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regresión-lineal.html"/>
+
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Econometría Avanzada</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like https://bookdown.org/yihui/bookdown</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libro-obligatorio"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>2</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="02-MCOsuma.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>3</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mco-propiedades-y-supuestos.html"><a href="mco-propiedades-y-supuestos.html"><i class="fa fa-check"></i><b>4</b> MCO: Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="mco-propiedades-y-supuestos.html"><a href="mco-propiedades-y-supuestos.html#propiedades"><i class="fa fa-check"></i><b>4.1</b> Propiedades</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="mco-propiedades-y-supuestos.html"><a href="mco-propiedades-y-supuestos.html#el-tradeoff."><i class="fa fa-check"></i><b>4.1.1</b> El tradeoff.</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mco-propiedades-y-supuestos" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> MCO: Propiedades y supuestos<a href="mco-propiedades-y-supuestos.html#mco-propiedades-y-supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="propiedades" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Propiedades<a href="mco-propiedades-y-supuestos.html#propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Pregunta:</strong> ¿Qué propiedades podrían ser importantes para un estimador?
+<strong>Tangente:</strong> Primero revisemos las propiedades estadísticas.
+<strong>Repaso:</strong> Funciones de densidad</p>
+<p>Recordemos que utilizamos las <strong>funciones de densidad de probabilidad</strong> (FDP- PDF) para describir la probabilidad de que una <strong>variable aleatoria continua</strong> tome valores en un rango dado. (El área total = 1).</p>
+<p>Estas FDPs caracterizan distribuciones de probabilidad, y las distribuciones más comunes/famosas/populares reciben nombres (por ejemplo, normal, <em>t</em>, Gamma).</p>
+<p><strong>Repaso:</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor entre -2 y 0: <span class="math inline">\(\mathop{\text{P}}\left(-2 \leq X \leq 0\right) = 0.48\)</span></p>
+<p><img src="_main_files/figure-html/example:%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Repaso:</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor entre -1.96 y 1.96: <span class="math inline">\(\mathop{\text{P}}\left(-1.96 \leq X \leq 1.96\right) = 0.95\)</span></p>
+<p><img src="_main_files/figure-html/example:%20pdf%202-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Repaso</strong> Funciones de densidad</p>
+<p>La probabilidad de que una variable aleatoria normal estándar tome un valor mayor a 2: <span class="math inline">\(\mathop{\text{P}}\left(X &gt; 2\right) = 0.023\)</span></p>
+<p><img src="_main_files/figure-html/example:%20pdf%203-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Imaginemos que estamos tratando de estimar un parámetro desconocido <span class="math inline">\(\beta\)</span>, y conocemos las distribuciones de tres estimadores competitivos. ¿Cuál de ellos elegimos? ¿Cómo decidimos?</p>
+<p><img src="_main_files/figure-html/competing_pdfs-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Pregunta:</strong> ¿Qué propiedades podrían ser importantes para un estimador?
+<strong>Respuesta uno: Sesgo (Bias).</strong>
+En promedio (después de <em>muchas</em> repeticiones), ¿el estimador tiende hacia el valor correcto?
+<strong>Más formalmente:</strong> ¿La media de la distribución del estimador es igual al parámetro que estima?
+<span class="math display">\[ \mathop{\text{Sesgo}}_\beta \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] - \beta \]</span></p>
+<p><strong>Respuesta uno: Sesgo (Bias).</strong></p>
+<p><strong>Estimador Insesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] = \beta\)</span></p>
+<p><img src="_main_files/figure-html/unbiased_pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Estimador Sesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \neq \beta\)</span></p>
+<p><img src="_main_files/figure-html/biased%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Respuesta 2: Varianza.</strong></p>
+<p>Las tendencias centrales (medias) de las distribuciones competidoras no son lo único que importa. También nos preocupa la <strong>varianza</strong> de un estimador..</p>
+<p><span class="math display">\[ \mathop{\text{Var}} \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \left( \hat{\beta} - \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \right)^2 \right] \]</span></p>
+<p>Los estimadores con menor varianza significan que obtenemos estimaciones más cercanas a la media en cada muestra.</p>
+<p><strong>Respuesta dos: varianza</strong></p>
+<p><img src="_main_files/figure-html/variance%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><strong>Respuesta uno: Sesgo </strong></p>
+<p><strong>Respuesta dos: Varianza</strong></p>
+<p><strong>El trade off: sesgo vs varianza</strong> .</p>
+<p>¿Deberíamos estar dispuestos a aceptar un poco de sesgo para reducir la varianza?</p>
+<p>En econometría, generalmente nos adherimos a estimadores insesgados (o consistentes). Pero en otras disciplinas (especialmente ciencias de la computación), se reflexiona un poco más sobre este compromiso.</p>
+<div id="el-tradeoff." class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> El tradeoff.<a href="mco-propiedades-y-supuestos.html#el-tradeoff." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="_main_files/figure-html/variance%20bias-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regresión-lineal.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/02-MCOsuma.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
