@@ -1,0 +1,501 @@
+# Anatomía de la Regresión Múltiple
+
+## Matrices de Proyección {-}
+
+Supongamos que estamos estimando una regresión lineal múltiple del tipo:
+
+\[
+y = X\beta + \varepsilon
+\]
+
+donde:
+
+- \( y \in \mathbb{R}^n \) es el vector de la variable dependiente
+- \( X \in \mathbb{R}^{n \times k} \) es la matriz de regresores de rango completo
+- \( \beta \in \mathbb{R}^k \) es el vector de parámetros
+
+La estimación de mínimos cuadrados se basa en proyectar el vector \( y \) sobre el **espacio columna de \( X \)**, denotado \( \mathcal{C}(X) \). Esta proyección busca encontrar el punto más cercano en ese subespacio a \( y \), minimizando la suma de los residuos al cuadrado.
+
+Esta proyección se logra mediante la **matriz de proyección**:
+
+\[
+\mathbf{P}_X = X(X'X)^{-1}X'
+\]
+
+Y su complemento ortogonal (que proyecta sobre el espacio ortogonal a \( \mathcal{C}(X) \)) es:
+
+\[
+\mathbf{M}_X = I - \mathbf{P}_X
+\]
+
+\[
+\hat{y} = \mathbf{P}_X y \quad \text{y} \quad \hat{\varepsilon} = \mathbf{M}_X y
+\]
+
+### 🔍 Intuición geométrica {-}
+
+- \( y \): vector observado
+- \( \hat{y} = \mathbf{P}_X y \): predicción, o "sombra" de \( y \) sobre el plano generado por \( X \)
+- \( \hat{\varepsilon} = y - \hat{y} \): residuo, perpendicular al plano
+
+El estimador de MCO se obtiene al minimizar:
+
+\[
+\min_{\beta} (y - X\beta)'(y - X\beta)
+\]
+
+La solución es:
+
+\[
+\hat{\beta} = (X'X)^{-1}X'y
+\]
+
+
+### 📐 Propiedades algebraicas clave {-}
+
+| Propiedad       | \( \mathbf{P}_X \)                   | \( \mathbf{M}_X \)                   |
+|----------------|--------------------------------------|--------------------------------------|
+| Simetría       | \( \mathbf{P}_X' = \mathbf{P}_X \)   | \( \mathbf{M}_X' = \mathbf{M}_X \)   |
+| Idempotencia   | \( \mathbf{P}_X^2 = \mathbf{P}_X \)  | \( \mathbf{M}_X^2 = \mathbf{M}_X \)  |
+| Ortogonalidad  | \( \mathbf{P}_X \mathbf{M}_X = 0 \)  | \( \hat{y} \perp \hat{\varepsilon} \) |
+
+Estas propiedades nos permitirán probar resultados como: ortogonalidad entre predicción y residuos, descomposición de la varianza total, y derivar el estimador de varianza del error.
+
+
+### ✨ Visualización tridimensional de la proyección {-}
+
+```{r proyeccion-bonita, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
+library(rgl)
+library(htmlwidgets)
+library(knitr)
+
+# Asegurar integración con knitr
+setupKnitr()
+
+# Crear escena (sin open3d)
+bg3d("white")
+par3d(windowRect = c(100, 100, 900, 900), zoom = 0.8)
+
+# Espacio base
+x1 <- c(1, 0, 0)
+x2 <- c(0, 1, 0)
+X <- cbind(x1, x2)
+grid_x <- seq(-2, 2, length.out = 10)
+grid_y <- seq(-2, 2, length.out = 10)
+z_plane <- rep(0, 100)
+y <- c(1, 1, 2)
+P <- X %*% solve(t(X) %*% X) %*% t(X)
+Py <- P %*% y
+
+# Plano
+surface3d(grid_x, grid_y, matrix(z_plane, 10), color = "#A7D3D3", alpha = 0.4)
+
+# Vectores
+lines3d(c(0, y[1]), c(0, y[2]), c(0, y[3]), col = "orangered", lwd = 4)
+text3d(y[1], y[2], y[3], texts = "Y", col = "orangered", cex = 1.2)
+
+lines3d(c(0, Py[1]), c(0, Py[2]), c(0, Py[3]), col = "darkgreen", lwd = 4)
+text3d(Py[2], Py[2.5], Py[3], texts = "PxY", col = "darkgreen", cex = 1.2)
+
+lines3d(c(Py[1], y[1]), c(Py[2], y[2]), c(Py[3], y[3]), col = "gray40", lwd = 3)
+text3d((y[1]+Py[1])/2, (y[2]+Py[2])/2, (y[3]+Py[3])/2, texts = "Residuo", col = "gray40", cex = 1.2)
+
+axes3d()
+title3d("Proyección de y sobre el espacio generado por X")
+
+# Mostrar el gráfico interactivamente en el documento
+rglwidget()
+
+```
+
+
+La figura muestra cómo el vector \( y \) se proyecta sobre el espacio generado por las columnas de \( X \). La diferencia \( y - P_X y \) es ortogonal al plano y corresponde a los residuos.
+
+## Teorema de Frisch-Waugh-Lovell (FWL) {-}
+
+El **Teorema de Frisch-Waugh-Lovell (FWL)** es uno de los resultados más importantes de la econometría, porque **nos permite entender qué significa realmente el coeficiente de una variable en una regresión múltiple**.
+
+FWL nos dice que, si estamos interesados en el efecto de una variable \( X_r \) sobre \( y \), **controlando por otras variables** \( X_s \), **podemos obtener exactamente el mismo coeficiente** de una manera alternativa, usando **proyecciones**.
+
+Esto es extremadamente útil porque:
+
+- Da una interpretación clara del coeficiente como un efecto "depurado".
+- Permite construir regresiones parciales paso a paso.
+- Ayuda a entender la mecánica interna de los modelos de regresión múltiples.
+
+## 🎯 Notación y Motivación {-}
+
+Considera el siguiente modelo de regresión lineal:
+
+\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]
+
+donde:
+
+- \( y \in \mathbb{R}^{n \times 1} \) es la variable dependiente (por ejemplo, salario).
+- \( X_r \in \mathbb{R}^{n \times 1} \) es la **variable de interés** (por ejemplo, educación).
+- \( X_s \in \mathbb{R}^{n \times k} \) es el conjunto de **variables de control** (por ejemplo, experiencia, edad, género, etc.).
+- \( \varepsilon \in \mathbb{R}^{n \times 1} \) es el error.
+
+Esta forma también puede escribirse más compactamente así:
+
+\[
+y = [X_r \quad X_s] \begin{bmatrix} \beta_r \\ \beta_s \end{bmatrix} + \varepsilon
+\]
+
+Donde la matriz \( X = [X_r \quad X_s] \in \mathbb{R}^{n \times (k+1)} \) contiene **todas** las variables explicativas, y el vector de parámetros \( \beta \in \mathbb{R}^{k+1} \) contiene sus coeficientes respectivos.
+
+## ❓¿Cuál es el problema que resuelve el FWL? {-}
+
+Imagina que quieres saber el **efecto de la educación sobre el salario**, pero sabes que hay muchas otras variables (edad, experiencia, género, etc.) que también afectan el salario. Entonces haces una regresión múltiple, y obtienes el coeficiente de educación controlando por todo lo demás.
+
+El teorema FWL te dice: *"Ese coeficiente se puede obtener en tres pasos, sin necesidad de correr la regresión completa."* Y lo mejor: **el resultado será exactamente igual**.
+
+Eso es lo que veremos a continuación en el paso a paso.
+
+
+## ✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL) {-}
+
+El Teorema de FWL nos dice que podemos obtener el coeficiente \( \beta_r \) de una regresión múltiple:
+
+\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]
+
+realizando **tres regresiones parciales**, sin necesidad de incluir todos los regresores al mismo tiempo. A continuación explicamos cada paso con todo el detalle necesario.
+
+
+## 🧩 Paso 1: Proyectar \( y \) sobre \( X_s \) y obtener los residuos {-}
+
+Primero, eliminamos de \( y \) la parte que puede ser explicada por los controles \( X_s \). Esto se hace **regresando \( y \) sobre \( X_s \)** y guardando los **residuos**. Es decir:
+
+\[
+\tilde{y} = M_s y = (I - P_s)y
+\]
+
+donde:
+
+- \( P_s = X_s (X_s'X_s)^{-1} X_s' \) es la **matriz de proyección** sobre el espacio generado por los controles \( X_s \).
+- \( M_s = I - P_s \) es la **matriz de residuos** o complemento ortogonal: elimina todo lo que esté explicado por \( X_s \).
+
+🔍 **¿Qué significa esto?**
+
+- Estamos "limpiando" a \( y \), quitándole la parte que se debe a los controles.
+- El resultado \( \tilde{y} \) representa la **parte de \( y \) que es ortogonal a los controles**.
+
+📐 **Interpretación geométrica**: proyectamos \( y \) sobre el subespacio generado por \( X_s \) y nos quedamos con la componente perpendicular.
+
+
+## 🧩 Paso 2: Proyectar \( X_r \) sobre \( X_s \) y obtener los residuos {-}
+
+Ahora hacemos lo mismo con la variable de interés \( X_r \): le quitamos la parte que puede explicarse con los controles.
+
+\[
+\tilde{X}_r = M_s X_r = (I - P_s)X_r
+\]
+
+🔍 **¿Qué significa esto?**
+
+- Estamos "depurando" a \( X_r \), eliminando cualquier relación lineal con los controles.
+- \( \tilde{X}_r \) es la **parte de \( X_r \) que no se puede predecir con \( X_s \)**.
+
+📐 **Interpretación geométrica**: proyectamos \( X_r \) sobre \( \mathcal{C}(X_s) \) y guardamos el residuo, que es ortogonal a ese subespacio.
+
+## 🧩 Paso 3: Regresar \( \tilde{y} \) sobre \( \tilde{X}_r \) {-}
+
+Finalmente, estimamos el coeficiente que relaciona las dos variables "limpias" o **depuradas**:
+
+\[
+\tilde{y} = \tilde{X}_r \cdot \gamma + u
+\]
+
+El estimador de MCO de esta regresión es:
+
+\[
+\hat{\gamma} = (\tilde{X}_r'\tilde{X}_r)^{-1} \tilde{X}_r' \tilde{y}
+\]
+
+🔔 **¡Sorpresa!** Este estimador es exactamente igual a:
+
+\[
+\hat{\beta}_r \quad \text{(el coeficiente de \( X_r \) en la regresión completa)}
+\]
+
+## ✅ Interpretación final{-}
+
+Este resultado nos dice que:
+
+- El efecto de \( X_r \) sobre \( y \), **controlando por \( X_s \)**, es igual al efecto de la **parte de \( X_r \) que no se relaciona con \( X_s \)** sobre la **parte de \( y \) que tampoco se relaciona con \( X_s \)**.
+- En palabras simples: es una regresión entre los residuos.
+
+## 📦 Conclusión {-}
+
+Este teorema tiene implicaciones profundas:
+
+- Muestra que **controlar por variables** equivale a **quitarles su efecto tanto a la variable explicativa como a la dependiente**, y luego ver cómo se relacionan esas partes "limpias".
+- Es la base para entender técnicas como control por regresión parcial, y también para desarrollar intuiciones sobre variables instrumentales, efectos marginales y más.
+
+
+## Demostración Formal {-}
+
+Usando álgebra matricial:
+
+\[
+\hat{\beta}_r = (X_r'M_s X_r)^{-1} X_r'M_s y
+\]
+
+Esto se deduce de la forma general del estimador de MCO:
+
+\[
+\hat{\beta} = (X'X)^{-1}X'y
+\]
+
+pero aplicado al modelo reducido, en el que \( y \) y \( X_r \) han sido "limpiados" de \( X_s \).
+
+
+## 🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python {-}
+
+A continuación presentamos una simulación sencilla para ilustrar el Teorema de Frisch-Waugh-Lovell (FWL) y mostrar cómo cambia el coeficiente estimado de una variable de interés dependiendo de la correlación con los controles. También implementamos paso a paso la construcción del estimador usando residuos.
+
+---
+
+### 🔵 Código en Stata
+
+```stata
+clear
+set seed 6981473
+set obs 1000
+
+* Variable de interés Xr
+gen altura = runiform()*30+150
+replace altura= round(altura)
+label var altura "altura"
+
+* Crear Xs con correlación positiva con Xr
+gen ingreso_hh = rnormal() + 5*altura
+
+* Variable dependiente Y
+gen salario = 1 + 2*altura + 5*ingreso_hh + rnormal()
+
+* CASO 1: cov(altura, ingreso_hh)>0
+reg salario altura
+reg salario altura ingreso_hh
+
+* CASO 2: cov(altura, ingreso_hh)=0
+gen ingreso_hh2 = rnormal()
+gen salario2 = 1 + 2*altura + 5*ingreso_hh2 + rnormal()
+reg salario2 altura
+reg salario2 altura ingreso_hh2
+
+* CASO 3: cov(salario, ingreso_hh)=0
+gen ingreso_hh3 = rnormal() + 3*altura
+gen salario3 = 1 + 2*altura + 0*ingreso_hh3 + rnormal()
+reg salario3 altura
+reg salario3 altura ingreso_hh3
+
+* Teorema de FWL paso a paso
+reg salario ingreso_hh
+predict My, res
+
+reg altura ingreso_hh
+predict MXr, res
+
+reg salario altura ingreso_hh
+reg My MXr
+* Comparar coeficientes
+di _b[MXr] _b[altura]
+````
+### 🟢 Código en R
+
+```r
+library(tidyverse)
+
+set.seed(6981473)
+n <- 1000
+
+# Variable de interés
+altura <- runif(n, 0, 30) + 150
+altura <- round(altura)
+
+# Control correlacionado con altura
+ingreso_hh <- rnorm(n) + 5 * altura
+
+# Variable dependiente
+salario <- 1 + 2 * altura + 5 * ingreso_hh + rnorm(n)
+
+df <- tibble(altura, ingreso_hh, salario)
+
+# CASO 1: cov(altura, ingreso_hh)>0
+summary(lm(salario ~ altura, data = df))
+summary(lm(salario ~ altura + ingreso_hh, data = df))
+
+# CASO 2: cov(altura, ingreso_hh)=0
+df$ingreso_hh2 <- rnorm(n)
+df$salario2 <- 1 + 2 * df$altura + 5 * df$ingreso_hh2 + rnorm(n)
+summary(lm(salario2 ~ altura, data = df))
+summary(lm(salario2 ~ altura + ingreso_hh2, data = df))
+
+# CASO 3: cov(y, ingreso_hh)=0
+df$ingreso_hh3 <- rnorm(n) + 3 * df$altura
+df$salario3 <- 1 + 2 * df$altura + 0 * df$ingreso_hh3 + rnorm(n)
+summary(lm(salario3 ~ altura, data = df))
+summary(lm(salario3 ~ altura + ingreso_hh3, data = df))
+
+# FWL paso a paso
+modelo_y <- lm(salario ~ ingreso_hh, data = df)
+df$My <- resid(modelo_y)
+
+modelo_xr <- lm(altura ~ ingreso_hh, data = df)
+df$MXr <- resid(modelo_xr)
+
+summary(lm(My ~ MXr, data = df))  # Igual al coef. de altura
+
+summary(lm(salario ~ altura + ingreso_hh, data = df))  # Verificación
+# Comparar coeficientes
+cat("Coeficiente de altura (residuos):", coef(lm(My ~ MXr, data = df))["MXr"], "\n")
+cat("Coeficiente de altura (modelo completo):", coef(lm(salario ~ altura + ingreso_hh, data = df))["altura"], "\n")
+```
+
+### 🔴 Código en Python
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+np.random.seed(6981473)
+n = 1000
+
+# Variable de interés
+altura = np.round(np.random.uniform(0, 30, n) + 150)
+
+# Control correlacionado
+ingreso_hh = np.random.normal(0, 1, n) + 5 * altura
+
+# Variable dependiente
+salario = 1 + 2 * altura + 5 * ingreso_hh + np.random.normal(0, 1, n)
+
+df = pd.DataFrame({
+    'altura': altura,
+    'ingreso_hh': ingreso_hh,
+    'salario': salario
+})
+
+# CASO 1
+print(sm.OLS.from_formula('salario ~ altura', data=df).fit().summary())
+print(sm.OLS.from_formula('salario ~ altura + ingreso_hh', data=df).fit().summary())
+
+# CASO 2
+df['ingreso_hh2'] = np.random.normal(0, 1, n)
+df['salario2'] = 1 + 2 * df['altura'] + 5 * df['ingreso_hh2'] + np.random.normal(0, 1, n)
+
+print(sm.OLS.from_formula('salario2 ~ altura', data=df).fit().summary())
+print(sm.OLS.from_formula('salario2 ~ altura + ingreso_hh2', data=df).fit().summary())
+
+# CASO 3
+df['ingreso_hh3'] = np.random.normal(0, 1, n) + 3 * df['altura']
+df['salario3'] = 1 + 2 * df['altura'] + np.random.normal(0, 1, n)
+
+print(sm.OLS.from_formula('salario3 ~ altura', data=df).fit().summary())
+print(sm.OLS.from_formula('salario3 ~ altura + ingreso_hh3', data=df).fit().summary())
+
+# FWL paso a paso
+modelo_y = sm.OLS.from_formula('salario ~ ingreso_hh', data=df).fit()
+df['My'] = modelo_y.resid
+
+modelo_xr = sm.OLS.from_formula('altura ~ ingreso_hh', data=df).fit()
+df['MXr'] = modelo_xr.resid
+
+print(sm.OLS.from_formula('My ~ MXr', data=df).fit().summary())
+
+# Verificación
+print(sm.OLS.from_formula('salario ~ altura + ingreso_hh', data=df).fit().summary())
+# Comparar coeficientes
+print("Coeficiente de altura (residuos):", sm.OLS.from_formula('My ~ MXr', data=df).fit().params['MXr'])
+print("Coeficiente de altura (modelo completo):", sm.OLS.from_formula('salario ~ altura + ingreso_hh', data=df).fit().params['altura'])
+```
+
+<div class="box-repaso">
+
+### 📘 Preguntas de repaso {-}
+
+1. ¿Qué significa que el coeficiente de una variable en una regresión múltiple sea "depurado"?
+
+### 📌 Preguntas sobre FWL y matrices de proyección {-}
+
+1. Sea \( y \in \mathbb{R}^{n \times 1} \), \( X \in \mathbb{R}^{n \times k} \), y \( D \in \mathbb{R}^{n \times 1} \) una variable binaria tal que \( D_i = 1 \) solo para una observación \( i \), y \( D_j = 0 \) para \( j \neq i \).
+   
+   a. Use los pasos del teorema de Frisch-Waugh-Lovell para demostrar que el coeficiente estimado de \( D \) representa la diferencia entre la observación \( i \) y la predicción para esa observación basada en el resto de la muestra.  
+   
+   b. ¿Qué ocurre con la matriz de proyección \( P_D \)? ¿Qué dimensión tiene y cómo se interpreta cuando solo proyecta sobre una observación?
+   
+   c. ¿Qué ocurre con la matriz de aniquilación \( M_D = I - P_D \)? ¿Qué efecto tiene sobre el resto del vector \( y \)?
+   
+   d. Use esta información para demostrar que al incluir \( D \) en la regresión, se está excluyendo efectivamente la observación \( i \) del resto del modelo. Es decir, la estimación de los coeficientes asociados a \( X \) se hace como si se eliminara la observación \( i \).
+
+2. Repita el análisis anterior, pero ahora asuma que la variable \( D \) es una constante. ¿Qué ocurre con las matrices de proyección y aniquilación? ¿Qué interpretación tiene proyectar sobre una constante?
+
+3. Suponga ahora que \( X \) es una dummy igual a 1 si el individuo es hombre, y que \( D \) es una dummy igual a 1 si el individuo es mujer. ¿Qué ocurre en este caso? ¿Cómo se interpretan los coeficientes al incluir ambas dummies en la regresión?
+
+
+
+### 📘 Preguntas sobre modelos con variables binarias y constantes {-}
+
+4. Se desea estudiar el número de horas de lectura diaria \( Y \) como función del nivel educativo. Se tiene una muestra de \( N \) individuos clasificados en tres grupos:  
+   - Grupo 1: estudios superiores  
+   - Grupo 2: estudios medios  
+   - Grupo 3: estudios bajos  
+
+   Se definen tres variables binarias \( D_1, D_2, D_3 \), donde:
+
+   \[
+   D_j = \begin{cases}
+   1 & \text{si el individuo pertenece al grupo } j \\
+   0 & \text{en caso contrario}
+   \end{cases}
+   \]
+
+   Al estimar el siguiente modelo:
+
+   \[
+   Y = 10 D_1 + 5 D_2 + 2 D_3 + u
+   \]
+
+   a. Demuestre matemáticamente que las medias condicionales de horas de lectura son 10, 5 y 2 para cada grupo.
+
+   b. ¿Qué sucede si se incluye una constante en este modelo? ¿Qué problema empírico surge? Proponga una solución (por ejemplo, eliminar una de las dummies para evitar colinealidad perfecta).
+
+
+### 🧮 Preguntas sobre regresiones simples con constantes y dummies {-}
+
+5. Si se estima una regresión de \( Y \) contra una constante y \( D_1 \), ¿cuál es el intercepto y cuál es el coeficiente de \( D_1 \)? Interprételos.
+
+6. Si se estima una regresión de \( Y \) contra una constante y \( D_2 \), ¿qué coeficiente acompaña a \( D_2 \)? ¿Cómo cambia la interpretación con respecto al caso anterior?
+
+
+
+### 📊 Pregunta sobre FWL y álgebra matricial {-}
+
+7. Considere el siguiente modelo lineal sin constante:
+
+\[
+Y = X \beta + u
+\]
+
+donde \( Y \in \mathbb{R}^{n \times 1} \), \( X \in \mathbb{R}^{n \times k} \), y \( u \in \mathbb{R}^{n \times 1} \). Suponga además que desea controlar por un conjunto adicional de variables \( Z \in \mathbb{R}^{n \times m} \).
+
+   a. Defina \( \tilde{Y} = M_Z Y \) y \( \tilde{X} = M_Z X \), donde \( M_Z = I - P_Z \) y \( P_Z = Z(Z'Z)^{-1}Z' \).  
+   Explique con detalle qué representan estas transformaciones. ¿Qué parte de \( Y \) y de \( X \) están conservando? ¿Qué parte están eliminando?
+
+   b. Demuestre que el vector de coeficientes \( \hat{\beta} \) para \( X \), en la regresión de \( Y \) sobre \( X \) y \( Z \), puede obtenerse a partir de la siguiente expresión:
+
+   \[
+   \hat{\beta} = (\tilde{X}' \tilde{X})^{-1} \tilde{X}' \tilde{Y}
+   \]
+
+   c. ¿Bajo qué condiciones es válida esta expresión? ¿Qué sucede si \( \tilde{X}' \tilde{X} \) no es invertible?
+
+   d. Explique cómo se interpreta este resultado en términos del Teorema de Frisch-Waugh-Lovell.
+
+</div>

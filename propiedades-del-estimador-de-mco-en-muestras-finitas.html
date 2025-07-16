@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Propiedades del estimador de MCO en muestras finitas | 05-Estimacion.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Propiedades del estimador de MCO en muestras finitas | 05-Estimacion.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Propiedades del estimador de MCO en muestras finitas | 05-Estimacion.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="aspectos-algebraicos-de-la-solución-de-mco.html"/>
+<link rel="next" href="e.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Econometría Avanzada</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>1</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="1.0.2" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#tarea"><i class="fa fa-check"></i><b>1.0.2</b> 📝 Tarea</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path=""><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>2</b> Aspectos algebraicos de la solución de MCO</a></li>
+<li class="chapter" data-level="3" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><i class="fa fa-check"></i><b>3</b> Propiedades del estimador de MCO en muestras finitas</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i><b>3.1</b> Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
+<li class="chapter" data-level="3.2" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#teorema-de-gauss-markov"><i class="fa fa-check"></i><b>3.2</b> Teorema de Gauss Markov</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="e.html"><a href="e.html"><i class="fa fa-check"></i><b>4</b> E</a></li>
+<li class="chapter" data-level="5" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i><b>5</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path=""><a href="#regresi%C3%B3n-simple-empleando-sumatorias-y-matrices."><i class="fa fa-check"></i><b>5.1</b> Regresión Simple empleando sumatorias y matrices.</a></li>
+<li class="chapter" data-level="5.2" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>5.2</b> Regresión Múltiple</a></li>
+<li class="chapter" data-level="5.3" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>5.3</b> Estimador de MCO en Stata empleando matrices</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="propiedades-del-estimador-de-mco-en-muestras-finitas" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Propiedades del estimador de MCO en muestras finitas<a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#propiedades-del-estimador-de-mco-en-muestras-finitas" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>El estimador de MCO es:</p>
+<p><span class="math display">\[\hat{\beta}=(X&#39;X)^{-1}X&#39;y\]</span></p>
+<p>Usando la ecuación (<a href="#eq:EM" reference-type="ref" reference="eq:EM"><span class="math display">\[eq:EM\]</span></a>), el estimador de MCO se puede escribir como:</p>
+<p><span class="math display">\[\hat{\beta}=(X&#39;X)^{-1}X&#39;\epsilon+\beta\label{eq:BETA}\]</span></p>
+<p>Bajo las supuestos A1-A5 este estimador tiene las siguientes
+propiedades:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>El estimador <span class="math inline">\(\hat{\beta}\)</span> es insesgado:</strong> un estimador es
+insesgado cuando el valor esperado <span class="math inline">\(\hat{\beta}\)</span> es igual al valor
+verdadero de <span class="math inline">\(\beta\)</span>. En otras palabras, el estimador <span class="math inline">\(\hat{\beta}\)</span>
+es un estimador insesgado de <span class="math inline">\(\beta\)</span> si la media de su distribución
+muestral es igual a <span class="math inline">\(\beta\)</span>. Recuerde que la media de la
+distribución muestral de <span class="math inline">\(\hat{\beta}\)</span> se conoce como valor esperado
+de <span class="math inline">\(\hat{\beta}\)</span> y se escribe <span class="math inline">\(E[\hat{\beta}]\)</span> . El sesgo en la
+estimación es simplemente la diferencia entre <span class="math inline">\(E[\hat{\beta}]\)</span> y
+<span class="math inline">\(\beta\)</span>. Esta propiedad no significa que <span class="math inline">\(\hat{\beta}=\beta\)</span>. Esta
+propiedad simplemente dice que si tomamos una muestra un numero
+infinito de veces, vamos a obtener el valor verdadero en promedio.
+Para ver esto tomemos el valor esperado de <span class="math inline">\(\hat{\beta}\)</span>,
+condicionado en <span class="math inline">\(X\)</span>, usando la ecuación
+(<a href="#eq:BETA" reference-type="ref" reference="eq:BETA"><span class="math display">\[eq:BETA\]</span></a>)</p>
+<div class="proof">
+<p><span id="unlabeled-div-3" class="proof"><em>Proof</em>. </span><em>Proof.</em> <span class="math display">\[\begin{aligned}
+E[\hat{\beta}|X] &amp; = &amp; E[(X&#39;X)^{-1}X&#39;\epsilon+\beta|X]\\
+&amp; = &amp; \beta+(X&#39;X)^{-1}X&#39;E[\epsilon|X]\\
+&amp; = &amp; \beta
+\end{aligned}\]</span> ◻</p>
+</div>
+<p>Bajo el supuesto de regresores NO estocásticos, supuesto A5, la
+demostración es más sencilla,</p>
+<div class="proof">
+<p><span id="unlabeled-div-4" class="proof"><em>Proof</em>. </span><em>Proof.</em> <span class="math display">\[\begin{aligned}
+E[\hat{\beta}] &amp; = &amp; E[(X&#39;X)^{-1}X&#39;\epsilon+\beta]\\
+&amp; = &amp; \beta+(X&#39;X)^{-1}X&#39;E[\epsilon]\\
+&amp; = &amp; \beta
+\end{aligned}\]</span> ◻</p>
+</div></li>
+<li><p><strong>Varianza del estimador <span class="math inline">\(\hat{\beta}\)</span> es igual a
+<span class="math inline">\(Var[\hat{\beta}|X]=\sigma^{2}(X&#39;X)^{-1}\)</span></strong></p>
+<div class="proof">
+<p><span id="unlabeled-div-5" class="proof"><em>Proof</em>. </span><em>Proof.</em> <span class="math display">\[\begin{aligned}
+Var[\hat{\beta}|X] &amp; = &amp; Var[\hat{\beta}-\beta|X]\\
+&amp; = &amp; Var[(X&#39;X)^{-1}X&#39;\epsilon|X]\\
+&amp; = &amp; (X&#39;X)^{-1}X&#39;Var[\epsilon|X]X(X&#39;X)^{-1}\\
+&amp; = &amp; (X&#39;X)^{-1}X&#39;(\sigma^{2}I_{n})X(X&#39;X)^{-1}\\
+&amp; = &amp; \sigma^{2}(X&#39;X)^{-1}X&#39;X(X&#39;X)^{-1}\\
+&amp; = &amp; \sigma^{2}(X&#39;X)^{-1}
+\end{aligned}\]</span></p>
+<p>Para poder estimar la varianza de <span class="math inline">\(\hat{\beta}\)</span> necesitamos
+remplazar <span class="math inline">\(\sigma^{2}\)</span> por su estimador insesgado:
+<span class="math inline">\(\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}\)</span> ◻</p>
+</div>
+<div class="xca">
+<p>Demostrar que bajo el supuesto de regresores NO estocásticos la
+varianza del estimador <span class="math inline">\(\hat{\beta}\)</span> es igual a
+<span class="math inline">\(Var[\hat{\beta}]=\sigma^{2}(X&#39;X)^{-1}\)</span></p>
+</div></li>
+</ol>
+<div id="propiedad-de-mejor-estimador-lineal-insesgado-meli" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Propiedad de mejor estimador lineal insesgado (MELI)<a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#propiedad-de-mejor-estimador-lineal-insesgado-meli" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se dice que <span class="math inline">\(\hat{\beta}\)</span> es el mejor estimador lineal insesgado
+(MELI)<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> de <span class="math inline">\(\beta\)</span> si cumple las siguientes condiciones:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Es lineal:</strong> es una función lineal de una variable aleatoria, y,
+<span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;Y\)</span></p></li>
+<li><p><strong>Es insesgado:</strong> el valor esperado de <span class="math inline">\(\hat{\beta}\)</span>,
+<span class="math inline">\(E[\hat{\beta}]\)</span>, es igual al verdadero valor del parámetro <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p><strong>Es eficiente:</strong> dentro de la clase de todos los estimadores
+lineales insesgados <span class="math inline">\(\hat{\beta}\)</span> tiene la varianza mínima.</p></li>
+</ol>
+</div>
+<div id="teorema-de-gauss-markov" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Teorema de Gauss Markov<a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#teorema-de-gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El teorema de Gauss Markov justifica la utilización de los estimadores
+mínimos cuadráticos, ya que indica que estos estimadores son los
+“mejores” (más eficientes) dentro de la clase de los estimadores
+lineales insesgados.</p>
+<div class="thm">
+<p>Sea el modelo teórico (modelo poblacional) de regresión
+<span class="math inline">\(y=X\beta+\epsilon\)</span>. Si los supuestos A1 a A5 (usualmente conocidos como
+supuestos de Gauss-Markov) se satisfacen, entonces el estimador de
+mínimos cuadrados ordinarios <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span> es el mejor
+estimador lineal insesgado (MELI) de <span class="math inline">\(\beta\)</span>. En otras palabras, el
+estimador <span class="math inline">\(\hat{\beta}\)</span> es el mejor estimador (i.e., eficiente o de
+mínima varianza) dentro de la clase de estimadores que son lineales e
+insesgados. Esto se puede escribir de la siguiente manera: para
+cualquier estimador insesgado <span class="math inline">\(\tilde{\beta}\)</span> que sea lineal en y,
+<span class="math inline">\(\hat{\beta}\)</span> tiene menor varianza:
+<span class="upright"><span class="math inline">\(Var[\tilde{\beta}|X]&gt;Var[\hat{\beta}|X]\)</span>.</span></p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-6" class="proof"><em>Proof</em>. </span><em>Proof.</em> Dado que <span class="math inline">\(\tilde{\beta}\)</span> es lineal en y, podemos escribirlo
+como <span class="math inline">\(\tilde{\beta}=Cy\)</span>, para alguna matriz <span class="math inline">\(C\)</span>, la cual puede ser una
+función de <span class="math inline">\(X\)</span>. Sea <span class="math inline">\(D\equiv C-A\)</span> donde <span class="math inline">\(A=(X&#39;X)^{-1}X&#39;\)</span>. Tenemos
+entonces:</p>
+<div class="flushleft">
+<p><span class="math display">\[\begin{array}{ccl}
+\tilde{\beta} &amp; = &amp; Cy\\
+&amp; = &amp; (D+A)y\\
+&amp; = &amp; Dy+Ay\\
+&amp; = &amp; Dy+(X&#39;X)^{-1}X&#39;y\\
+&amp; = &amp; Dy+\hat{\beta}\\
+&amp; = &amp; D(X\beta+\epsilon)+\hat{\beta}\\
+&amp; = &amp; DX\beta+D\epsilon+\hat{\beta}
+\end{array}\label{eq:brd}\]</span></p>
+</div>
+<p>Si tomamos el valor esperado condicional de <span class="math inline">\(X\)</span>, tenemos que:</p>
+<p><span class="math display">\[\begin{aligned}
+\begin{alignedat}{2}E[\tilde{\beta}|X] &amp; = &amp; E[DX\beta+D\epsilon+\hat{\beta}|X]\\
+E[\tilde{\beta}|X] &amp; = &amp; DX\beta+\underbrace{DE[\epsilon|X]}_{(3)=0}+\underbrace{E[\hat{\beta}|X]}_{(4)=\beta}\\
+&amp; = &amp; DX\beta+\beta\\
+&amp; = &amp; (DX+I_{n})\beta
+\end{alignedat}
+\end{aligned}\]</span></p>
+<p><strong>Por lo tanto <span class="math inline">\(\tilde{\beta}\)</span> es insesgado, <span class="math inline">\(E[\tilde{\beta}|X]=\beta\)</span>,
+si y solo si <span class="math inline">\(DX=0\)</span>.</strong></p>
+<p>La varianza de <span class="math inline">\(\tilde{\beta}\)</span> es:</p>
+<p><span class="math display">\[\begin{aligned}
+\begin{alignedat}{2}Var[\tilde{\beta}|X] &amp; = &amp; Var[Cy|X]\\
+&amp; = &amp; CVar[y|X]C&#39;\\
+&amp; = &amp; CVar[X\beta+\epsilon|X]C&#39;\\
+&amp; = &amp; CVar[\epsilon|X]C&#39;\\
+&amp; = &amp; \sigma^{2}CC&#39;\\
+&amp; = &amp; \sigma^{2}(D+A)(D&#39;+A&#39;)\\
+&amp; = &amp; \sigma^{2}(DD&#39;+DA&#39;+AD&#39;+AA&#39;)\\
+&amp; = &amp; \underbrace{\sigma^{2}(X&#39;X)^{-1}}_{Var[\hat{\beta}|X]}+\sigma^{2}D&#39;D
+\end{alignedat}
+\end{aligned}\]</span></p>
+<p>Tenemos que,</p>
+<p><span class="math display">\[Var[\tilde{\beta}|X]=\sigma^{2}[(X&#39;X)^{-1}+DD&#39;]\geq\sigma^{2}(X&#39;X)^{-1}=Var[\hat{\beta}|X]\]</span></p>
+<p>Esto es cierto ya que <span class="math inline">\(DD&#39;&gt;0\)</span>. ◻</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="2">
+<li id="fn2"><p>En ingles esta propiedad se conoce como BLUE (Best Linear Unbiased
+Estimator)<a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="aspectos-algebraicos-de-la-solución-de-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="e.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/%s",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  },
+  "ui": {
+    "chapter_name": "Capítulo ",
+    "appendix_name": "Apéndice ",
+    "part_name": "Parte ",
+    "toc_title": "Tabla de contenido",
+    "toc_appendix": "Apéndices",
+    "toc_bibliography": "Bibliografía",
+    "toc_index": "Índice",
+    "edit": "Editar esta página",
+    "download": "Descargar",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "home": "Inicio",
+    "search": "Buscar",
+    "search_results": "Resultados de búsqueda",
+    "search_no_results": "No se encontraron resultados",
+    "search_placeholder": "Buscar en el libro...",
+    "page_not_found": "Página no encontrada",
+    "back_to_top": "Volver arriba"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

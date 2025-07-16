@@ -12,3 +12,59 @@ pre {
 pre code {
   white-space: inherit;
 }
+
+
+
+/* Bloques de recordatorio tipo "cerebro" */
+.box-cerebro {
+  border-left: 4px solid #800080; /* morado oscuro */
+  background-color: #f5f0fa;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+.box-cerebro h3 {
+  margin-top: 0;
+  color: #5a2a85; /* morado medio para título */
+}
+
+.box-cerebro p:last-child {
+  margin-bottom: 0;
+}
+
+/* Bloques de Tarea */
+.box-tarea {
+  border-left: 4px solid #007acc;
+  background-color: #eaf4fb;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+.box-tarea h3 {
+  margin-top: 0;
+  color: #005c99;
+}
+
+.box-tarea p:last-child {
+  margin-bottom: 0;
+}
+
+/* Caja de Preguntas de Repaso (amarillo) */
+.box-repaso {
+  border-left: 4px solid #e6ac00;
+  background-color: #fffbe6;
+  padding: 1em;
+  margin: 1.5em 0;
+  border-radius: 6px;
+  font-size: 0.95em;
+}
+
+.box-repaso h3 {
+  margin-top: 0;
+  color: #b38600;
+}
+

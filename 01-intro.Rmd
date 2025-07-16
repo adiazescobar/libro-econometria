@@ -513,6 +513,8 @@ Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplido
 > Por eso, cualquier estimación puntual (\( \hat{\beta}_1 \)) debe ir acompañada de una **medida de incertidumbre**, como el **error estándar** o un **intervalo de confianza**.  
 > Esto nos prepara para el siguiente paso: la inferencia estadística.
 
+<div class="box-repaso">
+
 ## 📘 Preguntas de repaso {-}
 
 1. ¿Qué diferencia hay entre el modelo poblacional y el modelo muestral? ¿Cuál de los dos observamos y cuál inferimos?
@@ -540,6 +542,7 @@ Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplido
 
 12. ¿Crees que todas las fuentes oficiales de datos (como el DANE) garantizan muestras perfectamente representativas? ¿Qué condiciones lo permitirían?
 
----
 
 > ✏️ *Opcional para práctica adicional:* simula tu propia población de juguete con una relación negativa entre \(x\) y \(y\), y repite el ejercicio de Monte Carlo. ¿Qué cambia? ¿Qué se mantiene?
+
+</div>
