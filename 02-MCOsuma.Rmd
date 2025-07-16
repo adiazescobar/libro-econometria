@@ -1,4 +1,4 @@
-# Capítulo 3: Regresión lineal
+# Regresión lineal
 
 
 ## 🎯 Objetivo del capítulo  {-}

@@ -1,4 +1,4 @@
-# Capitulo 5: # Regresión por Mínimos Cuadrados Ordinarios (MCO)
+# Regresión por Mínimos Cuadrados Ordinarios (MCO)
 
 MCO minimiza la suma de los residuos al cuadrado. Sin embargo, nosotros no observamos el error pero si podemos calcularlo con un valor hipotético de $\beta$ ($\tilde{\beta}$). En este caso, bajo el **supuesto S1**, el error para la observación $i$ está dado por:
 

@@ -1,5 +1,4 @@
-delete_merged_file: true
-lang: es
+
 rmd_files: [
   "index.Rmd",
   "01-intro.Rmd",

@@ -1,4 +1,4 @@
-# Capitulo 5: Supuestos del Modelo Clásico de Regresión Lineal
+#  Supuestos de MCO
 
 ## Proceso Generador de Datos {-}
 
