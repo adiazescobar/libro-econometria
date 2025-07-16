@@ -14,7 +14,7 @@ github-repo: rstudio/bookdown-demo
 
 
 
-# Información general
+# Información general {-}
 
 | Campo | Detalle |
 |-------|---------|

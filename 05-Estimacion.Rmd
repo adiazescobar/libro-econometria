@@ -1,0 +1,643 @@
+# Capitulo 5: # Regresión por Mínimos Cuadrados Ordinarios (MCO)
+
+MCO minimiza la suma de los residuos al cuadrado. Sin embargo, nosotros no observamos el error pero si podemos calcularlo con un valor hipotético de $\beta$ ($\tilde{\beta}$). En este caso, bajo el **supuesto S1**, el error para la observación $i$ está dado por:
+
+$$y_{i}-X_{i}\tilde{\beta}$$
+
+La suma de los residuos al cuadrado, evaluados en es igual a:
+
+$$SRC(\tilde{\beta})=\sum_{i=1}^{n}(y_{i}-X_{i}\tilde{\beta})^{2}$$
+
+En forma matricial se puede escribir de la siguiente manera,
+
+$$SRC(\tilde{\beta})=(y-X\tilde{\beta})'(y-X\tilde{\beta})$$
+
+La estimación de mínimos cuadrados ordinarios busca encontrar un **$b$** que minimice la suma de los residuos al cuadrado.[^1]
+
+La función objetivo es,
+
+$$\begin{aligned}
+\hat{\beta} & =\underset{\tilde{\beta}}{min}[(y-X\tilde{\beta)'}(y-X\tilde{\beta})]\nonumber \\
+ & =\underset{\tilde{\beta}}{min}[y'y-2X'y\tilde{\beta}+\tilde{\beta}'(X'X)\tilde{\beta}]
+\end{aligned}$$
+
+La condición de primer orden es,
+
+$$\frac{\partial SRC(\tilde{\beta)}}{\partial\tilde{\beta'}}=-2X\text{'}y+2X'X\tilde{\beta}=0\label{eq:der}$$
+
+Sabemos que $\hat{\beta}$ es el $\tilde{\beta}$ que satisface la condición de primer orden. En otras palabras, $\hat{\beta}$ satisface las ecuaciones normales de mínimos cuadrados ordinarios,[^2]
+
+**Ecuaciones normales de MCO:**
+$$X'X\hat\beta}=X'y$$
+Si $X'X$ es invertible, podemos despejar $\hat{\beta}$ de la ecuación
+[\[eq:der\]](#eq:der){reference-type="ref" reference="eq:der"} y
+$$\hat{\beta}=(X'X)^{-1}X'y\label{eq:NormalEq}$$
+Si $X'X$ no es invertible, entonces el estimador de MCO no está definido. En este caso, se puede utilizar una solución alternativa, como la pseudo-inversa o la regularización.
+
+
+
+Si la inversa de $X'X$ existe, bajo el **supuesto S3**, la solución de este sistema de ecuaciones es,
+
+$$\hat{\beta}=(X'X)^{-1}X'y$$
+
+::: xca
+Demostrar que $\hat{\beta}$ es un mínimo y no un máximo.
+
+Se puede reescribir de la siguiente manera:
+:::
+
+$$\begin{aligned}
+\hat{\beta} & = & (X'X)^{-1}X'y\frac{n}{n}\\
+ & = & \left(\frac{X'X}{n}\right)^{-1}\frac{X'y}{n}\\
+ & = & E\left[X'X\right]^{-1}E[X'y]
+\end{aligned}$$
+
+Otra forma de obtener el mismo resultado. Partiendo del supuesto A2
+$$E[\epsilon_{i}|X]=E[\epsilon_{i}]=0$$
+
+# Diferencia entre la regresión simple y la regresión múltiple
+
+
+
+# Aspectos algebraicos de la solución de MCO
+
+-   **El vector de residuos de MCO:** es el vector de residuos evaluado
+    en $\tilde{\beta}=\hat{\beta}$, que puede escribirse de la siguiente
+    manera
+
+    $$\hat{\epsilon}\equiv y-X\hat{\beta}\label{eq:1}$$
+
+    Reorganizando la ecuación
+    [\[eq:NormalEq\]](#eq:NormalEq){reference-type="ref"
+    reference="eq:NormalEq"} tenemos
+
+    $$X'(y-X\hat{\beta})=0\label{eq:2}$$
+
+    Reemplazando la ecuación [\[eq:1\]](#eq:1){reference-type="ref"
+    reference="eq:1"} en la ecuación
+    [\[eq:2\]](#eq:2){reference-type="ref" reference="eq:2"} tenemos que
+
+    $$X'\hat{\epsilon}=0$$
+
+    Esto se puede escribir de la siguiente manera,
+
+    $$\frac{1}{n}\sum_{i=1}^{n}x_{i}e_{i}$$
+
+    En otras palabras, las ecuaciones normales pueden interpretarse como
+    el análogo muestral de la condición de ortogonalidad,
+    $E(x_{i}\epsilon_{i})=0$, derivadas del supuesto A2.[^3] Esta
+    propiedad indica que el término de error estimado
+    [$\hat{\epsilon}$]{lang="en"} tiene media cero y no está
+    correlacionado con ninguno de los regresores.
+
+-   **Valores ajustados del modelo (o la predicción según el modelo):**
+    para cada observación $i$ se define como
+    $\hat{y_{i}}\equiv x_{i}\hat{\beta}$. El vector de valores ajustado
+    es igual a:
+
+    $$\hat{y}=X\hat{\beta}$$
+
+    Implicaciones
+
+    -   El vector de residuos de MCO puede escribirse como:
+
+    $$\hat{\epsilon}=y-\hat{y}\label{eq:al1}$$
+
+    -   Si $\hat{y}=X\hat{\beta}$ entonces:
+
+    $$\hat{y}'\hat{\epsilon}=0\label{eq:al2}$$
+
+    -   Usando las ecuaciones [\[eq:al1\]](#eq:al1){reference-type="ref"
+        reference="eq:al1"} y [\[eq:al2\]](#eq:al2){reference-type="ref"
+        reference="eq:al2"}, tenemos que
+
+    $$y'y=\hat{y}'\hat{y}+\hat{\epsilon}'\hat{\epsilon}\label{eq:decomp}$$
+
+    ::: proof
+    *Proof.* $$\begin{aligned}
+    y'y & = & (\hat{y}+\hat{\epsilon})'(\hat{y}+\hat{\epsilon})\\
+     & = & \hat{y}'\hat{y}+2\hat{y}'\hat{\epsilon}+\hat{\epsilon}'\hat{\epsilon}\\
+     & = & \hat{y}'\hat{y}+\hat{\epsilon}'\hat{\epsilon}
+    \end{aligned}$$ ◻
+    :::
+
+-   **Suma de errores al cuadrado:** ya que $\hat{\epsilon}$ es el
+    vector residual en $\tilde{\beta}=\hat{\beta}$, la suma de errores
+    al cuadrado es igual a
+
+    $$SRC=\hat{\epsilon}'\hat{\epsilon}$$
+
+-   **La varianza del error:** es la suma de los errores al cuadrado
+    dividida por los grados de libertad $n-K$:
+
+    $$\hat{\sigma}^{2}=\frac{SRC}{n-K}=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}$$
+
+-   **Error estándar de la regresión:** es la raíz cuadrada de
+    $\sigma^{2}$. Es una estimación de la desviación estándar de la
+    regresión:
+
+    $$\hat{\sigma}=\sqrt{\hat{\sigma}^{2}}=\sqrt{\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}}$$
+
+-   **Medidas de Bondad de Ajuste:**
+
+    -   *R2 no centrado:*
+
+        $$R_{nc}^{2}=1-\frac{\hat{\epsilon}'\hat{\epsilon}}{y'y}$$ Dada
+        la descomposición descrita en la ecuación
+        [\[eq:decomp\]](#eq:decomp){reference-type="ref"
+        reference="eq:decomp"}, esto es igual a:
+
+    $$R_{nc}^{2}=\frac{\hat{y}'\hat{y}}{y'y}$$
+
+    -   *R2 centrado:*
+
+        Si el unico regresor es una constante entonces
+        $\hat{\beta}=\bar{y}$, el promedio de la variable dependiente,
+        lo que implica que $\hat{y_{i}}=\bar{y}$ para cada $i$.
+        Entonces, $\hat{y}'\hat{y}=n\bar{y}^{2}$ y
+        $\hat{\epsilon}'\hat{\epsilon}=\sum_{i}(y_{i}-\bar{y})^{2}$. Si
+        añadimos más regresores, es necesario calcular el R2 neto del
+        efecto de la constante, por lo tanto podemos modificar la
+        descomposición de la ecuación
+        [\[eq:decomp\]](#eq:decomp){reference-type="ref"
+        reference="eq:decomp"} de la siguiente manera
+
+        $$\begin{aligned}
+        y'y-n\bar{y}^{2} & = & \hat{y}'\hat{y}-n\bar{y}^{2}+\hat{\epsilon}'\hat{\epsilon}\\
+        \underbrace{\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}_{STC} & = & \underbrace{\sum_{i=1}^{n}(\hat{y}_{i}-\bar{y})^{2}}_{SEC}+\underbrace{\sum_{i=1}^{n}\hat{\epsilon_{i}}^{2}}_{SRC}
+        \end{aligned}$$ El coeficiente de determinación o el R2 centrado
+        está dado por la siguiente expresión: $$\begin{aligned}
+        R^{2} & = & 1-\frac{SRC}{STC}\\
+         & = & \frac{SEC}{STC}
+        \end{aligned}$$ Esta expresión es una medida del poder
+        explicativo de las variables independientes excluyendo la
+        constante. Si los regresores no incluyen la constante y usted
+        calcula el R2 con la formula anterior puede obtener un R2
+        negativo. En ese caso debe emplear la formula del R2 no
+        centrado, Stata hace el cambio al introducir el comando nocons.
+
+-   **Error muestral:** es el error que surge al analizar una muestra en
+    lugar de una población completa. En este caso, es la diferencia
+    entre el coeficiente estimado, $\hat{\beta}$, y el parámetro
+    poblacional, $\beta$.
+
+    $$\begin{aligned}
+    \hat{\beta}-\beta & = & (X'X)^{-1}X'y-\beta\nonumber \\
+     & = & (X'X)^{-1}X'\epsilon\label{eq:EM}
+    \end{aligned}$$
+
+    ::: proof
+    *Proof.*
+
+    ::: flushleft
+    $$\begin{aligned}
+    \hat{\beta}-\beta & = & (X'X)^{-1}X'y-\beta\\
+     & = & (X'X)^{-1}X'(X\beta+\epsilon)-\beta\\
+     & = & (X'X)^{-1}X'X\beta+(X'X)^{-1}X\epsilon-\beta\\
+     & = & \beta+(X'X)^{-1}X\epsilon-\beta\\
+     & = & (X'X)^{-1}X\epsilon
+    \end{aligned}$$
+    :::
+
+     ◻
+    :::
+
+# Propiedades del estimador de MCO en muestras finitas
+
+El estimador de MCO es:
+
+$$\hat{\beta}=(X'X)^{-1}X'y$$
+
+Usando la ecuación ([\[eq:EM\]](#eq:EM){reference-type="ref"
+reference="eq:EM"}), el estimador de MCO se puede escribir como:
+
+$$\hat{\beta}=(X'X)^{-1}X'\epsilon+\beta\label{eq:BETA}$$
+
+Bajo las supuestos A1-A5 este estimador tiene las siguientes
+propiedades:
+
+1.  **El estimador $\hat{\beta}$ es insesgado:** un estimador es
+    insesgado cuando el valor esperado $\hat{\beta}$ es igual al valor
+    verdadero de $\beta$. En otras palabras, el estimador $\hat{\beta}$
+    es un estimador insesgado de $\beta$ si la media de su distribución
+    muestral es igual a $\beta$. Recuerde que la media de la
+    distribución muestral de $\hat{\beta}$ se conoce como valor esperado
+    de $\hat{\beta}$ y se escribe $E[\hat{\beta}]$ . El sesgo en la
+    estimación es simplemente la diferencia entre $E[\hat{\beta}]$ y
+    $\beta$. Esta propiedad no significa que $\hat{\beta}=\beta$. Esta
+    propiedad simplemente dice que si tomamos una muestra un numero
+    infinito de veces, vamos a obtener el valor verdadero en promedio.
+    Para ver esto tomemos el valor esperado de $\hat{\beta}$,
+    condicionado en $X$, usando la ecuación
+    ([\[eq:BETA\]](#eq:BETA){reference-type="ref" reference="eq:BETA"})
+
+    ::: proof
+    *Proof.* $$\begin{aligned}
+    E[\hat{\beta}|X] & = & E[(X'X)^{-1}X'\epsilon+\beta|X]\\
+     & = & \beta+(X'X)^{-1}X'E[\epsilon|X]\\
+     & = & \beta
+    \end{aligned}$$ ◻
+    :::
+
+    Bajo el supuesto de regresores NO estocásticos, supuesto A5, la
+    demostración es más sencilla,
+
+    ::: proof
+    *Proof.* $$\begin{aligned}
+    E[\hat{\beta}] & = & E[(X'X)^{-1}X'\epsilon+\beta]\\
+     & = & \beta+(X'X)^{-1}X'E[\epsilon]\\
+     & = & \beta
+    \end{aligned}$$ ◻
+    :::
+
+2.  **Varianza del estimador $\hat{\beta}$ es igual a
+    $Var[\hat{\beta}|X]=\sigma^{2}(X'X)^{-1}$**
+
+    ::: proof
+    *Proof.* $$\begin{aligned}
+    Var[\hat{\beta}|X] & = & Var[\hat{\beta}-\beta|X]\\
+     & = & Var[(X'X)^{-1}X'\epsilon|X]\\
+     & = & (X'X)^{-1}X'Var[\epsilon|X]X(X'X)^{-1}\\
+     & = & (X'X)^{-1}X'(\sigma^{2}I_{n})X(X'X)^{-1}\\
+     & = & \sigma^{2}(X'X)^{-1}X'X(X'X)^{-1}\\
+     & = & \sigma^{2}(X'X)^{-1}
+    \end{aligned}$$
+
+    Para poder estimar la varianza de $\hat{\beta}$ necesitamos
+    remplazar $\sigma^{2}$ por su estimador insesgado:
+    $\hat{\sigma}^{2}=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}$ ◻
+    :::
+
+    ::: xca
+    Demostrar que bajo el supuesto de regresores NO estocásticos la
+    varianza del estimador $\hat{\beta}$ es igual a
+    $Var[\hat{\beta}]=\sigma^{2}(X'X)^{-1}$
+    :::
+
+## Propiedad de mejor estimador lineal insesgado (MELI)
+
+Se dice que $\hat{\beta}$ es el mejor estimador lineal insesgado
+(MELI)[^4] de $\beta$ si cumple las siguientes condiciones:
+
+1.  **Es lineal:** es una función lineal de una variable aleatoria, y,
+    $\hat{\beta}=(X'X)^{-1}X'Y$
+
+2.  **Es insesgado:** el valor esperado de $\hat{\beta}$,
+    $E[\hat{\beta}]$, es igual al verdadero valor del parámetro $\beta$.
+
+3.  **Es eficiente:** dentro de la clase de todos los estimadores
+    lineales insesgados $\hat{\beta}$ tiene la varianza mínima.
+
+## Teorema de Gauss Markov
+
+El teorema de Gauss Markov justifica la utilización de los estimadores
+mínimos cuadráticos, ya que indica que estos estimadores son los
+"mejores" (más eficientes) dentro de la clase de los estimadores
+lineales insesgados.
+
+::: thm
+Sea el modelo teórico (modelo poblacional) de regresión
+$y=X\beta+\epsilon$. Si los supuestos A1 a A5 (usualmente conocidos como
+supuestos de Gauss-Markov) se satisfacen, entonces el estimador de
+mínimos cuadrados ordinarios $\hat{\beta}=(X'X)^{-1}X'y$ es el mejor
+estimador lineal insesgado (MELI) de $\beta$. En otras palabras, el
+estimador $\hat{\beta}$ es el mejor estimador (i.e., eficiente o de
+mínima varianza) dentro de la clase de estimadores que son lineales e
+insesgados. Esto se puede escribir de la siguiente manera: para
+cualquier estimador insesgado $\tilde{\beta}$ que sea lineal en y,
+$\hat{\beta}$ tiene menor varianza:
+[$Var[\tilde{\beta}|X]>Var[\hat{\beta}|X]$.]{.upright}
+:::
+
+::: proof
+*Proof.* Dado que $\tilde{\beta}$ es lineal en y, podemos escribirlo
+como $\tilde{\beta}=Cy$, para alguna matriz $C$, la cual puede ser una
+función de $X$. Sea $D\equiv C-A$ donde $A=(X'X)^{-1}X'$. Tenemos
+entonces:
+
+::: flushleft
+$$\begin{array}{ccl}
+\tilde{\beta} & = & Cy\\
+ & = & (D+A)y\\
+ & = & Dy+Ay\\
+ & = & Dy+(X'X)^{-1}X'y\\
+ & = & Dy+\hat{\beta}\\
+ & = & D(X\beta+\epsilon)+\hat{\beta}\\
+ & = & DX\beta+D\epsilon+\hat{\beta}
+\end{array}\label{eq:brd}$$
+:::
+
+Si tomamos el valor esperado condicional de $X$, tenemos que:
+
+$$\begin{aligned}
+\begin{alignedat}{2}E[\tilde{\beta}|X] & = & E[DX\beta+D\epsilon+\hat{\beta}|X]\\
+E[\tilde{\beta}|X] & = & DX\beta+\underbrace{DE[\epsilon|X]}_{(3)=0}+\underbrace{E[\hat{\beta}|X]}_{(4)=\beta}\\
+ & = & DX\beta+\beta\\
+ & = & (DX+I_{n})\beta
+\end{alignedat}
+\end{aligned}$$
+
+**Por lo tanto $\tilde{\beta}$ es insesgado, $E[\tilde{\beta}|X]=\beta$,
+si y solo si $DX=0$.**
+
+La varianza de $\tilde{\beta}$ es:
+
+$$\begin{aligned}
+\begin{alignedat}{2}Var[\tilde{\beta}|X] & = & Var[Cy|X]\\
+ & = & CVar[y|X]C'\\
+ & = & CVar[X\beta+\epsilon|X]C'\\
+ & = & CVar[\epsilon|X]C'\\
+ & = & \sigma^{2}CC'\\
+ & = & \sigma^{2}(D+A)(D'+A')\\
+ & = & \sigma^{2}(DD'+DA'+AD'+AA')\\
+ & = & \underbrace{\sigma^{2}(X'X)^{-1}}_{Var[\hat{\beta}|X]}+\sigma^{2}D'D
+\end{alignedat}
+\end{aligned}$$
+
+Tenemos que,
+
+$$Var[\tilde{\beta}|X]=\sigma^{2}[(X'X)^{-1}+DD']\geq\sigma^{2}(X'X)^{-1}=Var[\hat{\beta}|X]$$
+
+Esto es cierto ya que $DD'>0$. ◻
+:::
+
+# E
+
+# Apéndice 
+
+## Regresión Simple empleando sumatorias y matrices.
+
+Si partimos del siguiente modelo de regresión lineal:
+$$y_{i}=\beta_{0}+\beta_{1}X_{1}+\epsilon_{i}$$ Donde $\epsilon_{i}$ es
+el término del error de la observación $i$ que contiene todos los
+factores distintos de $X_{i}$ que afectan a $y_{i}$. Bajo el supuesto
+A2, sabemos que $E(\epsilon)=0$ y $E(x\epsilon)=0$. Partiendo de estos
+supuestos podemos encontrar los estimadores de MCO:
+
+$$\begin{aligned}
+E(\epsilon) & = & 0\nonumber \\
+E(y-\beta_{0}-\beta_{1}X_{1}) & = & 0\label{eq:e}
+\end{aligned}$$
+
+$$\begin{aligned}
+E(X_{1}\epsilon) & = & 0\nonumber \\
+E\left[X_{1}(y-\beta_{0}-\beta_{1}X_{1})\right] & = & 0\label{eq:xe}
+\end{aligned}$$
+
+Dada una muestra (aleatoria de la población), se eligen los parámetros
+$\hat{\beta_{0}}$ y $\hat{\beta_{1}}$ tal que resuelvan las contrapartes
+muestrales de las ecuaciones [\[eq:e\]](#eq:e){reference-type="ref"
+reference="eq:e"} y [\[eq:xe\]](#eq:xe){reference-type="ref"
+reference="eq:xe"}. De la ecuación
+[\[eq:e\]](#eq:e){reference-type="ref" reference="eq:e"} tenemos
+$$\frac{1}{n}\sum_{i=1}^{^{n}}y_{i}-\hat{\beta_{0}}-\hat{\beta_{1}}X_{1i}=0$$
+
+Despejando $\hat{\beta_{0}}$,
+$$\hat{\beta_{0}}=\bar{y}-\hat{\beta_{1}}\bar{X}_{1}$$
+
+De la ecuación [\[eq:xe\]](#eq:xe){reference-type="ref"
+reference="eq:xe"} tenemos:
+
+$$\begin{aligned}
+\frac{1}{n}\sum_{i=1}^{^{n}}X_{1i}\left[y_{i}-\left(\bar{y}-\hat{\beta_{1}}\bar{X}_{1}\right)-\hat{\beta_{1}}X_{1i}\right] & = & 0\\
+\sum_{i=1}^{^{n}}X_{1i}\left(y_{i}-\bar{y}\right) & = & \hat{\beta}_{1}\sum_{i=1}^{^{n}}X_{1i}\left(X_{1i}-\bar{X}_{1}\right)
+\end{aligned}$$
+
+Con un poco de álgebra obtenemos la siguiente expresión:
+
+$$\hat{\beta_{1}}=\frac{\sum(y_{i}-\bar{y})(X_{1i}-\bar{X_{1})}}{\sum(X_{1i}-\bar{X_{1})^{2}}}$$
+Lo cual corresponde a:
+$$\hat{\beta_{1}}=\frac{Cov(y,X_{1})}{Var(X_{1})}$$
+
+Ahora vamos a llegar a la misma solución empleando matrices y la
+definición encontrada al comienzo de este capítulo, la cual define el
+estimador de mínimos cuadrados ordinarios como
+$\hat{\beta}=\left(X'X\right)^{-1}X'y$. Para comenzar reescribamos el
+modelo de regresión simple en forma matricial: $$y=X\beta+\epsilon$$
+
+Donde $y$ es un vector fila $nx1$, $X$ es una matriz conformada por un
+vector de unos y otro por la variable $X_{1}$ (i.e., $X=[1\:X_{1}]$ ) ,
+$\epsilon$ es el vector de perturbaciones de tamaño $nx1$ , y $\beta$ es
+un vector $2x1$ de los parámetros relevantes. Usando la definición
+matricial del estimador de OLS, tenemos que: $$\left[\begin{array}{c}
+\hat{\beta_{0}}\\
+\hat{\beta_{1}}
+\end{array}\right]=\underbrace{(X'X)^{-1}}_{a}\underbrace{X'y}_{b}\label{eq:regs}$$
+Vamos a desarrollar primero la parte $a$ de la parte derecha de la
+ecuación anterior: $$\begin{aligned}
+(X'X) & = & \left[\begin{array}{ccccc}
+1 & 1 & 1 & \cdots & 1\\
+X_{11} & X_{12} & X_{13} & \cdots & X_{1n}
+\end{array}\right]\left[\begin{array}{cc}
+1 & X_{11}\\
+1 & X_{12}\\
+1 & X_{13}\\
+1 & \vdots\\
+1 & X_{1n}
+\end{array}\right]\\
+ & = & \left[\begin{array}{cc}
+n & \sum X_{1i}\\
+\sum X_{1i} & \sum X_{1i}^{2}
+\end{array}\right]
+\end{aligned}$$
+
+Ahora necesitamos calcular la inversa de esta matriz:
+$$(X'X)^{-1}=\frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{cc}
+\sum X_{1i}^{2} & -\sum X_{1i}\\
+-\sum X_{1i} & n
+\end{array}\right]$$
+
+Ya tenemos la expresión para $a$ ahora busquemos la expresión para $b$
+en la ecuación [\[eq:regs\]](#eq:regs){reference-type="ref"
+reference="eq:regs"}: $$\begin{aligned}
+X'y & = & \left[\begin{array}{ccccc}
+1 & 1 & 1 & \cdots & 1\\
+X_{11} & X_{12} & X_{13} & \cdots & X_{1n}
+\end{array}\right]\left[\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+\vdots\\
+y_{n}
+\end{array}\right]\\
+ & = & \left[\begin{array}{c}
+\sum y_{i}\\
+\sum X_{i}y_{i}
+\end{array}\right]
+\end{aligned}$$ Podemos ahora reemplazar la expresiones encontradas en
+la ecuación [\[eq:regs\]](#eq:regs){reference-type="ref"
+reference="eq:regs"}: $$\begin{aligned}
+\left[\begin{array}{c}
+\hat{\beta}_{0}\\
+\hat{\beta}_{1}
+\end{array}\right] & = & \frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{cc}
+\sum X_{1i}^{2} & -\sum X_{1i}\\
+-\sum X_{1i} & n
+\end{array}\right]\left[\begin{array}{c}
+\sum y_{i}\\
+\sum X_{1i}y_{i}
+\end{array}\right]\\
+ & = & \frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{c}
+\sum X_{1i}^{2}\sum y_{i}-\sum X_{1i}\sum X_{1i}y_{i}\\
+-\sum X_{1i}\sum y_{i}+n\sum X_{1i}y_{i}
+\end{array}\right]
+\end{aligned}$$ Por facilidad en la notación vamos a encontrar primero
+la expresión para $\hat{\beta}_{1}$ y luego procedemos con
+$\hat{\beta}_{0}$. Según este sistema de ecuaciones, $$\begin{aligned}
+\hat{\beta_{1}} & = & \frac{-\sum X_{1i}\sum y_{i}+n\sum X_{1i}y_{i}}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\\
+ & = & \frac{n\sum X_{1i}y_{i}-\sum X_{1i}\sum y_{i}}{n\sum X_{1i}^{2}-n^{2}\bar{X}_{1}^{2}}\\
+ & = & \frac{n\sum X_{1i}y_{i}-n^{2}\bar{X}_{1}\bar{y}}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+ & = & \frac{n\left(\sum X_{1i}y_{i}-n\bar{X}_{1}\bar{y}\right)}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+ & = & \frac{n\left(\sum X_{1i}y_{i}-n\bar{X}_{1}\bar{y}\right)}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+ & = & \frac{\sum(X_{1i}-\bar{X}_{1})(y_{i}-\bar{y})}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}
+\end{aligned}$$ El cual es exactamente el mismo que encontramos
+empleando sumatorias. Ahora tratemos de encontrar la expresión para
+$\hat{\beta}_{0}$
+
+$$\begin{aligned}
+\hat{\beta_{0}} & = & \frac{\sum X_{1i}^{2}\sum y_{i}-\sum X_{1i}\sum X_{1i}y_{i}}{n\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+ & = & \frac{n\bar{y}\sum X_{1i}^{2}-n\bar{X}\sum X_{1i}y_{i}}{n\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+ & = & \frac{\bar{y}\left(\sum X_{1i}^{2}-n\bar{X}^{2}\right)+\bar{X}\left(\sum X_{1i}y_{i}-n\bar{X}\bar{y}\right)}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+ & = & \frac{\bar{y}\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}-\frac{\bar{X}\sum(X_{1i}-\bar{X}_{1})(y_{i}-\bar{y})}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+ & = & \bar{y}-\hat{\beta_{1}}\bar{X}
+\end{aligned}$$
+
+## Regresión Múltiple
+
+Recuerde que la matriz $(X'X)$ contiene información que es equivalente a
+las covarianzas entre las variables explicativas. Esto es muy importante
+ya que la única razón para realizar regresión múltiple es para
+"controlar" por los efectos de otras variables al tratar de encontrar el
+efecto "verdadero" de X en Y. Si la Xs no se encuentran correlacionadas
+no hay necesidad de realizar regresión múltiple. Para demostrar esto
+asumamos que todas las variables explicativas tienen una media igual a
+0. $$\begin{aligned}
+(X'X) & = & \left[\begin{array}{cccc}
+1 & 1 & \cdots & 1\\
+X_{11} & X_{12} & \cdots & X_{1n}\\
+\vdots & \vdots & \ddots & \vdots\\
+X_{k1} & X_{k2} & \cdots & X_{kn}
+\end{array}\right]\left[\begin{array}{cccc}
+1 & X_{11} & \cdots & X_{k1}\\
+1 & X_{12} & \cdots & X_{k2}\\
+\vdots & \vdots & \ddots & \vdots\\
+1 & X_{1n} & \cdots & X_{kn}
+\end{array}\right]\\
+ & = & \left[\begin{array}{cccc}
+n & \sum X_{1i} & \cdots & \sum X_{ki}\\
+\sum X_{1i} & \sum X_{1i}^{2} & \cdots & \sum X_{1i}X_{ki}\\
+\vdots & \vdots & \ddots & \vdots\\
+\sum X_{ki} & \sum X_{ki}X_{1i} & \cdots & \sum X_{ki}^{2}
+\end{array}\right]
+\end{aligned}$$ Recuerde que asumimos que todas las variables
+explicativas tienen una media igual a 0 por lo tanto $\sum X_{ji}=0$
+para $j=1,2,..k$. Ahora podemos incluir un supuesto adicional las
+variables explicativas no se encuentran correlacionadas por lo tanto
+$\sum X_{ji}X_{hi}=0$ para todo $j\neq h$. Con estos dos supuestos la
+matriz $(X'X)$ es igual a una matriz diagonal:
+$$(X'X)=\left[\begin{array}{cccc}
+n & 0 & \cdots & 0\\
+0 & \sum X_{1i}^{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & \sum X_{ki}^{2}
+\end{array}\right]$$ Si calculamos el estimador de MCO tenemos entonces
+$$\begin{aligned}
+\hat{\beta} & = & \left[\begin{array}{cccc}
+1/n & 0 & \cdots & 0\\
+0 & 1/\sum X_{1i}^{2} & \cdots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \cdots & 1/\sum X_{ki}^{2}
+\end{array}\right]\left[\begin{array}{c}
+\sum y\\
+\sum X_{1}\\
+\vdots\\
+\sum X_{k}
+\end{array}\right]\\
+ & = & \left[\begin{array}{c}
+\frac{\sum y}{n}\\
+\frac{\sum X_{1}}{\sum X_{1}^{2}}\\
+\vdots\\
+\frac{\sum X_{k}}{\sum X_{k}^{2}}
+\end{array}\right]
+\end{aligned}$$ Lo cual implica que si no existe correlación entre las
+variables independientes el estimador de cada uno de los parámetros
+corresponde al estimador de una regresión simple.
+
+## Estimador de MCO en Stata empleando matrices
+
+::: stlog
+clear set logtype text, perm set more off capture log close use
+ECV2003.dta log using clase2.txt , replace
+
+sum wage sum urban
+
+Generar una constante que vamos a emplear en mata gen cons = 1
+
+\* ============================ \* = Ahora usemos MATA = \*
+============================ \* Primero es necesario llamar a MATA mata
+
+// Creemos los vectores Y y X usando St-view (recuerde que la clase
+pasada empleamos st_data) st_view(Y=., ., \"lwage\") st_view(X=., ., (
+\"cons\", \"urban\" )) Y X
+
+n = rows(X) k = cols(X) df = n-k
+
+// Estimador de Minimos Cuadrados Ordinarios det(X'X) b =
+invsym(X'X)\*X'Y b
+
+//Matrices de Proyección P y M
+
+P = X\*invsym(X'X)\*X' M = I(n)-P
+
+// Valores Ajustados Y_hat = X\*b Y_hat2 = P\*Y Y_hat Y_hat2
+
+// Vector de Residuos e = Y - X\*b e
+
+// Comprobar que las expresiones siguientes son iguales a 0 X'e Y_hat'e
+
+// Varianza del error y desviación estándar e = Y - X\*b s2 =
+(e'e)/(n-k) s2 s = sqrt(s2) s
+
+// Suma de residuos al cuadrado SRC = e'e SRC
+
+// Suma explicada al cuadrado SEC = Y_hat'Y_hat-n\*mean(Y)\^2 SEC
+
+// Suma total al cuadrado STC = Y'Y-n\*mean(Y)\^2 STC
+
+// Medidas de Bondad de Ajuste // Cuando NO se incluye constante r2nc =
+1-invsym(Y'Y)\*e'e r2nc
+
+// R2 al incluir constante r2 = SEC/STC r2
+
+// R2 ajustado r2a = 1 -(1-r2)\*((n-1)/(n-k)) r2a
+
+// Propiedades de los estimadores en muestras finitas
+
+// Matriz de varianzas y covarianzas V = s2\*invsym(X'X) V
+
+// Errores estandar de los estimadores se = sqrt(diagonal(V)) se
+
+// Los resultados (b, se)
+
+// Todo ( s2  s  STC  SEC  SRC  r2nc  r2  r2a ) (b, se, b:/se)
+
+end
+
+\*Ahora compare sus resultados con los que se obtienen con el comando
+reg de Stata
+
+reg lwage urban
+
+\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+:::
+
+[^1]: Este método penaliza fuertemente los errores grandes ya que los
+    errores entran al cuadrado en la función objetivo.
+
+[^2]: Normal significa perpendicular.
+
+[^3]: Recuerde que dos vectores $a$ y $b$ son ortogonales si
+    $a'b=\sum_{i=1}^{n}a_{i}b_{i}=0$
+
+[^4]: En ingles esta propiedad se conoce como BLUE (Best Linear Unbiased
+    Estimator)
