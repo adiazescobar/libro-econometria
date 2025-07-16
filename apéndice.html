@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Apéndice | 05-Estimacion.knit</title>
+  <meta name="description" content="" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Apéndice | 05-Estimacion.knit" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Apéndice | 05-Estimacion.knit" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="e.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Econometría Avanzada</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path=""><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>1</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a></li>
+<li class="chapter" data-level="2" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>2</b> Diferencia entre la regresión simple y la regresión múltiple</a></li>
+<li class="chapter" data-level="3" data-path=""><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>3</b> Aspectos algebraicos de la solución de MCO</a></li>
+<li class="chapter" data-level="4" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><i class="fa fa-check"></i><b>4</b> Propiedades del estimador de MCO en muestras finitas</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i><b>4.1</b> Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
+<li class="chapter" data-level="4.2" data-path="propiedades-del-estimador-de-mco-en-muestras-finitas.html"><a href="propiedades-del-estimador-de-mco-en-muestras-finitas.html#teorema-de-gauss-markov"><i class="fa fa-check"></i><b>4.2</b> Teorema de Gauss Markov</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="e.html"><a href="e.html"><i class="fa fa-check"></i><b>5</b> E</a></li>
+<li class="chapter" data-level="6" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i><b>6</b> Apéndice</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path=""><a href="#regresi%C3%B3n-simple-empleando-sumatorias-y-matrices."><i class="fa fa-check"></i><b>6.1</b> Regresión Simple empleando sumatorias y matrices.</a></li>
+<li class="chapter" data-level="6.2" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6.2</b> Regresión Múltiple</a></li>
+<li class="chapter" data-level="6.3" data-path="apéndice.html"><a href="apéndice.html"><i class="fa fa-check"></i><b>6.3</b> Estimador de MCO en Stata empleando matrices</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="apéndice" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Apéndice<a href="#ap%C3%A9ndice" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="regresión-simple-empleando-sumatorias-y-matrices." class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Regresión Simple empleando sumatorias y matrices.<a href="#regresi%C3%B3n-simple-empleando-sumatorias-y-matrices." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Si partimos del siguiente modelo de regresión lineal:
+<span class="math display">\[y_{i}=\beta_{0}+\beta_{1}X_{1}+\epsilon_{i}\]</span> Donde <span class="math inline">\(\epsilon_{i}\)</span> es
+el término del error de la observación <span class="math inline">\(i\)</span> que contiene todos los
+factores distintos de <span class="math inline">\(X_{i}\)</span> que afectan a <span class="math inline">\(y_{i}\)</span>. Bajo el supuesto
+A2, sabemos que <span class="math inline">\(E(\epsilon)=0\)</span> y <span class="math inline">\(E(x\epsilon)=0\)</span>. Partiendo de estos
+supuestos podemos encontrar los estimadores de MCO:</p>
+<p><span class="math display">\[\begin{aligned}
+E(\epsilon) &amp; = &amp; 0\nonumber \\
+E(y-\beta_{0}-\beta_{1}X_{1}) &amp; = &amp; 0\label{eq:e}
+\end{aligned}\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+E(X_{1}\epsilon) &amp; = &amp; 0\nonumber \\
+E\left[X_{1}(y-\beta_{0}-\beta_{1}X_{1})\right] &amp; = &amp; 0\label{eq:xe}
+\end{aligned}\]</span></p>
+<p>Dada una muestra (aleatoria de la población), se eligen los parámetros
+<span class="math inline">\(\hat{\beta_{0}}\)</span> y <span class="math inline">\(\hat{\beta_{1}}\)</span> tal que resuelvan las contrapartes
+muestrales de las ecuaciones <a href="#eq:e" reference-type="ref" reference="eq:e"><span class="math display">\[eq:e\]</span></a> y <a href="#eq:xe" reference-type="ref" reference="eq:xe"><span class="math display">\[eq:xe\]</span></a>. De la ecuación
+<a href="#eq:e" reference-type="ref" reference="eq:e"><span class="math display">\[eq:e\]</span></a> tenemos
+<span class="math display">\[\frac{1}{n}\sum_{i=1}^{^{n}}y_{i}-\hat{\beta_{0}}-\hat{\beta_{1}}X_{1i}=0\]</span></p>
+<p>Despejando <span class="math inline">\(\hat{\beta_{0}}\)</span>,
+<span class="math display">\[\hat{\beta_{0}}=\bar{y}-\hat{\beta_{1}}\bar{X}_{1}\]</span></p>
+<p>De la ecuación <a href="#eq:xe" reference-type="ref" reference="eq:xe"><span class="math display">\[eq:xe\]</span></a> tenemos:</p>
+<p><span class="math display">\[\begin{aligned}
+\frac{1}{n}\sum_{i=1}^{^{n}}X_{1i}\left[y_{i}-\left(\bar{y}-\hat{\beta_{1}}\bar{X}_{1}\right)-\hat{\beta_{1}}X_{1i}\right] &amp; = &amp; 0\\
+\sum_{i=1}^{^{n}}X_{1i}\left(y_{i}-\bar{y}\right) &amp; = &amp; \hat{\beta}_{1}\sum_{i=1}^{^{n}}X_{1i}\left(X_{1i}-\bar{X}_{1}\right)
+\end{aligned}\]</span></p>
+<p>Con un poco de álgebra obtenemos la siguiente expresión:</p>
+<p><span class="math display">\[\hat{\beta_{1}}=\frac{\sum(y_{i}-\bar{y})(X_{1i}-\bar{X_{1})}}{\sum(X_{1i}-\bar{X_{1})^{2}}}\]</span>
+Lo cual corresponde a:
+<span class="math display">\[\hat{\beta_{1}}=\frac{Cov(y,X_{1})}{Var(X_{1})}\]</span></p>
+<p>Ahora vamos a llegar a la misma solución empleando matrices y la
+definición encontrada al comienzo de este capítulo, la cual define el
+estimador de mínimos cuadrados ordinarios como
+<span class="math inline">\(\hat{\beta}=\left(X&#39;X\right)^{-1}X&#39;y\)</span>. Para comenzar reescribamos el
+modelo de regresión simple en forma matricial: <span class="math display">\[y=X\beta+\epsilon\]</span></p>
+<p>Donde <span class="math inline">\(y\)</span> es un vector fila <span class="math inline">\(nx1\)</span>, <span class="math inline">\(X\)</span> es una matriz conformada por un
+vector de unos y otro por la variable <span class="math inline">\(X_{1}\)</span> (i.e., <span class="math inline">\(X=[1\:X_{1}]\)</span> ) ,
+<span class="math inline">\(\epsilon\)</span> es el vector de perturbaciones de tamaño <span class="math inline">\(nx1\)</span> , y <span class="math inline">\(\beta\)</span> es
+un vector <span class="math inline">\(2x1\)</span> de los parámetros relevantes. Usando la definición
+matricial del estimador de OLS, tenemos que: <span class="math display">\[\left[\begin{array}{c}
+\hat{\beta_{0}}\\
+\hat{\beta_{1}}
+\end{array}\right]=\underbrace{(X&#39;X)^{-1}}_{a}\underbrace{X&#39;y}_{b}\label{eq:regs}\]</span>
+Vamos a desarrollar primero la parte <span class="math inline">\(a\)</span> de la parte derecha de la
+ecuación anterior: <span class="math display">\[\begin{aligned}
+(X&#39;X) &amp; = &amp; \left[\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1\\
+X_{11} &amp; X_{12} &amp; X_{13} &amp; \cdots &amp; X_{1n}
+\end{array}\right]\left[\begin{array}{cc}
+1 &amp; X_{11}\\
+1 &amp; X_{12}\\
+1 &amp; X_{13}\\
+1 &amp; \vdots\\
+1 &amp; X_{1n}
+\end{array}\right]\\
+&amp; = &amp; \left[\begin{array}{cc}
+n &amp; \sum X_{1i}\\
+\sum X_{1i} &amp; \sum X_{1i}^{2}
+\end{array}\right]
+\end{aligned}\]</span></p>
+<p>Ahora necesitamos calcular la inversa de esta matriz:
+<span class="math display">\[(X&#39;X)^{-1}=\frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{cc}
+\sum X_{1i}^{2} &amp; -\sum X_{1i}\\
+-\sum X_{1i} &amp; n
+\end{array}\right]\]</span></p>
+<p>Ya tenemos la expresión para <span class="math inline">\(a\)</span> ahora busquemos la expresión para <span class="math inline">\(b\)</span>
+en la ecuación <a href="#eq:regs" reference-type="ref" reference="eq:regs"><span class="math display">\[eq:regs\]</span></a>: <span class="math display">\[\begin{aligned}
+X&#39;y &amp; = &amp; \left[\begin{array}{ccccc}
+1 &amp; 1 &amp; 1 &amp; \cdots &amp; 1\\
+X_{11} &amp; X_{12} &amp; X_{13} &amp; \cdots &amp; X_{1n}
+\end{array}\right]\left[\begin{array}{c}
+y_{1}\\
+y_{2}\\
+y_{3}\\
+\vdots\\
+y_{n}
+\end{array}\right]\\
+&amp; = &amp; \left[\begin{array}{c}
+\sum y_{i}\\
+\sum X_{i}y_{i}
+\end{array}\right]
+\end{aligned}\]</span> Podemos ahora reemplazar la expresiones encontradas en
+la ecuación <a href="#eq:regs" reference-type="ref" reference="eq:regs"><span class="math display">\[eq:regs\]</span></a>: <span class="math display">\[\begin{aligned}
+\left[\begin{array}{c}
+\hat{\beta}_{0}\\
+\hat{\beta}_{1}
+\end{array}\right] &amp; = &amp; \frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{cc}
+\sum X_{1i}^{2} &amp; -\sum X_{1i}\\
+-\sum X_{1i} &amp; n
+\end{array}\right]\left[\begin{array}{c}
+\sum y_{i}\\
+\sum X_{1i}y_{i}
+\end{array}\right]\\
+&amp; = &amp; \frac{1}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\left[\begin{array}{c}
+\sum X_{1i}^{2}\sum y_{i}-\sum X_{1i}\sum X_{1i}y_{i}\\
+-\sum X_{1i}\sum y_{i}+n\sum X_{1i}y_{i}
+\end{array}\right]
+\end{aligned}\]</span> Por facilidad en la notación vamos a encontrar primero
+la expresión para <span class="math inline">\(\hat{\beta}_{1}\)</span> y luego procedemos con
+<span class="math inline">\(\hat{\beta}_{0}\)</span>. Según este sistema de ecuaciones, <span class="math display">\[\begin{aligned}
+\hat{\beta_{1}} &amp; = &amp; \frac{-\sum X_{1i}\sum y_{i}+n\sum X_{1i}y_{i}}{n\sum X_{1i}^{2}-(\sum X_{1i})^{2}}\\
+&amp; = &amp; \frac{n\sum X_{1i}y_{i}-\sum X_{1i}\sum y_{i}}{n\sum X_{1i}^{2}-n^{2}\bar{X}_{1}^{2}}\\
+&amp; = &amp; \frac{n\sum X_{1i}y_{i}-n^{2}\bar{X}_{1}\bar{y}}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+&amp; = &amp; \frac{n\left(\sum X_{1i}y_{i}-n\bar{X}_{1}\bar{y}\right)}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+&amp; = &amp; \frac{n\left(\sum X_{1i}y_{i}-n\bar{X}_{1}\bar{y}\right)}{n\left(\sum X_{1i}^{2}-n\bar{X}_{1}^{2}\right)}\\
+&amp; = &amp; \frac{\sum(X_{1i}-\bar{X}_{1})(y_{i}-\bar{y})}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}
+\end{aligned}\]</span> El cual es exactamente el mismo que encontramos
+empleando sumatorias. Ahora tratemos de encontrar la expresión para
+<span class="math inline">\(\hat{\beta}_{0}\)</span></p>
+<p><span class="math display">\[\begin{aligned}
+\hat{\beta_{0}} &amp; = &amp; \frac{\sum X_{1i}^{2}\sum y_{i}-\sum X_{1i}\sum X_{1i}y_{i}}{n\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+&amp; = &amp; \frac{n\bar{y}\sum X_{1i}^{2}-n\bar{X}\sum X_{1i}y_{i}}{n\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+&amp; = &amp; \frac{\bar{y}\left(\sum X_{1i}^{2}-n\bar{X}^{2}\right)+\bar{X}\left(\sum X_{1i}y_{i}-n\bar{X}\bar{y}\right)}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+&amp; = &amp; \frac{\bar{y}\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}-\frac{\bar{X}\sum(X_{1i}-\bar{X}_{1})(y_{i}-\bar{y})}{\sum\left(X_{1i}-\bar{X}_{1}\right)^{2}}\\
+&amp; = &amp; \bar{y}-\hat{\beta_{1}}\bar{X}
+\end{aligned}\]</span></p>
+</div>
+<div id="regresión-múltiple" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Regresión Múltiple<a href="#regresi%C3%B3n-m%C3%BAltiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Recuerde que la matriz <span class="math inline">\((X&#39;X)\)</span> contiene información que es equivalente a
+las covarianzas entre las variables explicativas. Esto es muy importante
+ya que la única razón para realizar regresión múltiple es para
+“controlar” por los efectos de otras variables al tratar de encontrar el
+efecto “verdadero” de X en Y. Si la Xs no se encuentran correlacionadas
+no hay necesidad de realizar regresión múltiple. Para demostrar esto
+asumamos que todas las variables explicativas tienen una media igual a
+0. <span class="math display">\[\begin{aligned}
+(X&#39;X) &amp; = &amp; \left[\begin{array}{cccc}
+1 &amp; 1 &amp; \cdots &amp; 1\\
+X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1n}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+X_{k1} &amp; X_{k2} &amp; \cdots &amp; X_{kn}
+\end{array}\right]\left[\begin{array}{cccc}
+1 &amp; X_{11} &amp; \cdots &amp; X_{k1}\\
+1 &amp; X_{12} &amp; \cdots &amp; X_{k2}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+1 &amp; X_{1n} &amp; \cdots &amp; X_{kn}
+\end{array}\right]\\
+&amp; = &amp; \left[\begin{array}{cccc}
+n &amp; \sum X_{1i} &amp; \cdots &amp; \sum X_{ki}\\
+\sum X_{1i} &amp; \sum X_{1i}^{2} &amp; \cdots &amp; \sum X_{1i}X_{ki}\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+\sum X_{ki} &amp; \sum X_{ki}X_{1i} &amp; \cdots &amp; \sum X_{ki}^{2}
+\end{array}\right]
+\end{aligned}\]</span> Recuerde que asumimos que todas las variables
+explicativas tienen una media igual a 0 por lo tanto <span class="math inline">\(\sum X_{ji}=0\)</span>
+para <span class="math inline">\(j=1,2,..k\)</span>. Ahora podemos incluir un supuesto adicional las
+variables explicativas no se encuentran correlacionadas por lo tanto
+<span class="math inline">\(\sum X_{ji}X_{hi}=0\)</span> para todo <span class="math inline">\(j\neq h\)</span>. Con estos dos supuestos la
+matriz <span class="math inline">\((X&#39;X)\)</span> es igual a una matriz diagonal:
+<span class="math display">\[(X&#39;X)=\left[\begin{array}{cccc}
+n &amp; 0 &amp; \cdots &amp; 0\\
+0 &amp; \sum X_{1i}^{2} &amp; \cdots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp; \sum X_{ki}^{2}
+\end{array}\right]\]</span> Si calculamos el estimador de MCO tenemos entonces
+<span class="math display">\[\begin{aligned}
+\hat{\beta} &amp; = &amp; \left[\begin{array}{cccc}
+1/n &amp; 0 &amp; \cdots &amp; 0\\
+0 &amp; 1/\sum X_{1i}^{2} &amp; \cdots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \cdots &amp; 1/\sum X_{ki}^{2}
+\end{array}\right]\left[\begin{array}{c}
+\sum y\\
+\sum X_{1}\\
+\vdots\\
+\sum X_{k}
+\end{array}\right]\\
+&amp; = &amp; \left[\begin{array}{c}
+\frac{\sum y}{n}\\
+\frac{\sum X_{1}}{\sum X_{1}^{2}}\\
+\vdots\\
+\frac{\sum X_{k}}{\sum X_{k}^{2}}
+\end{array}\right]
+\end{aligned}\]</span> Lo cual implica que si no existe correlación entre las
+variables independientes el estimador de cada uno de los parámetros
+corresponde al estimador de una regresión simple.</p>
+</div>
+<div id="estimador-de-mco-en-stata-empleando-matrices" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Estimador de MCO en Stata empleando matrices<a href="apéndice.html#estimador-de-mco-en-stata-empleando-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="stlog">
+<p>clear set logtype text, perm set more off capture log close use
+ECV2003.dta log using clase2.txt , replace</p>
+<p>sum wage sum urban</p>
+<p>Generar una constante que vamos a emplear en mata gen cons = 1</p>
+<p>* ============================ * = Ahora usemos MATA = *
+============================ * Primero es necesario llamar a MATA mata</p>
+<p>// Creemos los vectores Y y X usando St-view (recuerde que la clase
+pasada empleamos st_data) st_view(Y=., ., "lwage") st_view(X=., ., (
+"cons", "urban" )) Y X</p>
+<p>n = rows(X) k = cols(X) df = n-k</p>
+<p>// Estimador de Minimos Cuadrados Ordinarios det(X’X) b =
+invsym(X’X)*X’Y b</p>
+<p>//Matrices de Proyección P y M</p>
+<p>P = X*invsym(X’X)*X’ M = I(n)-P</p>
+<p>// Valores Ajustados Y_hat = X*b Y_hat2 = P*Y Y_hat Y_hat2</p>
+<p>// Vector de Residuos e = Y - X*b e</p>
+<p>// Comprobar que las expresiones siguientes son iguales a 0 X’e Y_hat’e</p>
+<p>// Varianza del error y desviación estándar e = Y - X*b s2 =
+(e’e)/(n-k) s2 s = sqrt(s2) s</p>
+<p>// Suma de residuos al cuadrado SRC = e’e SRC</p>
+<p>// Suma explicada al cuadrado SEC = Y_hat’Y_hat-n*mean(Y)^2 SEC</p>
+<p>// Suma total al cuadrado STC = Y’Y-n*mean(Y)^2 STC</p>
+<p>// Medidas de Bondad de Ajuste // Cuando NO se incluye constante r2nc =
+1-invsym(Y’Y)*e’e r2nc</p>
+<p>// R2 al incluir constante r2 = SEC/STC r2</p>
+<p>// R2 ajustado r2a = 1 -(1-r2)*((n-1)/(n-k)) r2a</p>
+<p>// Propiedades de los estimadores en muestras finitas</p>
+<p>// Matriz de varianzas y covarianzas V = s2*invsym(X’X) V</p>
+<p>// Errores estandar de los estimadores se = sqrt(diagonal(V)) se</p>
+<p>// Los resultados (b, se)</p>
+<p>// Todo ( s2  s  STC  SEC  SRC  r2nc  r2  r2a ) (b, se, b:/se)</p>
+<p>end</p>
+<p>*Ahora compare sus resultados con los que se obtienen con el comando
+reg de Stata</p>
+<p>reg lwage urban</p>
+<p>************************************</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="e.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/%s",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": false,
+  "toc": {
+    "collapse": "subsection"
+  },
+  "ui": {
+    "chapter_name": "Capítulo ",
+    "appendix_name": "Apéndice ",
+    "part_name": "Parte ",
+    "toc_title": "Tabla de contenido",
+    "toc_appendix": "Apéndices",
+    "toc_bibliography": "Bibliografía",
+    "toc_index": "Índice",
+    "edit": "Editar esta página",
+    "download": "Descargar",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "home": "Inicio",
+    "search": "Buscar",
+    "search_results": "Resultados de búsqueda",
+    "search_no_results": "No se encontraron resultados",
+    "search_placeholder": "Buscar en el libro...",
+    "page_not_found": "Página no encontrada",
+    "back_to_top": "Volver arriba"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
