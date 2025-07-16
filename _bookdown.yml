@@ -4,9 +4,7 @@ rmd_files: [
   "01-intro.Rmd",
   "02-MCOsuma.Rmd",
   "03-Matrices.Rmd", 
-  "04-Supuestos.Rmd",
-  "05-Estimacion.Rmd",
+  "04-Supuestos.Rmd"
 ]
 
 output_dir: "docs"
-number_sections: true

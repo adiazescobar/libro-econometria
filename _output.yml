@@ -1,16 +1,34 @@
 bookdown::gitbook:
   css: style.css
-
-  split_by: chapter       # <- debe estar dentro del bloque gitbook
-  output_dir: "docs"      # <- también debe ir dentro
+  split_by: chapter
+  output_dir: "docs"
   config:
     toc:
       before: |
         <li><a href="./">Econometría Avanzada</a></li>
       after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
+        <li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+    edit: https://github.com/adiazescobar/libro-econometria/edit/main/%s
     download: ["pdf", "epub"]
+    ui:
+      chapter_name: "Capítulo "
+      appendix_name: "Apéndice "
+      part_name: "Parte "
+      toc_title: "Tabla de contenido"
+      toc_appendix: "Apéndices"
+      toc_bibliography: "Bibliografía"
+      toc_index: "Índice"
+      edit: "Editar esta página"
+      download: "Descargar"
+      prev: "Anterior"
+      next: "Siguiente"
+      home: "Inicio"
+      search: "Buscar"
+      search_results: "Resultados de búsqueda"
+      search_no_results: "No se encontraron resultados"
+      search_placeholder: "Buscar en el libro..."
+      page_not_found: "Página no encontrada"
+      back_to_top: "Volver arriba"
 
 bookdown::pdf_book:
   includes:
