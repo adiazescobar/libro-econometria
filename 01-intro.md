@@ -1,53 +1,6 @@
 # Repaso
 
-```{r setup-poblacion2, include=FALSE}
-options(htmltools.dir.version = FALSE)
-library(pacman)
-p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel)
-library(ggplot2)
-library(ggtext)
 
-# Color institucional
-red_pink <- "#e64173"
-
-# Opciones globales de knitr
-opts_chunk$set(
-  comment = "#>",
-  fig.align = "center",
-  fig.height = 9,
-  fig.width  = 7,
-  fig.asp = 1,
- out.width = "75%",
-  warning = FALSE,
-  message = FALSE
-)
-
-# Temas ggplot auxiliares
-theme_empty <- theme_bw() + theme(
-  line          = element_blank(),
-  rect          = element_blank(),
-  strip.text    = element_blank(),
-  axis.text     = element_blank(),
-  plot.title = element_text(size = rel(1), face = "bold", margin = margin(0,0,15,0), hjust = 0),
-  axis.title = element_text(size = rel(0.85), face = "bold"),
-  plot.margin   = margin(0,0,-1,-1, unit = "lines"),
-  legend.position = "none")
-
-
-
-theme_simple <- theme_bw() + theme(
-  line          = element_blank(),
-  panel.grid    = element_blank(),
-  rect          = element_blank(),
-  strip.text    = element_blank(),
-  axis.text.x   = element_text(size = 14),
-  axis.text.y   = element_blank(),
-  axis.ticks    = element_blank(),
-  plot.title    = element_blank(),
-  axis.title    = element_blank(),
-  legend.position = "none"
-)
-```
 
 ### ¿Qué estudia la econometría? {-}
 
@@ -93,195 +46,72 @@ Vamos a crear un mundo ficticio con 100 individuos. A cada uno le asignamos:
 * $y$ depende linealmente de $x$ con pendiente 0.5 y un término aleatorio $u\sim N(0,1)$.
 
 
-```{R, gen dataset, include = F, cache = T}
-# Set population and sample sizes
-n_p <- 100
-n_s <- 30
-# Set the seed
-set.seed(12468)
-# Generate data
-pop_df <- tibble(
-  i = 3,
-  x = rnorm(n_p, mean = 5, sd = 1.5),
-  e = rnorm(n_p, mean = 0, sd = 1),
-  y = i + 0.5 * x + e,
-  row = rep(1:sqrt(n_p), times = sqrt(n_p)),
-  col = rep(1:sqrt(n_p), each = sqrt(n_p)),
-  s1 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
-  s2 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s))),
-  s3 = sample(x = c(rep(T, n_s), rep(F, n_p - n_s)))
-)
-# Regressions
-lm0 <- lm(y ~ x, data = pop_df)
-lm1 <- lm(y ~ x, data = filter(pop_df, s1 == T))
-lm2 <- lm(y ~ x, data = filter(pop_df, s2 == T))
-lm3 <- lm(y ~ x, data = filter(pop_df, s3 == T))
-# Simulation
-set.seed(12468)
-sim_df <- mclapply(mc.cores = 10, X = 1:1e4, FUN = function(x, size = n_s) {
-  lm(y ~ x, data = pop_df %>% sample_n(size = size)) %>% tidy()
-}) %>% do.call(rbind, .) %>% as_tibble()
-```
 
 
-```{R, pop1, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = row, y = col)) +
-geom_point(color = "darkslategray", size = 8) +
-  labs(
-    title = "Grafica 1. 100 Individuos",
-    subtitle = "Ubicación de cada individo"
-  ) + theme_empty
-```
+
+<img src="01-intro_files/figure-html/pop1-1.svg" width="75%" style="display: block; margin: auto;" />
 
 
 ### La relación verdadera en la población {-}
 El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada. 
 
-```{R, scatter1, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 3
-) +
-geom_point(color = "darkslategray", size = 6) + 
-  labs(
-    title = "Grafica 2. Línea de regresión",
-    subtitle = "Relación verdadera"
-  )+
-theme_empty
-```
+<img src="01-intro_files/figure-html/scatter1-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Obtenemos que los coeficientes son muy similares a los que usamos para generar la población: 
 
-$$ y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i $$
+$$ y_i = 2.53 + 0.57 x_i + u_i $$
 Esto significa que el modelo poblacional es:
 
 $$ y_i = \beta_0 + \beta_1 x_i + u_i $$
 Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a *todos* los egresados. Podemos estimar la relación entre $y$ y $x$ en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos: 
 
-```{R, sample1, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
-geom_point(color = "darkslategray", size = 10) +
-scale_shape_manual(values = c(1, 19)) +
-  labs(
-    title = "Grafica 3. 30 individuos seleccionados al azar",
-  )+
-theme_empty
-```
+<img src="01-intro_files/figure-html/sample1-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Estimemos la relación que existe entre $y$ y $x$ en esta muestra de 30 individuos. En la siguiente gráfica, la línea roja es el modelo poblacional y la línea negra discontinua es el modelo muestral.
 
-```{R, sample1 scatter, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 3, alpha = 0.3
-) +
-geom_point(aes(shape = s1), color = "darkslategray", size = 6) +
-geom_abline(
-  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
-  size = 2, linetype = 2, color = "black"
-) +
-scale_shape_manual(values = c(1, 19))  + 
-  labs(
-    title = "Grafica 4. Línea de regresión",
-    subtitle = "Relación Muestral"
-  )+
-theme_empty
-```
+<img src="01-intro_files/figure-html/sample1 scatter-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Ahora encontramos unos coeficientes estimados que son diferentes a los del modelo poblacional:
 
 **PGD Modelo Poblacional**
 <br>
-$y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i$
+$y_i = 2.53 + 0.57 x_i + u_i$
 
 **Modelo muestral**
 <br>
-$\hat{y}_i = `r round(lm1$coefficients[1], 2)` + `r round(lm1$coefficients[2], 2)` x_i$
+$\hat{y}_i = 2.36 + 0.61 x_i$
 
 Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión. 
 
-```{R, sample2, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
-geom_point(color = "darkslategray", size = 10) +
-scale_shape_manual(values = c(1, 19)) +  
-  labs(
-    title = "Grafica 5. Otros 30 individuos al azar",
-  )+
-theme_empty
-```
+<img src="01-intro_files/figure-html/sample2-1.svg" width="75%" style="display: block; margin: auto;" />
 
-```{R, sample2 scatter, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 3, alpha = 0.3
-) +
-geom_point(aes(shape = s2), color = "darkslategray", size = 6) +
-geom_abline(
-  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
-  size = 2, linetype = 2, color = "black", alpha = 0.3
-) +
-geom_abline(
-  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
-  size = 2, linetype = 2, color = "black"
-) +
-scale_shape_manual(values = c(1, 19)) +
-theme_empty
-```
+<img src="01-intro_files/figure-html/sample2 scatter-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Ahora encontramos los siguientes coeficientes estimados:
 
 **PGD Modelo Poblacional**
 <br>
-$y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i$
+$y_i = 2.53 + 0.57 x_i + u_i$
 
 **Modelo muestral**
 <br>
-$\hat{y}_i = `r round(lm2$coefficients[1], 2)` + `r round(lm2$coefficients[2], 2)` x_i$
+$\hat{y}_i = 2.79 + 0.56 x_i$
 
 Podemos ver que los coeficientes estimados son diferentes a los del modelo poblacional y también diferentes entre sí. Esto es normal, porque cada muestra aleatoria puede dar lugar a diferentes estimaciones.
 
 Tomemos una tercera muestra aleatoria de 30 individuos y veamos cómo se comporta la regresión.
-```{R, sample3, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = row, y = col, shape = s3)) +
-geom_point(color = "darkslategray", size = 10) +
-scale_shape_manual(values = c(1, 19)) +
-theme_empty
-```
-```{R, sample3 scatter, echo = F, fig.fullwidth = T, dev = "svg"}
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 3, alpha = 0.3
-) +
-geom_point(aes(shape = s3), color = "darkslategray", size = 6) +
-geom_abline(
-  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
-  size = 2, linetype = 2, color = "black", alpha = 0.3
-) +
-geom_abline(
-  intercept = lm2$coefficients[1], slope = lm2$coefficients[2],
-  size = 2, linetype = 2, color = "black", alpha = 0.3
-) +
-geom_abline(
-  intercept = lm3$coefficients[1], slope = lm3$coefficients[2],
-  size = 2, linetype = 2, color = "black"
-) +
-scale_shape_manual(values = c(1, 19)) +
-theme_empty
-```
+<img src="01-intro_files/figure-html/sample3-1.svg" width="75%" style="display: block; margin: auto;" />
+<img src="01-intro_files/figure-html/sample3 scatter-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Ahora encontramos los siguientes coeficientes estimados:
 
 **PGD Modelo Poblacional**
 <br>
-$y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i$
+$y_i = 2.53 + 0.57 x_i + u_i$
 
 **Modelo muestral**
 <br>
-$\hat{y}_i = `r round(lm3$coefficients[1], 2)` + `r round(lm3$coefficients[2], 2)` x_i$
+$\hat{y}_i = 3.21 + 0.45 x_i$
 
 Siguen siendo diferentes a los del modelo poblacional y también diferentes entre sí. A veces se parece mucho, a veces no tanto. La razón es simple; cada muestra incluye un conjunto diferente de personas y eso cambia los resultados.
 
@@ -289,21 +119,7 @@ Ahora repitamos esto **10,000 veces**. Este ejercicio se conoce como Ejercicio d
 
 ¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos). 
 
-```{R, simulation scatter, echo = F, dev = "png", dpi = 300, cache = T}
-# Reshape sim_df
-line_df <- tibble(
-  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
-  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
-)
-ggplot() +
-geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
-geom_point(data = pop_df, aes(x = x, y = y), size = 3, color = "darkslategray") +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 1.5
-) +
-theme_empty
-```
+<img src="01-intro_files/figure-html/simulation scatter-1.png" width="75%" style="display: block; margin: auto;" />
 
 
 En resumen, en **promedio** las líneas de regresión se ajustan muy bien a la línea de la población. Sin embargo, las **líneas individuales** (muestras) pueden desviarse significativamente. Las diferencias entre las muestras individuales y la población generan **incertidumbre** para el econometrista.
@@ -395,25 +211,7 @@ Incluso si estimamos \(\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i\) con una m
 
 Esto se ve así:
 
-```{R, error_term, echo = F, dev = "svg", fig.height = 6}
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 3, alpha = 0.3
-) +
-geom_point(aes(shape = s1), color = "darkslategray", size = 6) +
-geom_abline(
-  intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
-  size = 2, linetype = 2, color = "black"
-) +
-scale_shape_manual(values = c(1, 19)) +
-  
-  labs(
-    title = "Grafica 6. Efecto del término de error",
-    subtitle = "Dispersión de los valores observados"
-  ) +
-  theme_empty
-```
+<img src="01-intro_files/figure-html/error_term-1.svg" width="75%" style="display: block; margin: auto;" />
 
 
 Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán **dispersas alrededor de la recta poblacional**. 
@@ -428,35 +226,7 @@ Vamos a hacer lo siguiente:
 
 Esto nos permite ver cómo **las estimaciones varían** únicamente por culpa del término de error, manteniendo fija la muestra.
 
-```{R, error_term_sim, echo = F, dev = "svg", fig.height = 6}
-# tomemos una sola muestra fija
-fixed_sample <- pop_df %>% filter(s1 == T)
-# Re-generamos el término de error y calculamos nuevos valores de y
-set.seed(12468)
-sim_df <- mclapply(mc.cores = 10, X = 1:1e4, FUN = function(x, fixed_sample) {
-  fixed_sample$e <- rnorm(nrow(fixed_sample), mean = 0, sd = 1)
-  fixed_sample$y <- fixed_sample$i + 0.5 * fixed_sample$x + fixed_sample$e
-  lm(y ~ x, data = fixed_sample) %>% tidy()
-}, fixed_sample = fixed_sample) %>% do.call(rbind, .) %>% as_tibble()
-# Reshape sim_df
-line_df <- tibble(
-  intercept = sim_df %>% filter(term != "x") %>% select(estimate) %>% unlist(),
-  slope = sim_df %>% filter(term == "x") %>% select(estimate) %>% unlist()
-)
-ggplot() +
-geom_abline(data = line_df, aes(intercept = intercept, slope = slope), alpha = 0.01) +
-geom_point(data = fixed_sample, aes(x = x, y = y), size = 3, color = "darkslategray") +
-geom_abline(
-  intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
-  color = red_pink, size = 1.5
-) +
-  labs(
-    title = "Grafica 7. Efecto del término de error",
-    subtitle = "Variación de las estimaciones por el término de error"
-  ) +
-theme_empty
-
-```
+<img src="01-intro_files/figure-html/error_term_sim-1.svg" width="75%" style="display: block; margin: auto;" />
 Aquí vemos que, aunque la muestra es fija, las rectas de regresión se dispersan alrededor de la recta poblacional. Esto es porque el término de error \(u_i\) introduce variabilidad en los valores de \(y_i\).
 
 
@@ -546,6 +316,7 @@ Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplido
 
 
 ::: {.callout-note title="🟦 Simulación Monte Carlo con muestra fija en R"}
+
 ```r
 # Paso 1: Crear muestra fija de x
 set.seed(123)
@@ -578,10 +349,10 @@ ggplot(sim, aes(x = estimate)) +
     x = "Estimaciones de \\(\\hat{\\beta}_1\\)", y = "Frecuencia"
   )
 ```
-:::
 
 
 
+---
 
 
 
@@ -622,7 +393,8 @@ histogram b1, width(0.02) normal ///
     xtitle("Estimaciones de _b[x]") ytitle("Frecuencia")
 
 ```
-:::
+
+
 
 
 

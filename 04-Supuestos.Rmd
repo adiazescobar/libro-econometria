@@ -1,4 +1,4 @@
-# Supuestos del Modelo Clásico de Regresión Lineal
+# Capitulo 5: Supuestos del Modelo Clásico de Regresión Lineal
 
 ## Proceso Generador de Datos {-}
 

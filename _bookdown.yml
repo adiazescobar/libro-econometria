@@ -9,3 +9,4 @@ rmd_files: [
 ]
 
 output_dir: "docs"
+number_sections: true

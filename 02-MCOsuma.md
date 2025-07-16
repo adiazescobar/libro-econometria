@@ -1,57 +1,9 @@
-# Capítulo 3: Regresión lineal
-
+# Regresión lineal
 
 ## 🎯 Objetivo del capítulo  {-}
 
 
-```{r setup-poblacion, include=FALSE}
-options(htmltools.dir.version = FALSE)
-library(pacman)
-p_load(broom, latex2exp, ggplot2, ggthemes, viridis, dplyr, magrittr, knitr, parallel)
-library(ggplot2)
-library(ggtext)
 
-# Color institucional
-red_pink <- "#e64173"
-
-# Opciones globales de knitr
-opts_chunk$set(
-  comment = "#>",
-  fig.align = "center",
-  fig.height = 9,
-  fig.width  = 7,
-  fig.asp = 1,
- out.width = "75%",
-  warning = FALSE,
-  message = FALSE
-)
-
-# Temas ggplot auxiliares
-theme_empty <- theme_bw() + theme(
-  line          = element_blank(),
-  rect          = element_blank(),
-  strip.text    = element_blank(),
-  axis.text     = element_blank(),
-  plot.title = element_text(size = rel(1), face = "bold", margin = margin(0,0,15,0), hjust = 0),
-  axis.title = element_text(size = rel(0.85), face = "bold"),
-  plot.margin   = margin(0,0,-1,-1, unit = "lines"),
-  legend.position = "none")
-
-
-
-theme_simple <- theme_bw() + theme(
-  line          = element_blank(),
-  panel.grid    = element_blank(),
-  rect          = element_blank(),
-  strip.text    = element_blank(),
-  axis.text.x   = element_text(size = 14),
-  axis.text.y   = element_blank(),
-  axis.ticks    = element_blank(),
-  plot.title    = element_blank(),
-  axis.title    = element_blank(),
-  legend.position = "none"
-)
-```
 
 En este capitulo vamos a: 
 1. Entender qué es una regresión lineal y cómo se ve gráficamente.
@@ -91,143 +43,32 @@ Esto se conoce como el **criterio de mínimos cuadrados**.
 
 Creemos unos nuevos datos para ilustrar esto.
 
-```{R, ols vs lines 1, echo = F, dev = "svg", fig.height = 6}
-# Generate a population
-set.seed(98731)
-n <- 100
-pop_df <- tibble(
-  x = rnorm(n, mean = 10, sd = 2),
-  y = 6 + 0.2 * x + rnorm(n, sd = 1)
-) 
-lm0 <- lm(y ~ x, data = pop_df)
-
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-  labs(
-    title = "Grafica 1. Gráfico de dispersión de la población",
-    subtitle = "Relación entre Y y X"
-  ) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 1-1.svg" width="75%" style="display: block; margin: auto;" />
 
 La linea de regresión es igual a $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$ donde \hat{\beta}_0$ y $\hat{\beta}_1$ son los parámetros estimados de la regresión. En este caso, $\hat{\beta}_0 = 6$ y $\hat{\beta}_1 = 0.2$. Para cada una de las observaciones podemos encontrar el y estimado $\hat{y}_i$. En la siguiente figura, la línea naranja representa la línea de regresión estimada.
 
-```{R, vs lines 2, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- 6
-b1 <- 0.2
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-# geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 2. Línea de regresión estimada",
-  subtitle = "Relación entre Y y X"
-) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/vs lines 2-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Para cada una de las observaciones podemos calcular los errores: $\epsilon_i = y_i - \hat{y}_i$, como se observa en el siguiente gráfico.
 
 
-```{R, ols vs lines 3, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- 6
-b1 <- 0.2
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 3. Errores de la regresión",
-  subtitle = "Relación entre Y y X"
-) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 3-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Ahora podemos probar con otras lineas y ver cómo se comportan los errores. En el siguiente grafico, la línea de regresión estimada es $\hat{y} = 3 + 0.2 x$. Es evidente que los errores estiamdos son más grandes que los errores estimados en el gráfico anterior.
 
-```{R, ols vs lines 4, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- 3
-b1 <- 0.2
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 4. Línea de regresión propuesta",
-  subtitle = "Relación entre Y y X"
-) +
-  theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 4-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Probemos ahora con una línea de regresión estimada que no se ajusta a los datos, $\hat{y} = 10 - 0.8 x$. En este caso, los errores son aún más grandes.
 
-```{R, ols vs lines 5, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- 10
-b1 <- -0.8
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 5. Línea de regresión propuesta",
-) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 5-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Recuerda que SRC es igual a: $\left(\sum e_i^2\right)$: Errores más grandes reciben penalizaciones más grandes.
 
-```{R, ols vs lines 6, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- 10
-b1 <- -0.8
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1), color = (y - y_hat(x, b0, b1))^2), size = 0.5, alpha = 0.8) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-scale_color_viridis(option = "cividis", direction = -1) +
-labs(
-  title = "Gráfico 6. Errores de la regresión",
-  subtitle = "Relación entre Y y X"
-) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 6-1.svg" width="75%" style="display: block; margin: auto;" />
 
 La estimación de MCO es la combinación de $\hat{\beta}_0$ y $\hat{\beta}_1$ que minimiza la SRC
 
-```{R, ols vs lines 7, echo = F, dev = "svg", fig.height = 6}
-# Define a function
-y_hat <- function(x, b0, b1) {b0 + b1 * x}
-# Define line's parameters
-b0 <- lm0$coefficients[1]
-b1 <- lm0$coefficients[2]
-# The plot
-ggplot(data = pop_df, aes(x = x, y = y)) +
-geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1), color = (y - y_hat(x, b0, b1))^2), size = 0.5, alpha = 0.8) +
-geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-geom_abline(intercept = b0, slope = b1, color = red_pink, size = 2, alpha = 0.9) +
-scale_color_viridis(option = "cividis", direction = -1) +
-theme_empty
-```
+<img src="02-MCOsuma_files/figure-html/ols vs lines 7-1.svg" width="75%" style="display: block; margin: auto;" />
 
 
 ## MCO {-}
@@ -328,84 +169,21 @@ Ejemplo: para una variable normal estándar, la probabilidad de que tome un valo
 
 $$ \mathop{\text{P}}\left(-2 \leq X \leq 0\right) = 0.48 $$
 
-```{r, example: pdf, echo=FALSE, dev="svg", fig.height=3.5}
-tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
-tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
-
-ggplot(data = tmp, aes(x, y)) +
-  geom_polygon(fill = "grey85") +
-  geom_polygon(data = tmp %>% filter(between(x, -2, 0)), fill = red_pink) +
-  geom_hline(yintercept = 0, color = "black") +
-  labs(
-    title = "Gráfico 1. Función de densidad de probabilidad",
-  ) +
-  theme_simple
-```
+<img src="02-MCOsuma_files/figure-html/example: pdf-1.svg" width="75%" style="display: block; margin: auto;" />
 
 Otro ejemplo clásico es la probabilidad de que una variable aleatoria normal estándar tome un valor entre -1.96 y 1.96: $\mathop{\text{P}}\left(-1.96 \leq X \leq 1.96\right) = 0.95$
 
-```{R, example: pdf 2, echo = F, dev = "svg", fig.height = 3.5}
-# Generate data for density's polygon
-tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
-tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
-# Plot it
-ggplot(data = tmp, aes(x, y)) +
-geom_polygon(fill = "grey85") +
-geom_polygon(data = tmp %>% filter(between(x, -1.96, 1.96)), fill = red_pink) +
-geom_hline(yintercept = 0, color = "black") +
-labs(
-  title = "Gráfico 2. Función de densidad de probabilidad",
-) +
-theme_simple
-```
+<img src="02-MCOsuma_files/figure-html/example: pdf 2-1.svg" width="75%" style="display: block; margin: auto;" />
 O la probabilidad de que una variable aleatoria normal estándar tome un valor mayor a 2: $\mathop{\text{P}}\left(X > 2\right) = 0.023$
 
-```{R, example: pdf 3, echo = F, dev = "svg", fig.height = 3.5}
-# Generate data for density's polygon
-tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
-tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
-# Plot it
-ggplot(data = tmp, aes(x, y)) +
-geom_polygon(fill = "grey85") +
-geom_polygon(data = tmp %>% filter(between(x, 2, Inf)), fill = red_pink) +
-geom_hline(yintercept = 0, color = "black") +
-theme_simple
-```
+<img src="02-MCOsuma_files/figure-html/example: pdf 3-1.svg" width="75%" style="display: block; margin: auto;" />
 
 ### 🤔 ¿Qué propiedades buscamos en un estimador? {-}
 
 Imaginemos que intentamos estimar un parámetro verdadero \( \beta \), y tenemos tres métodos distintos. Cada uno produce una distribución diferente para \( \hat{\beta} \).
 
 
-```{r competing_pdfs, echo = FALSE, fig.height = 4.5}
-# Cargar paquetes (por si el chunk se ejecuta solo)
-library(tibble); library(dplyr); library(ggplot2)
-
-# Datos para cada densidad -----------------------------
-xs <- seq(-7.5, 7.5, 0.01)
-
-d1 <- tibble(x = xs, y = dnorm(x, mean = 1,  sd = 1))   |>
-  bind_rows(tibble(x = rev(xs), y = 0))
-d2 <- tibble(x = xs, y = dunif(x, min  = -2.5, max = 1.5)) |>
-  bind_rows(tibble(x = rev(xs), y = 0))
-d3 <- tibble(x = xs, y = dnorm(x, mean = 0,  sd = 2.5)) |>
-  bind_rows(tibble(x = rev(xs), y = 0))
-
-# Gráfico ----------------------------------------------
-ggplot() +
-  geom_polygon(data = d1, aes(x = x, y = y),
-               fill = "orange",       alpha = 0.80) +
-  geom_polygon(data = d2, aes(x = x, y = y),
-               fill = red_pink,       alpha = 0.65) +
-  geom_polygon(data = d3, aes(x = x, y = y),
-               fill = "darkslategray", alpha = 0.60) +
-  geom_hline(yintercept = 0, colour = "black") +
-  geom_vline(xintercept = 0, linetype = "dashed", linewidth = 1) +
-  scale_x_continuous(breaks = 0, labels = expression(beta)) +   # <-- cambio
-  theme_simple +
-  theme(axis.text.x = element_text(size = 20))
-
-```
+<img src="02-MCOsuma_files/figure-html/competing_pdfs-1.png" width="75%" style="display: block; margin: auto;" />
 
 **Pregunta:** ¿Qué propiedades podrían ser importantes para un estimador?
 
@@ -434,28 +212,12 @@ En promedio (después de *muchas* repeticiones), ¿el estimador tiende hacia el 
 $$ \mathop{\text{Sesgo}}_\beta \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] - \beta $$
 **Estimador Insesagado:** $\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] = \beta$
 
-```{r unbiased_pdf, echo = FALSE, dev = "svg"}
-ggplot(tmp, aes(x, y)) +
-  geom_polygon(fill = red_pink, alpha = 0.9) +
-  geom_hline(yintercept = 0, colour = "black") +
-  geom_vline(xintercept = 0, linetype = "dashed", linewidth = 1) +
-  scale_x_continuous(breaks = 0, labels = expression(beta)) +  # <- cambio clave
-  theme_simple +
-  theme(axis.text.x = element_text(size = 40))
-```
+<img src="02-MCOsuma_files/figure-html/unbiased_pdf-1.svg" width="75%" style="display: block; margin: auto;" />
 
 
 **Estimador Sesagado:** $\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \neq \beta$
 
-```{R, biased pdf, echo = F, dev = "svg"}
-ggplot(data = tmp, aes(x, y)) +
-geom_polygon(aes(x = x + 2), fill = "darkslategray", alpha = 0.9) +
-geom_hline(yintercept = 0, color = "black") +
-geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
-scale_x_continuous(breaks = 0, labels = expression(beta)) + 
-theme_simple +
-theme(axis.text.x = element_text(size = 40))
-```
+<img src="02-MCOsuma_files/figure-html/biased pdf-1.svg" width="75%" style="display: block; margin: auto;" />
 
 **Propiedad 2: Varianza**
 
@@ -473,20 +235,7 @@ Un estimador con **menor varianza** produce resultados más consistentes entre m
 
 Veamos un ejemplo visual de cómo la varianza afecta a las distribuciones de los estimadores.
 
-```{r, variance pdf, echo = FALSE, dev = "svg", fig.height = 5}
-d4 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 1)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-d5 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-ggplot() +
-  geom_polygon(data = d4, aes(x, y), fill = red_pink, alpha = 0.9) +
-  geom_polygon(data = d5, aes(x, y), fill = "darkslategray", alpha = 0.8) +
-  geom_hline(yintercept = 0, color = "black") +
-  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
-  scale_x_continuous(breaks = 0, labels = expression(beta)) + 
-  theme_simple +
-  theme(axis.text.x = element_text(size = 20))
-```
+<img src="02-MCOsuma_files/figure-html/variance pdf-1.svg" width="75%" style="display: block; margin: auto;" />
 
 La curva rosada representa un estimador con baja varianza: la mayoría de los valores de \( \hat{\beta} \) están cerca de \( \beta \). Mientras que la curva gris oscuro representa un estimador con alta varianza: sus valores están más dispersos. A igualdad de sesgo, preferimos el estimador que tenga menor varianza.
 
@@ -500,20 +249,7 @@ En econometría, solemos preferir estimadores **insesgados** (o al menos **consi
 
 veámos esta idea:
 
-```{r, variance bias, echo = FALSE, dev = "svg"}
-d4 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0.3, sd = 1)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-d5 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-ggplot() +
-  geom_polygon(data = d4, aes(x, y), fill = red_pink, alpha = 0.9) +
-  geom_polygon(data = d5, aes(x, y), fill = "darkslategray", alpha = 0.8) +
-  geom_hline(yintercept = 0, color = "black") +
-  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
-  scale_x_continuous(breaks = 0, labels = expression(beta)) + 
-  theme_simple +
-  theme(axis.text.x = element_text(size = 20))
-```
+<img src="02-MCOsuma_files/figure-html/variance bias-1.svg" width="75%" style="display: block; margin: auto;" />
 
 ### Propiedad 3: Consistencia {-}
 
@@ -536,23 +272,7 @@ Es decir, **la probabilidad de que \( \hat{\beta} \) se aleje mucho de \( \beta 
 
 Veámos lo que ocurre cuando la muestra crece:
 
-```{r, consistency pdf, echo = FALSE, dev = "svg"}
-d6 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 3)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-d7 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-d8 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 1)) %>%
-  rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
-ggplot() +
-  geom_polygon(data = d6, aes(x, y), fill = "orange", alpha = 0.7) +
-  geom_polygon(data = d7, aes(x, y), fill = "darkslategray", alpha = 0.8) +
-  geom_polygon(data = d8, aes(x, y), fill = red_pink, alpha = 0.9) +
-  geom_hline(yintercept = 0, color = "black") +
-  geom_vline(xintercept = 0, size = 1, linetype = "dashed") +
-  scale_x_continuous(breaks = 0, labels = expression(beta)) + 
-  theme_simple +
-  theme(axis.text.x = element_text(size = 20))
-```
+<img src="02-MCOsuma_files/figure-html/consistency pdf-1.svg" width="75%" style="display: block; margin: auto;" />
 
 La curva naranja representa una estimación con mucha incertidumbre (muestra pequeña). La curva gris oscura representa una muestra de tamaño mediano. Mientras que la curva rosada muestra cómo la estimación se concentra alrededor de \( \beta \) con una muestra grande.
 

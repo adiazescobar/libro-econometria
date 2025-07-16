@@ -1,4 +1,9 @@
-# Capitulo 4: Álgebra Matricial para Econometría
+---
+title: "Álgebra Matricial para Econometría"
+output: html_document
+---
+
+# Álgebra Matricial para Econometría
 
 Antes de introducir los supuestos fundamentales del modelo de regresión lineal, es importante repasar algunos conceptos clave del álgebra matricial. Este lenguaje permite expresar de forma compacta y elegante muchos de los resultados econométricos, facilitando la comprensión de los modelos lineales y sus propiedades.
 
