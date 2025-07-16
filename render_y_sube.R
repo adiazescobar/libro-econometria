@@ -1,3 +1,5 @@
+bookdown::clean_book()
+
 bookdown::render_book("index.Rmd", "bookdown::gitbook")
 
 # Copia robusta usando system (en Mac/Linux)
