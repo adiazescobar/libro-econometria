@@ -1,3 +1,5 @@
+# Regresión lineal
+## 🎯 Objetivo del capítulo  {-}
 
 
 ```{r setup-poblacion, include=FALSE}
@@ -48,8 +50,6 @@ theme_simple <- theme_bw() + theme(
   legend.position = "none"
 )
 ```
-# Regresión lineal
-## 🎯 Objetivo del capítulo  {-}
 
 En este capitulo vamos a: 
 1. Entender qué es una regresión lineal y cómo se ve gráficamente.

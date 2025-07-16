@@ -1,6 +1,5 @@
 # Repaso
 
-
 ```{r setup-poblacion2, include=FALSE}
 options(htmltools.dir.version = FALSE)
 library(pacman)
