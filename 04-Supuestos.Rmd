@@ -98,8 +98,8 @@ Graficamente...
   options(stringsAsFactors = F)
   # Packages
   library(pacman)
-library(knitr)
-  p_load(ggridges)
+  library(knitr)
+  p_load(ggridges, dply, ggplot2, viridis, pander, tidyverse, ggthemes)
 
 # Data work ------------------------------------------------------------------------------
   # Set seed
@@ -110,12 +110,15 @@ library(knitr)
   e_good <- tibble(
     x = runif(n = n, min = -4, max = 4),
     e = rnorm(n)
-  ) %>% mutate(x = round(x))
+  ) %>% 
+    # Round to integers
+  mutate(x = round(x))
   # Endogenous
   e_bad <- tibble(
     x = runif(n = n, min = -4, max = 4),
     e = rnorm(n) + 0.5 * x
-  ) %>% mutate(x = round(x))
+  ) %>%
+    mutate(x = round(x))
 
 # Figures: Joint densities ---------------------------------------------------------------
   # The joint plot: good

@@ -11,3 +11,11 @@ knitr
 ggtext
 tibble
 ggridges
+pander
+tidyverse
+tidyr
+readr
+purrr
+stringr
+forcats
+lubridate

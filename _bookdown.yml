@@ -1,10 +1,12 @@
+book_filename: "main"
+delete_merged_file: true
 
-rmd_files: [
-  "index.Rmd",
-  "01-intro.Rmd",
-  "02-MCOsuma.Rmd",
-  "03-Matrices.Rmd", 
-  "04-Supuestos.Rmd"
-]
+rmd_files:
+  - index.Rmd
+  - 01-intro.Rmd
+  - 02-MCOsuma.Rmd
+  - 03-Matrices.Rmd
+  - 04-Supuestos.Rmd
+  - 05-Propiedades.Rmd
 
 output_dir: "docs"
