@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Supuestos de MCO | Econometría II</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Supuestos de MCO | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Supuestos de MCO | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="repaso-de-matrices.html"/>
+<link rel="next" href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#informaci%C3%B3n-general"><i class="fa fa-check"></i>Información general</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="04-Supuestos.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-a-un-buen-estimador"><i class="fa fa-check"></i>¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="2.0.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>2.0.1</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i>🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad"><i class="fa fa-check"></i>🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>3</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#norma-y-normalizaci%C3%B3n"><i class="fa fa-check"></i>Norma y normalización</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-por-un-escalar"><i class="fa fa-check"></i>Multiplicación por un escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-de-matrices"><i class="fa fa-check"></i>Multiplicación de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transposici%C3%B3n-de-matrices"><i class="fa fa-check"></i>Transposición de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matriz-sim%C3%A9trica"><i class="fa fa-check"></i>6. Matriz simétrica</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n-p-y-m"><i class="fa fa-check"></i>9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-funci%C3%B3n-multidimensional"><i class="fa fa-check"></i>Derivadas de una función multidimensional</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-forma-cuadr%C3%A1tica"><i class="fa fa-check"></i>Derivadas de una forma cuadrática</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>4</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s1.-linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i>S1. Linealidad en los Parámetros</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s4.-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i>S4. Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s5.-regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i>S5. Regresores No Estocásticos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#glosario-de-s%C3%ADmbolos"><i class="fa fa-check"></i>Glosario de Símbolos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="04-Supuestos.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
+<li class="chapter" data-level="5.0.1" data-path="04-Supuestos.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="04-Supuestos.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica"><i class="fa fa-check"></i>🔍 Intuición geométrica</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n"><i class="fa fa-check"></i>✨ Visualización tridimensional de la proyección</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notaci%C3%B3n-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Notación y Motivación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i>❓¿Cuál es el problema que resuelve el FWL?</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-final"><i class="fa fa-check"></i>✅ Interpretación final</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conclusi%C3%B3n"><i class="fa fa-check"></i>📦 Conclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supuestos-de-mco" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Supuestos de MCO<a href="supuestos-de-mco.html#supuestos-de-mco" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="proceso-generador-de-datos" class="section level2 unnumbered hasAnchor">
+<h2>Proceso Generador de Datos<a href="supuestos-de-mco.html#proceso-generador-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El modelo de regresión lineal parte de la siguiente estructura:</p>
+<p><span class="math display">\[
+Y_i = X_i \beta + \epsilon_i
+\]</span></p>
+<p>Donde:
+- <span class="math inline">\(Y_i\)</span>: variable dependiente (observación i)
+- <span class="math inline">\(X_i\)</span>: vector fila con los regresores de la observación i
+- <span class="math inline">\(\beta\)</span>: vector de parámetros poblacionales
+- <span class="math inline">\(\epsilon_i\)</span>: error poblacional (componentes no observables)
+- <span class="math inline">\(i = 1, 2, ..., n\)</span></p>
+<blockquote>
+<p>Esta formulación describe el proceso generador de datos (PGD), base para los supuestos del MCO.</p>
+</blockquote>
+</div>
+<div id="tabla-resumen-de-supuestos" class="section level2 unnumbered hasAnchor">
+<h2>Tabla Resumen de Supuestos<a href="supuestos-de-mco.html#tabla-resumen-de-supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="31%" />
+<col width="46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Supuesto</th>
+<th>Notación</th>
+<th>Implicación principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>S1. Linealidad en los parámetros</td>
+<td><span class="math inline">\(y_i = X_i \beta + \epsilon_i\)</span></td>
+<td>El modelo es lineal en los parámetros</td>
+</tr>
+<tr class="even">
+<td>S2. Exogeneidad estricta</td>
+<td><span class="math inline">\(\mathbb{E}[\epsilon_i \mid X] = 0\)</span></td>
+<td>No hay correlación entre regresores y error</td>
+</tr>
+<tr class="odd">
+<td>S3. Colinealidad imperfecta</td>
+<td><span class="math inline">\(\text{Rango}(X) = K\)</span></td>
+<td>No hay multicolinealidad perfecta; modelo identificable</td>
+</tr>
+<tr class="even">
+<td>S4. Perturbaciones esféricas</td>
+<td><span class="math inline">\(\text{Var}(\epsilon_i \mid X) = \sigma^2\)</span>, <span class="math inline">\(\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0\)</span></td>
+<td>Homocedasticidad y no autocorrelación</td>
+</tr>
+<tr class="odd">
+<td>S5. Regresores no estocásticos</td>
+<td><span class="math inline">\(X\)</span> es fija en repetidas muestras</td>
+<td>Simplifica demostraciones teóricas</td>
+</tr>
+<tr class="even">
+<td>S6. Normalidad</td>
+<td><span class="math inline">\(\epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I)\)</span></td>
+<td>Solo necesaria para inferencia exacta</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="s1.-linealidad-en-los-parámetros" class="section level2 unnumbered hasAnchor">
+<h2>S1. Linealidad en los Parámetros<a href="#s1.-linealidad-en-los-par%C3%A1metros" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El valor esperado de <span class="math inline">\(y\)</span> está relacionado linealmente con los regresores:</p>
+<p><span class="math display">\[
+\mathbb{E}[Y_i \mid X_i] = X_i \beta
+\]</span></p>
+<p>Esto permite distintas formas funcionales (lineales en parámetros):</p>
+<ul>
+<li>Lineal: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_i + \epsilon_i\)</span></li>
+<li>Log-log: <span class="math inline">\(\log(y_i) = \beta_1 + \beta_2 \log(x_i) + \epsilon_i\)</span></li>
+<li>Log-lineal: <span class="math inline">\(\log(y_i) = \beta_1 + \beta_2 x_i + \epsilon_i\)</span></li>
+<li>Lineal-log: <span class="math inline">\(y_i = \beta_1 + \beta_2 \log(x_i) + \epsilon_i\)</span></li>
+<li>Cuadrático: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_i + \beta_3 x_i^2 + \epsilon_i\)</span></li>
+<li>Interactuado: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_1 + \beta_3 x_2 + \beta_4(x_1 x_2) + \epsilon_i\)</span></li>
+</ul>
+</div>
+<div id="s2.-exogeneidad-estricta" class="section level2 unnumbered hasAnchor">
+<h2>S2. Exogeneidad Estricta<a href="supuestos-de-mco.html#s2.-exogeneidad-estricta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\mathbb{E}[\epsilon_i \mid X] = 0
+\]</span></p>
+<blockquote>
+<p>Esto implica que no existe relación sistemática entre los regresores y el término de error.</p>
+</blockquote>
+<p>Ejemplos:</p>
+<ul>
+<li><span class="math inline">\(\mathbb{E}[u \mid X = 1] = 0\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[u \mid X_2 = \text{Mujer}] = 0\)</span></li>
+</ul>
+<p>Demostración (Ley de la esperanza iterada):</p>
+<p><span class="math display">\[
+\mathbb{E}[\epsilon_i] = \mathbb{E}\left[ \mathbb{E}[\epsilon_i \mid X] \right] = \mathbb{E}[0] = 0
+\]</span></p>
+<p>Equivalencia:
+Si <span class="math inline">\(\mathbb{E}[\epsilon_i \mid X] = 0\)</span>, entonces:</p>
+<p><span class="math display">\[
+\text{Cov}(\epsilon_i, X_j) = 0 \quad \forall j
+\]</span></p>
+<p>Pero qué quiere decir?</p>
+<p>Una forma de pensar en esta definición es:</p>
+<blockquote>
+<p>Para <em>cualquier</em> valor de <span class="math inline">\(X\)</span>, el valor esperado de los residuos debe ser igual a cero</p>
+</blockquote>
+<ul>
+<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X=1 \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X=100 \right]=0\)</span></p></li>
+<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Mujer} \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Hombre} \right]=0\)</span></p></li>
+<li><p>Note: <span class="math inline">\(\mathop{E}\left[ u \mid X \right]=0\)</span> es más restrictivo que <span class="math inline">\(\mathop{E}\left[ u \right]=0\)</span></p></li>
+</ul>
+<p>Graficamente…</p>
+<p>Exogeneidad Estricta se Incumple, <em>i.e.</em>, <span class="math inline">\(\mathop{E}\left[ \epsilon \mid X \right] \neq 0\)</span></p>
+</div>
+<div id="s3.-colinealidad-imperfecta" class="section level2 unnumbered hasAnchor">
+<h2>S3. Colinealidad Imperfecta<a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\text{Rango}(X) = K
+\]</span></p>
+<p>Para que el modelo esté identificado, debe cumplirse que el número de observaciones sea mayor que el número de regresores: <span class="math inline">\(n &gt; K\)</span>.</p>
+<p>Violaciones comunes:</p>
+<ol style="list-style-type: decimal">
+<li>Regresor constante: <span class="math inline">\(X_j = c\)</span></li>
+<li>Dos variables idénticas: <span class="math inline">\(X_j = X_k\)</span></li>
+<li>Combinación lineal exacta: <span class="math inline">\(X_3 = X_1 + X_2\)</span> <em>Trampa de las variables binarias</em></li>
+</ol>
+<p>Ejemplo de matriz con rango 3:</p>
+<p><span class="math display">\[
+A = \begin{bmatrix}
+1 &amp; 2 &amp; 3 \\
+3 &amp; 5 &amp; 7 \\
+4 &amp; 6 &amp; 5 \\
+\end{bmatrix}
+\quad \Rightarrow \text{Rango}(A) = 3
+\]</span></p>
+<p>Ejemplo de matriz con rango <strong>menor a 3</strong>:</p>
+<p><span class="math display">\[
+B = \begin{bmatrix}
+1 &amp; 3 &amp; 1 \\
+3 &amp; 8 &amp; 2 \\
+2 &amp; 9 &amp; 5 \\
+\end{bmatrix}
+\quad \Rightarrow \text{Rango}(B) \neq 3
+\]</span></p>
+<blockquote>
+<p>La tercera columna de <span class="math inline">\(B\)</span> es combinación lineal de las otras dos:<br />
+<span class="math inline">\(C_3 = -2 \cdot C_1 + C_2\)</span></p>
+</blockquote>
+<p>Wooldridge (2003) aclara que este supuesto <strong>permite que los regresores estén correlacionados</strong>, siempre que no haya una relación lineal exacta entre ellos.</p>
+</div>
+<div id="s4.-perturbaciones-esféricas" class="section level2 unnumbered hasAnchor">
+<h2>S4. Perturbaciones Esféricas<a href="#s4.-perturbaciones-esf%C3%A9ricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este supuesto se compone de dos condiciones:</p>
+<p>🔹 Homocedasticidad</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon_i \mid X) = \sigma^2 \quad \forall i
+\]</span></p>
+<p>La dispersión del término de error es constante para todos los individuos. Esto significa que la varianza de los errores no depende de los regresores.</p>
+<p>🔹 No autocorrelación</p>
+<p><span class="math display">\[
+\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0 \quad \text{para } i \neq j
+\]</span></p>
+<p>Los errores no están correlacionados entre sí. Es especialmente relevante en series de tiempo, pero también puede violarse en datos de corte transversal (e.g., por correlación espacial).</p>
+<p>🔸 Implicación conjunta</p>
+<p>Cuando se cumplen homocedasticidad y no autocorrelación:</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon \mid X) = \sigma^2 I
+\]</span></p>
+<p>La matriz de varianzas-covarianzas de los errores es <strong>escalar y diagonal</strong>, también llamada <strong>matriz esférica</strong>.</p>
+<p>🧠 Derivación paso a paso {-}</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon&#39; \mid X] - \mathbb{E}[\epsilon \mid X] \cdot \mathbb{E}[\epsilon&#39; \mid X]
+\]</span></p>
+<p>Por el supuesto de exogeneidad estricta (S2), sabemos que:</p>
+<p><span class="math display">\[
+\mathbb{E}[\epsilon \mid X] = 0 \quad \Rightarrow \quad \text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon&#39; \mid X]
+\]</span></p>
+<p>Entonces, la matriz resultante es:</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon \mid X) =
+\begin{bmatrix}
+\mathbb{E}[\epsilon_1^2 \mid X] &amp; \mathbb{E}[\epsilon_1 \epsilon_2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_1 \epsilon_n \mid X] \\
+\mathbb{E}[\epsilon_2 \epsilon_1 \mid X] &amp; \mathbb{E}[\epsilon_2^2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_2 \epsilon_n \mid X] \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+\mathbb{E}[\epsilon_n \epsilon_1 \mid X] &amp; \mathbb{E}[\epsilon_n \epsilon_2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_n^2 \mid X]
+\end{bmatrix}
+\]</span></p>
+<p>Aplicando los supuestos:</p>
+<ul>
+<li><span class="math inline">\(\text{Var}(\epsilon_i \mid X) = \sigma^2\)</span></li>
+<li><span class="math inline">\(\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0\)</span> para <span class="math inline">\(i \neq j\)</span></li>
+</ul>
+<p><span class="math display">\[
+\Rightarrow \text{Var}(\epsilon \mid X) =
+\begin{bmatrix}
+\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sigma^2
+\end{bmatrix}
+= \sigma^2 I
+\]</span></p>
+<blockquote>
+<p>Este supuesto es necesario para garantizar la eficiencia del estimador MCO bajo los supuestos clásicos (Teorema de Gauss-Markov).</p>
+</blockquote>
+</div>
+<div id="s5.-regresores-no-estocásticos" class="section level2 unnumbered hasAnchor">
+<h2>S5. Regresores No Estocásticos<a href="#s5.-regresores-no-estoc%C3%A1sticos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este supuesto establece que la matriz de regresores <span class="math inline">\(X\)</span> <strong>no es aleatoria</strong>: sus valores permanecen fijos en repeticiones del experimento o entre muestras.</p>
+<p><span class="math display">\[
+X = \text{constante} \quad \text{(no varía entre muestras)}
+\]</span></p>
+<p>🔹 ¿Qué significa?</p>
+<p>Aunque en la práctica <span class="math inline">\(X\)</span> proviene de una muestra aleatoria, asumir que es no estocástica permite tratarlo como fijo en la teoría. Esto implica que cualquier inferencia o estimación se <strong>condiciona sobre <span class="math inline">\(X\)</span></strong>.</p>
+<p>✅ Ventajas teóricas</p>
+<ul>
+<li>Simplifica la demostración de propiedades como insesgamiento y varianza mínima.</li>
+<li>Permite eliminar la distinción entre:
+<ul>
+<li>valor esperado <strong>condicional</strong>: <span class="math inline">\(\mathbb{E}[\hat{\beta} \mid X]\)</span></li>
+<li>y valor esperado <strong>incondicional</strong>: <span class="math inline">\(\mathbb{E}[\hat{\beta}]\)</span></li>
+</ul></li>
+</ul>
+<p>⚠️ En la práctica…</p>
+<p>Este supuesto rara vez se cumple literalmente, ya que <span class="math inline">\(X\)</span> normalmente proviene de una muestra aleatoria. Sin embargo, es común en teoría clásica porque:</p>
+<ul>
+<li>No afecta la validez del MCO si se asume que <span class="math inline">\(X\)</span> es <strong>independiente de</strong> <span class="math inline">\(\epsilon\)</span>.</li>
+<li>Se puede relajar en contextos de modelos más generales (paneles, variables instrumentales, etc.).</li>
+</ul>
+<blockquote>
+<p>En modelos con regresores estocásticos, se requiere en cambio que <span class="math inline">\(\mathbb{E}[\epsilon \mid X] = 0\)</span>, lo que recupera el supuesto de exogeneidad estricta (S2).</p>
+</blockquote>
+</div>
+<div id="s6.-normalidad-del-error" class="section level2 unnumbered hasAnchor">
+<h2>S6. Normalidad del Error<a href="supuestos-de-mco.html#s6.-normalidad-del-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I)
+\]</span></p>
+<p>Este supuesto establece que los errores, <strong>condicionales a los regresores</strong>, siguen una distribución normal multivariada con media cero y matriz de varianza-covarianza esférica <span class="math inline">\(\sigma^2 I\)</span>.</p>
+<p>🎯 ¿Para qué sirve?</p>
+<p>Este supuesto <strong>no es necesario</strong> para que el estimador de Mínimos Cuadrados Ordinarios (MCO) sea:</p>
+<ul>
+<li>Insesgado (S2 ya garantiza eso),</li>
+<li>Eficiente entre estimadores lineales insesgados (por el Teorema de Gauss-Markov).</li>
+</ul>
+<p>Sin embargo, <strong>sí es crucial</strong> para que se cumpla la distribución exacta de ciertos estadísticos en muestras pequeñas.</p>
+<p>✅ Aplicaciones de la normalidad:</p>
+<ul>
+<li>Validez de las pruebas <strong>t</strong> para significancia individual.</li>
+<li>Validez de las pruebas <strong>F</strong> para restricciones conjuntas.</li>
+<li>Construcción exacta de intervalos de confianza para <span class="math inline">\(\beta\)</span>.</li>
+</ul>
+<p>🧠 ¿Qué pasa en muestras grandes?</p>
+<p>Gracias al <strong>Teorema Central del Límite</strong> y **La Ley de los Grandes Números*, incluso si <span class="math inline">\(\epsilon\)</span> no es normal, el estimador <span class="math inline">\(\hat{\beta}\)</span> tenderá a seguir una distribución normal asintótica:</p>
+<p><span class="math display">\[
+\hat{\beta} \overset{approx}{\sim} \mathcal{N}\left(\beta, \sigma^2 (X&#39;X)^{-1}\right)
+\]</span></p>
+<blockquote>
+<p>Por eso, la normalidad puede <strong>relajarse</strong> si <span class="math inline">\(n\)</span> es suficientemente grande.</p>
+</blockquote>
+</div>
+<div id="glosario-de-símbolos" class="section level2 unnumbered hasAnchor">
+<h2>Glosario de Símbolos<a href="#glosario-de-s%C3%ADmbolos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table>
+<thead>
+<tr class="header">
+<th>Símbolo</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Y_i\)</span></td>
+<td>Variable dependiente</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_{ij}\)</span></td>
+<td>Regresor j para observación i</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\beta_j\)</span></td>
+<td>Parámetro poblacional</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\epsilon_i\)</span></td>
+<td>Error poblacional</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(n\)</span></td>
+<td>Número de observaciones</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(k\)</span></td>
+<td>Número de regresores (sin constante)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="preguntas-de-repaso-3" class="section level2 unnumbered hasAnchor">
+<h2>📘 Preguntas de repaso<a href="supuestos-de-mco.html#preguntas-de-repaso-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>📘 1. Conceptuales</p>
+<p>Defina brevemente los siguientes términos:</p>
+<ul>
+<li>Econometría teórica<br />
+</li>
+<li>Econometría aplicada</li>
+</ul>
+<p>¿Qué papel juega cada uno de los seis supuestos del modelo clásico de regresión lineal en garantizar las propiedades del estimador de MCO?</p>
+<p>🧮 2. Clasificación de modelos</p>
+<p>Clasifique los siguientes modelos como <strong>lineales en parámetros</strong> o <strong>no lineales</strong>:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(y_i = \frac{\beta_0}{1 + e^{-\beta_1 x_i}} + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(y_i = \alpha + \theta^{x_i} + \epsilon_i\)</span></li>
+</ol>
+<p>📏 3. Interpretación de la pendiente</p>
+<p>Interprete el coeficiente <span class="math inline">\(\beta_1\)</span> en los siguientes modelos de regresión lineal simple:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(y_i = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span></li>
+</ol>
+<blockquote>
+<p>En cada caso, explique qué representa un aumento marginal en <span class="math inline">\(x_i\)</span>, y si los efectos son absolutos, porcentuales o elásticos.</p>
+</blockquote>
+<div id="recursos-audiovisuales" class="section level3 unnumbered hasAnchor">
+<h3>🎥 Recursos audiovisuales<a href="supuestos-de-mco.html#recursos-audiovisuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div style="margin-bottom: 1em;">
+<p><strong>¿Qué hacen los economistas? (Video 1)</strong><br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/iiYKRD8ochA" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen></iframe></p>
+</div>
+<div style="margin-bottom: 1em;">
+<p><strong>An Uneven Paying Field (Video 2)</strong><br>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZWSv-7PjHIM" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen></iframe></p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="repaso-de-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/04-Supuestos.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

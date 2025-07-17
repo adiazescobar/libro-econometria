@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Repaso | Econometría II</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Repaso | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Repaso | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="regresión-lineal.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#informaci%C3%B3n-general"><i class="fa fa-check"></i>Información general</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="01-intro.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-a-un-buen-estimador"><i class="fa fa-check"></i>¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="2.0.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>2.0.1</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i>🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad"><i class="fa fa-check"></i>🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>3</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#norma-y-normalizaci%C3%B3n"><i class="fa fa-check"></i>Norma y normalización</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-por-un-escalar"><i class="fa fa-check"></i>Multiplicación por un escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-de-matrices"><i class="fa fa-check"></i>Multiplicación de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transposici%C3%B3n-de-matrices"><i class="fa fa-check"></i>Transposición de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matriz-sim%C3%A9trica"><i class="fa fa-check"></i>6. Matriz simétrica</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n-p-y-m"><i class="fa fa-check"></i>9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-funci%C3%B3n-multidimensional"><i class="fa fa-check"></i>Derivadas de una función multidimensional</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-forma-cuadr%C3%A1tica"><i class="fa fa-check"></i>Derivadas de una forma cuadrática</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>4</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s1.-linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i>S1. Linealidad en los Parámetros</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s4.-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i>S4. Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s5.-regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i>S5. Regresores No Estocásticos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#glosario-de-s%C3%ADmbolos"><i class="fa fa-check"></i>Glosario de Símbolos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="01-intro.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
+<li class="chapter" data-level="5.0.1" data-path="01-intro.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="01-intro.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica"><i class="fa fa-check"></i>🔍 Intuición geométrica</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n"><i class="fa fa-check"></i>✨ Visualización tridimensional de la proyección</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notaci%C3%B3n-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Notación y Motivación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i>❓¿Cuál es el problema que resuelve el FWL?</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-final"><i class="fa fa-check"></i>✅ Interpretación final</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conclusi%C3%B3n"><i class="fa fa-check"></i>📦 Conclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="01-intro.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="01-intro.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="01-intro.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="repaso" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Repaso<a href="repaso.html#repaso" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="qué-estudia-la-econometría" class="section level3 unnumbered hasAnchor">
+<h3>¿Qué estudia la econometría?<a href="#qu%C3%A9-estudia-la-econometr%C3%ADa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La econometría es la herramienta que usamos para entender el mundo usando datos. Nos ayuda a responder preguntas como: ¿cuánto gana una persona según su nivel educativo? ¿Cómo influye la experiencia laboral en el salario? ¿Cuál es el impacto de una política pública sobre el empleo?</p>
+<p>Pero aquí hay un reto importante: casi nunca podemos observar a toda la población. En vez de eso, trabajamos con una muestra. Usamos esta muestra para hacer inferencias sobre cómo funciona el mundo real, ese que no podemos ver completamente. En este capítulo vamos a entender, paso a paso, por qué eso genera incertidumbre —y por qué esa incertidumbre es una parte inevitable (¡y valiosa!) del análisis econométrico.</p>
+</div>
+<div id="el-proceso-generador-de-datos" class="section level3 unnumbered hasAnchor">
+<h3>El proceso generador de datos<a href="repaso.html#el-proceso-generador-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Supongamos que el salario de un individuo, <span class="math inline">\(y_i\)</span>, depende de forma lineal de su nivel educativo, <span class="math inline">\(x_i\)</span>:</p>
+<p><span class="math display">\[
+y_i \;=\; \beta_0 \;+\; \beta_1\,x_i \;+\; u_i,
+\]</span></p>
+<p>donde <span class="math inline">\(u_i\)</span> recoge todo lo que <strong>no</strong> observamos (habilidad, contactos, suerte…).<br />
+A esta ecuación la llamaremos <strong>Proceso Generador de Datos (PGD)</strong> o <strong>modelo poblacional</strong>. El problema es que no podemos observar <span class="math inline">\(u_i\)</span> porque es un término de error. Ni tenemos acceso a todos los individuos de la población.</p>
+</div>
+<div id="qué-hacemos-entonces" class="section level3 unnumbered hasAnchor">
+<h3>¿Qué hacemos entonces?<a href="#qu%C3%A9-hacemos-entonces" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En la práctica, tomamos una muestra aleatoria de individuos y observamos sus salarios y años de educación <span class="math inline">\((y_i,\,x_i)\)</span>, el termino de error <span class="math inline">\(u_i\)</span> permanece oculto.</p>
+<p>Con una muestra aleatoria de tamaño <span class="math inline">\(n\)</span>, estimamos los parámetros <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> de la siguiente manera:</p>
+<p><span class="math display">\[
+y_i \;=\; \hat{\beta}_0 + \hat{\beta}_1\,x_i + e_i,
+\qquad
+\hat{y}_i \;=\; \hat{\beta}_0 + \hat{\beta}_1\,x_i,
+\]</span></p>
+<p>Donde <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> son los estimadores de los parámetros poblacionales <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>, y <span class="math inline">\(e_i\)</span> es el término de error muestral. A la recta que obtenemos se le llama <strong>modelo muestral</strong>. La direfencia entre este modelo y el PGD es precisamente lo que genera incertidumbre en nuestras estimaciones. Es decir que tenemos dos fuentes de incertidumbre, la muestra que compone nuestros datos y el término de error <span class="math inline">\(u_i\)</span> que no podemos observar.</p>
+<p>Para entender todo esto mejor, vamos primero a enfocarnos en la muestra que tenemos y cómo podemos usarla para estimar el PGD. Luego veremos cómo la incertidumbre afecta nuestras estimaciones y por qué es importante.</p>
+</div>
+<div id="construimos-una-población-de-juguete" class="section level2 unnumbered hasAnchor">
+<h2>Construimos una población de juguete<a href="#construimos-una-poblaci%C3%B3n-de-juguete" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para ilustrar el proceso generador de datos y la incertidumbre, vamos a crear una población de juguete. Esta población será un conjunto de 100 individuos con características específicas. Luego tomaremos muestras aleatorias de esta población y realizaremos regresiones para ver cómo se comportan nuestras estimaciones en comparación con el PGD real.</p>
+<p>Vamos a crear un mundo ficticio con 100 individuos. A cada uno le asignamos:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> (años de educación) sigue una normal con media 5 y desviación 1.5.</li>
+<li><span class="math inline">\(y\)</span> depende linealmente de <span class="math inline">\(x\)</span> con pendiente 0.5 y un término aleatorio <span class="math inline">\(u\sim N(0,1)\)</span>.</li>
+</ul>
+<p><img src="_main_files/figure-html/pop1-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<div id="la-relación-verdadera-en-la-población" class="section level3 unnumbered hasAnchor">
+<h3>La relación verdadera en la población<a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El modelo poblacional que usamos, es decir el PGD, es: <span class="math inline">\(y = 3 + 0.5x\)</span>: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada.</p>
+<p><img src="_main_files/figure-html/scatter1-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Obtenemos que los coeficientes son muy similares a los que usamos para generar la población:</p>
+<p><span class="math display">\[ y_i = 2.53 + 0.57 x_i + u_i \]</span>
+Esto significa que el modelo poblacional es:</p>
+<p><span class="math display">\[ y_i = \beta_0 + \beta_1 x_i + u_i \]</span>
+Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a <em>todos</em> los egresados. Podemos estimar la relación entre <span class="math inline">\(y\)</span> y <span class="math inline">\(x\)</span> en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos:</p>
+<p><img src="_main_files/figure-html/sample1-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Estimemos la relación que existe entre <span class="math inline">\(y\)</span> y <span class="math inline">\(x\)</span> en esta muestra de 30 individuos. En la siguiente gráfica, la línea roja es el modelo poblacional y la línea negra discontinua es el modelo muestral.</p>
+<p><img src="_main_files/figure-html/sample1%20scatter-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Ahora encontramos unos coeficientes estimados que son diferentes a los del modelo poblacional:</p>
+<p><strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 2.36 + 0.61 x_i\)</span></p>
+<p>Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión.</p>
+<p><img src="_main_files/figure-html/sample2-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/sample2%20scatter-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Ahora encontramos los siguientes coeficientes estimados:</p>
+<p><strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 2.79 + 0.56 x_i\)</span></p>
+<p>Podemos ver que los coeficientes estimados son diferentes a los del modelo poblacional y también diferentes entre sí. Esto es normal, porque cada muestra aleatoria puede dar lugar a diferentes estimaciones.</p>
+<p>Tomemos una tercera muestra aleatoria de 30 individuos y veamos cómo se comporta la regresión.
+<img src="_main_files/figure-html/sample3-1.svg" width="75%" style="display: block; margin: auto;" />
+<img src="_main_files/figure-html/sample3%20scatter-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Ahora encontramos los siguientes coeficientes estimados:</p>
+<p><strong>PGD Modelo Poblacional</strong>
+<br>
+<span class="math inline">\(y_i = 2.53 + 0.57 x_i + u_i\)</span></p>
+<p><strong>Modelo muestral</strong>
+<br>
+<span class="math inline">\(\hat{y}_i = 3.21 + 0.45 x_i\)</span></p>
+<p>Siguen siendo diferentes a los del modelo poblacional y también diferentes entre sí. A veces se parece mucho, a veces no tanto. La razón es simple; cada muestra incluye un conjunto diferente de personas y eso cambia los resultados.</p>
+<p>Ahora repitamos esto <strong>10,000 veces</strong>. Este ejercicio se conoce como Ejercicio de Monte Carlo. Vamos a tomar 10,000 muestras aleatorias de 30 individuos de nuestra población y estimar los coeficientes de regresión para cada muestra. Luego, graficaremos todas las líneas de regresión obtenidas para ver cómo se distribuyen en relación con la línea poblacional.</p>
+<p>¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos).</p>
+<p><img src="_main_files/figure-html/simulation%20scatter-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>En resumen, en <strong>promedio</strong> las líneas de regresión se ajustan muy bien a la línea de la población. Sin embargo, las <strong>líneas individuales</strong> (muestras) pueden desviarse significativamente. Las diferencias entre las muestras individuales y la población generan <strong>incertidumbre</strong> para el econometrista.</p>
+<blockquote>
+<p>👉 Este resultado es tranquilizador: aunque nuestras estimaciones varían de muestra a muestra, en promedio nos acercamos a la verdad. Esto es lo que se conoce como insesgamiento del estimador MCO.</p>
+</blockquote>
+<p>Eso implica que cuando estimamos los coeficientes de regresión, no podemos estar seguros de que nuestros estimadores sean exactamente iguales a los parámetros poblacionales. En cambio, obtenemos estimaciones que son <strong>variables aleatorias</strong>. En otras palabras, <span class="math inline">\(\hat{\beta}\)</span> en sí mismo es una variable aleatoria, dependiente de la muestra aleatoria. Cuando tomamos una muestra y realizamos una regresión, no sabemos si es una muestra ‘buena’ ( <span class="math inline">\(\hat{\beta}\)</span> está cerca de <span class="math inline">\(\beta\)</span>) o una muestra ‘mala’ (nuestra muestra difiere significativamente de la población).</p>
+<p>Mantener un registro de esta incertidumbre es clave para el análisis econométrico. Nos permite entender la precisión de nuestras estimaciones y cómo podemos mejorar nuestro modelo.</p>
+</div>
+</div>
+<div id="y-si-mi-muestra-es-mala" class="section level2 unnumbered hasAnchor">
+<h2>¿Y si mi muestra es mala?<a href="repaso.html#y-si-mi-muestra-es-mala" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>❓ <strong>Pregunta del lector:</strong><br />
+¿Qué pasa si me toca una muestra mala? ¿Cómo lo sé? ¿Se puede hacer algo para reducir esa incertidumbre?</p>
+</blockquote>
+<p>Una <em>muestra mala</em> es una muestra que, por puro azar, no representa bien a la población. Esto puede pasar incluso si tomamos la muestra correctamente. En esos casos, los estimadores como <span class="math inline">\(\hat{\beta}_1\)</span> pueden estar lejos de su valor verdadero <span class="math inline">\(\beta_1\)</span>, y nuestras conclusiones podrían ser engañosas.</p>
+<div id="cómo-saber-si-me-tocó-una-muestra-mala" class="section level3 unnumbered hasAnchor">
+<h3>¿Cómo saber si me tocó una muestra mala?<a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero hay señales que nos pueden alertar:</p>
+<ul>
+<li><strong>Errores estándar grandes</strong>: indican mucha variabilidad en la estimación.</li>
+<li><strong>Intervalos de confianza anchos</strong>: reflejan gran incertidumbre.</li>
+<li><strong>Signos o tamaños inesperados en los coeficientes</strong>: pueden deberse a una muestra no representativa.</li>
+<li><strong>Pruebas de diagnóstico del modelo</strong>: pueden revelar si los supuestos no se cumplen (residuos no normales, heterocedasticidad, etc.).</li>
+</ul>
+</div>
+<div id="se-puede-reducir-la-incertidumbre-muestral" class="section level3 unnumbered hasAnchor">
+<h3>¿Se puede reducir la incertidumbre muestral?<a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>¡Sí! Estas son algunas estrategias comunes:</p>
+<ul>
+<li><p><strong>Aumentar el tamaño de la muestra (<span class="math inline">\(n\)</span>)</strong><br />
+Entre más observaciones, más cerca estará <span class="math inline">\(\hat{\beta}\)</span> de <span class="math inline">\(\beta\)</span> (por la ley de los grandes números).</p></li>
+<li><p><strong>Mejorar el diseño muestral</strong><br />
+Muestreos estratificados, por conglomerados o con pesos pueden hacer las estimaciones más precisas.</p></li>
+<li><p><strong>Controlar por variables relevantes</strong><br />
+Incluir más covariables reduce la varianza al explicar mejor el comportamiento de <span class="math inline">\(y\)</span>.</p></li>
+<li><p><strong>Usar estimadores eficientes o robustos</strong><br />
+Si hay heterocedasticidad, los errores estándar robustos o el uso de métodos como MCO ponderado pueden mejorar la precisión.</p></li>
+</ul>
+<hr />
+</div>
+<div id="la-importancia-de-la-fuente-de-los-datos" class="section level3 unnumbered hasAnchor">
+<h3>✅ La importancia de la fuente de los datos<a href="repaso.html#la-importancia-de-la-fuente-de-los-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una forma muy eficaz de minimizar el riesgo de una muestra sesgada es <strong>usar datos de fuentes confiables y con buen diseño muestral</strong>.</p>
+<blockquote>
+<p>Por ejemplo, confiar en los datos del <strong>DANE</strong> en Colombia o de institutos nacionales de estadística en otros países es una práctica fundamental.<br />
+Estas instituciones diseñan cuidadosamente sus encuestas (como la ECH, ENUT o ENDS) para asegurar que sean <strong>representativas de la población</strong>.<br />
+Si el muestreo está bien hecho desde el inicio, el margen de error se reduce y nuestras inferencias serán mucho más confiables.</p>
+</blockquote>
+<hr />
+<blockquote>
+<p>💡 <strong>Mensaje clave:</strong><br />
+La incertidumbre <strong>no es un error</strong>: es una característica natural del trabajo con datos. Lo importante no es eliminarla, sino <strong>medirla bien, comunicarla con claridad y tenerla en cuenta al tomar decisiones</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div id="y-si-mantengo-fija-la-muestra" class="section level2 unnumbered hasAnchor">
+<h2>¿Y si mantengo fija la muestra?<a href="repaso.html#y-si-mantengo-fija-la-muestra" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hasta ahora nos enfocamos en la incertidumbre que surge por el azar de la muestra. Ahora exploramos otra fuente igual de importante: la variabilidad del término de error , incluso si la muestra es fija.</p>
+<p>Hasta ahora vimos que la incertidumbre puede surgir del hecho de que trabajamos con una <strong>muestra</strong>: cada subconjunto aleatorio de la población genera estimadores ligeramente diferentes.</p>
+<p>Pero hay una <strong>segunda fuente de incertidumbre</strong>: el <strong>término de error <span class="math inline">\(u_i\)</span></strong>.</p>
+<div id="recordemos-el-modelo" class="section level3 unnumbered hasAnchor">
+<h3>Recordemos el modelo:<a href="repaso.html#recordemos-el-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_i + u_i
+\]</span></p>
+<p>Aunque tuviéramos <strong>toda la población</strong> (o una muestra perfecta), no podríamos <strong>predecir perfectamente <span class="math inline">\(y_i\)</span></strong> porque el valor de <span class="math inline">\(u_i\)</span> sigue siendo desconocido.</p>
+<p>El termino de error <span class="math inline">\(u_i\)</span> representa <strong>todo lo que influye en <span class="math inline">\(y_i\)</span></strong> pero <strong>no está capturado por <span class="math inline">\(x_i\)</span></strong>. Por ejemplo, en un modelo donde <span class="math inline">\(y_i\)</span> es el salario y <span class="math inline">\(x_i\)</span> es la educación:</p>
+<ul>
+<li>Habilidades intrínsecas</li>
+<li>Redes de contacto</li>
+<li>Experiencia laboral previa</li>
+<li>Suerte (¡sí, también cuenta!)</li>
+</ul>
+<p>Todo eso se concentra en <span class="math inline">\(u_i\)</span>, que es <strong>no observable</strong>, pero no irrelevante.
+Incluso si estimamos <span class="math inline">\(\hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i\)</span> con una muestra fija:</p>
+<ul>
+<li>Nuestra <strong>recta de regresión</strong> capta la <strong>tendencia promedio</strong>.</li>
+<li>Pero los valores observados de <span class="math inline">\(y_i\)</span> se <strong>dispersan alrededor de la recta</strong> por culpa de <span class="math inline">\(u_i\)</span>.</li>
+</ul>
+<p>Esto se ve así:</p>
+<p><img src="_main_files/figure-html/error_term-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán <strong>dispersas alrededor de la recta poblacional</strong>.</p>
+<p>Vamos a hacer lo siguiente:</p>
+<ol style="list-style-type: decimal">
+<li>Tomamos <strong>una sola muestra fija</strong> de 30 individuos de la población.</li>
+<li>Mantenemos sus valores de <span class="math inline">\(x_i\)</span> constantes.</li>
+<li>Re-generamos el término de error <span class="math inline">\(u_i \sim N(0,1)\)</span> <strong>varias veces</strong>.</li>
+<li>Calculamos nuevos valores de <span class="math inline">\(y_i = 3 + 0.5x_i + u_i\)</span> en cada iteración.</li>
+<li>Estimamos una regresión para cada muestra simulada.</li>
+</ol>
+<p>Esto nos permite ver cómo <strong>las estimaciones varían</strong> únicamente por culpa del término de error, manteniendo fija la muestra.</p>
+<p><img src="_main_files/figure-html/error_term_sim-1.svg" width="75%" style="display: block; margin: auto;" />
+Aquí vemos que, aunque la muestra es fija, las rectas de regresión se dispersan alrededor de la recta poblacional. Esto es porque el término de error <span class="math inline">\(u_i\)</span> introduce variabilidad en los valores de <span class="math inline">\(y_i\)</span>.</p>
+</div>
+<div id="una-aclaración-importante-sobre-el-insesgamiento" class="section level3 unnumbered hasAnchor">
+<h3>☝️ Una aclaración importante sobre el insesgamiento<a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión.</p>
+<p>Pero <strong>ojo</strong>: aunque esas rectas se vean “alrededor” de la recta poblacional en nuestras simulaciones, <strong>esto no siempre ocurre en la vida real</strong>.</p>
+<blockquote>
+<p><strong>El hecho de que las estimaciones se agrupen alrededor de los verdaderos valores poblacionales depende de que se cumplan los supeustos de modelo de regresión lineal.</strong></p>
+</blockquote>
+<p>Por ejemplo:</p>
+<ul>
+<li>Si el término de error <span class="math inline">\(u_i\)</span> <strong>está correlacionado con <span class="math inline">\(x_i\)</span></strong> (por ejemplo, porque omitimos una variable relevante), entonces <strong>nuestro estimador de <span class="math inline">\(\beta_1\)</span> estará sesgado</strong>.</li>
+<li>Si hay errores de medición, mala especificación del modelo o selección no aleatoria, también se viola el insesgamiento.</li>
+</ul>
+<hr />
+</div>
+<div id="cuándo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1" class="section level3 unnumbered hasAnchor">
+<h3>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?<a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando se cumplen los <strong>supuestos del modelo clásico de regresión lineal</strong>, en particular exogeneidad estricta o <strong>independencia del término de error <span class="math inline">\(u_i\)</span></strong> respecto a las variables explicativas <span class="math inline">\(x_i\)</span>. En algunos libros se conoce como esperanza condicional igual cero:<br />
+<span class="math display">\[
+  \mathbb{E}[u_i \mid x_i] = 0
+  \]</span></p>
+<blockquote>
+<p>🔁 <strong>Si este supuestos se cumplen</strong>, entonces nuestro estimador de Mínimos Cuadrados Ordinarios (MCO) es <strong>insesgado</strong>:<br />
+<span class="math display">\[
+\mathbb{E}[\hat{\beta}_1] = \beta_1
+\]</span></p>
+</blockquote>
+<p>Es decir, <strong>si repitiéramos el experimento de muestreo muchas veces</strong>, el <strong>promedio</strong> de nuestras estimaciones convergería al verdadero valor poblacional.</p>
+<p>Pero si <strong>no se cumplen</strong>, como veremos más adelante, podemos tener:</p>
+<ul>
+<li>Estimadores sesgados<br />
+</li>
+<li>Estimadores inconsistentes<br />
+</li>
+<li>Intervalos de confianza y pruebas de hipótesis inválidos</li>
+</ul>
+<hr />
+</div>
+<div id="entonces-las-simulaciones-que-hicimos-son-realistas" class="section level3 unnumbered hasAnchor">
+<h3>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?<a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sí… <strong>bajo los supuestos del modelo clásico</strong>. En nuestras simulaciones controlamos todo: sabemos exactamente cómo se genera <span class="math inline">\(y_i\)</span>, y aseguramos que <span class="math inline">\(u_i\)</span> sea independiente de <span class="math inline">\(x_i\)</span>. Por eso nuestras estimaciones tienden a agruparse cerca de la recta poblacional.</p>
+<p>Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplidos”.</p>
+<blockquote>
+<p>Por eso uno de los grandes desafíos del análisis econométrico es <strong>diagnosticar y justificar</strong> si los supuestos se cumplen.<br />
+Y si no se cumplen, buscar soluciones: variables instrumentales, variables omitidas, diseños cuasiexperimentales, diseños experimentales, etc.</p>
+</blockquote>
+<blockquote>
+<p>💡 <strong>Conclusión clave:</strong><br />
+El término de error no desaparece, incluso cuando tenemos una muestra grande o bien diseñada.<br />
+Por eso, cualquier estimación puntual (<span class="math inline">\(\hat{\beta}_1\)</span>) debe ir acompañada de una <strong>medida de incertidumbre</strong>, como el <strong>error estándar</strong> o un <strong>intervalo de confianza</strong>.<br />
+Esto nos prepara para el siguiente paso: la inferencia estadística.</p>
+</blockquote>
+</div>
+</div>
+<div id="preguntas-de-repaso" class="section level2 unnumbered hasAnchor box-repaso">
+<h2>📘 Preguntas de repaso<a href="repaso.html#preguntas-de-repaso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>¿Qué diferencia hay entre el modelo poblacional y el modelo muestral? ¿Cuál de los dos observamos y cuál inferimos?</p></li>
+<li><p>¿Por qué decimos que el término de error <span class="math inline">\(u_i\)</span> es una fuente de incertidumbre, incluso si la muestra está fija?</p></li>
+<li><p>¿Qué condiciones deben cumplirse para que el estimador de Mínimos Cuadrados Ordinarios (MCO) sea insesgado?</p></li>
+<li><p>¿Qué significa que un estimador sea insesgado “en promedio”? ¿Eso garantiza que cualquier muestra nos dará un buen resultado?</p></li>
+<li><p>¿Qué implicaciones tiene usar una muestra mal diseñada o no representativa?</p></li>
+<li><p>En la simulación Monte Carlo, ¿por qué las rectas de regresión estimadas con diferentes muestras se agrupan alrededor de la recta poblacional?</p></li>
+<li><p>¿Qué observas cuando repetimos la estimación con una misma muestra, pero re-generamos el término de error? ¿Qué se mantiene constante y qué varía?</p></li>
+<li><p>En tus propias palabras, ¿por qué no podemos predecir perfectamente <span class="math inline">\(y_i\)</span> aunque conozcamos bien <span class="math inline">\(x_i\)</span>?</p></li>
+<li><p>¿Por qué se llama “Monte Carlo” a este método de simulación? ¿Qué relación tiene con el azar?</p></li>
+<li><p>¿Qué riesgos implica asumir que los supuestos del modelo clásico se cumplen cuando en realidad no lo hacen?</p></li>
+<li><p>¿Qué estrategias puedes usar si sospechas que <span class="math inline">\(u_i\)</span> está correlacionado con <span class="math inline">\(x_i\)</span>? Menciona al menos dos.</p></li>
+<li><p>¿Crees que todas las fuentes oficiales de datos (como el DANE) garantizan muestras perfectamente representativas? ¿Qué condiciones lo permitirían?</p></li>
+</ol>
+<blockquote>
+<p>✏️ <em>Opcional para práctica adicional:</em> simula tu propia población de juguete con una relación negativa entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span>, y repite el ejercicio de Monte Carlo. ¿Qué cambia? ¿Qué se mantiene?</p>
+</blockquote>
+</div>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regresión-lineal.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/01-intro.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

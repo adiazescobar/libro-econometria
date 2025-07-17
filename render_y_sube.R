@@ -1,27 +1,32 @@
-# LIMPIAR CACHE ANTIGUO ------------------------------------------------------
-unlink(c("main_cache", "main_files"), recursive = TRUE)
+# render_and_publish_book.R
 
-# LIMPIAR LIBRO Y RENDERIZAR ------------------------------------------------
+# Cargar paquete necesario
+if (!requireNamespace("bookdown", quietly = TRUE)) {
+  stop("El paquete 'bookdown' no está instalado. Usa install.packages('bookdown')")
+}
+
+# PASO 1: Borrar carpetas temporales --------------------------------------------------
+unlink(c("main_cache", "main_files", "_book", "docs"), recursive = TRUE)
+cat("🧹 Cache borrado\n")
+
+# PASO 2: Renderizar el libro ---------------------------------------------------------
 bookdown::clean_book()
 bookdown::render_book("index.Rmd", "bookdown::gitbook")
-options(bookdown.clean_book = TRUE)
+cat("📘 Libro renderizado en _book/\n")
 
-# COPIAR ARCHIVOS A /docs PARA GITHUB PAGES ---------------------------------
+# PASO 3: Copiar libro al folder docs/ para GitHub Pages -----------------------------
+dir.create("docs", showWarnings = FALSE)
 system("rsync -av --delete _book/ docs/")
+cat("📂 Archivos copiados a docs/\n")
 
-# AGREGAR .nojekyll PARA EVITAR ERRORES CON CARPETAS CON "_" ----------------
+# PASO 4: Crear .nojekyll para evitar problemas con carpetas con "_" -----------------
 file.create("docs/.nojekyll")
 
-# SUBIR A GITHUB ------------------------------------------------------------
+# PASO 5: Subir a GitHub -------------------------------------------------------------
 system("git add .")
 system('git commit -m "Render y subida del libro completa"')
 system("git push origin main")
 
-# MENSAJE DE ÉXITO ----------------------------------------------------------
-cat("✅ Libro renderizado y subido exitosamente a la rama 'main'.\n")
-# LIMPIAR ARCHIVOS TEMPORALES ------------------------------------------------
-unlink(c("docs", "main_cache", "main_files"), recursive = TRUE)
-# Mensaje de éxito final
-cat("✅ Archivos temporales eliminados.\n")
-# Fin del script
-
+# PASO 6: Confirmación final ----------------------------------------------------------
+cat("✅ ¡Listo! Libro actualizado y subido a GitHub Pages.\n")
+cat("🌐 Visítalo en: https://adiazescobar.github.io/libro-econometria\n")

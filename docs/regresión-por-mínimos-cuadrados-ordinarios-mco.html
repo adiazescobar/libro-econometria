@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Regresión por Mínimos Cuadrados Ordinarios (MCO) | Econometría II</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Regresión por Mínimos Cuadrados Ordinarios (MCO) | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Regresión por Mínimos Cuadrados Ordinarios (MCO) | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="supuestos-de-mco.html"/>
+<link rel="next" href="anatomía-de-la-regresión-múltiple.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#informaci%C3%B3n-general"><i class="fa fa-check"></i>Información general</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="05-Estimacion.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-a-un-buen-estimador"><i class="fa fa-check"></i>¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="2.0.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>2.0.1</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i>🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad"><i class="fa fa-check"></i>🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>3</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#norma-y-normalizaci%C3%B3n"><i class="fa fa-check"></i>Norma y normalización</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-por-un-escalar"><i class="fa fa-check"></i>Multiplicación por un escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-de-matrices"><i class="fa fa-check"></i>Multiplicación de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transposici%C3%B3n-de-matrices"><i class="fa fa-check"></i>Transposición de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matriz-sim%C3%A9trica"><i class="fa fa-check"></i>6. Matriz simétrica</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n-p-y-m"><i class="fa fa-check"></i>9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-funci%C3%B3n-multidimensional"><i class="fa fa-check"></i>Derivadas de una función multidimensional</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-forma-cuadr%C3%A1tica"><i class="fa fa-check"></i>Derivadas de una forma cuadrática</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>4</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s1.-linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i>S1. Linealidad en los Parámetros</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s4.-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i>S4. Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s5.-regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i>S5. Regresores No Estocásticos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#glosario-de-s%C3%ADmbolos"><i class="fa fa-check"></i>Glosario de Símbolos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-Estimacion.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
+<li class="chapter" data-level="5.0.1" data-path="05-Estimacion.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="05-Estimacion.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica"><i class="fa fa-check"></i>🔍 Intuición geométrica</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n"><i class="fa fa-check"></i>✨ Visualización tridimensional de la proyección</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notaci%C3%B3n-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Notación y Motivación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i>❓¿Cuál es el problema que resuelve el FWL?</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-final"><i class="fa fa-check"></i>✅ Interpretación final</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conclusi%C3%B3n"><i class="fa fa-check"></i>📦 Conclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="05-Estimacion.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="05-Estimacion.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="05-Estimacion.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regresión-por-mínimos-cuadrados-ordinarios-mco" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Regresión por Mínimos Cuadrados Ordinarios (MCO)<a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="modelo" class="section level2 unnumbered hasAnchor">
+<h2>Modelo<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de lanzarnos a minimizar errores, hagamos una pausa para ver cómo funciona esto con álgebra lineal, que es el corazón de MCO.
+Tenemos una regresión con n observaciones y k variables explicativas (incluyendo la constante). Entonces:</p>
+<ul>
+<li><span class="math inline">\(y\)</span>: vector de resultados observados (<span class="math inline">\(n \times 1\)</span>)</li>
+<li><span class="math inline">\(X\)</span>: matriz de variables explicativas (<span class="math inline">\(n \times k\)</span>)</li>
+<li><span class="math inline">\(\beta\)</span>: vector de coeficientes (<span class="math inline">\(k \times 1\)</span>)</li>
+<li><span class="math inline">\(\varepsilon\)</span>: vector de errores aleatorios (<span class="math inline">\(n \times 1\)</span>)</li>
+</ul>
+<p>El modelo lineal es:</p>
+<p><span class="math display">\[
+y = X\beta + \varepsilon
+\]</span></p>
+<p>En notación matricial, esto se expresa como:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 &amp; x_{11} &amp; \cdots &amp; x_{1k} \\
+1 &amp; x_{21} &amp; \cdots &amp; x_{2k} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+1 &amp; x_{n1} &amp; \cdots &amp; x_{nk}
+\end{bmatrix}
+\begin{bmatrix}
+\beta_0 \\
+\beta_1 \\
+\vdots \\
+\beta_k
+\end{bmatrix}
++
+\begin{bmatrix}
+\varepsilon_1 \\
+\varepsilon_2 \\
+\vdots \\
+\varepsilon_n
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="qué-hace-mco" class="section level2 unnumbered hasAnchor">
+<h2>¿Qué hace MCO?<a href="#qu%C3%A9-hace-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La regresión por Mínimos Cuadrados Ordinarios (MCO) es una de las herramientas más fundamentales y utilizadas en econometría. Su objetivo es simple pero poderoso: encontrar la mejor recta (o hiperplano) que se ajusta a los datos observados, minimizando los errores que cometemos al predecir.</p>
+<p>¿Qué quiere decir “minimizar errores”?</p>
+<p>Supongamos que tenemos una relación entre una variable dependiente <span class="math inline">\(y\)</span> y un conjunto de variables explicativas <span class="math inline">\(X\)</span>. Queremos encontrar un vector de parámetros <span class="math inline">\(\beta\)</span> que explique esa relación lo mejor posible. El problema es que los datos reales no siguen perfectamente la recta que proponemos. Siempre hay un error o residuo que capta lo que no podemos explicar.</p>
+<p>Pero aunque no conocemos los verdaderos errores (denotados por <span class="math inline">\(\varepsilon\)</span>), sí podemos calcular cuánto nos estamos equivocando si asumimos un valor hipotético de <span class="math inline">\(\beta\)</span>, al que llamaremos <span class="math inline">\(\tilde{\beta}\)</span>. El error estimado para cada observación <span class="math inline">\(i\)</span> sería:</p>
+<p><span class="math display">\[
+\tilde{\epsilon}_i = y_i - X_i \tilde{\beta}
+\]</span></p>
+<p>Y si elevamos estos errores al cuadrado (para que los negativos no se cancelen con los positivos) y los sumamos para todas las observaciones, obtenemos lo que llamamos la <strong>Suma de los Residuos al Cuadrado (SRC)</strong> es:</p>
+<p><span class="math display">\[
+SRC(\tilde{\beta}) = \sum_{i=1}^n (y_i - X_i \tilde{\beta})^2
+\]</span></p>
+<p>En notación matricial:</p>
+<p><span class="math display">\[
+SRC(\tilde{\beta}) = (y - X\tilde{\beta})&#39;(y - X\tilde{\beta})
+\]</span></p>
+<p>La idea de MCO es encontrar un valor de <span class="math inline">\(\tilde{\beta}\)</span> que minimice esta suma de residuos al cuadrado. En otras palabras, queremos encontrar el mejor ajuste posible a nuestros datos. En la siguiente grafica veremos cómo se ve esta función objetivo y cómo el valor óptimo de <span class="math inline">\(\tilde{\beta}\)</span> se encuentra en el mínimo de la curva.</p>
+<p><img src="_main_files/figure-html/funcion_objetivo_mco-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Cuando tenemos más de una variable explicativa, MCO sigue buscando el punto que minimiza la suma de los residuos al cuadrado (SRC), pero ahora en una superficie 3D. En el gráfico a continuación, mostramos cómo la SRC varía con diferentes combinaciones de valores hipotéticos para <span class="math inline">\(\tilde{\beta}_1\)</span> y <span class="math inline">\(\tilde{\beta}_2\)</span>.</p>
+<p>La superficie muestra los errores para cada combinación, y el mínimo (el punto más bajo) representa los valores estimados <span class="math inline">\((\hat{\beta}_1, \hat{\beta}_2)\)</span>.</p>
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-87a6c950be51e7f26976" style="width:75%;height:672px;"></div>
+<script type="application/json" data-for="htmlwidget-87a6c950be51e7f26976">{"x":{"visdat":{"473860a93664":["function () ","plotlyVisDat"]},"cur_data":"473860a93664","attrs":{"473860a93664":{"x":{},"y":{},"z":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"surface","colorscale":"Viridis","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Función objetivo de MCO con dos regresores","scene":{"xaxis":{"title":"β₁"},"yaxis":{"title":"β₂"},"zaxis":{"title":"SRC"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"colorbar":{"title":"SRC_matrix","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"colorscale":"Viridis","showscale":true,"x":[0,0.050847457627118647,0.10169491525423729,0.15254237288135594,0.20338983050847459,0.25423728813559321,0.30508474576271188,0.35593220338983056,0.40677966101694918,0.4576271186440678,0.50847457627118642,0.55932203389830515,0.61016949152542377,0.66101694915254239,0.71186440677966112,0.76271186440677974,0.81355932203389836,0.86440677966101698,0.9152542372881356,0.96610169491525433,1.0169491525423728,1.0677966101694916,1.1186440677966103,1.1694915254237288,1.2203389830508475,1.2711864406779663,1.3220338983050848,1.3728813559322035,1.4237288135593222,1.4745762711864407,1.5254237288135595,1.576271186440678,1.6271186440677967,1.6779661016949154,1.728813559322034,1.7796610169491527,1.8305084745762712,1.8813559322033899,1.9322033898305087,1.9830508474576272,2.0338983050847457,2.0847457627118646,2.1355932203389831,2.1864406779661016,2.2372881355932206,2.2881355932203391,2.3389830508474576,2.3898305084745766,2.4406779661016951,2.4915254237288136,2.5423728813559325,2.593220338983051,2.6440677966101696,2.6949152542372885,2.745762711864407,2.7966101694915255,2.8474576271186445,2.898305084745763,2.9491525423728815,3],"y":[-2,-1.9491525423728813,-1.8983050847457628,-1.847457627118644,-1.7966101694915255,-1.7457627118644068,-1.6949152542372881,-1.6440677966101696,-1.5932203389830508,-1.5423728813559321,-1.4915254237288136,-1.4406779661016949,-1.3898305084745761,-1.3389830508474576,-1.2881355932203389,-1.2372881355932202,-1.1864406779661016,-1.1355932203389831,-1.0847457627118644,-1.0338983050847457,-0.98305084745762716,-0.93220338983050843,-0.8813559322033897,-0.83050847457627119,-0.77966101694915246,-0.72881355932203373,-0.67796610169491522,-0.62711864406779649,-0.57627118644067776,-0.52542372881355925,-0.47457627118644052,-0.42372881355932202,-0.37288135593220328,-0.32203389830508455,-0.27118644067796605,-0.22033898305084731,-0.16949152542372881,-0.11864406779661008,-0.067796610169491345,-0.016949152542372836,0.033898305084745672,0.084745762711864625,0.13559322033898313,0.18644067796610164,0.23728813559322059,0.2881355932203391,0.33898305084745761,0.38983050847457656,0.44067796610169507,0.49152542372881358,0.54237288135593253,0.59322033898305104,0.64406779661016955,0.6949152542372885,0.74576271186440701,0.79661016949152552,0.84745762711864447,0.89830508474576298,0.94915254237288149,1],"z":[[40740.827779236424,38691.145728196709,36698.216338258811,34762.039609422733,32882.615541688472,31059.944135056026,29294.025389525399,27584.859305096597,25932.445881769607,24336.785119544435,22797.877018421088,21315.721578399553,19890.318799479835,18521.668681661944,17209.771224945867,15954.626429331605,14756.234294819167,13614.594821408549,12529.708009099742,11501.573857892756,10530.192367787591,9615.5635387842412,8757.6873708827097,7956.5638640830002,7212.1930183851064,6524.57483378903,5893.7093102947756,5319.5964479023369,4802.2362466117165,4341.6287064229164,3937.7738273359332,3590.6716093507703,3300.3220524674239,3066.7251566858959,2889.8809220061876,2769.7893484282968,2706.4504359522248,2699.8641845779707,2750.0305943055355,2856.9496651349182,3020.6213970661192,3241.0457900991405,3518.2228442339779,3852.1525594706336,4242.8349358091109,4690.2699732494038,5194.4576717915143,5755.3980314354476,6373.0910521811948,7047.5367340287603,7778.7350769781506,8566.6860810293529,9411.3897461823726,10312.84607243722,11271.055059793876,12286.016708252351,13357.731017812654,14486.197988474765,15671.417620238695,16913.389913104442],[39647.648914629754,37623.777860827904,35656.65946812788,33746.293736529675,31892.680666033288,30095.820256638715,28355.712508345961,26672.357421155029,25045.754995065912,23475.905230078613,21962.80812619314,20506.463683409478,19106.871901727634,17764.032781147616,16477.946321669409,15248.612523293021,14076.031386018454,12960.20290984571,11901.127094774776,10898.803940805661,9953.2334479383699,9064.4156161728934,8232.3504455092334,7457.0379359473973,6738.4780874873759,6076.670900129172,5471.616373872791,4923.3145087182247,4431.7653046654768,3996.9687617145496,3618.9248798654389,3297.633659118148,3033.0950994726745,2825.3092009290194,2674.2759634871836,2579.9953871471653,2542.4674719089662,2561.6922177725851,2637.6696247380223,2770.3996928052775,2959.882421974351,3206.1178122452452,3509.1058636179555,3868.8465760924837,4285.3399496688335,4758.5859843469989,5288.5846801269818,5875.3360370087885,6518.8400549924081,7219.0967340778461,7976.1060742651089,8789.8680755541845,9660.3827379450777,10587.650061437796,11571.670046032325,12612.442691728673,13709.967998526849,14864.245966426834,16075.276595428635,17343.059885532253],[38571.480911048922,36573.420854484946,34632.113459022796,32747.55872466246,30919.756651403946,29148.707239247247,27434.410488192363,25776.866398239308,24176.074969388064,22632.036201638635,21144.750094991035,19714.216649445247,18340.435865001273,17023.407741659128,15763.132279418794,14559.609478280279,13412.839338243586,12322.821859308713,11289.557041475651,10313.044884744411,9393.2853891149916,8530.2785545873867,7724.024381161601,6974.5228688376365,6281.7740176154875,5645.777827495157,5066.5342984766476,4544.0434305599547,4078.3052237450797,3669.319678032025,3317.0867934207868,3021.6065699113688,2782.8790075037678,2600.9041061979856,2475.6818659940222,2407.2122868918768,2395.4953688915498,2440.5311119930416,2542.3195161963517,2700.8605815014798,2916.1543079084258,3188.2006954171925,3516.9997440277753,3902.5514537401764,4344.8558245543991,4843.912856470437,5399.7225494882923,6012.2849036079724,6681.5999188294645,7407.667595152775,8190.4879325779102,9030.0609311048574,9926.3865907336221,10879.464911464216,11889.295893296618,12955.879536230837,14079.215840266885,15259.304805404743,16496.146431644418,17789.740718985911],[37512.32376849393,35540.074709167828,33624.578310943551,31765.834573821088,29963.843497800448,28218.605082881622,26530.119329064612,24898.386236349426,23323.405804736056,21805.1780342245,20343.702924814774,18938.980476506855,17591.010689300758,16299.793563196483,15065.329098194023,13887.617294293379,12766.658151494559,11702.451669797558,10694.997849202371,9744.2966897090027,8850.3481913174546,8013.152354027724,7232.7091778398108,6509.0186627537187,5842.0808087694422,5231.8956158869842,4678.4630841063481,4181.7832134275268,3741.8560038505248,3358.6814553753429,3032.2595680019776,2762.5903417304321,2549.673776560704,2393.5098724927943,2294.0986295267035,2251.440047662431,2265.5341268999764,2336.3808672393411,2463.9802686805237,2648.3323312235243,2889.4370548683432,3187.2944396149828,3541.904485463438,3953.2671924137112,4421.3825604658077,4946.2505896197172,5527.8712798754459,6166.2446312329985,6861.370643692363,7613.249317253546,8421.8806519165555,9287.2646476813752,10209.401304548013,11188.290622516477,12223.932601586752,13316.327241758845,14465.474543032766,15671.374505408496,16934.027128886042,18253.432413465409],[36470.177486964785,34523.739424876556,32634.054023890152,30801.12128400556,29024.941205222793,27305.513787541837,25642.839030962699,24036.916935485388,22487.74750110989,20995.330727836208,19559.666615664351,18180.755164594309,16858.596374626082,15593.190245759681,14384.536777995092,13232.635971332322,12137.487825771375,11099.092341312247,10117.449517954932,9192.5593556994372,8324.4218545457625,7513.0370144939034,6758.4048355438626,6060.5253176956439,5419.39846094924,4835.0242653046544,4307.4027307618908,3836.5338573209424,3422.4176449818128,3065.0540937445035,2764.4432036090111,2520.584974575338,2333.4794066434824,2203.1264998134457,2129.5262540852277,2112.6786694588277,2152.5837459342461,2249.2414835114828,2402.6518821905383,2612.8149419714114,2879.7306628541028,3203.3990448386153,3583.820087924943,4020.9937921130895,4514.9201574030576,5065.5991837948404,5673.0308712884416,6337.2152198838667,7058.1522295811046,7835.84190038016,8670.2842322810411,9561.4792252837342,10509.426879388244,11514.127194594583,12575.580170902729,13693.785808312696,14868.744106824488,16100.455066438091,17388.918687153509,18734.134968970749],[35445.042066461479,33524.415001611123,31660.540597862593,29853.418855215874,28103.04977367098,26409.433353227898,24772.569593886634,23192.458495647195,21669.100058509568,20202.494282473759,18792.641167539776,17439.540713707604,16143.192920977252,14903.597789348722,13720.755318822006,12594.665509397109,11525.328361074035,10512.743873852778,9556.9120477333363,8657.8328827157129,7815.5063787999115,7029.9325359859249,6301.1113542737576,5629.0428336634113,5013.7269741548798,4455.1637757481676,3953.353238443276,3508.2953622402006,3119.9901471389439,2788.437593139507,2513.6377002418872,2295.590468446087,2134.2958977521043,2029.7539881599398,1981.9647396695941,1990.9281522810668,2056.6442259943578,2179.1129608094675,2358.334356726396,2594.3084137451415,2887.0351318657054,3236.5145110880903,3642.746551412291,4105.73125283831,4625.4686153661514,5201.9586389958067,5835.2013237272804,6525.1966695605779,7271.9446764956883,8075.4453445326171,8935.6986736713698,9852.7046639119362,10826.463315254319,11856.97462769853,12944.238601244549,14088.255235892388,15289.024531642053,16546.546488493528,17860.821106446823,19231.848385501929],[34436.91750698402,32542.101439371534,30704.038032860877,28922.727287452031,27198.169203145007,25530.363779939798,23919.311017836408,22365.010916834843,20867.463476935089,19426.668698137153,18042.62658044104,16715.337123846741,15444.800328354262,14231.016193963605,13073.984720674762,11973.705908487738,10930.179757402535,9943.4062674191518,9013.3854385375816,8140.1172707578326,7323.6017640799037,6563.8389185037895,5860.8287340294946,5214.5712106570209,4625.0663483863618,4092.3141472175225,3616.3146071505039,3197.0677281853009,2834.5735103219172,2528.8319535603528,2279.8430579006058,2087.6068233426781,1952.1232498865677,1873.3923375322763,1851.4140862798033,1886.1884961291487,1977.7155670803122,2125.9952991332948,2331.0276922880957,2592.8127465447137,2911.3504619031505,3286.6408383634084,3718.6838759254815,4207.4795745893725,4753.0279343550874,5355.3289552226151,6014.3826371919613,6730.1889802631322,7502.7479844361151,8332.0596497109163,9218.1239760875433,10160.940963565979,11160.510612146236,12216.83292182832,13329.907892612211,14499.735524497923,15726.315817485462,17009.648771574808,18349.734386765977,19746.572663058956],[33445.803808532401,31576.798738157788,29764.546328885004,28009.046580714028,26310.299493644881,24668.305067677542,23083.063302812025,21554.574199048333,20082.837756386449,18667.853974826387,17309.622854368146,16008.144395011723,14763.418596757114,13575.445459604331,12444.22498355336,11369.757168604208,10352.04201475688,9391.0795220113687,8486.8696903676719,7639.4125198257934,6848.7080103857379,6114.7561620474971,5437.5569748110747,4817.1104486764734,4253.4165836436878,3746.4753797127205,3296.2868368835743,2902.8509551562443,2566.167734530733,2286.2371750070415,2063.059276585167,1896.6340392651118,1786.9614630468743,1734.0415479304556,1737.8742939158551,1798.4597010030732,1915.7977691921094,2089.8884984829647,2320.7318888756381,2608.327940370129,2952.6766529664383,3353.7780266645691,3811.6320614645147,4326.2387573662782,4897.5981143698655,5525.7101324752666,6210.5748116824852,6952.1921519915286,7750.562153402384,8605.6848159150577,9517.560139529558,10486.188124245868,11511.568770063996,12593.702076983953,13732.588045005718,14928.226674129301,16180.617964354713,17489.761915681931,18855.658528110969,20278.307801641826],[32471.700971106624,30628.506897969884,28842.065485934974,27112.376735001872,25439.440645170595,23823.257216441132,22263.826448813485,20761.148342287663,19315.222896863655,17926.050112541467,16593.6299893211,15317.962527202546,14099.04772618581,12936.885586270899,11831.476107457802,10782.819289746523,9790.9151331370667,8855.7636376294286,7977.3648032236042,7155.7186299195992,6390.8251177174152,5682.6842666170469,5031.296076618497,4436.6605477217681,3898.7776799268559,3417.6474732337615,2993.2699276424878,2625.6450431530302,2314.7728197653914,2060.6532574795729,1863.2863562955708,1722.6721162133883,1638.8105372330235,1611.7016193544775,1641.3453625777497,1727.7417669028405,1870.8908323297492,2070.7925588584772,2327.4469464890235,2640.8539952213869,3011.0137050555686,3437.9260759915724,3921.5911080293904,4462.0088011690268,5059.1791554104875,5713.1021707537602,6423.7778471988513,7191.206184745768,8015.3871833944959,8896.3208431450421,9834.007163997414,10828.446145951597,11879.637789007598,12987.582093165427,14152.279058425065,15373.72868478652,16651.930972249804,17986.885920814897,19378.593530481809,20827.053801250535],[31514.60899470669,29697.225918807824,27936.595504010787,26232.717750315558,24585.592657722154,22995.220226230562,21461.600455840788,19984.733346552839,18564.618898366705,17201.257111282386,15894.647985299893,14644.791520419212,13451.68771664035,12315.336573963312,11235.738092388086,10212.892271914679,9246.7991125430963,8337.4586142733297,7484.8707771053787,6689.0356010392461,5949.9530860749355,5267.6232322124397,4642.0460394517622,4073.2215077929063,3561.1496372358661,3105.8304277806446,2707.2638794272434,2365.4499921756587,2080.3887660258929,1852.0802009779466,1680.5242970318175,1565.7210541875074,1507.6704724450155,1506.372551804342,1561.8272922654869,1674.0346938284504,1842.9947564932315,2068.7074802598322,2351.172865128251,2690.3909110984873,3086.3616181705415,3539.0849863444182,4048.5610156201087,4614.7897059976176,5237.7710574769508,5917.505070058096,6653.9917437410604,7447.2310785258496,8297.2230744124499,9203.9677314008677,10167.465049491115,11187.715028683169,12264.717668977044,13398.472970372744,14588.980932870254,15836.241556469582,17140.254841170739,18501.020786973706,19918.539393878491,21392.810661885091],[30574.5278793326,28782.955800671607,27048.13638311244,25370.069626655084,23748.755531299554,22184.194097045834,20676.385323893934,19225.329211843859,17831.025760895594,16493.474971049149,15212.676842304529,13988.631374661722,12821.338568120731,11710.798422681566,10657.010938344214,9659.9761151086786,8719.693952974967,7836.1644519430747,7009.3876120129962,6239.3634331847361,5526.091915458298,4869.5730588336746,4269.8068633108705,3726.7933288898871,3240.5324555707198,2811.0242433533708,2438.2686922378421,2122.2658022241303,1863.0155733122369,1660.5180055021631,1514.7730987939069,1425.7808531874693,1393.5412686828499,1418.0543452800493,1499.3200829790667,1637.3384817799028,1832.1095416825567,2083.6332626870299,2391.9096447933216,2756.9386880014304,3178.720392311357,3657.2547577231062,4192.5417842366696,4784.5814718520514,5433.3738205692571,6138.9188303882747,6901.2165013091117,7720.2668333317733,8596.069826456247,9528.6254806825382,10517.933796010657,11563.994772440585,12666.808409972331,13826.374708605905,15042.693668341288,16315.765289178489,17645.589571117518,19032.166514158358,20475.496118301013,21975.578383545486],[29651.457624984352,27885.696543561229,26176.688123239936,24524.432364020453,22928.929265902792,21390.178828886947,19908.181052972923,18482.935938160717,17114.443484450327,15802.703691841754,14547.716560335006,13349.48208993007,12208.000280626955,11123.27113242566,10095.294645326181,9124.0708193285209,8209.5996544326808,7351.881150638661,6550.915307946455,5806.7021263560682,5119.2416058675026,4488.5337464807517,3914.5785481958205,3397.3760110127096,2936.9261349314147,2533.2289199519387,2186.2843660742828,1896.0924732984436,1662.6532416244231,1485.966671052222,1366.0327615818383,1302.8515132132734,1296.4229259465269,1346.7469997815988,1453.8237347184888,1617.6531307571979,1838.2351878977242,2115.5699061400705,2449.6572854842348,2840.497325930216,3288.0900274780156,3792.4353901276377,4353.533413879074,4971.3840987323283,5645.9874446874064,6377.3434517442975,7165.452119903006,8010.313449163541,8911.9274395258872,9870.2940909900517,10885.413403556042,11957.285377223841,13085.910011993461,14271.28730786491,15513.417264838165,16812.299882913238,18167.93516209014,19580.323102368853,21049.463703749381,22575.356966231728],[28745.398231661948,27005.448147476698,25322.250724393278,23695.805962411665,22126.113861531881,20613.174421753909,19156.987643077751,17757.553525503419,16414.872069030902,15128.943273660203,13899.767139391328,12727.343666224266,11611.672854159022,10552.7547031956,9550.589213333993,8605.1763845742043,7716.5162169162386,6884.6087103600912,6109.4538649057577,5391.0516805532434,4729.4021573025502,4124.5052951536727,3576.3610941066136,3084.9695541613755,2650.3306753179531,2272.44445757635,1951.3109009365664,1686.9300053986001,1479.3017709624523,1328.4261976281236,1234.3032853956129,1196.9330342649205,1216.3154442360467,1292.4505153089913,1425.338247483754,1614.9786407603356,1861.3716951387346,2164.5174106189534,2524.4157872009905,2941.0668248848442,3414.4705236705163,3944.6268835580113,4531.5359045473197,5175.1975866384473,5875.6119298313979,6632.7789341261614,7446.6985995227433,8317.3709260211508,9244.7959136213685,10228.973562323406,11269.90387212727,12367.586843032943,13522.022475040434,14733.210768149755,16001.151722360881,17325.845337673829,18707.291614088605,20145.490551605188,21640.442150223589,23192.146409943805],[27856.349699365383,26142.21061241801,24484.824186572459,22884.19042182872,21340.30931818681,19853.180875646707,18422.805094208426,17049.181973871968,15732.311514637322,14472.193716504495,13268.828579473491,12122.216103544302,11032.35628871693,9999.2491349913817,9022.894642367648,8103.2928108457327,7240.4436404256394,6434.3471311073636,5685.0032828909034,4992.4120957762616,4356.5735697634409,3777.4877048524359,3255.1545010432496,2789.5739583358841,2380.7460767303346,2028.670856226604,1733.3482968246931,1494.7783985245994,1312.9611613263241,1187.8965852298682,1119.5846702352299,1108.0254163424102,1153.2188235514091,1255.1648918622263,1413.8636212748615,1629.315011789316,1901.5190634055875,2230.4757761236788,2616.1851499435888,3058.6471848653155,3557.86188088886,4113.8292380142275,4726.5492562414083,5396.0219355704085,6122.2472760012324,6905.2252775338684,7744.9559401683227,8641.4392639046036,9594.6752487426929,10604.663894682602,11671.405201724339,12794.899169867886,13975.14579911325,15212.145089460442,16505.897040909444,17856.40165346026,19263.658927112909,20727.668861867365,22248.43145772364,23825.94671468173],[26984.31202809466,25295.983938385161,23664.408509777484,22089.585742271618,20571.515635867578,19110.198190565348,17705.633406364941,16357.821283266354,15066.761821269582,13832.455020374628,12654.900880581497,11534.09940189018,10470.050584300681,9462.7544278130063,8512.2109324271441,7618.4200981431013,6781.3819249608805,6001.0964128804781,5277.5635619018904,4610.783372025121,4000.7558432501733,3447.4809755770411,2950.9587690057278,2511.1892235362347,2128.1723391685578,1801.9081159027,1532.3965537386619,1319.6376526764407,1163.6314127160383,1064.377833857455,1021.8769161006894,1036.1286594457424,1107.133063892614,1234.890129441304,1419.3998560918119,1660.6622438441391,1958.6772926982831,2313.4450026542472,2724.9653737120298,3193.2384058716289,3718.2640991330463,4300.0424534962867,4938.573468961341,5633.8571455282126,6385.8934831969091,7194.6824819674184,8060.2241418397452,8982.5184628138995,9961.5654448898622,10997.365088067643,12089.917392347254,13239.222357728671,14445.279984211908,15708.090271796973,17027.653220483848,18403.968830272537,19837.03710116306,21326.858033155389,22873.431626249534,24476.757880445497],[26129.285217849785,24466.768125378156,22861.003694008352,21311.991923740359,19819.732814574192,18384.226366509836,17005.472579547299,15683.471453686585,14418.222988927686,13209.727185270605,12057.984042715347,10962.993561261903,9924.7557409102756,8943.2705816604739,8018.5380835124843,7150.5582464663139,6339.3310705219656,5584.8565556794356,4887.1347019387213,4246.1655092998244,3661.9489777627491,3134.4851073274895,2663.7738979940486,2249.8153497624285,1892.6094626326244,1592.1562366046392,1348.4556716784734,1161.5077678541252,1031.3125251315953,957.86994351088458,941.18002299199179,981.24276357491738,1078.0581652596616,1231.6262280462245,1441.9469519346048,1709.0203369248045,2032.8463830168214,2413.4250902106583,2850.7564585063137,3344.8404879037853,3895.6771784030748,4503.2665300041881,5167.6085427071148,5888.703216511859,6666.5505514184288,7501.1505474268106,8392.5032045370099,9340.6085227490366,10345.466502062873,11407.077142478527,12525.440443996009,13700.5564066153,14932.425030336408,16221.046315159347,17566.420261084091,18968.546868110658,20427.426136239053,21943.058065469253,23515.442655801271,25144.579907235107],[25291.269268630749,23654.563173396993,22074.609739265063,20551.408966234943,19084.960854306646,17675.265403480164,16322.322613755499,15026.132485132659,13786.695017611633,12604.010211192424,11478.078065875039,10408.898581659467,9396.4717585457129,8440.7975965337828,7541.8760956236674,6699.7072558153695,5914.2910771088937,5185.6275595042362,4513.7167030013934,3898.5585076003704,3340.1529733011675,2838.5001001037808,2393.5998880082125,2005.4523370144645,1674.0574471225334,1399.4152183324209,1181.5256506441276,1020.3887440576522,916.00449857299509,868.37291419015685,877.49399090913676,943.36772872993492,1065.9941276525519,1245.3731876769873,1481.5049088032404,1774.3892910313127,2124.0263343612023,2530.4160387929114,2993.5584043264398,3513.4534309617839,4090.1011186989463,4723.5014675379325,5413.6544774787317,6160.5601485213483,6964.2184806657915,7824.6294739120449,8741.7931282601166,9715.709443710015,10746.378420261724,11833.800057915252,12977.974356670606,14178.90131652777,15436.580937486751,16751.013219547563,18122.198162710181,19550.135766974618,21034.826032340887,22576.26895880896,24174.464546378851,25829.412795050561],[24470.264180437556,22859.369082441674,21305.226645547616,19807.836869755371,18367.199755064947,16983.315301476334,15656.183508989545,14385.804377604576,13172.177907321422,12015.304098140086,10915.182950060573,9871.8144630828738,8885.1986372069932,7955.3354724329356,7082.2249687606927,6265.8671261902673,5506.2619447216639,4803.4094243548789,4157.3095650899095,3567.9623669267585,3035.3678298654286,2559.5259539059143,2140.4367390482189,1778.1001852923437,1472.516292638285,1223.6850610860452,1031.6064906356246,896.28058128702173,817.70733304023736,795.8867458952717,830.81881985212431,922.50355491079506,1070.9409510712846,1276.1310083335929,1538.0737266977185,1856.7691061636635,2232.2171467314256,2664.4178484010076,3153.3712111724085,3699.0772350456255,4301.5359200206603,4960.7472660975191,5676.7112732761907,6449.4279415566807,7278.8972709389964,8165.1192614231222,9108.0939130090665,10107.821225696838,11164.301199486419,12277.533834377818,13447.519130371047,14674.257087466083,15957.747705662938,17297.990984961623,18694.986925362111,20148.735526864421,21659.236789468563,23226.490713174509,24850.497297982271,26531.256543891854],[23666.26995327021,22081.185852512197,20552.854412856013,19081.275634301637,17666.449516849087,16308.376060498351,15007.055265249432,13762.487131102334,12574.671658057054,11443.608846113591,10369.298695271951,9351.7412055321238,8390.9363768941166,7486.8842093579306,6639.5847029235601,5849.0378575910081,5115.2436733602772,4438.2021502313646,3817.9132882042677,3254.3770872789896,2747.5935474555317,2297.5626687338909,1904.2844511140679,1567.7588945960651,1287.9859991798794,1064.965764865512,898.69819165296417,789.183279542234,736.42102853332233,740.41143862622914,801.15450982095456,918.65024211749778,1092.8986355158602,1323.8996900160409,1611.6534056180392,1956.1597823218569,2357.4188201274915,2815.4305190349464,3330.1948790442198,3901.7119001553092,4529.9815823682166,5215.0039256829486,5956.7789300994928,6755.3065956178552,7610.5869222380434,8522.6199099600417,9491.4055587838593,10516.943868709504,11599.234839736959,12738.27847186623,13934.07476509733,15186.623719430239,16495.925334864965,17861.979611401523,19284.786549039887,20764.346147780067,22300.658407622082,23893.723328565899,25543.540910611537,27250.11115375899],[22879.286587128699,21320.013483608564,19817.49304119025,18371.725259873747,16982.71013965907,15650.447680546205,14374.93788253516,13156.180745625936,11994.176269818527,10888.924455112938,9840.425301509169,8848.678809007215,7913.6849776070803,7035.4438073087676,6213.9552981122697,5449.2194500175901,4741.2362630247326,4090.0057371336925,3495.5278723444685,2957.8026686570624,2476.8301260714775,2052.6102445877091,1685.1430242057593,1374.428464925629,1120.4665667473159,923.25732967082149,782.80075369614622,699.09683882328864,672.14558505224977,701.94699238302928,788.50106081562728,931.80779035004332,1131.8671809862783,1388.679232724332,1702.2439455642027,2072.5613195058932,2499.6313545494004,2983.4540506947283,3524.0294079418741,4121.357426290836,4775.4381057416167,5486.2714462942213,6253.8574479486379,7078.1961107048728,7959.2874345629343,8897.131419522806,9891.7280655844952,10943.077372748012,12051.17934101334,13216.033970380484,14437.641260849457,15716.001212420239,17051.113825092838,18442.979098867268,19891.597033743503,21396.967629721559,22959.090886801445,24577.966804983134,26253.595384266646,27985.976624651972],[22109.314082013039,20575.851975730773,19099.142530550333,17679.185746471703,16315.981623494898,15009.530161619907,13759.831360846732,12566.885221175382,11430.691742605846,10351.250925138129,9328.5627687722335,8362.6272735081511,7453.4444393458898,6601.0142662854487,5805.3367543268241,5066.411903470017,4384.2397137150319,3758.8201850618643,3190.1533175105128,2678.2391110609797,2223.0775657132672,1824.6686814673712,1483.0124583232939,1198.1088962810363,969.95799534059586,798.559755501974,683.91417676517119,626.02125913018631,624.88100259702003,680.49340716567212,792.85847283614282,961.97619960843122,1187.846587482539,1470.4696364584652,1809.8453465362084,2205.9737177157717,2658.8547499971514,3168.4884433803518,3734.8747978653701,4358.0138134522049,5037.9054901408572,5774.5498279313351,6567.9468268236242,7418.0964868177316,8324.9988079136656,9288.6537901114098,10309.061433410972,11386.221737812362,12520.134703315562,13710.800329920577,14958.218617627424,16262.389566436079,17623.31317634655,19040.989447358854,20515.418379472962,22046.599972688888,23634.534227006647,25279.22114242621,26980.660718947591,28738.85295657079],[21356.352437923215,19848.701328878822,18397.802880936255,17003.657094095499,15666.263968356565,14385.623503719446,13161.735700184145,11994.600557750668,10884.218076419003,9830.5882561891594,8833.7110970611357,7893.5865990349284,7010.2147621105387,6183.5955862879709,5413.7290715672189,4700.6152179482842,4044.2540254311716,3444.6454940158769,2901.7896237023983,2415.6864144907381,1986.3358663808983,1613.7379793728751,1297.8927534666705,1038.8001886622853,836.46028495971768,690.87304235896863,602.03846086003841,569.95654046292634,594.62728116763287,676.05068297415744,814.22674588250095,1009.1554698926619,1260.8368550046423,1569.2709012184414,1934.4576085340573,2356.3969769514933,2835.0890064707455,3370.5336970918183,3962.73104881471,4611.6810616394168,5317.3837355659425,6079.8390705942929,6899.0470667244554,7775.0077239564353,8707.7210422902408,9697.1870217258584,10743.405662263294,11846.376963902556,13006.100926643629,14222.577550486518,15495.806835431236,16825.788781477764,18212.523388626108,19656.010656876282,21156.250586228263,22713.243176682063,24326.988428237695,25997.486340895131,27724.736914654386,29508.740149515459],[20620.401654859234,19138.561543052714,17713.47409234802,16345.139302745136,15033.557174244075,13778.727706844829,12580.650900547402,11439.326755351796,10354.755271258005,9326.936448266033,8355.8702863758826,7441.5567855875479,6583.9959459010306,5783.1877673163353,5039.1322498334557,4351.8293934523945,3721.2791981731543,3147.4816639957326,2630.4367909201264,2170.1445789463392,1766.6050280743718,1419.8181383042213,1129.7839096358896,896.50234206937705,719.97343560468221,600.19719024180586,537.17360598074833,530.90268282150896,581.38442076408819,688.61881980848545,852.60587995470166,1073.3456012027355,1350.8379835525884,1685.0830270042602,2076.080731557749,2523.8310972130575,3028.3341239701826,3589.5898118291279,4207.5981607898921,4882.3591708524727,5613.8728420168709,6402.1391742830929,7247.1581676511287,8148.929822120981,9107.4541376926609,10122.73111436615,11194.760752141457,12323.543051018592,13509.078010997537,14751.365632078299,16050.405914260891,17406.198857545289,18818.744461931507,20288.042727419557,21814.093654009412,23396.897241701081,25036.453490494587,26732.762400389896,28485.823971387024,30295.638203485967],[19901.461732821099,18445.432618252453,17046.156164785629,15703.632372420618,14417.86124115743,13188.842770996058,12016.576961936502,10901.06381397877,9842.3033271228524,8840.2955013687515,7895.0403367164745,7006.5378331660113,6174.7879907173674,5399.7908093705446,4681.5462891255384,4020.0544299823491,3415.3152319409814,2867.3286950014322,2376.0948191636985,1941.6136044277837,1563.8850507936891,1242.9091582614112,978.68592683095198,771.21535650231215,620.49744727548989,526.53219915048612,489.31961212730113,508.85968620593439,585.15242138638632,718.19781766865606,907.99587505274496,1154.5465935386512,1457.8499731263769,1817.9060138159214,2234.7147156072824,2708.2760785004639,3238.5901024954615,3825.6567875922797,4469.4761337909167,5170.048141091369,5927.3728094936396,6741.4501389977349,7612.2801296036423,8539.8627813113671,9524.1980941209204,10565.286068032283,11663.126703045462,12817.71999916047,14029.065956377286,15297.164574695922,16622.015854116387,18003.61979463866,19441.976396262748,20937.085658988672,22488.947582816396,24097.562167745938,25762.929413777318,27485.049320910501,29263.921889145498,31099.547118482315],[19199.532671808804,17769.314554478031,16395.84909824908,15079.136303121941,13819.176169096627,12615.968696173126,11469.513884351443,10379.811733631583,9346.8622440135387,8370.6654154973112,7451.2212480829066,6588.5297417703159,5782.5908965595445,5033.4047124505951,4340.9711894434604,3705.2903275381445,3126.3621267346493,2604.1865870329725,2138.7637084331118,1730.0934909350701,1378.175934538848,1083.0110392444428,844.5988050518564,662.93923196108915,538.03231997213959,469.87806908500869,458.47647929969628,503.82755061620236,605.93128303452693,764.78767655466947,980.39673117663096,1252.7584469004098,1581.8728237260084,1967.7398616534256,2410.3595606826593,2909.7319208137133,3465.8569420465838,4078.7346243812744,4748.3649678177844,5474.7479723561091,6257.8836379962522,7097.771964738221,7994.4129525820008,8947.8066015275981,9957.9529115750247,11024.851882724259,12148.503514975311,13328.907808328193,14566.064762782882,15859.97437833939,17210.636654997728,18618.051592757871,20082.219191619835,21603.139451583629,23180.812372649227,24815.237954816643,26506.416198085895,28254.347102456948,30059.030667929819,31920.466894504509],[18514.614471822351,17110.207351729452,15762.552892738373,14471.651094849107,13237.501958061664,12060.105482376037,10939.461667792228,9875.5705143102405,8868.432021930068,7918.046190651713,7024.4130204751809,6187.5325114004636,5407.4046634275646,4684.0294765564877,4017.4069507872264,3407.537086119783,2854.4198825541607,2358.0553400903564,1918.4434587283683,1535.5842384681991,1209.4776793098497,940.12378125331736,727.52254429860352,571.67396844570897,472.57805369463222,430.23480004537402,444.64420749793425,515.80627605231302,643.72100570851035,828.38839646652548,1069.8084483263597,1367.9811612880112,1722.9065353514825,2134.5845705167726,2603.0152667838788,3128.1986241528057,3710.1346426235486,4348.8233221961118,5044.2646628704942,5796.4586646466923,6605.4053275247079,7471.1046515045491,8393.5566365862014,9372.7612827696721,10408.71859005497,11501.428558442078,12650.891187931004,13857.106478521757,15120.074430214319,16439.7950430087,17816.268316904909,19249.494251902928,20739.472848002762,22286.20410520443,23889.688023507901,25549.92460291319,27266.913843420312,29040.655745029242,30871.150307739987,32758.397531552549],[17846.707132861746,16468.111010006716,15146.267548253512,13881.176747602118,12672.838608052549,11521.253129604793,10426.420312258855,9388.3401560147413,8407.0126608724422,7482.4378268319597,6614.6156538933001,5803.5461420564552,5049.2292913214296,4351.6651016882242,3710.8535731568359,3126.794705727265,2599.4884993995151,2128.9349541735837,1715.1340700494684,1358.0858470271714,1057.7902851066947,814.24738428803494,627.45714457119379,497.41956595617171,424.13464844296755,407.60239203158199,447.82279672201474,544.7958625142661,698.52158940833613,908.99997740422373,1176.2310265019307,1500.2147367014547,1880.9511080027985,2318.4401404059613,2812.68183391094,3363.6761885177393,3971.4232042263548,4635.9228810367913,5357.1752189490462,6135.1802179631168,6969.9378780790048,7861.4481992967194,8809.7111816162433,9814.7268250375873,10876.495129560757,11995.016095185738,13170.289721912535,14402.316009741162,15691.094958671596,17036.62656870385,18438.910839837932,19897.947772073821,21413.737365411529,22986.27961985107,24615.574535392414,26301.622112035577,28044.422349780572,29843.975248627372,31700.28080857599,33613.339029626426],[17195.81065492698,15843.025529309822,14546.993064794489,13307.71326138097,12125.186119069273,10999.41163785939,9930.3898177513256,8918.1206587450833,7962.6041608406558,7063.8403240380467,6221.8291483372595,5436.5706337382881,4708.0647802411349,4036.3115878458025,3421.3110565522866,2863.0631863605886,2361.5679772707113,1916.8254292826523,1528.8355423964097,1197.5983166119859,923.11375192938158,705.38184834859464,544.4026058696262,440.17602449247681,392.7021042171454,401.9808450436326,468.01224697193794,590.79631000206211,770.33303413400483,1006.622419367765,1299.6644657033448,1649.4591731407415,2056.006541679958,2519.3065713209935,3039.3592620638447,3616.1646139085169,4249.7226268550048,4940.0333009033138,5687.0966360534421,6490.9126323053852,7351.4812896591457,8268.8026081147327,9242.87658767213,10273.703228331346,11361.282530092389,12505.614492955243,13706.699116919912,14964.536401986412,16279.126348154719,17650.468955424843,19078.564223796802,20563.412153270561,22105.012743846142,23703.365995523556,25358.47190830277,27070.330482183806,28838.941717166676,30664.305613251348,32546.422170437836,34485.291388726146],[16561.925038018057,15234.95090963877,13964.729442361311,12751.260636185663,11594.544491111839,10494.581007139828,9451.3701842696373,8464.9120225012684,7535.2065218347134,6662.2536822699776,5846.053503807063,5086.6059864459639,4383.9111301866833,3737.9689350292233,3148.7794009735803,2616.3425280197548,2140.6583161677504,1721.7267654175639,1359.547875769194,1054.1216472226429,805.44807977791118,613.52717343499694,478.35892819390136,399.9433440546245,378.28042101716585,413.3701590815258,505.21255824770378,653.80761851570071,859.15533988551624,1121.2557223571491,1440.1087659306015,1815.7144706058707,2248.0728363829603,2737.1838632618683,3283.0475512425924,3885.6639003251375,4545.0329105094979,5261.1545817956794,6034.0289141836802,6863.6559076734957,7750.0355622651286,8693.1678779585891,9693.0528547538597,10749.690492650947,11863.080791649863,13033.223751750589,14260.119372953133,15543.767655257505,16884.168598663684,18281.322203171683,19735.228468781512,21245.887395493144,22813.298983306599,24437.463232221882,26118.380142238973,27856.049713357883,29650.471945578622,31501.646838901168,33409.574393325529,35374.254608851712],[15945.050282134976,14643.887150993565,13399.476680953976,12211.818872016202,11080.913724180249,10006.761237446113,8989.3614118137939,8028.7142472832966,7124.8197438546149,6277.6779015277516,5487.2887203027094,4753.6522001794829,4076.7683411580751,3456.6371432384881,2893.2586064207171,2386.632730704765,1936.7595160906326,1543.6389625783188,1207.2710701678216,927.65583885914305,704.79326865228393,538.68335954724239,429.32611154401934,376.72152464261507,380.86959884302905,441.77033414526159,559.42373054931204,733.82978805518167,964.98850666286978,1252.899886372375,1597.5639271837003,1998.980629096842,2457.1499921118038,2972.0720162285847,3543.7467014471813,4172.1740477675994,4857.3540551898323,5599.2867237138862,6397.9720533397594,7253.4100440674474,8165.6006958969538,9134.5440088282867,10160.239982861429,11242.688617996389,12381.889914233179,13577.843871571777,14830.550490012192,16140.009769554437,17506.22171019849,18929.186311944362,20408.903574792061,21945.37349874157,23538.596083792894,25188.571329946051,26895.299237201016,28658.779805557795,30479.013035016411,32355.998925576827,34289.737477239061,36280.228690003118],[15345.186387277736,14069.834253374198,12851.234780572484,11689.387968872581,10584.293818274502,9535.9523287782376,8544.3635003837917,7609.5273330911668,6731.4438269003576,5910.1129818113668,5145.5347978241971,4437.7092749388439,3786.6364131553082,3192.3162124735941,2654.748672893696,2173.9337944156164,1749.8715770393569,1382.5620207649156,1072.0051255922913,818.20089152148535,621.14931855249881,480.85040668533003,397.30415591997979,370.5105662564481,400.46963769473484,487.18137023484013,630.64576387676323,830.86281862050555,1087.8325344660664,1401.5549114134444,1772.0299494626422,2199.2576486136568,2683.2380088664913,3223.9710302211452,3821.4567126776142,4475.6950562359043,5186.6860608960105,5954.4297266579379,6778.9260535216836,7660.175041487244,8598.1766905546228,9592.9310007238273,10644.437971994845,11752.697604367677,12917.709897842338,14139.474852418809,15417.992468097098,16753.262744877215,18145.285682759142,19594.061281742885,21099.58954182846,22661.870463015839,24280.904045305037,25956.690288696067,27689.229193188901,29478.520758783554,31324.564985480043,33227.361873278329,35186.91142217844,37203.213632180363],[14762.333353446344,13512.792216780677,12320.003741216835,11183.967926754805,10104.684773394598,9082.1542811362051,8116.3764499796325,7207.3512799248811,6355.0787709719443,5559.558923120826,4820.7917363715296,4138.777210724048,3513.5153461783857,2945.006142734544,2433.2496003925185,1978.2457191523113,1579.9944990139243,1238.4959399773556,953.75004204260381,725.75680520967069,554.51622947855674,440.02831484926048,382.29306132178289,381.31046889612378,437.08053757228311,549.60326735026104,718.87865823005677,944.90671021167168,1227.6874232951052,1567.2207974803557,1963.5068327674262,2416.545529156313,2926.3368866470205,3492.8809052395463,4116.1775849338883,4796.2269257300513,5533.0289276280291,6326.5835906278298,7176.890914729448,8083.9508999328809,9047.7635462381331,10068.328853645211,11145.646822154098,12279.717451764805,13470.54074247734,14718.116694291683,16022.445307207843,17383.526581225833,18801.36051634563,20275.947112567246,21807.286369890695,23395.378288315947,25040.222867843018,26741.820108471922,28500.170010202626,30315.272573035152,32187.127796969515,34115.735682005674,36101.096228143651,38143.209435383455],[14196.491180640789,12972.761041212996,11805.783562887025,10695.558745662869,9642.086589540535,8645.3670945200156,7705.4002606013146,6822.1860877844356,5995.7245760693722,5226.0157254561263,4513.0595359447025,3856.8560075350938,3257.4051402273044,2714.7069340213352,2228.7613889171826,1799.5685049148481,1427.1282820143338,1111.4407202156376,852.50581951875859,650.32357992369828,504.89400143045691,416.21708403903347,384.29282774942862,409.12123256164216,490.70229847567424,629.03602549152504,824.12241360919325,1075.9614628286811,1384.5531731499873,1749.8975445731105,2171.9945770980539,2650.8442707248132,3186.4466254533936,3778.8016412837924,4427.9093182160068,5133.7696562500423,5896.3826553858935,6715.7483156235667,7591.8666369630573,8524.7376194043627,9514.3612629474865,10560.737567592438,11663.866533339198,12823.748160187777,14040.382448138185,15313.769397190401,16643.909007344435,18030.801278600298,19474.446210957969,20974.843804417458,22531.994058978777,24145.896974641902,25816.552551406843,27543.96078927362,29328.121688242201,31169.035248312601,33066.701469484833,35021.120351758866,37032.291895134716,39100.216099612393],[13647.659868861077,12449.740726671158,11308.57424558306,10224.160425596776,9196.4992667123151,8225.5907689296673,7311.4349322488397,6454.0317566698332,5653.3812421926423,4909.4833888172698,4222.3381965437184,3591.9456653719826,3018.3057953020657,2501.4185863339694,2041.2840384676892,1637.9021517032277,1291.2729260405858,1001.3963614797624,768.27245802075618,591.90121566356845,472.28263440819978,409.41671425464909,403.30345520291701,453.94285725300313,561.33492040490796,725.47964465863151,946.37703001417242,1224.0270764715328,1558.4297840307117,1949.5851526917077,2397.4931824545238,2902.153873319156,3463.5672252856089,4081.7332383538801,4756.6519125239674,5488.3232477958754,6276.7472441695991,7121.9239016451447,8023.8532202225088,8982.5351999016875,9997.9698406826847,11070.157142565507,12199.097105550141,13384.789729636592,14627.235014824873,15926.432961114961,17282.383568506866,18695.086837000603,20164.542766596147,21690.751357293506,23273.712609092701,24913.426521993697,26609.893095996515,28363.112331101162,30173.084227307616,32039.808784615885,33963.286003025991,35943.515882537897,37980.498423151628,40074.233624867171],[13115.839418107211,11943.731273155165,10828.375789304939,9769.7729665565275,8767.9228049099383,7822.8253043651648,6934.4804649222096,6102.8882865810756,5328.0487693417572,4609.9619132042571,3948.6277181685782,3344.0461842347154,2796.2173114026709,2305.1410996724471,1870.8175490440394,1493.2466595174506,1172.4284310926812,908.36286376973044,701.04995754859669,550.48971242928167,456.68212841178547,419.62720549610742,439.32494368224792,515.77534297020657,648.9784033599841,838.93412485158024,1085.6425074449935,1389.1035511402267,1749.3172559372783,2166.2836218361467,2640.0026488368353,3170.47433693934,3757.6986861436658,4401.6756964498099,5102.4053678577693,5859.8877003675507,6674.1226939791468,7545.1103486925649,8472.8506645078014,9457.3436414248517,10498.58927944372,11596.587578564418,12751.338538786924,13962.842160111248,15231.098442537401,16556.10738606536,17937.86899069514,19376.38325642675,20871.650183260164,22423.669771195397,24032.442020232462,25697.966930371334,27420.244501612022,29199.274733954546,31035.05762739887,32927.593181945012,34876.881397592988,36882.922274342774,38945.715812194372,41065.262011147788],[12601.029828379187,11454.732680665011,10365.18819405266,9332.3963685421204,8356.3572041334046,7437.0707008265026,6574.5368586214199,5768.7556775181583,5019.7271575167133,4327.4512986170857,3691.9281008192797,3113.1575641232894,2591.1396885291174,2125.8744740367661,1717.3619206462315,1365.6020283575153,1070.5947971706187,832.3402270855405,650.83831810227957,526.08907022083724,458.09248344121374,446.84855776340839,492.35729318742165,594.61868971325293,753.63274734090317,969.399466070372,1241.918845901658,1571.1908868347639,1957.2155888696882,2399.9929520064293,2899.5229762449908,3455.8056615853679,4068.8410080275662,4738.6290155715833,5465.1696842174151,6248.463013965069,7088.5090048145375,7985.3076567658291,8938.8589698189371,9949.1629439738608,11016.219579230603,12140.028875589172,13320.590833049551,14557.905451611747,15851.972731275773,17202.792672041607,18610.365273909258,20074.690536878741,21595.768460950028,23173.599046123134,24808.182292398073,26499.518199774815,28247.606768253376,30052.447997833773,31914.041888515971,33832.388440299983,35807.487653185839,37839.339527173484,39927.944062262955,42073.301258454245],[12103.231099677005,10982.744949200702,9919.0114598262226,8912.0306315535563,7961.802464382713,7068.3269583136844,6231.6041133464742,5451.6339294810859,4728.4164067175125,4061.9515450557583,3452.2393444958243,2899.2798050377069,2403.0729266814074,1963.6187094269287,1580.9171532742666,1254.9682582234232,985.7720242743992,773.32845142719339,617.63753968180515,518.69928903823541,476.51369949648443,491.08077105655173,562.40050371843768,690.47289748214143,875.29795234766436,1116.8756683150059,1415.2060453841643,1770.2890835551427,2182.1247828279397,2650.7131432025531,3176.0541646789875,3758.1478472572371,4396.9941909373083,5092.5931957191979,5844.9448616029022,6654.0491885884285,7519.9061766757695,8442.5158258649335,9421.8781361559159,10457.993107548711,11550.860740043327,12700.481033639768,13906.85398833802,15169.979604138087,16489.857881039989,17866.488819043694,19299.872418149218,20790.008678356571,22336.897599665732,23940.539182076711,25600.933425589523,27318.080330204139,29091.979895920569,30922.63212273884,32810.037010658911,34754.194559680793,36755.104769804522,38812.767641030048,40927.183173357393,43098.351366786548],[11622.443232000664,10527.768078762234,9489.8455866256281,8508.6757555908353,7584.2585856578635,6716.5940768267074,5905.6822290973705,5151.5230424698539,4454.1165169441538,3813.4626525202721,3229.561449198211,2702.412906977966,2232.0170258595394,1818.3738058429335,1461.4832469281441,1161.3453491151733,917.96011240402197,731.32753679468885,601.44762228717332,528.32036888147627,511.94577657759794,552.32384537553799,649.45457527529663,803.33796627687298,1013.9740183802686,1281.3627315854828,1605.504105892514,1986.3981413013653,2424.044837812035,2918.4441954245212,3469.5962141388281,4077.5008939549502,4742.1582348728934,5463.5682368926564,6241.7309000142332,7076.6462242376329,7968.3142095628464,8916.7348559898819,9921.9081635187376,10983.834132149406,12102.512761881893,13277.944052716208,14510.128004652332,15799.064617690274,17144.753891830045,18547.195827071624,20006.390423415021,21522.337680860248,23095.037599407282,24724.490179056131,26410.695419806816,28153.653321659305,29953.363884613609,31809.82710866975,33723.042993827694,35693.011540087457,37719.732747449052,39803.206615912452,41943.433145477662,44140.412336144698],[11158.666225350167,10089.802069349609,9077.6905744508749,8122.3317406539545,7223.725567958857,6381.8720563655734,5596.7712058741081,4868.4230164844648,4196.8274881966372,3581.9846210106284,3023.8944149264398,2522.5568699440678,2077.9719860635141,1690.1397632847809,1359.0602016078642,1084.7333010327661,867.15906155948744,706.33748318802691,602.26856591838418,554.95230975055995,564.3887146845542,630.57778072036695,753.51950785799841,933.21389609744745,1169.6609454387158,1462.8606558818028,1812.8130274267066,2219.5180600734307,2682.9757538219733,3203.1861086723316,3780.1491246245114,4413.8648016785064,5104.3331398343225,5851.5541390919579,6655.5277994514081,7516.2541209126803,8433.7331034757663,9407.9647471406752,10438.949051907402,11526.686017775944,12671.175644746303,13872.417932818491,15130.412881992488,16445.1604922683,17816.660763645945,19244.913696125397,20729.919289706668,22271.677544389768,23870.188460174671,25525.452037061397,27237.468275049956,29006.237174140315,30831.758734332492,32714.032955626506,34653.059838022324,36648.839381519952,38701.371586119429,40810.656451820694,42976.693978623785,45199.484166528688],[10711.900079725514,9668.8469209628292,8682.5464233019666,7752.9985867429195,6880.2034112856936,6064.1608969302833,5304.8710436766914,4602.3338515249197,3956.5493204749655,3367.5174505268287,2835.2382416805126,2359.711693936013,1940.9378072933323,1578.9165817524713,1273.6480173134273,1025.1321139762019,833.36887174079561,698.35829060720766,620.10037057543752,598.59511164548587,633.84251381735271,725.84257709103815,874.5953014665422,1080.1006869438636,1342.3587335230047,1661.3694412039642,2037.1328099867405,2469.6488398713373,2958.9175308577524,3504.9388829459836,4107.7128961360359,4767.2395704279033,5483.5189058215919,6256.5509023170998,7086.3355599144224,7972.8728786135671,8916.1628584145255,9916.2054993173078,10973.000801321909,12086.548764428322,13256.849388636554,14483.902673946615,15767.708620358482,17108.267227872169,18505.578496487688,19959.64242620501,21470.459017024154,23038.028268945123,24662.350181967904,26343.4247560925,28081.251991318932,29875.831887647164,31727.164445077215,33635.249663609102,35600.087543242786,37621.678083978295,39700.021285815637,41835.117148754776,44026.965672795741,46275.566857938516],[10282.144795126704,9264.9026336018906,8304.4131331789013,7400.6762938577267,6553.6921156383733,5763.4605985208354,5029.981742505116,4353.2555475912177,3733.2820137791355,3170.0611410688716,2663.592929460428,2213.8773789538013,1820.9144895489928,1484.7042612460043,1205.246694044833,982.54178794548022,816.58954294794648,707.38995905223101,654.94303625833356,659.2487745662545,720.30717397599381,838.11823448755194,1012.6819561009286,1243.9983388161227,1532.0673826331363,1876.8890875519685,2278.4634535726173,2736.7904806950864,3251.8701689193745,3823.7025182454781,4452.2875286734034,5137.6252002031433,5879.7155328347044,6678.5585265680857,7534.1541814032798,8446.5024973402979,9415.6034743791297,10441.457112519784,11524.063411762256,12663.422372106543,13859.533993552646,15112.398276100581,16422.015219750323,17788.384824501882,19211.50709035527,20691.382017310469,22228.009605367482,23821.389854526326,25471.52276478698,27178.408336149449,28942.04656861375,30762.437462179856,32639.58101684778,34573.477232617537,36564.126109489102,38611.527647462477,40715.681846537693,42876.588706714705,45094.248227993543,47368.660410374192],[9869.400371553731,8877.9692072667913,7943.2907040816754,7065.3648619983733,6244.1916810168923,5479.7711611372279,4772.1033023593809,4121.188104683355,3527.0255681091462,2989.6156926367548,2508.9584782661846,2085.0539249974304,1717.9020328304948,1407.5028017653792,1153.8562318020806,956.96232294060076,816.82107518093972,733.43248852309705,706.79656296707242,736.91329851286628,823.78269516047828,967.40475290990923,1167.7794717611587,1424.9068517142255,1738.7868927691122,2109.4195949258174,2536.8049581843388,3020.9429825446809,3561.8336680068414,4159.477014570818,4813.8730222366157,5525.0216910042282,6292.9230208736635,7117.5770118449163,7998.9836639179839,8937.1429770928735,9932.0549513695787,10983.719586748104,12092.136883228452,13257.30684081061,14479.229459494587,15757.904739280393,17093.332680168009,18485.513282157441,19934.446545248702,21440.132469441771,23002.571054736658,24621.762301133378,26297.706208631902,28030.402777232241,29819.852006934419,31666.053897738395,33569.008449644192,35528.715662651826,37545.175536761257,39618.388071972506,41748.353268285595,43935.071125700488,46178.541644217192,48478.764823835714],[9473.666809006605,8508.0466419575387,7599.1791360102952,6747.0642911648656,5951.702107421258,5213.0925847794651,4531.2357232394916,3906.1315228013382,3337.7799834650014,2826.1811052304829,2371.3348880977846,1973.2413320669034,1631.9004371378405,1347.3122033105974,1119.4766305851715,948.3937189615641,834.06346843977565,776.48587901980545,775.66095070165352,831.58868348532008,944.26907737080455,1113.7021323581082,1339.8878484472302,1622.8262256381697,1962.5172639309287,2358.9609633255063,2812.1573238219007,3322.1063454201153,3888.8080281201487,4512.2623719219973,5192.4693768256684,5929.4290428311533,6723.1413699384602,7573.6063581475864,8480.8240074585265,9444.7943178712903,10465.517289385865,11542.992922002266,12677.221215720485,13868.202170540515,15115.935786462365,16420.422063486043,17781.66100161153,19199.652600838835,20674.39686116797,22205.893782598912,23794.143365131673,25439.145608766263,27140.90051350266,28899.408079340872,30714.668306280924,32586.681194322773,34515.44674346644,36500.964953711948,38543.235825059252,40642.259357508374,42798.035551059336,45010.564405712095,47279.84592146668,49605.880098323076],[9094.9441074853221,8155.1349376741291,7272.0784289647572,6445.7745813572001,5676.2233948514649,4963.4248694475455,4307.3790051454434,3708.0858019451634,3165.5452598466991,2679.7573788500531,2250.7221589552278,1878.439600162219,1562.9097024710288,1304.1324658816582,1102.107890394105,956.83597600837015,868.31672272445428,836.55013054235667,861.53619946207721,943.27492948361635,1081.7663206069735,1277.0103728321496,1529.0070861591444,1837.7564605879563,2203.258496118588,2625.5131927510383,3104.5205504853052,3640.2805693213922,4232.7932492592981,4882.0585902990197,5588.0765924405632,6350.8472556839206,7170.3705800291009,8046.6465654760987,8979.6752120249112,9969.4565196755466,11015.990488427997,12119.277118282269,13279.316409238359,14496.108361296263,15769.652974455987,17099.950248717538,18487.000184080898,19930.802780546073,21431.358038113081,22988.665956781897,24602.726536552527,26273.539777424994,28001.105679399261,29785.424242475347,31626.495466653269,33524.319351932994,35478.895898314535,37490.225105797908,39558.306974383086,41683.141504070089,43864.728694858917,46103.06854674955,48398.161059742,50750.00623383627],[8733.2322669898786,7819.234094416558,6961.9885829450595,6161.4957325753758,5417.7555433075131,4730.7680151414661,4100.5331480772375,3527.0509421148295,3010.321397254238,2550.3445134954654,2147.1202908385126,1800.6487292833765,1510.9298288300593,1277.9635894785613,1101.750011228881,982.28909408101913,919.58083803497595,913.62524309075104,964.4223092483445,1071.9720365077565,1236.2744248689864,1457.3294743320355,1735.1371848969031,2069.6975565635876,2461.0105893320924,2909.0762832024157,3413.894638174555,3975.4656542485154,4593.7893314242938,5268.8656697018887,6000.6946690813038,6789.2763295625346,7634.6106511455873,8536.6976338304594,9495.5372776171444,10511.129582505653,11583.474548495975,12712.572175588119,13898.422463782084,15141.025413077861,16440.381023475456,17796.489294974879,19209.350227576113,20678.963821279161,22205.330076084043,23788.448991990732,25428.320568999236,27124.944807109572,28878.321706321713,30688.451266635671,32555.333488051467,34478.968370569062,36459.355914188476,38496.49611890973,40590.388984732781,42741.03451165765,44948.432699684352,47212.583548812858,49533.487059043182,51911.143230375324],[8388.5312875202817,7500.3441121848336,6668.9095979512067,5894.2277448193954,5176.2985527894052,4515.1220218612307,3910.698152034875,3363.0269433103399,2872.1083956876214,2437.9425091667208,2060.5292837476404,1739.8687194303775,1475.9608162149325,1268.8055741013072,1118.4029930894994,1024.7530731795102,987.85581437133965,1007.7112166649873,1084.3192800604534,1217.6800045577381,1407.7933901568406,1654.6594368577621,1958.2781446605024,2318.6495135650598,2735.7735435714367,3209.6502346796328,3740.2795868896446,4327.6616002014771,4971.7962746151288,5672.6836101305962,6430.3236067478847,7244.7162644669879,8115.8615832879132,9043.7595632106568,10028.410204235215,11069.813506361596,12167.969469589791,13322.878093919808,14534.539379351645,15802.953325885293,17128.11993352076,18510.03920225806,19948.711132097163,21444.135723038085,22996.31297508084,24605.242888225399,26270.925462471776,27993.360697819986,29772.54859427,31608.489151821832,33501.182370475501,35450.62825023097,37456.826791088257,39519.777993047377,41639.481856108301,43815.938380271044,46049.147565535619,48339.109411901998,50685.823919370203,53089.291087940212],[8060.8411690765261,7198.4649909789505,6392.8414739831969,5643.9706180892581,4951.8524232971413,4316.4868896068392,3737.8740170183555,3216.0138055316929,2750.9062551468469,2342.5513658638192,1990.9491376826115,1696.0995706032209,1458.0026646256488,1276.6584197498958,1152.0668359759607,1084.2279133038442,1073.1416517335458,1118.8080512650661,1221.2271118984047,1380.3988336335622,1596.3232164705369,1869.0002604093313,2198.4299654499441,2584.6123315923737,3027.547358836624,3527.2350471826921,4083.6753966305764,4696.8684071802818,5366.814078831806,6093.5124115851459,6876.9634054403068,7717.1670603972825,8614.1233764560802,9567.8323536166972,10578.293991879127,11645.508291243381,12769.475251709448,13950.194873277338,15187.667155947047,16481.892099718571,17832.869704591911,19240.59997056708,20705.082897644057,22226.318485822852,23804.306735103477,25439.047645485909,27130.541216970159,28878.787449556243,30683.78634324413,32545.537898033832,34464.042113925374,36439.298990918716,38471.30852901387,40560.070728210871,42705.585588509668,44907.853109910284,47166.873292412733,49482.646136016985,51855.171640723056,54284.449806530938],[7750.1619116586107,6913.5967307989085,6133.7842110410274,5410.7243523849611,4744.4171548307168,4134.8626183782872,3582.0607430276773,3086.0115287788872,2646.7149756319141,2264.1710835867593,1938.3798526434241,1669.3412828019063,1457.0553740622072,1301.5221264243271,1202.7415398882649,1160.7136144540211,1175.4383501215957,1246.9157468909887,1375.1458047622002,1560.1285237352304,1801.863903810078,2100.3519449867449,2455.5926472652309,2867.5860106455334,3336.3320351276561,3861.8307207115972,4444.082067397354,5083.0860751849332,5778.8427440743299,6531.3520740655422,7340.6140651585756,8206.6287173534238,9129.3960306500958,10108.916005048584,11145.188640548888,12238.213937151015,13387.991894854953,14594.522513660717,15857.805793568299,17177.841734577694,18554.630336688908,19988.171599901951,21478.465524216797,23025.512109633466,24629.311356151968,26289.863263772273,28007.167832494393,29781.22506231835,31612.034953244107,33499.597505271689,35443.912718401101,37444.98059263231,39502.801127965344,41617.374324400211,43788.700181936882,46016.778700575371,48301.609880315693,50643.193721157819,53041.530223101763,55496.619386147519],[7456.4935152665412,6645.7393316447105,5891.7378091247028,5194.488947706509,4553.9927473901371,3970.2492081755804,3443.2583300628426,2973.0201130519254,2559.5345571428247,2202.8016623355425,1902.8214286300802,1659.5938560264351,1473.1189445246084,1343.396694124601,1270.4271048264113,1254.2101766300402,1294.7459095354875,1392.0343035427529,1546.075358651837,1756.8690748627398,2024.4154521754599,2348.71449059,2729.766190106358,3167.5705507245334,3662.1275724445286,4213.4372552663426,4821.4995991899723,5486.3146042154231,6207.8822703426931,6986.202597571777,7821.2755859026838,8713.1012353354054,9661.6795458699489,10667.010517506311,11729.094150244486,12847.930444084484,14023.519399026298,15255.861015069933,16544.955292215389,17890.802230462657,19293.401829811741,20752.754090262657,22268.859011815377,23841.716594469919,25471.32683822629,27157.689743084469,28900.805309044463,30700.673536106293,32557.294424269923,34470.667973535375,36440.794183902661,38467.673055371743,40551.30458794265,42691.68878161539,44888.825636389935,47142.71515226629,49453.357329244493,51820.752167324485,54244.899666506302,56725.799826789938],[7179.8359799003138,6394.8927935163565,5666.7022682342204,4995.2644040538989,4380.5792009753995,3822.6466589987158,3321.4667781238509,2877.0395583508061,2489.364999679578,2158.4431021101686,1884.2738656425786,1666.857290276806,1506.193376012852,1402.2821228507171,1355.1235307904001,1364.7175998319017,1431.0643299752212,1554.1637212203593,1734.015773567316,1970.6204870160916,2263.9778615666842,2614.0878972190967,3020.9505939733276,3484.5659518293751,4004.9339707872432,4582.0546508469297,5215.9279920084318,5906.553994271756,6653.9326576368976,7458.0639821038549,8318.9479676726351,9236.5846143432282,10210.973922115643,11242.115890989879,12330.010520965927,13474.657812043799,14676.057764223482,15934.210377504991,17249.115651888318,18620.77358737346,20049.184183960417,21534.347441649206,23076.2633604398,24674.931940332212,26330.35318132646,28042.527083422508,29811.453646620375,31637.132870920075,33519.564756321583,35458.749302824901,37454.68651043006,39507.376379137022,41616.818908945796,43783.014099856409,46005.961951868827,48285.662464983056,50622.115639199124,53015.321474516997,55465.279970936681,57971.99112845819],[6920.1893055599267,6161.0571164138419,5458.6775883695791,4813.0507214271311,4224.1765155865041,3692.0549708476929,3216.6860872107009,2798.0698646755286,2436.2063032421738,2131.0954029106369,1882.7371636809198,1691.1315855530202,1556.2786685269389,1478.1784126026766,1456.8308177802326,1492.2358840596069,1584.3936114407993,1733.3039999238101,1938.9670495086398,2201.382760195288,2520.5511319837537,2896.4721648740388,3329.1458588661426,3818.572213960063,4364.7512301558036,4967.6829074533634,5627.3672458527381,6343.8042453539347,7116.9939059569497,7946.9362276617794,8833.631210468433,9777.0788543768977,10777.279159387188,11834.232125499295,12947.937752713215,14118.39604102896,15345.606990446517,16629.570600965901,17970.286872587098,19367.755805310113,20821.977399134943,22332.951654061606,23900.678570090073,25525.158147220354,27206.390385452476,28944.375284786398,30739.112845222138,32590.603066759712,34498.845949399089,36463.841493140288,38485.589697983312,40564.090563928148,42699.344090974795,44891.350279123282,47140.109128373573,49445.620638725675,51807.884810179617,54226.901642735356,56702.671136392921,59235.193291152296],[6677.5534922453844,5944.2323003371721,5267.6637695307818,4647.8478998262062,4084.7846912234518,3578.4741437225134,3128.9162573233943,2736.1110320260946,2400.0584678306122,2120.7585647369483,1898.2113227451034,1732.4167418550765,1623.3748220668679,1571.0855633804781,1575.5489657959067,1636.7650293131537,1754.7337539322186,1929.4551396531019,2160.9291864758043,2449.155894400325,2794.1352634266632,3195.8672935548211,3654.3519847847974,4169.5893371165903,4741.5793505502043,5370.3220250856366,6055.8173607228837,6798.0653574619528,7597.0660153028402,8452.8193342455434,9365.3253142900667,10334.583955436407,11360.595257684568,12443.359221034549,13582.875845486342,14779.145131039959,16032.167077695389,17341.941685452643,18708.468954311717,20131.748884272602,21611.781475335305,23148.566727499838,24742.104640766178,26392.395215134336,28099.438450604328,29863.234347176123,31683.782904849737,33561.08412362518,35495.138003502434,37485.944544481499,39533.503746562405,41637.815609745106,43798.880134029627,46016.697319415987,48291.267165904152,50622.589673494127,53010.664842185943,55455.492671979555,57957.073162874985,60515.406314872242],[6451.9285399566852,5744.4183452863454,5093.6608117178275,4499.6559392511244,3962.4037278862429,3481.9041776231775,3058.1572884619304,2691.1630604025031,2380.9214934448933,2127.4325875891018,1930.6963428351298,1790.7127591829753,1707.4818366326394,1681.0035751841224,1711.2779748374235,1798.3050355925429,1942.0847574494805,2142.6171404082361,2399.9021844688109,2713.9398896312046,3084.7302558954152,3512.2732832614456,3996.5689717292948,4537.6173212989597,5135.4183319704462,5789.972003743751,6501.2783366188705,7269.337330595813,8094.1489856745729,8975.7133018551485,9914.0302791375452,10909.099917521757,11960.92221700779,13069.497177595644,14234.82479928531,15456.905082076799,16735.738025970102,18071.323630965227,19463.661897062175,20912.752824260933,22418.596412561506,23981.192661963916,25600.541572468126,27276.643144074158,29009.497376782023,30799.104270591688,32645.463825503175,34548.576041516491,36508.440918631619,38525.058456848557,40598.428656167329,42728.551516587904,44915.427038110305,47159.055220734532,49459.436064460569,51816.569569288418,54230.455735218107,56701.094562249593,59228.486050382897,61812.630199618019],[6243.3144486938263,5561.6152512613598,4936.6687149307145,4368.4748397018839,3857.0336255748753,3402.3450725496823,3004.4091806263082,2663.2259498047538,2378.7953800850169,2151.1174714670983,1980.1922239509988,1866.0196375367175,1808.5997122242543,1807.9324480136099,1864.0178449047839,1976.8559028977763,2146.4466219925866,2372.7900021892151,2655.8860434876628,2995.7347458879294,3392.3361093900126,3845.6901339939159,4355.796819699638,4922.6561665071758,5546.2681744165347,6226.6328434277129,6963.750173540705,7757.6201647555199,8608.2428170721523,9515.6181304906004,10479.74610501087,11500.626740632955,12578.260037356862,13712.645995182587,14903.784614110125,16151.675894139489,17456.319835270664,18817.716437503663,20235.865700838483,21710.767625275112,23242.422210813562,24830.829457453841,26475.989365195925,28177.90193403983,29936.567163985565,31751.985055033107,33624.155607182467,35553.078820433657,37538.75469478665,39581.183230241462,41680.364426798114,43836.298284456563,46048.98480321683,48318.423983078937,50644.615824042841,53027.560326108563,55467.257489276126,57963.707313545485,60516.909798916662,63126.864945389658],[6051.7112184568114,5395.8230182622174,4796.6874791694445,4254.3046011784872,3768.6743842893511,3339.7968285020306,2967.6719338165294,2652.2997002328475,2393.6801277509835,2191.8132163709374,2046.6989660927104,1958.3373769163015,1926.728448841711,1951.8721818689392,2033.7685759979859,2172.417631228851,2367.8193475615335,2619.9737249960349,2928.8807635323551,3294.5404631704941,3716.9528239104498,4196.1178457522255,4732.0355286958211,5324.7058727412314,5974.1288778884627,6680.3045441375134,7443.2328714883779,8262.9138599410653,9139.347509495572,10072.533820151892,11062.472791910033,12109.164424769991,13212.608718731772,14372.805673795368,15589.75528996078,16863.457567228015,18193.912505597062,19581.120105067934,21025.080365640628,22525.793287315129,24083.258870091449,25697.477113969602,27368.448018949563,29096.171585031338,30880.647812214946,32721.876700500357,34619.858249887591,36574.592460376654,38586.079331967521,40654.318864660207,42779.311058454732,44961.055913351054,47199.553429349195,49494.803606449168,51846.806444650945,54255.561943954541,56721.070104359977,59243.330925867209,61822.34440847626,64458.110552187129],[5877.1188492456395,5247.0416462889189,4673.7171044340184,4157.1452236809337,3697.3260040296695,3294.259445480222,2947.9455480325933,2658.3843116867838,2425.5757364427923,2249.5198223006187,2130.2165692602644,2067.665977321728,2061.8680464850104,2112.8227767501107,2220.5301681170299,2384.9902205857679,2606.202934156323,2884.1683088286964,3218.8863446028895,3610.3570414789015,4058.5803994567295,4563.5564185363783,5125.2850987178454,5743.7664400011281,6419.0004423862329,7150.987105873156,7939.7264304618939,8785.2184161524528,9687.4630629448311,10646.460370839024,11662.210339835041,12734.712969932869,13863.968261132522,15049.976213433993,16292.736826837276,17592.250101342383,18948.516036949306,20361.534633658048,21831.305891468612,23357.829810380987,24941.106390395184,26581.135631511206,28277.917533729036,30031.452097048685,31841.739321470166,33708.779206993451,35632.571753618555,37613.116961345491,39650.414830174232,41744.46536010479,43895.268551137189,46102.824403271385,48367.132916507391,50688.194090845245,53066.007926284896,55500.574422826365,57991.893580469667,60539.965399214772,63144.789879061696,65806.367020010439],[5719.5373410603097,5115.2711353414606,4567.7575907244327,4076.9967072092213,3642.9884847958301,3265.7329234842555,2945.2300232744992,2681.4797841665627,2474.4822061604441,2324.2372892561434,2230.745033453662,2194.0054387529985,2214.0185051541534,2290.7842326571267,2424.3026212619188,2614.5736709685298,2861.5973817769573,3165.373753687204,3525.9027866992697,3943.1844808131541,4417.2188360288555,4948.0058523463767,5535.5455297657172,6179.8378682868724,6880.8828679098497,7638.6805286346453,8453.2308504612556,9324.5338333896889,10252.589477419939,11237.397782552005,12278.958748785893,13377.272376121595,14532.338664559122,15744.157614098465,17012.729224739622,18338.0534964826,19720.130429327393,21158.960023274012,22654.542278322449,24206.877194472698,25815.964771724764,27481.805010078664,29204.397909534364,30983.743470091886,32819.841691751244,34712.692574512395,36662.296118375372,38668.652323340182,40731.761189406796,42851.622716575228,45028.2369048455,47261.603754217562,49551.723264691449,51898.595436267176,54302.2202689447,56762.597762724035,59279.727917605218,61853.610733588197,64484.246210672987,67171.634348859603],[5578.9666939008221,5000.5114854198464,4478.8089380406909,4013.859051763352,3605.6618265878337,3254.2172625141316,2959.5253595422482,2721.5861176721842,2540.399536903938,2415.9656172375103,2348.2843586729009,2337.3557612101104,2383.1798248491377,2485.7565495899839,2645.0859354326485,2861.1679823771315,3134.0026904234323,3463.5900595715511,3849.9300898214892,4293.0227811732466,4792.8681336268201,5349.4661471822146,5962.8168218394267,6632.9201575984553,7359.776154459305,8143.3848124219739,8983.7461314864559,9880.8601116527625,10834.726752920886,11845.346055290824,12912.718018762585,14036.842643336158,15217.719929011557,16455.349875788772,17749.732483667802,19100.867752648657,20508.75568273132,21973.396273915812,23494.789526202119,25072.935439590241,26707.834014080181,28399.48524967195,30147.889146365527,31953.045704160919,33814.954923058147,35733.616803057179,37709.031344158029,39741.198546360712,41830.1184096652,43975.790934071498,46178.216119579643,48437.393966189578,50753.324473901339,53126.007642714932,55555.44347263033,58041.631963647538,60584.573115766594,63184.266928987439,65840.713403310117,68553.912538734599],[5455.4069077671784,4902.7626965240752,4406.8711463827931,3967.7322573433262,3585.3460294056804,3259.7124625698507,2990.8315568358398,2778.7033122036482,2623.3277286732746,2524.7048062447197,2482.8345449179828,2497.7169446930648,2569.3520055699651,2697.7397275486833,2882.8801106292208,3124.7731548115767,3423.4188600957496,3778.8172264817408,4190.9682539695523,4659.8719425591826,5185.5282922506285,5767.9373030438946,6407.0989749389801,7103.0133079358811,7855.6803020346033,8665.0999572351448,9531.272273537501,10454.197250941677,11433.874889447676,12470.305189055485,13563.488149765119,14713.423771576565,15920.112054489837,17183.552998504925,18503.746603621828,19880.692869840554,21314.39179716109,22804.843385583456,24352.047635107636,25956.004545733627,27616.714117461441,29334.176350291084,31108.391244222534,32939.358799255795,34827.079015390897,36771.551892627802,38772.777430966526,40830.755630407082,42945.486490949435,45116.970012593614,47345.206195339626,49630.195039187434,51971.936544137068,54370.430710188535,56825.677537341806,59337.677025596895,61906.429174953817,64531.933985412543,67214.191456973072,69953.201589635442],[5348.8579826593768,4822.0247686541461,4351.9442157507365,3938.616323949142,3582.0410932493687,3282.2185236514119,3039.1486151552735,2852.8313677609549,2723.2667814684537,2650.4548562777713,2634.3955921889074,2675.0889892018618,2772.5350473166345,2926.7337665332257,3137.6851468516352,3405.389188271864,3729.8458907939098,4111.0552544177735,4549.017279143457,5043.7319649709598,5595.1993119002782,6203.4193199314177,6868.3919890643756,7590.1173192991491,8368.5953106357447,9203.8259630741577,10095.809276614385,11044.545251256437,12050.033887000305,13112.275183845988,14231.269141793495,15407.015760842814,16639.515040993956,17928.766982246918,19274.771584601694,20677.528848058293,22137.038772616703,23653.301358276938,25226.316605038992,26856.08451290286,28542.605081868543,30285.87831193606,32085.90420310538,33942.682755376518,35856.213968749493,37826.497843224264,39853.534378800861,41937.323575479291,44077.865433259518,46275.15995214157,48529.207132125455,50840.006973211137,53207.559475398644,55631.864638687985,58112.922463079129,60650.732948572084,63245.296095166879,65896.611902863471,68604.680371661889,71369.501501562117]],"type":"surface","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="cómo-se-encuentra-el-vector-hatbeta" class="section level2 unnumbered hasAnchor">
+<h2>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?<a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Queremos minimizar la SRC:</p>
+<p><span class="math display">\[
+\hat{\beta} = \underset{\tilde{\beta}}{\arg\min} \; (y - X\tilde{\beta})&#39;(y - X\tilde{\beta})
+\]</span></p>
+<p>Expandiendo:</p>
+<p><span class="math display">\[
+SRC(\tilde{\beta}) = y&#39;y - 2\tilde{\beta}&#39;X&#39;y + \tilde{\beta}&#39;X&#39;X\tilde{\beta}
+\]</span></p>
+<p>Para minimizar esta función deerivamos con respecto a <span class="math inline">\(\tilde{\beta}\)</span>:</p>
+<p><span class="math display">\[
+\frac{\partial SRC}{\partial \tilde{\beta}} = -2X&#39;y + 2X&#39;X\tilde{\beta} = 0
+\]</span></p>
+<p>Reordenando, llegamos a las <strong>Ecuaciones normales de MCO</strong>:</p>
+<p><span class="math display">\[
+X&#39;X \hat{\beta} = X&#39;y
+\]</span></p>
+<p>Si la matriz <span class="math inline">\(X&#39;X\)</span> es invertible (lo que requiere, por ejemplo, que no haya multicolinealidad perfecta), entonces podemos despejar <span class="math inline">\(\hat{\beta}\)</span> directamente</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+</div>
+<div id="es-un-mínimo" class="section level2 unnumbered hasAnchor">
+<h2>¿Es un mínimo?<a href="#es-un-m%C3%ADnimo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sí, y lo podemos verificar con la segunda derivada (matriz Hessiana) es:</p>
+<p><span class="math display">\[
+\frac{\partial^2 SRC}{\partial \tilde{\beta} \partial \tilde{\beta}&#39;} = 2X&#39;X
+\]</span></p>
+<p>Como <span class="math inline">\(X&#39;X\)</span> es semidefinida positiva (o positiva definida si no hay colinealidad), eso nos garantiza que el punto que encontramos con la primera derivada es en efecto un mínimo.</p>
+<p>🧠 <strong>Recordatorio:</strong> Para funciones cuadráticas, si la matriz que acompaña al término cuadrático (en este caso <span class="math inline">\(X&#39;X\)</span>) es <strong>positiva definida</strong>, entonces el punto crítico que encontramos resolviendo la condición de primer orden <strong>es un mínimo global</strong>.</p>
+<div class="box-cerebro">
+<div id="qué-significa-que-una-matriz-sea-semidefinida-positiva" class="section level3 unnumbered hasAnchor">
+<h3>🧠 ¿Qué significa que una matriz sea semidefinida positiva?<a href="#qu%C3%A9-significa-que-una-matriz-sea-semidefinida-positiva" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una matriz simétrica <span class="math inline">\(A\)</span> es:</p>
+<ul>
+<li><p><strong>Positiva semidefinida (PSD)</strong> si para cualquier vector no nulo <span class="math inline">\(z\)</span>, se cumple:</p>
+<p><span class="math display">\[
+z&#39;Az \geq 0
+\]</span></p></li>
+<li><p><strong>Positiva definida (PD)</strong> si para cualquier vector no nulo <span class="math inline">\(z\)</span>, se cumple:</p>
+<p><span class="math display">\[
+z&#39;Az &gt; 0
+\]</span></p></li>
+</ul>
+<p>En el contexto de mínimos cuadrados, la matriz <span class="math inline">\(X&#39;X\)</span> es siempre <strong>simétrica</strong> y al menos <strong>semidefinida positiva</strong>. Será <strong>positiva definida</strong> si las columnas de <span class="math inline">\(X\)</span> no tienen colinealidad perfecta (es decir, no hay combinación lineal exacta entre las variables).</p>
+</div>
+<div id="y-por-qué-importa-esto" class="section level3 unnumbered hasAnchor">
+<h3>¿Y por qué importa esto?<a href="#y-por-qu%C3%A9-importa-esto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Porque si una función cuadrática tiene la forma:</p>
+<p><span class="math display">\[
+f(\beta) = \beta&#39;A\beta + b&#39;\beta + c
+\]</span></p>
+<p>entonces <span class="math inline">\(f(\beta)\)</span> tiene un mínimo en el punto donde su derivada es cero <strong>si</strong> <span class="math inline">\(A\)</span> es positiva definida (o semidefinida positiva en algunos casos). Esto es justo lo que ocurre en MCO.</p>
+<p>📌 En otras palabras: el hecho de que <span class="math inline">\(X&#39;X\)</span> sea positiva definida es lo que garantiza que el estimador <span class="math inline">\(\hat{\beta}\)</span> <strong>minimiza</strong> la suma de los residuos al cuadrado, y no la maximiza o genera un punto de silla.</p>
+</div>
+</div>
+</div>
+<div id="interpretación-en-términos-de-contraparte-muestral" class="section level2 unnumbered hasAnchor">
+<h2>Interpretación en términos de contraparte muestral<a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Podemos escribir:</p>
+<p><span class="math display">\[
+\hat{\beta} = \left( \frac{X&#39;X}{n} \right)^{-1} \left( \frac{X&#39;y}{n} \right)
+\]</span></p>
+<p>Esto sugiere que estamos usando promedios muestrales. Bajo ciertas condiciones:</p>
+<p><span class="math display">\[
+\hat{\beta} \to E[X&#39;X]^{-1}E[X&#39;y]
+\]</span></p>
+<hr />
+</div>
+<div id="supuestos-clave-empleados-hasta-acá" class="section level2 unnumbered hasAnchor">
+<h2>Supuestos clave empleados hasta acá<a href="#supuestos-clave-empleados-hasta-ac%C3%A1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>S1</strong>: Linealidad en los parámetros</li>
+<li><strong>S2</strong>: <span class="math inline">\(E[\varepsilon_i \mid X_i] = 0\)</span></li>
+<li><strong>S3</strong>: <span class="math inline">\(X&#39;X\)</span> invertible (no colinealidad perfecta)</li>
+</ul>
+</div>
+<div id="diferencia-entre-la-regresión-simple-y-la-regresión-múltiple" class="section level2 unnumbered hasAnchor">
+<h2>Diferencia entre la regresión simple y la regresión múltiple<a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Vamos a ver diferentes casos de regresión, desde la más simple hasta la más compleja, para entender la anatomía de la regresión y cómo MCO se adapta a cada uno.</p>
+<div id="regresión-sin-variables-explicativas" class="section level3 unnumbered hasAnchor">
+<h3>Regresión sin variables explicativas<a href="#regresi%C3%B3n-sin-variables-explicativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este caso, el modelo es simplemente:</p>
+<p><span class="math display">\[
+y = \beta + \varepsilon
+\]</span></p>
+<p>Aquí, <span class="math inline">\(\beta\)</span> es el único parámetro a estimar. El estimador de MCO es simplemente el promedio de <span class="math inline">\(y\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta} = \frac{1}{n} \sum_{i=1}^{n} y_i
+\]</span></p>
+</div>
+<div id="regresión-simple-con-una-variable-explicativa" class="section level3 unnumbered hasAnchor">
+<h3>Regresión simple con una variable explicativa<a href="#regresi%C3%B3n-simple-con-una-variable-explicativa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este caso, el modelo es:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x + \varepsilon
+\]</span></p>
+<p>Aquí, tenemos dos parámetros a estimar: <span class="math inline">\(\beta_0\)</span> (intercepto) y <span class="math inline">\(\beta_1\)</span> (pendiente). El estimador de MCO se calcula como:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+</div>
+<div id="pausa" class="section level3 unnumbered hasAnchor box-tarea">
+<h3>📝 Pausa<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Demostrar que el estimador de MCO para <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span> en la regresión simple son:</p>
+<p><span class="math display">\[
+\hat{\beta}_1 = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}
+\]</span></p>
+<p><span class="math display">\[
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{x}
+\]</span></p>
+<p>Debes partir de la formulación matricial de MCO y aplicar álgebra paso a paso. 💪</p>
+<p>Recuerda las siguientes propiedades de la sumatoria</p>
+<p><em>Promedio y suma</em>
+Si
+<span class="math display">\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\quad \Rightarrow \quad
+n \bar{X} = \sum_{i=1}^{n} X_i
+\]</span></p>
+<p><em>Suma de cuadrados centrados</em>
+<span class="math display">\[
+\sum_{i=1}^{n} (X_i - \bar{X})^2 = \sum_{i=1}^{n} X_i^2 - n \bar{X}^2
+\]</span></p>
+<p>Demostración:
+<span class="math display">\[
+\sum_{i=1}^{n} (X_i - \bar{X})^2 = \sum X_i^2 - 2 \bar{X} \sum X_i + n \bar{X}^2
+\]</span>
+<span class="math display">\[
+= \sum X_i^2 - 2n \bar{X}^2 + n \bar{X}^2
+= \sum X_i^2 - n \bar{X}^2
+\]</span></p>
+<p><em>Covarianza muestral</em>
+<span class="math display">\[
+\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y}) = \sum X_i (Y_i - \bar{Y}) - \bar{X} \sum (Y_i - \bar{Y})
+\]</span></p>
+<p><span class="math display">\[
+= \sum X_i Y_i - \bar{Y} \sum X_i - \bar{X} \cdot 0
+= \sum X_i Y_i - n \bar{Y} \bar{X}
+= \sum X_i (Y_i - \bar{Y})
+\]</span></p>
+</div>
+<div id="regresión-múltiple-con-múltiples-variables-explicativas" class="section level3 unnumbered hasAnchor">
+<h3>Regresión múltiple con múltiples variables explicativas<a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este caso, el modelo es:
+<span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \ldots + \beta_k x_k + \varepsilon
+\]</span>
+Aquí, tenemos <span class="math inline">\(k+1\)</span> parámetros a estimar. El estimador de MCO sigue siendo:
+<span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+<p>En el siguiente capítulo entenederemos mejor la anatomía de la regresión múltiple para entender perfectamente ¿cuál es la diferencia entre la regresión simple y la múltiple?</p>
+</div>
+</div>
+<div id="apéndice" class="section level2 unnumbered hasAnchor">
+<h2>Apéndice<a href="#ap%C3%A9ndice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="álgebra-mucha-álgebra" class="section level3 unnumbered hasAnchor">
+<h3>Álgebra… mucha álgebra<a href="#%C3%A1lgebra-mucha-%C3%A1lgebra" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Partimos del modelo de regresión simple en forma matricial:</p>
+<p><span class="math display">\[
+y = X\beta + \varepsilon
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(y\)</span> es un vector columna de dimensión <span class="math inline">\(n \times 1\)</span>,</li>
+<li><span class="math inline">\(X\)</span> es una matriz <span class="math inline">\(n \times 2\)</span>, con una columna de unos y una columna con la variable explicativa <span class="math inline">\(X_1\)</span>, es decir: <span class="math inline">\(X = [1 \;\; X_1]\)</span>,</li>
+<li><span class="math inline">\(\varepsilon\)</span> es el vector de perturbaciones,</li>
+<li><span class="math inline">\(\beta\)</span> es un vector <span class="math inline">\(2 \times 1\)</span> con los parámetros a estimar.</li>
+</ul>
+<p>El estimador de MCO es:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\hat{\beta}_0 \\
+\hat{\beta}_1
+\end{bmatrix}
+=
+\underbrace{(X&#39;X)^{-1}}_a \cdot \underbrace{X&#39;y}_b
+\]</span></p>
+<p>Cálculo de <span class="math inline">\(X&#39;X\)</span></p>
+<p><span class="math display">\[
+X&#39;X =
+\begin{bmatrix}
+1 &amp; 1 &amp; \cdots &amp; 1 \\
+X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1n}
+\end{bmatrix}
+\begin{bmatrix}
+1 &amp; X_{11} \\
+1 &amp; X_{12} \\
+\vdots &amp; \vdots \\
+1 &amp; X_{1n}
+\end{bmatrix}
+=
+\begin{bmatrix}
+n &amp; \sum X_{1i} \\
+\sum X_{1i} &amp; \sum X_{1i}^2
+\end{bmatrix}
+\]</span></p>
+<p>Su inversa es:</p>
+<p><span class="math display">\[
+(X&#39;X)^{-1} =
+\frac{1}{n \sum X_{1i}^2 - (\sum X_{1i})^2}
+\begin{bmatrix}
+\sum X_{1i}^2 &amp; -\sum X_{1i} \\
+-\sum X_{1i} &amp; n
+\end{bmatrix}
+\]</span></p>
+</div>
+<div id="cálculo-de-xy" class="section level3 hasAnchor" number="5.0.1">
+<h3><span class="header-section-number">5.0.1</span> Cálculo de <span class="math inline">\(X&#39;y\)</span><a href="#c%C3%A1lculo-de-xy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+X&#39;y =
+\begin{bmatrix}
+1 &amp; 1 &amp; \cdots &amp; 1 \\
+X_{11} &amp; X_{12} &amp; \cdots &amp; X_{1n}
+\end{bmatrix}
+\begin{bmatrix}
+y_1 \\
+y_2 \\
+\vdots \\
+y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+\sum y_i \\
+\sum X_{1i} y_i
+\end{bmatrix}
+\]</span></p>
+<p>Producto final</p>
+<p>Sustituyendo en la fórmula del estimador:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\begin{bmatrix}
+\hat{\beta}_0 \\
+\hat{\beta}_1
+\end{bmatrix}
+&amp;=
+\frac{1}{n \sum X_{1i}^2 - (\sum X_{1i})^2}
+\begin{bmatrix}
+\sum X_{1i}^2 &amp; -\sum X_{1i} \\
+-\sum X_{1i} &amp; n
+\end{bmatrix}
+\begin{bmatrix}
+\sum y_i \\
+\sum X_{1i} y_i
+\end{bmatrix} \\
+&amp;=
+\frac{1}{n \sum X_{1i}^2 - (\sum X_{1i})^2}
+\begin{bmatrix}
+\sum X_{1i}^2 \sum y_i - \sum X_{1i} \sum X_{1i} y_i \\
+- \sum X_{1i} \sum y_i + n \sum X_{1i} y_i
+\end{bmatrix}
+\end{aligned}
+\]</span></p>
+<p><strong>Estimador de <span class="math inline">\(\hat{\beta}_1\)</span></strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\beta}_1 &amp;=
+\frac{-\sum X_{1i} \sum y_i + n \sum X_{1i} y_i}{n \sum X_{1i}^2 - (\sum X_{1i})^2} \\
+&amp;= \frac{\sum (X_{1i} - \bar{X}_1)(y_i - \bar{y})}{\sum (X_{1i} - \bar{X}_1)^2}
+\end{aligned}
+\]</span></p>
+<p><strong>Estimador de <span class="math inline">\(\hat{\beta}_0\)</span></strong></p>
+<p><span class="math display">\[
+\hat{\beta}_0 = \bar{y} - \hat{\beta}_1 \bar{X}_1
+\]</span></p>
+</div>
+</div>
+<div id="regresión-múltiple" class="section level2 unnumbered hasAnchor">
+<h2>Regresión múltiple<a href="#regresi%C3%B3n-m%C3%BAltiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La matriz <span class="math inline">\(X&#39;X\)</span> contiene la covarianza entre las variables explicativas. Si las variables no están correlacionadas, no se necesita regresión múltiple.</p>
+<p>Asumimos:</p>
+<ul>
+<li><span class="math inline">\(\sum X_{ji} = 0\)</span> para todas las variables (centradas en cero)</li>
+<li><span class="math inline">\(\sum X_{ji} X_{hi} = 0\)</span> para todo <span class="math inline">\(j \ne h\)</span> (no correlación entre regresores)</li>
+</ul>
+<p>Entonces <span class="math inline">\(X&#39;X\)</span> se convierte en:</p>
+<p><span class="math display">\[
+X&#39;X =
+\begin{bmatrix}
+n &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; \sum X_{1i}^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; \sum X_{ki}^2
+\end{bmatrix}
+\]</span></p>
+<p>Y su inversa:</p>
+<p><span class="math display">\[
+(X&#39;X)^{-1} =
+\begin{bmatrix}
+1/n &amp; 0 &amp; \cdots &amp; 0 \\
+0 &amp; 1/\sum X_{1i}^2 &amp; \cdots &amp; 0 \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+0 &amp; 0 &amp; \cdots &amp; 1/\sum X_{ki}^2
+\end{bmatrix}
+\]</span></p>
+<p>El estimador de MCO en este caso es:</p>
+<p><span class="math display">\[
+\hat{\beta} =
+\begin{bmatrix}
+\frac{\sum y}{n} \\
+\frac{\sum X_1 y}{\sum X_1^2} \\
+\vdots \\
+\frac{\sum X_k y}{\sum X_k^2}
+\end{bmatrix}
+\]</span></p>
+<hr />
+<p><strong>Conclusión</strong>: si las variables explicativas están centradas y no están correlacionadas entre sí, entonces el estimador de MCO para cada coeficiente coincide con el estimador de regresión simple. Solo cuando hay correlación entre regresores es necesaria la regresión múltiple para obtener efectos parciales.</p>
+</div>
+<div id="estimador-de-mco-en-r-empleando-matrices" class="section level2 unnumbered hasAnchor">
+<h2>Estimador de MCO en R empleando matrices<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-1" tabindex="-1"></a><span class="co"># Simular datos</span></span>
+<span id="cb1-2"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb1-3"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-4"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-4" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb1-5"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-5" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, <span class="fl">1.5</span>)</span>
+<span id="cb1-6"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> x <span class="sc">+</span> epsilon</span>
+<span id="cb1-7"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-8" tabindex="-1"></a><span class="co"># Crear matrices</span></span>
+<span id="cb1-9"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-9" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, x)   <span class="co"># matriz de diseño con constante</span></span>
+<span id="cb1-10"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-10" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(y, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb1-11"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-12" tabindex="-1"></a><span class="co"># Estimador de MCO</span></span>
+<span id="cb1-13"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-13" tabindex="-1"></a>XtX_inv <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X) <span class="sc">%*%</span> X)</span>
+<span id="cb1-14"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-14" tabindex="-1"></a>XtY <span class="ot">&lt;-</span> <span class="fu">t</span>(X) <span class="sc">%*%</span> Y</span>
+<span id="cb1-15"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-15" tabindex="-1"></a>b_hat <span class="ot">&lt;-</span> XtX_inv <span class="sc">%*%</span> XtY</span>
+<span id="cb1-16"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-17" tabindex="-1"></a><span class="co"># Valores ajustados y residuos</span></span>
+<span id="cb1-18"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-18" tabindex="-1"></a>Y_hat <span class="ot">&lt;-</span> X <span class="sc">%*%</span> b_hat</span>
+<span id="cb1-19"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-19" tabindex="-1"></a>e <span class="ot">&lt;-</span> Y <span class="sc">-</span> Y_hat</span>
+<span id="cb1-20"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-21" tabindex="-1"></a><span class="co"># Varianza del error y errores estándar</span></span>
+<span id="cb1-22"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-22" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(X)</span>
+<span id="cb1-23"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-23" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">ncol</span>(X)</span>
+<span id="cb1-24"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-24" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(e<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n <span class="sc">-</span> k)</span>
+<span id="cb1-25"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-25" tabindex="-1"></a>var_cov_matrix <span class="ot">&lt;-</span> s2 <span class="sc">*</span> XtX_inv</span>
+<span id="cb1-26"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-26" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(var_cov_matrix))</span>
+<span id="cb1-27"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-27" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-28" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb1-29"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb1-29" tabindex="-1"></a>b_hat</span></code></pre></div>
+<pre><code>#&gt;        [,1]
+#&gt;   1.9865602
+#&gt; x 0.6865253</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb3-1" tabindex="-1"></a>se</span></code></pre></div>
+<pre><code>#&gt;                     x 
+#&gt; 0.29408249 0.05127318</code></pre>
+</div>
+<div id="estimador-de-mco-en-stata-usando-mata" class="section level2 unnumbered hasAnchor">
+<h2>Estimador de MCO en Stata usando MATA<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb5-1"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb5-2"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">more</span> <span class="kw">off</span></span>
+<span id="cb5-3"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-3" tabindex="-1"></a><span class="kw">sysuse</span> auto, <span class="kw">clear</span></span>
+<span id="cb5-4"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-5" tabindex="-1"></a>* Generamos la constante</span>
+<span id="cb5-6"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-6" tabindex="-1"></a><span class="kw">gen</span> cons = 1</span>
+<span id="cb5-7"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-7" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-8" tabindex="-1"></a>* Entramos a MATA</span>
+<span id="cb5-9"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-9" tabindex="-1"></a><span class="kw">mata</span></span>
+<span id="cb5-10"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-10" tabindex="-1"></a><span class="co">// Creamos las matrices X y Y</span></span>
+<span id="cb5-11"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-11" tabindex="-1"></a>st_view(Y=., ., <span class="st">&quot;price&quot;</span>)</span>
+<span id="cb5-12"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-12" tabindex="-1"></a>st_view(X=., ., (<span class="st">&quot;cons&quot;</span>, <span class="st">&quot;weight&quot;</span>))</span>
+<span id="cb5-13"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-14" tabindex="-1"></a>n = <span class="bn">rows</span>(X)</span>
+<span id="cb5-15"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-15" tabindex="-1"></a><span class="kw">k</span> = <span class="bn">cols</span>(X)</span>
+<span id="cb5-16"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-16" tabindex="-1"></a>df = n - <span class="kw">k</span></span>
+<span id="cb5-17"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-17" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-18" tabindex="-1"></a><span class="co">// Estimador de MCO</span></span>
+<span id="cb5-19"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-19" tabindex="-1"></a>b = <span class="fu">invsym</span>(X&#39;X)*X&#39;Y</span>
+<span id="cb5-20"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-20" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-21" tabindex="-1"></a><span class="co">// Valores ajustados y residuos</span></span>
+<span id="cb5-22"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-22" tabindex="-1"></a>Y_hat = X*b</span>
+<span id="cb5-23"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-23" tabindex="-1"></a><span class="fu">e</span> = Y - Y_hat</span>
+<span id="cb5-24"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-24" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-25" tabindex="-1"></a><span class="co">// Suma de residuos al cuadrado</span></span>
+<span id="cb5-26"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-26" tabindex="-1"></a>SRC = e&#39;e</span>
+<span id="cb5-27"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-27" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-28" tabindex="-1"></a><span class="co">// Varianza del error</span></span>
+<span id="cb5-29"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-29" tabindex="-1"></a>s2 = SRC / df</span>
+<span id="cb5-30"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-30" tabindex="-1"></a><span class="fu">s</span> = <span class="fu">sqrt</span>(s2)</span>
+<span id="cb5-31"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-31" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-32" tabindex="-1"></a><span class="co">// Matriz de varianzas y covarianzas</span></span>
+<span id="cb5-33"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-33" tabindex="-1"></a><span class="kw">V</span> = s2 * <span class="fu">invsym</span>(X&#39;X)</span>
+<span id="cb5-34"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-34" tabindex="-1"></a>se = <span class="fu">sqrt</span>(diagonal(<span class="kw">V</span>))</span>
+<span id="cb5-35"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-35" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-36" tabindex="-1"></a><span class="co">// Resultados</span></span>
+<span id="cb5-37"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-37" tabindex="-1"></a>b</span>
+<span id="cb5-38"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-38" tabindex="-1"></a>se</span>
+<span id="cb5-39"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-39" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb5-40"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-40" tabindex="-1"></a></span>
+<span id="cb5-41"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-41" tabindex="-1"></a>* Comparación con comando base</span>
+<span id="cb5-42"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb5-42" tabindex="-1"></a><span class="kw">reg</span> price <span class="kw">weight</span></span></code></pre></div>
+</div>
+<div id="estimador-de-mco-en-python-usando-numpy" class="section level2 unnumbered hasAnchor">
+<h2>Estimador de MCO en Python usando NumPy<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-2" tabindex="-1"></a><span class="co"># Estimador de MCO en Python usando matrices (numpy)</span></span>
+<span id="cb6-3"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-3" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-4"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-4" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-5" tabindex="-1"></a><span class="co"># Simular datos</span></span>
+<span id="cb6-6"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-6" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb6-7"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-7" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb6-8"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-8" tabindex="-1"></a>x <span class="op">=</span> np.random.uniform(<span class="dv">0</span>, <span class="dv">10</span>, size<span class="op">=</span>n)</span>
+<span id="cb6-9"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-9" tabindex="-1"></a>epsilon <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="fl">1.5</span>, size<span class="op">=</span>n)</span>
+<span id="cb6-10"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-10" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span> <span class="op">+</span> <span class="fl">0.7</span> <span class="op">*</span> x <span class="op">+</span> epsilon</span>
+<span id="cb6-11"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-11" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-12" tabindex="-1"></a><span class="co"># Crear matriz X con constante</span></span>
+<span id="cb6-13"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-13" tabindex="-1"></a>X <span class="op">=</span> np.column_stack((np.ones(n), x))  <span class="co"># n x 2</span></span>
+<span id="cb6-14"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-14" tabindex="-1"></a>Y <span class="op">=</span> y.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)  <span class="co"># n x 1</span></span>
+<span id="cb6-15"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-16" tabindex="-1"></a><span class="co"># Estimador MCO: beta_hat = (X&#39;X)^(-1) X&#39;Y</span></span>
+<span id="cb6-17"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-17" tabindex="-1"></a>XtX_inv <span class="op">=</span> np.linalg.inv(X.T <span class="op">@</span> X)</span>
+<span id="cb6-18"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-18" tabindex="-1"></a>XtY <span class="op">=</span> X.T <span class="op">@</span> Y</span>
+<span id="cb6-19"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-19" tabindex="-1"></a>beta_hat <span class="op">=</span> XtX_inv <span class="op">@</span> XtY</span>
+<span id="cb6-20"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-20" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-21" tabindex="-1"></a><span class="co"># Valores ajustados y residuos</span></span>
+<span id="cb6-22"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-22" tabindex="-1"></a>Y_hat <span class="op">=</span> X <span class="op">@</span> beta_hat</span>
+<span id="cb6-23"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-23" tabindex="-1"></a>e <span class="op">=</span> Y <span class="op">-</span> Y_hat</span>
+<span id="cb6-24"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-24" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-25" tabindex="-1"></a><span class="co"># Varianza del error</span></span>
+<span id="cb6-26"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-26" tabindex="-1"></a>k <span class="op">=</span> X.shape[<span class="dv">1</span>]</span>
+<span id="cb6-27"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-27" tabindex="-1"></a>s2 <span class="op">=</span> (e.T <span class="op">@</span> e) <span class="op">/</span> (n <span class="op">-</span> k)</span>
+<span id="cb6-28"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-28" tabindex="-1"></a>var_cov_matrix <span class="op">=</span> s2[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">*</span> XtX_inv</span>
+<span id="cb6-29"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-29" tabindex="-1"></a>se <span class="op">=</span> np.sqrt(np.diag(var_cov_matrix))</span>
+<span id="cb6-30"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-30" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-31" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb6-32"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-32" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficientes (beta_hat):&quot;</span>)</span>
+<span id="cb6-33"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-33" tabindex="-1"></a><span class="bu">print</span>(beta_hat.flatten())</span>
+<span id="cb6-34"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-34" tabindex="-1"></a></span>
+<span id="cb6-35"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-35" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">Errores estándar:&quot;</span>)</span>
+<span id="cb6-36"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-36" tabindex="-1"></a><span class="bu">print</span>(se)</span>
+<span id="cb6-37"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-37" tabindex="-1"></a></span>
+<span id="cb6-38"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-38" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-39"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-39" tabindex="-1"></a></span>
+<span id="cb6-40"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-40" tabindex="-1"></a>plt.scatter(x, y, label<span class="op">=</span><span class="st">&#39;Datos&#39;</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb6-41"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-41" tabindex="-1"></a>plt.plot(x, Y_hat, color<span class="op">=</span><span class="st">&#39;red&#39;</span>, label<span class="op">=</span><span class="st">&#39;Ajuste MCO&#39;</span>)</span>
+<span id="cb6-42"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-42" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;x&#39;</span>)</span>
+<span id="cb6-43"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-43" tabindex="-1"></a>plt.ylabel(<span class="st">&#39;y&#39;</span>)</span>
+<span id="cb6-44"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-44" tabindex="-1"></a>plt.title(<span class="st">&#39;Regresión lineal por MCO&#39;</span>)</span>
+<span id="cb6-45"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-45" tabindex="-1"></a>plt.legend()</span>
+<span id="cb6-46"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-46" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb6-47"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#cb6-47" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div id="preguntas-de-repaso-4" class="section level3 unnumbered hasAnchor box-repaso">
+<h3>📘 Preguntas de repaso<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A continuación encontrarás algunas preguntas conceptuales y computacionales para reforzar lo aprendido sobre el estimador de Mínimos Cuadrados Ordinarios (MCO). Puedes intentar resolverlas en papel o programando en R, Stata o Python.</p>
+<div id="interpretación-de-coeficientes" class="section level4 unnumbered hasAnchor">
+<h4>✍️ Interpretación de coeficientes<a href="#interpretaci%C3%B3n-de-coeficientes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Suponga que ha estimado la siguiente regresión:</p>
+<p><span class="math display">\[
+\widehat{\text{salario}} = \beta_0 + \beta_1 \cdot \text{educación}
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li>salario = salario por hora (en pesos)</li>
+<li>educación = años de educación completados</li>
+</ul>
+<p>Para cada uno de los siguientes coeficientes estimados, interprete el resultado en términos económicos:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\hat{\beta}_1 = 2000\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_1 = 0\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_1 = -500\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_1 = 0.15\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_1 = 10\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_0 = 2500\)</span></li>
+</ol>
+<hr />
+</div>
+<div id="álgebra-y-transformaciones" class="section level4 unnumbered hasAnchor">
+<h4>🧠 Álgebra y transformaciones<a href="#%C3%A1lgebra-y-transformaciones" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="7" style="list-style-type: decimal">
+<li><p>¿Qué ocurre con el estimador de MCO si multiplicamos la variable dependiente por una constante <span class="math inline">\(c\)</span>?<br />
+<em>Demuestre usando la expresión matricial <span class="math inline">\(\hat{\beta} = (X&#39;X)^{-1} X&#39;y\)</span>.</em></p></li>
+<li><p>¿Qué ocurre si multiplicamos una de las variables explicativas por una constante <span class="math inline">\(c\)</span>?<br />
+<em>¿Qué sucede con el coeficiente estimado y con el resto de los coeficientes?</em></p></li>
+<li><p>Si a la variable dependiente se le suma una constante, ¿qué ocurre con los estimadores?</p></li>
+<li><p>Si todas las variables explicativas tienen media cero, ¿cuál es el valor estimado del intercepto? ¿Por qué?</p></li>
+</ol>
+</div>
+<div id="preguntas-de-programación" class="section level4 unnumbered hasAnchor">
+<h4>💻 Preguntas de programación<a href="#preguntas-de-programaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="11" style="list-style-type: decimal">
+<li><p>Implemente una función en R que reciba dos vectores <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span>, y devuelva <span class="math inline">\(\hat{\beta}_0\)</span>, <span class="math inline">\(\hat{\beta}_1\)</span> y los errores estándar, usando solo álgebra matricial.</p></li>
+<li><p>En Stata, estime una regresión por MCO con <code>reg</code> y luego reproduzca todos los pasos usando <code>mata</code>. Compare los resultados y verifique que los residuos sean iguales.</p></li>
+<li><p>Escriba una función en Python que tome <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> como matrices de NumPy y devuelva:</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}\)</span>,</li>
+<li>la matriz de varianza-covarianza,</li>
+<li>los errores estándar,</li>
+<li>y el <span class="math inline">\(R^2\)</span>.</li>
+</ul></li>
+</ol>
+<hr />
+</div>
+<div id="para-reflexionar" class="section level4 unnumbered hasAnchor">
+<h4>📚 Para reflexionar<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#para-reflexionar" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol start="14" style="list-style-type: decimal">
+<li><p>¿Por qué es importante que la matriz <span class="math inline">\(X&#39;X\)</span> sea positiva definida? ¿Qué ocurre si no lo es?</p></li>
+<li><p>¿Qué implicaciones tiene usar variables altamente correlacionadas en un modelo de regresión múltiple? ¿Cómo lo podrías detectar?</p></li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="supuestos-de-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anatomía-de-la-regresión-múltiple.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/05-Estimacion.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

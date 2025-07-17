@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Anatomía de la Regresión Múltiple | Econometría II</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Anatomía de la Regresión Múltiple | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Anatomía de la Regresión Múltiple | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-07-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"/>
+
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#informaci%C3%B3n-general"><i class="fa fa-check"></i>Información general</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="06-FWL.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-a-un-buen-estimador"><i class="fa fa-check"></i>¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="2.0.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>2.0.1</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i>🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad"><i class="fa fa-check"></i>🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>3</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#norma-y-normalizaci%C3%B3n"><i class="fa fa-check"></i>Norma y normalización</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-por-un-escalar"><i class="fa fa-check"></i>Multiplicación por un escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-de-matrices"><i class="fa fa-check"></i>Multiplicación de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transposici%C3%B3n-de-matrices"><i class="fa fa-check"></i>Transposición de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matriz-sim%C3%A9trica"><i class="fa fa-check"></i>6. Matriz simétrica</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n-p-y-m"><i class="fa fa-check"></i>9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-funci%C3%B3n-multidimensional"><i class="fa fa-check"></i>Derivadas de una función multidimensional</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-forma-cuadr%C3%A1tica"><i class="fa fa-check"></i>Derivadas de una forma cuadrática</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>4</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s1.-linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i>S1. Linealidad en los Parámetros</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s4.-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i>S4. Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s5.-regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i>S5. Regresores No Estocásticos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#glosario-de-s%C3%ADmbolos"><i class="fa fa-check"></i>Glosario de Símbolos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="06-FWL.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
+<li class="chapter" data-level="5.0.1" data-path="06-FWL.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="06-FWL.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica"><i class="fa fa-check"></i>🔍 Intuición geométrica</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n"><i class="fa fa-check"></i>✨ Visualización tridimensional de la proyección</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notaci%C3%B3n-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Notación y Motivación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i>❓¿Cuál es el problema que resuelve el FWL?</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-final"><i class="fa fa-check"></i>✅ Interpretación final</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conclusi%C3%B3n"><i class="fa fa-check"></i>📦 Conclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="06-FWL.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="06-FWL.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="06-FWL.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anatomía-de-la-regresión-múltiple" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> Anatomía de la Regresión Múltiple<a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="matrices-de-proyección" class="section level2 unnumbered hasAnchor">
+<h2>Matrices de Proyección<a href="#matrices-de-proyecci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Supongamos que estamos estimando una regresión lineal múltiple del tipo:</p>
+<p><span class="math display">\[
+y = X\beta + \varepsilon
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(y \in \mathbb{R}^n\)</span> es el vector de la variable dependiente</li>
+<li><span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span> es la matriz de regresores de rango completo</li>
+<li><span class="math inline">\(\beta \in \mathbb{R}^k\)</span> es el vector de parámetros</li>
+</ul>
+<p>La estimación de mínimos cuadrados se basa en proyectar el vector <span class="math inline">\(y\)</span> sobre el <strong>espacio columna de <span class="math inline">\(X\)</span></strong>, denotado <span class="math inline">\(\mathcal{C}(X)\)</span>. Esta proyección busca encontrar el punto más cercano en ese subespacio a <span class="math inline">\(y\)</span>, minimizando la suma de los residuos al cuadrado.</p>
+<p>Esta proyección se logra mediante la <strong>matriz de proyección</strong>:</p>
+<p><span class="math display">\[
+\mathbf{P}_X = X(X&#39;X)^{-1}X&#39;
+\]</span></p>
+<p>Y su complemento ortogonal (que proyecta sobre el espacio ortogonal a <span class="math inline">\(\mathcal{C}(X)\)</span>) es:</p>
+<p><span class="math display">\[
+\mathbf{M}_X = I - \mathbf{P}_X
+\]</span></p>
+<p><span class="math display">\[
+\hat{y} = \mathbf{P}_X y \quad \text{y} \quad \hat{\varepsilon} = \mathbf{M}_X y
+\]</span></p>
+<div id="intuición-geométrica" class="section level3 unnumbered hasAnchor">
+<h3>🔍 Intuición geométrica<a href="#intuici%C3%B3n-geom%C3%A9trica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><span class="math inline">\(y\)</span>: vector observado</li>
+<li><span class="math inline">\(\hat{y} = \mathbf{P}_X y\)</span>: predicción, o “sombra” de <span class="math inline">\(y\)</span> sobre el plano generado por <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(\hat{\varepsilon} = y - \hat{y}\)</span>: residuo, perpendicular al plano</li>
+</ul>
+<p>El estimador de MCO se obtiene al minimizar:</p>
+<p><span class="math display">\[
+\min_{\beta} (y - X\beta)&#39;(y - X\beta)
+\]</span></p>
+<p>La solución es:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+</div>
+<div id="propiedades-algebraicas-clave" class="section level3 unnumbered hasAnchor">
+<h3>📐 Propiedades algebraicas clave<a href="anatomía-de-la-regresión-múltiple.html#propiedades-algebraicas-clave" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="41%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Propiedad</th>
+<th><span class="math inline">\(\mathbf{P}_X\)</span></th>
+<th><span class="math inline">\(\mathbf{M}_X\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Simetría</td>
+<td><span class="math inline">\(\mathbf{P}_X&#39; = \mathbf{P}_X\)</span></td>
+<td><span class="math inline">\(\mathbf{M}_X&#39; = \mathbf{M}_X\)</span></td>
+</tr>
+<tr class="even">
+<td>Idempotencia</td>
+<td><span class="math inline">\(\mathbf{P}_X^2 = \mathbf{P}_X\)</span></td>
+<td><span class="math inline">\(\mathbf{M}_X^2 = \mathbf{M}_X\)</span></td>
+</tr>
+<tr class="odd">
+<td>Ortogonalidad</td>
+<td><span class="math inline">\(\mathbf{P}_X \mathbf{M}_X = 0\)</span></td>
+<td><span class="math inline">\(\hat{y} \perp \hat{\varepsilon}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Estas propiedades nos permitirán probar resultados como: ortogonalidad entre predicción y residuos, descomposición de la varianza total, y derivar el estimador de varianza del error.</p>
+</div>
+<div id="visualización-tridimensional-de-la-proyección" class="section level3 unnumbered hasAnchor">
+<h3>✨ Visualización tridimensional de la proyección<a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center">
+<div id="rgl30719" style="width:672px;height:672px;" class="rglWebGL html-widget " role="img" aria-labelledby="rgl30719-aria"></div>
+<script type="application/json" data-for="rgl30719">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":1,"objects":{"10":{"id":10,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"0","colors":"2","dim":[[10,10]],"centers":"3","normals":"1","ignoreExtent":false,"flipped":true,"flags":32811},"11":{"id":11,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"4","colors":"5","centers":"6","ignoreExtent":false,"flags":41024},"12":{"id":12,"type":"text","material":{"lit":false},"vertices":"7","colors":"8","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"9","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"13":{"id":13,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"10","colors":"11","centers":"12","ignoreExtent":false,"flags":41024},"14":{"id":14,"type":"text","material":{"lit":false},"vertices":"13","colors":"14","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"15","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"15":{"id":15,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"16","colors":"17","centers":"18","ignoreExtent":false,"flags":41024},"16":{"id":16,"type":"text","material":{"lit":false},"vertices":"19","colors":"20","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"21","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"18":{"id":18,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"22","colors":"23","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"24","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"28":{"id":28,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"25","colors":"27","dim":[[10,10]],"centers":"28","normals":"26","ignoreExtent":false,"flipped":true,"flags":32811},"29":{"id":29,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"29","colors":"30","centers":"31","ignoreExtent":false,"flags":41024},"30":{"id":30,"type":"text","material":{"lit":false},"vertices":"32","colors":"33","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"34","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"31":{"id":31,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"35","colors":"36","centers":"37","ignoreExtent":false,"flags":41024},"32":{"id":32,"type":"text","material":{"lit":false},"vertices":"38","colors":"39","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"40","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"33":{"id":33,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"41","colors":"42","centers":"43","ignoreExtent":false,"flags":41024},"34":{"id":34,"type":"text","material":{"lit":false},"vertices":"44","colors":"45","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"46","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"36":{"id":36,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"47","colors":"48","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"49","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"46":{"id":46,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"50","colors":"52","dim":[[10,10]],"centers":"53","normals":"51","ignoreExtent":false,"flipped":true,"flags":32811},"47":{"id":47,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"54","colors":"55","centers":"56","ignoreExtent":false,"flags":41024},"48":{"id":48,"type":"text","material":{"lit":false},"vertices":"57","colors":"58","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"59","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"49":{"id":49,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"60","colors":"61","centers":"62","ignoreExtent":false,"flags":41024},"50":{"id":50,"type":"text","material":{"lit":false},"vertices":"63","colors":"64","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"65","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"51":{"id":51,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"66","colors":"67","centers":"68","ignoreExtent":false,"flags":41024},"52":{"id":52,"type":"text","material":{"lit":false},"vertices":"69","colors":"70","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"71","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"54":{"id":54,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"72","colors":"73","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"74","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"64":{"id":64,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"75","colors":"77","dim":[[10,10]],"centers":"78","normals":"76","ignoreExtent":false,"flipped":true,"flags":32811},"65":{"id":65,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"79","colors":"80","centers":"81","ignoreExtent":false,"flags":41024},"66":{"id":66,"type":"text","material":{"lit":false},"vertices":"82","colors":"83","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"84","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"67":{"id":67,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"85","colors":"86","centers":"87","ignoreExtent":false,"flags":41024},"68":{"id":68,"type":"text","material":{"lit":false},"vertices":"88","colors":"89","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"90","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"69":{"id":69,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"91","colors":"92","centers":"93","ignoreExtent":false,"flags":41024},"70":{"id":70,"type":"text","material":{"lit":false},"vertices":"94","colors":"95","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"96","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"72":{"id":72,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"97","colors":"98","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"99","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"82":{"id":82,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"100","colors":"102","dim":[[10,10]],"centers":"103","normals":"101","ignoreExtent":false,"flipped":true,"flags":32811},"83":{"id":83,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"104","colors":"105","centers":"106","ignoreExtent":false,"flags":41024},"84":{"id":84,"type":"text","material":{"lit":false},"vertices":"107","colors":"108","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"109","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"85":{"id":85,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"110","colors":"111","centers":"112","ignoreExtent":false,"flags":41024},"86":{"id":86,"type":"text","material":{"lit":false},"vertices":"113","colors":"114","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"115","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"87":{"id":87,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"116","colors":"117","centers":"118","ignoreExtent":false,"flags":41024},"88":{"id":88,"type":"text","material":{"lit":false},"vertices":"119","colors":"120","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"121","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"90":{"id":90,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"122","colors":"123","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"124","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"100":{"id":100,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"125","colors":"127","dim":[[10,10]],"centers":"128","normals":"126","ignoreExtent":false,"flipped":true,"flags":32811},"101":{"id":101,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"129","colors":"130","centers":"131","ignoreExtent":false,"flags":41024},"102":{"id":102,"type":"text","material":{"lit":false},"vertices":"132","colors":"133","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"134","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"103":{"id":103,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"135","colors":"136","centers":"137","ignoreExtent":false,"flags":41024},"104":{"id":104,"type":"text","material":{"lit":false},"vertices":"138","colors":"139","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"140","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"105":{"id":105,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"141","colors":"142","centers":"143","ignoreExtent":false,"flags":41024},"106":{"id":106,"type":"text","material":{"lit":false},"vertices":"144","colors":"145","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"146","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"108":{"id":108,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"147","colors":"148","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"149","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"118":{"id":118,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"150","colors":"152","dim":[[10,10]],"centers":"153","normals":"151","ignoreExtent":false,"flipped":true,"flags":32811},"119":{"id":119,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"154","colors":"155","centers":"156","ignoreExtent":false,"flags":41024},"120":{"id":120,"type":"text","material":{"lit":false},"vertices":"157","colors":"158","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"159","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"121":{"id":121,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"160","colors":"161","centers":"162","ignoreExtent":false,"flags":41024},"122":{"id":122,"type":"text","material":{"lit":false},"vertices":"163","colors":"164","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"165","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"123":{"id":123,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"166","colors":"167","centers":"168","ignoreExtent":false,"flags":41024},"124":{"id":124,"type":"text","material":{"lit":false},"vertices":"169","colors":"170","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"171","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"126":{"id":126,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"172","colors":"173","texts":[["Proyección de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"174","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"5":{"id":5,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"117":{"id":117,"type":"background","material":{"lit":false,"back":"lines"},"colors":"175","centers":"176","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"17":{"id":17,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"177","colors":"178","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"35":{"id":35,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"179","colors":"180","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"53":{"id":53,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"181","colors":"182","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"71":{"id":71,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"183","colors":"184","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"89":{"id":89,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"185","colors":"186","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"107":{"id":107,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"187","colors":"188","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"125":{"id":125,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"189","colors":"190","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"1":{"id":1,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,14.68207263946533],"modelMatrix":[[1,0,0,0],[0,0.3420201539993286,0.9396926164627075,-0.9396926164627075],[0,-0.9396926164627075,0.3420201539993286,-15.02409267425537],[0,0,0,1]],"projMatrix":[[4.665063381195068,0,0,0],[0,4.665063381195068,0,0],[0,0,-3.86370325088501,-52.92716979980469],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":0.800000011920929,"bbox":[-2,2,-2,2,0,2],"windowRect":[100,100,900,900],"family":"sans","font":1,"cex":1,"useFreeType":true,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NA","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[117,125,10,11,12,13,14,15,16,18,28,29,30,31,32,33,34,36,46,47,48,49,50,51,52,54,64,65,66,67,68,69,70,72,82,83,84,85,86,87,88,90,100,101,102,103,104,105,106,108,118,119,120,121,122,123,124,126,5],"subscenes":[],"flags":42363}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":672,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":2,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":3,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":6,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":9,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":12,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":13,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":14,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":16,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":17,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":18,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":19,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":20,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":21,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":22,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":23,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":24,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":25,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":26,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":27,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":28,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":29,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":30,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":31,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":32,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":33,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":34,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":35,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":36,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":37,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":38,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":39,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":40,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":41,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":42,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":43,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":44,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":45,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":46,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":47,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":48,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":49,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":50,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":51,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":52,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":53,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":54,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":55,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":56,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":57,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":58,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":59,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":60,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":61,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":62,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":63,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":64,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":65,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":66,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":67,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":68,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":69,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":70,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":71,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":72,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":73,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":74,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":75,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":76,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":77,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":78,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":79,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":80,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":81,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":82,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":83,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":84,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":85,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":86,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":87,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":88,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":89,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":90,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":91,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":92,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":93,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":94,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":95,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":96,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":97,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":98,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":99,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":100,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":101,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":102,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":103,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":104,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":105,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":106,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":107,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":108,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":109,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":110,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":111,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":112,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":113,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":114,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":115,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":116,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":117,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":118,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":119,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":120,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":121,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":122,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":123,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":124,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":125,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":126,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":127,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":128,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":129,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":130,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":131,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":132,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":133,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":134,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":135,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":136,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":137,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":138,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":139,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":140,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":141,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":142,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":143,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":144,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":145,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":146,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":147,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":148,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":149,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":150,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":151,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":152,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":153,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":154,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":155,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":156,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":157,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":158,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":159,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":160,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":161,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":162,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":163,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":164,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":165,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":166,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":167,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":168,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":169,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":170,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":171,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":172,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":173,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":174,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":175,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":176,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":177,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":178,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":179,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":180,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":181,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":182,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":183,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":184,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":185,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":186,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":187,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":188,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":189,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":190,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":1200,"byteOffset":0},{"buffer":0,"byteLength":300,"byteOffset":1200},{"buffer":0,"byteLength":16,"byteOffset":1500},{"buffer":0,"byteLength":972,"byteOffset":1516},{"buffer":0,"byteLength":6,"byteOffset":2488},{"buffer":0,"byteLength":16,"byteOffset":2496},{"buffer":0,"byteLength":6,"byteOffset":2512},{"buffer":0,"byteLength":3,"byteOffset":2518},{"buffer":0,"byteLength":16,"byteOffset":2524},{"buffer":0,"byteLength":3,"byteOffset":2540},{"buffer":0,"byteLength":6,"byteOffset":2543},{"buffer":0,"byteLength":16,"byteOffset":2552},{"buffer":0,"byteLength":6,"byteOffset":2568},{"buffer":0,"byteLength":3,"byteOffset":2574},{"buffer":0,"byteLength":16,"byteOffset":2580},{"buffer":0,"byteLength":3,"byteOffset":2596},{"buffer":0,"byteLength":6,"byteOffset":2599},{"buffer":0,"byteLength":16,"byteOffset":2608},{"buffer":0,"byteLength":6,"byteOffset":2624},{"buffer":0,"byteLength":3,"byteOffset":2630},{"buffer":0,"byteLength":16,"byteOffset":2636},{"buffer":0,"byteLength":3,"byteOffset":2652},{"buffer":0,"byteLength":12,"byteOffset":2656},{"buffer":0,"byteLength":4,"byteOffset":2668},{"buffer":0,"byteLength":12,"byteOffset":2672},{"buffer":0,"byteLength":1200,"byteOffset":2684},{"buffer":0,"byteLength":300,"byteOffset":3884},{"buffer":0,"byteLength":16,"byteOffset":4184},{"buffer":0,"byteLength":972,"byteOffset":4200},{"buffer":0,"byteLength":6,"byteOffset":5172},{"buffer":0,"byteLength":16,"byteOffset":5180},{"buffer":0,"byteLength":6,"byteOffset":5196},{"buffer":0,"byteLength":3,"byteOffset":5202},{"buffer":0,"byteLength":16,"byteOffset":5208},{"buffer":0,"byteLength":3,"byteOffset":5224},{"buffer":0,"byteLength":6,"byteOffset":5227},{"buffer":0,"byteLength":16,"byteOffset":5236},{"buffer":0,"byteLength":6,"byteOffset":5252},{"buffer":0,"byteLength":3,"byteOffset":5258},{"buffer":0,"byteLength":16,"byteOffset":5264},{"buffer":0,"byteLength":3,"byteOffset":5280},{"buffer":0,"byteLength":6,"byteOffset":5283},{"buffer":0,"byteLength":16,"byteOffset":5292},{"buffer":0,"byteLength":6,"byteOffset":5308},{"buffer":0,"byteLength":3,"byteOffset":5314},{"buffer":0,"byteLength":16,"byteOffset":5320},{"buffer":0,"byteLength":3,"byteOffset":5336},{"buffer":0,"byteLength":12,"byteOffset":5340},{"buffer":0,"byteLength":4,"byteOffset":5352},{"buffer":0,"byteLength":12,"byteOffset":5356},{"buffer":0,"byteLength":1200,"byteOffset":5368},{"buffer":0,"byteLength":300,"byteOffset":6568},{"buffer":0,"byteLength":16,"byteOffset":6868},{"buffer":0,"byteLength":972,"byteOffset":6884},{"buffer":0,"byteLength":6,"byteOffset":7856},{"buffer":0,"byteLength":16,"byteOffset":7864},{"buffer":0,"byteLength":6,"byteOffset":7880},{"buffer":0,"byteLength":3,"byteOffset":7886},{"buffer":0,"byteLength":16,"byteOffset":7892},{"buffer":0,"byteLength":3,"byteOffset":7908},{"buffer":0,"byteLength":6,"byteOffset":7911},{"buffer":0,"byteLength":16,"byteOffset":7920},{"buffer":0,"byteLength":6,"byteOffset":7936},{"buffer":0,"byteLength":3,"byteOffset":7942},{"buffer":0,"byteLength":16,"byteOffset":7948},{"buffer":0,"byteLength":3,"byteOffset":7964},{"buffer":0,"byteLength":6,"byteOffset":7967},{"buffer":0,"byteLength":16,"byteOffset":7976},{"buffer":0,"byteLength":6,"byteOffset":7992},{"buffer":0,"byteLength":3,"byteOffset":7998},{"buffer":0,"byteLength":16,"byteOffset":8004},{"buffer":0,"byteLength":3,"byteOffset":8020},{"buffer":0,"byteLength":12,"byteOffset":8024},{"buffer":0,"byteLength":4,"byteOffset":8036},{"buffer":0,"byteLength":12,"byteOffset":8040},{"buffer":0,"byteLength":1200,"byteOffset":8052},{"buffer":0,"byteLength":300,"byteOffset":9252},{"buffer":0,"byteLength":16,"byteOffset":9552},{"buffer":0,"byteLength":972,"byteOffset":9568},{"buffer":0,"byteLength":6,"byteOffset":10540},{"buffer":0,"byteLength":16,"byteOffset":10548},{"buffer":0,"byteLength":6,"byteOffset":10564},{"buffer":0,"byteLength":3,"byteOffset":10570},{"buffer":0,"byteLength":16,"byteOffset":10576},{"buffer":0,"byteLength":3,"byteOffset":10592},{"buffer":0,"byteLength":6,"byteOffset":10595},{"buffer":0,"byteLength":16,"byteOffset":10604},{"buffer":0,"byteLength":6,"byteOffset":10620},{"buffer":0,"byteLength":3,"byteOffset":10626},{"buffer":0,"byteLength":16,"byteOffset":10632},{"buffer":0,"byteLength":3,"byteOffset":10648},{"buffer":0,"byteLength":6,"byteOffset":10651},{"buffer":0,"byteLength":16,"byteOffset":10660},{"buffer":0,"byteLength":6,"byteOffset":10676},{"buffer":0,"byteLength":3,"byteOffset":10682},{"buffer":0,"byteLength":16,"byteOffset":10688},{"buffer":0,"byteLength":3,"byteOffset":10704},{"buffer":0,"byteLength":12,"byteOffset":10708},{"buffer":0,"byteLength":4,"byteOffset":10720},{"buffer":0,"byteLength":12,"byteOffset":10724},{"buffer":0,"byteLength":1200,"byteOffset":10736},{"buffer":0,"byteLength":300,"byteOffset":11936},{"buffer":0,"byteLength":16,"byteOffset":12236},{"buffer":0,"byteLength":972,"byteOffset":12252},{"buffer":0,"byteLength":6,"byteOffset":13224},{"buffer":0,"byteLength":16,"byteOffset":13232},{"buffer":0,"byteLength":6,"byteOffset":13248},{"buffer":0,"byteLength":3,"byteOffset":13254},{"buffer":0,"byteLength":16,"byteOffset":13260},{"buffer":0,"byteLength":3,"byteOffset":13276},{"buffer":0,"byteLength":6,"byteOffset":13279},{"buffer":0,"byteLength":16,"byteOffset":13288},{"buffer":0,"byteLength":6,"byteOffset":13304},{"buffer":0,"byteLength":3,"byteOffset":13310},{"buffer":0,"byteLength":16,"byteOffset":13316},{"buffer":0,"byteLength":3,"byteOffset":13332},{"buffer":0,"byteLength":6,"byteOffset":13335},{"buffer":0,"byteLength":16,"byteOffset":13344},{"buffer":0,"byteLength":6,"byteOffset":13360},{"buffer":0,"byteLength":3,"byteOffset":13366},{"buffer":0,"byteLength":16,"byteOffset":13372},{"buffer":0,"byteLength":3,"byteOffset":13388},{"buffer":0,"byteLength":12,"byteOffset":13392},{"buffer":0,"byteLength":4,"byteOffset":13404},{"buffer":0,"byteLength":12,"byteOffset":13408},{"buffer":0,"byteLength":1200,"byteOffset":13420},{"buffer":0,"byteLength":300,"byteOffset":14620},{"buffer":0,"byteLength":16,"byteOffset":14920},{"buffer":0,"byteLength":972,"byteOffset":14936},{"buffer":0,"byteLength":6,"byteOffset":15908},{"buffer":0,"byteLength":16,"byteOffset":15916},{"buffer":0,"byteLength":6,"byteOffset":15932},{"buffer":0,"byteLength":3,"byteOffset":15938},{"buffer":0,"byteLength":16,"byteOffset":15944},{"buffer":0,"byteLength":3,"byteOffset":15960},{"buffer":0,"byteLength":6,"byteOffset":15963},{"buffer":0,"byteLength":16,"byteOffset":15972},{"buffer":0,"byteLength":6,"byteOffset":15988},{"buffer":0,"byteLength":3,"byteOffset":15994},{"buffer":0,"byteLength":16,"byteOffset":16000},{"buffer":0,"byteLength":3,"byteOffset":16016},{"buffer":0,"byteLength":6,"byteOffset":16019},{"buffer":0,"byteLength":16,"byteOffset":16028},{"buffer":0,"byteLength":6,"byteOffset":16044},{"buffer":0,"byteLength":3,"byteOffset":16050},{"buffer":0,"byteLength":16,"byteOffset":16056},{"buffer":0,"byteLength":3,"byteOffset":16072},{"buffer":0,"byteLength":12,"byteOffset":16076},{"buffer":0,"byteLength":4,"byteOffset":16088},{"buffer":0,"byteLength":12,"byteOffset":16092},{"buffer":0,"byteLength":1200,"byteOffset":16104},{"buffer":0,"byteLength":300,"byteOffset":17304},{"buffer":0,"byteLength":16,"byteOffset":17604},{"buffer":0,"byteLength":972,"byteOffset":17620},{"buffer":0,"byteLength":6,"byteOffset":18592},{"buffer":0,"byteLength":16,"byteOffset":18600},{"buffer":0,"byteLength":6,"byteOffset":18616},{"buffer":0,"byteLength":3,"byteOffset":18622},{"buffer":0,"byteLength":16,"byteOffset":18628},{"buffer":0,"byteLength":3,"byteOffset":18644},{"buffer":0,"byteLength":6,"byteOffset":18647},{"buffer":0,"byteLength":16,"byteOffset":18656},{"buffer":0,"byteLength":6,"byteOffset":18672},{"buffer":0,"byteLength":3,"byteOffset":18678},{"buffer":0,"byteLength":16,"byteOffset":18684},{"buffer":0,"byteLength":3,"byteOffset":18700},{"buffer":0,"byteLength":6,"byteOffset":18703},{"buffer":0,"byteLength":16,"byteOffset":18712},{"buffer":0,"byteLength":6,"byteOffset":18728},{"buffer":0,"byteLength":3,"byteOffset":18734},{"buffer":0,"byteLength":16,"byteOffset":18740},{"buffer":0,"byteLength":3,"byteOffset":18756},{"buffer":0,"byteLength":12,"byteOffset":18760},{"buffer":0,"byteLength":4,"byteOffset":18772},{"buffer":0,"byteLength":12,"byteOffset":18776},{"buffer":0,"byteLength":4,"byteOffset":18788},{"buffer":0,"byteLength":3,"byteOffset":18792},{"buffer":0,"byteLength":180,"byteOffset":18796},{"buffer":0,"byteLength":4,"byteOffset":18976},{"buffer":0,"byteLength":180,"byteOffset":18980},{"buffer":0,"byteLength":4,"byteOffset":19160},{"buffer":0,"byteLength":180,"byteOffset":19164},{"buffer":0,"byteLength":4,"byteOffset":19344},{"buffer":0,"byteLength":180,"byteOffset":19348},{"buffer":0,"byteLength":4,"byteOffset":19528},{"buffer":0,"byteLength":180,"byteOffset":19532},{"buffer":0,"byteLength":4,"byteOffset":19712},{"buffer":0,"byteLength":180,"byteOffset":19716},{"buffer":0,"byteLength":4,"byteOffset":19896},{"buffer":0,"byteLength":180,"byteOffset":19900},{"buffer":0,"byteLength":4,"byteOffset":20080}],"buffers":[{"byteLength":20084,"bytes":"AAAAwAAAAMAAAAAAchzHvwAAAMAAAAAA5DiOvwAAAMAAAAAAq6oqvwAAAMAAAAAAOY5jvgAA\nAMAAAAAAOY5jPgAAAMAAAAAAq6oqPwAAAMAAAAAA5DiOPwAAAMAAAAAAchzHPwAAAMAAAAAA\nAAAAQAAAAMAAAAAAAAAAwHIcx78AAAAAchzHv3Icx78AAAAA5DiOv3Icx78AAAAAq6oqv3Ic\nx78AAAAAOY5jvnIcx78AAAAAOY5jPnIcx78AAAAAq6oqP3Icx78AAAAA5DiOP3Icx78AAAAA\nchzHP3Icx78AAAAAAAAAQHIcx78AAAAAAAAAwOQ4jr8AAAAAchzHv+Q4jr8AAAAA5DiOv+Q4\njr8AAAAAq6oqv+Q4jr8AAAAAOY5jvuQ4jr8AAAAAOY5jPuQ4jr8AAAAAq6oqP+Q4jr8AAAAA\n5DiOP+Q4jr8AAAAAchzHP+Q4jr8AAAAAAAAAQOQ4jr8AAAAAAAAAwKuqKr8AAAAAchzHv6uq\nKr8AAAAA5DiOv6uqKr8AAAAAq6oqv6uqKr8AAAAAOY5jvquqKr8AAAAAOY5jPquqKr8AAAAA\nq6oqP6uqKr8AAAAA5DiOP6uqKr8AAAAAchzHP6uqKr8AAAAAAAAAQKuqKr8AAAAAAAAAwDmO\nY74AAAAAchzHvzmOY74AAAAA5DiOvzmOY74AAAAAq6oqvzmOY74AAAAAOY5jvjmOY74AAAAA\nOY5jPjmOY74AAAAAq6oqPzmOY74AAAAA5DiOPzmOY74AAAAAchzHPzmOY74AAAAAAAAAQDmO\nY74AAAAAAAAAwDmOYz4AAAAAchzHvzmOYz4AAAAA5DiOvzmOYz4AAAAAq6oqvzmOYz4AAAAA\nOY5jvjmOYz4AAAAAOY5jPjmOYz4AAAAAq6oqPzmOYz4AAAAA5DiOPzmOYz4AAAAAchzHPzmO\nYz4AAAAAAAAAQDmOYz4AAAAAAAAAwKuqKj8AAAAAchzHv6uqKj8AAAAA5DiOv6uqKj8AAAAA\nq6oqv6uqKj8AAAAAOY5jvquqKj8AAAAAOY5jPquqKj8AAAAAq6oqP6uqKj8AAAAA5DiOP6uq\nKj8AAAAAchzHP6uqKj8AAAAAAAAAQKuqKj8AAAAAAAAAwOQ4jj8AAAAAchzHv+Q4jj8AAAAA\n5DiOv+Q4jj8AAAAAq6oqv+Q4jj8AAAAAOY5jvuQ4jj8AAAAAOY5jPuQ4jj8AAAAAq6oqP+Q4\njj8AAAAA5DiOP+Q4jj8AAAAAchzHP+Q4jj8AAAAAAAAAQOQ4jj8AAAAAAAAAwHIcxz8AAAAA\nchzHv3Icxz8AAAAA5DiOv3Icxz8AAAAAq6oqv3Icxz8AAAAAOY5jvnIcxz8AAAAAOY5jPnIc\nxz8AAAAAq6oqP3Icxz8AAAAA5DiOP3Icxz8AAAAAchzHP3Icxz8AAAAAAAAAQHIcxz8AAAAA\nAAAAwAAAAEAAAAAAchzHvwAAAEAAAAAA5DiOvwAAAEAAAAAAq6oqvwAAAEAAAAAAOY5jvgAA\nAEAAAAAAOY5jPgAAAEAAAAAAq6oqPwAAAEAAAAAA5DiOPwAAAEAAAAAAchzHPwAAAEAAAAAA\nAAAAQAAAAEAAAAAAAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABqKcnP9TTUz/U01M/\nzczMPjiO4784juO/AAAAAKuqqr84juO/AAAAADqOY784juO/AAAAADmO4744juO/AAAAAAAA\nAAA4juO/AAAAADqO4z44juO/AAAAADqOYz84juO/AAAAAKuqqj84juO/AAAAADmO4z84juO/\nAAAAADiO47+rqqq/AAAAAKuqqr+rqqq/AAAAADqOY7+rqqq/AAAAADmO476rqqq/AAAAAAAA\nAACrqqq/AAAAADqO4z6rqqq/AAAAADqOYz+rqqq/AAAAAKuqqj+rqqq/AAAAADmO4z+rqqq/\nAAAAADiO4786jmO/AAAAAKuqqr86jmO/AAAAADqOY786jmO/AAAAADmO4746jmO/AAAAAAAA\nAAA6jmO/AAAAADqO4z46jmO/AAAAADqOYz86jmO/AAAAAKuqqj86jmO/AAAAADmO4z86jmO/\nAAAAADiO4785juO+AAAAAKuqqr85juO+AAAAADqOY785juO+AAAAADmO4745juO+AAAAAAAA\nAAA5juO+AAAAADqO4z45juO+AAAAADqOYz85juO+AAAAAKuqqj85juO+AAAAADmO4z85juO+\nAAAAADiO478AAAAAAAAAAKuqqr8AAAAAAAAAADqOY78AAAAAAAAAADmO474AAAAAAAAAAAAA\nAAAAAAAAAAAAADqO4z4AAAAAAAAAADqOYz8AAAAAAAAAAKuqqj8AAAAAAAAAADmO4z8AAAAA\nAAAAADiO4786juM+AAAAAKuqqr86juM+AAAAADqOY786juM+AAAAADmO4746juM+AAAAAAAA\nAAA6juM+AAAAADqO4z46juM+AAAAADqOYz86juM+AAAAAKuqqj86juM+AAAAADmO4z86juM+\nAAAAADiO4786jmM/AAAAAKuqqr86jmM/AAAAADqOY786jmM/AAAAADmO4746jmM/AAAAAAAA\nAAA6jmM/AAAAADqO4z46jmM/AAAAADqOYz86jmM/AAAAAKuqqj86jmM/AAAAADmO4z86jmM/\nAAAAADiO47+rqqo/AAAAAKuqqr+rqqo/AAAAADqOY7+rqqo/AAAAADmO476rqqo/AAAAAAAA\nAACrqqo/AAAAADqO4z6rqqo/AAAAADqOYz+rqqo/AAAAAKuqqj+rqqo/AAAAADmO4z+rqqo/\nAAAAADiO4785juM/AAAAAKuqqr85juM/AAAAADqOY785juM/AAAAADmO4745juM/AAAAAAAA\nAAA5juM/AAAAADqO4z45juM/AAAAADqOYz85juM/AAAAAKuqqj85juM/AAAAADmO4z85juM/\nAAAAAAAAAAEBAgAAAACAP4uKij4AAAAAAACAPwAAAAEBAgEBAgAAAAAAgD+Lioo+AAAAAAAA\ngD8BAQIAAAABAQAAAAAAAAAAycjIPgAAAAAAAIA/AAAAAQEAAQEAAAAAAAAAAMnIyD4AAAAA\nAACAPwEBAAEBAAEBAgAAAM3MzD7NzMw+zczMPgAAgD8BAQABAQIBAQEAAADNzMw+zczMPs3M\nzD4AAIA/AQEBAAAAwH8AAABAAAAAQAAAAAEAAMB/AAAAQAAAAEAAAADAAAAAwAAAAAByHMe/\nAAAAwAAAAADkOI6/AAAAwAAAAACrqiq/AAAAwAAAAAA5jmO+AAAAwAAAAAA5jmM+AAAAwAAA\nAACrqio/AAAAwAAAAADkOI4/AAAAwAAAAAByHMc/AAAAwAAAAAAAAABAAAAAwAAAAAAAAADA\nchzHvwAAAAByHMe/chzHvwAAAADkOI6/chzHvwAAAACrqiq/chzHvwAAAAA5jmO+chzHvwAA\nAAA5jmM+chzHvwAAAACrqio/chzHvwAAAADkOI4/chzHvwAAAAByHMc/chzHvwAAAAAAAABA\nchzHvwAAAAAAAADA5DiOvwAAAAByHMe/5DiOvwAAAADkOI6/5DiOvwAAAACrqiq/5DiOvwAA\nAAA5jmO+5DiOvwAAAAA5jmM+5DiOvwAAAACrqio/5DiOvwAAAADkOI4/5DiOvwAAAAByHMc/\n5DiOvwAAAAAAAABA5DiOvwAAAAAAAADAq6oqvwAAAAByHMe/q6oqvwAAAADkOI6/q6oqvwAA\nAACrqiq/q6oqvwAAAAA5jmO+q6oqvwAAAAA5jmM+q6oqvwAAAACrqio/q6oqvwAAAADkOI4/\nq6oqvwAAAAByHMc/q6oqvwAAAAAAAABAq6oqvwAAAAAAAADAOY5jvgAAAAByHMe/OY5jvgAA\nAADkOI6/OY5jvgAAAACrqiq/OY5jvgAAAAA5jmO+OY5jvgAAAAA5jmM+OY5jvgAAAACrqio/\nOY5jvgAAAADkOI4/OY5jvgAAAAByHMc/OY5jvgAAAAAAAABAOY5jvgAAAAAAAADAOY5jPgAA\nAAByHMe/OY5jPgAAAADkOI6/OY5jPgAAAACrqiq/OY5jPgAAAAA5jmO+OY5jPgAAAAA5jmM+\nOY5jPgAAAACrqio/OY5jPgAAAADkOI4/OY5jPgAAAAByHMc/OY5jPgAAAAAAAABAOY5jPgAA\nAAAAAADAq6oqPwAAAAByHMe/q6oqPwAAAADkOI6/q6oqPwAAAACrqiq/q6oqPwAAAAA5jmO+\nq6oqPwAAAAA5jmM+q6oqPwAAAACrqio/q6oqPwAAAADkOI4/q6oqPwAAAAByHMc/q6oqPwAA\nAAAAAABAq6oqPwAAAAAAAADA5DiOPwAAAAByHMe/5DiOPwAAAADkOI6/5DiOPwAAAACrqiq/\n5DiOPwAAAAA5jmO+5DiOPwAAAAA5jmM+5DiOPwAAAACrqio/5DiOPwAAAADkOI4/5DiOPwAA\nAAByHMc/5DiOPwAAAAAAAABA5DiOPwAAAAAAAADAchzHPwAAAAByHMe/chzHPwAAAADkOI6/\nchzHPwAAAACrqiq/chzHPwAAAAA5jmO+chzHPwAAAAA5jmM+chzHPwAAAACrqio/chzHPwAA\nAADkOI4/chzHPwAAAAByHMc/chzHPwAAAAAAAABAchzHPwAAAAAAAADAAAAAQAAAAAByHMe/\nAAAAQAAAAADkOI6/AAAAQAAAAACrqiq/AAAAQAAAAAA5jmO+AAAAQAAAAAA5jmM+AAAAQAAA\nAACrqio/AAAAQAAAAADkOI4/AAAAQAAAAAByHMc/AAAAQAAAAAAAAABAAAAAQAAAAAAAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAGopyc/1NNTP9TTUz/NzMw+OI7jvziO478AAAAA\nq6qqvziO478AAAAAOo5jvziO478AAAAAOY7jvjiO478AAAAAAAAAADiO478AAAAAOo7jPjiO\n478AAAAAOo5jPziO478AAAAAq6qqPziO478AAAAAOY7jPziO478AAAAAOI7jv6uqqr8AAAAA\nq6qqv6uqqr8AAAAAOo5jv6uqqr8AAAAAOY7jvquqqr8AAAAAAAAAAKuqqr8AAAAAOo7jPquq\nqr8AAAAAOo5jP6uqqr8AAAAAq6qqP6uqqr8AAAAAOY7jP6uqqr8AAAAAOI7jvzqOY78AAAAA\nq6qqvzqOY78AAAAAOo5jvzqOY78AAAAAOY7jvjqOY78AAAAAAAAAADqOY78AAAAAOo7jPjqO\nY78AAAAAOo5jPzqOY78AAAAAq6qqPzqOY78AAAAAOY7jPzqOY78AAAAAOI7jvzmO474AAAAA\nq6qqvzmO474AAAAAOo5jvzmO474AAAAAOY7jvjmO474AAAAAAAAAADmO474AAAAAOo7jPjmO\n474AAAAAOo5jPzmO474AAAAAq6qqPzmO474AAAAAOY7jPzmO474AAAAAOI7jvwAAAAAAAAAA\nq6qqvwAAAAAAAAAAOo5jvwAAAAAAAAAAOY7jvgAAAAAAAAAAAAAAAAAAAAAAAAAAOo7jPgAA\nAAAAAAAAOo5jPwAAAAAAAAAAq6qqPwAAAAAAAAAAOY7jPwAAAAAAAAAAOI7jvzqO4z4AAAAA\nq6qqvzqO4z4AAAAAOo5jvzqO4z4AAAAAOY7jvjqO4z4AAAAAAAAAADqO4z4AAAAAOo7jPjqO\n4z4AAAAAOo5jPzqO4z4AAAAAq6qqPzqO4z4AAAAAOY7jPzqO4z4AAAAAOI7jvzqOYz8AAAAA\nq6qqvzqOYz8AAAAAOo5jvzqOYz8AAAAAOY7jvjqOYz8AAAAAAAAAADqOYz8AAAAAOo7jPjqO\nYz8AAAAAOo5jPzqOYz8AAAAAq6qqPzqOYz8AAAAAOY7jPzqOYz8AAAAAOI7jv6uqqj8AAAAA\nq6qqv6uqqj8AAAAAOo5jv6uqqj8AAAAAOY7jvquqqj8AAAAAAAAAAKuqqj8AAAAAOo7jPquq\nqj8AAAAAOo5jP6uqqj8AAAAAq6qqP6uqqj8AAAAAOY7jP6uqqj8AAAAAOI7jvzmO4z8AAAAA\nq6qqvzmO4z8AAAAAOo5jvzmO4z8AAAAAOY7jvjmO4z8AAAAAAAAAADmO4z8AAAAAOo7jPjmO\n4z8AAAAAOo5jPzmO4z8AAAAAq6qqPzmO4z8AAAAAOY7jPzmO4z8AAAAAAAAAAQECAAAAAIA/\ni4qKPgAAAAAAAIA/AAAAAQECAQECAAAAAACAP4uKij4AAAAAAACAPwEBAgAAAAEBAAAAAAAA\nAADJyMg+AAAAAAAAgD8AAAABAQABAQAAAAAAAAAAycjIPgAAAAAAAIA/AQEAAQEAAQECAAAA\nzczMPs3MzD7NzMw+AACAPwEBAAEBAgEBAQAAAM3MzD7NzMw+zczMPgAAgD8BAQEAAADAfwAA\nAEAAAABAAAAAAQAAwH8AAABAAAAAQAAAAMAAAADAAAAAAHIcx78AAADAAAAAAOQ4jr8AAADA\nAAAAAKuqKr8AAADAAAAAADmOY74AAADAAAAAADmOYz4AAADAAAAAAKuqKj8AAADAAAAAAOQ4\njj8AAADAAAAAAHIcxz8AAADAAAAAAAAAAEAAAADAAAAAAAAAAMByHMe/AAAAAHIcx79yHMe/\nAAAAAOQ4jr9yHMe/AAAAAKuqKr9yHMe/AAAAADmOY75yHMe/AAAAADmOYz5yHMe/AAAAAKuq\nKj9yHMe/AAAAAOQ4jj9yHMe/AAAAAHIcxz9yHMe/AAAAAAAAAEByHMe/AAAAAAAAAMDkOI6/\nAAAAAHIcx7/kOI6/AAAAAOQ4jr/kOI6/AAAAAKuqKr/kOI6/AAAAADmOY77kOI6/AAAAADmO\nYz7kOI6/AAAAAKuqKj/kOI6/AAAAAOQ4jj/kOI6/AAAAAHIcxz/kOI6/AAAAAAAAAEDkOI6/\nAAAAAAAAAMCrqiq/AAAAAHIcx7+rqiq/AAAAAOQ4jr+rqiq/AAAAAKuqKr+rqiq/AAAAADmO\nY76rqiq/AAAAADmOYz6rqiq/AAAAAKuqKj+rqiq/AAAAAOQ4jj+rqiq/AAAAAHIcxz+rqiq/\nAAAAAAAAAECrqiq/AAAAAAAAAMA5jmO+AAAAAHIcx785jmO+AAAAAOQ4jr85jmO+AAAAAKuq\nKr85jmO+AAAAADmOY745jmO+AAAAADmOYz45jmO+AAAAAKuqKj85jmO+AAAAAOQ4jj85jmO+\nAAAAAHIcxz85jmO+AAAAAAAAAEA5jmO+AAAAAAAAAMA5jmM+AAAAAHIcx785jmM+AAAAAOQ4\njr85jmM+AAAAAKuqKr85jmM+AAAAADmOY745jmM+AAAAADmOYz45jmM+AAAAAKuqKj85jmM+\nAAAAAOQ4jj85jmM+AAAAAHIcxz85jmM+AAAAAAAAAEA5jmM+AAAAAAAAAMCrqio/AAAAAHIc\nx7+rqio/AAAAAOQ4jr+rqio/AAAAAKuqKr+rqio/AAAAADmOY76rqio/AAAAADmOYz6rqio/\nAAAAAKuqKj+rqio/AAAAAOQ4jj+rqio/AAAAAHIcxz+rqio/AAAAAAAAAECrqio/AAAAAAAA\nAMDkOI4/AAAAAHIcx7/kOI4/AAAAAOQ4jr/kOI4/AAAAAKuqKr/kOI4/AAAAADmOY77kOI4/\nAAAAADmOYz7kOI4/AAAAAKuqKj/kOI4/AAAAAOQ4jj/kOI4/AAAAAHIcxz/kOI4/AAAAAAAA\nAEDkOI4/AAAAAAAAAMByHMc/AAAAAHIcx79yHMc/AAAAAOQ4jr9yHMc/AAAAAKuqKr9yHMc/\nAAAAADmOY75yHMc/AAAAADmOYz5yHMc/AAAAAKuqKj9yHMc/AAAAAOQ4jj9yHMc/AAAAAHIc\nxz9yHMc/AAAAAAAAAEByHMc/AAAAAAAAAMAAAABAAAAAAHIcx78AAABAAAAAAOQ4jr8AAABA\nAAAAAKuqKr8AAABAAAAAADmOY74AAABAAAAAADmOYz4AAABAAAAAAKuqKj8AAABAAAAAAOQ4\njj8AAABAAAAAAHIcxz8AAABAAAAAAAAAAEAAAABAAAAAAAAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAainJz/U01M/1NNTP83MzD44juO/OI7jvwAAAACrqqq/OI7jvwAAAAA6jmO/\nOI7jvwAAAAA5juO+OI7jvwAAAAAAAAAAOI7jvwAAAAA6juM+OI7jvwAAAAA6jmM/OI7jvwAA\nAACrqqo/OI7jvwAAAAA5juM/OI7jvwAAAAA4juO/q6qqvwAAAACrqqq/q6qqvwAAAAA6jmO/\nq6qqvwAAAAA5juO+q6qqvwAAAAAAAAAAq6qqvwAAAAA6juM+q6qqvwAAAAA6jmM/q6qqvwAA\nAACrqqo/q6qqvwAAAAA5juM/q6qqvwAAAAA4juO/Oo5jvwAAAACrqqq/Oo5jvwAAAAA6jmO/\nOo5jvwAAAAA5juO+Oo5jvwAAAAAAAAAAOo5jvwAAAAA6juM+Oo5jvwAAAAA6jmM/Oo5jvwAA\nAACrqqo/Oo5jvwAAAAA5juM/Oo5jvwAAAAA4juO/OY7jvgAAAACrqqq/OY7jvgAAAAA6jmO/\nOY7jvgAAAAA5juO+OY7jvgAAAAAAAAAAOY7jvgAAAAA6juM+OY7jvgAAAAA6jmM/OY7jvgAA\nAACrqqo/OY7jvgAAAAA5juM/OY7jvgAAAAA4juO/AAAAAAAAAACrqqq/AAAAAAAAAAA6jmO/\nAAAAAAAAAAA5juO+AAAAAAAAAAAAAAAAAAAAAAAAAAA6juM+AAAAAAAAAAA6jmM/AAAAAAAA\nAACrqqo/AAAAAAAAAAA5juM/AAAAAAAAAAA4juO/Oo7jPgAAAACrqqq/Oo7jPgAAAAA6jmO/\nOo7jPgAAAAA5juO+Oo7jPgAAAAAAAAAAOo7jPgAAAAA6juM+Oo7jPgAAAAA6jmM/Oo7jPgAA\nAACrqqo/Oo7jPgAAAAA5juM/Oo7jPgAAAAA4juO/Oo5jPwAAAACrqqq/Oo5jPwAAAAA6jmO/\nOo5jPwAAAAA5juO+Oo5jPwAAAAAAAAAAOo5jPwAAAAA6juM+Oo5jPwAAAAA6jmM/Oo5jPwAA\nAACrqqo/Oo5jPwAAAAA5juM/Oo5jPwAAAAA4juO/q6qqPwAAAACrqqq/q6qqPwAAAAA6jmO/\nq6qqPwAAAAA5juO+q6qqPwAAAAAAAAAAq6qqPwAAAAA6juM+q6qqPwAAAAA6jmM/q6qqPwAA\nAACrqqo/q6qqPwAAAAA5juM/q6qqPwAAAAA4juO/OY7jPwAAAACrqqq/OY7jPwAAAAA6jmO/\nOY7jPwAAAAA5juO+OY7jPwAAAAAAAAAAOY7jPwAAAAA6juM+OY7jPwAAAAA6jmM/OY7jPwAA\nAACrqqo/OY7jPwAAAAA5juM/OY7jPwAAAAAAAAABAQIAAAAAgD+Lioo+AAAAAAAAgD8AAAAB\nAQIBAQIAAAAAAIA/i4qKPgAAAAAAAIA/AQECAAAAAQEAAAAAAAAAAMnIyD4AAAAAAACAPwAA\nAAEBAAEBAAAAAAAAAADJyMg+AAAAAAAAgD8BAQABAQABAQIAAADNzMw+zczMPs3MzD4AAIA/\nAQEAAQECAQEBAAAAzczMPs3MzD7NzMw+AACAPwEBAQAAAMB/AAAAQAAAAEAAAAABAADAfwAA\nAEAAAABAAAAAwAAAAMAAAAAAchzHvwAAAMAAAAAA5DiOvwAAAMAAAAAAq6oqvwAAAMAAAAAA\nOY5jvgAAAMAAAAAAOY5jPgAAAMAAAAAAq6oqPwAAAMAAAAAA5DiOPwAAAMAAAAAAchzHPwAA\nAMAAAAAAAAAAQAAAAMAAAAAAAAAAwHIcx78AAAAAchzHv3Icx78AAAAA5DiOv3Icx78AAAAA\nq6oqv3Icx78AAAAAOY5jvnIcx78AAAAAOY5jPnIcx78AAAAAq6oqP3Icx78AAAAA5DiOP3Ic\nx78AAAAAchzHP3Icx78AAAAAAAAAQHIcx78AAAAAAAAAwOQ4jr8AAAAAchzHv+Q4jr8AAAAA\n5DiOv+Q4jr8AAAAAq6oqv+Q4jr8AAAAAOY5jvuQ4jr8AAAAAOY5jPuQ4jr8AAAAAq6oqP+Q4\njr8AAAAA5DiOP+Q4jr8AAAAAchzHP+Q4jr8AAAAAAAAAQOQ4jr8AAAAAAAAAwKuqKr8AAAAA\nchzHv6uqKr8AAAAA5DiOv6uqKr8AAAAAq6oqv6uqKr8AAAAAOY5jvquqKr8AAAAAOY5jPquq\nKr8AAAAAq6oqP6uqKr8AAAAA5DiOP6uqKr8AAAAAchzHP6uqKr8AAAAAAAAAQKuqKr8AAAAA\nAAAAwDmOY74AAAAAchzHvzmOY74AAAAA5DiOvzmOY74AAAAAq6oqvzmOY74AAAAAOY5jvjmO\nY74AAAAAOY5jPjmOY74AAAAAq6oqPzmOY74AAAAA5DiOPzmOY74AAAAAchzHPzmOY74AAAAA\nAAAAQDmOY74AAAAAAAAAwDmOYz4AAAAAchzHvzmOYz4AAAAA5DiOvzmOYz4AAAAAq6oqvzmO\nYz4AAAAAOY5jvjmOYz4AAAAAOY5jPjmOYz4AAAAAq6oqPzmOYz4AAAAA5DiOPzmOYz4AAAAA\nchzHPzmOYz4AAAAAAAAAQDmOYz4AAAAAAAAAwKuqKj8AAAAAchzHv6uqKj8AAAAA5DiOv6uq\nKj8AAAAAq6oqv6uqKj8AAAAAOY5jvquqKj8AAAAAOY5jPquqKj8AAAAAq6oqP6uqKj8AAAAA\n5DiOP6uqKj8AAAAAchzHP6uqKj8AAAAAAAAAQKuqKj8AAAAAAAAAwOQ4jj8AAAAAchzHv+Q4\njj8AAAAA5DiOv+Q4jj8AAAAAq6oqv+Q4jj8AAAAAOY5jvuQ4jj8AAAAAOY5jPuQ4jj8AAAAA\nq6oqP+Q4jj8AAAAA5DiOP+Q4jj8AAAAAchzHP+Q4jj8AAAAAAAAAQOQ4jj8AAAAAAAAAwHIc\nxz8AAAAAchzHv3Icxz8AAAAA5DiOv3Icxz8AAAAAq6oqv3Icxz8AAAAAOY5jvnIcxz8AAAAA\nOY5jPnIcxz8AAAAAq6oqP3Icxz8AAAAA5DiOP3Icxz8AAAAAchzHP3Icxz8AAAAAAAAAQHIc\nxz8AAAAAAAAAwAAAAEAAAAAAchzHvwAAAEAAAAAA5DiOvwAAAEAAAAAAq6oqvwAAAEAAAAAA\nOY5jvgAAAEAAAAAAOY5jPgAAAEAAAAAAq6oqPwAAAEAAAAAA5DiOPwAAAEAAAAAAchzHPwAA\nAEAAAAAAAAAAQAAAAEAAAAAAAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABqKcnP9TT\nUz/U01M/zczMPjiO4784juO/AAAAAKuqqr84juO/AAAAADqOY784juO/AAAAADmO4744juO/\nAAAAAAAAAAA4juO/AAAAADqO4z44juO/AAAAADqOYz84juO/AAAAAKuqqj84juO/AAAAADmO\n4z84juO/AAAAADiO47+rqqq/AAAAAKuqqr+rqqq/AAAAADqOY7+rqqq/AAAAADmO476rqqq/\nAAAAAAAAAACrqqq/AAAAADqO4z6rqqq/AAAAADqOYz+rqqq/AAAAAKuqqj+rqqq/AAAAADmO\n4z+rqqq/AAAAADiO4786jmO/AAAAAKuqqr86jmO/AAAAADqOY786jmO/AAAAADmO4746jmO/\nAAAAAAAAAAA6jmO/AAAAADqO4z46jmO/AAAAADqOYz86jmO/AAAAAKuqqj86jmO/AAAAADmO\n4z86jmO/AAAAADiO4785juO+AAAAAKuqqr85juO+AAAAADqOY785juO+AAAAADmO4745juO+\nAAAAAAAAAAA5juO+AAAAADqO4z45juO+AAAAADqOYz85juO+AAAAAKuqqj85juO+AAAAADmO\n4z85juO+AAAAADiO478AAAAAAAAAAKuqqr8AAAAAAAAAADqOY78AAAAAAAAAADmO474AAAAA\nAAAAAAAAAAAAAAAAAAAAADqO4z4AAAAAAAAAADqOYz8AAAAAAAAAAKuqqj8AAAAAAAAAADmO\n4z8AAAAAAAAAADiO4786juM+AAAAAKuqqr86juM+AAAAADqOY786juM+AAAAADmO4746juM+\nAAAAAAAAAAA6juM+AAAAADqO4z46juM+AAAAADqOYz86juM+AAAAAKuqqj86juM+AAAAADmO\n4z86juM+AAAAADiO4786jmM/AAAAAKuqqr86jmM/AAAAADqOY786jmM/AAAAADmO4746jmM/\nAAAAAAAAAAA6jmM/AAAAADqO4z46jmM/AAAAADqOYz86jmM/AAAAAKuqqj86jmM/AAAAADmO\n4z86jmM/AAAAADiO47+rqqo/AAAAAKuqqr+rqqo/AAAAADqOY7+rqqo/AAAAADmO476rqqo/\nAAAAAAAAAACrqqo/AAAAADqO4z6rqqo/AAAAADqOYz+rqqo/AAAAAKuqqj+rqqo/AAAAADmO\n4z+rqqo/AAAAADiO4785juM/AAAAAKuqqr85juM/AAAAADqOY785juM/AAAAADmO4745juM/\nAAAAAAAAAAA5juM/AAAAADqO4z45juM/AAAAADqOYz85juM/AAAAAKuqqj85juM/AAAAADmO\n4z85juM/AAAAAAAAAAEBAgAAAACAP4uKij4AAAAAAACAPwAAAAEBAgEBAgAAAAAAgD+Lioo+\nAAAAAAAAgD8BAQIAAAABAQAAAAAAAAAAycjIPgAAAAAAAIA/AAAAAQEAAQEAAAAAAAAAAMnI\nyD4AAAAAAACAPwEBAAEBAAEBAgAAAM3MzD7NzMw+zczMPgAAgD8BAQABAQIBAQEAAADNzMw+\nzczMPs3MzD4AAIA/AQEBAAAAwH8AAABAAAAAQAAAAAEAAMB/AAAAQAAAAEAAAADAAAAAwAAA\nAAByHMe/AAAAwAAAAADkOI6/AAAAwAAAAACrqiq/AAAAwAAAAAA5jmO+AAAAwAAAAAA5jmM+\nAAAAwAAAAACrqio/AAAAwAAAAADkOI4/AAAAwAAAAAByHMc/AAAAwAAAAAAAAABAAAAAwAAA\nAAAAAADAchzHvwAAAAByHMe/chzHvwAAAADkOI6/chzHvwAAAACrqiq/chzHvwAAAAA5jmO+\nchzHvwAAAAA5jmM+chzHvwAAAACrqio/chzHvwAAAADkOI4/chzHvwAAAAByHMc/chzHvwAA\nAAAAAABAchzHvwAAAAAAAADA5DiOvwAAAAByHMe/5DiOvwAAAADkOI6/5DiOvwAAAACrqiq/\n5DiOvwAAAAA5jmO+5DiOvwAAAAA5jmM+5DiOvwAAAACrqio/5DiOvwAAAADkOI4/5DiOvwAA\nAAByHMc/5DiOvwAAAAAAAABA5DiOvwAAAAAAAADAq6oqvwAAAAByHMe/q6oqvwAAAADkOI6/\nq6oqvwAAAACrqiq/q6oqvwAAAAA5jmO+q6oqvwAAAAA5jmM+q6oqvwAAAACrqio/q6oqvwAA\nAADkOI4/q6oqvwAAAAByHMc/q6oqvwAAAAAAAABAq6oqvwAAAAAAAADAOY5jvgAAAAByHMe/\nOY5jvgAAAADkOI6/OY5jvgAAAACrqiq/OY5jvgAAAAA5jmO+OY5jvgAAAAA5jmM+OY5jvgAA\nAACrqio/OY5jvgAAAADkOI4/OY5jvgAAAAByHMc/OY5jvgAAAAAAAABAOY5jvgAAAAAAAADA\nOY5jPgAAAAByHMe/OY5jPgAAAADkOI6/OY5jPgAAAACrqiq/OY5jPgAAAAA5jmO+OY5jPgAA\nAAA5jmM+OY5jPgAAAACrqio/OY5jPgAAAADkOI4/OY5jPgAAAAByHMc/OY5jPgAAAAAAAABA\nOY5jPgAAAAAAAADAq6oqPwAAAAByHMe/q6oqPwAAAADkOI6/q6oqPwAAAACrqiq/q6oqPwAA\nAAA5jmO+q6oqPwAAAAA5jmM+q6oqPwAAAACrqio/q6oqPwAAAADkOI4/q6oqPwAAAAByHMc/\nq6oqPwAAAAAAAABAq6oqPwAAAAAAAADA5DiOPwAAAAByHMe/5DiOPwAAAADkOI6/5DiOPwAA\nAACrqiq/5DiOPwAAAAA5jmO+5DiOPwAAAAA5jmM+5DiOPwAAAACrqio/5DiOPwAAAADkOI4/\n5DiOPwAAAAByHMc/5DiOPwAAAAAAAABA5DiOPwAAAAAAAADAchzHPwAAAAByHMe/chzHPwAA\nAADkOI6/chzHPwAAAACrqiq/chzHPwAAAAA5jmO+chzHPwAAAAA5jmM+chzHPwAAAACrqio/\nchzHPwAAAADkOI4/chzHPwAAAAByHMc/chzHPwAAAAAAAABAchzHPwAAAAAAAADAAAAAQAAA\nAAByHMe/AAAAQAAAAADkOI6/AAAAQAAAAACrqiq/AAAAQAAAAAA5jmO+AAAAQAAAAAA5jmM+\nAAAAQAAAAACrqio/AAAAQAAAAADkOI4/AAAAQAAAAAByHMc/AAAAQAAAAAAAAABAAAAAQAAA\nAAAAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEA\nAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAEAAAGopyc/1NNTP9TTUz/NzMw+OI7jvziO\n478AAAAAq6qqvziO478AAAAAOo5jvziO478AAAAAOY7jvjiO478AAAAAAAAAADiO478AAAAA\nOo7jPjiO478AAAAAOo5jPziO478AAAAAq6qqPziO478AAAAAOY7jPziO478AAAAAOI7jv6uq\nqr8AAAAAq6qqv6uqqr8AAAAAOo5jv6uqqr8AAAAAOY7jvquqqr8AAAAAAAAAAKuqqr8AAAAA\nOo7jPquqqr8AAAAAOo5jP6uqqr8AAAAAq6qqP6uqqr8AAAAAOY7jP6uqqr8AAAAAOI7jvzqO\nY78AAAAAq6qqvzqOY78AAAAAOo5jvzqOY78AAAAAOY7jvjqOY78AAAAAAAAAADqOY78AAAAA\nOo7jPjqOY78AAAAAOo5jPzqOY78AAAAAq6qqPzqOY78AAAAAOY7jPzqOY78AAAAAOI7jvzmO\n474AAAAAq6qqvzmO474AAAAAOo5jvzmO474AAAAAOY7jvjmO474AAAAAAAAAADmO474AAAAA\nOo7jPjmO474AAAAAOo5jPzmO474AAAAAq6qqPzmO474AAAAAOY7jPzmO474AAAAAOI7jvwAA\nAAAAAAAAq6qqvwAAAAAAAAAAOo5jvwAAAAAAAAAAOY7jvgAAAAAAAAAAAAAAAAAAAAAAAAAA\nOo7jPgAAAAAAAAAAOo5jPwAAAAAAAAAAq6qqPwAAAAAAAAAAOY7jPwAAAAAAAAAAOI7jvzqO\n4z4AAAAAq6qqvzqO4z4AAAAAOo5jvzqO4z4AAAAAOY7jvjqO4z4AAAAAAAAAADqO4z4AAAAA\nOo7jPjqO4z4AAAAAOo5jPzqO4z4AAAAAq6qqPzqO4z4AAAAAOY7jPzqO4z4AAAAAOI7jvzqO\nYz8AAAAAq6qqvzqOYz8AAAAAOo5jvzqOYz8AAAAAOY7jvjqOYz8AAAAAAAAAADqOYz8AAAAA\nOo7jPjqOYz8AAAAAOo5jPzqOYz8AAAAAq6qqPzqOYz8AAAAAOY7jPzqOYz8AAAAAOI7jv6uq\nqj8AAAAAq6qqv6uqqj8AAAAAOo5jv6uqqj8AAAAAOY7jvquqqj8AAAAAAAAAAKuqqj8AAAAA\nOo7jPquqqj8AAAAAOo5jP6uqqj8AAAAAq6qqP6uqqj8AAAAAOY7jP6uqqj8AAAAAOI7jvzmO\n4z8AAAAAq6qqvzmO4z8AAAAAOo5jvzmO4z8AAAAAOY7jvjmO4z8AAAAAAAAAADmO4z8AAAAA\nOo7jPjmO4z8AAAAAOo5jPzmO4z8AAAAAq6qqPzmO4z8AAAAAOY7jPzmO4z8AAAAAAAAAAQEC\nAAAAAIA/i4qKPgAAAAAAAIA/AAAAAQECAQECAAAAAACAP4uKij4AAAAAAACAPwEBAgAAAAEB\nAAAAAAAAAADJyMg+AAAAAAAAgD8AAAABAQABAQAAAAAAAAAAycjIPgAAAAAAAIA/AQEAAQEA\nAQECAAAAzczMPs3MzD7NzMw+AACAPwEBAAEBAgEBAQAAAM3MzD7NzMw+zczMPgAAgD8BAQEA\nAADAfwAAAEAAAABAAAAAAQAAwH8AAABAAAAAQAAAAMAAAADAAAAAAHIcx78AAADAAAAAAOQ4\njr8AAADAAAAAAKuqKr8AAADAAAAAADmOY74AAADAAAAAADmOYz4AAADAAAAAAKuqKj8AAADA\nAAAAAOQ4jj8AAADAAAAAAHIcxz8AAADAAAAAAAAAAEAAAADAAAAAAAAAAMByHMe/AAAAAHIc\nx79yHMe/AAAAAOQ4jr9yHMe/AAAAAKuqKr9yHMe/AAAAADmOY75yHMe/AAAAADmOYz5yHMe/\nAAAAAKuqKj9yHMe/AAAAAOQ4jj9yHMe/AAAAAHIcxz9yHMe/AAAAAAAAAEByHMe/AAAAAAAA\nAMDkOI6/AAAAAHIcx7/kOI6/AAAAAOQ4jr/kOI6/AAAAAKuqKr/kOI6/AAAAADmOY77kOI6/\nAAAAADmOYz7kOI6/AAAAAKuqKj/kOI6/AAAAAOQ4jj/kOI6/AAAAAHIcxz/kOI6/AAAAAAAA\nAEDkOI6/AAAAAAAAAMCrqiq/AAAAAHIcx7+rqiq/AAAAAOQ4jr+rqiq/AAAAAKuqKr+rqiq/\nAAAAADmOY76rqiq/AAAAADmOYz6rqiq/AAAAAKuqKj+rqiq/AAAAAOQ4jj+rqiq/AAAAAHIc\nxz+rqiq/AAAAAAAAAECrqiq/AAAAAAAAAMA5jmO+AAAAAHIcx785jmO+AAAAAOQ4jr85jmO+\nAAAAAKuqKr85jmO+AAAAADmOY745jmO+AAAAADmOYz45jmO+AAAAAKuqKj85jmO+AAAAAOQ4\njj85jmO+AAAAAHIcxz85jmO+AAAAAAAAAEA5jmO+AAAAAAAAAMA5jmM+AAAAAHIcx785jmM+\nAAAAAOQ4jr85jmM+AAAAAKuqKr85jmM+AAAAADmOY745jmM+AAAAADmOYz45jmM+AAAAAKuq\nKj85jmM+AAAAAOQ4jj85jmM+AAAAAHIcxz85jmM+AAAAAAAAAEA5jmM+AAAAAAAAAMCrqio/\nAAAAAHIcx7+rqio/AAAAAOQ4jr+rqio/AAAAAKuqKr+rqio/AAAAADmOY76rqio/AAAAADmO\nYz6rqio/AAAAAKuqKj+rqio/AAAAAOQ4jj+rqio/AAAAAHIcxz+rqio/AAAAAAAAAECrqio/\nAAAAAAAAAMDkOI4/AAAAAHIcx7/kOI4/AAAAAOQ4jr/kOI4/AAAAAKuqKr/kOI4/AAAAADmO\nY77kOI4/AAAAADmOYz7kOI4/AAAAAKuqKj/kOI4/AAAAAOQ4jj/kOI4/AAAAAHIcxz/kOI4/\nAAAAAAAAAEDkOI4/AAAAAAAAAMByHMc/AAAAAHIcx79yHMc/AAAAAOQ4jr9yHMc/AAAAAKuq\nKr9yHMc/AAAAADmOY75yHMc/AAAAADmOYz5yHMc/AAAAAKuqKj9yHMc/AAAAAOQ4jj9yHMc/\nAAAAAHIcxz9yHMc/AAAAAAAAAEByHMc/AAAAAAAAAMAAAABAAAAAAHIcx78AAABAAAAAAOQ4\njr8AAABAAAAAAKuqKr8AAABAAAAAADmOY74AAABAAAAAADmOYz4AAABAAAAAAKuqKj8AAABA\nAAAAAOQ4jj8AAABAAAAAAHIcxz8AAABAAAAAAAAAAEAAAABAAAAAAAAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAAAQAA\nAQAAAQAAAQAAAQAAAQAAAainJz/U01M/1NNTP83MzD44juO/OI7jvwAAAACrqqq/OI7jvwAA\nAAA6jmO/OI7jvwAAAAA5juO+OI7jvwAAAAAAAAAAOI7jvwAAAAA6juM+OI7jvwAAAAA6jmM/\nOI7jvwAAAACrqqo/OI7jvwAAAAA5juM/OI7jvwAAAAA4juO/q6qqvwAAAACrqqq/q6qqvwAA\nAAA6jmO/q6qqvwAAAAA5juO+q6qqvwAAAAAAAAAAq6qqvwAAAAA6juM+q6qqvwAAAAA6jmM/\nq6qqvwAAAACrqqo/q6qqvwAAAAA5juM/q6qqvwAAAAA4juO/Oo5jvwAAAACrqqq/Oo5jvwAA\nAAA6jmO/Oo5jvwAAAAA5juO+Oo5jvwAAAAAAAAAAOo5jvwAAAAA6juM+Oo5jvwAAAAA6jmM/\nOo5jvwAAAACrqqo/Oo5jvwAAAAA5juM/Oo5jvwAAAAA4juO/OY7jvgAAAACrqqq/OY7jvgAA\nAAA6jmO/OY7jvgAAAAA5juO+OY7jvgAAAAAAAAAAOY7jvgAAAAA6juM+OY7jvgAAAAA6jmM/\nOY7jvgAAAACrqqo/OY7jvgAAAAA5juM/OY7jvgAAAAA4juO/AAAAAAAAAACrqqq/AAAAAAAA\nAAA6jmO/AAAAAAAAAAA5juO+AAAAAAAAAAAAAAAAAAAAAAAAAAA6juM+AAAAAAAAAAA6jmM/\nAAAAAAAAAACrqqo/AAAAAAAAAAA5juM/AAAAAAAAAAA4juO/Oo7jPgAAAACrqqq/Oo7jPgAA\nAAA6jmO/Oo7jPgAAAAA5juO+Oo7jPgAAAAAAAAAAOo7jPgAAAAA6juM+Oo7jPgAAAAA6jmM/\nOo7jPgAAAACrqqo/Oo7jPgAAAAA5juM/Oo7jPgAAAAA4juO/Oo5jPwAAAACrqqq/Oo5jPwAA\nAAA6jmO/Oo5jPwAAAAA5juO+Oo5jPwAAAAAAAAAAOo5jPwAAAAA6juM+Oo5jPwAAAAA6jmM/\nOo5jPwAAAACrqqo/Oo5jPwAAAAA5juM/Oo5jPwAAAAA4juO/q6qqPwAAAACrqqq/q6qqPwAA\nAAA6jmO/q6qqPwAAAAA5juO+q6qqPwAAAAAAAAAAq6qqPwAAAAA6juM+q6qqPwAAAAA6jmM/\nq6qqPwAAAACrqqo/q6qqPwAAAAA5juM/q6qqPwAAAAA4juO/OY7jPwAAAACrqqq/OY7jPwAA\nAAA6jmO/OY7jPwAAAAA5juO+OY7jPwAAAAAAAAAAOY7jPwAAAAA6juM+OY7jPwAAAAA6jmM/\nOY7jPwAAAACrqqo/OY7jPwAAAAA5juM/OY7jPwAAAAAAAAABAQIAAAAAgD+Lioo+AAAAAAAA\ngD8AAAABAQIBAQIAAAAAAIA/i4qKPgAAAAAAAIA/AQECAAAAAQEAAAAAAAAAAMnIyD4AAAAA\nAACAPwAAAAEBAAEBAAAAAAAAAADJyMg+AAAAAAAAgD8BAQABAQABAQIAAADNzMw+zczMPs3M\nzD4AAIA/AQEAAQECAQEBAAAAzczMPs3MzD7NzMw+AACAPwEBAQAAAMB/AAAAQAAAAEAAAAAB\nAADAfwAAAEAAAABAAAAAwAAAAMAAAAAAchzHvwAAAMAAAAAA5DiOvwAAAMAAAAAAq6oqvwAA\nAMAAAAAAOY5jvgAAAMAAAAAAOY5jPgAAAMAAAAAAq6oqPwAAAMAAAAAA5DiOPwAAAMAAAAAA\nchzHPwAAAMAAAAAAAAAAQAAAAMAAAAAAAAAAwHIcx78AAAAAchzHv3Icx78AAAAA5DiOv3Ic\nx78AAAAAq6oqv3Icx78AAAAAOY5jvnIcx78AAAAAOY5jPnIcx78AAAAAq6oqP3Icx78AAAAA\n5DiOP3Icx78AAAAAchzHP3Icx78AAAAAAAAAQHIcx78AAAAAAAAAwOQ4jr8AAAAAchzHv+Q4\njr8AAAAA5DiOv+Q4jr8AAAAAq6oqv+Q4jr8AAAAAOY5jvuQ4jr8AAAAAOY5jPuQ4jr8AAAAA\nq6oqP+Q4jr8AAAAA5DiOP+Q4jr8AAAAAchzHP+Q4jr8AAAAAAAAAQOQ4jr8AAAAAAAAAwKuq\nKr8AAAAAchzHv6uqKr8AAAAA5DiOv6uqKr8AAAAAq6oqv6uqKr8AAAAAOY5jvquqKr8AAAAA\nOY5jPquqKr8AAAAAq6oqP6uqKr8AAAAA5DiOP6uqKr8AAAAAchzHP6uqKr8AAAAAAAAAQKuq\nKr8AAAAAAAAAwDmOY74AAAAAchzHvzmOY74AAAAA5DiOvzmOY74AAAAAq6oqvzmOY74AAAAA\nOY5jvjmOY74AAAAAOY5jPjmOY74AAAAAq6oqPzmOY74AAAAA5DiOPzmOY74AAAAAchzHPzmO\nY74AAAAAAAAAQDmOY74AAAAAAAAAwDmOYz4AAAAAchzHvzmOYz4AAAAA5DiOvzmOYz4AAAAA\nq6oqvzmOYz4AAAAAOY5jvjmOYz4AAAAAOY5jPjmOYz4AAAAAq6oqPzmOYz4AAAAA5DiOPzmO\nYz4AAAAAchzHPzmOYz4AAAAAAAAAQDmOYz4AAAAAAAAAwKuqKj8AAAAAchzHv6uqKj8AAAAA\n5DiOv6uqKj8AAAAAq6oqv6uqKj8AAAAAOY5jvquqKj8AAAAAOY5jPquqKj8AAAAAq6oqP6uq\nKj8AAAAA5DiOP6uqKj8AAAAAchzHP6uqKj8AAAAAAAAAQKuqKj8AAAAAAAAAwOQ4jj8AAAAA\nchzHv+Q4jj8AAAAA5DiOv+Q4jj8AAAAAq6oqv+Q4jj8AAAAAOY5jvuQ4jj8AAAAAOY5jPuQ4\njj8AAAAAq6oqP+Q4jj8AAAAA5DiOP+Q4jj8AAAAAchzHP+Q4jj8AAAAAAAAAQOQ4jj8AAAAA\nAAAAwHIcxz8AAAAAchzHv3Icxz8AAAAA5DiOv3Icxz8AAAAAq6oqv3Icxz8AAAAAOY5jvnIc\nxz8AAAAAOY5jPnIcxz8AAAAAq6oqP3Icxz8AAAAA5DiOP3Icxz8AAAAAchzHP3Icxz8AAAAA\nAAAAQHIcxz8AAAAAAAAAwAAAAEAAAAAAchzHvwAAAEAAAAAA5DiOvwAAAEAAAAAAq6oqvwAA\nAEAAAAAAOY5jvgAAAEAAAAAAOY5jPgAAAEAAAAAAq6oqPwAAAEAAAAAA5DiOPwAAAEAAAAAA\nchzHPwAAAEAAAAAAAAAAQAAAAEAAAAAAAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nqKcnP9TTUz/U01M/zczMPjiO4784juO/AAAAAKuqqr84juO/AAAAADqOY784juO/AAAAADmO\n4744juO/AAAAAAAAAAA4juO/AAAAADqO4z44juO/AAAAADqOYz84juO/AAAAAKuqqj84juO/\nAAAAADmO4z84juO/AAAAADiO47+rqqq/AAAAAKuqqr+rqqq/AAAAADqOY7+rqqq/AAAAADmO\n476rqqq/AAAAAAAAAACrqqq/AAAAADqO4z6rqqq/AAAAADqOYz+rqqq/AAAAAKuqqj+rqqq/\nAAAAADmO4z+rqqq/AAAAADiO4786jmO/AAAAAKuqqr86jmO/AAAAADqOY786jmO/AAAAADmO\n4746jmO/AAAAAAAAAAA6jmO/AAAAADqO4z46jmO/AAAAADqOYz86jmO/AAAAAKuqqj86jmO/\nAAAAADmO4z86jmO/AAAAADiO4785juO+AAAAAKuqqr85juO+AAAAADqOY785juO+AAAAADmO\n4745juO+AAAAAAAAAAA5juO+AAAAADqO4z45juO+AAAAADqOYz85juO+AAAAAKuqqj85juO+\nAAAAADmO4z85juO+AAAAADiO478AAAAAAAAAAKuqqr8AAAAAAAAAADqOY78AAAAAAAAAADmO\n474AAAAAAAAAAAAAAAAAAAAAAAAAADqO4z4AAAAAAAAAADqOYz8AAAAAAAAAAKuqqj8AAAAA\nAAAAADmO4z8AAAAAAAAAADiO4786juM+AAAAAKuqqr86juM+AAAAADqOY786juM+AAAAADmO\n4746juM+AAAAAAAAAAA6juM+AAAAADqO4z46juM+AAAAADqOYz86juM+AAAAAKuqqj86juM+\nAAAAADmO4z86juM+AAAAADiO4786jmM/AAAAAKuqqr86jmM/AAAAADqOY786jmM/AAAAADmO\n4746jmM/AAAAAAAAAAA6jmM/AAAAADqO4z46jmM/AAAAADqOYz86jmM/AAAAAKuqqj86jmM/\nAAAAADmO4z86jmM/AAAAADiO47+rqqo/AAAAAKuqqr+rqqo/AAAAADqOY7+rqqo/AAAAADmO\n476rqqo/AAAAAAAAAACrqqo/AAAAADqO4z6rqqo/AAAAADqOYz+rqqo/AAAAAKuqqj+rqqo/\nAAAAADmO4z+rqqo/AAAAADiO4785juM/AAAAAKuqqr85juM/AAAAADqOY785juM/AAAAADmO\n4745juM/AAAAAAAAAAA5juM/AAAAADqO4z45juM/AAAAADqOYz85juM/AAAAAKuqqj85juM/\nAAAAADmO4z85juM/AAAAAAAAAAEBAgAAAACAP4uKij4AAAAAAACAPwAAAAEBAgEBAgAAAAAA\ngD+Lioo+AAAAAAAAgD8BAQIAAAABAQAAAAAAAAAAycjIPgAAAAAAAIA/AAAAAQEAAQEAAAAA\nAAAAAMnIyD4AAAAAAACAPwEBAAEBAAEBAgAAAM3MzD7NzMw+zczMPgAAgD8BAQABAQIBAQEA\nAADNzMw+zczMPs3MzD4AAIA/AQEBAAAAwH8AAABAAAAAQAAAAAEAAMB/AAAAQAAAAEABAQEB\nAAAAAAAAAMAAAMB/AADAfwAAgL8AAMB/AADAfwAAAAAAAMB/AADAfwAAgD8AAMB/AADAfwAA\nAEAAAMB/AADAfwAAwH8AAADAAADAfwAAwH8AAIC/AADAfwAAwH8AAAAAAADAfwAAwH8AAIA/\nAADAfwAAwH8AAABAAADAfwAAwH8AAMB/AAAAAAAAwH8AAMB/AAAAPwAAwH8AAMB/AACAPwAA\nwH8AAMB/AADAPwAAwH8AAMB/AAAAQAAAAAEAAADAAADAfwAAwH8AAIC/AADAfwAAwH8AAAAA\nAADAfwAAwH8AAIA/AADAfwAAwH8AAABAAADAfwAAwH8AAMB/AAAAwAAAwH8AAMB/AACAvwAA\nwH8AAMB/AAAAAAAAwH8AAMB/AACAPwAAwH8AAMB/AAAAQAAAwH8AAMB/AADAfwAAAAAAAMB/\nAADAfwAAAD8AAMB/AADAfwAAgD8AAMB/AADAfwAAwD8AAMB/AADAfwAAAEAAAAABAAAAwAAA\nwH8AAMB/AACAvwAAwH8AAMB/AAAAAAAAwH8AAMB/AACAPwAAwH8AAMB/AAAAQAAAwH8AAMB/\nAADAfwAAAMAAAMB/AADAfwAAgL8AAMB/AADAfwAAAAAAAMB/AADAfwAAgD8AAMB/AADAfwAA\nAEAAAMB/AADAfwAAwH8AAAAAAADAfwAAwH8AAAA/AADAfwAAwH8AAIA/AADAfwAAwH8AAMA/\nAADAfwAAwH8AAABAAAAAAQAAAMAAAMB/AADAfwAAgL8AAMB/AADAfwAAAAAAAMB/AADAfwAA\ngD8AAMB/AADAfwAAAEAAAMB/AADAfwAAwH8AAADAAADAfwAAwH8AAIC/AADAfwAAwH8AAAAA\nAADAfwAAwH8AAIA/AADAfwAAwH8AAABAAADAfwAAwH8AAMB/AAAAAAAAwH8AAMB/AAAAPwAA\nwH8AAMB/AACAPwAAwH8AAMB/AADAPwAAwH8AAMB/AAAAQAAAAAEAAADAAADAfwAAwH8AAIC/\nAADAfwAAwH8AAAAAAADAfwAAwH8AAIA/AADAfwAAwH8AAABAAADAfwAAwH8AAMB/AAAAwAAA\nwH8AAMB/AACAvwAAwH8AAMB/AAAAAAAAwH8AAMB/AACAPwAAwH8AAMB/AAAAQAAAwH8AAMB/\nAADAfwAAAAAAAMB/AADAfwAAAD8AAMB/AADAfwAAgD8AAMB/AADAfwAAwD8AAMB/AADAfwAA\nAEAAAAABAAAAwAAAwH8AAMB/AACAvwAAwH8AAMB/AAAAAAAAwH8AAMB/AACAPwAAwH8AAMB/\nAAAAQAAAwH8AAMB/AADAfwAAAMAAAMB/AADAfwAAgL8AAMB/AADAfwAAAAAAAMB/AADAfwAA\ngD8AAMB/AADAfwAAAEAAAMB/AADAfwAAwH8AAAAAAADAfwAAwH8AAAA/AADAfwAAwH8AAIA/\nAADAfwAAwH8AAMA/AADAfwAAwH8AAABAAAAAAQAAAMAAAMB/AADAfwAAgL8AAMB/AADAfwAA\nAAAAAMB/AADAfwAAgD8AAMB/AADAfwAAAEAAAMB/AADAfwAAwH8AAADAAADAfwAAwH8AAIC/\nAADAfwAAwH8AAAAAAADAfwAAwH8AAIA/AADAfwAAwH8AAABAAADAfwAAwH8AAMB/AAAAAAAA\nwH8AAMB/AAAAPwAAwH8AAMB/AACAPwAAwH8AAMB/AADAPwAAwH8AAMB/AAAAQAAAAAE="}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true},"fastTransparency":true},"evals":[],"jsHooks":[]}</script>
+<p id="rgl30719-aria" hidden>
+</p>
+</div>
+<p>La figura muestra cómo el vector <span class="math inline">\(y\)</span> se proyecta sobre el espacio generado por las columnas de <span class="math inline">\(X\)</span>. La diferencia <span class="math inline">\(y - P_X y\)</span> es ortogonal al plano y corresponde a los residuos.</p>
+</div>
+</div>
+<div id="teorema-de-frisch-waugh-lovell-fwl" class="section level2 unnumbered hasAnchor">
+<h2>Teorema de Frisch-Waugh-Lovell (FWL)<a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>Teorema de Frisch-Waugh-Lovell (FWL)</strong> es uno de los resultados más importantes de la econometría, porque <strong>nos permite entender qué significa realmente el coeficiente de una variable en una regresión múltiple</strong>.</p>
+<p>FWL nos dice que, si estamos interesados en el efecto de una variable <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(y\)</span>, <strong>controlando por otras variables</strong> <span class="math inline">\(X_s\)</span>, <strong>podemos obtener exactamente el mismo coeficiente</strong> de una manera alternativa, usando <strong>proyecciones</strong>.</p>
+<p>Esto es extremadamente útil porque:</p>
+<ul>
+<li>Da una interpretación clara del coeficiente como un efecto “depurado”.</li>
+<li>Permite construir regresiones parciales paso a paso.</li>
+<li>Ayuda a entender la mecánica interna de los modelos de regresión múltiples.</li>
+</ul>
+</div>
+<div id="notación-y-motivación" class="section level2 unnumbered hasAnchor">
+<h2>🎯 Notación y Motivación<a href="#notaci%C3%B3n-y-motivaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considera el siguiente modelo de regresión lineal:</p>
+<p><span class="math display">\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(y \in \mathbb{R}^{n \times 1}\)</span> es la variable dependiente (por ejemplo, salario).</li>
+<li><span class="math inline">\(X_r \in \mathbb{R}^{n \times 1}\)</span> es la <strong>variable de interés</strong> (por ejemplo, educación).</li>
+<li><span class="math inline">\(X_s \in \mathbb{R}^{n \times k}\)</span> es el conjunto de <strong>variables de control</strong> (por ejemplo, experiencia, edad, género, etc.).</li>
+<li><span class="math inline">\(\varepsilon \in \mathbb{R}^{n \times 1}\)</span> es el error.</li>
+</ul>
+<p>Esta forma también puede escribirse más compactamente así:</p>
+<p><span class="math display">\[
+y = [X_r \quad X_s] \begin{bmatrix} \beta_r \\ \beta_s \end{bmatrix} + \varepsilon
+\]</span></p>
+<p>Donde la matriz <span class="math inline">\(X = [X_r \quad X_s] \in \mathbb{R}^{n \times (k+1)}\)</span> contiene <strong>todas</strong> las variables explicativas, y el vector de parámetros <span class="math inline">\(\beta \in \mathbb{R}^{k+1}\)</span> contiene sus coeficientes respectivos.</p>
+</div>
+<div id="cuál-es-el-problema-que-resuelve-el-fwl" class="section level2 unnumbered hasAnchor">
+<h2>❓¿Cuál es el problema que resuelve el FWL?<a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagina que quieres saber el <strong>efecto de la educación sobre el salario</strong>, pero sabes que hay muchas otras variables (edad, experiencia, género, etc.) que también afectan el salario. Entonces haces una regresión múltiple, y obtienes el coeficiente de educación controlando por todo lo demás.</p>
+<p>El teorema FWL te dice: <em>“Ese coeficiente se puede obtener en tres pasos, sin necesidad de correr la regresión completa.”</em> Y lo mejor: <strong>el resultado será exactamente igual</strong>.</p>
+<p>Eso es lo que veremos a continuación en el paso a paso.</p>
+</div>
+<div id="paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl" class="section level2 unnumbered hasAnchor">
+<h2>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)<a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El Teorema de FWL nos dice que podemos obtener el coeficiente <span class="math inline">\(\beta_r\)</span> de una regresión múltiple:</p>
+<p><span class="math display">\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]</span></p>
+<p>realizando <strong>tres regresiones parciales</strong>, sin necesidad de incluir todos los regresores al mismo tiempo. A continuación explicamos cada paso con todo el detalle necesario.</p>
+</div>
+<div id="paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos<a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Primero, eliminamos de <span class="math inline">\(y\)</span> la parte que puede ser explicada por los controles <span class="math inline">\(X_s\)</span>. Esto se hace <strong>regresando <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span></strong> y guardando los <strong>residuos</strong>. Es decir:</p>
+<p><span class="math display">\[
+\tilde{y} = M_s y = (I - P_s)y
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(P_s = X_s (X_s&#39;X_s)^{-1} X_s&#39;\)</span> es la <strong>matriz de proyección</strong> sobre el espacio generado por los controles <span class="math inline">\(X_s\)</span>.</li>
+<li><span class="math inline">\(M_s = I - P_s\)</span> es la <strong>matriz de residuos</strong> o complemento ortogonal: elimina todo lo que esté explicado por <span class="math inline">\(X_s\)</span>.</li>
+</ul>
+<p>🔍 <strong>¿Qué significa esto?</strong></p>
+<ul>
+<li>Estamos “limpiando” a <span class="math inline">\(y\)</span>, quitándole la parte que se debe a los controles.</li>
+<li>El resultado <span class="math inline">\(\tilde{y}\)</span> representa la <strong>parte de <span class="math inline">\(y\)</span> que es ortogonal a los controles</strong>.</li>
+</ul>
+<p>📐 <strong>Interpretación geométrica</strong>: proyectamos <span class="math inline">\(y\)</span> sobre el subespacio generado por <span class="math inline">\(X_s\)</span> y nos quedamos con la componente perpendicular.</p>
+</div>
+<div id="paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos<a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora hacemos lo mismo con la variable de interés <span class="math inline">\(X_r\)</span>: le quitamos la parte que puede explicarse con los controles.</p>
+<p><span class="math display">\[
+\tilde{X}_r = M_s X_r = (I - P_s)X_r
+\]</span></p>
+<p>🔍 <strong>¿Qué significa esto?</strong></p>
+<ul>
+<li>Estamos “depurando” a <span class="math inline">\(X_r\)</span>, eliminando cualquier relación lineal con los controles.</li>
+<li><span class="math inline">\(\tilde{X}_r\)</span> es la <strong>parte de <span class="math inline">\(X_r\)</span> que no se puede predecir con <span class="math inline">\(X_s\)</span></strong>.</li>
+</ul>
+<p>📐 <strong>Interpretación geométrica</strong>: proyectamos <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(\mathcal{C}(X_s)\)</span> y guardamos el residuo, que es ortogonal a ese subespacio.</p>
+</div>
+<div id="paso-3-regresar-tildey-sobre-tildex_r" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finalmente, estimamos el coeficiente que relaciona las dos variables “limpias” o <strong>depuradas</strong>:</p>
+<p><span class="math display">\[
+\tilde{y} = \tilde{X}_r \cdot \gamma + u
+\]</span></p>
+<p>El estimador de MCO de esta regresión es:</p>
+<p><span class="math display">\[
+\hat{\gamma} = (\tilde{X}_r&#39;\tilde{X}_r)^{-1} \tilde{X}_r&#39; \tilde{y}
+\]</span></p>
+<p>🔔 <strong>¡Sorpresa!</strong> Este estimador es exactamente igual a:</p>
+<p><span class="math display">\[
+\hat{\beta}_r \quad \text{(el coeficiente de \( X_r \) en la regresión completa)}
+\]</span></p>
+</div>
+<div id="interpretación-final" class="section level2 unnumbered hasAnchor">
+<h2>✅ Interpretación final<a href="#interpretaci%C3%B3n-final" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este resultado nos dice que:</p>
+<ul>
+<li>El efecto de <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(y\)</span>, <strong>controlando por <span class="math inline">\(X_s\)</span></strong>, es igual al efecto de la <strong>parte de <span class="math inline">\(X_r\)</span> que no se relaciona con <span class="math inline">\(X_s\)</span></strong> sobre la <strong>parte de <span class="math inline">\(y\)</span> que tampoco se relaciona con <span class="math inline">\(X_s\)</span></strong>.</li>
+<li>En palabras simples: es una regresión entre los residuos.</li>
+</ul>
+</div>
+<div id="conclusión" class="section level2 unnumbered hasAnchor">
+<h2>📦 Conclusión<a href="#conclusi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este teorema tiene implicaciones profundas:</p>
+<ul>
+<li>Muestra que <strong>controlar por variables</strong> equivale a <strong>quitarles su efecto tanto a la variable explicativa como a la dependiente</strong>, y luego ver cómo se relacionan esas partes “limpias”.</li>
+<li>Es la base para entender técnicas como control por regresión parcial, y también para desarrollar intuiciones sobre variables instrumentales, efectos marginales y más.</li>
+</ul>
+</div>
+<div id="demostración-formal" class="section level2 unnumbered hasAnchor">
+<h2>Demostración Formal<a href="#demostraci%C3%B3n-formal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Usando álgebra matricial:</p>
+<p><span class="math display">\[
+\hat{\beta}_r = (X_r&#39;M_s X_r)^{-1} X_r&#39;M_s y
+\]</span></p>
+<p>Esto se deduce de la forma general del estimador de MCO:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+<p>pero aplicado al modelo reducido, en el que <span class="math inline">\(y\)</span> y <span class="math inline">\(X_r\)</span> han sido “limpiados” de <span class="math inline">\(X_s\)</span>.</p>
+</div>
+<div id="ejemplo-práctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python" class="section level2 unnumbered hasAnchor">
+<h2>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python<a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A continuación presentamos una simulación sencilla para ilustrar el Teorema de Frisch-Waugh-Lovell (FWL) y mostrar cómo cambia el coeficiente estimado de una variable de interés dependiendo de la correlación con los controles. También implementamos paso a paso la construcción del estimador usando residuos.</p>
+<hr />
+<div id="código-en-stata" class="section level3 hasAnchor" number="6.0.1">
+<h3><span class="header-section-number">6.0.1</span> 🔵 Código en Stata<a href="#c%C3%B3digo-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb7-1"><a href="anatomía-de-la-regresión-múltiple.html#cb7-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb7-2"><a href="anatomía-de-la-regresión-múltiple.html#cb7-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 6981473</span>
+<span id="cb7-3"><a href="anatomía-de-la-regresión-múltiple.html#cb7-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 1000</span>
+<span id="cb7-4"><a href="anatomía-de-la-regresión-múltiple.html#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="anatomía-de-la-regresión-múltiple.html#cb7-5" tabindex="-1"></a>* Variable <span class="kw">de</span> interés Xr</span>
+<span id="cb7-6"><a href="anatomía-de-la-regresión-múltiple.html#cb7-6" tabindex="-1"></a><span class="kw">gen</span> altura = runiform()*30+150</span>
+<span id="cb7-7"><a href="anatomía-de-la-regresión-múltiple.html#cb7-7" tabindex="-1"></a><span class="kw">replace</span> altura= <span class="fu">round</span>(altura)</span>
+<span id="cb7-8"><a href="anatomía-de-la-regresión-múltiple.html#cb7-8" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> altura <span class="st">&quot;altura&quot;</span></span>
+<span id="cb7-9"><a href="anatomía-de-la-regresión-múltiple.html#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="anatomía-de-la-regresión-múltiple.html#cb7-10" tabindex="-1"></a>* Crear Xs con correlación positiva con Xr</span>
+<span id="cb7-11"><a href="anatomía-de-la-regresión-múltiple.html#cb7-11" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh = rnormal() + 5*altura</span>
+<span id="cb7-12"><a href="anatomía-de-la-regresión-múltiple.html#cb7-12" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="anatomía-de-la-regresión-múltiple.html#cb7-13" tabindex="-1"></a>* Variable dependiente Y</span>
+<span id="cb7-14"><a href="anatomía-de-la-regresión-múltiple.html#cb7-14" tabindex="-1"></a><span class="kw">gen</span> salario = 1 + 2*altura + 5*ingreso_hh + rnormal()</span>
+<span id="cb7-15"><a href="anatomía-de-la-regresión-múltiple.html#cb7-15" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="anatomía-de-la-regresión-múltiple.html#cb7-16" tabindex="-1"></a>* CASO 1: cov(altura, ingreso_hh)&gt;0</span>
+<span id="cb7-17"><a href="anatomía-de-la-regresión-múltiple.html#cb7-17" tabindex="-1"></a><span class="kw">reg</span> salario altura</span>
+<span id="cb7-18"><a href="anatomía-de-la-regresión-múltiple.html#cb7-18" tabindex="-1"></a><span class="kw">reg</span> salario altura ingreso_hh</span>
+<span id="cb7-19"><a href="anatomía-de-la-regresión-múltiple.html#cb7-19" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="anatomía-de-la-regresión-múltiple.html#cb7-20" tabindex="-1"></a>* CASO 2: cov(altura, ingreso_hh)=0</span>
+<span id="cb7-21"><a href="anatomía-de-la-regresión-múltiple.html#cb7-21" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh2 = rnormal()</span>
+<span id="cb7-22"><a href="anatomía-de-la-regresión-múltiple.html#cb7-22" tabindex="-1"></a><span class="kw">gen</span> salario2 = 1 + 2*altura + 5*ingreso_hh2 + rnormal()</span>
+<span id="cb7-23"><a href="anatomía-de-la-regresión-múltiple.html#cb7-23" tabindex="-1"></a><span class="kw">reg</span> salario2 altura</span>
+<span id="cb7-24"><a href="anatomía-de-la-regresión-múltiple.html#cb7-24" tabindex="-1"></a><span class="kw">reg</span> salario2 altura ingreso_hh2</span>
+<span id="cb7-25"><a href="anatomía-de-la-regresión-múltiple.html#cb7-25" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="anatomía-de-la-regresión-múltiple.html#cb7-26" tabindex="-1"></a>* CASO 3: cov(salario, ingreso_hh)=0</span>
+<span id="cb7-27"><a href="anatomía-de-la-regresión-múltiple.html#cb7-27" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh3 = rnormal() + 3*altura</span>
+<span id="cb7-28"><a href="anatomía-de-la-regresión-múltiple.html#cb7-28" tabindex="-1"></a><span class="kw">gen</span> salario3 = 1 + 2*altura + 0*ingreso_hh3 + rnormal()</span>
+<span id="cb7-29"><a href="anatomía-de-la-regresión-múltiple.html#cb7-29" tabindex="-1"></a><span class="kw">reg</span> salario3 altura</span>
+<span id="cb7-30"><a href="anatomía-de-la-regresión-múltiple.html#cb7-30" tabindex="-1"></a><span class="kw">reg</span> salario3 altura ingreso_hh3</span>
+<span id="cb7-31"><a href="anatomía-de-la-regresión-múltiple.html#cb7-31" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="anatomía-de-la-regresión-múltiple.html#cb7-32" tabindex="-1"></a>* Teorema <span class="kw">de</span> FWL paso a paso</span>
+<span id="cb7-33"><a href="anatomía-de-la-regresión-múltiple.html#cb7-33" tabindex="-1"></a><span class="kw">reg</span> salario ingreso_hh</span>
+<span id="cb7-34"><a href="anatomía-de-la-regresión-múltiple.html#cb7-34" tabindex="-1"></a><span class="kw">predict</span> My, res</span>
+<span id="cb7-35"><a href="anatomía-de-la-regresión-múltiple.html#cb7-35" tabindex="-1"></a></span>
+<span id="cb7-36"><a href="anatomía-de-la-regresión-múltiple.html#cb7-36" tabindex="-1"></a><span class="kw">reg</span> altura ingreso_hh</span>
+<span id="cb7-37"><a href="anatomía-de-la-regresión-múltiple.html#cb7-37" tabindex="-1"></a><span class="kw">predict</span> MXr, res</span>
+<span id="cb7-38"><a href="anatomía-de-la-regresión-múltiple.html#cb7-38" tabindex="-1"></a></span>
+<span id="cb7-39"><a href="anatomía-de-la-regresión-múltiple.html#cb7-39" tabindex="-1"></a><span class="kw">reg</span> salario altura ingreso_hh</span>
+<span id="cb7-40"><a href="anatomía-de-la-regresión-múltiple.html#cb7-40" tabindex="-1"></a><span class="kw">reg</span> My MXr</span>
+<span id="cb7-41"><a href="anatomía-de-la-regresión-múltiple.html#cb7-41" tabindex="-1"></a>* Comparar coeficientes</span>
+<span id="cb7-42"><a href="anatomía-de-la-regresión-múltiple.html#cb7-42" tabindex="-1"></a><span class="kw">di</span> _b[MXr] _b[altura]</span></code></pre></div>
+</div>
+<div id="código-en-r" class="section level3 hasAnchor" number="6.0.2">
+<h3><span class="header-section-number">6.0.2</span> 🟢 Código en R<a href="#c%C3%B3digo-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="anatomía-de-la-regresión-múltiple.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb8-2"><a href="anatomía-de-la-regresión-múltiple.html#cb8-2" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="anatomía-de-la-regresión-múltiple.html#cb8-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6981473</span>)</span>
+<span id="cb8-4"><a href="anatomía-de-la-regresión-múltiple.html#cb8-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb8-5"><a href="anatomía-de-la-regresión-múltiple.html#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="anatomía-de-la-regresión-múltiple.html#cb8-6" tabindex="-1"></a><span class="co"># Variable de interés</span></span>
+<span id="cb8-7"><a href="anatomía-de-la-regresión-múltiple.html#cb8-7" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="dv">150</span></span>
+<span id="cb8-8"><a href="anatomía-de-la-regresión-múltiple.html#cb8-8" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">round</span>(altura)</span>
+<span id="cb8-9"><a href="anatomía-de-la-regresión-múltiple.html#cb8-9" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="anatomía-de-la-regresión-múltiple.html#cb8-10" tabindex="-1"></a><span class="co"># Control correlacionado con altura</span></span>
+<span id="cb8-11"><a href="anatomía-de-la-regresión-múltiple.html#cb8-11" tabindex="-1"></a>ingreso_hh <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> altura</span>
+<span id="cb8-12"><a href="anatomía-de-la-regresión-múltiple.html#cb8-12" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="anatomía-de-la-regresión-múltiple.html#cb8-13" tabindex="-1"></a><span class="co"># Variable dependiente</span></span>
+<span id="cb8-14"><a href="anatomía-de-la-regresión-múltiple.html#cb8-14" tabindex="-1"></a>salario <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> altura <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> ingreso_hh <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-15"><a href="anatomía-de-la-regresión-múltiple.html#cb8-15" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="anatomía-de-la-regresión-múltiple.html#cb8-16" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(altura, ingreso_hh, salario)</span>
+<span id="cb8-17"><a href="anatomía-de-la-regresión-múltiple.html#cb8-17" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="anatomía-de-la-regresión-múltiple.html#cb8-18" tabindex="-1"></a><span class="co"># CASO 1: cov(altura, ingreso_hh)&gt;0</span></span>
+<span id="cb8-19"><a href="anatomía-de-la-regresión-múltiple.html#cb8-19" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb8-20"><a href="anatomía-de-la-regresión-múltiple.html#cb8-20" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))</span>
+<span id="cb8-21"><a href="anatomía-de-la-regresión-múltiple.html#cb8-21" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="anatomía-de-la-regresión-múltiple.html#cb8-22" tabindex="-1"></a><span class="co"># CASO 2: cov(altura, ingreso_hh)=0</span></span>
+<span id="cb8-23"><a href="anatomía-de-la-regresión-múltiple.html#cb8-23" tabindex="-1"></a>df<span class="sc">$</span>ingreso_hh2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-24"><a href="anatomía-de-la-regresión-múltiple.html#cb8-24" tabindex="-1"></a>df<span class="sc">$</span>salario2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> df<span class="sc">$</span>altura <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> df<span class="sc">$</span>ingreso_hh2 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-25"><a href="anatomía-de-la-regresión-múltiple.html#cb8-25" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario2 <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb8-26"><a href="anatomía-de-la-regresión-múltiple.html#cb8-26" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario2 <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh2, <span class="at">data =</span> df))</span>
+<span id="cb8-27"><a href="anatomía-de-la-regresión-múltiple.html#cb8-27" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="anatomía-de-la-regresión-múltiple.html#cb8-28" tabindex="-1"></a><span class="co"># CASO 3: cov(y, ingreso_hh)=0</span></span>
+<span id="cb8-29"><a href="anatomía-de-la-regresión-múltiple.html#cb8-29" tabindex="-1"></a>df<span class="sc">$</span>ingreso_hh3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> df<span class="sc">$</span>altura</span>
+<span id="cb8-30"><a href="anatomía-de-la-regresión-múltiple.html#cb8-30" tabindex="-1"></a>df<span class="sc">$</span>salario3 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> df<span class="sc">$</span>altura <span class="sc">+</span> <span class="dv">0</span> <span class="sc">*</span> df<span class="sc">$</span>ingreso_hh3 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-31"><a href="anatomía-de-la-regresión-múltiple.html#cb8-31" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario3 <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb8-32"><a href="anatomía-de-la-regresión-múltiple.html#cb8-32" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario3 <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh3, <span class="at">data =</span> df))</span>
+<span id="cb8-33"><a href="anatomía-de-la-regresión-múltiple.html#cb8-33" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="anatomía-de-la-regresión-múltiple.html#cb8-34" tabindex="-1"></a><span class="co"># FWL paso a paso</span></span>
+<span id="cb8-35"><a href="anatomía-de-la-regresión-múltiple.html#cb8-35" tabindex="-1"></a>modelo_y <span class="ot">&lt;-</span> <span class="fu">lm</span>(salario <span class="sc">~</span> ingreso_hh, <span class="at">data =</span> df)</span>
+<span id="cb8-36"><a href="anatomía-de-la-regresión-múltiple.html#cb8-36" tabindex="-1"></a>df<span class="sc">$</span>My <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_y)</span>
+<span id="cb8-37"><a href="anatomía-de-la-regresión-múltiple.html#cb8-37" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="anatomía-de-la-regresión-múltiple.html#cb8-38" tabindex="-1"></a>modelo_xr <span class="ot">&lt;-</span> <span class="fu">lm</span>(altura <span class="sc">~</span> ingreso_hh, <span class="at">data =</span> df)</span>
+<span id="cb8-39"><a href="anatomía-de-la-regresión-múltiple.html#cb8-39" tabindex="-1"></a>df<span class="sc">$</span>MXr <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_xr)</span>
+<span id="cb8-40"><a href="anatomía-de-la-regresión-múltiple.html#cb8-40" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="anatomía-de-la-regresión-múltiple.html#cb8-41" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(My <span class="sc">~</span> MXr, <span class="at">data =</span> df))  <span class="co"># Igual al coef. de altura</span></span>
+<span id="cb8-42"><a href="anatomía-de-la-regresión-múltiple.html#cb8-42" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="anatomía-de-la-regresión-múltiple.html#cb8-43" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))  <span class="co"># Verificación</span></span>
+<span id="cb8-44"><a href="anatomía-de-la-regresión-múltiple.html#cb8-44" tabindex="-1"></a><span class="co"># Comparar coeficientes</span></span>
+<span id="cb8-45"><a href="anatomía-de-la-regresión-múltiple.html#cb8-45" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Coeficiente de altura (residuos):&quot;</span>, <span class="fu">coef</span>(<span class="fu">lm</span>(My <span class="sc">~</span> MXr, <span class="at">data =</span> df))[<span class="st">&quot;MXr&quot;</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb8-46"><a href="anatomía-de-la-regresión-múltiple.html#cb8-46" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Coeficiente de altura (modelo completo):&quot;</span>, <span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))[<span class="st">&quot;altura&quot;</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+</div>
+<div id="código-en-python" class="section level3 hasAnchor" number="6.0.3">
+<h3><span class="header-section-number">6.0.3</span> 🔴 Código en Python<a href="#c%C3%B3digo-en-python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="anatomía-de-la-regresión-múltiple.html#cb9-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="anatomía-de-la-regresión-múltiple.html#cb9-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-3"><a href="anatomía-de-la-regresión-múltiple.html#cb9-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb9-4"><a href="anatomía-de-la-regresión-múltiple.html#cb9-4" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb9-5"><a href="anatomía-de-la-regresión-múltiple.html#cb9-5" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="anatomía-de-la-regresión-múltiple.html#cb9-6" tabindex="-1"></a>np.random.seed(<span class="dv">6981473</span>)</span>
+<span id="cb9-7"><a href="anatomía-de-la-regresión-múltiple.html#cb9-7" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-8"><a href="anatomía-de-la-regresión-múltiple.html#cb9-8" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="anatomía-de-la-regresión-múltiple.html#cb9-9" tabindex="-1"></a><span class="co"># Variable de interés</span></span>
+<span id="cb9-10"><a href="anatomía-de-la-regresión-múltiple.html#cb9-10" tabindex="-1"></a>altura <span class="op">=</span> np.<span class="bu">round</span>(np.random.uniform(<span class="dv">0</span>, <span class="dv">30</span>, n) <span class="op">+</span> <span class="dv">150</span>)</span>
+<span id="cb9-11"><a href="anatomía-de-la-regresión-múltiple.html#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="anatomía-de-la-regresión-múltiple.html#cb9-12" tabindex="-1"></a><span class="co"># Control correlacionado</span></span>
+<span id="cb9-13"><a href="anatomía-de-la-regresión-múltiple.html#cb9-13" tabindex="-1"></a>ingreso_hh <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> altura</span>
+<span id="cb9-14"><a href="anatomía-de-la-regresión-múltiple.html#cb9-14" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="anatomía-de-la-regresión-múltiple.html#cb9-15" tabindex="-1"></a><span class="co"># Variable dependiente</span></span>
+<span id="cb9-16"><a href="anatomía-de-la-regresión-múltiple.html#cb9-16" tabindex="-1"></a>salario <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> altura <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> ingreso_hh <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb9-17"><a href="anatomía-de-la-regresión-múltiple.html#cb9-17" tabindex="-1"></a></span>
+<span id="cb9-18"><a href="anatomía-de-la-regresión-múltiple.html#cb9-18" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb9-19"><a href="anatomía-de-la-regresión-múltiple.html#cb9-19" tabindex="-1"></a>    <span class="st">&#39;altura&#39;</span>: altura,</span>
+<span id="cb9-20"><a href="anatomía-de-la-regresión-múltiple.html#cb9-20" tabindex="-1"></a>    <span class="st">&#39;ingreso_hh&#39;</span>: ingreso_hh,</span>
+<span id="cb9-21"><a href="anatomía-de-la-regresión-múltiple.html#cb9-21" tabindex="-1"></a>    <span class="st">&#39;salario&#39;</span>: salario</span>
+<span id="cb9-22"><a href="anatomía-de-la-regresión-múltiple.html#cb9-22" tabindex="-1"></a>})</span>
+<span id="cb9-23"><a href="anatomía-de-la-regresión-múltiple.html#cb9-23" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="anatomía-de-la-regresión-múltiple.html#cb9-24" tabindex="-1"></a><span class="co"># CASO 1</span></span>
+<span id="cb9-25"><a href="anatomía-de-la-regresión-múltiple.html#cb9-25" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-26"><a href="anatomía-de-la-regresión-múltiple.html#cb9-26" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-27"><a href="anatomía-de-la-regresión-múltiple.html#cb9-27" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="anatomía-de-la-regresión-múltiple.html#cb9-28" tabindex="-1"></a><span class="co"># CASO 2</span></span>
+<span id="cb9-29"><a href="anatomía-de-la-regresión-múltiple.html#cb9-29" tabindex="-1"></a>df[<span class="st">&#39;ingreso_hh2&#39;</span>] <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb9-30"><a href="anatomía-de-la-regresión-múltiple.html#cb9-30" tabindex="-1"></a>df[<span class="st">&#39;salario2&#39;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>] <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> df[<span class="st">&#39;ingreso_hh2&#39;</span>] <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb9-31"><a href="anatomía-de-la-regresión-múltiple.html#cb9-31" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="anatomía-de-la-regresión-múltiple.html#cb9-32" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario2 ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-33"><a href="anatomía-de-la-regresión-múltiple.html#cb9-33" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario2 ~ altura + ingreso_hh2&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-34"><a href="anatomía-de-la-regresión-múltiple.html#cb9-34" tabindex="-1"></a></span>
+<span id="cb9-35"><a href="anatomía-de-la-regresión-múltiple.html#cb9-35" tabindex="-1"></a><span class="co"># CASO 3</span></span>
+<span id="cb9-36"><a href="anatomía-de-la-regresión-múltiple.html#cb9-36" tabindex="-1"></a>df[<span class="st">&#39;ingreso_hh3&#39;</span>] <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>]</span>
+<span id="cb9-37"><a href="anatomía-de-la-regresión-múltiple.html#cb9-37" tabindex="-1"></a>df[<span class="st">&#39;salario3&#39;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>] <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb9-38"><a href="anatomía-de-la-regresión-múltiple.html#cb9-38" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="anatomía-de-la-regresión-múltiple.html#cb9-39" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario3 ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-40"><a href="anatomía-de-la-regresión-múltiple.html#cb9-40" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario3 ~ altura + ingreso_hh3&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-41"><a href="anatomía-de-la-regresión-múltiple.html#cb9-41" tabindex="-1"></a></span>
+<span id="cb9-42"><a href="anatomía-de-la-regresión-múltiple.html#cb9-42" tabindex="-1"></a><span class="co"># FWL paso a paso</span></span>
+<span id="cb9-43"><a href="anatomía-de-la-regresión-múltiple.html#cb9-43" tabindex="-1"></a>modelo_y <span class="op">=</span> sm.OLS.from_formula(<span class="st">&#39;salario ~ ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit()</span>
+<span id="cb9-44"><a href="anatomía-de-la-regresión-múltiple.html#cb9-44" tabindex="-1"></a>df[<span class="st">&#39;My&#39;</span>] <span class="op">=</span> modelo_y.resid</span>
+<span id="cb9-45"><a href="anatomía-de-la-regresión-múltiple.html#cb9-45" tabindex="-1"></a></span>
+<span id="cb9-46"><a href="anatomía-de-la-regresión-múltiple.html#cb9-46" tabindex="-1"></a>modelo_xr <span class="op">=</span> sm.OLS.from_formula(<span class="st">&#39;altura ~ ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit()</span>
+<span id="cb9-47"><a href="anatomía-de-la-regresión-múltiple.html#cb9-47" tabindex="-1"></a>df[<span class="st">&#39;MXr&#39;</span>] <span class="op">=</span> modelo_xr.resid</span>
+<span id="cb9-48"><a href="anatomía-de-la-regresión-múltiple.html#cb9-48" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="anatomía-de-la-regresión-múltiple.html#cb9-49" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;My ~ MXr&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-50"><a href="anatomía-de-la-regresión-múltiple.html#cb9-50" tabindex="-1"></a></span>
+<span id="cb9-51"><a href="anatomía-de-la-regresión-múltiple.html#cb9-51" tabindex="-1"></a><span class="co"># Verificación</span></span>
+<span id="cb9-52"><a href="anatomía-de-la-regresión-múltiple.html#cb9-52" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb9-53"><a href="anatomía-de-la-regresión-múltiple.html#cb9-53" tabindex="-1"></a><span class="co"># Comparar coeficientes</span></span>
+<span id="cb9-54"><a href="anatomía-de-la-regresión-múltiple.html#cb9-54" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficiente de altura (residuos):&quot;</span>, sm.OLS.from_formula(<span class="st">&#39;My ~ MXr&#39;</span>, data<span class="op">=</span>df).fit().params[<span class="st">&#39;MXr&#39;</span>])</span>
+<span id="cb9-55"><a href="anatomía-de-la-regresión-múltiple.html#cb9-55" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficiente de altura (modelo completo):&quot;</span>, sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().params[<span class="st">&#39;altura&#39;</span>])</span></code></pre></div>
+</div>
+<div class="box-repaso">
+<div id="preguntas-de-repaso-5" class="section level3 unnumbered hasAnchor">
+<h3>📘 Preguntas de repaso<a href="anatomía-de-la-regresión-múltiple.html#preguntas-de-repaso-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>¿Qué significa que el coeficiente de una variable en una regresión múltiple sea “depurado”?</li>
+</ol>
+</div>
+<div id="preguntas-sobre-fwl-y-matrices-de-proyección" class="section level3 unnumbered hasAnchor">
+<h3>📌 Preguntas sobre FWL y matrices de proyección<a href="#preguntas-sobre-fwl-y-matrices-de-proyecci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Sea <span class="math inline">\(y \in \mathbb{R}^{n \times 1}\)</span>, <span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span>, y <span class="math inline">\(D \in \mathbb{R}^{n \times 1}\)</span> una variable binaria tal que <span class="math inline">\(D_i = 1\)</span> solo para una observación <span class="math inline">\(i\)</span>, y <span class="math inline">\(D_j = 0\)</span> para <span class="math inline">\(j \neq i\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Use los pasos del teorema de Frisch-Waugh-Lovell para demostrar que el coeficiente estimado de <span class="math inline">\(D\)</span> representa la diferencia entre la observación <span class="math inline">\(i\)</span> y la predicción para esa observación basada en el resto de la muestra.</p></li>
+<li><p>¿Qué ocurre con la matriz de proyección <span class="math inline">\(P_D\)</span>? ¿Qué dimensión tiene y cómo se interpreta cuando solo proyecta sobre una observación?</p></li>
+<li><p>¿Qué ocurre con la matriz de aniquilación <span class="math inline">\(M_D = I - P_D\)</span>? ¿Qué efecto tiene sobre el resto del vector <span class="math inline">\(y\)</span>?</p></li>
+<li><p>Use esta información para demostrar que al incluir <span class="math inline">\(D\)</span> en la regresión, se está excluyendo efectivamente la observación <span class="math inline">\(i\)</span> del resto del modelo. Es decir, la estimación de los coeficientes asociados a <span class="math inline">\(X\)</span> se hace como si se eliminara la observación <span class="math inline">\(i\)</span>.</p></li>
+</ol></li>
+<li><p>Repita el análisis anterior, pero ahora asuma que la variable <span class="math inline">\(D\)</span> es una constante. ¿Qué ocurre con las matrices de proyección y aniquilación? ¿Qué interpretación tiene proyectar sobre una constante?</p></li>
+<li><p>Suponga ahora que <span class="math inline">\(X\)</span> es una dummy igual a 1 si el individuo es hombre, y que <span class="math inline">\(D\)</span> es una dummy igual a 1 si el individuo es mujer. ¿Qué ocurre en este caso? ¿Cómo se interpretan los coeficientes al incluir ambas dummies en la regresión?</p></li>
+</ol>
+</div>
+<div id="preguntas-sobre-modelos-con-variables-binarias-y-constantes" class="section level3 unnumbered hasAnchor">
+<h3>📘 Preguntas sobre modelos con variables binarias y constantes<a href="anatomía-de-la-regresión-múltiple.html#preguntas-sobre-modelos-con-variables-binarias-y-constantes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Se desea estudiar el número de horas de lectura diaria <span class="math inline">\(Y\)</span> como función del nivel educativo. Se tiene una muestra de <span class="math inline">\(N\)</span> individuos clasificados en tres grupos:</p>
+<ul>
+<li>Grupo 1: estudios superiores<br />
+</li>
+<li>Grupo 2: estudios medios<br />
+</li>
+<li>Grupo 3: estudios bajos</li>
+</ul>
+<p>Se definen tres variables binarias <span class="math inline">\(D_1, D_2, D_3\)</span>, donde:</p>
+<p><span class="math display">\[
+D_j = \begin{cases}
+1 &amp; \text{si el individuo pertenece al grupo } j \\
+0 &amp; \text{en caso contrario}
+\end{cases}
+\]</span></p>
+<p>Al estimar el siguiente modelo:</p>
+<p><span class="math display">\[
+Y = 10 D_1 + 5 D_2 + 2 D_3 + u
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Demuestre matemáticamente que las medias condicionales de horas de lectura son 10, 5 y 2 para cada grupo.</p></li>
+<li><p>¿Qué sucede si se incluye una constante en este modelo? ¿Qué problema empírico surge? Proponga una solución (por ejemplo, eliminar una de las dummies para evitar colinealidad perfecta).</p></li>
+</ol></li>
+</ol>
+</div>
+<div id="preguntas-sobre-regresiones-simples-con-constantes-y-dummies" class="section level3 unnumbered hasAnchor">
+<h3>🧮 Preguntas sobre regresiones simples con constantes y dummies<a href="anatomía-de-la-regresión-múltiple.html#preguntas-sobre-regresiones-simples-con-constantes-y-dummies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Si se estima una regresión de <span class="math inline">\(Y\)</span> contra una constante y <span class="math inline">\(D_1\)</span>, ¿cuál es el intercepto y cuál es el coeficiente de <span class="math inline">\(D_1\)</span>? Interprételos.</p></li>
+<li><p>Si se estima una regresión de <span class="math inline">\(Y\)</span> contra una constante y <span class="math inline">\(D_2\)</span>, ¿qué coeficiente acompaña a <span class="math inline">\(D_2\)</span>? ¿Cómo cambia la interpretación con respecto al caso anterior?</p></li>
+</ol>
+</div>
+<div id="pregunta-sobre-fwl-y-álgebra-matricial" class="section level3 unnumbered hasAnchor">
+<h3>📊 Pregunta sobre FWL y álgebra matricial<a href="#pregunta-sobre-fwl-y-%C3%A1lgebra-matricial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="7" style="list-style-type: decimal">
+<li>Considere el siguiente modelo lineal sin constante:</li>
+</ol>
+<p><span class="math display">\[
+Y = X \beta + u
+\]</span></p>
+<p>donde <span class="math inline">\(Y \in \mathbb{R}^{n \times 1}\)</span>, <span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span>, y <span class="math inline">\(u \in \mathbb{R}^{n \times 1}\)</span>. Suponga además que desea controlar por un conjunto adicional de variables <span class="math inline">\(Z \in \mathbb{R}^{n \times m}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Defina <span class="math inline">\(\tilde{Y} = M_Z Y\)</span> y <span class="math inline">\(\tilde{X} = M_Z X\)</span>, donde <span class="math inline">\(M_Z = I - P_Z\)</span> y <span class="math inline">\(P_Z = Z(Z&#39;Z)^{-1}Z&#39;\)</span>.<br />
+Explique con detalle qué representan estas transformaciones. ¿Qué parte de <span class="math inline">\(Y\)</span> y de <span class="math inline">\(X\)</span> están conservando? ¿Qué parte están eliminando?</p></li>
+<li><p>Demuestre que el vector de coeficientes <span class="math inline">\(\hat{\beta}\)</span> para <span class="math inline">\(X\)</span>, en la regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span> y <span class="math inline">\(Z\)</span>, puede obtenerse a partir de la siguiente expresión:</p></li>
+</ol>
+<p><span class="math display">\[
+   \hat{\beta} = (\tilde{X}&#39; \tilde{X})^{-1} \tilde{X}&#39; \tilde{Y}
+   \]</span></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p>¿Bajo qué condiciones es válida esta expresión? ¿Qué sucede si <span class="math inline">\(\tilde{X}&#39; \tilde{X}\)</span> no es invertible?</p></li>
+<li><p>Explique cómo se interpreta este resultado en términos del Teorema de Frisch-Waugh-Lovell.</p></li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/06-FWL.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
