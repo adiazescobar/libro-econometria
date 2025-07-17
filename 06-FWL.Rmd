@@ -499,3 +499,6 @@ donde \( Y \in \mathbb{R}^{n \times 1} \), \( X \in \mathbb{R}^{n \times k} \), 
    d. Explique cómo se interpreta este resultado en términos del Teorema de Frisch-Waugh-Lovell.
 
 </div>
+
+
+

@@ -1,14 +1,16 @@
-
+--- 
 title: "Econometría II"
 author: "Ana María Díaz"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib, packages.bib]
+description: |
+  This is a minimal example of using the bookdown package to write a book.
+  The HTML output format for this example is bookdown::gitbook,
+  set in the _output.yml file.
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-
-
+---
 
 # Información general {-}
 
@@ -100,3 +102,11 @@ Este curso da la bienvenida a personas de todas las edades, orígenes, creencias
 La Universidad Javeriana fomenta la honestidad y establece sanciones por fraude o plagio según el reglamento de estudiantes. Cualquier uso no autorizado de materiales durante evaluaciones se considera falta grave.
 
 
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

@@ -1,6 +1,3 @@
-book_filename: "main"
-delete_merged_file: true
-
 rmd_files:
   - index.Rmd
   - 01-intro.Rmd
@@ -9,31 +6,5 @@ rmd_files:
   - 04-Supuestos.Rmd
   - 05-Estimacion.Rmd
   - 06-FWL.Rmd
-output_dir: "docs"
 
-language:
-  label:
-    chapter: "Capítulo"
-    appendix: "Apéndice"
-    part: "Parte"
-  ui:
-    chapter_name: "Capítulo "
-    appendix_name: "Apéndice "
-    part_name: "Parte "
-    toc_title: "Tabla de contenido"
-    toc_appendix: "Apéndices"
-    toc_bibliography: "Bibliografía"
-    toc_index: "Índice"
-    edit: "Editar esta página"
-    download: "Descargar"
-    prev: "Anterior"
-    next: "Siguiente"
-    home: "Inicio"
-    search: "Buscar"
-    search_results: "Resultados de búsqueda"
-    search_no_results: "No se encontraron resultados"
-    search_placeholder: "Buscar en el libro..."
-    page_not_found: "Página no encontrada"
-    back_to_top: "Volver arriba"
-    
-    
+output_dir: "docs"
