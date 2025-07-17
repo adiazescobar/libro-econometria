@@ -10,6 +10,9 @@ magrittr
 knitr
 ggtext
 tibble
+plotly
+rgl
+htmlwidgets
 ggridges
 pander
 tidyverse
