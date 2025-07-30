@@ -6,5 +6,5 @@ rmd_files:
   - 04-Supuestos.Rmd
   - 05-Estimacion.Rmd
   - 06-FWL.Rmd
-
+  - 07-Propiedades.Rmd
 output_dir: "docs"

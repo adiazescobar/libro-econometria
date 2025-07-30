@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Regresión lineal | Econometría II</title>
+  <title>7 Aspectos algebraicos de la solución de MCO | Econometría II</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Regresión lineal | Econometría II" />
+  <meta property="og:title" content="7 Aspectos algebraicos de la solución de MCO | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Regresión lineal | Econometría II" />
+  <meta name="twitter:title" content="7 Aspectos algebraicos de la solución de MCO | Econometría II" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="repaso.html"/>
-<link rel="next" href="repaso-de-matrices.html"/>
+<link rel="prev" href="anatomía-de-la-regresión-múltiple.html"/>
+
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -197,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="02-MCOsuma.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<li class="chapter" data-level="2" data-path="07-Propiedades.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
@@ -286,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="02-MCOsuma.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<li class="chapter" data-level="5" data-path="07-Propiedades.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
 <ul>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
@@ -304,7 +304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
-<li class="chapter" data-level="5.0.1" data-path="02-MCOsuma.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+<li class="chapter" data-level="5.0.1" data-path="07-Propiedades.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
@@ -314,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="02-MCOsuma.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<li class="chapter" data-level="6" data-path="07-Propiedades.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
 <ul>
@@ -334,17 +334,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
 <ul>
-<li class="chapter" data-level="6.0.1" data-path="02-MCOsuma.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
-<li class="chapter" data-level="6.0.2" data-path="02-MCOsuma.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
-<li class="chapter" data-level="6.0.3" data-path="02-MCOsuma.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+<li class="chapter" data-level="6.0.1" data-path="07-Propiedades.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="07-Propiedades.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="07-Propiedades.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="02-MCOsuma.html"><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>7</b> Aspectos algebraicos de la solución de MCO</a>
+<li class="chapter" data-level="7" data-path="07-Propiedades.html"><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>7</b> Aspectos algebraicos de la solución de MCO</a>
 <ul>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html"><i class="fa fa-check"></i>Propiedades del estimador de MCO en muestras finitas</a></li>
 <li class="chapter" data-level="7.1" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i><b>7.1</b> Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
 <li class="chapter" data-level="7.2" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#teorema-de-gauss-markov"><i class="fa fa-check"></i><b>7.2</b> Teorema de Gauss Markov</a></li>
-<li class="chapter" data-level="7.3" data-path="02-MCOsuma.html"><a href="#revisa-tu-comprensi%C3%B3n"><i class="fa fa-check"></i><b>7.3</b> 🧠 Revisa tu comprensión</a></li>
+<li class="chapter" data-level="7.3" data-path="07-Propiedades.html"><a href="#revisa-tu-comprensi%C3%B3n"><i class="fa fa-check"></i><b>7.3</b> 🧠 Revisa tu comprensión</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
@@ -366,326 +366,212 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regresión-lineal" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">2</span> Regresión lineal<a href="#regresi%C3%B3n-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objetivo-del-capítulo" class="section level2 unnumbered hasAnchor">
-<h2>🎯 Objetivo del capítulo<a href="#objetivo-del-cap%C3%ADtulo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En este capitulo vamos a:
-1. Entender qué es una regresión lineal y cómo se ve gráficamente.
-2. Aprender cómo se calcula la mejor línia con mínimos cuadrados ordinarios (MCO)
-3. Explorar qué hace un buen estiamdor y cómo evaluarlo</p>
-</div>
-<div id="qué-significa-encontrar-la-mejor-línea" class="section level2 unnumbered hasAnchor">
-<h2>🔍 ¿Qué significa encontrar la “mejor línea”?<a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Antes de hablar de estimaciones, pensemos en cómo se generan los datos:</p>
-<blockquote>
-<p>Supondremos que hay un <strong>modelo poblacional</strong> o proceso generador de datos:</p>
-</blockquote>
-<p><span class="math display">\[ y_i = \beta_0 + \beta_1 x_i + \epsilon_i \]</span></p>
-<ul>
-<li><span class="math inline">\(y_i\)</span>: variable dependiente (lo que queremos explicar)</li>
-<li><span class="math inline">\(x_i\)</span>: variable independiente</li>
-<li><span class="math inline">\(\beta_0, \beta_1\)</span>: parámetros poblacionales</li>
-<li><span class="math inline">\(\epsilon_i\)</span>: <strong>término de error</strong>: todo lo que afecta a <span class="math inline">\(y_i\)</span> y no está en <span class="math inline">\(x_i\)</span></li>
-</ul>
-<p>El término <span class="math inline">\(\epsilon_i\)</span> captura factores no observados, errores de medición, y variación aleatoria. Es fundamental porque incluso si tuviéramos los valores verdaderos de <span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>, seguiríamos sin poder predecir perfectamente <span class="math inline">\(y_i\)</span> debido a este componente.</p>
-<p>En la práctica, estimamos los parámetros a partir de una muestra. Esto nos da una versión estimada del modelo:</p>
-<p><span class="math display">\[ \hat{y}_i = \hat{\beta}_0 + \hat{\beta}_1 x_i \]</span></p>
-<p>Y calculamos los <strong>residuos</strong> (errores estimados):</p>
-<p><span class="math display">\[ \hat{\epsilon}_i = y_i - \hat{y}_i \]</span></p>
-<p>Queremos encontrar la línea que prediga <span class="math inline">\(y_i\)</span> con la menor cantidad posible de errores. Eso significa minimizar:</p>
-<p><span class="math display">\[ \text{SRC} = \sum_{i = 1}^{n} \hat{\epsilon}_i^2 \]</span></p>
-<p>Esto se conoce como el <strong>criterio de mínimos cuadrados</strong>.</p>
-<div id="ilustremos-esto-con-un-ejemplo-visual" class="section level3 unnumbered hasAnchor">
-<h3>🎨 Ilustremos esto con un ejemplo visual<a href="regresión-lineal.html#ilustremos-esto-con-un-ejemplo-visual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Creemos unos nuevos datos para ilustrar esto.</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%201-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>La linea de regresión es igual a <span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\)</span> donde _0$ y <span class="math inline">\(\hat{\beta}_1\)</span> son los parámetros estimados de la regresión. En este caso, <span class="math inline">\(\hat{\beta}_0 = 6\)</span> y <span class="math inline">\(\hat{\beta}_1 = 0.2\)</span>. Para cada una de las observaciones podemos encontrar el y estimado <span class="math inline">\(\hat{y}_i\)</span>. En la siguiente figura, la línea naranja representa la línea de regresión estimada.</p>
-<p><img src="_main_files/figure-html/vs%20lines%202-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>Para cada una de las observaciones podemos calcular los errores: <span class="math inline">\(\epsilon_i = y_i - \hat{y}_i\)</span>, como se observa en el siguiente gráfico.</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%203-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>Ahora podemos probar con otras lineas y ver cómo se comportan los errores. En el siguiente grafico, la línea de regresión estimada es <span class="math inline">\(\hat{y} = 3 + 0.2 x\)</span>. Es evidente que los errores estiamdos son más grandes que los errores estimados en el gráfico anterior.</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%204-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>Probemos ahora con una línea de regresión estimada que no se ajusta a los datos, <span class="math inline">\(\hat{y} = 10 - 0.8 x\)</span>. En este caso, los errores son aún más grandes.</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%205-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>Recuerda que SRC es igual a: <span class="math inline">\(\left(\sum e_i^2\right)\)</span>: Errores más grandes reciben penalizaciones más grandes.</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%206-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>La estimación de MCO es la combinación de <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimiza la SRC</p>
-<p><img src="_main_files/figure-html/ols%20vs%20lines%207-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="mco" class="section level2 unnumbered hasAnchor">
-<h2>MCO<a href="regresión-lineal.html#mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="formalmente" class="section level3 unnumbered hasAnchor">
-<h3>Formalmente<a href="regresión-lineal.html#formalmente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En una regresión lineal simple, el estimador de MCO proviene de escoger <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimice la suma de residuos al cuadrado (SRC), <em>i.e.</em>,</p>
-<p><span class="math display">\[ \min_{\hat{\beta}_0,\, \hat{\beta}_1} \text{SRC} \]</span></p>
-<p>donde
-<span class="math display">\[ \text{SRC} = \sum_{i = 1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i = 1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2 \]</span>
-El estimador de MCO es el valor de <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_1\)</span> que minimiza la SRC.</p>
-<p>pero nosotros sabemos que <span class="math inline">\(\text{SRC} = \sum_i \tilde{\epsilon_i}^2\)</span>. Now use the definitions of <span class="math inline">\(\tilde{\epsilon_i}\)</span> and <span class="math inline">\(\hat{y}\)</span>.</p>
-<p><span class="math display">\[
-\begin{aligned}
-  \tilde{\epsilon_i}^2 &amp;= \left( y_i - \hat{y}_i \right)^2 = \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \right)^2 \\
-  &amp;= y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2
-\end{aligned}
-\]</span></p>
-<p><strong>Recordatorio:</strong> Minimizar una función multivariada requiere (<strong>1</strong>) que las primeras derivadas sean iguales a cero (las <em>condiciones de primer orden</em>) y (<strong>2</strong>) las condiciones de segundo orden (concavidad).</p>
-<p>Nos estamos acercando. Necesitamos <strong>minimizar la SRC</strong>.</p>
-<p><span class="math display">\[ \text{SRE} = \sum_i \tilde{e_i}^2 = \sum_i \left( y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2 \right) \]</span></p>
-<p>For the first-order conditions of minimization, we now take the first derivates of SSE with respect to <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
-<p><span class="math display">\[
-\begin{aligned}
-  \dfrac{\partial \text{SRC}}{\partial \hat{\beta}_0} &amp;= \sum_i \left( 2 \hat{\beta}_0 + 2 \hat{\beta}_1 x_i - 2 y_i \right) = 2n \hat{\beta}_0 + 2 \hat{\beta}_1 \sum_i x_i - 2 \sum_i y_i \\
-  &amp;= 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y}
-\end{aligned}
-\]</span></p>
-<p>donde <span class="math inline">\(\overline{x} = \frac{\sum x_i}{n}\)</span> y <span class="math inline">\(\overline{y} = \frac{\sum y_i}{n}\)</span> son medias muestrales de <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> (de tamaño <span class="math inline">\(n\)</span>).</p>
-<p>Las condiciones de primer orden establecen que las derivadas deben ser iguales a cero:
-<span class="math display">\[ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_0} = 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y} = 0 \]</span></p>
-<p>Lo que implica</p>
-<p><span class="math display">\[ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} \]</span>
-Ahora para <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
-<p>Tomemos la derivada de la SRC con respecto a <span class="math inline">\(\hat{\beta}_1\)</span></p>
-<p><span class="math display">\[
-\begin{aligned}
-  \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} &amp;= \sum_i \left( 2 \hat{\beta}_0 x_i + 2 \hat{\beta}_1 x_i^2 - 2 y_i x_i \right) = 2 \hat{\beta}_0 \sum_i x_i + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i \\
-  &amp;= 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i
-\end{aligned}
-\]</span>
-Igualarlo a cero</p>
-<p><span class="math display">\[ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} = 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
-y reemplazarlo <span class="math inline">\(\hat{\beta}_0\)</span>, <em>i.e.</em>, <span class="math inline">\(\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}\)</span>. Thus,</p>
-<p><span class="math display">\[
-2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0
-\]</span>
-Continuando</p>
-<p><span class="math display">\[ 2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
-<span class="math display">\[ 2n \overline{y}\,\overline{x} - 2n \hat{\beta}_1 \overline{x}^2 + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 \]</span>
-<span class="math display">\[ \implies 2 \hat{\beta}_1 \left( \sum_i x_i^2 - n \overline{x}^2 \right) = 2 \sum_i y_i x_i - 2n \overline{y}\,\overline{x} \]</span></p>
-<p><span class="math display">\[ \implies \hat{\beta}_1 = \dfrac{\sum_i y_i x_i - 2n \overline{y}\,\overline{x}}{\sum_i x_i^2 - n \overline{x}^2} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} \]</span>
-LISTOO!</p>
-<p>Ahora tenemos nuestros lindos estimadores</p>
-<p><span class="math display">\[ \hat{\beta}_1 = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} \]</span>
-and the intercept</p>
-<p><span class="math display">\[ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} \]</span></p>
-<p>Ya sabes de dónde proviene la parte de <em>mínimos cuadrados</em> en el término “mínimos cuadrados ordinarios”. 🎊</p>
-<p>Ahora pasamos a las propiedades (implícitas) de los Mínimos Cuadrados Ordinarios (MCO / OLS).</p>
-</div>
-</div>
-<div id="propiedades-y-supuestos" class="section level2 unnumbered hasAnchor">
-<h2>📊 Propiedades y supuestos<a href="regresión-lineal.html#propiedades-y-supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="qué-hace-a-un-buen-estimador" class="section level3 unnumbered hasAnchor">
-<h3>¿Qué hace a un buen estimador?<a href="#qu%C3%A9-hace-a-un-buen-estimador" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Antes de hablar de propiedades del estimador de MCO, recordemos algunas herramientas fundamentales de estadística.</p>
-</div>
-<div id="repaso-funciones-de-densidad" class="section level3 hasAnchor" number="2.0.1">
-<h3><span class="header-section-number">2.0.1</span> 📈 Repaso: Funciones de densidad<a href="regresión-lineal.html#repaso-funciones-de-densidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las <strong>funciones de densidad de probabilidad</strong> (FDP, o PDF en inglés) describen la probabilidad de que una <strong>variable aleatoria continua</strong> tome valores dentro de un intervalo dado. La probabilidad total bajo la curva es 1.</p>
-<p>Ejemplo: para una variable normal estándar, la probabilidad de que tome un valor entre -2 y 0 es:</p>
-<p><span class="math display">\[ \mathop{\text{P}}\left(-2 \leq X \leq 0\right) = 0.48 \]</span></p>
-<p><img src="_main_files/figure-html/example:%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>Otro ejemplo clásico es la probabilidad de que una variable aleatoria normal estándar tome un valor entre -1.96 y 1.96: <span class="math inline">\(\mathop{\text{P}}\left(-1.96 \leq X \leq 1.96\right) = 0.95\)</span></p>
-<p><img src="_main_files/figure-html/example:%20pdf%202-1.svg" width="75%" style="display: block; margin: auto;" />
-O la probabilidad de que una variable aleatoria normal estándar tome un valor mayor a 2: <span class="math inline">\(\mathop{\text{P}}\left(X &gt; 2\right) = 0.023\)</span></p>
-<p><img src="_main_files/figure-html/example:%20pdf%203-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="qué-propiedades-buscamos-en-un-estimador" class="section level3 unnumbered hasAnchor">
-<h3>🤔 ¿Qué propiedades buscamos en un estimador?<a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Imaginemos que intentamos estimar un parámetro verdadero <span class="math inline">\(\beta\)</span>, y tenemos tres métodos distintos. Cada uno produce una distribución diferente para <span class="math inline">\(\hat{\beta}\)</span>.</p>
-<p><img src="_main_files/figure-html/competing_pdfs-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Pregunta:</strong> ¿Qué propiedades podrían ser importantes para un estimador?</p>
-<p><strong>Propiedad 1. Insesgamiento</strong><br />
-Es decir, si repitiéramos el experimento muchas veces, ¿el estimador tiende a acercarse al valor verdadero del parámetro que estamos tratando de estimar?</p>
-<p>El sesgo mide si el estimador se acerca al valor real en promedio:</p>
-<blockquote>
-<p>🧪 <strong>¿Qué significa “repetir el experimento”?</strong><br />
-En este contexto, <em>repetir el experimento</em> puede entenderse de tres formas, todas válidas para pensar en la incertidumbre de un estimador:</p>
+<div id="aspectos-algebraicos-de-la-solución-de-mco" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Aspectos algebraicos de la solución de MCO<a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>El vector de residuos de MCO:</strong> es el vector de residuos evaluado en <span class="math inline">\(\tilde{\beta}=\hat{\beta}\)</span>, que puede escribirse de la siguienteb manera
+<span class="math display">\[\hat{\epsilon}\equiv y-X\hat{\beta}\]</span></p>
+<p><strong>Ecuaciones normales:</strong> son las condiciones de primer orden del problema de minimización de la suma de errores al cuadrado. Estas condiciones son:
+<span class="math display">\[X&#39;\hat{\epsilon}=0\label{eq:NormalEq}\]</span>
+Estas condiciones son las que nos permiten encontrar el estimador de MCO, <span class="math inline">\(\hat{\beta}\)</span>, que minimiza la suma de errores al cuadrado. En otras palabras, las ecuaciones normales son las condiciones necesarias para que el estimador de MCO sea un mínimo local de la función objetivo.
+Estas condiciones se derivan del hecho de que el vector de residuos de MCO, <span class="math inline">\(\hat{\epsilon}\)</span>, es ortogonal a los regresores <span class="math inline">\(X\)</span>. En otras palabras, las ecuaciones normales son las condiciones necesarias para que el estimador de MCO sea un mínimo local de la función objetivo.</p>
+<p>El vector de residuos de MCO es ortogonal a los regresores si y solo si las ecuaciones normales se cumplen. Esto significa que el vector de residuos es ortogonal a los regresores si y solo si la suma de los productos cruzados entre los regresores y los residuos es igual a cero.
+<span class="math display">\[X&#39;\hat{\epsilon}=0\]</span></p>
+<p>Esto implica que el vector de residuos es ortogonal a los regresores, lo que significa que no hay correlación entre los residuos y los regresores. Esta propiedad es fundamental para la validez del estimador de MCO.
+<span class="math display">\[X&#39;(y-X\hat{\beta})=0\label{eq:2}\]</span></p>
+<p><span class="math display">\[X&#39;\hat{\epsilon}=0\]</span></p>
+<p>Esto se puede escribir de la siguiente manera,</p>
+<p><span class="math display">\[\frac{1}{n}\sum_{i=1}^{n}x_{i}e_{i}\]</span></p>
+<p>En otras palabras, las ecuaciones normales pueden interpretarse como el análogo muestral de la condición de ortogonalidad, <span class="math inline">\(E(x_{i}\epsilon_{i})=0\)</span>, derivadas del supuesto S2.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Esta propiedad indica que el término de error estimado <span lang="en"><span class="math inline">\(\hat{\epsilon}\)</span></span> tiene media cero y no está correlacionado con ninguno de los regresores.</p>
+<p><strong>Valores ajustados del modelo (o la predicción según el modelo):</strong></p>
+<p>para cada observación <span class="math inline">\(i\)</span> se define como <span class="math inline">\(\hat{y_{i}}\equiv x_{i}\hat{\beta}\)</span>. El vector de valores ajustado es igual a:
+<span class="math display">\[\hat{y}=X\hat{\beta}\]</span></p>
+<p>Implicaciones</p>
 <ol style="list-style-type: decimal">
-<li><strong>Cambiar la muestra</strong>: imaginar que tomamos muchas muestras aleatorias distintas de la población.<br />
-</li>
-<li><strong>Mantener fija la muestra, pero cambiar los errores</strong>: incluso si los valores de <span class="math inline">\(x_i\)</span> no cambian, los valores de <span class="math inline">\(y_i\)</span> pueden variar si asumimos que los errores <span class="math inline">\(\epsilon_i\)</span> son aleatorios. Recuerda que <span class="math inline">\(y_i\)</span> sigue un proceso generador de datos subyacente.<br />
-</li>
-<li><strong>Cambiar ambos simultáneamente</strong>: es el caso más común en simulaciones — se sortean tanto los <span class="math inline">\(x_i\)</span> como los <span class="math inline">\(\epsilon_i\)</span>.</li>
+<li><p>El vector de residuos de MCO puede escribirse como:</p>
+<p><span class="math display">\[\hat{\epsilon}=y-\hat{y}\label{eq:al1}\]</span></p></li>
 </ol>
-<p>En cualquiera de los tres escenarios, obtendríamos distintos valores de <span class="math inline">\(\hat{\beta}\)</span>. Eso nos permite construir una <strong>distribución muestral</strong> del estimador y analizar propiedades como el sesgo.</p>
-<p>⚠️ <strong>Importante:</strong> cuando hablamos de “repetir el experimento”, no queremos decir que volvamos a observar a las <em>mismas</em> personas varias veces con diferentes valores de <span class="math inline">\(x\)</span> (por ejemplo, dándoles distintos años de educación).<br />
-Lo que estamos haciendo es imaginar escenarios hipotéticos en los que la muestra o los errores cambian, y ver cómo eso afecta al estimador.<br />
-Estos experimentos no se pueden realizar en la realidad con una misma persona, pero sí los podemos simular por computadora o analizar teóricamente.</p>
-</blockquote>
-<p><strong>Más formalmente:</strong> ¿La media de la distribución del estimador es igual al parámetro que estima?</p>
-<p>En promedio (después de <em>muchas</em> repeticiones), ¿el estimador tiende hacia el valor correcto?
-<strong>Más formalmente:</strong> ¿La media de la distribución del estimador es igual al parámetro que estima?
-<span class="math display">\[ \mathop{\text{Sesgo}}_\beta \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] - \beta \]</span>
-<strong>Estimador Insesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] = \beta\)</span></p>
-<p><img src="_main_files/figure-html/unbiased_pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Estimador Sesagado:</strong> <span class="math inline">\(\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \neq \beta\)</span></p>
-<p><img src="_main_files/figure-html/biased%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p><strong>Propiedad 2: Varianza</strong></p>
-<p>También queremos que nuestras estimaciones <strong>no varíen demasiado de una muestra a otra</strong>. En otras palabras: <strong>queremos un estimador que sea estable</strong>, no que en cada muestra nos dé un valor completamente distinto.</p>
-<p>La <strong>varianza</strong> mide cuánta variación hay en las estimaciones <span class="math inline">\(\hat{\beta}\)</span> que obtenemos al repetir el experimento (cambiando la muestra, los errores, o ambos):</p>
-<p><span class="math display">\[
-\text{Var} \left( \hat{\beta} \right) = \mathbb{E} \left[ \left( \hat{\beta} - \mathbb{E}[\hat{\beta}] \right)^2 \right]
-\]</span></p>
-<p>Un estimador con <strong>menor varianza</strong> produce resultados más consistentes entre muestras. Esto lo hace más confiable, incluso si no es perfecto.</p>
-<blockquote>
-<p>🎯 <em>Queremos que nuestras estimaciones estén “concentradas” cerca del valor esperado, no dispersas como tiros al aire.</em></p>
-</blockquote>
-<p>Veamos un ejemplo visual de cómo la varianza afecta a las distribuciones de los estimadores.</p>
-<p><img src="_main_files/figure-html/variance%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>La curva rosada representa un estimador con baja varianza: la mayoría de los valores de <span class="math inline">\(\hat{\beta}\)</span> están cerca de <span class="math inline">\(\beta\)</span>. Mientras que la curva gris oscuro representa un estimador con alta varianza: sus valores están más dispersos. A igualdad de sesgo, preferimos el estimador que tenga menor varianza.</p>
+<p>Si <span class="math inline">\(\hat{y}=X\hat{\beta}\)</span> entonces:</p>
+<p><span class="math display">\[\hat{y}&#39;\hat{\epsilon}=0\label{eq:al2}\]</span></p>
+<p><span class="math display">\[y&#39;y=\hat{y}&#39;\hat{y}+\hat{\epsilon}&#39;\hat{\epsilon}\label{eq:decomp}\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-1" class="proof"><em>Proof</em>. </span><span class="math display">\[\begin{aligned}
+y&#39;y &amp; = &amp; (\hat{y}+\hat{\epsilon})&#39;(\hat{y}+\hat{\epsilon})\\
+&amp; = &amp; \hat{y}&#39;\hat{y}+2\hat{y}&#39;\hat{\epsilon}+\hat{\epsilon}&#39;\hat{\epsilon}\\
+&amp; = &amp; \hat{y}&#39;\hat{y}+\hat{\epsilon}&#39;\hat{\epsilon}
+\end{aligned}\]</span></p>
 </div>
-<div id="el-trade-off-sesgo-vs.-varianza" class="section level3 unnumbered hasAnchor">
-<h3>🎯 El trade-off: sesgo vs. varianza<a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Hasta ahora hablamos del sesgo y de la varianza por separado. Pero muchas veces, mejorar uno implica empeorar el otro. Esto se conoce como el ** trade-off entre sesgo y varianza**.</p>
-<blockquote>
-<p>¿Deberíamos aceptar un poco de sesgo si eso nos permite reducir mucho la varianza?</p>
-</blockquote>
-<p>En econometría, solemos preferir estimadores <strong>insesgados</strong> (o al menos <strong>consistentes</strong>), porque valoramos la interpretación causal y teórica de los parámetros. Pero en otras disciplinas, como el aprendizaje automático o la predicción estadística, es común aceptar un pequeño sesgo si con ello se logra una gran reducción en la varianza y, en consecuencia, una mejor predicción promedio.</p>
-<p>veámos esta idea:</p>
-<p><img src="_main_files/figure-html/variance%20bias-1.svg" width="75%" style="display: block; margin: auto;" /></p>
+<p>Esto es una descomposición de la suma total de cuadrados, <span class="math inline">\(y&#39;y\)</span>, en dos componentes: la suma de cuadrados explicada por el modelo, <span class="math inline">\(\hat{y}&#39;\hat{y}\)</span>, y la suma de cuadrados de los residuos, <span class="math inline">\(\hat{\epsilon}&#39;\hat{\epsilon}\)</span>.</p>
+<p><strong>Suma de errores al cuadrado:</strong> ya que <span class="math inline">\(\hat{\epsilon}\)</span> es el vector residual en <span class="math inline">\(\tilde{\beta}=\hat{\beta}\)</span>, la suma de errores
+al cuadrado es igual a</p>
+<p><span class="math display">\[SRC=\hat{\epsilon}&#39;\hat{\epsilon}\]</span></p>
+<p><strong>La varianza del error:</strong> es la suma de los errores al cuadrado
+dividida por los grados de libertad <span class="math inline">\(n-K\)</span>:
+<span class="math display">\[\hat{\sigma}^{2}=\frac{SRC}{n-K}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}\]</span></p>
+<p><strong>Error estándar de la regresión:</strong> es la raíz cuadrada de <span class="math inline">\(\sigma^{2}\)</span>. Es una estimación de la desviación estándar de la regresión:</p>
+<p><span class="math display">\[\hat{\sigma}=\sqrt{\hat{\sigma}^{2}}=\sqrt{\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}}\]</span></p>
+<p><strong>Medidas de Bondad de Ajuste:</strong></p>
+<p><em>R2 no centrado:</em></p>
+<p><span class="math display">\[R_{nc}^{2}=1-\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{y&#39;y}\]</span>
+<span class="math display">\[R_{nc}^{2}=\frac{\hat{y}&#39;\hat{y}}{y&#39;y}\]</span></p>
+<p><em>R2 centrado:</em></p>
+<p>Si el unico regresor es una constante entonces <span class="math inline">\(\hat{\beta}=\bar{y}\)</span>, el promedio de la variable dependiente, lo que implica que <span class="math inline">\(\hat{y_{i}}=\bar{y}\)</span> para cada <span class="math inline">\(i\)</span>. Entonces, <span class="math inline">\(\hat{y}&#39;\hat{y}=n\bar{y}^{2}\)</span> y <span class="math inline">\(\hat{\epsilon}&#39;\hat{\epsilon}=\sum_{i}(y_{i}-\bar{y})^{2}\)</span>. Si añadimos más regresores, es necesario calcular el R2 neto del efecto de la constante, por lo tanto podemos modificar la descomposición anterior.</p>
+<p><span class="math display">\[\begin{aligned}
+y&#39;y-n\bar{y}^{2} &amp; = &amp; \hat{y}&#39;\hat{y}-n\bar{y}^{2}+\hat{\epsilon}&#39;\hat{\epsilon}\\
+\underbrace{\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}}_{STC} &amp; = &amp; \underbrace{\sum_{i=1}^{n}(\hat{y}_{i}-\bar{y})^{2}}_{SEC}+\underbrace{\sum_{i=1}^{n}\hat{\epsilon_{i}}^{2}}_{SRC}
+\end{aligned}\]</span></p>
+<p>El coeficiente de determinación o el R2 centrado está dado por la siguiente expresión:
+<span class="math display">\[\begin{aligned}
+R^{2} &amp; = &amp; 1-\frac{SRC}{STC}\\
+&amp; = &amp; \frac{SEC}{STC}
+\end{aligned}\]</span></p>
+<p>Esta expresión es una medida del poder explicativo de las variables independientes excluyendo la constante. Si los regresores no incluyen la constante y usted calcula el R2 con la formula anterior puede obtener un R2 negativo. En ese caso debe emplear la formula del R2 no centrado, Stata hace el cambio al introducir el comando nocons.</p>
+<p><strong>Error muestral:</strong> es el error que surge al analizar una muestra en lugar de una población completa. En este caso, es la diferencia entre el coeficiente estimado, <span class="math inline">\(\hat{\beta}\)</span>, y el parámetro poblacional, <span class="math inline">\(\beta\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+\hat{\beta}-\beta &amp; = &amp; (X&#39;X)^{-1}X&#39;y-\beta\nonumber \\
+&amp; = &amp; (X&#39;X)^{-1}X&#39;\epsilon
+\end{aligned}\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-2" class="proof"><em>Proof</em>. </span><span class="math display">\[\begin{aligned}
+\hat{\beta}-\beta &amp; = &amp; (X&#39;X)^{-1}X&#39;y-\beta\\
+&amp; = &amp; (X&#39;X)^{-1}X&#39;(X\beta+\epsilon)-\beta\\
+&amp; = &amp; (X&#39;X)^{-1}X&#39;X\beta+(X&#39;X)^{-1}X\epsilon-\beta\\
+&amp; = &amp; \beta+(X&#39;X)^{-1}X\epsilon-\beta\\
+&amp; = &amp; (X&#39;X)^{-1}X\epsilon
+\end{aligned}\]</span></p>
 </div>
-<div id="propiedad-3-consistencia" class="section level3 unnumbered hasAnchor">
-<h3>Propiedad 3: Consistencia<a href="regresión-lineal.html#propiedad-3-consistencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La <strong>consistencia</strong> es una propiedad clave que nos dice qué pasa con el estimador cuando la muestra es cada vez más grande.</p>
-<blockquote>
-<p>Intuitivamente, un estimador es <strong>consistente</strong> si, al aumentar el tamaño de la muestra, sus valores se acercan cada vez más al valor verdadero del parámetro <span class="math inline">\(\beta\)</span>.</p>
-</blockquote>
-<p>Esto nos da confianza de que, con datos suficientes, estaremos muy cerca del valor correcto.</p>
-<p>Formalmente, un estimador <span class="math inline">\(\hat{\beta}\)</span> es consistente si:</p>
-<p><span class="math display">\[
-\hat{\beta} \xrightarrow{p} \beta \quad \text{cuando } n \to \infty
-\]</span></p>
-<p>Esto se lee como: “<span class="math inline">\(\hat{\beta}\)</span> converge en probabilidad a <span class="math inline">\(\beta\)</span>”.<br />
-Es decir, <strong>la probabilidad de que <span class="math inline">\(\hat{\beta}\)</span> se aleje mucho de <span class="math inline">\(\beta\)</span> se hace cada vez más pequeña a medida que usamos muestras más grandes.</strong></p>
-<hr />
-<p>Veámos lo que ocurre cuando la muestra crece:</p>
-<p><img src="_main_files/figure-html/consistency%20pdf-1.svg" width="75%" style="display: block; margin: auto;" /></p>
-<p>La curva naranja representa una estimación con mucha incertidumbre (muestra pequeña). La curva gris oscura representa una muestra de tamaño mediano. Mientras que la curva rosada muestra cómo la estimación se concentra alrededor de <span class="math inline">\(\beta\)</span> con una muestra grande.</p>
-<p>🎯 Un estimador consistente se “afina” con más datos: no solo mejora su varianza, sino que tiende a decir la verdad.</p>
+<div id="propiedades-del-estimador-de-mco-en-muestras-finitas" class="section level2 unnumbered hasAnchor">
+<h2>Propiedades del estimador de MCO en muestras finitas<a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedades-del-estimador-de-mco-en-muestras-finitas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>**Insesgamiento*</p>
+<p>El estimador de MCO es:</p>
+<p><span class="math display">\[\hat{\beta}=(X&#39;X)^{-1}X&#39;y\]</span></p>
+<p>El estimador de MCO se puede escribir como:</p>
+<p><span class="math display">\[\hat{\beta}=(X&#39;X)^{-1}X&#39;\epsilon+\beta\]</span></p>
+<p>Bajo las supuestos A1-A5 este estimador tiene las siguientes
+propiedades:</p>
+<p><strong>El estimador <span class="math inline">\(\hat{\beta}\)</span> es insesgado:</strong> un estimador es insesgado cuando el valor esperado <span class="math inline">\(\hat{\beta}\)</span> es igual al valor verdadero de <span class="math inline">\(\beta\)</span>. En otras palabras, el estimador <span class="math inline">\(\hat{\beta}\)</span> es un estimador insesgado de <span class="math inline">\(\beta\)</span> si la media de su distribución muestral es igual a <span class="math inline">\(\beta\)</span>. Recuerde que la media de la distribución muestral de <span class="math inline">\(\hat{\beta}\)</span> se conoce como valor esperado de <span class="math inline">\(\hat{\beta}\)</span> y se escribe <span class="math inline">\(E[\hat{\beta}]\)</span> . El sesgo en la estimación es simplemente la diferencia entre <span class="math inline">\(E[\hat{\beta}]\)</span> y <span class="math inline">\(\beta\)</span>. Esta propiedad no significa que <span class="math inline">\(\hat{\beta}=\beta\)</span>. Esta propiedad simplemente dice que si tomamos una muestra un numero infinito de veces, vamos a obtener el valor verdadero en promedio. Para ver esto tomemos el valor esperado de <span class="math inline">\(\hat{\beta}\)</span>, condicionado en <span class="math inline">\(X\)</span>.</p>
+<p><span class="math display">\[\begin{aligned}
+    E[\hat{\beta}|X] &amp; = &amp; E[(X&#39;X)^{-1}X&#39;\epsilon+\beta|X]\\
+     &amp; = &amp; \beta+(X&#39;X)^{-1}X&#39;E[\epsilon|X]\\
+     &amp; = &amp; \beta
+    \end{aligned}\]</span></p>
+<p>Bajo el supuesto de regresores NO estocásticos, supuesto A5, la demostración es más sencilla,</p>
+<p><span class="math display">\[\begin{aligned}
+    E[\hat{\beta}] &amp; = &amp; E[(X&#39;X)^{-1}X&#39;\epsilon+\beta]\\
+     &amp; = &amp; \beta+(X&#39;X)^{-1}X&#39;E[\epsilon]\\
+     &amp; = &amp; \beta
+    \end{aligned}\]</span></p>
+<p><strong>Varianza del estimador <span class="math inline">\(\hat{\beta}\)</span> es igual a
+<span class="math inline">\(Var[\hat{\beta}|X]=\sigma^{2}(X&#39;X)^{-1}\)</span></strong></p>
+<p><span class="math display">\[\begin{aligned}
+    Var[\hat{\beta}|X] &amp; = &amp; Var[\hat{\beta}-\beta|X]\\
+     &amp; = &amp; Var[(X&#39;X)^{-1}X&#39;\epsilon|X]\\
+     &amp; = &amp; (X&#39;X)^{-1}X&#39;Var[\epsilon|X]X(X&#39;X)^{-1}\\
+     &amp; = &amp; (X&#39;X)^{-1}X&#39;(\sigma^{2}I_{n})X(X&#39;X)^{-1}\\
+     &amp; = &amp; \sigma^{2}(X&#39;X)^{-1}X&#39;X(X&#39;X)^{-1}\\
+     &amp; = &amp; \sigma^{2}(X&#39;X)^{-1}
+    \end{aligned}\]</span></p>
+<p>Para poder estimar la varianza de <span class="math inline">\(\hat{\beta}\)</span> necesitamos remplazar <span class="math inline">\(\sigma^{2}\)</span> por su estimador insesgado: <span class="math inline">\(\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}\)</span> ◻</p>
+<p>Demostrar que bajo el supuesto de regresores NO estocásticos la varianza del estimador <span class="math inline">\(\hat{\beta}\)</span> es igual a
+<span class="math inline">\(Var[\hat{\beta}]=\sigma^{2}(X&#39;X)^{-1}\)</span></p>
 </div>
-<div id="propiedad-4-eficiencia" class="section level3 unnumbered hasAnchor">
-<h3>Propiedad 4: Eficiencia<a href="regresión-lineal.html#propiedad-4-eficiencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La <strong>eficiencia</strong> combina las ideas de sesgo y varianza.</p>
-<blockquote>
-<p>Entre todos los estimadores <strong>insesgados</strong>, el más eficiente es aquel que tiene la <strong>menor varianza</strong> posible.<br />
-Es decir, si dos estimadores son igual de “correctos en promedio”, preferimos el que sea más <strong>estable</strong>.</p>
-</blockquote>
-<p>La eficiencia no se refiere a un único estimador, sino a una <strong>comparación entre estimadores</strong>.</p>
-<hr />
-<p>Formalmente, un estimador <span class="math inline">\(\hat{\beta}\)</span> es eficiente si:</p>
-<p><span class="math display">\[
-\text{Var}(\hat{\beta}) \leq \text{Var}(\hat{\beta}&#39;)
-\]</span></p>
-<p>para cualquier otro estimador <span class="math inline">\(\hat{\beta}&#39;\)</span> que también sea insesgado.</p>
-<blockquote>
-<p>Esto significa que <strong>ningún otro estimador insesgado</strong> tiene una varianza menor que <span class="math inline">\(\hat{\beta}\)</span>.</p>
-</blockquote>
-<hr />
-<p>💡 En el contexto de mínimos cuadrados ordinarios (MCO), cuando se cumplen ciertos supuestos (los del teorema de Gauss-Markov), el estimador <span class="math inline">\(\hat{\beta}_{\text{MCO}}\)</span> es el <strong>Mejor Estimador Lineal Insesgado</strong>, también conocido como <strong>MELI</strong>:</p>
-<blockquote>
-<p>✔️ Mejor → tiene la menor varianza<br />
-✔️ Estimador Lineal → combinación lineal de los datos<br />
-✔️ Insesgado → <span class="math inline">\(\mathbb{E}[\hat{\beta}] = \beta\)</span></p>
-</blockquote>
-<hr />
-<blockquote>
-<p>🎓 En resumen, un estimador eficiente <strong>es tan preciso como permite la información disponible en los datos</strong>, sin sacrificar insesgamiento.</p>
-</blockquote>
-</div>
-<div id="resumen-de-las-propiedades" class="section level3 unnumbered hasAnchor">
-<h3>Resumen de las propiedades<a href="regresión-lineal.html#resumen-de-las-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<table>
-<colgroup>
-<col width="13%" />
-<col width="86%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Propiedad</th>
-<th>Descripción</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Insesgamiento</td>
-<td>El estimador no se aleja sistemáticamente del valor verdadero.</td>
-</tr>
-<tr class="even">
-<td>Varianza</td>
-<td>El estimador tiene poca variación entre muestras.</td>
-</tr>
-<tr class="odd">
-<td>Consistencia</td>
-<td>A medida que aumenta el tamaño de la muestra, el estimador converge al valor verdadero.</td>
-</tr>
-<tr class="even">
-<td>Eficiencia</td>
-<td>El estimador tiene la menor varianza posible entre todos los estimadores insesgados.</td>
-</tr>
-</tbody>
-</table>
-<hr />
-</div>
-<div id="nota-de-cierre-cómo-interpretar-cada-propiedad" class="section level3 unnumbered hasAnchor">
-<h3>🧠 Nota de cierre: cómo interpretar cada propiedad<a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cada propiedad que vimos tiene un enfoque ligeramente distinto sobre cómo pensar la incertidumbre:</p>
-<ul>
-<li><strong>Sesgo</strong>: ¿En promedio (tras repetir el experimento), el estimador acierta?</li>
-<li><strong>Varianza</strong>: ¿Qué tanto cambia el estimador de una muestra a otra?</li>
-<li><strong>Consistencia</strong>: ¿El estimador se acerca al valor verdadero si usamos una muestra más grande del mismo experimento?</li>
-<li><strong>Eficiencia</strong>: ¿Este estimador es mejor (más preciso) que otros estimadores insesgados disponibles?</li>
-</ul>
-<blockquote>
-<p>🔁 Las primeras dos propiedades (sesgo y varianza) se entienden a través de <em>repeticiones hipotéticas</em> del experimento.<br />
-📈 La consistencia se analiza observando lo que ocurre cuando crece el tamaño muestral.<br />
-⚖️ La eficiencia es una comparación entre estimadores, <strong>dado que todos sean insesgados</strong>.</p>
-</blockquote>
-<p>Estas ideas son fundamentales para entender cómo evaluar y justificar un estimador en econometría.</p>
-<hr />
-</div>
-</div>
-<div id="preguntas-de-repaso-1" class="section level2 unnumbered hasAnchor">
-<h2>📘 Preguntas de repaso<a href="regresión-lineal.html#preguntas-de-repaso-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="propiedad-de-mejor-estimador-lineal-insesgado-meli" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Propiedad de mejor estimador lineal insesgado (MELI)<a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Se dice que <span class="math inline">\(\hat{\beta}\)</span> es el mejor estimador lineal insesgado
+(MELI)[^4] de <span class="math inline">\(\beta\)</span> si cumple las siguientes condiciones:</p>
 <ol style="list-style-type: decimal">
-<li>Verdadero o falso</li>
+<li><p><strong>Es lineal:</strong> es una función lineal de una variable aleatoria, y,
+<span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;Y\)</span></p></li>
+<li><p><strong>Es insesgado:</strong> el valor esperado de <span class="math inline">\(\hat{\beta}\)</span>,
+<span class="math inline">\(E[\hat{\beta}]\)</span>, es igual al verdadero valor del parámetro <span class="math inline">\(\beta\)</span>.</p></li>
+<li><p><strong>Es eficiente:</strong> dentro de la clase de todos los estimadores
+lineales insesgados <span class="math inline">\(\hat{\beta}\)</span> tiene la varianza mínima.</p></li>
 </ol>
-<ul>
-<li><strong>(V/F)</strong> Un estimador puede ser insesgado pero tener alta varianza.</li>
-<li><strong>(V/F)</strong> La consistencia se refiere a repetir el experimento muchas veces.</li>
-<li><strong>(V/F)</strong> Un estimador eficiente siempre es consistente.</li>
-<li><strong>(V/F)</strong> Si un estimador es insesgado y eficiente, no puede ser mejorado bajo los supuestos del modelo.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Selección múltiple {-}</li>
-</ol>
-<p><strong>¿Cuál de las siguientes afirmaciones es correcta respecto a la eficiencia?</strong></p>
-<p>A. Es una propiedad absoluta de un estimador.<br />
-B. Se refiere a qué tan cerca está <span class="math inline">\(\hat{\beta}\)</span> del promedio de los datos.<br />
-C. Compara la varianza entre estimadores insesgados.<br />
-D. Es sinónimo de consistencia.</p>
-<p><strong>¿Qué pasa con un estimador consistente cuando el tamaño muestral crece?</strong></p>
-<p>A. Se vuelve insesgado automáticamente.<br />
-B. Se aleja del valor verdadero.<br />
-C. Su varianza se hace infinita.<br />
-D. Se aproxima al valor verdadero con alta probabilidad.</p>
-<ol start="3" style="list-style-type: decimal">
-<li><p>Respuesta abierta</p></li>
-<li><p>Explica con tus palabras qué significa que un estimador sea insesgado. ¿Por qué esta propiedad es importante en econometría?**</p></li>
-<li><p>¿Por qué puede ser útil, en algunos contextos, aceptar un estimador sesgado? Da un ejemplo donde podría ser preferible.**</p></li>
-<li><p>¿En qué se diferencia el concepto de varianza del de eficiencia? ¿Pueden dos estimadores tener la misma varianza pero distinta eficiencia?**</p></li>
-<li><p>Supón que tienes dos estimadores: - A es insesgado pero tiene alta varianza. - B tiene un pequeño sesgo pero varianza muy baja. ¿Cuál elegirías para un problema donde la prioridad es predecir bien el valor de <span class="math inline">\(y\)</span>? ¿Cambiaría tu respuesta si el objetivo fuera estimar un efecto causal? Justifica tu elección.</p></li>
-</ol>
+</div>
+<div id="teorema-de-gauss-markov" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Teorema de Gauss Markov<a href="aspectos-algebraicos-de-la-solución-de-mco.html#teorema-de-gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El teorema de Gauss Markov justifica la utilización de los estimadores
+mínimos cuadráticos, ya que indica que estos estimadores son los
+“mejores” (más eficientes) dentro de la clase de los estimadores
+lineales insesgados.</p>
+<p>Sea el modelo teórico (modelo poblacional) de regresión
+<span class="math inline">\(y=X\beta+\epsilon\)</span>. Si los supuestos A1 a A5 (usualmente conocidos como
+supuestos de Gauss-Markov) se satisfacen, entonces el estimador de
+mínimos cuadrados ordinarios <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span> es el mejor
+estimador lineal insesgado (MELI) de <span class="math inline">\(\beta\)</span>. En otras palabras, el
+estimador <span class="math inline">\(\hat{\beta}\)</span> es el mejor estimador (i.e., eficiente o de
+mínima varianza) dentro de la clase de estimadores que son lineales e
+insesgados. Esto se puede escribir de la siguiente manera: para
+cualquier estimador insesgado <span class="math inline">\(\tilde{\beta}\)</span> que sea lineal en y,
+<span class="math inline">\(\hat{\beta}\)</span> tiene menor varianza:
+<span class="upright"><span class="math inline">\(Var[\tilde{\beta}|X]&gt;Var[\hat{\beta}|X]\)</span>.</span></p>
+<p>Dado que <span class="math inline">\(\tilde{\beta}\)</span> es lineal en y, podemos escribirlo
+como <span class="math inline">\(\tilde{\beta}=Cy\)</span>, para alguna matriz <span class="math inline">\(C\)</span>, la cual puede ser una
+función de <span class="math inline">\(X\)</span>. Sea <span class="math inline">\(D\equiv C-A\)</span> donde <span class="math inline">\(A=(X&#39;X)^{-1}X&#39;\)</span>. Tenemos
+entonces:</p>
+<p><span class="math display">\[\begin{array}{ccl}
+\tilde{\beta} &amp; = &amp; Cy\\
+&amp; = &amp; (D+A)y\\
+&amp; = &amp; Dy+Ay\\
+&amp; = &amp; Dy+(X&#39;X)^{-1}X&#39;y\\
+&amp; = &amp; Dy+\hat{\beta}\\
+&amp; = &amp; D(X\beta+\epsilon)+\hat{\beta}\\
+&amp; = &amp; DX\beta+D\epsilon+\hat{\beta}
+\end{array}\label{eq:brd}\]</span></p>
+<p>Si tomamos el valor esperado condicional de <span class="math inline">\(X\)</span>, tenemos que:</p>
+<p><span class="math display">\[\begin{aligned}
+\begin{alignedat}{2}E[\tilde{\beta}|X] &amp; = &amp; E[DX\beta+D\epsilon+\hat{\beta}|X]\\
+E[\tilde{\beta}|X] &amp; = &amp; DX\beta+\underbrace{DE[\epsilon|X]}_{(3)=0}+\underbrace{E[\hat{\beta}|X]}_{(4)=\beta}\\
+&amp; = &amp; DX\beta+\beta\\
+&amp; = &amp; (DX+I_{n})\beta
+\end{alignedat}
+\end{aligned}\]</span></p>
+<p><strong>Por lo tanto <span class="math inline">\(\tilde{\beta}\)</span> es insesgado, <span class="math inline">\(E[\tilde{\beta}|X]=\beta\)</span>,
+si y solo si <span class="math inline">\(DX=0\)</span>.</strong></p>
+<p>La varianza de <span class="math inline">\(\tilde{\beta}\)</span> es:</p>
+<p><span class="math display">\[\begin{aligned}
+\begin{alignedat}{2}Var[\tilde{\beta}|X] &amp; = &amp; Var[Cy|X]\\
+&amp; = &amp; CVar[y|X]C&#39;\\
+&amp; = &amp; CVar[X\beta+\epsilon|X]C&#39;\\
+&amp; = &amp; CVar[\epsilon|X]C&#39;\\
+&amp; = &amp; \sigma^{2}CC&#39;\\
+&amp; = &amp; \sigma^{2}(D+A)(D&#39;+A&#39;)\\
+&amp; = &amp; \sigma^{2}(DD&#39;+DA&#39;+AD&#39;+AA&#39;)\\
+&amp; = &amp; \underbrace{\sigma^{2}(X&#39;X)^{-1}}_{Var[\hat{\beta}|X]}+\sigma^{2}D&#39;D
+\end{alignedat}
+\end{aligned}\]</span></p>
+<p>Tenemos que,</p>
+<p><span class="math display">\[Var[\tilde{\beta}|X]=\sigma^{2}[(X&#39;X)^{-1}+DD&#39;]\geq\sigma^{2}(X&#39;X)^{-1}=Var[\hat{\beta}|X]\]</span></p>
+<p>Esto es cierto ya que <span class="math inline">\(DD&#39;&gt;0\)</span>.</p>
+<hr />
+</div>
+<div id="revisa-tu-comprensión" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> 🧠 Revisa tu comprensión<a href="#revisa-tu-comprensi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Completa el siguiente quiz autocalificable para reforzar lo aprendido en este capítulo:</p>
+<p><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=REEMPLAZA_CON_LINK"><img src="https://img.shields.io/badge/Quiz-Cap%C3%ADtulo%20X-blue?style=for-the-badge&amp;logo=microsoftforms" alt="Ir al Quiz del Capítulo X" /></a></p>
+<p>💡 Este quiz es obligatorio. Si no lo completas, recibirás un recordatorio automático por correo o Teams.</p>
+<hr />
 
 </div>
+</div>
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Recuerde que el supuesto S2 es que <span class="math inline">\(E(x_{i}\epsilon_{i})=0\)</span>.<a href="aspectos-algebraicos-de-la-solución-de-mco.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="repaso.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="repaso-de-matrices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="anatomía-de-la-regresión-múltiple.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -716,7 +602,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/02-MCOsuma.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/07-Propiedades.Rmd",
     "text": "Edit"
   },
   "history": {

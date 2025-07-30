@@ -23,7 +23,7 @@ github-repo: rstudio/bookdown-demo
 | **Correo** | <a.diaze@javeriana.edu.co> |
 | **Prerequisito** | Econometría I |
 | **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 67‑208 y 67‑314 |
-| **Monitor** | Miguel Ángel Cortés — horarios y oficina por definir |
+| **Monitor** | Sophia Aristizabal — horarios y oficina por definir |
 
 ## Descripción del curso {-}
 
@@ -60,7 +60,7 @@ El objetivo principal es proporcionar herramientas para el análisis econométri
 | 25 % | Examen final |
 | +0.5 (para el mejor) | Video‑bono examen final |
 
-Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumplimiento se sanciona según el reglamento de integridad académica.
+Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumplimiento se sanciona según el reglamento de la universidad. Trabajo Final: - Primera entrega: 10% (Presentación de la idea) - Segunda entrega: 20% (Introducción + Descriptiva + Metodología) - Documento final: 30% - Sustentación: 40% (Presentación & preguntas)
 
 ## Programa semanal {-}
 

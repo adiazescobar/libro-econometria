@@ -9,3 +9,7 @@ anatomía-de-la-regresión-múltiple
 código-en-stata
 código-en-r
 código-en-python
+aspectos-algebraicos-de-la-solución-de-mco
+propiedad-de-mejor-estimador-lineal-insesgado-meli
+teorema-de-gauss-markov
+revisa-tu-comprensión
