@@ -1,3 +1,8 @@
+thm:unlabeled-div-4
+thm:unlabeled-div-6
+thm:unlabeled-div-10
+thm:unlabeled-div-12
+thm:unlabeled-div-14
 repaso
 regresión-lineal
 repaso-funciones-de-densidad
@@ -10,6 +15,3 @@ código-en-stata
 código-en-r
 código-en-python
 aspectos-algebraicos-de-la-solución-de-mco
-propiedad-de-mejor-estimador-lineal-insesgado-meli
-teorema-de-gauss-markov
-revisa-tu-comprensión

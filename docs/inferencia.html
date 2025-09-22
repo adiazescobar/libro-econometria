@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Inferencia | Econometría II</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Inferencia | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Inferencia | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2025-09-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="aspectos-algebraicos-de-la-solución-de-mco.html"/>
+<link rel="next" href="multicolinealidad-detección-consecuencias-y-no-soluciones.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path=""><a href="#informaci%C3%B3n-general"><i class="fa fa-check"></i>Información general</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#descripci%C3%B3n-del-curso"><i class="fa fa-check"></i>Descripción del curso</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#material-bibliogr%C3%A1fico"><i class="fa fa-check"></i>Material bibliográfico</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#evaluaci%C3%B3n"><i class="fa fa-check"></i>Evaluación</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-estudia-la-econometr%C3%ADa"><i class="fa fa-check"></i>¿Qué estudia la econometría?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacemos-entonces"><i class="fa fa-check"></i>¿Qué hacemos entonces?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#construimos-una-poblaci%C3%B3n-de-juguete"><i class="fa fa-check"></i>Construimos una población de juguete</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-relaci%C3%B3n-verdadera-en-la-poblaci%C3%B3n"><i class="fa fa-check"></i>La relación verdadera en la población</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-saber-si-me-toc%C3%B3-una-muestra-mala"><i class="fa fa-check"></i>¿Cómo saber si me tocó una muestra mala?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#una-aclaraci%C3%B3n-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i>☝️ Una aclaración importante sobre el insesgamiento</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta_1"><i class="fa fa-check"></i>🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="09-NormAs.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-a-un-buen-estimador"><i class="fa fa-check"></i>¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="2.0.1" data-path="regresión-lineal.html"><a href="regresión-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>2.0.1</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i>🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#nota-de-cierre-c%C3%B3mo-interpretar-cada-propiedad"><i class="fa fa-check"></i>🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresión-lineal.html"><a href="regresión-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>3</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#norma-y-normalizaci%C3%B3n"><i class="fa fa-check"></i>Norma y normalización</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-por-un-escalar"><i class="fa fa-check"></i>Multiplicación por un escalar</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#multiplicaci%C3%B3n-de-matrices"><i class="fa fa-check"></i>Multiplicación de matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transposici%C3%B3n-de-matrices"><i class="fa fa-check"></i>Transposición de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matriz-sim%C3%A9trica"><i class="fa fa-check"></i>6. Matriz simétrica</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n-p-y-m"><i class="fa fa-check"></i>9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-funci%C3%B3n-multidimensional"><i class="fa fa-check"></i>Derivadas de una función multidimensional</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivadas-de-una-forma-cuadr%C3%A1tica"><i class="fa fa-check"></i>Derivadas de una forma cuadrática</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>4</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s1.-linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i>S1. Linealidad en los Parámetros</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s4.-perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i>S4. Perturbaciones Esféricas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#s5.-regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i>S5. Regresores No Estocásticos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#glosario-de-s%C3%ADmbolos"><i class="fa fa-check"></i>Glosario de Símbolos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="09-NormAs.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
+<li class="chapter" data-level="5.0.1" data-path="09-NormAs.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="09-NormAs.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica"><i class="fa fa-check"></i>🔍 Intuición geométrica</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#visualizaci%C3%B3n-tridimensional-de-la-proyecci%C3%B3n"><i class="fa fa-check"></i>✨ Visualización tridimensional de la proyección</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notaci%C3%B3n-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Notación y Motivación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1l-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i>❓¿Cuál es el problema que resuelve el FWL?</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomía-de-la-regresión-múltiple.html"><a href="anatomía-de-la-regresión-múltiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-final"><i class="fa fa-check"></i>✅ Interpretación final</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conclusi%C3%B3n"><i class="fa fa-check"></i>📦 Conclusión</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="6.0.1" data-path="09-NormAs.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="09-NormAs.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="09-NormAs.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="09-NormAs.html"><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>7</b> Aspectos algebraicos de la solución de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html"><i class="fa fa-check"></i>Propiedades del estimador de MCO en muestras finitas</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i>Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#teorema-de-gauss-markov"><i class="fa fa-check"></i>Teorema de Gauss Markov</a>
+<ul>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#preguntas-de-repaso-6"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i>Inferencia</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#pruebas-de-hip%C3%B3tesis-bajo-el-supuesto-de-normalidad"><i class="fa fa-check"></i>Pruebas de hipótesis bajo el supuesto de normalidad</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#ejemplo-motivador"><i class="fa fa-check"></i>Ejemplo motivador</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#errores-distribuidos-normalmente"><i class="fa fa-check"></i>📐 Errores distribuidos normalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#contraste-de-hip%C3%B3tesis-sobre-un-coeficiente"><i class="fa fa-check"></i>Contraste de hipótesis sobre un coeficiente</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#regla-de-decisi%C3%B3n-para-el-estad%C3%ADstico-t"><i class="fa fa-check"></i>Regla de decisión para el estadístico t</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#intervalo-de-confianza"><i class="fa fa-check"></i>Intervalo de confianza</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#el-valor-p-p-value"><i class="fa fa-check"></i>El valor p (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#contraste-de-hip%C3%B3tesis-lineales"><i class="fa fa-check"></i>Contraste de hipótesis lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#el-estad%C3%ADstico-f"><i class="fa fa-check"></i>El estadístico F</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#regla-de-decisi%C3%B3n-con-f"><i class="fa fa-check"></i>Regla de decisión con F</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#f%C3%B3rmula-alternativa-para-f"><i class="fa fa-check"></i>Fórmula alternativa para F</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#contraste-de-significaci%C3%B3n-global"><i class="fa fa-check"></i>Contraste de significación global</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#relaci%C3%B3n-t-vs-f"><i class="fa fa-check"></i>Relación t vs F</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-del-estad%C3%ADstico-t"><i class="fa fa-check"></i>📑 Demostración del estadístico <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-del-estad%C3%ADstico-f"><i class="fa fa-check"></i>📑 Demostración del estadístico <span class="math inline">\(F\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#aplicaci%C3%B3n-en-stata"><i class="fa fa-check"></i>💻 Aplicación en Stata</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#visualizaciones-sugeridas"><i class="fa fa-check"></i>🖼️ Visualizaciones sugeridas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#notas-pr%C3%A1cticas-de-inferencia"><i class="fa fa-check"></i>🧩 Notas prácticas de inferencia</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#demostraciones-formales-resumen"><i class="fa fa-check"></i>🔎 Demostraciones formales (resumen)</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#conclusiones-clave"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#preguntas-de-repaso-7"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%B3digo-m%C3%ADnimo-reproducible-mco-wald"><i class="fa fa-check"></i>🧰 Código mínimo reproducible (MCO + Wald)</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#stata"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r-1"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python-1"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#multicolinealidad-detecci%C3%B3n-consecuencias-y-no-soluciones"><i class="fa fa-check"></i>Multicolinealidad: detección, consecuencias y (no) soluciones</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#objetivo-y-motivaci%C3%B3n"><i class="fa fa-check"></i>🎯 Objetivo y motivación</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><i class="fa fa-check"></i>📚 Colinealidad imperfecta: idea algebraica</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#definici%C3%B3n-y-condici%C3%B3n-de-rango"><i class="fa fa-check"></i>Definición y condición de rango</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad"><i class="fa fa-check"></i>🧩 Modelo particionado y consecuencias de la multicolinealidad</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza"><i class="fa fa-check"></i>Propiedades: insesgamiento y varianza</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#intuici%C3%B3n-geom%C3%A9trica-1"><i class="fa fa-check"></i>📐 Intuición geométrica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#controlar-por-otras-variables-v%C3%ADa-fwl"><i class="fa fa-check"></i>🧪 “Controlar por otras variables” vía FWL</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#detecci%C3%B3n-de-multicolinealidad"><i class="fa fa-check"></i>🔎 Detección de multicolinealidad</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplos-en-stata-r-y-python"><i class="fa fa-check"></i>🛠️ Ejemplos en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-1"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-2"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-2"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hacer-y-qu%C3%A9-no-ante-multicolinealidad"><i class="fa fa-check"></i>🚨 Qué hacer (y qué no) ante multicolinealidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#mini-demostraci%C3%B3n-varianza-inflada-por-r2-auxiliar"><i class="fa fa-check"></i>🧪 Mini-demostración: varianza inflada por <span class="math inline">\(R^2\)</span> auxiliar</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplo-reproducible-colinealidad-simulada"><i class="fa fa-check"></i>🔬 Ejemplo reproducible: colinealidad simulada</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-2"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-3"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-3"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#conclusiones-clave-1"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#preguntas-de-repaso-8"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice-comandos-%C3%BAtiles"><i class="fa fa-check"></i>🧰 Apéndice: comandos útiles</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-3"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-4"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-detección-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-4"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferencia" class="section level1 unnumbered hasAnchor">
+<h1>Inferencia<a href="inferencia.html#inferencia" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="pruebas-de-hipótesis-bajo-el-supuesto-de-normalidad" class="section level2 unnumbered hasAnchor">
+<h2>Pruebas de hipótesis bajo el supuesto de normalidad<a href="#pruebas-de-hip%C3%B3tesis-bajo-el-supuesto-de-normalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una vez hemos estimado los parámetros <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>,<br />
+y la varianza del estimador <span class="math inline">\(Var[\beta|X]=\hat{\sigma}^{2}(X&#39;X)^{-1}\)</span>,<br />
+es necesario preguntarnos qué tan cercanos son los resultados de la regresión poblacional.</p>
+<p>Para que los parámetros sean cercanos necesitamos como condición que los estimados <span class="math inline">\(\hat{\beta}\)</span> sean <strong>estadísticamente distintos de cero</strong>.<br />
+En lenguaje de pruebas de hipótesis, la restricción a contrastar se llama <strong>hipótesis nula</strong>.</p>
+<p>Ejemplo:<br />
+<span class="math display">\[
+H_0:\hat{\beta}_i = 0
+\]</span></p>
+<p>No basta con que <span class="math inline">\(\hat{\beta}_i\)</span> sea diferente de cero; necesitamos un <strong>estadístico de contraste válido</strong>. En este capítulo usaremos los estadísticos <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>.</p>
+<hr />
+<div id="ejemplo-motivador" class="section level3 unnumbered hasAnchor">
+<h3>Ejemplo motivador<a href="inferencia.html#ejemplo-motivador" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En una función de producción Cobb–Douglas:<br />
+<span class="math display">\[
+Y = K^{\alpha}L^{\beta} \quad \text{o en logaritmos} \quad \ln(Y)=\alpha \ln(K)+\beta \ln(L)
+\]</span></p>
+<p>Queremos contrastar <strong>rendimientos constantes a escala</strong>:<br />
+<span class="math display">\[
+H_0: \alpha+\beta=1
+\]</span></p>
+<p>Esto es una prueba de hipótesis <strong>lineal sobre los parámetros</strong>.</p>
+<hr />
+</div>
+<div id="errores-distribuidos-normalmente" class="section level3 unnumbered hasAnchor">
+<h3>📐 Errores distribuidos normalmente<a href="inferencia.html#errores-distribuidos-normalmente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Bajo el <strong>supuesto A6</strong>:</p>
+<p><span class="math display">\[
+\varepsilon|X \sim N(0,\sigma^{2}I)
+\]</span></p>
+<p>Esto implica independencia entre <span class="math inline">\(\varepsilon\)</span> y <span class="math inline">\(X\)</span>.</p>
+<p>Sabemos que:<br />
+<span class="math display">\[
+\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\varepsilon
+\]</span>
+<span class="math display">\[
+\hat{\beta}=\beta+(X&#39;X)^{-1}X&#39;\varepsilon
+\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-3" class="proof"><em>Proof</em>. </span><strong>Implicación:</strong><br />
+<span class="math display">\[
+\hat{\beta}|X \sim N(\beta,\sigma^{2}(X&#39;X)^{-1})
+\]</span></p>
+</div>
+<hr />
+</div>
+</div>
+<div id="contraste-de-hipótesis-sobre-un-coeficiente" class="section level2 unnumbered hasAnchor">
+<h2>Contraste de hipótesis sobre un coeficiente<a href="#contraste-de-hip%C3%B3tesis-sobre-un-coeficiente" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Queremos contrastar:</p>
+<p><span class="math display">\[
+H_{0}:\beta_{k}=\bar{\beta}_{k}, \quad H_{1}:\beta_{k}\neq\bar{\beta}_{k}
+\]</span></p>
+<p>Del resultado anterior:</p>
+<p><span class="math display">\[
+\hat{\beta_k}-\bar{\beta}_k|X \sim N\left(0,\sigma^{2}[(X&#39;X)^{-1}]_{kk}\right)
+\]</span></p>
+<p>Definimos el estadístico:</p>
+<p><span class="math display">\[
+z_k = \frac{\hat{\beta}_k - \bar{\beta}_k}{\sqrt{\sigma^{2}[(X&#39;X)^{-1}]_{kk}}}
+\]</span></p>
+<p>Si <span class="math inline">\(\sigma^2\)</span> es desconocida, lo reemplazamos por <span class="math inline">\(\hat{\sigma}^2\)</span>, y obtenemos el <strong>estadístico t</strong>:</p>
+<p><span class="math display">\[
+t_k = \frac{\hat{\beta}_k-\bar{\beta}_k}{EE(\hat{\beta}_k)}
+\]</span></p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-4" class="theorem"><strong>Theorem 7.1  </strong></span><strong>Proposición:</strong> Bajo <span class="math inline">\(H_0\)</span>, <span class="math inline">\(t_k \sim t(n-k)\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-5" class="proof"><em>Proof</em>. </span><span class="math display">\[
+t_k = z_k \cdot \frac{\sqrt{\sigma^2}}{\sqrt{\hat{\sigma}^2}}
+= \frac{z_k}{\sqrt{\hat{\sigma}^2/\sigma^2}}
+\]</span>
+Como <span class="math inline">\(\hat{\sigma}^2\)</span> está ligado a una <span class="math inline">\(\chi^2(n-k)\)</span>, entonces <span class="math inline">\(t_k\)</span> tiene distribución <span class="math inline">\(t(n-k)\)</span>.</p>
+</div>
+<div class="xca">
+<p><strong>Ejercicio:</strong> Probar que <span class="math inline">\(q|X \sim \chi^2(n-k)\)</span>.</p>
+</div>
+<hr />
+<div id="regla-de-decisión-para-el-estadístico-t" class="section level3 unnumbered hasAnchor">
+<h3>Regla de decisión para el estadístico t<a href="#regla-de-decisi%C3%B3n-para-el-estad%C3%ADstico-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Calcular <span class="math inline">\(t_k\)</span>.<br />
+</li>
+<li>Comparar con el valor crítico <span class="math inline">\(t_{\alpha/2}(n-k)\)</span>.<br />
+</li>
+<li>Regla:
+<span class="math display">\[
+|t_k| \ge t_{\alpha/2}(n-k) \quad \Rightarrow \quad \text{Rechazar } H_0
+\]</span></li>
+</ol>
+<hr />
+</div>
+<div id="intervalo-de-confianza" class="section level3 unnumbered hasAnchor">
+<h3>Intervalo de confianza<a href="inferencia.html#intervalo-de-confianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>No rechazamos <span class="math inline">\(H_0\)</span> si:</p>
+<p><span class="math display">\[
+\bar{\beta}_k \in
+\left[\hat{\beta}_k - EE(\hat{\beta}_k) t_{\alpha/2}, \hat{\beta}_k + EE(\hat{\beta}_k) t_{\alpha/2}\right]
+\]</span></p>
+<hr />
+</div>
+<div id="el-valor-p-p-value" class="section level3 unnumbered hasAnchor">
+<h3>El valor p (p-value)<a href="inferencia.html#el-valor-p-p-value" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Definimos:</p>
+<p><span class="math display">\[
+p = P(|t|&gt;|t_k|)
+\]</span></p>
+<ul>
+<li>Rechazar <span class="math inline">\(H_0\)</span> si <span class="math inline">\(p \leq \alpha\)</span>.<br />
+</li>
+<li>No rechazar si <span class="math inline">\(p&gt;\alpha\)</span>.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="contraste-de-hipótesis-lineales" class="section level2 unnumbered hasAnchor">
+<h2>Contraste de hipótesis lineales<a href="#contraste-de-hip%C3%B3tesis-lineales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Hipótesis general:<br />
+<span class="math display">\[
+H_0: R\beta=r
+\]</span></p>
+<p>Ejemplos:</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(H_0: \beta_1+\beta_2=1\)</span><br />
+<span class="math display">\[
+[1 \;\; 1]\begin{bmatrix}\beta_1\\\beta_2\end{bmatrix}=1
+\]</span></p></li>
+<li><p><span class="math inline">\(H_0: \beta_1=\beta_2\)</span><br />
+<span class="math display">\[
+[1 \;\; -1]\begin{bmatrix}\beta_1\\\beta_2\end{bmatrix}=0
+\]</span></p></li>
+</ol>
+<hr />
+<div id="el-estadístico-f" class="section level3 unnumbered hasAnchor">
+<h3>El estadístico F<a href="#el-estad%C3%ADstico-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-6" class="theorem"><strong>Theorem 7.2  </strong></span><strong>Proposición:</strong> Bajo <span class="math inline">\(H_0: R\beta=r\)</span>,
+<span class="math display">\[
+F = \frac{(R\hat{\beta}-r)&#39;[R(X&#39;X)^{-1}R&#39;]^{-1}(R\hat{\beta}-r)/\#r}{\hat{\sigma}^2} \sim F(\#r,n-k)
+\]</span></p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-7" class="proof"><em>Proof</em>. </span>El numerador es una <span class="math inline">\(\chi^2(\#r)\)</span> y el denominador una <span class="math inline">\(\chi^2(n-k)\)</span>.<br />
+Por definición, el cociente tiene distribución <span class="math inline">\(F(\#r,n-k)\)</span>.</p>
+</div>
+<hr />
+</div>
+<div id="regla-de-decisión-con-f" class="section level3 unnumbered hasAnchor">
+<h3>Regla de decisión con F<a href="#regla-de-decisi%C3%B3n-con-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Rechazar <span class="math inline">\(H_0\)</span> si <span class="math inline">\(F \geq F_\alpha(\#r,n-k)\)</span>.<br />
+</li>
+<li>No rechazar en caso contrario.</li>
+</ul>
+<hr />
+</div>
+<div id="fórmula-alternativa-para-f" class="section level3 unnumbered hasAnchor">
+<h3>Fórmula alternativa para F<a href="#f%C3%B3rmula-alternativa-para-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+F=\frac{(\hat{\epsilon}_r&#39;\hat{\epsilon}_r - \hat{\epsilon}&#39;\hat{\epsilon})/\#r}{\hat{\epsilon}&#39;\hat{\epsilon}/(n-k)}
+\]</span></p>
+<hr />
+</div>
+<div id="contraste-de-significación-global" class="section level3 unnumbered hasAnchor">
+<h3>Contraste de significación global<a href="#contraste-de-significaci%C3%B3n-global" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+H_0: \beta_2=\cdots=\beta_K=0
+\]</span></p>
+<p>El estadístico puede escribirse en función de <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[
+F = \frac{R^2/(K-1)}{(1-R^2)/(n-K)}
+\]</span></p>
+<hr />
+</div>
+</div>
+<div id="relación-t-vs-f" class="section level2 unnumbered hasAnchor">
+<h2>Relación t vs F<a href="#relaci%C3%B3n-t-vs-f" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Si <span class="math inline">\(\#r=1\)</span>:<br />
+<span class="math display">\[
+F(1,n-k)=t(n-k)^2
+\]</span></p>
+<hr />
+<div id="demostración-del-estadístico-t" class="section level3 unnumbered hasAnchor">
+<h3>📑 Demostración del estadístico <span class="math inline">\(t\)</span><a href="#demostraci%C3%B3n-del-estad%C3%ADstico-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="proof">
+<p><span id="unlabeled-div-8" class="proof"><em>Proof</em>. </span>Partimos de que bajo normalidad:</p>
+<p><span class="math display">\[
+\hat{\beta}_k \;|\;X \sim N\!\Big(\beta_k,\;\sigma^2[(X&#39;X)^{-1}]_{kk}\Big).
+\]</span></p>
+<p>Bajo la hipótesis nula <span class="math inline">\(H_0:\beta_k=\bar{\beta}_k\)</span>, el numerador</p>
+<p><span class="math display">\[
+\hat{\beta}_k-\bar{\beta}_k
+\]</span></p>
+<p>es una normal centrada con varianza <span class="math inline">\(\sigma^2[(X&#39;X)^{-1}]_{kk}\)</span>.
+Estandarizando,</p>
+<p><span class="math display">\[
+z_k \equiv \frac{\hat{\beta}_k-\bar{\beta}_k}{\sqrt{\sigma^2[(X&#39;X)^{-1}]_{kk}}} \sim N(0,1).
+\]</span></p>
+<p>Por otra parte, el estimador de la varianza es</p>
+<p><span class="math display">\[
+\hat\sigma^2 = \frac{e&#39;e}{n-K}=\frac{y&#39;M_X y}{n-K},
+\]</span></p>
+<p>y bajo normalidad</p>
+<p><span class="math display">\[
+\frac{(n-K)\hat\sigma^2}{\sigma^2}=\frac{y&#39;M_X y}{\sigma^2} \sim \chi^2(n-K).
+\]</span></p>
+<p>El resultado clave es el <strong>teorema de Cochran</strong>: como <span class="math inline">\(P_X y\)</span> y <span class="math inline">\(M_X y\)</span> son proyecciones ortogonales de un vector normal, son <strong>independientes</strong>. Por lo tanto,</p>
+<ul>
+<li><span class="math inline">\(z_k \sim N(0,1)\)</span>,</li>
+<li><span class="math inline">\((n-K)\hat\sigma^2/\sigma^2 \sim \chi^2(n-K)\)</span>,</li>
+<li><span class="math inline">\(z_k \perp \hat\sigma^2\)</span>.</li>
+</ul>
+<p>Así,</p>
+<p><span class="math display">\[
+t_k = \frac{z_k}{\sqrt{\hat\sigma^2/\sigma^2}}
+= \frac{z_k}{\sqrt{U/(n-K)}},\qquad U\sim\chi^2(n-K),
+\]</span></p>
+<p>y por definición, <span class="math inline">\(t_k \sim t(n-K)\)</span>.</p>
+</div>
+<hr />
+</div>
+<div id="demostración-del-estadístico-f" class="section level3 unnumbered hasAnchor">
+<h3>📑 Demostración del estadístico <span class="math inline">\(F\)</span><a href="#demostraci%C3%B3n-del-estad%C3%ADstico-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="proof">
+<p><span id="unlabeled-div-9" class="proof"><em>Proof</em>. </span>Sea la hipótesis lineal</p>
+<p><span class="math display">\[
+H_0:R\beta=r,\quad R\in\mathbb{R}^{\#r\times K},\;\mathrm{rango}(R)=\#r.
+\]</span></p>
+<p>Bajo normalidad:</p>
+<p><span class="math display">\[
+R\hat\beta - r \;\big|\;H_0 \sim N\!\big(0,\;\sigma^2 R(X&#39;X)^{-1}R&#39;\big).
+\]</span></p>
+<p>Definimos la forma cuadrática estandarizada:</p>
+<p><span class="math display">\[
+W=(R\hat\beta-r)&#39;\,\big[\sigma^2 R(X&#39;X)^{-1}R&#39;\big]^{-1}(R\hat\beta-r).
+\]</span></p>
+<p>Como es la forma cuadrática de un normal centrado en dimensión <span class="math inline">\(\#r\)</span>:</p>
+<p><span class="math display">\[
+W \sim \chi^2(\#r).
+\]</span></p>
+<p>Del mismo modo, sabemos que</p>
+<p><span class="math display">\[
+U=\frac{(n-K)\hat\sigma^2}{\sigma^2}\sim \chi^2(n-K).
+\]</span></p>
+<p>Por el <strong>teorema de Cochran</strong>, <span class="math inline">\(W\)</span> (que depende de la parte proyectada <span class="math inline">\(P_X y\)</span>) es independiente de <span class="math inline">\(U\)</span> (que depende de <span class="math inline">\(M_X y\)</span>).</p>
+<p>Por tanto,</p>
+<p><span class="math display">\[
+F = \frac{W/\#r}{U/(n-K)} \;\sim\; F(\#r,\;n-K).
+\]</span></p>
+</div>
+<hr />
+</div>
+</div>
+<div id="aplicación-en-stata" class="section level2 unnumbered hasAnchor">
+<h2>💻 Aplicación en Stata<a href="#aplicaci%C3%B3n-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb10-1"><a href="inferencia.html#cb10-1" tabindex="-1"></a>* Análisis descriptivo</span>
+<span id="cb10-2"><a href="inferencia.html#cb10-2" tabindex="-1"></a><span class="kw">use</span> http:<span class="co">//www.ats.ucla.edu/stat/stata/dae/crime, clear</span></span>
+<span id="cb10-3"><a href="inferencia.html#cb10-3" tabindex="-1"></a><span class="kw">summarize</span> crime poverty single</span>
+<span id="cb10-4"><a href="inferencia.html#cb10-4" tabindex="-1"></a><span class="kw">twoway</span> (<span class="kw">scatter</span> crime single) (<span class="kw">lfit</span> crime single)</span>
+<span id="cb10-5"><a href="inferencia.html#cb10-5" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="inferencia.html#cb10-6" tabindex="-1"></a>* Regresión MCO</span>
+<span id="cb10-7"><a href="inferencia.html#cb10-7" tabindex="-1"></a><span class="kw">reg</span> crime poverty single</span>
+<span id="cb10-8"><a href="inferencia.html#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="inferencia.html#cb10-9" tabindex="-1"></a>* Prueba t</span>
+<span id="cb10-10"><a href="inferencia.html#cb10-10" tabindex="-1"></a><span class="kw">test</span> poverty</span>
+<span id="cb10-11"><a href="inferencia.html#cb10-11" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="inferencia.html#cb10-12" tabindex="-1"></a>* Prueba <span class="fu">F</span> (significancia conjunta)</span>
+<span id="cb10-13"><a href="inferencia.html#cb10-13" tabindex="-1"></a><span class="kw">test</span> poverty single</span>
+<span id="cb10-14"><a href="inferencia.html#cb10-14" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="inferencia.html#cb10-15" tabindex="-1"></a>* Uso <span class="kw">de</span> Mata</span>
+<span id="cb10-16"><a href="inferencia.html#cb10-16" tabindex="-1"></a><span class="kw">gen</span> cons=1</span>
+<span id="cb10-17"><a href="inferencia.html#cb10-17" tabindex="-1"></a><span class="kw">mata</span>:</span>
+<span id="cb10-18"><a href="inferencia.html#cb10-18" tabindex="-1"></a>st_view(Y=., ., <span class="st">&quot;crime&quot;</span>)</span>
+<span id="cb10-19"><a href="inferencia.html#cb10-19" tabindex="-1"></a>st_view(X=., ., (<span class="st">&quot;cons&quot;</span>,<span class="st">&quot;poverty&quot;</span>,<span class="st">&quot;single&quot;</span>))</span>
+<span id="cb10-20"><a href="inferencia.html#cb10-20" tabindex="-1"></a>n=<span class="bn">rows</span>(X); <span class="kw">k</span>=<span class="bn">cols</span>(X)</span>
+<span id="cb10-21"><a href="inferencia.html#cb10-21" tabindex="-1"></a>b=<span class="fu">invsym</span>(X&#39;X)*X&#39;Y</span>
+<span id="cb10-22"><a href="inferencia.html#cb10-22" tabindex="-1"></a>s2=(Y-X*b)&#39;(Y-X*b)/(n-<span class="kw">k</span>)</span>
+<span id="cb10-23"><a href="inferencia.html#cb10-23" tabindex="-1"></a>se=<span class="fu">sqrt</span>(diagonal(s2*<span class="fu">invsym</span>(X&#39;X)))</span>
+<span id="cb10-24"><a href="inferencia.html#cb10-24" tabindex="-1"></a>t=b:/se</span>
+<span id="cb10-25"><a href="inferencia.html#cb10-25" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb10-26"><a href="inferencia.html#cb10-26" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="inferencia.html#cb10-27" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;box-repaso&quot;</span>&gt;</span>
+<span id="cb10-28"><a href="inferencia.html#cb10-28" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="inferencia.html#cb10-29" tabindex="-1"></a>### 📘 Preguntas <span class="kw">de</span> repaso {-}</span>
+<span id="cb10-30"><a href="inferencia.html#cb10-30" tabindex="-1"></a></span>
+<span id="cb10-31"><a href="inferencia.html#cb10-31" tabindex="-1"></a>1. ¿Por qué <span class="fu">el</span> supuesto **A6 (normalidad)** es esencial para obtener la distribución exacta <span class="kw">de</span> los estadísticos \(t\) <span class="fu">y</span> \(<span class="fu">F</span>\)?  </span>
+<span id="cb10-32"><a href="inferencia.html#cb10-32" tabindex="-1"></a>2. Demuestre algebraicamente que \[<span class="fu">F</span>(1,n-<span class="kw">k</span>) = t^2\].  </span>
+<span id="cb10-33"><a href="inferencia.html#cb10-33" tabindex="-1"></a>3. Interprete <span class="fu">el</span> intervalo <span class="kw">de</span> confianza del 95% para \(\beta_k\).  </span>
+<span id="cb10-34"><a href="inferencia.html#cb10-34" tabindex="-1"></a>4. ¿Qué significa un *<span class="kw">p</span>-<span class="ot">value</span>* <span class="kw">de</span> 0.07 en una prueba con \(\<span class="kw">alpha</span>=0.05\)?  </span>
+<span id="cb10-35"><a href="inferencia.html#cb10-35" tabindex="-1"></a>5. En **Stata**, ¿cómo verificaría la hipótesis \(\beta_1 = \beta_2\)?  </span>
+<span id="cb10-36"><a href="inferencia.html#cb10-36" tabindex="-1"></a>6. Explique en qué difiere <span class="fu">el</span> contraste **<span class="fu">F</span> <span class="kw">global</span>** <span class="kw">de</span> un contraste individual con \(t\).  </span>
+<span id="cb10-37"><a href="inferencia.html#cb10-37" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="inferencia.html#cb10-38" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb10-39"><a href="inferencia.html#cb10-39" tabindex="-1"></a></span>
+<span id="cb10-40"><a href="inferencia.html#cb10-40" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="inferencia.html#cb10-41" tabindex="-1"></a></span>
+<span id="cb10-42"><a href="inferencia.html#cb10-42" tabindex="-1"></a>&lt;!--chapter:<span class="kw">end</span>:08-PruebasHIP.Rmd--&gt;</span>
+<span id="cb10-43"><a href="inferencia.html#cb10-43" tabindex="-1"></a></span>
+<span id="cb10-44"><a href="inferencia.html#cb10-44" tabindex="-1"></a># Propiedades asintóticas <span class="kw">de</span> MCO <span class="fu">y</span> pruebas <span class="kw">de</span> hipótesis {-}</span>
+<span id="cb10-45"><a href="inferencia.html#cb10-45" tabindex="-1"></a></span>
+<span id="cb10-46"><a href="inferencia.html#cb10-46" tabindex="-1"></a>## 🎯 Objetivo <span class="fu">y</span> motivación {-}</span>
+<span id="cb10-47"><a href="inferencia.html#cb10-47" tabindex="-1"></a></span>
+<span id="cb10-48"><a href="inferencia.html#cb10-48" tabindex="-1"></a>En este capítulo pasamos <span class="kw">de</span> las **propiedades en muestras finitas** del estimador <span class="kw">de</span> Mínimos Cuadrados Ordinarios (MCO) a sus **propiedades asintóticas** (cuando <span class="ot">$n</span>\to\infty$). Verás por qué la **consistencia** <span class="fu">y</span> la **normalidad asintótica** permiten hacer inferencia incluso **<span class="fu">sin</span>** normalidad exacta <span class="kw">de</span> los errores, <span class="fu">y</span> cómo construir **pruebas <span class="ot">$t</span>$**, **estadísticos <span class="ot">$F</span>$** <span class="fu">y</span> <span class="fu">el</span> **<span class="kw">test</span> <span class="kw">de</span> Wald** en grandes muestras.</span>
+<span id="cb10-49"><a href="inferencia.html#cb10-49" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="inferencia.html#cb10-50" tabindex="-1"></a>---</span>
+<span id="cb10-51"><a href="inferencia.html#cb10-51" tabindex="-1"></a></span>
+<span id="cb10-52"><a href="inferencia.html#cb10-52" tabindex="-1"></a>## 📚 Repaso: modelo clásico <span class="fu">y</span> resultados en muestras finitas {-}</span>
+<span id="cb10-53"><a href="inferencia.html#cb10-53" tabindex="-1"></a></span>
+<span id="cb10-54"><a href="inferencia.html#cb10-54" tabindex="-1"></a>### Supuestos del MCRL (versión matricial) {-}</span>
+<span id="cb10-55"><a href="inferencia.html#cb10-55" tabindex="-1"></a></span>
+<span id="cb10-56"><a href="inferencia.html#cb10-56" tabindex="-1"></a>$$</span>
+<span id="cb10-57"><a href="inferencia.html#cb10-57" tabindex="-1"></a><span class="fu">y</span> = X\beta + \epsilon, \qquad X\<span class="kw">in</span>\mathbb{R}^{n\times K},\; <span class="fu">y</span>\<span class="kw">in</span>\mathbb{R}^{n\times 1}</span>
+<span id="cb10-58"><a href="inferencia.html#cb10-58" tabindex="-1"></a>$$</span>
+<span id="cb10-59"><a href="inferencia.html#cb10-59" tabindex="-1"></a></span>
+<span id="cb10-60"><a href="inferencia.html#cb10-60" tabindex="-1"></a>* **A1.** Lineal en los parámetros: <span class="ot">$y</span> = X\beta + \epsilon$.</span>
+<span id="cb10-61"><a href="inferencia.html#cb10-61" tabindex="-1"></a>* **A2.** Exogeneidad estricta: <span class="ot">$E</span>(\epsilon_i\mid X)=0$.</span>
+<span id="cb10-62"><a href="inferencia.html#cb10-62" tabindex="-1"></a>* **A3.** Colinealidad imperfecta: $\mathrm{rango}(X)=K$.</span>
+<span id="cb10-63"><a href="inferencia.html#cb10-63" tabindex="-1"></a>* **A4.** Perturbaciones esféricas: <span class="ot">$Var</span>(\epsilon\mid X)=\sigma^2 I_n$.</span>
+<span id="cb10-64"><a href="inferencia.html#cb10-64" tabindex="-1"></a>* **A5.** (Para resultados exactos clásicos) Regresores no estocásticos.</span>
+<span id="cb10-65"><a href="inferencia.html#cb10-65" tabindex="-1"></a>* **A6.** (Para inferencia exacta <span class="ot">$t</span>,F$) Normalidad: $\epsilon\mid X\sim \mathcal{<span class="kw">N</span>}(0,\sigma^2 I_n)$.</span>
+<span id="cb10-66"><a href="inferencia.html#cb10-66" tabindex="-1"></a></span>
+<span id="cb10-67"><a href="inferencia.html#cb10-67" tabindex="-1"></a>### Estimadores <span class="fu">y</span> propiedades (finito muestral) {-}</span>
+<span id="cb10-68"><a href="inferencia.html#cb10-68" tabindex="-1"></a></span>
+<span id="cb10-69"><a href="inferencia.html#cb10-69" tabindex="-1"></a>$$</span>
+<span id="cb10-70"><a href="inferencia.html#cb10-70" tabindex="-1"></a>\hat{\beta}=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\epsilon,</span>
+<span id="cb10-71"><a href="inferencia.html#cb10-71" tabindex="-1"></a>\qquad</span>
+<span id="cb10-72"><a href="inferencia.html#cb10-72" tabindex="-1"></a>\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}.</span>
+<span id="cb10-73"><a href="inferencia.html#cb10-73" tabindex="-1"></a>$$</span>
+<span id="cb10-74"><a href="inferencia.html#cb10-74" tabindex="-1"></a></span>
+<span id="cb10-75"><a href="inferencia.html#cb10-75" tabindex="-1"></a>1. Insesgamiento: <span class="ot">$E</span>[\hat{\beta}\mid X]=\beta$.</span>
+<span id="cb10-76"><a href="inferencia.html#cb10-76" tabindex="-1"></a>2. Varianza: <span class="ot">$Var</span>[\hat{\beta}\mid X]=\sigma^{2}(X&#39;X)^{-1}$.</span>
+<span id="cb10-77"><a href="inferencia.html#cb10-77" tabindex="-1"></a>3. **Teorema <span class="kw">de</span> Gauss–Markov**: $\hat{\beta}$ es **ELIO** dentro <span class="kw">de</span> estimadores lineales insesgados.</span>
+<span id="cb10-78"><a href="inferencia.html#cb10-78" tabindex="-1"></a>4. <span class="ot">$E</span>[\hat{\sigma}^{2}]=\sigma^{2}$.</span>
+<span id="cb10-79"><a href="inferencia.html#cb10-79" tabindex="-1"></a></span>
+<span id="cb10-80"><a href="inferencia.html#cb10-80" tabindex="-1"></a>Bajo **A6**, además:</span>
+<span id="cb10-81"><a href="inferencia.html#cb10-81" tabindex="-1"></a></span>
+<span id="cb10-82"><a href="inferencia.html#cb10-82" tabindex="-1"></a>* $\hat{\beta}\mid X \sim \mathcal{<span class="kw">N</span>}(\beta,\sigma^{2}(X&#39;X)^{-1})$.</span>
+<span id="cb10-83"><a href="inferencia.html#cb10-83" tabindex="-1"></a>* $(n-K)\hat{\sigma}^{2}/\sigma^{2}=\hat{\epsilon}&#39;\hat{\epsilon}/\sigma^{2}\sim \chi^{2}_{(n-K)}$.</span>
+<span id="cb10-84"><a href="inferencia.html#cb10-84" tabindex="-1"></a>* Prueba <span class="ot">$t</span>$ exacta para $\beta_k$ <span class="fu">y</span> prueba <span class="ot">$F</span>$ exacta para <span class="ot">$R</span>\beta=r$.</span>
+<span id="cb10-85"><a href="inferencia.html#cb10-85" tabindex="-1"></a></span>
+<span id="cb10-86"><a href="inferencia.html#cb10-86" tabindex="-1"></a>---</span>
+<span id="cb10-87"><a href="inferencia.html#cb10-87" tabindex="-1"></a></span>
+<span id="cb10-88"><a href="inferencia.html#cb10-88" tabindex="-1"></a>## ⚖️ Consistencia <span class="kw">de</span> MCO {-}</span>
+<span id="cb10-89"><a href="inferencia.html#cb10-89" tabindex="-1"></a></span>
+<span id="cb10-90"><a href="inferencia.html#cb10-90" tabindex="-1"></a>Sea <span class="ot">$Q</span>=E(x_ix_i&#39;)$ con <span class="ot">$Q</span>$ definida positiva. Usando</span>
+<span id="cb10-91"><a href="inferencia.html#cb10-91" tabindex="-1"></a></span>
+<span id="cb10-92"><a href="inferencia.html#cb10-92" tabindex="-1"></a>$$</span>
+<span id="cb10-93"><a href="inferencia.html#cb10-93" tabindex="-1"></a>\hat{\beta}=\beta+\underbrace{\left(\tfrac{1}{n}X&#39;X\right)^{-1}}_{\to_p\, Q^{-1}}\underbrace{\left(\tfrac{1}{n}X&#39;\epsilon\right)}_{\to_p\, 0},</span>
+<span id="cb10-94"><a href="inferencia.html#cb10-94" tabindex="-1"></a>$$</span>
+<span id="cb10-95"><a href="inferencia.html#cb10-95" tabindex="-1"></a></span>
+<span id="cb10-96"><a href="inferencia.html#cb10-96" tabindex="-1"></a><span class="fu">y</span> la **Ley Débil <span class="kw">de</span> los Grandes Números**,</span>
+<span id="cb10-97"><a href="inferencia.html#cb10-97" tabindex="-1"></a></span>
+<span id="cb10-98"><a href="inferencia.html#cb10-98" tabindex="-1"></a>$$</span>
+<span id="cb10-99"><a href="inferencia.html#cb10-99" tabindex="-1"></a>plim\left(\tfrac{1}{n}X&#39;X\right)=Q,\qquad plim\left(\tfrac{1}{n}X&#39;\epsilon\right)=0,</span>
+<span id="cb10-100"><a href="inferencia.html#cb10-100" tabindex="-1"></a>$$</span>
+<span id="cb10-101"><a href="inferencia.html#cb10-101" tabindex="-1"></a></span>
+<span id="cb10-102"><a href="inferencia.html#cb10-102" tabindex="-1"></a>obtenemos</span>
+<span id="cb10-103"><a href="inferencia.html#cb10-103" tabindex="-1"></a></span>
+<span id="cb10-104"><a href="inferencia.html#cb10-104" tabindex="-1"></a>$$</span>
+<span id="cb10-105"><a href="inferencia.html#cb10-105" tabindex="-1"></a>plim(\hat{\beta})=\beta.</span>
+<span id="cb10-106"><a href="inferencia.html#cb10-106" tabindex="-1"></a>$$</span>
+<span id="cb10-107"><a href="inferencia.html#cb10-107" tabindex="-1"></a></span>
+<span id="cb10-108"><a href="inferencia.html#cb10-108" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
+<span id="cb10-109"><a href="inferencia.html#cb10-109" tabindex="-1"></a>&lt;strong&gt;Demostración (borrador formal).&lt;/strong&gt;</span>
+<span id="cb10-110"><a href="inferencia.html#cb10-110" tabindex="-1"></a>Bajo A2, \(E(x_i\epsilon_i)=0\). Si \(\{(x_i,\epsilon_i)\}\) es i.i.<span class="kw">d</span>. con \(E\|x_ix_i&#39;\|&lt;\infty\), entonces por la LDGN</span>
+<span id="cb10-111"><a href="inferencia.html#cb10-111" tabindex="-1"></a>\(\tfrac{1}{n}X&#39;X\to_p Q\) <span class="fu">y</span> \(\tfrac{1}{n}X&#39;\epsilon\to_p 0\). Por continuidad <span class="kw">de</span> la inversión <span class="kw">de</span> matrices en <span class="fu">el</span> entorno <span class="kw">de</span> \(Q\),</span>
+<span id="cb10-112"><a href="inferencia.html#cb10-112" tabindex="-1"></a>\(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\). Aplicando Slutsky:</span>
+<span id="cb10-113"><a href="inferencia.html#cb10-113" tabindex="-1"></a>\(\hat\beta=\beta+\left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{n}X&#39;\epsilon\right)\to_p \beta\).</span>
+<span id="cb10-114"><a href="inferencia.html#cb10-114" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb10-115"><a href="inferencia.html#cb10-115" tabindex="-1"></a></span>
+<span id="cb10-116"><a href="inferencia.html#cb10-116" tabindex="-1"></a>### Consistencia <span class="kw">de</span> $\hat{\sigma}^2$ {-}</span>
+<span id="cb10-117"><a href="inferencia.html#cb10-117" tabindex="-1"></a></span>
+<span id="cb10-118"><a href="inferencia.html#cb10-118" tabindex="-1"></a>$$</span>
+<span id="cb10-119"><a href="inferencia.html#cb10-119" tabindex="-1"></a>\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K},\qquad</span>
+<span id="cb10-120"><a href="inferencia.html#cb10-120" tabindex="-1"></a>plim(\hat{\sigma}^{2})=\sigma^{2}.</span>
+<span id="cb10-121"><a href="inferencia.html#cb10-121" tabindex="-1"></a>$$</span>
+<span id="cb10-122"><a href="inferencia.html#cb10-122" tabindex="-1"></a></span>
+<span id="cb10-123"><a href="inferencia.html#cb10-123" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
+<span id="cb10-124"><a href="inferencia.html#cb10-124" tabindex="-1"></a>Usa \(\hat{\epsilon}_i=\epsilon_i-x_i(\hat{\beta}-\beta)\). Expandiendo \(\hat{\epsilon}_i^2\) <span class="fu">y</span> promediando:</span>
+<span id="cb10-125"><a href="inferencia.html#cb10-125" tabindex="-1"></a>\(\tfrac{1}{n}\<span class="kw">sum</span>\hat{\epsilon}_i^2=\tfrac{1}{n}\<span class="kw">sum</span>\epsilon_i^2 - 2(\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\<span class="kw">sum</span> x_i\epsilon_i\right] + (\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\<span class="kw">sum</span> x_ix_i&#39;\right](\hat\beta-\beta)\).</span>
+<span id="cb10-126"><a href="inferencia.html#cb10-126" tabindex="-1"></a>Por consistencia <span class="kw">de</span> \(\hat\beta\) <span class="fu">y</span> LDGN, <span class="fu">el</span> segundo <span class="fu">y</span> tercer término \(\to_p 0\); <span class="fu">el</span> primero \(\to_p E(\epsilon_i^2)=\sigma^2\).</span>
+<span id="cb10-127"><a href="inferencia.html#cb10-127" tabindex="-1"></a>Ajustando por \(\tfrac{n}{n-K}\to 1\), se obtiene <span class="fu">el</span> resultado.</span>
+<span id="cb10-128"><a href="inferencia.html#cb10-128" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb10-129"><a href="inferencia.html#cb10-129" tabindex="-1"></a></span>
+<span id="cb10-130"><a href="inferencia.html#cb10-130" tabindex="-1"></a>---</span>
+<span id="cb10-131"><a href="inferencia.html#cb10-131" tabindex="-1"></a></span>
+<span id="cb10-132"><a href="inferencia.html#cb10-132" tabindex="-1"></a>## 🔔 Normalidad asintótica <span class="kw">de</span> MCO {-}</span>
+<span id="cb10-133"><a href="inferencia.html#cb10-133" tabindex="-1"></a></span>
+<span id="cb10-134"><a href="inferencia.html#cb10-134" tabindex="-1"></a>$$</span>
+<span id="cb10-135"><a href="inferencia.html#cb10-135" tabindex="-1"></a>\<span class="fu">sqrt</span>{n}\left(\hat{\beta}-\beta\right)</span>
+<span id="cb10-136"><a href="inferencia.html#cb10-136" tabindex="-1"></a>= \left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{\<span class="fu">sqrt</span>{n}}X&#39;\epsilon\right)</span>
+<span id="cb10-137"><a href="inferencia.html#cb10-137" tabindex="-1"></a>\;\;\underset{<span class="kw">d</span>}{\longrightarrow}\;\;</span>
+<span id="cb10-138"><a href="inferencia.html#cb10-138" tabindex="-1"></a>\mathcal{<span class="kw">N</span>}\!\left(0,\; \sigma^{2}Q^{-1}\right),</span>
+<span id="cb10-139"><a href="inferencia.html#cb10-139" tabindex="-1"></a>$$</span>
+<span id="cb10-140"><a href="inferencia.html#cb10-140" tabindex="-1"></a></span>
+<span id="cb10-141"><a href="inferencia.html#cb10-141" tabindex="-1"></a>bajo condiciones regulares (i.i.<span class="kw">d</span>., momentos finitos, exogeneidad). En práctica:</span>
+<span id="cb10-142"><a href="inferencia.html#cb10-142" tabindex="-1"></a></span>
+<span id="cb10-143"><a href="inferencia.html#cb10-143" tabindex="-1"></a>$$</span>
+<span id="cb10-144"><a href="inferencia.html#cb10-144" tabindex="-1"></a>\widehat{Avar}(\hat{\beta})=\hat{\sigma}^{2}(X&#39;X)^{-1}.</span>
+<span id="cb10-145"><a href="inferencia.html#cb10-145" tabindex="-1"></a>$$</span>
+<span id="cb10-146"><a href="inferencia.html#cb10-146" tabindex="-1"></a></span>
+<span id="cb10-147"><a href="inferencia.html#cb10-147" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
+<span id="cb10-148"><a href="inferencia.html#cb10-148" tabindex="-1"></a>Por **TCL <span class="kw">de</span> Lindeberg–Levy**, \(\tfrac{1}{\<span class="fu">sqrt</span>{n}}X&#39;\epsilon \Rightarrow \mathcal{<span class="kw">N</span>}(0,\sigma^2 Q)\). Por **Slutsky** <span class="fu">y</span> \(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\), sigue \(\<span class="fu">sqrt</span>{n}(\hat\beta-\beta)\Rightarrow \mathcal{<span class="kw">N</span>}(0,\sigma^{2}Q^{-1})\).</span>
+<span id="cb10-149"><a href="inferencia.html#cb10-149" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb10-150"><a href="inferencia.html#cb10-150" tabindex="-1"></a></span>
+<span id="cb10-151"><a href="inferencia.html#cb10-151" tabindex="-1"></a>---</span>
+<span id="cb10-152"><a href="inferencia.html#cb10-152" tabindex="-1"></a></span>
+<span id="cb10-153"><a href="inferencia.html#cb10-153" tabindex="-1"></a>## 🧪 Pruebas <span class="kw">de</span> hipótesis en grandes muestras {-}</span>
+<span id="cb10-154"><a href="inferencia.html#cb10-154" tabindex="-1"></a></span>
+<span id="cb10-155"><a href="inferencia.html#cb10-155" tabindex="-1"></a>### Prueba tipo-<span class="ot">$t</span>$ asintótica para un coeficiente {-}</span>
+<span id="cb10-156"><a href="inferencia.html#cb10-156" tabindex="-1"></a></span>
+<span id="cb10-157"><a href="inferencia.html#cb10-157" tabindex="-1"></a>Para <span class="ot">$H_0</span>:\beta_k=\beta_{<span class="kw">k</span>}^0$,</span>
+<span id="cb10-158"><a href="inferencia.html#cb10-158" tabindex="-1"></a></span>
+<span id="cb10-159"><a href="inferencia.html#cb10-159" tabindex="-1"></a>$$</span>
+<span id="cb10-160"><a href="inferencia.html#cb10-160" tabindex="-1"></a>t_k \equiv \frac{\hat{\beta}_k-\beta_k^0}{\<span class="fu">sqrt</span>{\widehat{Avar}(\hat{\beta}_k)}} </span>
+<span id="cb10-161"><a href="inferencia.html#cb10-161" tabindex="-1"></a>= \frac{\hat{\beta}_k-\beta_k^0}{\<span class="fu">sqrt</span>{\hat{\sigma}^2[(X&#39;X)^{-1}]_{kk}}}</span>
+<span id="cb10-162"><a href="inferencia.html#cb10-162" tabindex="-1"></a>\;\;\overset{a}{\sim}\;\; \mathcal{<span class="kw">N</span>}(0,1).</span>
+<span id="cb10-163"><a href="inferencia.html#cb10-163" tabindex="-1"></a>$$</span>
+<span id="cb10-164"><a href="inferencia.html#cb10-164" tabindex="-1"></a></span>
+<span id="cb10-165"><a href="inferencia.html#cb10-165" tabindex="-1"></a>**Regla <span class="kw">de</span> decisión:** Rechazar <span class="ot">$H_0</span>$ si $|t_k|\ge z_{\<span class="kw">alpha</span>/2}$.</span>
+<span id="cb10-166"><a href="inferencia.html#cb10-166" tabindex="-1"></a></span>
+<span id="cb10-167"><a href="inferencia.html#cb10-167" tabindex="-1"></a>### Prueba múltiple (Wald) para <span class="ot">$R</span>\beta=r$ {-}</span>
+<span id="cb10-168"><a href="inferencia.html#cb10-168" tabindex="-1"></a></span>
+<span id="cb10-169"><a href="inferencia.html#cb10-169" tabindex="-1"></a>Para $\#r$ restricciones lineales <span class="ot">$H_0</span>:R\beta=r$,</span>
+<span id="cb10-170"><a href="inferencia.html#cb10-170" tabindex="-1"></a></span>
+<span id="cb10-171"><a href="inferencia.html#cb10-171" tabindex="-1"></a>$$</span>
+<span id="cb10-172"><a href="inferencia.html#cb10-172" tabindex="-1"></a>W \equiv n\,(R\hat{\beta}-<span class="fu">r</span>)&#39;\left[R\,\widehat{Avar}(\hat{\beta})\,R&#39;\right]^{-1}(R\hat{\beta}-<span class="fu">r</span>)</span>
+<span id="cb10-173"><a href="inferencia.html#cb10-173" tabindex="-1"></a>\;\;\overset{a}{\sim}\;\; \chi^{2}_{(\#r)}.</span>
+<span id="cb10-174"><a href="inferencia.html#cb10-174" tabindex="-1"></a>$$</span>
+<span id="cb10-175"><a href="inferencia.html#cb10-175" tabindex="-1"></a></span>
+<span id="cb10-176"><a href="inferencia.html#cb10-176" tabindex="-1"></a>**Regla <span class="kw">de</span> decisión:** Rechazar <span class="ot">$H_0</span>$ si <span class="ot">$W</span>\ge \chi^{2}_{(\#r,\;1-\<span class="kw">alpha</span>)}$.</span>
+<span id="cb10-177"><a href="inferencia.html#cb10-177" tabindex="-1"></a></span>
+<span id="cb10-178"><a href="inferencia.html#cb10-178" tabindex="-1"></a>&gt; 💡 Cuando se mantiene A6 (normalidad), <span class="fu">el</span> análogo finito-muestral es <span class="fu">el</span> estadístico <span class="ot">$F</span>$ exacto. Sin A6, **Wald** es <span class="fu">el</span> camino natural en grandes muestras.</span>
+<span id="cb10-179"><a href="inferencia.html#cb10-179" tabindex="-1"></a></span>
+<span id="cb10-180"><a href="inferencia.html#cb10-180" tabindex="-1"></a>---</span>
+<span id="cb10-181"><a href="inferencia.html#cb10-181" tabindex="-1"></a></span>
+<span id="cb10-182"><a href="inferencia.html#cb10-182" tabindex="-1"></a>### 📐 Intuición geométrica (rápida) {-}</span>
+<span id="cb10-183"><a href="inferencia.html#cb10-183" tabindex="-1"></a></span>
+<span id="cb10-184"><a href="inferencia.html#cb10-184" tabindex="-1"></a>* Consistencia: <span class="fu">el</span> promedio <span class="kw">de</span> “productos” <span class="ot">$x_i</span>\epsilon_i$ se diluye al promediar, por lo que <span class="fu">el</span> término <span class="kw">de</span> <span class="kw">error</span> en $\hat\beta$ **desaparece** al crecer <span class="ot">$n</span>$.</span>
+<span id="cb10-185"><a href="inferencia.html#cb10-185" tabindex="-1"></a>* Normalidad asintótica: la suma <span class="kw">de</span> “pequeños choques” <span class="ot">$x_i</span>\epsilon_i$ escalada por $\<span class="fu">sqrt</span>{n}$ **se aproxima a Normal** (TCL), <span class="fu">y</span> al “deshacer” la proyección con $(X&#39;X)^{-1}$ obtenemos una Normal en <span class="fu">el</span> espacio <span class="kw">de</span> parámetros.</span>
+<span id="cb10-186"><a href="inferencia.html#cb10-186" tabindex="-1"></a></span>
+<span id="cb10-187"><a href="inferencia.html#cb10-187" tabindex="-1"></a>---</span>
+<span id="cb10-188"><a href="inferencia.html#cb10-188" tabindex="-1"></a></span>
+<span id="cb10-189"><a href="inferencia.html#cb10-189" tabindex="-1"></a>## 🧪 Ejemplos prácticos (simulación) {-}</span>
+<span id="cb10-190"><a href="inferencia.html#cb10-190" tabindex="-1"></a></span>
+<span id="cb10-191"><a href="inferencia.html#cb10-191" tabindex="-1"></a>&gt; Idea: generar datos con **errores no normales** (<span class="kw">p</span>.ej., t-Student con 3 g.<span class="ot">l</span>.), estimar MCO <span class="fu">y</span> verificar que los <span class="ot">$t</span>$ se acercan a $\mathcal{<span class="kw">N</span>}(0,1)$ cuando <span class="ot">$n</span>$ crece.</span>
+<span id="cb10-192"><a href="inferencia.html#cb10-192" tabindex="-1"></a></span>
+<span id="cb10-193"><a href="inferencia.html#cb10-193" tabindex="-1"></a>### Stata {-}</span>
+<span id="cb10-194"><a href="inferencia.html#cb10-194" tabindex="-1"></a></span>
+<span id="cb10-195"><a href="inferencia.html#cb10-195" tabindex="-1"></a>```stata</span>
+<span id="cb10-196"><a href="inferencia.html#cb10-196" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb10-197"><a href="inferencia.html#cb10-197" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 12345</span>
+<span id="cb10-198"><a href="inferencia.html#cb10-198" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 5000   <span class="co">// cambia a 500, 2000, 5000 para ver el efecto del tamaño muestral</span></span>
+<span id="cb10-199"><a href="inferencia.html#cb10-199" tabindex="-1"></a></span>
+<span id="cb10-200"><a href="inferencia.html#cb10-200" tabindex="-1"></a><span class="co">// Datos simulados</span></span>
+<span id="cb10-201"><a href="inferencia.html#cb10-201" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb10-202"><a href="inferencia.html#cb10-202" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
+<span id="cb10-203"><a href="inferencia.html#cb10-203" tabindex="-1"></a><span class="kw">gen</span> u  = rt(3)                 <span class="co">// errores con colas pesadas (no normales)</span></span>
+<span id="cb10-204"><a href="inferencia.html#cb10-204" tabindex="-1"></a><span class="fu">scalar</span> b0 = 1</span>
+<span id="cb10-205"><a href="inferencia.html#cb10-205" tabindex="-1"></a><span class="fu">scalar</span> b1 = 0.5</span>
+<span id="cb10-206"><a href="inferencia.html#cb10-206" tabindex="-1"></a><span class="fu">scalar</span> b2 = -0.7</span>
+<span id="cb10-207"><a href="inferencia.html#cb10-207" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = b0 + b1*x1 + b2*<span class="kw">x2</span> + u</span>
+<span id="cb10-208"><a href="inferencia.html#cb10-208" tabindex="-1"></a></span>
+<span id="cb10-209"><a href="inferencia.html#cb10-209" tabindex="-1"></a><span class="co">// Estimación MCO</span></span>
+<span id="cb10-210"><a href="inferencia.html#cb10-210" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb10-211"><a href="inferencia.html#cb10-211" tabindex="-1"></a></span>
+<span id="cb10-212"><a href="inferencia.html#cb10-212" tabindex="-1"></a><span class="co">// Guardar t de x1 para “chequeo” repetido (bootstrap de Monte Carlo rápido)</span></span>
+<span id="cb10-213"><a href="inferencia.html#cb10-213" tabindex="-1"></a><span class="kw">tempname</span> mem</span>
+<span id="cb10-214"><a href="inferencia.html#cb10-214" tabindex="-1"></a><span class="kw">postfile</span> <span class="ot">`mem&#39;</span> t_x1 <span class="kw">using</span> tvals.dta, <span class="kw">replace</span></span>
+<span id="cb10-215"><a href="inferencia.html#cb10-215" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">r</span>=1/1000 {</span>
+<span id="cb10-216"><a href="inferencia.html#cb10-216" tabindex="-1"></a>    <span class="kw">preserve</span></span>
+<span id="cb10-217"><a href="inferencia.html#cb10-217" tabindex="-1"></a>    <span class="kw">bsample</span></span>
+<span id="cb10-218"><a href="inferencia.html#cb10-218" tabindex="-1"></a>    <span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb10-219"><a href="inferencia.html#cb10-219" tabindex="-1"></a>    <span class="kw">post</span> <span class="ot">`mem&#39;</span> (_b[x1]/_se[x1])</span>
+<span id="cb10-220"><a href="inferencia.html#cb10-220" tabindex="-1"></a>    <span class="kw">restore</span></span>
+<span id="cb10-221"><a href="inferencia.html#cb10-221" tabindex="-1"></a>}</span>
+<span id="cb10-222"><a href="inferencia.html#cb10-222" tabindex="-1"></a><span class="kw">postclose</span> <span class="ot">`mem&#39;</span></span>
+<span id="cb10-223"><a href="inferencia.html#cb10-223" tabindex="-1"></a></span>
+<span id="cb10-224"><a href="inferencia.html#cb10-224" tabindex="-1"></a><span class="co">// Distribución aproximada de t (debería tender a N(0,1))</span></span>
+<span id="cb10-225"><a href="inferencia.html#cb10-225" tabindex="-1"></a><span class="kw">use</span> tvals.dta, <span class="kw">clear</span></span>
+<span id="cb10-226"><a href="inferencia.html#cb10-226" tabindex="-1"></a><span class="kw">sum</span> t_x1</span>
+<span id="cb10-227"><a href="inferencia.html#cb10-227" tabindex="-1"></a><span class="kw">kdensity</span> t_x1</span></code></pre></div>
+<p><strong>Interpretación:</strong> con <span class="math inline">\(n\)</span> grande, la distribución empírica de <span class="math inline">\(t\)</span> para <span class="math inline">\(x_1\)</span> se acerca a <span class="math inline">\(\mathcal{N}(0,1)\)</span> pese a que <span class="math inline">\(u\)</span> no es normal.</p>
+<hr />
+<div id="r" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="inferencia.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="inferencia.html#cb11-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb11-2"><a href="inferencia.html#cb11-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># prueba con 500, 2000, 5000</span></span>
+<span id="cb11-3"><a href="inferencia.html#cb11-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-4"><a href="inferencia.html#cb11-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-5"><a href="inferencia.html#cb11-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rt</span>(n, <span class="at">df =</span> <span class="dv">3</span>)  <span class="co"># no normal</span></span>
+<span id="cb11-6"><a href="inferencia.html#cb11-6" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">1</span>; b1 <span class="ot">&lt;-</span> <span class="fl">0.5</span>; b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.7</span></span>
+<span id="cb11-7"><a href="inferencia.html#cb11-7" tabindex="-1"></a>y  <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> u</span>
+<span id="cb11-8"><a href="inferencia.html#cb11-8" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="inferencia.html#cb11-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb11-10"><a href="inferencia.html#cb11-10" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb11-11"><a href="inferencia.html#cb11-11" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="inferencia.html#cb11-12" tabindex="-1"></a><span class="co"># Monte Carlo para t de x1</span></span>
+<span id="cb11-13"><a href="inferencia.html#cb11-13" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb11-14"><a href="inferencia.html#cb11-14" tabindex="-1"></a>tvals <span class="ot">&lt;-</span> <span class="fu">numeric</span>(R)</span>
+<span id="cb11-15"><a href="inferencia.html#cb11-15" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb11-16"><a href="inferencia.html#cb11-16" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-17"><a href="inferencia.html#cb11-17" tabindex="-1"></a>  fitb <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[idx] <span class="sc">~</span> x1[idx] <span class="sc">+</span> x2[idx])</span>
+<span id="cb11-18"><a href="inferencia.html#cb11-18" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">summary</span>(fitb)<span class="sc">$</span>coefficients</span>
+<span id="cb11-19"><a href="inferencia.html#cb11-19" tabindex="-1"></a>  tvals[r] <span class="ot">&lt;-</span> s[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;t value&quot;</span>]</span>
+<span id="cb11-20"><a href="inferencia.html#cb11-20" tabindex="-1"></a>}</span>
+<span id="cb11-21"><a href="inferencia.html#cb11-21" tabindex="-1"></a><span class="fu">mean</span>(tvals); <span class="fu">sd</span>(tvals)</span>
+<span id="cb11-22"><a href="inferencia.html#cb11-22" tabindex="-1"></a><span class="fu">hist</span>(tvals, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">main =</span> <span class="st">&quot;t de x1 (bootstrap)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<p><strong>Interpretación:</strong> la media de los <span class="math inline">\(t\)</span> se acerca a 0 y su desviación estándar a 1 a medida que <span class="math inline">\(n\)</span> crece.</p>
+<hr />
+</div>
+<div id="python" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="inferencia.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="inferencia.html#cb12-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="inferencia.html#cb12-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb12-3"><a href="inferencia.html#cb12-3" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="inferencia.html#cb12-4" tabindex="-1"></a>np.random.seed(<span class="dv">12345</span>)</span>
+<span id="cb12-5"><a href="inferencia.html#cb12-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># prueba con 500, 2000, 5000</span></span>
+<span id="cb12-6"><a href="inferencia.html#cb12-6" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb12-7"><a href="inferencia.html#cb12-7" tabindex="-1"></a>x2 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb12-8"><a href="inferencia.html#cb12-8" tabindex="-1"></a>u  <span class="op">=</span> np.random.standard_t(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>n)  <span class="co"># no normal</span></span>
+<span id="cb12-9"><a href="inferencia.html#cb12-9" tabindex="-1"></a>b0, b1, b2 <span class="op">=</span> <span class="fl">1.0</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.7</span></span>
+<span id="cb12-10"><a href="inferencia.html#cb12-10" tabindex="-1"></a>y <span class="op">=</span> b0 <span class="op">+</span> b1<span class="op">*</span>x1 <span class="op">+</span> b2<span class="op">*</span>x2 <span class="op">+</span> u</span>
+<span id="cb12-11"><a href="inferencia.html#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="inferencia.html#cb12-12" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([x1, x2])</span>
+<span id="cb12-13"><a href="inferencia.html#cb12-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb12-14"><a href="inferencia.html#cb12-14" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb12-15"><a href="inferencia.html#cb12-15" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span>
+<span id="cb12-16"><a href="inferencia.html#cb12-16" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="inferencia.html#cb12-17" tabindex="-1"></a><span class="co"># Monte Carlo rápido para t de x1 (bootstrap)</span></span>
+<span id="cb12-18"><a href="inferencia.html#cb12-18" tabindex="-1"></a>R <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb12-19"><a href="inferencia.html#cb12-19" tabindex="-1"></a>tvals <span class="op">=</span> []</span>
+<span id="cb12-20"><a href="inferencia.html#cb12-20" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
+<span id="cb12-21"><a href="inferencia.html#cb12-21" tabindex="-1"></a>    idx <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n, n)</span>
+<span id="cb12-22"><a href="inferencia.html#cb12-22" tabindex="-1"></a>    mb <span class="op">=</span> sm.OLS(y[idx], X[idx,:]).fit()</span>
+<span id="cb12-23"><a href="inferencia.html#cb12-23" tabindex="-1"></a>    tvals.append(mb.tvalues[<span class="dv">1</span>])  <span class="co"># índice 1 corresponde a x1</span></span>
+<span id="cb12-24"><a href="inferencia.html#cb12-24" tabindex="-1"></a>tvals <span class="op">=</span> np.array(tvals)</span>
+<span id="cb12-25"><a href="inferencia.html#cb12-25" tabindex="-1"></a><span class="bu">print</span>(tvals.mean(), tvals.std())</span></code></pre></div>
+<p><strong>Interpretación:</strong> aun con colas pesadas, el <strong>TCL</strong> “salva” la inferencia: <span class="math inline">\(t\)</span> es aproximadamente normal para <span class="math inline">\(n\)</span> grande.</p>
+<hr />
+</div>
+</div>
+<div id="visualizaciones-sugeridas" class="section level2 unnumbered hasAnchor">
+<h2>🖼️ Visualizaciones sugeridas<a href="inferencia.html#visualizaciones-sugeridas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Figura 1.</strong> Densidad de <span class="math inline">\(t\)</span> simulados vs. <span class="math inline">\(\mathcal{N}(0,1)\)</span> (código anterior).</li>
+<li><strong>Figura 2.</strong> Q-Q plot de <span class="math inline">\(t\)</span> simulados contra cuantiles normales.</li>
+</ul>
+<p>En R Markdown puedes crear las figuras con <code>ggplot2</code> o incluir imágenes pre-generadas con:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="inferencia.html#cb13-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/t_density_vs_normal.png&quot;</span>)</span></code></pre></div>
+<hr />
+</div>
+<div id="notas-prácticas-de-inferencia" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Notas prácticas de inferencia<a href="#notas-pr%C3%A1cticas-de-inferencia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Sin normalidad exacta (sin A6), usa <strong>errores robustos</strong> y <strong>Wald</strong> en grandes muestras.</li>
+<li><strong>Muestras pequeñas</strong> con colas pesadas: los niveles de significancia efectivos pueden distorsionarse; considera transformaciones, robustez, o métodos re-muestreo (bootstrap con cuidado).</li>
+<li>Si hay <strong>heterocedasticidad</strong> o <strong>correlación en errores</strong>, reemplaza <span class="math inline">\(\hat{\sigma}^2 (X&#39;X)^{-1}\)</span> por una <strong>matriz robusta</strong> (White, HC; Newey–West, etc.).</li>
+</ul>
+<hr />
+</div>
+<div id="demostraciones-formales-resumen" class="section level2 unnumbered hasAnchor">
+<h2>🔎 Demostraciones formales (resumen)<a href="inferencia.html#demostraciones-formales-resumen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-10" class="theorem"><strong>Theorem 7.3  </strong></span><strong>Teorema (Consistencia de MCO).</strong>
+Bajo A1–A3, A2 (exogeneidad estricta), y condiciones de regularidad (momentos finitos y <em>LLN</em> aplicable), se cumple <span class="math inline">\(plim(\hat{\beta})=\beta\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-11" class="proof"><em>Proof</em>. </span>Ver demostración en la sección de consistencia: descomposición en dos términos y uso de LLN + continuidad de la inversión + Slutsky.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-12" class="theorem"><strong>Theorem 7.4  </strong></span><strong>Teorema (Normalidad asintótica de MCO).</strong>
+Si, además, el TCL aplica a <span class="math inline">\(\tfrac{1}{\sqrt{n}}X&#39;\epsilon\)</span>, entonces <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\Rightarrow \mathcal{N}(0,\sigma^2 Q^{-1})\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-13" class="proof"><em>Proof</em>. </span>Aplicación directa de TCL + Slutsky. La varianza asintótica se estima consistentemente con <span class="math inline">\(\hat{\sigma}^2(X&#39;X)^{-1}\)</span>.</p>
+</div>
+<hr />
+</div>
+<div id="conclusiones-clave" class="section level2 unnumbered hasAnchor">
+<h2>✅ Conclusiones clave<a href="inferencia.html#conclusiones-clave" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Consistencia</strong>: <span class="math inline">\(\hat\beta\to_p \beta\)</span> sin requerir normalidad.</li>
+<li><strong>Normalidad asintótica</strong>: habilita pruebas <span class="math inline">\(t\)</span> y <strong>Wald</strong> aun con errores no normales.</li>
+<li><strong>Práctica aplicada</strong>: usa matrices de varianzas robustas cuando haya heterocedasticidad/autocorrelación.</li>
+</ul>
+<hr />
+<div id="preguntas-de-repaso-7" class="section level3 unnumbered hasAnchor box-repaso">
+<h3>📘 Preguntas de repaso<a href="inferencia.html#preguntas-de-repaso-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Explique la diferencia entre <strong>insesgamiento</strong> (finito muestral) y <strong>consistencia</strong> (asintótica). Dé un ejemplo donde un estimador sea sesgado pero consistente.</li>
+<li>Muestre que si <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;X\big)=Q\)</span> y <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;\epsilon\big)=0\)</span>, entonces <span class="math inline">\(plim(\hat\beta)=\beta\)</span>. ¿Qué condiciones hacen plausible cada límite?</li>
+<li>Derive la <strong>varianza asintótica</strong> de <span class="math inline">\(\hat\beta\)</span> y explique cómo se estima con datos. ¿Cuándo usarías una versión <strong>robusta</strong>?</li>
+<li>Para <span class="math inline">\(H_0:\beta_k=\beta_k^0\)</span>, escriba el estadístico <span class="math inline">\(t\)</span> asintótico, su distribución límite y la regla de decisión.</li>
+<li>Para restricciones múltiples <span class="math inline">\(R\beta=r\)</span>, derive el <strong>Wald</strong> y muestre que <span class="math inline">\(W\Rightarrow \chi^2_{\#r}\)</span>. ¿Cómo relacionar esto con un <span class="math inline">\(F\)</span> en grandes muestras?</li>
+</ol>
+</div>
+<hr />
+</div>
+<div id="código-mínimo-reproducible-mco-wald" class="section level2 unnumbered hasAnchor">
+<h2>🧰 Código mínimo reproducible (MCO + Wald)<a href="#c%C3%B3digo-m%C3%ADnimo-reproducible-mco-wald" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stata" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="inferencia.html#stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="inferencia.html#cb14-1" tabindex="-1"></a>* Estimación <span class="fu">y</span> matriz robusta</span>
+<span id="cb14-2"><a href="inferencia.html#cb14-2" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">vce</span>(<span class="kw">robust</span>)</span>
+<span id="cb14-3"><a href="inferencia.html#cb14-3" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="inferencia.html#cb14-4" tabindex="-1"></a>* Wald para R*beta = <span class="fu">r</span> (ejemplo: beta_x1 = 0 <span class="fu">y</span> beta_x2 = -0.7)</span>
+<span id="cb14-5"><a href="inferencia.html#cb14-5" tabindex="-1"></a><span class="kw">test</span> (x1 = 0) (<span class="kw">x2</span> = -0.7)</span></code></pre></div>
+</div>
+<div id="r-1" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="inferencia.html#r-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="inferencia.html#cb15-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
+<span id="cb15-2"><a href="inferencia.html#cb15-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb15-3"><a href="inferencia.html#cb15-3" tabindex="-1"></a><span class="fu">coeftest</span>(fit, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))  <span class="co"># t robustos</span></span>
+<span id="cb15-4"><a href="inferencia.html#cb15-4" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="inferencia.html#cb15-5" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
+<span id="cb15-6"><a href="inferencia.html#cb15-6" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb15-7"><a href="inferencia.html#cb15-7" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.7</span>)</span>
+<span id="cb15-8"><a href="inferencia.html#cb15-8" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit); V <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>)</span>
+<span id="cb15-9"><a href="inferencia.html#cb15-9" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">t</span>(R<span class="sc">%*%</span>b <span class="sc">-</span> r) <span class="sc">%*%</span> <span class="fu">solve</span>(R<span class="sc">%*%</span>V<span class="sc">%*%</span><span class="fu">t</span>(R)) <span class="sc">%*%</span> (R<span class="sc">%*%</span>b <span class="sc">-</span> r)</span>
+<span id="cb15-10"><a href="inferencia.html#cb15-10" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(W, <span class="at">df =</span> <span class="dv">2</span>)</span>
+<span id="cb15-11"><a href="inferencia.html#cb15-11" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Wald =</span> W[<span class="dv">1</span>,<span class="dv">1</span>], <span class="at">df =</span> <span class="dv">2</span>, <span class="at">p.value =</span> pval)</span></code></pre></div>
+</div>
+<div id="python-1" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="inferencia.html#python-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="inferencia.html#cb16-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb16-2"><a href="inferencia.html#cb16-2" tabindex="-1"></a>y <span class="op">=</span> y  <span class="co"># define tus datos</span></span>
+<span id="cb16-3"><a href="inferencia.html#cb16-3" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(np.column_stack([x1, x2]))</span>
+<span id="cb16-4"><a href="inferencia.html#cb16-4" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)  <span class="co"># robusto</span></span>
+<span id="cb16-5"><a href="inferencia.html#cb16-5" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
+<span id="cb16-6"><a href="inferencia.html#cb16-6" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="inferencia.html#cb16-7" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
+<span id="cb16-8"><a href="inferencia.html#cb16-8" tabindex="-1"></a>R <span class="op">=</span> np.array([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>]])</span>
+<span id="cb16-9"><a href="inferencia.html#cb16-9" tabindex="-1"></a>r <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="op">-</span><span class="fl">0.7</span>])</span>
+<span id="cb16-10"><a href="inferencia.html#cb16-10" tabindex="-1"></a>b <span class="op">=</span> fit.params.values</span>
+<span id="cb16-11"><a href="inferencia.html#cb16-11" tabindex="-1"></a>V <span class="op">=</span> fit.cov_params().values</span>
+<span id="cb16-12"><a href="inferencia.html#cb16-12" tabindex="-1"></a>W <span class="op">=</span> (R<span class="op">@</span>b <span class="op">-</span> r).T <span class="op">@</span> np.linalg.inv(R<span class="op">@</span>V<span class="op">@</span>R.T) <span class="op">@</span> (R<span class="op">@</span>b <span class="op">-</span> r)</span>
+<span id="cb16-13"><a href="inferencia.html#cb16-13" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2</span>
+<span id="cb16-14"><a href="inferencia.html#cb16-14" tabindex="-1"></a>pval <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> chi2.cdf(W, df<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb16-15"><a href="inferencia.html#cb16-15" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;Wald&quot;</span>: <span class="bu">float</span>(W), <span class="st">&quot;df&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;p.value&quot;</span>: <span class="bu">float</span>(pval)})</span></code></pre></div>
+<hr />
+<div class="box-cerebro">
+<p><b>Mensaje clave:</b> Aun sin normalidad exacta, la <em>consistencia</em> y la <em>normalidad asintótica</em> permiten inferencia válida en grandes muestras. En aplicaciones, usa <b>errores robustos</b> y el <b>test de Wald</b> para restricciones múltiples.</p>
+</div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="aspectos-algebraicos-de-la-solución-de-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/09-NormAs.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

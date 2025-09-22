@@ -156,7 +156,7 @@ Demostrar que bajo el supuesto de regresores NO estocásticos la varianza del es
     $Var[\hat{\beta}]=\sigma^{2}(X'X)^{-1}$
 
 
-## Propiedad de mejor estimador lineal insesgado (MELI)
+## Propiedad de mejor estimador lineal insesgado (MELI)  {-}
 
 Se dice que $\hat{\beta}$ es el mejor estimador lineal insesgado
 (MELI)[^4] de $\beta$ si cumple las siguientes condiciones:
@@ -170,7 +170,7 @@ Se dice que $\hat{\beta}$ es el mejor estimador lineal insesgado
 3.  **Es eficiente:** dentro de la clase de todos los estimadores
     lineales insesgados $\hat{\beta}$ tiene la varianza mínima.
 
-## Teorema de Gauss Markov
+## Teorema de Gauss Markov {-}
 
 El teorema de Gauss Markov justifica la utilización de los estimadores
 mínimos cuadráticos, ya que indica que estos estimadores son los
@@ -240,14 +240,26 @@ Esto es cierto ya que $DD'>0$.
 
 ---
 
-## 🧠 Revisa tu comprensión
+<div class="box-repaso">
 
-Completa el siguiente quiz autocalificable para reforzar lo aprendido en este capítulo:
+### 📘 Preguntas de repaso {-}
 
-[![Ir al Quiz del Capítulo X](https://img.shields.io/badge/Quiz-Cap%C3%ADtulo%20X-blue?style=for-the-badge&logo=microsoftforms)](https://forms.office.com/Pages/ResponsePage.aspx?id=REEMPLAZA_CON_LINK)
+1. ¿Cuáles son las hipótesis y las conclusiones del **teorema de Gauss-Markov**?  
+   Explique por qué cada una de las hipótesis es importante y qué significa que un estimador sea **lineal**, **insesgado** y **mejor**.
 
-💡 Este quiz es obligatorio. Si no lo completas, recibirás un recordatorio automático por correo o Teams.
+2. Para cada uno de los siguientes casos, especifique qué hipótesis se está violando y cuáles son las consecuencias sobre las conclusiones del teorema de Gauss-Markov:
+   
+   1. \( E\big[(y_{i}-\bar{y})^{2}\big] = X_{i}^{2} \)  
+   2. \( X_{i} = \big[ 1, X_{1i}, X_{2i}, X_{1i} \cdot X_{2i} \big] \)  
+   3. \( X_{i} = \big[ 1, X_{1i}, X_{2i}, X_{1i} - X_{2i} \big] \)  
+   4. \( U_{i} \) se distribuye lognormal con media \( \mu \) y varianza \( \sigma_{U}^{2} \)  
+   5. \( U_{i} = Z_{i} + \kappa_{i} \), con  
+      \( E[Z_{i} \mid X_{i}] = c \) y \( E[\kappa_{i} \mid X_{i}] = 0 \)  
 
----
+3. ¿Un cambio en la **unidad de medida** de la variable dependiente modifica el coeficiente de determinación \( R^{2} \)?  
+   ¿Un cambio en la unidad de medida de los regresores afecta el \( R^{2} \)?  
+   *Ayuda*: compruebe si el cambio afecta el numerador y/o el denominador en la definición de \( R^{2} \).
+
+</div>
 
 

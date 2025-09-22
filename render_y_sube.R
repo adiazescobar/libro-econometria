@@ -30,3 +30,4 @@ system("git push origin main")
 # PASO 6: Confirmación final ----------------------------------------------------------
 cat("✅ ¡Listo! Libro actualizado y subido a GitHub Pages.\n")
 cat("🌐 Visítalo en: https://adiazescobar.github.io/libro-econometria\n")
+

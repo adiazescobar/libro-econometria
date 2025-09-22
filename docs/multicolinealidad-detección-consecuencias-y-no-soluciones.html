@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Supuestos de MCO | Econometría II</title>
+  <title>Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Supuestos de MCO | Econometría II" />
+  <meta property="og:title" content="Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Supuestos de MCO | Econometría II" />
+  <meta name="twitter:title" content="Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="repaso-de-matrices.html"/>
-<link rel="next" href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"/>
+<link rel="prev" href="inferencia.html"/>
+
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -197,7 +197,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="04-Supuestos.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
+<li class="chapter" data-level="2" data-path="10-Multico.html"><a href="#regresi%C3%B3n-lineal"><i class="fa fa-check"></i><b>2</b> Regresión lineal</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#objetivo-del-cap%C3%ADtulo"><i class="fa fa-check"></i>🎯 Objetivo del capítulo</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-significa-encontrar-la-mejor-l%C3%ADnea"><i class="fa fa-check"></i>🔍 ¿Qué significa encontrar la “mejor línea”?</a>
@@ -286,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="04-Supuestos.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<li class="chapter" data-level="5" data-path="10-Multico.html"><a href="#regresi%C3%B3n-por-m%C3%ADnimos-cuadrados-ordinarios-mco"><i class="fa fa-check"></i><b>5</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
 <ul>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
@@ -304,7 +304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
-<li class="chapter" data-level="5.0.1" data-path="04-Supuestos.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+<li class="chapter" data-level="5.0.1" data-path="10-Multico.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
@@ -314,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="04-Supuestos.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
+<li class="chapter" data-level="6" data-path="10-Multico.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
 <ul>
 <li class="chapter" data-level="" data-path=""><a href="#matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Matrices de Proyección</a>
 <ul>
@@ -334,12 +334,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path=""><a href="#demostraci%C3%B3n-formal"><i class="fa fa-check"></i>Demostración Formal</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#ejemplo-pr%C3%A1ctico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i>🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python</a>
 <ul>
-<li class="chapter" data-level="6.0.1" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
-<li class="chapter" data-level="6.0.2" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
-<li class="chapter" data-level="6.0.3" data-path="04-Supuestos.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
+<li class="chapter" data-level="6.0.1" data-path="10-Multico.html"><a href="#c%C3%B3digo-en-stata"><i class="fa fa-check"></i><b>6.0.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="6.0.2" data-path="10-Multico.html"><a href="#c%C3%B3digo-en-r"><i class="fa fa-check"></i><b>6.0.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="6.0.3" data-path="10-Multico.html"><a href="#c%C3%B3digo-en-python"><i class="fa fa-check"></i><b>6.0.3</b> 🔴 Código en Python</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="04-Supuestos.html"><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>7</b> Aspectos algebraicos de la solución de MCO</a>
+<li class="chapter" data-level="7" data-path="10-Multico.html"><a href="#aspectos-algebraicos-de-la-soluci%C3%B3n-de-mco"><i class="fa fa-check"></i><b>7</b> Aspectos algebraicos de la solución de MCO</a>
 <ul>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html"><i class="fa fa-check"></i>Propiedades del estimador de MCO en muestras finitas</a></li>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i>Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
@@ -451,370 +451,386 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="supuestos-de-mco" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">4</span> Supuestos de MCO<a href="supuestos-de-mco.html#supuestos-de-mco" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="proceso-generador-de-datos" class="section level2 unnumbered hasAnchor">
-<h2>Proceso Generador de Datos<a href="supuestos-de-mco.html#proceso-generador-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El modelo de regresión lineal parte de la siguiente estructura:</p>
-<p><span class="math display">\[
-Y_i = X_i \beta + \epsilon_i
-\]</span></p>
-<p>Donde:
-- <span class="math inline">\(Y_i\)</span>: variable dependiente (observación i)
-- <span class="math inline">\(X_i\)</span>: vector fila con los regresores de la observación i
-- <span class="math inline">\(\beta\)</span>: vector de parámetros poblacionales
-- <span class="math inline">\(\epsilon_i\)</span>: error poblacional (componentes no observables)
-- <span class="math inline">\(i = 1, 2, ..., n\)</span></p>
-<blockquote>
-<p>Esta formulación describe el proceso generador de datos (PGD), base para los supuestos del MCO.</p>
-</blockquote>
-</div>
-<div id="tabla-resumen-de-supuestos" class="section level2 unnumbered hasAnchor">
-<h2>Tabla Resumen de Supuestos<a href="supuestos-de-mco.html#tabla-resumen-de-supuestos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<colgroup>
-<col width="21%" />
-<col width="31%" />
-<col width="46%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Supuesto</th>
-<th>Notación</th>
-<th>Implicación principal</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>S1. Linealidad en los parámetros</td>
-<td><span class="math inline">\(y_i = X_i \beta + \epsilon_i\)</span></td>
-<td>El modelo es lineal en los parámetros</td>
-</tr>
-<tr class="even">
-<td>S2. Exogeneidad estricta</td>
-<td><span class="math inline">\(\mathbb{E}[\epsilon_i \mid X] = 0\)</span></td>
-<td>No hay correlación entre regresores y error</td>
-</tr>
-<tr class="odd">
-<td>S3. Colinealidad imperfecta</td>
-<td><span class="math inline">\(\text{Rango}(X) = K\)</span></td>
-<td>No hay multicolinealidad perfecta; modelo identificable</td>
-</tr>
-<tr class="even">
-<td>S4. Perturbaciones esféricas</td>
-<td><span class="math inline">\(\text{Var}(\epsilon_i \mid X) = \sigma^2\)</span>, <span class="math inline">\(\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0\)</span></td>
-<td>Homocedasticidad y no autocorrelación</td>
-</tr>
-<tr class="odd">
-<td>S5. Regresores no estocásticos</td>
-<td><span class="math inline">\(X\)</span> es fija en repetidas muestras</td>
-<td>Simplifica demostraciones teóricas</td>
-</tr>
-<tr class="even">
-<td>S6. Normalidad</td>
-<td><span class="math inline">\(\epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I)\)</span></td>
-<td>Solo necesaria para inferencia exacta</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="s1.-linealidad-en-los-parámetros" class="section level2 unnumbered hasAnchor">
-<h2>S1. Linealidad en los Parámetros<a href="#s1.-linealidad-en-los-par%C3%A1metros" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El valor esperado de <span class="math inline">\(y\)</span> está relacionado linealmente con los regresores:</p>
-<p><span class="math display">\[
-\mathbb{E}[Y_i \mid X_i] = X_i \beta
-\]</span></p>
-<p>Esto permite distintas formas funcionales (lineales en parámetros):</p>
+<div id="multicolinealidad-detección-consecuencias-y-no-soluciones" class="section level1 unnumbered hasAnchor">
+<h1>Multicolinealidad: detección, consecuencias y (no) soluciones<a href="#multicolinealidad-detecci%C3%B3n-consecuencias-y-no-soluciones" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objetivo-y-motivación" class="section level2 unnumbered hasAnchor">
+<h2>🎯 Objetivo y motivación<a href="#objetivo-y-motivaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En este capítulo estudiamos el supuesto <strong>A3. Colinealidad imperfecta</strong> <span class="math inline">\((\mathrm{rango}(X)=K)\)</span>, por qué es necesario para identificar MCO y qué ocurre cuando las variables explicativas están <strong>altamente correlacionadas</strong> (multicolinealidad aproximada). Verás:</p>
 <ul>
-<li>Lineal: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_i + \epsilon_i\)</span></li>
-<li>Log-log: <span class="math inline">\(\log(y_i) = \beta_1 + \beta_2 \log(x_i) + \epsilon_i\)</span></li>
-<li>Log-lineal: <span class="math inline">\(\log(y_i) = \beta_1 + \beta_2 x_i + \epsilon_i\)</span></li>
-<li>Lineal-log: <span class="math inline">\(y_i = \beta_1 + \beta_2 \log(x_i) + \epsilon_i\)</span></li>
-<li>Cuadrático: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_i + \beta_3 x_i^2 + \epsilon_i\)</span></li>
-<li>Interactuado: <span class="math inline">\(y_i = \beta_1 + \beta_2 x_1 + \beta_3 x_2 + \beta_4(x_1 x_2) + \epsilon_i\)</span></li>
+<li>Implicaciones algebraicas: existencia de <span class="math inline">\((X&#39;X)^{-1}\)</span> y estabilidad numérica.</li>
+<li>Consecuencias estadísticas: <strong>varianza inflada</strong>, <strong>estadísticos <span class="math inline">\(t\)</span></strong> pequeños, <strong>IC</strong> amplios.</li>
+<li>Cómo <strong>detectar</strong> multicolinealidad (correlaciones, <span class="math inline">\(R^2\)</span> auxiliares, VIF).</li>
+<li>Qué <strong>no</strong> hacer (y por qué): eliminar variables o transformar puede ser peor que la enfermedad.</li>
+<li>Ejemplos prácticos en <strong>Stata</strong>, <strong>R</strong> y <strong>Python</strong>.</li>
 </ul>
+<hr />
 </div>
-<div id="s2.-exogeneidad-estricta" class="section level2 unnumbered hasAnchor">
-<h2>S2. Exogeneidad Estricta<a href="supuestos-de-mco.html#s2.-exogeneidad-estricta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="colinealidad-imperfecta-idea-algebraica" class="section level2 unnumbered hasAnchor">
+<h2>📚 Colinealidad imperfecta: idea algebraica<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#colinealidad-imperfecta-idea-algebraica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="definición-y-condición-de-rango" class="section level3 unnumbered hasAnchor">
+<h3>Definición y condición de rango<a href="#definici%C3%B3n-y-condici%C3%B3n-de-rango" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considera</p>
 <p><span class="math display">\[
-\mathbb{E}[\epsilon_i \mid X] = 0
+y=\beta_{1}+\beta_{2}X_{2}+\cdots+\beta_{K}X_{K}+\epsilon,\qquad
+y=X\beta+\epsilon.
 \]</span></p>
+<p>El supuesto A3 implica que <span class="math inline">\(X\in\mathbb{R}^{n\times K}\)</span> tiene <strong>rango completo</strong> <span class="math inline">\((\mathrm{rango}(X)=K)\)</span>. Entonces:</p>
+<p><span class="math display">\[
+X&#39;X \text{ es invertible},\quad |X&#39;X|\neq 0,\quad (X&#39;X)^{-1}\;\text{existe}.
+\]</span></p>
+<p>Si hay <strong>dependencia lineal exacta</strong> entre columnas de <span class="math inline">\(X\)</span>, <span class="math inline">\(|X&#39;X|=0\)</span> y <strong>no</strong> podemos calcular <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>.</p>
 <blockquote>
-<p>Esto implica que no existe relación sistemática entre los regresores y el término de error.</p>
+<p>Con <strong>multicolinealidad aproximada</strong>, <span class="math inline">\(|X&#39;X|\)</span> es <strong>muy pequeño</strong> (mal condicionado): se puede invertir, pero los errores estándar explotan y la inferencia se degrada.</p>
 </blockquote>
-<p>Ejemplos:</p>
-<ul>
-<li><span class="math inline">\(\mathbb{E}[u \mid X = 1] = 0\)</span></li>
-<li><span class="math inline">\(\mathbb{E}[u \mid X_2 = \text{Mujer}] = 0\)</span></li>
-</ul>
-<p>Demostración (Ley de la esperanza iterada):</p>
+<p><strong>Ejemplo (intuición numérica).</strong> Si</p>
 <p><span class="math display">\[
-\mathbb{E}[\epsilon_i] = \mathbb{E}\left[ \mathbb{E}[\epsilon_i \mid X] \right] = \mathbb{E}[0] = 0
+X=\begin{bmatrix}
+1 &amp; 3 &amp; 7\\
+1 &amp; 2 &amp; 5\\
+1 &amp; 4 &amp; 9\\
+\vdots\\
+1 &amp; 6 &amp; 13.5
+\end{bmatrix},
 \]</span></p>
-<p>Equivalencia:
-Si <span class="math inline">\(\mathbb{E}[\epsilon_i \mid X] = 0\)</span>, entonces:</p>
-<p><span class="math display">\[
-\text{Cov}(\epsilon_i, X_j) = 0 \quad \forall j
-\]</span></p>
-<p>Pero qué quiere decir?</p>
-<p>Una forma de pensar en esta definición es:</p>
-<blockquote>
-<p>Para <em>cualquier</em> valor de <span class="math inline">\(X\)</span>, el valor esperado de los residuos debe ser igual a cero</p>
-</blockquote>
-<ul>
-<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X=1 \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X=100 \right]=0\)</span></p></li>
-<li><p><em>E.g.</em>, <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Mujer} \right]=0\)</span> <em>and</em> <span class="math inline">\(\mathop{E}\left[ u \mid X_2=\text{Hombre} \right]=0\)</span></p></li>
-<li><p>Note: <span class="math inline">\(\mathop{E}\left[ u \mid X \right]=0\)</span> es más restrictivo que <span class="math inline">\(\mathop{E}\left[ u \right]=0\)</span></p></li>
-</ul>
-<p>Graficamente…</p>
-<p>Exogeneidad Estricta se Incumple, <em>i.e.</em>, <span class="math inline">\(\mathop{E}\left[ \epsilon \mid X \right] \neq 0\)</span></p>
+<p>las dos últimas columnas están casi en proporción: <span class="math inline">\(|X&#39;X|\)</span> resulta <strong>cercano a 0</strong>.</p>
+<hr />
 </div>
-<div id="s3.-colinealidad-imperfecta" class="section level2 unnumbered hasAnchor">
-<h2>S3. Colinealidad Imperfecta<a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="modelo-particionado-y-consecuencias-de-la-multicolinealidad" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Modelo particionado y consecuencias de la multicolinealidad<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Escribe el modelo como</p>
 <p><span class="math display">\[
-\text{Rango}(X) = K
+y=X_r\beta_r + X_s\beta_s + \epsilon,\qquad X=[X_r\;X_s].
 \]</span></p>
-<p>Para que el modelo esté identificado, debe cumplirse que el número de observaciones sea mayor que el número de regresores: <span class="math inline">\(n &gt; K\)</span>.</p>
-<p>Violaciones comunes:</p>
+<p>Define la matriz <strong>aniquiladora</strong> respecto a <span class="math inline">\(X_s\)</span>:</p>
+<p><span class="math display">\[
+M_s = I_n - X_s(X_s&#39;X_s)^{-1}X_s&#39;.
+\]</span></p>
+<p>Premultiplicando el modelo por <span class="math inline">\(M_s\)</span> y usando que <span class="math inline">\(M_s X_s=0\)</span>:</p>
+<p><span class="math display">\[
+M_s y = M_s X_r \beta_r + \epsilon.
+\]</span></p>
+<p>Ecuaciones normales (premultiplicando por <span class="math inline">\(X_r&#39;\)</span>):</p>
+<p><span class="math display">\[
+X_r&#39; M_s y = X_r&#39; M_s X_r \hat{\beta}_r.
+\]</span></p>
+<p>Por tanto,</p>
+<p><span class="math display">\[
+\boxed{\;\hat{\beta}_r=(X_r&#39; M_s X_r)^{-1} X_r&#39; M_s y\;}\tag{1}
+\]</span></p>
+<p>Análogamente,</p>
+<p><span class="math display">\[
+\hat{\beta}_s=(X_s&#39; M_r X_s)^{-1} X_s&#39; M_r y,\qquad M_r=I_n-X_r(X_r&#39;X_r)^{-1}X_r&#39;.
+\]</span></p>
+<div id="propiedades-insesgamiento-y-varianza" class="section level3 unnumbered hasAnchor">
+<h3>Propiedades: insesgamiento y varianza<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Insesgamiento.</strong> Bajo exogeneidad estricta <span class="math inline">\(E(\epsilon\mid X)=0\)</span>,</p>
+<p><span class="math display">\[
+E(\hat{\beta}_r\mid X_r,X_s)=\beta_r,\qquad E(\hat{\beta}_s\mid X_r,X_s)=\beta_s.
+\]</span></p>
+<p><strong>Varianza.</strong> Con varianza esférica <span class="math inline">\(Var(\epsilon\mid X)=\sigma^2 I_n\)</span>,</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_r\mid X)
+= \sigma^2\,(X_r&#39; M_s X_r)^{-1}
+= \sigma^2\big((M_s X_r)&#39;(M_s X_r)\big)^{-1}.
+\]</span></p>
+<p>Observa que <span class="math inline">\(M_s X_r\)</span> son los <strong>residuos</strong> de regredir <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span>. Denótalos por <span class="math inline">\(\hat{\mu}_{X_r X_s}=M_sX_r\)</span>. Entonces</p>
+<p><span class="math display">\[
+Var(\hat{\beta}_r\mid X)
+= \sigma^2(\hat{\mu}_{X_r X_s}&#39;\hat{\mu}_{X_r X_s})^{-1}
+= \sigma^2\frac{(X_r&#39;X_r)^{-1}}{1-R^2_{x_r\cdot X_s}}.
+\]</span></p>
+<p>Aquí <span class="math inline">\(R^2_{x_r\cdot X_s}\)</span> es el <span class="math inline">\(R^2\)</span> de la regresión <strong>auxiliar</strong> de <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> (sin constante si ya está en <span class="math inline">\(X_s\)</span>).
+<strong>Conclusión:</strong> cuando <span class="math inline">\(X_r\)</span> y <span class="math inline">\(X_s\)</span> son muy colineales, <span class="math inline">\(R^2_{x_r\cdot X_s}\to 1\)</span> y <strong>la varianza de <span class="math inline">\(\hat{\beta}_r\)</span> se dispara</strong>; los <span class="math inline">\(t\)</span> se hacen pequeños y los IC se ensanchan.</p>
+<div class="box-cerebro">
+<p><strong>Mensaje clave:</strong> La multicolinealidad <em>no</em> genera sesgo en MCO (bajo exogeneidad), pero sí <strong>inflación de varianza</strong>. Es un problema de <em>precisión</em> y de <em>identificación numérica</em>.</p>
+</div>
+<hr />
+</div>
+<div id="intuición-geométrica-1" class="section level3 unnumbered hasAnchor">
+<h3>📐 Intuición geométrica<a href="#intuici%C3%B3n-geom%C3%A9trica-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><span class="math inline">\(P_{X_s}=X_s(X_s&#39;X_s)^{-1}X_s&#39;\)</span> proyecta sobre <span class="math inline">\(\mathrm{Col}(X_s)\)</span>; <span class="math inline">\(M_s=I-P_{X_s}\)</span> proyecta <strong>ortogonalmente</strong> fuera de <span class="math inline">\(\mathrm{Col}(X_s)\)</span>.</li>
+<li>Si <span class="math inline">\(X_r\)</span> “cae casi” en <span class="math inline">\(\mathrm{Col}(X_s)\)</span>, entonces <span class="math inline">\(M_s X_r\)</span> es muy pequeño → <strong>poca variación residual</strong> para identificar <span class="math inline">\(\beta_r\)</span> → <strong>grandes</strong> errores estándar.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="controlar-por-otras-variables-vía-fwl" class="section level2 unnumbered hasAnchor">
+<h2>🧪 “Controlar por otras variables” vía FWL<a href="#controlar-por-otras-variables-v%C3%ADa-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Reescribiendo (1) con idempotencia de <span class="math inline">\(M_s\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}_r=\big((M_sX_r)&#39;(M_sX_r)\big)^{-1}(M_sX_r)&#39;(M_sy).
+\]</span></p>
+<p>Interpreta <span class="math inline">\(M_s X_r\)</span> y <span class="math inline">\(M_s y\)</span> como <strong>residuos</strong> de:</p>
+<ul>
+<li><span class="math inline">\(X_r\)</span> contra <span class="math inline">\(X_s\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\hat{\mu}_{X_rX_s}\)</span>,</li>
+<li><span class="math inline">\(y\)</span> contra <span class="math inline">\(X_s\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\hat{e}_{yX_s}\)</span>.</li>
+</ul>
+<p>Entonces:</p>
+<p><span class="math display">\[
+\boxed{\;\hat{\beta}_r=(\hat{\mu}&#39;\hat{\mu})^{-1}\hat{\mu}&#39;\hat{e}\;},\quad
+\hat{\mu}\equiv \hat{\mu}_{X_rX_s},\;\hat{e}\equiv \hat{e}_{yX_s}.
+\]</span></p>
+<p><strong>Algoritmo FWL (3 pasos):</strong></p>
 <ol style="list-style-type: decimal">
-<li>Regresor constante: <span class="math inline">\(X_j = c\)</span></li>
-<li>Dos variables idénticas: <span class="math inline">\(X_j = X_k\)</span></li>
-<li>Combinación lineal exacta: <span class="math inline">\(X_3 = X_1 + X_2\)</span> <em>Trampa de las variables binarias</em></li>
+<li>Regrésale <span class="math inline">\(X_s\)</span> a <span class="math inline">\(X_r\)</span> y guarda <strong>residuos</strong> <span class="math inline">\(\hat{\mu}\)</span>.</li>
+<li>Regrésale <span class="math inline">\(X_s\)</span> a <span class="math inline">\(y\)</span> y guarda <strong>residuos</strong> <span class="math inline">\(\hat{e}\)</span>.</li>
+<li>Regrésala <span class="math inline">\(\hat{e}\)</span> sobre <span class="math inline">\(\hat{\mu}\)</span> <span class="math inline">\(\Rightarrow\)</span> coeficientes parciales <span class="math inline">\(\hat{\beta}_r\)</span>.</li>
 </ol>
-<p>Ejemplo de matriz con rango 3:</p>
-<p><span class="math display">\[
-A = \begin{bmatrix}
-1 &amp; 2 &amp; 3 \\
-3 &amp; 5 &amp; 7 \\
-4 &amp; 6 &amp; 5 \\
-\end{bmatrix}
-\quad \Rightarrow \text{Rango}(A) = 3
-\]</span></p>
-<p>Ejemplo de matriz con rango <strong>menor a 3</strong>:</p>
-<p><span class="math display">\[
-B = \begin{bmatrix}
-1 &amp; 3 &amp; 1 \\
-3 &amp; 8 &amp; 2 \\
-2 &amp; 9 &amp; 5 \\
-\end{bmatrix}
-\quad \Rightarrow \text{Rango}(B) \neq 3
-\]</span></p>
-<blockquote>
-<p>La tercera columna de <span class="math inline">\(B\)</span> es combinación lineal de las otras dos:<br />
-<span class="math inline">\(C_3 = -2 \cdot C_1 + C_2\)</span></p>
-</blockquote>
-<p>Wooldridge (2003) aclara que este supuesto <strong>permite que los regresores estén correlacionados</strong>, siempre que no haya una relación lineal exacta entre ellos.</p>
+<hr />
 </div>
-<div id="s4.-perturbaciones-esféricas" class="section level2 unnumbered hasAnchor">
-<h2>S4. Perturbaciones Esféricas<a href="#s4.-perturbaciones-esf%C3%A9ricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este supuesto se compone de dos condiciones:</p>
-<p>🔹 Homocedasticidad</p>
+<div id="detección-de-multicolinealidad" class="section level2 unnumbered hasAnchor">
+<h2>🔎 Detección de multicolinealidad<a href="#detecci%C3%B3n-de-multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Exacta:</strong> se detecta de inmediato porque <span class="math inline">\((X&#39;X)^{-1}\)</span> <strong>no existe</strong>.</p>
+<p><strong>Aproximada:</strong> varias heurísticas útiles:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Determinante</strong> de <span class="math inline">\(X&#39;X\)</span> cercano a 0 (o número de condición alto).</li>
+<li><strong>Correlaciones</strong> altas entre regresores (p. ej., <span class="math inline">\(|\rho|&gt;0.8\)</span>).</li>
+<li><strong>Regresión auxiliar</strong> <span class="math inline">\(X_i\)</span> sobre <span class="math inline">\(X_{-i}\)</span>: <span class="math inline">\(R^2\)</span> alto sugiere colinealidad.</li>
+<li><strong>VIF (Variance Inflation Factor)</strong>:</li>
+</ol>
 <p><span class="math display">\[
-\text{Var}(\epsilon_i \mid X) = \sigma^2 \quad \forall i
+\boxed{\;VIF_i=\frac{1}{1-R^2_{x_i\cdot X_{-i}}}\;}
 \]</span></p>
-<p>La dispersión del término de error es constante para todos los individuos. Esto significa que la varianza de los errores no depende de los regresores.</p>
-<p>🔹 No autocorrelación</p>
-<p><span class="math display">\[
-\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0 \quad \text{para } i \neq j
-\]</span></p>
-<p>Los errores no están correlacionados entre sí. Es especialmente relevante en series de tiempo, pero también puede violarse en datos de corte transversal (e.g., por correlación espacial).</p>
-<p>🔸 Implicación conjunta</p>
-<p>Cuando se cumplen homocedasticidad y no autocorrelación:</p>
-<p><span class="math display">\[
-\text{Var}(\epsilon \mid X) = \sigma^2 I
-\]</span></p>
-<p>La matriz de varianzas-covarianzas de los errores es <strong>escalar y diagonal</strong>, también llamada <strong>matriz esférica</strong>.</p>
-<p>🧠 Derivación paso a paso {-}</p>
-<p><span class="math display">\[
-\text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon&#39; \mid X] - \mathbb{E}[\epsilon \mid X] \cdot \mathbb{E}[\epsilon&#39; \mid X]
-\]</span></p>
-<p>Por el supuesto de exogeneidad estricta (S2), sabemos que:</p>
-<p><span class="math display">\[
-\mathbb{E}[\epsilon \mid X] = 0 \quad \Rightarrow \quad \text{Var}(\epsilon \mid X) = \mathbb{E}[\epsilon \epsilon&#39; \mid X]
-\]</span></p>
-<p>Entonces, la matriz resultante es:</p>
-<p><span class="math display">\[
-\text{Var}(\epsilon \mid X) =
-\begin{bmatrix}
-\mathbb{E}[\epsilon_1^2 \mid X] &amp; \mathbb{E}[\epsilon_1 \epsilon_2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_1 \epsilon_n \mid X] \\
-\mathbb{E}[\epsilon_2 \epsilon_1 \mid X] &amp; \mathbb{E}[\epsilon_2^2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_2 \epsilon_n \mid X] \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-\mathbb{E}[\epsilon_n \epsilon_1 \mid X] &amp; \mathbb{E}[\epsilon_n \epsilon_2 \mid X] &amp; \cdots &amp; \mathbb{E}[\epsilon_n^2 \mid X]
-\end{bmatrix}
-\]</span></p>
-<p>Aplicando los supuestos:</p>
-<ul>
-<li><span class="math inline">\(\text{Var}(\epsilon_i \mid X) = \sigma^2\)</span></li>
-<li><span class="math inline">\(\text{Cov}(\epsilon_i, \epsilon_j \mid X) = 0\)</span> para <span class="math inline">\(i \neq j\)</span></li>
-</ul>
-<p><span class="math display">\[
-\Rightarrow \text{Var}(\epsilon \mid X) =
-\begin{bmatrix}
-\sigma^2 &amp; 0 &amp; \cdots &amp; 0 \\
-0 &amp; \sigma^2 &amp; \cdots &amp; 0 \\
-\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
-0 &amp; 0 &amp; \cdots &amp; \sigma^2
-\end{bmatrix}
-= \sigma^2 I
-\]</span></p>
-<blockquote>
-<p>Este supuesto es necesario para garantizar la eficiencia del estimador MCO bajo los supuestos clásicos (Teorema de Gauss-Markov).</p>
-</blockquote>
+<p>Reglas de dedo: <span class="math inline">\(VIF&gt;5\)</span> (o <span class="math inline">\(&gt;10\)</span>) alerta <strong>seria</strong>.</p>
+<hr />
 </div>
-<div id="s5.-regresores-no-estocásticos" class="section level2 unnumbered hasAnchor">
-<h2>S5. Regresores No Estocásticos<a href="#s5.-regresores-no-estoc%C3%A1sticos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este supuesto establece que la matriz de regresores <span class="math inline">\(X\)</span> <strong>no es aleatoria</strong>: sus valores permanecen fijos en repeticiones del experimento o entre muestras.</p>
-<p><span class="math display">\[
-X = \text{constante} \quad \text{(no varía entre muestras)}
-\]</span></p>
-<p>🔹 ¿Qué significa?</p>
-<p>Aunque en la práctica <span class="math inline">\(X\)</span> proviene de una muestra aleatoria, asumir que es no estocástica permite tratarlo como fijo en la teoría. Esto implica que cualquier inferencia o estimación se <strong>condiciona sobre <span class="math inline">\(X\)</span></strong>.</p>
-<p>✅ Ventajas teóricas</p>
+<div id="ejemplos-en-stata-r-y-python" class="section level2 unnumbered hasAnchor">
+<h2>🛠️ Ejemplos en Stata, R y Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplos-en-stata-r-y-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stata-1" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-1" tabindex="-1"></a>* Modelo principal</span>
+<span id="cb17-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-2" tabindex="-1"></a><span class="kw">reg</span> icfes2000 tam_clase p_educ p_univer p_secundaria</span>
+<span id="cb17-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-3" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-4" tabindex="-1"></a>* 1) Correlaciones entre regresores</span>
+<span id="cb17-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-5" tabindex="-1"></a><span class="fu">corr</span> tam_clase p_edu_prom p_educ p_univer p_secundaria</span>
+<span id="cb17-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-6" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-7" tabindex="-1"></a>* 2) Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span>
+<span id="cb17-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-8" tabindex="-1"></a><span class="kw">reg</span> p_edu_prom p_educ p_univer p_secundaria tam_clase</span>
+<span id="cb17-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-9" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-10" tabindex="-1"></a>* 3) VIF</span>
+<span id="cb17-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-11" tabindex="-1"></a><span class="kw">vif</span></span></code></pre></div>
+<p><strong>Lectura:</strong> <span class="math inline">\(R^2\)</span> auxiliar alto y VIF grandes sugieren multicolinealidad. Si eliminas un regresor muy correlacionado, los VIF bajan, pero <strong>cuidado</strong> con sesgo por omisión.</p>
+<hr />
+</div>
+<div id="r-2" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-1" tabindex="-1"></a><span class="co"># install.packages(c(&quot;car&quot;,&quot;PerformanceAnalytics&quot;))</span></span>
+<span id="cb18-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb18-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-3" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb18-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-4" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-5" tabindex="-1"></a><span class="co"># Ajuste</span></span>
+<span id="cb18-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(icfes2000 <span class="sc">~</span> tam_clase <span class="sc">+</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria, <span class="at">data =</span> df)</span>
+<span id="cb18-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-7" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb18-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-8" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-9" tabindex="-1"></a><span class="co"># Correlaciones</span></span>
+<span id="cb18-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-10" tabindex="-1"></a><span class="fu">Chart.Correlation</span>(df[, <span class="fu">c</span>(<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>)])</span>
+<span id="cb18-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-11" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-12" tabindex="-1"></a><span class="co"># Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span></span>
+<span id="cb18-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-13" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(p_edu_prom <span class="sc">~</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria <span class="sc">+</span> tam_clase, <span class="at">data =</span> df)</span>
+<span id="cb18-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-14" tabindex="-1"></a><span class="fu">summary</span>(aux)  <span class="co"># R^2 auxiliar</span></span>
+<span id="cb18-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-15" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-16" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb18-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-17" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit)  <span class="co"># VIF por regresor</span></span></code></pre></div>
+<hr />
+</div>
+<div id="python-2" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb19-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb19-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-3" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb19-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-5" tabindex="-1"></a><span class="co"># Modelo principal</span></span>
+<span id="cb19-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-6" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].copy()</span>
+<span id="cb19-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-7" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb19-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-8" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">&quot;icfes2000&quot;</span>].values</span>
+<span id="cb19-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-9" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb19-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-10" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
+<span id="cb19-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-11" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-12" tabindex="-1"></a><span class="co"># Matriz de correlaciones</span></span>
+<span id="cb19-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-13" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].corr())</span>
+<span id="cb19-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-14" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-15" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb19-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-16" tabindex="-1"></a>X_no_const <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].assign(const<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb19-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-17" tabindex="-1"></a>vifs <span class="op">=</span> pd.Series(</span>
+<span id="cb19-18"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-18" tabindex="-1"></a>    [variance_inflation_factor(X_no_const.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_no_const.shape[<span class="dv">1</span>]<span class="op">-</span><span class="dv">1</span>)],</span>
+<span id="cb19-19"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-19" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]</span>
+<span id="cb19-20"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-20" tabindex="-1"></a>)</span>
+<span id="cb19-21"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-21" tabindex="-1"></a><span class="bu">print</span>(vifs)</span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="qué-hacer-y-qué-no-ante-multicolinealidad" class="section level2 unnumbered hasAnchor">
+<h2>🚨 Qué hacer (y qué no) ante multicolinealidad<a href="#qu%C3%A9-hacer-y-qu%C3%A9-no-ante-multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>No hacer nada (frecuentemente lo mejor).</strong></p>
 <ul>
-<li>Simplifica la demostración de propiedades como insesgamiento y varianza mínima.</li>
-<li>Permite eliminar la distinción entre:
-<ul>
-<li>valor esperado <strong>condicional</strong>: <span class="math inline">\(\mathbb{E}[\hat{\beta} \mid X]\)</span></li>
-<li>y valor esperado <strong>incondicional</strong>: <span class="math inline">\(\mathbb{E}[\hat{\beta}]\)</span></li>
+<li>Es un <strong>problema de datos</strong>, no del estimador: MCO sigue siendo <strong>ELIO</strong>.</li>
+<li>“Arreglos” agresivos pueden introducir <strong>sesgos</strong> o empeorar la inferencia.</li>
 </ul></li>
-</ul>
-<p>⚠️ En la práctica…</p>
-<p>Este supuesto rara vez se cumple literalmente, ya que <span class="math inline">\(X\)</span> normalmente proviene de una muestra aleatoria. Sin embargo, es común en teoría clásica porque:</p>
+<li><p><strong>Más datos.</strong></p>
 <ul>
-<li>No afecta la validez del MCO si se asume que <span class="math inline">\(X\)</span> es <strong>independiente de</strong> <span class="math inline">\(\epsilon\)</span>.</li>
-<li>Se puede relajar en contextos de modelos más generales (paneles, variables instrumentales, etc.).</li>
-</ul>
-<blockquote>
-<p>En modelos con regresores estocásticos, se requiere en cambio que <span class="math inline">\(\mathbb{E}[\epsilon \mid X] = 0\)</span>, lo que recupera el supuesto de exogeneidad estricta (S2).</p>
-</blockquote>
-</div>
-<div id="s6.-normalidad-del-error" class="section level2 unnumbered hasAnchor">
-<h2>S6. Normalidad del Error<a href="supuestos-de-mco.html#s6.-normalidad-del-error" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math display">\[
-\epsilon \mid X \sim \mathcal{N}(0, \sigma^2 I)
-\]</span></p>
-<p>Este supuesto establece que los errores, <strong>condicionales a los regresores</strong>, siguen una distribución normal multivariada con media cero y matriz de varianza-covarianza esférica <span class="math inline">\(\sigma^2 I\)</span>.</p>
-<p>🎯 ¿Para qué sirve?</p>
-<p>Este supuesto <strong>no es necesario</strong> para que el estimador de Mínimos Cuadrados Ordinarios (MCO) sea:</p>
+<li>Aumentar <span class="math inline">\(n\)</span> puede ayudar <strong>si</strong> los nuevos datos traen variación independiente.</li>
+<li>En la práctica, difícil y no garantiza resolver colinealidad estructural.</li>
+</ul></li>
+<li><p><strong>Incorporar evidencia externa (shrinkage/bayesiano).</strong></p>
 <ul>
-<li>Insesgado (S2 ya garantiza eso),</li>
-<li>Eficiente entre estimadores lineales insesgados (por el Teorema de Gauss-Markov).</li>
-</ul>
-<p>Sin embargo, <strong>sí es crucial</strong> para que se cumpla la distribución exacta de ciertos estadísticos en muestras pequeñas.</p>
-<p>✅ Aplicaciones de la normalidad:</p>
+<li>Requiere supuestos/fuentes fuertes; cambia el problema a uno de <strong>regularización</strong> (ver ridge/LASSO en cursos de ML).</li>
+</ul></li>
+<li><p><strong>Eliminar regresores.</strong></p>
 <ul>
-<li>Validez de las pruebas <strong>t</strong> para significancia individual.</li>
-<li>Validez de las pruebas <strong>F</strong> para restricciones conjuntas.</li>
-<li>Construcción exacta de intervalos de confianza para <span class="math inline">\(\beta\)</span>.</li>
-</ul>
-<p>🧠 ¿Qué pasa en muestras grandes?</p>
-<p>Gracias al <strong>Teorema Central del Límite</strong> y **La Ley de los Grandes Números*, incluso si <span class="math inline">\(\epsilon\)</span> no es normal, el estimador <span class="math inline">\(\hat{\beta}\)</span> tenderá a seguir una distribución normal asintótica:</p>
-<p><span class="math display">\[
-\hat{\beta} \overset{approx}{\sim} \mathcal{N}\left(\beta, \sigma^2 (X&#39;X)^{-1}\right)
-\]</span></p>
-<blockquote>
-<p>Por eso, la normalidad puede <strong>relajarse</strong> si <span class="math inline">\(n\)</span> es suficientemente grande.</p>
-</blockquote>
-</div>
-<div id="glosario-de-símbolos" class="section level2 unnumbered hasAnchor">
-<h2>Glosario de Símbolos<a href="#glosario-de-s%C3%ADmbolos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<thead>
-<tr class="header">
-<th>Símbolo</th>
-<th>Significado</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\(Y_i\)</span></td>
-<td>Variable dependiente</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(X_{ij}\)</span></td>
-<td>Regresor j para observación i</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(\beta_j\)</span></td>
-<td>Parámetro poblacional</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\epsilon_i\)</span></td>
-<td>Error poblacional</td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\(n\)</span></td>
-<td>Número de observaciones</td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(k\)</span></td>
-<td>Número de regresores (sin constante)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="preguntas-de-repaso-3" class="section level2 unnumbered hasAnchor">
-<h2>📘 Preguntas de repaso<a href="supuestos-de-mco.html#preguntas-de-repaso-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>📘 1. Conceptuales</p>
-<p>Defina brevemente los siguientes términos:</p>
+<li><strong>Riesgo:</strong> sesgo por omisión si el regresor eliminado es relevante/causal.</li>
+<li>A veces aceptable cuando la variable redundante mide casi lo mismo que otra y no es de interés sustantivo.</li>
+</ul></li>
+<li><p><strong>Transformar variables (razones, dividir por un regresor, etc.).</strong></p>
 <ul>
-<li>Econometría teórica<br />
-</li>
-<li>Econometría aplicada</li>
-</ul>
-<p>¿Qué papel juega cada uno de los seis supuestos del modelo clásico de regresión lineal en garantizar las propiedades del estimador de MCO?</p>
-<p>🧮 2. Clasificación de modelos</p>
-<p>Clasifique los siguientes modelos como <strong>lineales en parámetros</strong> o <strong>no lineales</strong>:</p>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(y_i = \frac{\beta_0}{1 + e^{-\beta_1 x_i}} + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(y_i = \alpha + \theta^{x_i} + \epsilon_i\)</span></li>
+<li>Puede <strong>reducir colinealidad</strong>, pero introduce <strong>heterocedasticidad</strong> y complica la interpretación.</li>
+</ul></li>
 </ol>
-<p>📏 3. Interpretación de la pendiente</p>
-<p>Interprete el coeficiente <span class="math inline">\(\beta_1\)</span> en los siguientes modelos de regresión lineal simple:</p>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 x_i + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(y_i = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span><br />
-</li>
-<li><span class="math inline">\(\log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i\)</span></li>
-</ol>
-<blockquote>
-<p>En cada caso, explique qué representa un aumento marginal en <span class="math inline">\(x_i\)</span>, y si los efectos son absolutos, porcentuales o elásticos.</p>
-</blockquote>
-<div id="recursos-audiovisuales" class="section level3 unnumbered hasAnchor">
-<h3>🎥 Recursos audiovisuales<a href="supuestos-de-mco.html#recursos-audiovisuales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div style="margin-bottom: 1em;">
-<p><strong>¿Qué hacen los economistas? (Video 1)</strong><br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iiYKRD8ochA" 
-          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen></iframe></p>
+<div class="box-cerebro">
+<p><strong>Regla de oro:</strong> Si la variable es <em>clave</em> para la pregunta causal, no la elimines solo por VIF alto. Reporta la <em>imprecisión</em> y discute limitaciones de identificación (falta de variación independiente).</p>
 </div>
-<div style="margin-bottom: 1em;">
-<p><strong>An Uneven Paying Field (Video 2)</strong><br>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ZWSv-7PjHIM" 
-          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen></iframe></p>
+<hr />
+</div>
+<div id="mini-demostración-varianza-inflada-por-r2-auxiliar" class="section level2 unnumbered hasAnchor">
+<h2>🧪 Mini-demostración: varianza inflada por <span class="math inline">\(R^2\)</span> auxiliar<a href="#mini-demostraci%C3%B3n-varianza-inflada-por-r2-auxiliar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-14" class="theorem"><strong>Theorem 7.5  </strong></span><b>Teorema (Inflación de varianza bajo colinealidad).</b> Sea <span class="math inline">\(X=[X_r\;X_s]\)</span>. Bajo homocedasticidad y exogeneidad,
+<span class="math display">\[
+Var(\hat{\beta}_r\mid X)=\sigma^2\big(X_r&#39;M_sX_r\big)^{-1}
+=\sigma^2\frac{(X_r&#39;X_r)^{-1}}{1-R^2_{x_r\cdot X_s}}.
+\]</span></p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-15" class="proof"><em>Proof</em>. </span>Usa <span class="math inline">\(M_s=I-P_{X_s}\)</span> e identifica <span class="math inline">\(M_sX_r\)</span> como residuo de regredir <span class="math inline">\(X_r\)</span> en <span class="math inline">\(X_s\)</span>. Note que
+<span class="math display">\[
+X_r&#39;M_sX_r = X_r&#39;X_r - X_r&#39;P_{X_s}X_r
+= (1-R^2_{x_r\cdot X_s})\,X_r&#39;X_r.
+\]</span>
+Invierte y factoriza <span class="math inline">\(\sigma^2\)</span> para obtener la expresión.</p>
+</div>
+<hr />
+</div>
+<div id="ejemplo-reproducible-colinealidad-simulada" class="section level2 unnumbered hasAnchor">
+<h2>🔬 Ejemplo reproducible: colinealidad simulada<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplo-reproducible-colinealidad-simulada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stata-2" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb20-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 1</span>
+<span id="cb20-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 2000</span>
+<span id="cb20-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb20-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = x1 + 0.02*rnormal()   <span class="co">// alta colinealidad</span></span>
+<span id="cb20-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-6" tabindex="-1"></a><span class="kw">gen</span> u  = rnormal()</span>
+<span id="cb20-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-7" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = 1 + 2*x1 - 1*<span class="kw">x2</span> + u</span>
+<span id="cb20-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-8" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-9" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb20-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-10" tabindex="-1"></a><span class="kw">vif</span></span>
+<span id="cb20-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-11" tabindex="-1"></a><span class="fu">corr</span> x1 <span class="kw">x2</span></span></code></pre></div>
+<p><strong>Lectura:</strong> <span class="math inline">\(\mathrm{corr}(x1,x2)\approx 1\)</span> ⇒ VIF alto ⇒ <span class="math inline">\(se(\hat\beta)\)</span> grandes; <span class="math inline">\(t\)</span> pequeños pese a que ambos regresores son “reales”.</p>
+</div>
+<div id="r-3" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb21-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb21-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fl">0.02</span><span class="sc">*</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb21-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb21-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-6" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>x2 <span class="sc">+</span> u</span>
+<span id="cb21-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-7" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb21-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-8" tabindex="-1"></a><span class="fu">summary</span>(fit); car<span class="sc">::</span><span class="fu">vif</span>(fit); <span class="fu">cor</span>(x1, x2)</span></code></pre></div>
+</div>
+<div id="python-3" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb22-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-2" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb22-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-3" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2000</span></span>
+<span id="cb22-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-4" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb22-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-5" tabindex="-1"></a>x2 <span class="op">=</span> x1 <span class="op">+</span> <span class="fl">0.02</span><span class="op">*</span>np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb22-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-6" tabindex="-1"></a>u  <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb22-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-7" tabindex="-1"></a>y  <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">1</span><span class="op">*</span>x2 <span class="op">+</span> u</span>
+<span id="cb22-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-8" tabindex="-1"></a>X  <span class="op">=</span> sm.add_constant(np.column_stack([x1,x2]))</span>
+<span id="cb22-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-9" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(y, X).fit().summary())</span>
+<span id="cb22-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-10" tabindex="-1"></a><span class="bu">print</span>(np.corrcoef(x1, x2))</span></code></pre></div>
+<hr />
+</div>
+</div>
+<div id="conclusiones-clave-1" class="section level2 unnumbered hasAnchor">
+<h2>✅ Conclusiones clave<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#conclusiones-clave-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>La multicolinealidad <strong>no sesga</strong> MCO (bajo exogeneidad), pero <strong>reduce drásticamente la precisión</strong>.</li>
+<li>Detecta con <strong>correlaciones</strong>, <strong>regresiones auxiliares</strong> y <strong>VIF</strong>.</li>
+<li>Evita “arreglos” que introduzcan <strong>sesgo por omisión</strong>. Si la variable es sustantiva, <strong>repórtala</strong> con sus grandes EE y discute la <strong>limitación de identificación</strong> (falta de variación independiente).</li>
+</ul>
+<hr />
+<div id="preguntas-de-repaso-8" class="section level3 unnumbered hasAnchor box-repaso">
+<h3>📘 Preguntas de repaso<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#preguntas-de-repaso-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Explique por qué la condición <span class="math inline">\(\mathrm{rango}(X)=K\)</span> es necesaria para identificar <span class="math inline">\(\hat{\beta}\)</span>. ¿Qué ocurre si <span class="math inline">\(|X&#39;X|\approx 0\)</span>?</li>
+<li>Partiendo del modelo particionado <span class="math inline">\(y=X_r\beta_r+X_s\beta_s+\epsilon\)</span>, derive <span class="math inline">\(\hat{\beta}_r=(X_r&#39;M_sX_r)^{-1}X_r&#39;M_sy\)</span>.</li>
+<li>Muestre que <span class="math inline">\(Var(\hat{\beta}_r\mid X)=\sigma^2\big[(1-R^2_{x_r\cdot X_s})X_r&#39;X_r\big]^{-1}\)</span>. Interprete el rol de <span class="math inline">\(R^2\)</span>.</li>
+<li>¿Por qué eliminar un regresor para bajar el VIF puede introducir sesgo por omisión? Dé un ejemplo aplicado.</li>
+<li>Diseñe una estrategia empírica para <strong>diagnosticar</strong> multicolinealidad y <strong>reportarla</strong> responsablemente en un paper.</li>
+</ol>
+</div>
+<hr />
+</div>
+<div id="apéndice-comandos-útiles" class="section level2 unnumbered hasAnchor">
+<h2>🧰 Apéndice: comandos útiles<a href="#ap%C3%A9ndice-comandos-%C3%BAtiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stata-3" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-1" tabindex="-1"></a>* Diagnóstico rápido</span>
+<span id="cb23-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-2" tabindex="-1"></a><span class="fu">corr</span> X*</span>
+<span id="cb23-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-3" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vce</span>, <span class="fu">corr</span>   <span class="co">// correlación de parámetros estimados</span></span>
+<span id="cb23-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-4" tabindex="-1"></a><span class="kw">estat</span> condition   <span class="co">// número de condición de X&#39;X (si disponible)</span></span>
+<span id="cb23-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-5" tabindex="-1"></a><span class="kw">vif</span></span>
+<span id="cb23-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-6" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-7" tabindex="-1"></a>* Regresiones auxiliares (R^2)</span>
+<span id="cb23-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-8" tabindex="-1"></a><span class="kw">foreach</span> v <span class="kw">of</span> <span class="kw">varlist</span> x1 <span class="kw">x2</span> x3 {</span>
+<span id="cb23-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-9" tabindex="-1"></a>    <span class="kw">reg</span> <span class="ot">`v&#39;</span> x1 <span class="kw">x2</span> x3 <span class="kw">if</span> <span class="st">&quot;`v&#39;&quot;</span>!=<span class="st">&quot;`v&#39;&quot;</span></span>
+<span id="cb23-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-10" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="r-4" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb24-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb24-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-3" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-4" tabindex="-1"></a><span class="co"># Número de condición</span></span>
+<span id="cb24-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb24-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-6" tabindex="-1"></a><span class="fu">kappa</span>(X)          <span class="co"># grande =&gt; mal condicionado</span></span>
+<span id="cb24-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-7" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-8" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb24-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-9" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div>
+</div>
+<div id="python-4" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb25-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-2" tabindex="-1"></a><span class="im">from</span> numpy.linalg <span class="im">import</span> cond</span>
+<span id="cb25-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-3" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-4" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;x3&quot;</span>]].to_numpy()</span>
+<span id="cb25-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-5" tabindex="-1"></a><span class="bu">print</span>(cond(X))  <span class="co"># número de condición</span></span></code></pre></div>
+<hr />
+<div class="box-cerebro">
+<p><b>Checklist para papers:</b> (i) reporte VIF/condición; (ii) discuta colinealidad esperada (p.ej., dummies anidadas, variables casi equivalentes);
+(iii) justifique mantener regresores sustantivos aunque inflen varianza; (iv) contraste robustez (reporte especificaciones alternativas con <i>trade-offs</i> claros).</p>
 </div>
 
 </div>
 </div>
 </div>
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="repaso-de-matrices.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="inferencia.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -845,7 +861,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/04-Supuestos.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/10-Multico.Rmd",
     "text": "Edit"
   },
   "history": {
