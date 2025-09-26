@@ -3,6 +3,7 @@ thm:unlabeled-div-6
 thm:unlabeled-div-10
 thm:unlabeled-div-12
 thm:unlabeled-div-14
+thm:unlabeled-div-16
 repaso
 regresión-lineal
 repaso-funciones-de-densidad

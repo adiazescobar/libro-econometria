@@ -10,5 +10,5 @@ rmd_files:
   - 08-PruebasHIP.Rmd
   - 09-NormAs.Rmd
   - 10-Multico.Rmd
-  
+  - 11-Heterocedasticidad.Rmd
 output_dir: "docs"
