@@ -5,31 +5,28 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Multicolinealidad: detección, consecuencias y (no) soluciones | Econometría II" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   
 
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2025-09-26" />
+<meta name="date" content="2026-01-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,6 +169,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#puntaje-automatico"><i class="fa fa-check"></i>Puntaje (automatico)</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#recursos-para-repasar"><i class="fa fa-check"></i>Recursos para Repasar</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#consejos-para-econometria-ii"><i class="fa fa-check"></i>Consejos para Econometria II</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
 <ul>
@@ -643,64 +648,64 @@ Var(\hat{\beta}_r\mid X)
 <h2>🛠️ Ejemplos en Stata, R y Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplos-en-stata-r-y-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="stata-1" class="section level3 unnumbered hasAnchor">
 <h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-1" tabindex="-1"></a>* Modelo principal</span>
-<span id="cb17-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-2" tabindex="-1"></a><span class="kw">reg</span> icfes2000 tam_clase p_educ p_univer p_secundaria</span>
-<span id="cb17-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-4" tabindex="-1"></a>* 1) Correlaciones entre regresores</span>
-<span id="cb17-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-5" tabindex="-1"></a><span class="fu">corr</span> tam_clase p_edu_prom p_educ p_univer p_secundaria</span>
-<span id="cb17-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-6" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-7" tabindex="-1"></a>* 2) Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span>
-<span id="cb17-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-8" tabindex="-1"></a><span class="kw">reg</span> p_edu_prom p_educ p_univer p_secundaria tam_clase</span>
-<span id="cb17-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-9" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-10" tabindex="-1"></a>* 3) VIF</span>
-<span id="cb17-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb17-11" tabindex="-1"></a><span class="kw">vif</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-1" tabindex="-1"></a>* Modelo principal</span>
+<span id="cb20-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-2" tabindex="-1"></a><span class="kw">reg</span> icfes2000 tam_clase p_educ p_univer p_secundaria</span>
+<span id="cb20-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-4" tabindex="-1"></a>* 1) Correlaciones entre regresores</span>
+<span id="cb20-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-5" tabindex="-1"></a><span class="fu">corr</span> tam_clase p_edu_prom p_educ p_univer p_secundaria</span>
+<span id="cb20-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-7" tabindex="-1"></a>* 2) Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span>
+<span id="cb20-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-8" tabindex="-1"></a><span class="kw">reg</span> p_edu_prom p_educ p_univer p_secundaria tam_clase</span>
+<span id="cb20-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-9" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-10" tabindex="-1"></a>* 3) VIF</span>
+<span id="cb20-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-11" tabindex="-1"></a><span class="kw">vif</span></span></code></pre></div>
 <p><strong>Lectura:</strong> <span class="math inline">\(R^2\)</span> auxiliar alto y VIF grandes sugieren multicolinealidad. Si eliminas un regresor muy correlacionado, los VIF bajan, pero <strong>cuidado</strong> con sesgo por omisión.</p>
 <hr />
 </div>
 <div id="r-2" class="section level3 unnumbered hasAnchor">
 <h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-1" tabindex="-1"></a><span class="co"># install.packages(c(&quot;car&quot;,&quot;PerformanceAnalytics&quot;))</span></span>
-<span id="cb18-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb18-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-3" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
-<span id="cb18-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-4" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-5" tabindex="-1"></a><span class="co"># Ajuste</span></span>
-<span id="cb18-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(icfes2000 <span class="sc">~</span> tam_clase <span class="sc">+</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria, <span class="at">data =</span> df)</span>
-<span id="cb18-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-7" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb18-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-8" tabindex="-1"></a></span>
-<span id="cb18-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-9" tabindex="-1"></a><span class="co"># Correlaciones</span></span>
-<span id="cb18-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-10" tabindex="-1"></a><span class="fu">Chart.Correlation</span>(df[, <span class="fu">c</span>(<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>)])</span>
-<span id="cb18-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-11" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-12" tabindex="-1"></a><span class="co"># Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span></span>
-<span id="cb18-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-13" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(p_edu_prom <span class="sc">~</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria <span class="sc">+</span> tam_clase, <span class="at">data =</span> df)</span>
-<span id="cb18-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-14" tabindex="-1"></a><span class="fu">summary</span>(aux)  <span class="co"># R^2 auxiliar</span></span>
-<span id="cb18-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-15" tabindex="-1"></a></span>
-<span id="cb18-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-16" tabindex="-1"></a><span class="co"># VIF</span></span>
-<span id="cb18-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb18-17" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit)  <span class="co"># VIF por regresor</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-1" tabindex="-1"></a><span class="co"># install.packages(c(&quot;car&quot;,&quot;PerformanceAnalytics&quot;))</span></span>
+<span id="cb21-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb21-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-3" tabindex="-1"></a><span class="fu">library</span>(PerformanceAnalytics)</span>
+<span id="cb21-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-4" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-5" tabindex="-1"></a><span class="co"># Ajuste</span></span>
+<span id="cb21-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-6" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(icfes2000 <span class="sc">~</span> tam_clase <span class="sc">+</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria, <span class="at">data =</span> df)</span>
+<span id="cb21-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-7" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb21-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-8" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-9" tabindex="-1"></a><span class="co"># Correlaciones</span></span>
+<span id="cb21-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-10" tabindex="-1"></a><span class="fu">Chart.Correlation</span>(df[, <span class="fu">c</span>(<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>)])</span>
+<span id="cb21-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-11" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-12" tabindex="-1"></a><span class="co"># Regresión auxiliar (ej.: p_edu_prom ~ otros X)</span></span>
+<span id="cb21-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-13" tabindex="-1"></a>aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(p_edu_prom <span class="sc">~</span> p_educ <span class="sc">+</span> p_univer <span class="sc">+</span> p_secundaria <span class="sc">+</span> tam_clase, <span class="at">data =</span> df)</span>
+<span id="cb21-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-14" tabindex="-1"></a><span class="fu">summary</span>(aux)  <span class="co"># R^2 auxiliar</span></span>
+<span id="cb21-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-15" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-16" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb21-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-17" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit)  <span class="co"># VIF por regresor</span></span></code></pre></div>
 <hr />
 </div>
 <div id="python-2" class="section level3 unnumbered hasAnchor">
 <h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
-<span id="cb19-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb19-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-3" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
-<span id="cb19-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-4" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-5" tabindex="-1"></a><span class="co"># Modelo principal</span></span>
-<span id="cb19-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-6" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].copy()</span>
-<span id="cb19-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-7" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
-<span id="cb19-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-8" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">&quot;icfes2000&quot;</span>].values</span>
-<span id="cb19-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-9" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb19-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-10" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
-<span id="cb19-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-11" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-12" tabindex="-1"></a><span class="co"># Matriz de correlaciones</span></span>
-<span id="cb19-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-13" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].corr())</span>
-<span id="cb19-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-14" tabindex="-1"></a></span>
-<span id="cb19-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-15" tabindex="-1"></a><span class="co"># VIF</span></span>
-<span id="cb19-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-16" tabindex="-1"></a>X_no_const <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].assign(const<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb19-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-17" tabindex="-1"></a>vifs <span class="op">=</span> pd.Series(</span>
-<span id="cb19-18"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-18" tabindex="-1"></a>    [variance_inflation_factor(X_no_const.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_no_const.shape[<span class="dv">1</span>]<span class="op">-</span><span class="dv">1</span>)],</span>
-<span id="cb19-19"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-19" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]</span>
-<span id="cb19-20"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-20" tabindex="-1"></a>)</span>
-<span id="cb19-21"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb19-21" tabindex="-1"></a><span class="bu">print</span>(vifs)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb22-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb22-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-3" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb22-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-4" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-5" tabindex="-1"></a><span class="co"># Modelo principal</span></span>
+<span id="cb22-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-6" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].copy()</span>
+<span id="cb22-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-7" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb22-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-8" tabindex="-1"></a>y <span class="op">=</span> df[<span class="st">&quot;icfes2000&quot;</span>].values</span>
+<span id="cb22-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-9" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb22-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-10" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
+<span id="cb22-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-11" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-12" tabindex="-1"></a><span class="co"># Matriz de correlaciones</span></span>
+<span id="cb22-13"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-13" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_edu_prom&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].corr())</span>
+<span id="cb22-14"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-14" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-15" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb22-16"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-16" tabindex="-1"></a>X_no_const <span class="op">=</span> df[[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]].assign(const<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-17"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-17" tabindex="-1"></a>vifs <span class="op">=</span> pd.Series(</span>
+<span id="cb22-18"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-18" tabindex="-1"></a>    [variance_inflation_factor(X_no_const.values, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_no_const.shape[<span class="dv">1</span>]<span class="op">-</span><span class="dv">1</span>)],</span>
+<span id="cb22-19"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-19" tabindex="-1"></a>    index<span class="op">=</span>[<span class="st">&quot;tam_clase&quot;</span>,<span class="st">&quot;p_educ&quot;</span>,<span class="st">&quot;p_univer&quot;</span>,<span class="st">&quot;p_secundaria&quot;</span>]</span>
+<span id="cb22-20"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-20" tabindex="-1"></a>)</span>
+<span id="cb22-21"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-21" tabindex="-1"></a><span class="bu">print</span>(vifs)</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -759,42 +764,42 @@ Invierte y factoriza <span class="math inline">\(\sigma^2\)</span> para obtener 
 <h2>🔬 Ejemplo reproducible: colinealidad simulada<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#ejemplo-reproducible-colinealidad-simulada" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="stata-2" class="section level3 unnumbered hasAnchor">
 <h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
-<span id="cb20-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 1</span>
-<span id="cb20-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 2000</span>
-<span id="cb20-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
-<span id="cb20-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = x1 + 0.02*rnormal()   <span class="co">// alta colinealidad</span></span>
-<span id="cb20-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-6" tabindex="-1"></a><span class="kw">gen</span> u  = rnormal()</span>
-<span id="cb20-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-7" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = 1 + 2*x1 - 1*<span class="kw">x2</span> + u</span>
-<span id="cb20-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-8" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-9" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb20-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-10" tabindex="-1"></a><span class="kw">vif</span></span>
-<span id="cb20-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb20-11" tabindex="-1"></a><span class="fu">corr</span> x1 <span class="kw">x2</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb23-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 1</span>
+<span id="cb23-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 2000</span>
+<span id="cb23-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb23-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = x1 + 0.02*rnormal()   <span class="co">// alta colinealidad</span></span>
+<span id="cb23-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-6" tabindex="-1"></a><span class="kw">gen</span> u  = rnormal()</span>
+<span id="cb23-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-7" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = 1 + 2*x1 - 1*<span class="kw">x2</span> + u</span>
+<span id="cb23-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-8" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-9" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb23-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-10" tabindex="-1"></a><span class="kw">vif</span></span>
+<span id="cb23-11"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-11" tabindex="-1"></a><span class="fu">corr</span> x1 <span class="kw">x2</span></span></code></pre></div>
 <p><strong>Lectura:</strong> <span class="math inline">\(\mathrm{corr}(x1,x2)\approx 1\)</span> ⇒ VIF alto ⇒ <span class="math inline">\(se(\hat\beta)\)</span> grandes; <span class="math inline">\(t\)</span> pequeños pese a que ambos regresores son “reales”.</p>
 </div>
 <div id="r-3" class="section level3 unnumbered hasAnchor">
 <h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb21-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
-<span id="cb21-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb21-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fl">0.02</span><span class="sc">*</span><span class="fu">rnorm</span>(n)</span>
-<span id="cb21-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb21-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-6" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>x2 <span class="sc">+</span> u</span>
-<span id="cb21-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-7" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb21-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb21-8" tabindex="-1"></a><span class="fu">summary</span>(fit); car<span class="sc">::</span><span class="fu">vif</span>(fit); <span class="fu">cor</span>(x1, x2)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb24-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb24-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb24-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fl">0.02</span><span class="sc">*</span><span class="fu">rnorm</span>(n)</span>
+<span id="cb24-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb24-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-6" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x1 <span class="sc">-</span> <span class="dv">1</span><span class="sc">*</span>x2 <span class="sc">+</span> u</span>
+<span id="cb24-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-7" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb24-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-8" tabindex="-1"></a><span class="fu">summary</span>(fit); car<span class="sc">::</span><span class="fu">vif</span>(fit); <span class="fu">cor</span>(x1, x2)</span></code></pre></div>
 </div>
 <div id="python-3" class="section level3 unnumbered hasAnchor">
 <h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb22-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-2" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
-<span id="cb22-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-3" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2000</span></span>
-<span id="cb22-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-4" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb22-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-5" tabindex="-1"></a>x2 <span class="op">=</span> x1 <span class="op">+</span> <span class="fl">0.02</span><span class="op">*</span>np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb22-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-6" tabindex="-1"></a>u  <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb22-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-7" tabindex="-1"></a>y  <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">1</span><span class="op">*</span>x2 <span class="op">+</span> u</span>
-<span id="cb22-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-8" tabindex="-1"></a>X  <span class="op">=</span> sm.add_constant(np.column_stack([x1,x2]))</span>
-<span id="cb22-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-9" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(y, X).fit().summary())</span>
-<span id="cb22-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb22-10" tabindex="-1"></a><span class="bu">print</span>(np.corrcoef(x1, x2))</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb25-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-2" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb25-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-3" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">2000</span></span>
+<span id="cb25-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-4" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb25-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-5" tabindex="-1"></a>x2 <span class="op">=</span> x1 <span class="op">+</span> <span class="fl">0.02</span><span class="op">*</span>np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb25-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-6" tabindex="-1"></a>u  <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb25-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-7" tabindex="-1"></a>y  <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">1</span><span class="op">*</span>x2 <span class="op">+</span> u</span>
+<span id="cb25-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-8" tabindex="-1"></a>X  <span class="op">=</span> sm.add_constant(np.column_stack([x1,x2]))</span>
+<span id="cb25-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-9" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(y, X).fit().summary())</span>
+<span id="cb25-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-10" tabindex="-1"></a><span class="bu">print</span>(np.corrcoef(x1, x2))</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -822,36 +827,36 @@ Invierte y factoriza <span class="math inline">\(\sigma^2\)</span> para obtener 
 <h2>🧰 Apéndice: comandos útiles<a href="#ap%C3%A9ndice-comandos-%C3%BAtiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="stata-3" class="section level3 unnumbered hasAnchor">
 <h3>Stata<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#stata-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb23"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb23-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-1" tabindex="-1"></a>* Diagnóstico rápido</span>
-<span id="cb23-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-2" tabindex="-1"></a><span class="fu">corr</span> X*</span>
-<span id="cb23-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-3" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vce</span>, <span class="fu">corr</span>   <span class="co">// correlación de parámetros estimados</span></span>
-<span id="cb23-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-4" tabindex="-1"></a><span class="kw">estat</span> condition   <span class="co">// número de condición de X&#39;X (si disponible)</span></span>
-<span id="cb23-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-5" tabindex="-1"></a><span class="kw">vif</span></span>
-<span id="cb23-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-6" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-7" tabindex="-1"></a>* Regresiones auxiliares (R^2)</span>
-<span id="cb23-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-8" tabindex="-1"></a><span class="kw">foreach</span> v <span class="kw">of</span> <span class="kw">varlist</span> x1 <span class="kw">x2</span> x3 {</span>
-<span id="cb23-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-9" tabindex="-1"></a>    <span class="kw">reg</span> <span class="ot">`v&#39;</span> x1 <span class="kw">x2</span> x3 <span class="kw">if</span> <span class="st">&quot;`v&#39;&quot;</span>!=<span class="st">&quot;`v&#39;&quot;</span></span>
-<span id="cb23-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb23-10" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb26-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-1" tabindex="-1"></a>* Diagnóstico rápido</span>
+<span id="cb26-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-2" tabindex="-1"></a><span class="fu">corr</span> X*</span>
+<span id="cb26-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-3" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vce</span>, <span class="fu">corr</span>   <span class="co">// correlación de parámetros estimados</span></span>
+<span id="cb26-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-4" tabindex="-1"></a><span class="kw">estat</span> condition   <span class="co">// número de condición de X&#39;X (si disponible)</span></span>
+<span id="cb26-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-5" tabindex="-1"></a><span class="kw">vif</span></span>
+<span id="cb26-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-6" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-7" tabindex="-1"></a>* Regresiones auxiliares (R^2)</span>
+<span id="cb26-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-8" tabindex="-1"></a><span class="kw">foreach</span> v <span class="kw">of</span> <span class="kw">varlist</span> x1 <span class="kw">x2</span> x3 {</span>
+<span id="cb26-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-9" tabindex="-1"></a>    <span class="kw">reg</span> <span class="ot">`v&#39;</span> x1 <span class="kw">x2</span> x3 <span class="kw">if</span> <span class="st">&quot;`v&#39;&quot;</span>!=<span class="st">&quot;`v&#39;&quot;</span></span>
+<span id="cb26-10"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb26-10" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="r-4" class="section level3 unnumbered hasAnchor">
 <h3>R<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#r-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb24-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb24-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-3" tabindex="-1"></a></span>
-<span id="cb24-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-4" tabindex="-1"></a><span class="co"># Número de condición</span></span>
-<span id="cb24-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb24-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-6" tabindex="-1"></a><span class="fu">kappa</span>(X)          <span class="co"># grande =&gt; mal condicionado</span></span>
-<span id="cb24-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-7" tabindex="-1"></a></span>
-<span id="cb24-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-8" tabindex="-1"></a><span class="co"># VIF</span></span>
-<span id="cb24-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb24-9" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb27-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb27-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-3" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-4" tabindex="-1"></a><span class="co"># Número de condición</span></span>
+<span id="cb27-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(fit)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb27-6"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-6" tabindex="-1"></a><span class="fu">kappa</span>(X)          <span class="co"># grande =&gt; mal condicionado</span></span>
+<span id="cb27-7"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-7" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-8" tabindex="-1"></a><span class="co"># VIF</span></span>
+<span id="cb27-9"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb27-9" tabindex="-1"></a><span class="fu">vif</span>(fit)</span></code></pre></div>
 </div>
 <div id="python-4" class="section level3 unnumbered hasAnchor">
 <h3>Python<a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#python-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb25"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb25-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb25-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-2" tabindex="-1"></a><span class="im">from</span> numpy.linalg <span class="im">import</span> cond</span>
-<span id="cb25-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-3" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-4" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;x3&quot;</span>]].to_numpy()</span>
-<span id="cb25-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb25-5" tabindex="-1"></a><span class="bu">print</span>(cond(X))  <span class="co"># número de condición</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb28-1"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb28-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb28-2"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb28-2" tabindex="-1"></a><span class="im">from</span> numpy.linalg <span class="im">import</span> cond</span>
+<span id="cb28-3"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb28-4" tabindex="-1"></a>X <span class="op">=</span> df[[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;x2&quot;</span>,<span class="st">&quot;x3&quot;</span>]].to_numpy()</span>
+<span id="cb28-5"><a href="multicolinealidad-detección-consecuencias-y-no-soluciones.html#cb28-5" tabindex="-1"></a><span class="bu">print</span>(cond(X))  <span class="co"># número de condición</span></span></code></pre></div>
 <hr />
 <div class="box-cerebro">
 <p><b>Checklist para papers:</b> (i) reporte VIF/condición; (ii) discuta colinealidad esperada (p.ej., dummies anidadas, variables casi equivalentes);

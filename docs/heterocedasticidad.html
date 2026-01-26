@@ -5,31 +5,28 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Heterocedasticidad | Econometría II</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Heterocedasticidad | Econometría II" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Heterocedasticidad | Econometría II" />
   
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::gitbook,
-set in the _output.yml file.</p>" />
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   
 
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2025-09-26" />
+<meta name="date" content="2026-01-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -172,6 +169,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#inclusi%C3%B3n"><i class="fa fa-check"></i>Inclusión</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#integridad-acad%C3%A9mica"><i class="fa fa-check"></i>Integridad académica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#puntaje-automatico"><i class="fa fa-check"></i>Puntaje (automatico)</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#recursos-para-repasar"><i class="fa fa-check"></i>Recursos para Repasar</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#consejos-para-econometria-ii"><i class="fa fa-check"></i>Consejos para Econometria II</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a>
 <ul>
@@ -612,20 +617,20 @@ Variantes: <strong>HC1</strong> (factor <span class="math inline">\(n/(n-k)\)</s
 <h2>5. Detección de heterocedasticidad<a href="#detecci%C3%B3n-de-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="diagnóstico-visual" class="section level3 unnumbered hasAnchor">
 <h3>5.1 Diagnóstico visual<a href="#diagn%C3%B3stico-visual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="heterocedasticidad.html#cb26-1" tabindex="-1"></a><span class="co"># R: residuo vs ajustado</span></span>
-<span id="cb26-2"><a href="heterocedasticidad.html#cb26-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> datos)</span>
-<span id="cb26-3"><a href="heterocedasticidad.html#cb26-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
-<span id="cb26-4"><a href="heterocedasticidad.html#cb26-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb27-1"><a href="heterocedasticidad.html#cb27-1" tabindex="-1"></a><span class="co"># Python (statsmodels)</span></span>
-<span id="cb27-2"><a href="heterocedasticidad.html#cb27-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb27-3"><a href="heterocedasticidad.html#cb27-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb27-4"><a href="heterocedasticidad.html#cb27-4" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[[<span class="st">&#39;x1&#39;</span>,<span class="st">&#39;x2&#39;</span>]])</span>
-<span id="cb27-5"><a href="heterocedasticidad.html#cb27-5" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
-<span id="cb27-6"><a href="heterocedasticidad.html#cb27-6" tabindex="-1"></a>plt.scatter(m.fittedvalues, m.resid, s<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb27-7"><a href="heterocedasticidad.html#cb27-7" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
-<span id="cb27-8"><a href="heterocedasticidad.html#cb27-8" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Ajustados&#39;</span>)<span class="op">;</span> plt.ylabel(<span class="st">&#39;Residuos&#39;</span>)<span class="op">;</span> plt.show()</span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="heterocedasticidad.html#cb28-1" tabindex="-1"></a><span class="co"># R Markdown: incluir imagen ya generada</span></span>
-<span id="cb28-2"><a href="heterocedasticidad.html#cb28-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/hetero_fan.png&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="heterocedasticidad.html#cb29-1" tabindex="-1"></a><span class="co"># R: residuo vs ajustado</span></span>
+<span id="cb29-2"><a href="heterocedasticidad.html#cb29-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> datos)</span>
+<span id="cb29-3"><a href="heterocedasticidad.html#cb29-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
+<span id="cb29-4"><a href="heterocedasticidad.html#cb29-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb30-1"><a href="heterocedasticidad.html#cb30-1" tabindex="-1"></a><span class="co"># Python (statsmodels)</span></span>
+<span id="cb30-2"><a href="heterocedasticidad.html#cb30-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb30-3"><a href="heterocedasticidad.html#cb30-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb30-4"><a href="heterocedasticidad.html#cb30-4" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[[<span class="st">&#39;x1&#39;</span>,<span class="st">&#39;x2&#39;</span>]])</span>
+<span id="cb30-5"><a href="heterocedasticidad.html#cb30-5" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
+<span id="cb30-6"><a href="heterocedasticidad.html#cb30-6" tabindex="-1"></a>plt.scatter(m.fittedvalues, m.resid, s<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb30-7"><a href="heterocedasticidad.html#cb30-7" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
+<span id="cb30-8"><a href="heterocedasticidad.html#cb30-8" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Ajustados&#39;</span>)<span class="op">;</span> plt.ylabel(<span class="st">&#39;Residuos&#39;</span>)<span class="op">;</span> plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="heterocedasticidad.html#cb31-1" tabindex="-1"></a><span class="co"># R Markdown: incluir imagen ya generada</span></span>
+<span id="cb31-2"><a href="heterocedasticidad.html#cb31-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/hetero_fan.png&quot;</span>)</span></code></pre></div>
 </div>
 <div id="contraste-de-white-1980" class="section level3 unnumbered hasAnchor">
 <h3>5.2 Contraste de White (1980)<a href="heterocedasticidad.html#contraste-de-white-1980" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -635,43 +640,43 @@ H_0: (_i<sup>2)=</sup>2
 H_1: (_i^2)=_i^2.]</p>
 <p><strong>Procedimiento (idea):</strong> Regrésese (^2) sobre regresores, sus cuadrados y cruces; compute (W=nR<sup>2</sup>2) (asintótico).</p>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb29-1"><a href="heterocedasticidad.html#cb29-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb29-2"><a href="heterocedasticidad.html#cb29-2" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">imtest</span>, <span class="bn">white</span>   <span class="co">// White general</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb32-1"><a href="heterocedasticidad.html#cb32-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb32-2"><a href="heterocedasticidad.html#cb32-2" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">imtest</span>, <span class="bn">white</span>   <span class="co">// White general</span></span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="heterocedasticidad.html#cb30-1" tabindex="-1"></a><span class="co"># Aproximación a White vía bptest con ajustados y su cuadrado</span></span>
-<span id="cb30-2"><a href="heterocedasticidad.html#cb30-2" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb30-3"><a href="heterocedasticidad.html#cb30-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb30-4"><a href="heterocedasticidad.html#cb30-4" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> <span class="fu">fitted</span>(m) <span class="sc">+</span> <span class="fu">I</span>(<span class="fu">fitted</span>(m)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="heterocedasticidad.html#cb33-1" tabindex="-1"></a><span class="co"># Aproximación a White vía bptest con ajustados y su cuadrado</span></span>
+<span id="cb33-2"><a href="heterocedasticidad.html#cb33-2" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb33-3"><a href="heterocedasticidad.html#cb33-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
+<span id="cb33-4"><a href="heterocedasticidad.html#cb33-4" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> <span class="fu">fitted</span>(m) <span class="sc">+</span> <span class="fu">I</span>(<span class="fu">fitted</span>(m)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <p><strong>Python</strong></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="heterocedasticidad.html#cb31-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_white</span>
-<span id="cb31-2"><a href="heterocedasticidad.html#cb31-2" tabindex="-1"></a>white <span class="op">=</span> het_white(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="heterocedasticidad.html#cb34-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_white</span>
+<span id="cb34-2"><a href="heterocedasticidad.html#cb34-2" tabindex="-1"></a>white <span class="op">=</span> het_white(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
 <p><strong>Pro/Con:</strong> No requiere saber qué variable genera la hetero; puede ser pesado en muestras pequeñas.</p>
 </div>
 <div id="breuschpagan-cookweisberg" class="section level3 unnumbered hasAnchor">
 <h3>5.3 Breusch–Pagan / Cook–Weisberg<a href="heterocedasticidad.html#breuschpagan-cookweisberg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Asume ((_i)=^2 h(z_i)) lineal en (z).</p>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb32-1"><a href="heterocedasticidad.html#cb32-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb32-2"><a href="heterocedasticidad.html#cb32-2" tabindex="-1"></a><span class="kw">hettest</span>                 <span class="co">// por defecto contra ajustados (Cook–Weisberg)</span></span>
-<span id="cb32-3"><a href="heterocedasticidad.html#cb32-3" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid      <span class="co">// BP clásico con z = (x1, x2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="heterocedasticidad.html#cb35-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb35-2"><a href="heterocedasticidad.html#cb35-2" tabindex="-1"></a><span class="kw">hettest</span>                 <span class="co">// por defecto contra ajustados (Cook–Weisberg)</span></span>
+<span id="cb35-3"><a href="heterocedasticidad.html#cb35-3" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid      <span class="co">// BP clásico con z = (x1, x2)</span></span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="heterocedasticidad.html#cb33-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb33-2"><a href="heterocedasticidad.html#cb33-2" tabindex="-1"></a><span class="fu">bptest</span>(m)               <span class="co"># usa fitted(m) como z</span></span>
-<span id="cb33-3"><a href="heterocedasticidad.html#cb33-3" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)    <span class="co"># especifica z</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="heterocedasticidad.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb36-2"><a href="heterocedasticidad.html#cb36-2" tabindex="-1"></a><span class="fu">bptest</span>(m)               <span class="co"># usa fitted(m) como z</span></span>
+<span id="cb36-3"><a href="heterocedasticidad.html#cb36-3" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)    <span class="co"># especifica z</span></span></code></pre></div>
 <p><strong>Python</strong></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb34-1"><a href="heterocedasticidad.html#cb34-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
-<span id="cb34-2"><a href="heterocedasticidad.html#cb34-2" tabindex="-1"></a>bp <span class="op">=</span> het_breuschpagan(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="heterocedasticidad.html#cb37-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
+<span id="cb37-2"><a href="heterocedasticidad.html#cb37-2" tabindex="-1"></a>bp <span class="op">=</span> het_breuschpagan(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
 </div>
 <div id="goldfeldquandt" class="section level3 unnumbered hasAnchor">
 <h3>5.4 Goldfeld–Quandt<a href="heterocedasticidad.html#goldfeldquandt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Útil si sospechas que la varianza crece con <strong>una</strong> covariable (Z). Ordena por (Z), parte la muestra, omite el tercio central y compara varianzas (estadístico F).</p>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="heterocedasticidad.html#cb35-1" tabindex="-1"></a>* Implementación manual si no cuentas con gqtest user-written</span>
-<span id="cb35-2"><a href="heterocedasticidad.html#cb35-2" tabindex="-1"></a><span class="kw">sort</span> Z</span>
-<span id="cb35-3"><a href="heterocedasticidad.html#cb35-3" tabindex="-1"></a>* (particionar, omitir tercio central, estimar en extremos <span class="fu">y</span> comparar RSS/df)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb38-1"><a href="heterocedasticidad.html#cb38-1" tabindex="-1"></a>* Implementación manual si no cuentas con gqtest user-written</span>
+<span id="cb38-2"><a href="heterocedasticidad.html#cb38-2" tabindex="-1"></a><span class="kw">sort</span> Z</span>
+<span id="cb38-3"><a href="heterocedasticidad.html#cb38-3" tabindex="-1"></a>* (particionar, omitir tercio central, estimar en extremos <span class="fu">y</span> comparar RSS/df)</span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="heterocedasticidad.html#cb36-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb36-2"><a href="heterocedasticidad.html#cb36-2" tabindex="-1"></a><span class="fu">gqtest</span>(m, <span class="at">order.by =</span> <span class="sc">~</span> Z, <span class="at">data =</span> datos, <span class="at">fraction =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="heterocedasticidad.html#cb39-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb39-2"><a href="heterocedasticidad.html#cb39-2" tabindex="-1"></a><span class="fu">gqtest</span>(m, <span class="at">order.by =</span> <span class="sc">~</span> Z, <span class="at">data =</span> datos, <span class="at">fraction =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
 <hr />
 </div>
 </div>
@@ -690,24 +695,24 @@ es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es con
 [
 <em>{}</em>{i=1}^n w_i (y_i-x_i’)^2.]</p>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb37-1"><a href="heterocedasticidad.html#cb37-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb40-1"><a href="heterocedasticidad.html#cb40-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="heterocedasticidad.html#cb38-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>sigma2_hat)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="heterocedasticidad.html#cb41-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>sigma2_hat)</span></code></pre></div>
 <p><strong>Python</strong></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="heterocedasticidad.html#cb39-1" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>sigma2_hat).fit()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb42-1"><a href="heterocedasticidad.html#cb42-1" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>sigma2_hat).fit()</span></code></pre></div>
 </div>
 <div id="fglsmcf-gls-factible" class="section level3 unnumbered hasAnchor">
 <h3>6.3 FGLS/MCF (GLS factible)<a href="heterocedasticidad.html#fglsmcf-gls-factible" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Modela (_i^2) con una <strong>regresión auxiliar</strong> sobre (z_i), extrae (_i^2) y aplica WLS.
 <strong>Consistente y asintóticamente eficiente</strong> si modelas bien (). Requiere muestras moderadas/grandes.</p>
 <p><strong>Stata (esqueleto)</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb40-1"><a href="heterocedasticidad.html#cb40-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb40-2"><a href="heterocedasticidad.html#cb40-2" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
-<span id="cb40-3"><a href="heterocedasticidad.html#cb40-3" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
-<span id="cb40-4"><a href="heterocedasticidad.html#cb40-4" tabindex="-1"></a><span class="kw">reg</span> e2 z1 z2 z3</span>
-<span id="cb40-5"><a href="heterocedasticidad.html#cb40-5" tabindex="-1"></a><span class="kw">predict</span> sigma2_hat, <span class="kw">xb</span></span>
-<span id="cb40-6"><a href="heterocedasticidad.html#cb40-6" tabindex="-1"></a><span class="kw">replace</span> sigma2_hat = <span class="fu">exp</span>(sigma2_hat)   <span class="co">// asegura positividad si se modeló en log</span></span>
-<span id="cb40-7"><a href="heterocedasticidad.html#cb40-7" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb43-1"><a href="heterocedasticidad.html#cb43-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb43-2"><a href="heterocedasticidad.html#cb43-2" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
+<span id="cb43-3"><a href="heterocedasticidad.html#cb43-3" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
+<span id="cb43-4"><a href="heterocedasticidad.html#cb43-4" tabindex="-1"></a><span class="kw">reg</span> e2 z1 z2 z3</span>
+<span id="cb43-5"><a href="heterocedasticidad.html#cb43-5" tabindex="-1"></a><span class="kw">predict</span> sigma2_hat, <span class="kw">xb</span></span>
+<span id="cb43-6"><a href="heterocedasticidad.html#cb43-6" tabindex="-1"></a><span class="kw">replace</span> sigma2_hat = <span class="fu">exp</span>(sigma2_hat)   <span class="co">// asegura positividad si se modeló en log</span></span>
+<span id="cb43-7"><a href="heterocedasticidad.html#cb43-7" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
 </div>
 <div id="errores-estándar-robustos-whitehuber" class="section level3 unnumbered hasAnchor">
 <h3>6.4 Errores estándar robustos (White/Huber)<a href="#errores-est%C3%A1ndar-robustos-whitehuber" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -715,14 +720,14 @@ es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es con
 [
 *{HC}()=(X’X)<sup>{-1}(</sup>n x_i x_i’ _i<sup>2)(X’X)</sup>{-1}.]</p>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="heterocedasticidad.html#cb41-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>    <span class="co">// ≈ HC1</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="heterocedasticidad.html#cb44-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>    <span class="co">// ≈ HC1</span></span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="heterocedasticidad.html#cb42-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
-<span id="cb42-2"><a href="heterocedasticidad.html#cb42-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb42-3"><a href="heterocedasticidad.html#cb42-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="heterocedasticidad.html#cb45-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
+<span id="cb45-2"><a href="heterocedasticidad.html#cb45-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
+<span id="cb45-3"><a href="heterocedasticidad.html#cb45-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span></code></pre></div>
 <p><strong>Python</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="heterocedasticidad.html#cb43-1" tabindex="-1"></a>m_rob <span class="op">=</span> m.get_robustcov_results(cov_type <span class="op">=</span> <span class="st">&#39;HC1&#39;</span>)</span>
-<span id="cb43-2"><a href="heterocedasticidad.html#cb43-2" tabindex="-1"></a><span class="bu">print</span>(m_rob.summary())</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="heterocedasticidad.html#cb46-1" tabindex="-1"></a>m_rob <span class="op">=</span> m.get_robustcov_results(cov_type <span class="op">=</span> <span class="st">&#39;HC1&#39;</span>)</span>
+<span id="cb46-2"><a href="heterocedasticidad.html#cb46-2" tabindex="-1"></a><span class="bu">print</span>(m_rob.summary())</span></code></pre></div>
 <blockquote>
 <p><strong>Cuándo usar qué:</strong></p>
 <ul>
@@ -737,80 +742,80 @@ es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es con
 <h2>7. Ejemplo reproducible (simulación)<a href="#ejemplo-reproducible-simulaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="stata-4" class="section level3 unnumbered hasAnchor">
 <h3>Stata<a href="heterocedasticidad.html#stata-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="heterocedasticidad.html#cb44-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
-<span id="cb44-2"><a href="heterocedasticidad.html#cb44-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
-<span id="cb44-3"><a href="heterocedasticidad.html#cb44-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
-<span id="cb44-4"><a href="heterocedasticidad.html#cb44-4" tabindex="-1"></a><span class="kw">gen</span> x = rnormal()</span>
-<span id="cb44-5"><a href="heterocedasticidad.html#cb44-5" tabindex="-1"></a><span class="kw">gen</span> u = rnormal() * <span class="fu">abs</span>(x)   <span class="co">// varianza crece con |x|</span></span>
-<span id="cb44-6"><a href="heterocedasticidad.html#cb44-6" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 2*x + u</span>
-<span id="cb44-7"><a href="heterocedasticidad.html#cb44-7" tabindex="-1"></a></span>
-<span id="cb44-8"><a href="heterocedasticidad.html#cb44-8" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x</span>
-<span id="cb44-9"><a href="heterocedasticidad.html#cb44-9" tabindex="-1"></a><span class="kw">hettest</span></span>
-<span id="cb44-10"><a href="heterocedasticidad.html#cb44-10" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x, <span class="kw">robust</span></span>
-<span id="cb44-11"><a href="heterocedasticidad.html#cb44-11" tabindex="-1"></a></span>
-<span id="cb44-12"><a href="heterocedasticidad.html#cb44-12" tabindex="-1"></a>* FGLS simple</span>
-<span id="cb44-13"><a href="heterocedasticidad.html#cb44-13" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
-<span id="cb44-14"><a href="heterocedasticidad.html#cb44-14" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
-<span id="cb44-15"><a href="heterocedasticidad.html#cb44-15" tabindex="-1"></a><span class="kw">reg</span> e2 x</span>
-<span id="cb44-16"><a href="heterocedasticidad.html#cb44-16" tabindex="-1"></a><span class="kw">predict</span> s2, <span class="kw">xb</span></span>
-<span id="cb44-17"><a href="heterocedasticidad.html#cb44-17" tabindex="-1"></a><span class="kw">replace</span> s2 = <span class="fu">exp</span>(s2)   <span class="co">// asegura positividad si modelaste en log</span></span>
-<span id="cb44-18"><a href="heterocedasticidad.html#cb44-18" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x [aw = 1/s2]</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb47-1"><a href="heterocedasticidad.html#cb47-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb47-2"><a href="heterocedasticidad.html#cb47-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
+<span id="cb47-3"><a href="heterocedasticidad.html#cb47-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
+<span id="cb47-4"><a href="heterocedasticidad.html#cb47-4" tabindex="-1"></a><span class="kw">gen</span> x = rnormal()</span>
+<span id="cb47-5"><a href="heterocedasticidad.html#cb47-5" tabindex="-1"></a><span class="kw">gen</span> u = rnormal() * <span class="fu">abs</span>(x)   <span class="co">// varianza crece con |x|</span></span>
+<span id="cb47-6"><a href="heterocedasticidad.html#cb47-6" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 2*x + u</span>
+<span id="cb47-7"><a href="heterocedasticidad.html#cb47-7" tabindex="-1"></a></span>
+<span id="cb47-8"><a href="heterocedasticidad.html#cb47-8" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x</span>
+<span id="cb47-9"><a href="heterocedasticidad.html#cb47-9" tabindex="-1"></a><span class="kw">hettest</span></span>
+<span id="cb47-10"><a href="heterocedasticidad.html#cb47-10" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x, <span class="kw">robust</span></span>
+<span id="cb47-11"><a href="heterocedasticidad.html#cb47-11" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="heterocedasticidad.html#cb47-12" tabindex="-1"></a>* FGLS simple</span>
+<span id="cb47-13"><a href="heterocedasticidad.html#cb47-13" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
+<span id="cb47-14"><a href="heterocedasticidad.html#cb47-14" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
+<span id="cb47-15"><a href="heterocedasticidad.html#cb47-15" tabindex="-1"></a><span class="kw">reg</span> e2 x</span>
+<span id="cb47-16"><a href="heterocedasticidad.html#cb47-16" tabindex="-1"></a><span class="kw">predict</span> s2, <span class="kw">xb</span></span>
+<span id="cb47-17"><a href="heterocedasticidad.html#cb47-17" tabindex="-1"></a><span class="kw">replace</span> s2 = <span class="fu">exp</span>(s2)   <span class="co">// asegura positividad si modelaste en log</span></span>
+<span id="cb47-18"><a href="heterocedasticidad.html#cb47-18" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x [aw = 1/s2]</span></code></pre></div>
 </div>
 <div id="r-5" class="section level3 unnumbered hasAnchor">
 <h3>R<a href="heterocedasticidad.html#r-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="heterocedasticidad.html#cb45-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb45-2"><a href="heterocedasticidad.html#cb45-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb45-3"><a href="heterocedasticidad.html#cb45-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb45-4"><a href="heterocedasticidad.html#cb45-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">*</span> <span class="fu">abs</span>(x)</span>
-<span id="cb45-5"><a href="heterocedasticidad.html#cb45-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
-<span id="cb45-6"><a href="heterocedasticidad.html#cb45-6" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x)</span>
-<span id="cb45-7"><a href="heterocedasticidad.html#cb45-7" tabindex="-1"></a></span>
-<span id="cb45-8"><a href="heterocedasticidad.html#cb45-8" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos)</span>
-<span id="cb45-9"><a href="heterocedasticidad.html#cb45-9" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
-<span id="cb45-10"><a href="heterocedasticidad.html#cb45-10" tabindex="-1"></a><span class="fu">bptest</span>(m)</span>
-<span id="cb45-11"><a href="heterocedasticidad.html#cb45-11" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb45-12"><a href="heterocedasticidad.html#cb45-12" tabindex="-1"></a></span>
-<span id="cb45-13"><a href="heterocedasticidad.html#cb45-13" tabindex="-1"></a><span class="co"># FGLS básico</span></span>
-<span id="cb45-14"><a href="heterocedasticidad.html#cb45-14" tabindex="-1"></a>ehat2 <span class="ot">&lt;-</span> <span class="fu">resid</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb45-15"><a href="heterocedasticidad.html#cb45-15" tabindex="-1"></a>m_aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(ehat2 <span class="sc">+</span> <span class="fl">1e-6</span>) <span class="sc">~</span> x, datos)  <span class="co"># en log para positividad</span></span>
-<span id="cb45-16"><a href="heterocedasticidad.html#cb45-16" tabindex="-1"></a>s2hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">fitted</span>(m_aux))</span>
-<span id="cb45-17"><a href="heterocedasticidad.html#cb45-17" tabindex="-1"></a>m_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>s2hat)</span>
-<span id="cb45-18"><a href="heterocedasticidad.html#cb45-18" tabindex="-1"></a><span class="fu">summary</span>(m); <span class="fu">summary</span>(m_wls)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="heterocedasticidad.html#cb48-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb48-2"><a href="heterocedasticidad.html#cb48-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb48-3"><a href="heterocedasticidad.html#cb48-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb48-4"><a href="heterocedasticidad.html#cb48-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">*</span> <span class="fu">abs</span>(x)</span>
+<span id="cb48-5"><a href="heterocedasticidad.html#cb48-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
+<span id="cb48-6"><a href="heterocedasticidad.html#cb48-6" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x)</span>
+<span id="cb48-7"><a href="heterocedasticidad.html#cb48-7" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="heterocedasticidad.html#cb48-8" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos)</span>
+<span id="cb48-9"><a href="heterocedasticidad.html#cb48-9" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
+<span id="cb48-10"><a href="heterocedasticidad.html#cb48-10" tabindex="-1"></a><span class="fu">bptest</span>(m)</span>
+<span id="cb48-11"><a href="heterocedasticidad.html#cb48-11" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb48-12"><a href="heterocedasticidad.html#cb48-12" tabindex="-1"></a></span>
+<span id="cb48-13"><a href="heterocedasticidad.html#cb48-13" tabindex="-1"></a><span class="co"># FGLS básico</span></span>
+<span id="cb48-14"><a href="heterocedasticidad.html#cb48-14" tabindex="-1"></a>ehat2 <span class="ot">&lt;-</span> <span class="fu">resid</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb48-15"><a href="heterocedasticidad.html#cb48-15" tabindex="-1"></a>m_aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(ehat2 <span class="sc">+</span> <span class="fl">1e-6</span>) <span class="sc">~</span> x, datos)  <span class="co"># en log para positividad</span></span>
+<span id="cb48-16"><a href="heterocedasticidad.html#cb48-16" tabindex="-1"></a>s2hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">fitted</span>(m_aux))</span>
+<span id="cb48-17"><a href="heterocedasticidad.html#cb48-17" tabindex="-1"></a>m_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>s2hat)</span>
+<span id="cb48-18"><a href="heterocedasticidad.html#cb48-18" tabindex="-1"></a><span class="fu">summary</span>(m); <span class="fu">summary</span>(m_wls)</span></code></pre></div>
 </div>
 <div id="python-statsmodels" class="section level3 unnumbered hasAnchor">
 <h3>Python (statsmodels)<a href="heterocedasticidad.html#python-statsmodels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="heterocedasticidad.html#cb46-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb46-2"><a href="heterocedasticidad.html#cb46-2" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
-<span id="cb46-3"><a href="heterocedasticidad.html#cb46-3" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="heterocedasticidad.html#cb46-4" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
-<span id="cb46-5"><a href="heterocedasticidad.html#cb46-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb46-6"><a href="heterocedasticidad.html#cb46-6" tabindex="-1"></a>x <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb46-7"><a href="heterocedasticidad.html#cb46-7" tabindex="-1"></a>u <span class="op">=</span> np.random.normal(size<span class="op">=</span>n) <span class="op">*</span> np.<span class="bu">abs</span>(x)</span>
-<span id="cb46-8"><a href="heterocedasticidad.html#cb46-8" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span> u</span>
-<span id="cb46-9"><a href="heterocedasticidad.html#cb46-9" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;y&#39;</span>: y, <span class="st">&#39;x&#39;</span>: x})</span>
-<span id="cb46-10"><a href="heterocedasticidad.html#cb46-10" tabindex="-1"></a></span>
-<span id="cb46-11"><a href="heterocedasticidad.html#cb46-11" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[<span class="st">&#39;x&#39;</span>])</span>
-<span id="cb46-12"><a href="heterocedasticidad.html#cb46-12" tabindex="-1"></a>ols <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
-<span id="cb46-13"><a href="heterocedasticidad.html#cb46-13" tabindex="-1"></a><span class="bu">print</span>(het_breuschpagan(ols.resid, ols.model.exog))</span>
-<span id="cb46-14"><a href="heterocedasticidad.html#cb46-14" tabindex="-1"></a><span class="bu">print</span>(ols.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>).summary())</span>
-<span id="cb46-15"><a href="heterocedasticidad.html#cb46-15" tabindex="-1"></a></span>
-<span id="cb46-16"><a href="heterocedasticidad.html#cb46-16" tabindex="-1"></a><span class="co"># FGLS</span></span>
-<span id="cb46-17"><a href="heterocedasticidad.html#cb46-17" tabindex="-1"></a>eh2 <span class="op">=</span> ols.resid<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb46-18"><a href="heterocedasticidad.html#cb46-18" tabindex="-1"></a>aux <span class="op">=</span> sm.OLS(np.log(eh2 <span class="op">+</span> <span class="fl">1e-6</span>), X).fit()</span>
-<span id="cb46-19"><a href="heterocedasticidad.html#cb46-19" tabindex="-1"></a>s2hat <span class="op">=</span> np.exp(aux.fittedvalues)</span>
-<span id="cb46-20"><a href="heterocedasticidad.html#cb46-20" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>s2hat).fit()</span>
-<span id="cb46-21"><a href="heterocedasticidad.html#cb46-21" tabindex="-1"></a><span class="bu">print</span>(wls.summary())</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb49-1"><a href="heterocedasticidad.html#cb49-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb49-2"><a href="heterocedasticidad.html#cb49-2" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
+<span id="cb49-3"><a href="heterocedasticidad.html#cb49-3" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="heterocedasticidad.html#cb49-4" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
+<span id="cb49-5"><a href="heterocedasticidad.html#cb49-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb49-6"><a href="heterocedasticidad.html#cb49-6" tabindex="-1"></a>x <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb49-7"><a href="heterocedasticidad.html#cb49-7" tabindex="-1"></a>u <span class="op">=</span> np.random.normal(size<span class="op">=</span>n) <span class="op">*</span> np.<span class="bu">abs</span>(x)</span>
+<span id="cb49-8"><a href="heterocedasticidad.html#cb49-8" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span> u</span>
+<span id="cb49-9"><a href="heterocedasticidad.html#cb49-9" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;y&#39;</span>: y, <span class="st">&#39;x&#39;</span>: x})</span>
+<span id="cb49-10"><a href="heterocedasticidad.html#cb49-10" tabindex="-1"></a></span>
+<span id="cb49-11"><a href="heterocedasticidad.html#cb49-11" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[<span class="st">&#39;x&#39;</span>])</span>
+<span id="cb49-12"><a href="heterocedasticidad.html#cb49-12" tabindex="-1"></a>ols <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
+<span id="cb49-13"><a href="heterocedasticidad.html#cb49-13" tabindex="-1"></a><span class="bu">print</span>(het_breuschpagan(ols.resid, ols.model.exog))</span>
+<span id="cb49-14"><a href="heterocedasticidad.html#cb49-14" tabindex="-1"></a><span class="bu">print</span>(ols.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>).summary())</span>
+<span id="cb49-15"><a href="heterocedasticidad.html#cb49-15" tabindex="-1"></a></span>
+<span id="cb49-16"><a href="heterocedasticidad.html#cb49-16" tabindex="-1"></a><span class="co"># FGLS</span></span>
+<span id="cb49-17"><a href="heterocedasticidad.html#cb49-17" tabindex="-1"></a>eh2 <span class="op">=</span> ols.resid<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb49-18"><a href="heterocedasticidad.html#cb49-18" tabindex="-1"></a>aux <span class="op">=</span> sm.OLS(np.log(eh2 <span class="op">+</span> <span class="fl">1e-6</span>), X).fit()</span>
+<span id="cb49-19"><a href="heterocedasticidad.html#cb49-19" tabindex="-1"></a>s2hat <span class="op">=</span> np.exp(aux.fittedvalues)</span>
+<span id="cb49-20"><a href="heterocedasticidad.html#cb49-20" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>s2hat).fit()</span>
+<span id="cb49-21"><a href="heterocedasticidad.html#cb49-21" tabindex="-1"></a><span class="bu">print</span>(wls.summary())</span></code></pre></div>
 <hr />
 </div>
 </div>
 <div id="visualizaciones-diagnóstico" class="section level2 unnumbered hasAnchor">
 <h2>8. Visualizaciones (diagnóstico)<a href="#visualizaciones-diagn%C3%B3stico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="heterocedasticidad.html#cb47-1" tabindex="-1"></a><span class="co"># Residuo vs Ajustados y vs x</span></span>
-<span id="cb47-2"><a href="heterocedasticidad.html#cb47-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb47-3"><a href="heterocedasticidad.html#cb47-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb47-4"><a href="heterocedasticidad.html#cb47-4" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="heterocedasticidad.html#cb48-1" tabindex="-1"></a><span class="co"># Incluir imágenes externas</span></span>
-<span id="cb48-2"><a href="heterocedasticidad.html#cb48-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">c</span>(<span class="st">&quot;figs/resid_fitted.png&quot;</span>,<span class="st">&quot;figs/resid_x.png&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="heterocedasticidad.html#cb50-1" tabindex="-1"></a><span class="co"># Residuo vs Ajustados y vs x</span></span>
+<span id="cb50-2"><a href="heterocedasticidad.html#cb50-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb50-3"><a href="heterocedasticidad.html#cb50-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb50-4"><a href="heterocedasticidad.html#cb50-4" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="heterocedasticidad.html#cb51-1" tabindex="-1"></a><span class="co"># Incluir imágenes externas</span></span>
+<span id="cb51-2"><a href="heterocedasticidad.html#cb51-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">c</span>(<span class="st">&quot;figs/resid_fitted.png&quot;</span>,<span class="st">&quot;figs/resid_x.png&quot;</span>))</span></code></pre></div>
 <hr />
 </div>
 <div id="tabla-resumen-de-contrastes" class="section level2 unnumbered hasAnchor">
@@ -895,21 +900,21 @@ es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es con
 <div id="apéndice-comandos-rápidos-por-software" class="section level2 unnumbered hasAnchor">
 <h2>12. Apéndice: comandos rápidos por software<a href="#ap%C3%A9ndice-comandos-r%C3%A1pidos-por-software" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb49-1"><a href="heterocedasticidad.html#cb49-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>      <span class="co">// EE robustos</span></span>
-<span id="cb49-2"><a href="heterocedasticidad.html#cb49-2" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid       <span class="co">// BP</span></span>
-<span id="cb49-3"><a href="heterocedasticidad.html#cb49-3" tabindex="-1"></a><span class="kw">imtest</span>, <span class="bn">white</span>            <span class="co">// White general</span></span>
-<span id="cb49-4"><a href="heterocedasticidad.html#cb49-4" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = <span class="fu">w</span>]     <span class="co">// WLS con pesos w</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb52-1"><a href="heterocedasticidad.html#cb52-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>      <span class="co">// EE robustos</span></span>
+<span id="cb52-2"><a href="heterocedasticidad.html#cb52-2" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid       <span class="co">// BP</span></span>
+<span id="cb52-3"><a href="heterocedasticidad.html#cb52-3" tabindex="-1"></a><span class="kw">imtest</span>, <span class="bn">white</span>            <span class="co">// White general</span></span>
+<span id="cb52-4"><a href="heterocedasticidad.html#cb52-4" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = <span class="fu">w</span>]     <span class="co">// WLS con pesos w</span></span></code></pre></div>
 <p><strong>R</strong></p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="heterocedasticidad.html#cb50-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb50-2"><a href="heterocedasticidad.html#cb50-2" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
-<span id="cb50-3"><a href="heterocedasticidad.html#cb50-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb50-4"><a href="heterocedasticidad.html#cb50-4" tabindex="-1"></a><span class="fu">bptest</span>(m); <span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb50-5"><a href="heterocedasticidad.html#cb50-5" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">weights =</span> w, <span class="at">data =</span> datos)   <span class="co"># WLS</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="heterocedasticidad.html#cb53-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
+<span id="cb53-2"><a href="heterocedasticidad.html#cb53-2" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
+<span id="cb53-3"><a href="heterocedasticidad.html#cb53-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="st">&quot;HC1&quot;</span>))</span>
+<span id="cb53-4"><a href="heterocedasticidad.html#cb53-4" tabindex="-1"></a><span class="fu">bptest</span>(m); <span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb53-5"><a href="heterocedasticidad.html#cb53-5" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">weights =</span> w, <span class="at">data =</span> datos)   <span class="co"># WLS</span></span></code></pre></div>
 <p><strong>Python</strong></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb51-1"><a href="heterocedasticidad.html#cb51-1" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb51-2"><a href="heterocedasticidad.html#cb51-2" tabindex="-1"></a>m.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)</span>
-<span id="cb51-3"><a href="heterocedasticidad.html#cb51-3" tabindex="-1"></a>het_breuschpagan(m.resid, m.model.exog)</span>
-<span id="cb51-4"><a href="heterocedasticidad.html#cb51-4" tabindex="-1"></a>sm.WLS(y, X, weights <span class="op">=</span> w).fit()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="heterocedasticidad.html#cb54-1" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb54-2"><a href="heterocedasticidad.html#cb54-2" tabindex="-1"></a>m.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)</span>
+<span id="cb54-3"><a href="heterocedasticidad.html#cb54-3" tabindex="-1"></a>het_breuschpagan(m.resid, m.model.exog)</span>
+<span id="cb54-4"><a href="heterocedasticidad.html#cb54-4" tabindex="-1"></a>sm.WLS(y, X, weights <span class="op">=</span> w).fit()</span></code></pre></div>
 <hr />
 <div id="preguntas-de-repaso-9" class="section level3 unnumbered hasAnchor box-repaso">
 <h3>📘 Preguntas de repaso<a href="heterocedasticidad.html#preguntas-de-repaso-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
