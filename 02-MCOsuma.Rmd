@@ -53,10 +53,10 @@ theme_simple <- theme_bw() + theme(
 )
 ```
 
-En este capitulo vamos a: 
+En este capítulo vamos a:
 1. Entender qué es una regresión lineal y cómo se ve gráficamente.
-2. Aprender cómo se calcula la mejor línia con mínimos cuadrados ordinarios (MCO)
-3. Explorar qué hace un buen estiamdor y cómo evaluarlo
+2. Aprender cómo se calcula la mejor línea con mínimos cuadrados ordinarios (MCO)
+3. Explorar qué hace un buen estimador y cómo evaluarlo
 
 ## 🔍 ¿Qué significa encontrar la “mejor línea”? {-}
 

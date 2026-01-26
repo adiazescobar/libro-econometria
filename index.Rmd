@@ -5,11 +5,10 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 description: |
-  This is a minimal example of using the bookdown package to write a book.
-  The HTML output format for this example is bookdown::gitbook,
-  set in the _output.yml file.
+  Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+  Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.
 link-citations: yes
-github-repo: rstudio/bookdown-demo
+github-repo: adiazescobar/libro-econometria
 ---
 
 # Información general {-}
@@ -22,7 +21,7 @@ github-repo: rstudio/bookdown-demo
 | **Sitio web** | <http://adiazescobar.com> |
 | **Correo** | <a.diaze@javeriana.edu.co> |
 | **Prerequisito** | Econometría I |
-| **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 67‑208 y 67‑314 |
+| **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 2‑207 (Ma) y 67‑303 (Ju) |
 | **Monitor** | Sophia Aristizabal — horarios y oficina por definir |
 
 ## Descripción del curso {-}

@@ -1,0 +1,686 @@
+# Prueba de Entrada - Econometria II {-}
+
+```{r setup-quiz, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# Paquete webexercises
+if (!requireNamespace("webexercises", quietly = TRUE)) {
+  install.packages("webexercises")
+}
+library(webexercises)
+```
+
+```{css, echo=FALSE}
+/* Estilos personalizados para la prueba de entrada */
+
+.quiz-section {
+  background-color: #f8f9fa;
+  border-left: 4px solid #1F77B4;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.quiz-section h2 {
+  color: #1F77B4;
+  margin-top: 0;
+}
+
+.question-box {
+  background-color: white;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.question-number {
+  font-weight: bold;
+  color: #1F77B4;
+  font-size: 1.1em;
+}
+
+.intro-box {
+  background: linear-gradient(135deg, #1F77B4 0%, #2E86AB 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.intro-box h3 {
+  margin-top: 0;
+  color: white;
+}
+
+.scoring-guide {
+  background-color: #e8f4f8;
+  border: 2px solid #1F77B4;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+.resources-box {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 5px;
+}
+
+.webex-check {
+  margin-left: 10px;
+}
+
+/* Estilo para respuestas correctas e incorrectas (cuando ya se muestra feedback) */
+.webex-correct {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.webex-incorrect {
+  color: #dc3545;
+}
+
+.tip-box {
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+.warning-box {
+  background-color: #f8d7da;
+  border-left: 4px solid #dc3545;
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+}
+
+/* ======= CLAVE 1: Desactivar feedback inmediato de webexercises hasta finalizar ======= */
+#prueba-entrada-quiz:not(.show-feedback) .webex-check,
+#prueba-entrada-quiz:not(.show-feedback) .webex-correct,
+#prueba-entrada-quiz:not(.show-feedback) .webex-incorrect,
+#prueba-entrada-quiz:not(.show-feedback) input.webex-solveme.webex-correct,
+#prueba-entrada-quiz:not(.show-feedback) input.webex-solveme.webex-incorrect,
+#prueba-entrada-quiz:not(.show-feedback) .webex-radiogroup label.webex-correct,
+#prueba-entrada-quiz:not(.show-feedback) .webex-radiogroup label.webex-incorrect {
+  display: none !important;
+}
+
+/* ======= CLAVE 2: Ocultar explicaciones/soluciones hasta finalizar =======
+   hide()/unhide() generan bloques con clase .webex-solution.
+   Con esto, el estudiante no ve el boton "Ver explicacion" ni el contenido
+   hasta presionar "Finalizar y calcular puntaje".
+*/
+#prueba-entrada-quiz:not(.show-feedback) .webex-solution {
+  display: none !important;
+}
+
+/* Boton de puntaje */
+.btn-score {
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #1F77B4;
+  background: #1F77B4;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-score:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+#score-result table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#score-result th, #score-result td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: left;
+}
+```
+
+<div class="intro-box">
+<h3>Bienvenido a la Prueba de Entrada - Econometria II</h3>
+
+Esta prueba diagnostica evalua tus conocimientos de Econometria I, que son prerequisito para este curso. Nos ayuda a identificar los temas que necesitan refuerzo.
+
+<strong>Instrucciones:</strong>
+
+- La prueba contiene <strong>20 preguntas</strong> divididas en 5 secciones
+- Responde cada pregunta seleccionando la opcion correcta o escribiendo tu respuesta
+- La retroalimentacion, las explicaciones y el puntaje se muestran solo al final, cuando presiones <strong>Finalizar y calcular puntaje</strong>
+- No hay limite de tiempo, pero intenta responder sin consultar materiales
+- Al final encontraras recursos para repasar
+
+<strong>Tiempo estimado:</strong> 20-25 minutos
+
+</div>
+
+---
+
+<div id="prueba-entrada-quiz">
+
+## Seccion 1: Modelo de Regresion Lineal {-}
+
+<div class="quiz-section" data-section="Modelo de Regresion Lineal">
+
+Esta seccion evalua tu comprension del modelo clasico de regresion lineal.
+
+<div class="question-box">
+<span class="question-number">Pregunta 1.</span> En el modelo $y_i = \beta_0 + \beta_1 x_i + u_i$, el termino $u_i$ representa:
+
+`r mcq(c("La variable dependiente", "El intercepto", answer = "El termino de error que captura factores no observados", "La pendiente de la regresion"))`
+
+`r hide("Ver explicacion")`
+El termino de error $u_i$ captura todos los factores que afectan a $y$ pero que no estan incluidos explicitamente en el modelo. Incluye variables omitidas, errores de medicion y aleatoriedad inherente.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 2.</span> El estimador de MCO (Minimos Cuadrados Ordinarios) minimiza:
+
+`r mcq(c("La suma de los errores", "La suma de los valores absolutos de los errores", answer = "La suma de los errores al cuadrado", "El error maximo"))`
+
+`r hide("Ver explicacion")`
+MCO minimiza $\sum_{i=1}^{n}(y_i - \hat{y}_i)^2 = \sum_{i=1}^{n}e_i^2$, es decir, la suma de los residuos al cuadrado (SCR).
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 3.</span> Si en una regresion de salario sobre educacion obtenemos $\hat{\beta}_1 = 1500$, esto significa que:
+
+`r mcq(c("El salario promedio es 1500", answer = "Por cada anio adicional de educacion, el salario aumenta en promedio 1500 unidades", "El 15% de la variacion en salarios es explicada por la educacion", "La correlacion entre salario y educacion es 0.15"))`
+
+`r hide("Ver explicacion")`
+El coeficiente $\hat{\beta}_1$ mide el cambio esperado en $y$ (salario) por cada unidad adicional de $x$ (educacion), manteniendo todo lo demas constante.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 4.</span> El coeficiente de determinacion $R^2$ puede tomar valores entre:
+
+`r mcq(c("-1 y 1", answer = "0 y 1", "-infinito e infinito", "0 e infinito"))`
+
+`r hide("Ver explicacion")`
+$R^2 = 1 - \frac{SCR}{SCT}$ mide la proporcion de varianza explicada. Como $0 \leq SCR \leq SCT$, entonces $0 \leq R^2 \leq 1$.
+`r unhide()`
+</div>
+
+</div>
+
+---
+
+## Seccion 2: Supuestos de MCO {-}
+
+<div class="quiz-section" data-section="Supuestos de MCO">
+
+Esta seccion evalua tu conocimiento de los supuestos del modelo clasico y sus implicaciones.
+
+<div class="question-box">
+<span class="question-number">Pregunta 5.</span> El supuesto de exogeneidad estricta establece que:
+
+`r mcq(c("Los errores tienen varianza constante", answer = "E(u|X) = 0, los errores no estan correlacionados con las variables explicativas", "Los errores siguen una distribucion normal", "No hay correlacion entre los errores"))`
+
+`r hide("Ver explicacion")`
+La exogeneidad estricta $E(u|X) = 0$ implica que las variables explicativas no contienen informacion sobre el termino de error. Es fundamental para la insesgadez de MCO.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 6.</span> El supuesto de homocedasticidad se refiere a:
+
+`r mcq(c("Los errores tienen media cero", answer = "La varianza de los errores es constante: Var(u|X) = sigma^2", "No hay correlacion serial en los errores", "Las X no estan correlacionadas entre si"))`
+
+`r hide("Ver explicacion")`
+Homocedasticidad: $Var(u_i|X) = \sigma^2$ para todo $i$. Si la varianza cambia (heterocedasticidad), MCO sigue siendo insesgado pero no es eficiente y los errores estandar clasicos son incorrectos.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 7.</span> Si existe multicolinealidad perfecta entre dos variables explicativas:
+
+`r mcq(c("Los estimadores seran insesgados pero ineficientes", "El R^2 sera muy bajo", answer = "No se pueden calcular los estimadores de MCO (matriz X'X no invertible)", "Los errores estandar seran muy pequenios"))`
+
+`r hide("Ver explicacion")`
+Si hay multicolinealidad perfecta (una variable es combinacion lineal exacta de otras), la matriz $(X'X)$ es singular y no se puede invertir, por lo que MCO no puede calcularse.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 8.</span> El Teorema de Gauss-Markov establece que bajo los supuestos clasicos, MCO es:
+
+`r mcq(c("El unico estimador insesgado", "El estimador con menor sesgo", answer = "BLUE: el mejor estimador lineal insesgado (minima varianza)", "El estimador maximo verosimil"))`
+
+`r hide("Ver explicacion")`
+Gauss-Markov: bajo supuestos A1-A5, MCO es BLUE (Best Linear Unbiased Estimator). Es el estimador lineal insesgado de minima varianza, pero no necesariamente el mejor de todos los estimadores posibles.
+`r unhide()`
+</div>
+
+</div>
+
+---
+
+## Seccion 3: Inferencia Estadistica {-}
+
+<div class="quiz-section" data-section="Inferencia Estadistica">
+
+Esta seccion evalua tu comprension de pruebas de hipotesis e intervalos de confianza.
+
+<div class="question-box">
+<span class="question-number">Pregunta 9.</span> Para contrastar $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$, usamos el estadistico:
+
+`r mcq(c(answer = "t = (beta_hat - 0) / se(beta_hat)", "F = SCE / SCR", "Chi-cuadrado", "Z = beta_hat / beta"))`
+
+`r hide("Ver explicacion")`
+El estadistico t para contrastar $H_0: \beta_k = \bar{\beta}_k$ es $t = \frac{\hat{\beta}_k - \bar{\beta}_k}{se(\hat{\beta}_k)}$, que sigue una distribucion t con n-k grados de libertad bajo $H_0$.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 10.</span> Si el p-value de un coeficiente es 0.02, podemos decir que:
+
+`r mcq(c("El coeficiente es significativo al 1%", answer = "El coeficiente es significativo al 5% pero no al 1%", "El coeficiente no es significativo", "Hay 98% de probabilidad de que el coeficiente sea correcto"))`
+
+`r hide("Ver explicacion")`
+p-value = 0.02 < 0.05, por lo que rechazamos $H_0$ al 5%. Pero 0.02 > 0.01, asi que no rechazamos al 1%.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 11.</span> Un intervalo de confianza del 95% para $\beta_1$ se construye como:
+
+`r mcq(c(answer = "beta_hat +/- t_critico * se(beta_hat)", "beta_hat +/- 1.96 * beta_hat", "beta_hat +/- sigma^2", "beta_hat +/- R^2"))`
+
+`r hide("Ver explicacion")`
+IC 95%: $\hat{\beta}_1 \pm t_{n-k, 0.025} \times se(\hat{\beta}_1)$. El valor critico depende de los grados de libertad; para muestras grandes, $t \approx 1.96$.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 12.</span> El estadistico F se utiliza para:
+
+`r mcq(c("Contrastar hipotesis sobre un solo coeficiente", answer = "Contrastar hipotesis conjuntas sobre multiples coeficientes", "Detectar heterocedasticidad", "Medir el ajuste del modelo"))`
+
+`r hide("Ver explicacion")`
+El test F permite contrastar restricciones lineales conjuntas, como $H_0: \beta_2 = \beta_3 = 0$. Para un solo coeficiente, t y F son equivalentes ($F = t^2$).
+`r unhide()`
+</div>
+
+</div>
+
+---
+
+## Seccion 4: Algebra Matricial y MCO {-}
+
+<div class="quiz-section" data-section="Algebra Matricial">
+
+Esta seccion evalua conocimientos basicos de matrices aplicados a econometria.
+
+<div class="question-box">
+<span class="question-number">Pregunta 13.</span> El estimador de MCO en notacion matricial es:
+
+`r mcq(c("beta_hat = X'y", "beta_hat = (X'y)^(-1)", answer = "beta_hat = (X'X)^(-1) X'y", "beta_hat = X(X'X)^(-1)"))`
+
+`r hide("Ver explicacion")`
+Minimizando $(y - X\beta)'(y - X\beta)$ y derivando respecto a $\beta$, obtenemos las ecuaciones normales $X'X\beta = X'y$, cuya solucion es $\hat{\beta} = (X'X)^{-1}X'y$.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 14.</span> La matriz de varianzas-covarianzas del estimador MCO bajo homocedasticidad es:
+
+`r mcq(c("sigma^2 * X'X", answer = "sigma^2 * (X'X)^(-1)", "(X'X)^(-1)", "sigma^2 * I"))`
+
+`r hide("Ver explicacion")`
+$Var(\hat{\beta}|X) = \sigma^2(X'X)^{-1}$. Los errores estandar de cada $\hat{\beta}_k$ son la raiz de los elementos diagonales de esta matriz.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 15.</span> Si X es una matriz de n x k, entonces X'X tiene dimension:
+
+`r mcq(c("n x n", answer = "k x k", "n x k", "k x n"))`
+
+`r hide("Ver explicacion")`
+Si $X$ es $n \times k$, entonces $X'$ es $k \times n$, y el producto $X'X$ es $k \times k$ (cuadrada, con k filas y k columnas).
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 16.</span> El residuo $e_i$ se define como:
+
+`r mcq(c("El error poblacional u_i", answer = "La diferencia entre el valor observado y el predicho: e_i = y_i - y_hat_i", "El valor predicho por el modelo", "La varianza del error"))`
+
+`r hide("Ver explicacion")`
+El residuo $e_i = y_i - \hat{y}_i$ es la diferencia entre el valor observado y el predicho. Es el analogo muestral del error poblacional $u_i = y_i - E(y_i|X)$.
+`r unhide()`
+</div>
+
+</div>
+
+---
+
+## Seccion 5: Stata {-}
+
+<div class="quiz-section" data-section="Stata">
+
+Esta seccion evalua tu familiaridad con comandos basicos de Stata.
+
+<div class="question-box">
+<span class="question-number">Pregunta 17.</span> El comando para estimar una regresion de y sobre x1 y x2 en Stata es:
+
+`r fitb(c("reg y x1 x2", "regress y x1 x2"), width = 25, ignore_case = TRUE)`
+
+`r hide("Ver explicacion")`
+`regress y x1 x2` (o abreviado `reg y x1 x2`) estima el modelo $y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + u$ por MCO.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 18.</span> Despues de una regresion en Stata, para obtener los residuos en una variable llamada "res" usamos:
+
+`r mcq(c("gen res = residuals", answer = "predict res, residuals", "residuals res", "get residuals res"))`
+
+`r hide("Ver explicacion")`
+`predict varname, residuals` genera una nueva variable con los residuos de la ultima regresion estimada.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 19.</span> El comando `summarize` en Stata sirve para:
+
+`r mcq(c("Estimar una regresion", answer = "Obtener estadisticas descriptivas (media, desv. est., min, max)", "Graficar datos", "Importar datos"))`
+
+`r hide("Ver explicacion")`
+`summarize varlist` muestra estadisticas descriptivas basicas. Con la opcion `detail` muestra percentiles, asimetria y curtosis.
+`r unhide()`
+</div>
+
+<div class="question-box">
+<span class="question-number">Pregunta 20.</span> Para hacer un test F de que beta_1 = beta_2 = 0 despues de una regresion en Stata, usamos:
+
+`r mcq(c("ftest x1 x2", answer = "test x1 x2", "testparm x1 x2", "hypothesis x1 x2"))`
+
+`r hide("Ver explicacion")`
+`test varlist` realiza un test de Wald para la hipotesis conjunta de que los coeficientes de las variables listadas son cero. Tambien acepta restricciones mas generales como `test x1 = x2`.
+`r unhide()`
+</div>
+
+</div>
+
+</div> <!-- cierre prueba-entrada-quiz -->
+
+---
+
+## Puntaje (automatico) {-}
+
+<div class="scoring-guide">
+  <button type="button" id="btn-finalizar" class="btn-score">
+    Finalizar y calcular puntaje
+  </button>
+
+  <div id="score-result" style="display:none; margin-top: 15px;"></div>
+
+  <p style="margin-top: 12px;">
+    Nota: el puntaje se calcula en tu navegador (HTML).
+  </p>
+</div>
+
+```{=html}
+<script>
+(function () {
+
+  function normalizeText(s, ignoreCase, noSpaces) {
+    let out = (s ?? "").toString().trim();
+    if (noSpaces) out = out.replace(/\s+/g, "");
+    if (ignoreCase) out = out.toLowerCase();
+    return out;
+  }
+
+  function fitbCorrect(input) {
+    const raw = (input.value ?? "").toString();
+    const answered = raw.trim().length > 0;
+
+    const ignoreCase =
+      input.classList.contains("ignorecase") ||
+      input.classList.contains("ignore_case") ||
+      input.classList.contains("ignore-case");
+
+    const noSpaces = input.classList.contains("nospaces");
+
+    if (!answered) return { answered: false, correct: false };
+
+    let answers = [];
+    if (input.dataset && input.dataset.answer) {
+      try { answers = JSON.parse(input.dataset.answer); }
+      catch (e) { answers = [input.dataset.answer]; }
+    }
+
+    const isNum = input.classList.contains("num");
+    const tol = (input.dataset && input.dataset.tol) ? parseFloat(input.dataset.tol) : null;
+    const isRegex = input.classList.contains("regex");
+
+    if (isNum) {
+      const v = parseFloat(raw);
+      if (Number.isNaN(v)) return { answered: true, correct: false };
+      for (const a of answers) {
+        const af = parseFloat(a);
+        if (Number.isNaN(af)) continue;
+        if (tol !== null) {
+          if (Math.abs(v - af) <= tol) return { answered: true, correct: true };
+        } else {
+          if (v === af) return { answered: true, correct: true };
+        }
+      }
+      return { answered: true, correct: false };
+    }
+
+    if (isRegex) {
+      for (const a of answers) {
+        try {
+          const re = new RegExp(a);
+          if (re.test(raw.trim())) return { answered: true, correct: true };
+        } catch (e) {}
+      }
+      return { answered: true, correct: false };
+    }
+
+    const val = normalizeText(raw, ignoreCase, noSpaces);
+    for (const a of answers) {
+      const ans = normalizeText(a, ignoreCase, noSpaces);
+      if (val === ans) return { answered: true, correct: true };
+    }
+    return { answered: true, correct: false };
+  }
+
+  function selectCorrect(sel) {
+    const v = (sel.value ?? "").toString();
+    if (v === "" || v === "blank") return { answered: false, correct: false };
+    return { answered: true, correct: v === "answer" };
+  }
+
+  function radioCorrect(group) {
+    const checked = group.querySelector("input[type='radio']:checked");
+    if (!checked) return { answered: false, correct: false };
+    return { answered: true, correct: checked.value === "answer" };
+  }
+
+  function scoreQuestionBox(box) {
+    const inputs = Array.from(box.querySelectorAll("input.webex-solveme"));
+    const selects = Array.from(box.querySelectorAll("select.webex-select"));
+    const radios  = Array.from(box.querySelectorAll(".webex-radiogroup"));
+
+    const widgets = inputs.length + selects.length + radios.length;
+    if (widgets === 0) return { answered: false, correct: false };
+
+    let answeredAny = false;
+    let allCorrect = true;
+
+    inputs.forEach(i => {
+      const r = fitbCorrect(i);
+      answeredAny = answeredAny || r.answered;
+      allCorrect = allCorrect && r.correct;
+    });
+
+    selects.forEach(s => {
+      const r = selectCorrect(s);
+      answeredAny = answeredAny || r.answered;
+      allCorrect = allCorrect && r.correct;
+    });
+
+    radios.forEach(g => {
+      const r = radioCorrect(g);
+      answeredAny = answeredAny || r.answered;
+      allCorrect = allCorrect && r.correct;
+    });
+
+    return { answered: answeredAny, correct: allCorrect };
+  }
+
+  function computeScores(root) {
+    const qBoxes = Array.from(root.querySelectorAll(".question-box"));
+    const sections = Array.from(root.querySelectorAll(".quiz-section"));
+
+    let total = 0, correct = 0, answered = 0;
+
+    qBoxes.forEach(box => {
+      total += 1;
+      const r = scoreQuestionBox(box);
+      if (r.answered) answered += 1;
+      if (r.correct) correct += 1;
+    });
+
+    const bySection = sections.map(sec => {
+      const name = sec.getAttribute("data-section") || "Seccion";
+      const boxes = Array.from(sec.querySelectorAll(".question-box"));
+      let t = boxes.length, c = 0;
+      boxes.forEach(b => { if (scoreQuestionBox(b).correct) c += 1; });
+      return { name, total: t, correct: c };
+    });
+
+    return { total, correct, answered, bySection };
+  }
+
+  function levelMessage(nCorrect) {
+    if (nCorrect >= 18) return "Excelente: base muy solida para Econometria II.";
+    if (nCorrect >= 15) return "Buen nivel: repasa los temas con errores antes de comenzar.";
+    if (nCorrect >= 12) return "Nivel aceptable: conviene repasar prerequisitos de Econometria I.";
+    return "Reforzar prerequisitos: revisa los recursos sugeridos antes de la segunda semana.";
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const root = document.getElementById("prueba-entrada-quiz");
+    const btn = document.getElementById("btn-finalizar");
+    const out = document.getElementById("score-result");
+
+    if (!root || !btn || !out) return;
+
+    btn.addEventListener("click", () => {
+      const s = computeScores(root);
+      const pct = s.total > 0 ? Math.round(100 * s.correct / s.total) : 0;
+
+      const rows = s.bySection.map(x =>
+        `<tr><td>${x.name}</td><td>${x.correct} / ${x.total}</td></tr>`
+      ).join("");
+
+      out.innerHTML = `
+        <h3>Resultados</h3>
+        <p><strong>Puntaje total:</strong> ${s.correct} / ${s.total} (${pct}%)</p>
+        <p><strong>Preguntas respondidas:</strong> ${s.answered} / ${s.total}</p>
+        <p><strong>Diagnostico:</strong> ${levelMessage(s.correct)}</p>
+
+        <h4>Desglose por seccion</h4>
+        <table>
+          <thead><tr><th>Seccion</th><th>Puntaje</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      out.style.display = "block";
+      root.classList.add("show-feedback"); // ahora si se muestran correct/incorrect y explicaciones
+      out.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
+
+})();
+</script>
+```
+
+---
+
+## Recursos para Repasar {-}
+
+<div class="resources-box">
+
+### Si necesitas repasar el Modelo de Regresion Lineal {-}
+
+- Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulos 1-2
+- Wooldridge, Jeffrey. *Introductory Econometrics*. Capitulos 1-4
+- Ben Lambert (playlist de YouTube)
+```text
+https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU
+```
+
+### Si necesitas repasar Supuestos y Propiedades de MCO {-}
+
+- Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 2
+- Greene, William. *Econometric Analysis*. Capitulos 2-4
+- Notas del curso:
+```text
+https://adiazescobar.github.io/libro-econometria/
+```
+
+### Si necesitas repasar Inferencia Estadistica {-}
+
+- Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 3
+- Stock & Watson. *Introduction to Econometrics*. Capitulos 4-7
+
+### Si necesitas repasar Algebra Matricial {-}
+
+- Apendice de cualquier libro de econometria intermedia
+- Khan Academy - Algebra Lineal
+```text
+https://es.khanacademy.org/math/linear-algebra
+```
+
+### Si necesitas repasar Stata {-}
+
+- UCLA IDRE Stata Modules
+```text
+https://stats.oarc.ucla.edu/stata/modules/
+```
+
+- Stata Video Tutorials
+```text
+https://www.stata.com/links/video-tutorials/
+```
+
+- Cameron & Trivedi. *Microeconometrics Using Stata*
+
+</div>
+
+<div class="tip-box">
+
+### Consejos para Econometria II {-}
+
+1. **Repasa las derivaciones matriciales** de MCO antes de la primera clase.
+2. **Practica con Stata** regularmente; el curso tiene componente aplicado.
+3. **Entiende los supuestos** y sus consecuencias, no solo los memorices.
+4. **Forma grupos de estudio** para discutir problemas.
+5. **Consulta las notas del curso** que complementan el libro de Verbeek.
+
+</div>
+
+<center>
+<strong>Bienvenido a Econometria II</strong>
+</center>
