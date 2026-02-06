@@ -10,7 +10,6 @@ repaso-funciones-de-densidad
 repaso-de-matrices
 supuestos-de-mco
 regresión-por-mínimos-cuadrados-ordinarios-mco
-cálculo-de-xy
 anatomía-de-la-regresión-múltiple
 código-en-stata
 código-en-r

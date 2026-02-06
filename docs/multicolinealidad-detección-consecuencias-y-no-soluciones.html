@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-01-26" />
+<meta name="date" content="2026-02-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,28 +295,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i>Modelo</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#qu%C3%A9-hace-mco"><i class="fa fa-check"></i>¿Qué hace MCO?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#derivaci%C3%B3n-del-estimador"><i class="fa fa-check"></i>Derivación del estimador</a>
+<ul>
 <li class="chapter" data-level="" data-path=""><a href="#c%C3%B3mo-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i>¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>?</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#es-un-m%C3%ADnimo"><i class="fa fa-check"></i>¿Es un mínimo?</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#interpretaci%C3%B3n-en-t%C3%A9rminos-de-contraparte-muestral"><i class="fa fa-check"></i>Interpretación en términos de contraparte muestral</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#supuestos-clave-empleados-hasta-ac%C3%A1"><i class="fa fa-check"></i>Supuestos clave empleados hasta acá</a></li>
-<li class="chapter" data-level="" data-path=""><a href="#diferencia-entre-la-regresi%C3%B3n-simple-y-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Diferencia entre la regresión simple y la regresión múltiple</a>
-<ul>
-<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-sin-variables-explicativas"><i class="fa fa-check"></i>Regresión sin variables explicativas</a></li>
-<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Regresión simple con una variable explicativa</a></li>
-<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#pausa"><i class="fa fa-check"></i>📝 Pausa</a></li>
-<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple-con-m%C3%BAltiples-variables-explicativas"><i class="fa fa-check"></i>Regresión múltiple con múltiples variables explicativas</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice"><i class="fa fa-check"></i>Apéndice</a>
+<li class="chapter" data-level="" data-path=""><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-del-caso-m%C3%A1s-simple-al-m%C3%A1s-complejo"><i class="fa fa-check"></i>Anatomía de la regresión: del caso más simple al más complejo</a>
 <ul>
-<li class="chapter" data-level="" data-path=""><a href="#%C3%A1lgebra-mucha-%C3%A1lgebra"><i class="fa fa-check"></i>Álgebra… mucha álgebra</a></li>
-<li class="chapter" data-level="5.0.1" data-path="10-Multico.html"><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i><b>5.0.1</b> Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#caso-1-regresi%C3%B3n-sin-variables-explicativas-solo-constante"><i class="fa fa-check"></i>Caso 1: Regresión sin variables explicativas (solo constante)</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-1"><i class="fa fa-check"></i>Ejercicio 1</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#caso-2-regresi%C3%B3n-simple-con-una-variable-explicativa"><i class="fa fa-check"></i>Caso 2: Regresión simple con una variable explicativa</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-2"><i class="fa fa-check"></i>Ejercicio 2</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#caso-3-variable-binaria-sin-constante"><i class="fa fa-check"></i>Caso 3: Variable binaria sin constante</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-3"><i class="fa fa-check"></i>Ejercicio 3</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#caso-4-variable-binaria-con-constante-categor%C3%ADa-de-referencia"><i class="fa fa-check"></i>Caso 4: Variable binaria con constante (categoría de referencia)</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-4"><i class="fa fa-check"></i>Ejercicio 4</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#caso-5-m%C3%BAltiples-categor%C3%ADas-mutuamente-excluyentes"><i class="fa fa-check"></i>Caso 5: Múltiples categorías mutuamente excluyentes</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-5"><i class="fa fa-check"></i>Ejercicio 5</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejercicios-adicionales-de-%C3%A1lgebra-lineal"><i class="fa fa-check"></i>Ejercicios adicionales de álgebra lineal</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejercicio-6-verificaci%C3%B3n-de-las-ecuaciones-normales"><i class="fa fa-check"></i>Ejercicio 6: Verificación de las ecuaciones normales</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#ejercicio-7-efecto-del-escalamiento-en-matrices"><i class="fa fa-check"></i>Ejercicio 7: Efecto del escalamiento en matrices</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejercicio-8-matrices-de-proyecci%C3%B3n"><i class="fa fa-check"></i>Ejercicio 8: Matrices de proyección</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejercicio-9-descomposici%C3%B3n-de-la-suma-total-de-cuadrados"><i class="fa fa-check"></i>Ejercicio 9: Descomposición de la suma total de cuadrados</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#caso-general-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Caso general: Regresión múltiple</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#cu%C3%A1ndo-coincide-la-regresi%C3%B3n-m%C3%BAltiple-con-la-simple"><i class="fa fa-check"></i>¿Cuándo coincide la regresión múltiple con la simple?</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i>Regresión múltiple</a></li>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
 <li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
 <ul>
-<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ap%C3%A9ndice-derivaci%C3%B3n-algebraica-del-estimador-para-regresi%C3%B3n-simple"><i class="fa fa-check"></i>Apéndice: Derivación algebraica del estimador para regresión simple</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%A1lculo-de-xx"><i class="fa fa-check"></i>Cálculo de <span class="math inline">\(X&#39;X\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#c%C3%A1lculo-de-xy"><i class="fa fa-check"></i>Cálculo de <span class="math inline">\(X&#39;y\)</span></a></li>
+<li class="chapter" data-level="" data-path="regresión-por-mínimos-cuadrados-ordinarios-mco.html"><a href="regresión-por-mínimos-cuadrados-ordinarios-mco.html#producto-final"><i class="fa fa-check"></i>Producto final</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="10-Multico.html"><a href="#anatom%C3%ADa-de-la-regresi%C3%B3n-m%C3%BAltiple"><i class="fa fa-check"></i><b>6</b> Anatomía de la Regresión Múltiple</a>
