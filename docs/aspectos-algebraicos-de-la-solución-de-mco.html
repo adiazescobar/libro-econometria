@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-02-06" />
+<meta name="date" content="2026-02-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -364,8 +364,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html"><i class="fa fa-check"></i>Propiedades del estimador de MCO en muestras finitas</a></li>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i>Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
-<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#teorema-de-gauss-markov"><i class="fa fa-check"></i>Teorema de Gauss Markov</a>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#teorema-de-gauss-markov"><i class="fa fa-check"></i>Teorema de Gauss Markov</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#ilustraci%C3%B3n-mco-vs-el-estimador-de-wald"><i class="fa fa-check"></i>Ilustración: MCO vs el estimador de Wald</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#el-gran-torneo-de-estimadores"><i class="fa fa-check"></i>🏆 El gran torneo de estimadores</a>
 <ul>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#haz-tu-apuesta-antes-de-ver-el-resultado"><i class="fa fa-check"></i>🎮 Haz tu apuesta antes de ver el resultado</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#para-reflexionar-1"><i class="fa fa-check"></i>🧠 Para reflexionar</a></li>
 <li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solución-de-mco.html"><a href="aspectos-algebraicos-de-la-solución-de-mco.html#preguntas-de-repaso-6"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
 </ul></li>
@@ -691,6 +695,71 @@ si y solo si <span class="math inline">\(DX=0\)</span>.</strong></p>
 <p>Tenemos que,</p>
 <p><span class="math display">\[Var[\tilde{\beta}|X]=\sigma^{2}[(X&#39;X)^{-1}+DD&#39;]\geq\sigma^{2}(X&#39;X)^{-1}=Var[\hat{\beta}|X]\]</span></p>
 <p>Esto es cierto ya que <span class="math inline">\(DD&#39;&gt;0\)</span>.</p>
+</div>
+<div id="ilustración-mco-vs-el-estimador-de-wald" class="section level2 unnumbered hasAnchor">
+<h2>Ilustración: MCO vs el estimador de Wald<a href="#ilustraci%C3%B3n-mco-vs-el-estimador-de-wald" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El teorema de Gauss-Markov afirma que MCO es el <strong>mejor</strong> estimador lineal insesgado, pero ¿qué tan grande es esa ventaja en la práctica? Para verlo, comparamos MCO con el <strong>estimador de Wald</strong>: un estimador lineal e insesgado que divide las observaciones en dos grupos según si <span class="math inline">\(x_i\)</span> está por encima o por debajo de la mediana, y calcula la pendiente como la razón entre las diferencias de medias:</p>
+<p><span class="math display">\[\tilde{\beta}_{Wald} = \frac{\bar{y}_{alto} - \bar{y}_{bajo}}{\bar{x}_{alto} - \bar{x}_{bajo}}\]</span></p>
+<p>Este estimador es intuitivo — ¿por qué no simplemente comparar el grupo de <span class="math inline">\(x\)</span> alta con el de <span class="math inline">\(x\)</span> baja? — pero desprecia toda la variación <em>dentro</em> de cada grupo. Repetimos el experimento 2,000 veces con el mismo modelo verdadero (<span class="math inline">\(\beta_1 = 2\)</span>) para ver qué tan concentradas quedan las distribuciones de cada estimador.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gauss-markov-sim"></span>
+<img src="_main_files/figure-html/gauss-markov-sim-1.png" alt="Distribución muestral de MCO y del estimador de Wald en 2,000 simulaciones. Ambos estimadores son insesgados (centrados en β₁ = 2), pero MCO tiene menor varianza — exactamente lo que predice el teorema de Gauss-Markov." width="75%" />
+<p class="caption">
+Figure 7.1: Distribución muestral de MCO y del estimador de Wald en 2,000 simulaciones. Ambos estimadores son insesgados (centrados en β₁ = 2), pero MCO tiene menor varianza — exactamente lo que predice el teorema de Gauss-Markov.
+</p>
+</div>
+<p>La figura lo dice todo: ambas distribuciones están centradas en el valor verdadero <span class="math inline">\(\beta_1 = 2\)</span> — los dos estimadores son insesgados. Pero la distribución de MCO es <strong>más estrecha</strong>: sus estimaciones se concentran más alrededor del valor verdadero. En cada muestra posible, MCO se equivoca menos.</p>
+</div>
+<div id="el-gran-torneo-de-estimadores" class="section level2 unnumbered hasAnchor">
+<h2>🏆 El gran torneo de estimadores<a href="aspectos-algebraicos-de-la-solución-de-mco.html#el-gran-torneo-de-estimadores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="haz-tu-apuesta-antes-de-ver-el-resultado" class="section level3 unnumbered hasAnchor box-tarea">
+<h3>🎮 Haz tu apuesta antes de ver el resultado<a href="aspectos-algebraicos-de-la-solución-de-mco.html#haz-tu-apuesta-antes-de-ver-el-resultado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Imagina que tomamos <strong>2,000 muestras distintas</strong> del mismo modelo verdadero (<span class="math inline">\(y = 1 + 2x + \varepsilon\)</span>, <span class="math inline">\(n = 50\)</span>). En cada muestra, MCO y el estimador de Wald compiten: el ganador de esa ronda es el que se acerca más al valor verdadero <span class="math inline">\(\beta_1 = 2\)</span>.</p>
+<p><strong>¿Cuántas de las 2,000 rondas crees que gana MCO?</strong></p>
+<p>Escribe tu número aquí antes de que el profe pase a la siguiente diapositiva: ____</p>
+<p><em>(Opciones de referencia: ¿menos de 1,000? ¿entre 1,000 y 1,400? ¿entre 1,400 y 1,800? ¿más de 1,800?)</em></p>
+</div>
+<p>Para darte una pista, mira qué tan estables son las rectas de cada estimador muestra a muestra. Cada línea azul es la recta ajustada en <strong>una</strong> muestra diferente; la línea negra es la recta verdadera (<span class="math inline">\(y = 1 + 2x\)</span>).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:gauss-markov-juego"></span>
+<img src="_main_files/figure-html/gauss-markov-juego-1.png" alt="Rectas ajustadas en 50 muestras distintas. Cada línea azul es una estimación sobre una sola muestra. Las líneas de MCO se concentran mucho más cerca de la recta verdadera (negra)." width="75%" />
+<p class="caption">
+Figure 7.2: Rectas ajustadas en 50 muestras distintas. Cada línea azul es una estimación sobre una sola muestra. Las líneas de MCO se concentran mucho más cerca de la recta verdadera (negra).
+</p>
+</div>
+<hr />
+<p><strong>Resultado del torneo 🏅</strong> — de las 2000 muestras:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Estimador</th>
+<th align="center">Victorias</th>
+<th align="center">%</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>MCO (MELI)</strong></td>
+<td align="center"><strong>1162</strong></td>
+<td align="center"><strong>58.1%</strong></td>
+</tr>
+<tr class="even">
+<td align="left">Estimador de Wald</td>
+<td align="center">838</td>
+<td align="center">41.9%</td>
+</tr>
+</tbody>
+</table>
+<p>¿Tu apuesta estaba cerca? Esto no es casualidad: el teorema de Gauss-Markov <em>garantiza</em> que MCO gana más rondas que <strong>cualquier</strong> otro estimador lineal insesgado.</p>
+<hr />
+<div id="para-reflexionar-1" class="section level3 unnumbered hasAnchor box-cerebro">
+<h3>🧠 Para reflexionar<a href="aspectos-algebraicos-de-la-solución-de-mco.html#para-reflexionar-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Mira la figura y discute con tus compañeros:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Insesgamiento.</strong> Las dos distribuciones están centradas en <span class="math inline">\(\beta_1 = 2\)</span>. ¿Qué propiedad confirma esto? ¿Por qué un estimador centrado en el valor verdadero <em>en promedio</em> no garantiza que sea bueno en <em>una sola</em> muestra?</p></li>
+<li><p><strong>Información desperdiciada.</strong> El estimador de Wald solo usa la diferencia entre dos grupos. ¿Qué información sobre la relación entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> está ignorando? ¿Qué pasaría si la relación entre <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> fuera muy irregular <em>dentro</em> de cada grupo?</p></li>
+<li><p><strong>Tamaño de muestra.</strong> Si pasamos de <span class="math inline">\(n = 50\)</span> a <span class="math inline">\(n = 200\)</span>, ¿qué esperarías que le pasara a cada distribución? ¿La brecha entre MCO y Wald desaparecería, se reduciría, o se mantendría proporcionalmente igual?</p></li>
+<li><p><strong>Los límites del teorema.</strong> Gauss-Markov garantiza que MCO es el mejor estimador <em>lineal e insesgado</em>. ¿Podría existir un estimador <em>no lineal</em> con menor varianza que MCO? ¿O un estimador <em>sesgado</em> con menor error cuadrático medio? ¿Qué implicaría eso para la práctica?</p></li>
+</ol>
+</div>
 <hr />
 <div id="preguntas-de-repaso-6" class="section level3 unnumbered hasAnchor box-repaso">
 <h3>📘 Preguntas de repaso<a href="aspectos-algebraicos-de-la-solución-de-mco.html#preguntas-de-repaso-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>

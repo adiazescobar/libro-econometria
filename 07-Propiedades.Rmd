@@ -238,6 +238,207 @@ $$Var[\tilde{\beta}|X]=\sigma^{2}[(X'X)^{-1}+DD']\geq\sigma^{2}(X'X)^{-1}=Var[\h
 
 Esto es cierto ya que $DD'>0$.
 
+## Ilustración: MCO vs el estimador de Wald {-}
+
+El teorema de Gauss-Markov afirma que MCO es el **mejor** estimador lineal insesgado, pero ¿qué tan grande es esa ventaja en la práctica? Para verlo, comparamos MCO con el **estimador de Wald**: un estimador lineal e insesgado que divide las observaciones en dos grupos según si $x_i$ está por encima o por debajo de la mediana, y calcula la pendiente como la razón entre las diferencias de medias:
+
+$$\tilde{\beta}_{Wald} = \frac{\bar{y}_{alto} - \bar{y}_{bajo}}{\bar{x}_{alto} - \bar{x}_{bajo}}$$
+
+Este estimador es intuitivo — ¿por qué no simplemente comparar el grupo de $x$ alta con el de $x$ baja? — pero desprecia toda la variación *dentro* de cada grupo. Repetimos el experimento 2,000 veces con el mismo modelo verdadero ($\beta_1 = 2$) para ver qué tan concentradas quedan las distribuciones de cada estimador.
+
+```{r gauss-markov-sim, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Distribución muestral de MCO y del estimador de Wald en 2,000 simulaciones. Ambos estimadores son insesgados (centrados en β₁ = 2), pero MCO tiene menor varianza — exactamente lo que predice el teorema de Gauss-Markov.", fig.width=8, fig.height=5}
+set.seed(42)
+
+n_obs <- 50
+beta0 <- 1
+beta1 <- 2
+sigma <- 3
+B     <- 2000
+
+sims <- replicate(B, {
+  x   <- runif(n_obs, 0, 10)
+  eps <- rnorm(n_obs, 0, sigma)
+  y   <- beta0 + beta1 * x + eps
+
+  b_mco  <- coef(lm(y ~ x))["x"]
+
+  alto   <- x > median(x)
+  b_wald <- (mean(y[alto]) - mean(y[!alto])) /
+            (mean(x[alto]) - mean(x[!alto]))
+
+  c(MCO = unname(b_mco), Wald = unname(b_wald))
+})
+
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+df <- data.frame(
+  MCO  = sims["MCO",  ],
+  Wald = sims["Wald", ]
+) %>%
+  pivot_longer(everything(), names_to = "Estimador", values_to = "beta_hat")
+
+sds <- df %>%
+  group_by(Estimador) %>%
+  summarise(de = round(sd(beta_hat), 3), .groups = "drop")
+
+sd_mco  <- sds$de[sds$Estimador == "MCO"]
+sd_wald <- sds$de[sds$Estimador == "Wald"]
+
+colores <- c("MCO" = "#1565C0", "Wald" = "#C62828")
+
+ggplot(df, aes(x = beta_hat, fill = Estimador, color = Estimador)) +
+  geom_density(alpha = 0.22, linewidth = 1) +
+  geom_vline(xintercept = beta1, linetype = "dashed",
+             color = "black", linewidth = 0.9) +
+  annotate("text", x = 2.07, y = 2.65,
+           label = "beta[1]^'*'==2", parse = TRUE,
+           hjust = 0, size = 4.5, color = "black") +
+  annotate("label", x = 1.45, y = 2.1,
+           label = paste0("MCO\nDE = ", sd_mco),
+           hjust = 0.5, size = 4, color = "#1565C0",
+           fill = "#e8f0fb", label.size = 0.4) +
+  annotate("label", x = 2.85, y = 1.35,
+           label = paste0("Wald\nDE = ", sd_wald),
+           hjust = 0.5, size = 4, color = "#C62828",
+           fill = "#fde8e8", label.size = 0.4) +
+  scale_fill_manual(values = colores,
+                    labels = c("MCO (MELI)", "Estimador de Wald")) +
+  scale_color_manual(values = colores,
+                     labels = c("MCO (MELI)", "Estimador de Wald")) +
+  labs(
+    title    = "Teorema de Gauss-Markov: MCO tiene la menor varianza",
+    subtitle = paste0("2,000 muestras simuladas  ·  n = ", n_obs,
+                      "  ·  β₁ verdadero = ", beta1),
+    x        = expression(hat(beta)[1]),
+    y        = "Densidad",
+    fill     = NULL, color = NULL,
+    caption  = paste0(
+      "Ambos estimadores son lineales e insesgados — centrados en β₁ = ", beta1,
+      ".\nMCO: DE = ", sd_mco, "  ·  Estimador de Wald: DE = ", sd_wald, ".")
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "top",
+    plot.title      = element_text(face = "bold"),
+    plot.subtitle   = element_text(color = "gray40"),
+    plot.caption    = element_text(color = "gray50", size = 10, hjust = 0)
+  )
+```
+
+La figura lo dice todo: ambas distribuciones están centradas en el valor verdadero $\beta_1 = 2$ — los dos estimadores son insesgados. Pero la distribución de MCO es **más estrecha**: sus estimaciones se concentran más alrededor del valor verdadero. En cada muestra posible, MCO se equivoca menos.
+
+## 🏆 El gran torneo de estimadores {-}
+
+<div class="box-tarea">
+
+### 🎮 Haz tu apuesta antes de ver el resultado {-}
+
+Imagina que tomamos **2,000 muestras distintas** del mismo modelo verdadero ($y = 1 + 2x + \varepsilon$, $n = 50$). En cada muestra, MCO y el estimador de Wald compiten: el ganador de esa ronda es el que se acerca más al valor verdadero $\beta_1 = 2$.
+
+**¿Cuántas de las 2,000 rondas crees que gana MCO?**
+
+Escribe tu número aquí antes de que el profe pase a la siguiente diapositiva: ____
+
+*(Opciones de referencia: ¿menos de 1,000? ¿entre 1,000 y 1,400? ¿entre 1,400 y 1,800? ¿más de 1,800?)*
+
+</div>
+
+Para darte una pista, mira qué tan estables son las rectas de cada estimador muestra a muestra. Cada línea azul es la recta ajustada en **una** muestra diferente; la línea negra es la recta verdadera ($y = 1 + 2x$).
+
+```{r gauss-markov-juego, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Rectas ajustadas en 50 muestras distintas. Cada línea azul es una estimación sobre una sola muestra. Las líneas de MCO se concentran mucho más cerca de la recta verdadera (negra).", fig.width=10, fig.height=5}
+set.seed(99)
+n_lines <- 50
+
+lines_data <- lapply(1:n_lines, function(i) {
+  x   <- runif(n_obs, 0, 10)
+  eps <- rnorm(n_obs, 0, sigma)
+  y   <- beta0 + beta1 * x + eps
+
+  fit    <- lm(y ~ x)
+  b1_mco <- coef(fit)["x"]
+  b0_mco <- coef(fit)["(Intercept)"]
+
+  alto    <- x > median(x)
+  b1_wald <- (mean(y[alto]) - mean(y[!alto])) /
+             (mean(x[alto]) - mean(x[!alto]))
+  b0_wald <- mean(y) - b1_wald * mean(x)
+
+  x_seq <- seq(0, 10, length.out = 80)
+  rbind(
+    data.frame(sim = i, estimador = "MCO (MELI)",
+               x = x_seq,
+               y = as.numeric(b0_mco) + as.numeric(b1_mco) * x_seq),
+    data.frame(sim = i, estimador = "Estimador de Wald",
+               x = x_seq,
+               y = as.numeric(b0_wald) + as.numeric(b1_wald) * x_seq)
+  )
+})
+
+spaghetti_df <- do.call(rbind, lines_data)
+true_line    <- data.frame(
+  x = seq(0, 10, length.out = 80),
+  y = beta0 + beta1 * seq(0, 10, length.out = 80)
+)
+
+ggplot() +
+  geom_line(data = spaghetti_df,
+            aes(x = x, y = y, group = sim),
+            alpha = 0.22, linewidth = 0.5, color = "#1565C0") +
+  geom_line(data = true_line,
+            aes(x = x, y = y),
+            color = "black", linewidth = 1.8) +
+  facet_wrap(~ factor(estimador,
+                      levels = c("MCO (MELI)", "Estimador de Wald"))) +
+  labs(
+    title    = paste0("Rectas estimadas en ", n_lines, " muestras — ¿cuál se dispersa más?"),
+    subtitle = "Línea negra = recta verdadera  (y = 1 + 2x)",
+    x = "x", y = "y"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title    = element_text(face = "bold"),
+    plot.subtitle = element_text(color = "gray40"),
+    strip.text    = element_text(face = "bold", size = 12)
+  )
+
+# Marcador final usando las 2,000 simulaciones del chunk anterior
+victorias_MCO  <- sum(abs(sims["MCO",  ] - beta1) <
+                      abs(sims["Wald", ] - beta1))
+victorias_Wald <- B - victorias_MCO
+pct_MCO        <- round(100 * victorias_MCO / B, 1)
+```
+
+---
+
+**Resultado del torneo 🏅** — de las `r B` muestras:
+
+| Estimador | Victorias | % |
+|:---|:---:|:---:|
+| **MCO (MELI)** | **`r victorias_MCO`** | **`r pct_MCO`%** |
+| Estimador de Wald | `r victorias_Wald` | `r 100 - pct_MCO`% |
+
+¿Tu apuesta estaba cerca? Esto no es casualidad: el teorema de Gauss-Markov *garantiza* que MCO gana más rondas que **cualquier** otro estimador lineal insesgado.
+
+---
+
+<div class="box-cerebro">
+
+### 🧠 Para reflexionar {-}
+
+Mira la figura y discute con tus compañeros:
+
+1. **Insesgamiento.** Las dos distribuciones están centradas en $\beta_1 = 2$. ¿Qué propiedad confirma esto? ¿Por qué un estimador centrado en el valor verdadero *en promedio* no garantiza que sea bueno en *una sola* muestra?
+
+2. **Información desperdiciada.** El estimador de Wald solo usa la diferencia entre dos grupos. ¿Qué información sobre la relación entre $x$ e $y$ está ignorando? ¿Qué pasaría si la relación entre $x$ e $y$ fuera muy irregular *dentro* de cada grupo?
+
+3. **Tamaño de muestra.** Si pasamos de $n = 50$ a $n = 200$, ¿qué esperarías que le pasara a cada distribución? ¿La brecha entre MCO y Wald desaparecería, se reduciría, o se mantendría proporcionalmente igual?
+
+4. **Los límites del teorema.** Gauss-Markov garantiza que MCO es el mejor estimador *lineal e insesgado*. ¿Podría existir un estimador *no lineal* con menor varianza que MCO? ¿O un estimador *sesgado* con menor error cuadrático medio? ¿Qué implicaría eso para la práctica?
+
+</div>
+
 ---
 
 <div class="box-repaso">

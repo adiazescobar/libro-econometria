@@ -1,3 +1,5 @@
+fig:gauss-markov-sim
+fig:gauss-markov-juego
 thm:unlabeled-div-4
 thm:unlabeled-div-6
 thm:unlabeled-div-10
