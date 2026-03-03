@@ -1,7 +1,7 @@
 
 # Heterocedasticidad {-}
 
-### 🎯 Objetivo del capítulo {-}
+### 🎯 Objetivo del capítulo {-} {#objetivo-del-capitulo}
 
 Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gráficos y contrastes formales) y cómo corregirla (GLS/WLS/MCF y errores estándar robustos), con ejemplos en **Stata, R y Python**.
 
@@ -19,7 +19,7 @@ Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gr�
 
 ---
 
-## 1. Introducción {-}
+## 1. Introducción {-} {#1-introduccion}
 
 El supuesto clásico de homocedasticidad establece que todos los errores del modelo lineal tienen varianza constante:
 \[
@@ -32,7 +32,7 @@ Cuando este supuesto falla, hablamos de **heterocedasticidad**. En ese caso:
 - \(\hat\beta_{\text{MCO}}\) **no es** eficiente (no es MELI/BLUE).  
 - La varianza clásica \(\widehat{\mathbb{V}}(\hat\beta)=\hat\sigma^2 (X'X)^{-1}\) es **incorrecta** \(\Rightarrow\) **t y F** clásicos **no son válidos**.
 
-### 📐 Intuición geométrica {-}
+### 📐 Intuición geométrica {-} {#intuicion-geometrica}
 
 En un **gráfico de residuos \(\hat\varepsilon_i\) vs. valores ajustados \(\hat y_i\)**, la heterocedasticidad suele verse como un **abanico** (la dispersión crece o decrece con \(\hat y\)) o como bandas donde la variabilidad cambia con alguna covariable (por ejemplo, con el ingreso).
 
@@ -87,7 +87,7 @@ que suele **variar** con \(X_{3i}\) \(\Rightarrow\) heterocedasticidad “impura
 
 ---
 
-## 4. Consecuencias teóricas {-}
+## 4. Consecuencias teóricas {-} {#4-consecuencias-teoricas}
 
 <div class="theorem">
 
@@ -124,9 +124,9 @@ Variantes: **HC1** (factor \(n/(n-k)\)), **HC2** (divide por \(1-h_{ii}\)), **HC
 
 ---
 
-## 5. Detección de heterocedasticidad {-}
+## 5. Detección de heterocedasticidad {-} {#5-deteccion-de-heterocedasticidad}
 
-### 5.1 Diagnóstico visual {-}
+### 5.1 Diagnóstico visual {-} {#51-diagnostico-visual}
 
 ```r
 # R: residuo vs ajustado
@@ -237,7 +237,7 @@ gqtest(m, order.by = ~ Z, data = datos, fraction = 1/3)
 
 ## 6. Soluciones {-}
 
-### 6.1 GLS (Mínimos Cuadrados Generalizados) {-}
+### 6.1 GLS (Mínimos Cuadrados Generalizados) {-} {#61-gls-minimos-cuadrados-generalizados}
 
 Si conoces (\Omega),
 [
@@ -245,7 +245,7 @@ Si conoces (\Omega),
 ]
 es **eficiente**. Poco usual en práctica porque (\Omega) rara vez es conocida.
 
-### 6.2 WLS (Mínimos Cuadrados Ponderados) {-}
+### 6.2 WLS (Mínimos Cuadrados Ponderados) {-} {#62-wls-minimos-cuadrados-ponderados}
 
 Si (\mathbb{V}(\varepsilon_i)=\sigma_i^2) y conoces/estimas (\sigma_i^2), pondera por (w_i=1/\sigma_i^2):
 [
@@ -287,7 +287,7 @@ replace sigma2_hat = exp(sigma2_hat)   // asegura positividad si se modeló en l
 reg y x1 x2 [aw = 1/sigma2_hat]
 ```
 
-### 6.4 Errores estándar robustos (White/Huber) {-}
+### 6.4 Errores estándar robustos (White/Huber) {-} {#64-errores-estandar-robustos-whitehuber}
 
 Mantiene (\hat\beta_{\text{MCO}}), pero corrige la **matriz de varianzas**:
 [
@@ -322,7 +322,7 @@ print(m_rob.summary())
 
 ---
 
-## 7. Ejemplo reproducible (simulación) {-}
+## 7. Ejemplo reproducible (simulación) {-} {#7-ejemplo-reproducible-simulacion}
 
 ### Stata {-}
 
@@ -398,7 +398,7 @@ print(wls.summary())
 
 ---
 
-## 8. Visualizaciones (diagnóstico) {-}
+## 8. Visualizaciones (diagnóstico) {-} {#8-visualizaciones-diagnostico}
 
 ```r
 # Residuo vs Ajustados y vs x
@@ -438,7 +438,7 @@ knitr::include_graphics(c("figs/resid_fitted.png","figs/resid_x.png"))
 
 ---
 
-## 11. Taller práctico (hands-on) {-}
+## 11. Taller práctico (hands-on) {-} {#11-taller-practico-hands-on}
 
 <div class="box-tarea">
 
@@ -456,7 +456,7 @@ Entregue código en **Stata o R o Python** + 1 gráfico **residuos vs ajustados*
 
 ---
 
-## 12. Apéndice: comandos rápidos por software {-}
+## 12. Apéndice: comandos rápidos por software {-} {#12-apendice-comandos-rapidos-por-software}
 
 **Stata**
 

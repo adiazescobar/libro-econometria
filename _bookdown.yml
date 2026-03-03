@@ -12,4 +12,6 @@ rmd_files:
   - 09-NormAs.Rmd
   - 10-Multico.Rmd
   - 11-Heterocedasticidad.Rmd
+  - P1-Parcial1_2026-1.Rmd
 output_dir: "docs"
+delete_merged_file: true

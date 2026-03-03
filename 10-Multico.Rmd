@@ -1,6 +1,6 @@
-# Multicolinealidad: detección, consecuencias y (no) soluciones {-}
+# Multicolinealidad: detección, consecuencias y (no) soluciones {-} {#multicolinealidad-deteccion-consecuencias-y-no-soluciones}
 
-## 🎯 Objetivo y motivación {-}
+## 🎯 Objetivo y motivación {-} {#objetivo-y-motivacion}
 
 En este capítulo estudiamos el supuesto **A3. Colinealidad imperfecta** $(\mathrm{rango}(X)=K)$, por qué es necesario para identificar MCO y qué ocurre cuando las variables explicativas están **altamente correlacionadas** (multicolinealidad aproximada). Verás:
 
@@ -14,7 +14,7 @@ En este capítulo estudiamos el supuesto **A3. Colinealidad imperfecta** $(\math
 
 ## 📚 Colinealidad imperfecta: idea algebraica {-}
 
-### Definición y condición de rango {-}
+### Definición y condición de rango {-} {#definicion-y-condicion-de-rango}
 
 Considera
 
@@ -120,14 +120,14 @@ Aquí $R^2_{x_r\cdot X_s}$ es el $R^2$ de la regresión **auxiliar** de $X_r$ so
 
 ---
 
-### 📐 Intuición geométrica {-}
+### 📐 Intuición geométrica {-} {#intuicion-geometrica}
 
 * $P_{X_s}=X_s(X_s'X_s)^{-1}X_s'$ proyecta sobre $\mathrm{Col}(X_s)$; $M_s=I-P_{X_s}$ proyecta **ortogonalmente** fuera de $\mathrm{Col}(X_s)$.
 * Si $X_r$ “cae casi” en $\mathrm{Col}(X_s)$, entonces $M_s X_r$ es muy pequeño → **poca variación residual** para identificar $\beta_r$ → **grandes** errores estándar.
 
 ---
 
-## 🧪 “Controlar por otras variables” vía FWL {-}
+## 🧪 “Controlar por otras variables” vía FWL {-} {#controlar-por-otras-variables-via-fwl}
 
 Reescribiendo (1) con idempotencia de $M_s$:
 
@@ -155,7 +155,7 @@ $$
 
 ---
 
-## 🔎 Detección de multicolinealidad {-}
+## 🔎 Detección de multicolinealidad {-} {#deteccion-de-multicolinealidad}
 
 **Exacta:** se detecta de inmediato porque $(X'X)^{-1}$ **no existe**.
 
@@ -248,7 +248,7 @@ print(vifs)
 
 ---
 
-## 🚨 Qué hacer (y qué no) ante multicolinealidad {-}
+## 🚨 Qué hacer (y qué no) ante multicolinealidad {-} {#que-hacer-y-que-no-ante-multicolinealidad}
 
 1. **No hacer nada (frecuentemente lo mejor).**
 
@@ -279,7 +279,7 @@ print(vifs)
 
 ---
 
-## 🧪 Mini-demostración: varianza inflada por $R^2$ auxiliar {-}
+## 🧪 Mini-demostración: varianza inflada por $R^2$ auxiliar {-} {#mini-demostracion-varianza-inflada-por-auxiliar}
 
 <div class="theorem">
 <b>Teorema (Inflación de varianza bajo colinealidad).</b> Sea \(X=[X_r\;X_s]\). Bajo homocedasticidad y exogeneidad,
@@ -372,7 +372,7 @@ print(np.corrcoef(x1, x2))
 
 ---
 
-## 🧰 Apéndice: comandos útiles {-}
+## 🧰 Apéndice: comandos útiles {-} {#apendice-comandos-utiles}
 
 ### Stata {-}
 

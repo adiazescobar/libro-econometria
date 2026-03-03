@@ -32,7 +32,7 @@ Donde:
 
 
 
-## S1. Linealidad en los Parámetros {-}
+## S1. Linealidad en los Parámetros {-} {#s1-linealidad-en-los-parametros}
 
 El valor esperado de \( y \) está relacionado linealmente con los regresores:
 
@@ -211,7 +211,7 @@ B = \begin{bmatrix}
 
 Wooldridge (2003) aclara que este supuesto **permite que los regresores estén correlacionados**, siempre que no haya una relación lineal exacta entre ellos.
 
-## S4. Perturbaciones Esféricas {-}
+## S4. Perturbaciones Esféricas {-} {#s4-perturbaciones-esfericas}
 
 Este supuesto se compone de dos condiciones:
 
@@ -291,7 +291,7 @@ Aplicando los supuestos:
 
 
 
-## S5. Regresores No Estocásticos {-}
+## S5. Regresores No Estocásticos {-} {#s5-regresores-no-estocasticos}
 
 Este supuesto establece que la matriz de regresores \( X \) **no es aleatoria**: sus valores permanecen fijos en repeticiones del experimento o entre muestras.
 
@@ -362,7 +362,7 @@ Gracias al **Teorema Central del Límite** y **La Ley de los Grandes Números*, 
 
 
 
-## Glosario de Símbolos {-}
+## Glosario de Símbolos {-} {#glosario-de-simbolos}
 
 | Símbolo | Significado                         |
 |---------|-------------------------------------|

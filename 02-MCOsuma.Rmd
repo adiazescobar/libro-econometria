@@ -1,7 +1,7 @@
-# Regresión lineal
+# Regresión lineal {#regresion-lineal}
 
 
-## 🎯 Objetivo del capítulo  {-}
+## 🎯 Objetivo del capítulo  {-} {#objetivo-del-capitulo}
 
 
 ```{r setup-poblacion, include=FALSE}
@@ -58,7 +58,7 @@ En este capítulo vamos a:
 2. Aprender cómo se calcula la mejor línea con mínimos cuadrados ordinarios (MCO)
 3. Explorar qué hace un buen estimador y cómo evaluarlo
 
-## 🔍 ¿Qué significa encontrar la “mejor línea”? {-}
+## 🔍 ¿Qué significa encontrar la “mejor línea”? {-} {#que-significa-encontrar-la-mejor-linea}
 
 Antes de hablar de estimaciones, pensemos en cómo se generan los datos:
 
@@ -316,7 +316,7 @@ Ahora pasamos a las propiedades (implícitas) de los  Mínimos Cuadrados Ordinar
 
 ## 📊 Propiedades y supuestos {-}
 
-### ¿Qué hace a un buen estimador? {-}
+### ¿Qué hace a un buen estimador? {-} {#que-hace-a-un-buen-estimador}
 
 Antes de hablar de propiedades del estimador de MCO, recordemos algunas herramientas fundamentales de estadística.
 
@@ -372,7 +372,7 @@ geom_hline(yintercept = 0, color = "black") +
 theme_simple
 ```
 
-### 🤔 ¿Qué propiedades buscamos en un estimador? {-}
+### 🤔 ¿Qué propiedades buscamos en un estimador? {-} {#que-propiedades-buscamos-en-un-estimador}
 
 Imaginemos que intentamos estimar un parámetro verdadero \( \beta \), y tenemos tres métodos distintos. Cada uno produce una distribución diferente para \( \hat{\beta} \).
 
@@ -601,7 +601,7 @@ para cualquier otro estimador \( \hat{\beta}' \) que también sea insesgado.
 | Eficiencia    | El estimador tiene la menor varianza posible entre todos los estimadores insesgados.         |
 ---
 
-### 🧠 Nota de cierre: cómo interpretar cada propiedad {-}
+### 🧠 Nota de cierre: cómo interpretar cada propiedad {-} {#nota-de-cierre-como-interpretar-cada-propiedad}
 
 Cada propiedad que vimos tiene un enfoque ligeramente distinto sobre cómo pensar la incertidumbre:
 

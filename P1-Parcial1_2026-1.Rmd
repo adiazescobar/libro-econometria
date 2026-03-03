@@ -1,0 +1,524 @@
+# Parcial 1 · 2026-1 {#parcial-1-2026-1}
+
+**Pontificia Universidad Javeriana · Departamento de Economía**
+**Profesora:** Ana María Díaz · **Semestre:** 2026-1
+**Puntaje máximo:** 5.0 pts + 0.2 bono
+
+::: {.box-tarea}
+**Cómo usar este capítulo**
+Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver solución** para revelar la respuesta y su explicación. Te recomendamos responder primero y consultar la solución después.
+:::
+
+<hr>
+
+## Parte I: Selección Múltiple {-} {#parte-i-seleccion-multiple}
+
+**20 preguntas · 2 puntos en total**
+
+La escala de calificación asigna 2.00 pts con 17 correctas, hasta 1.06 pts con 9 correctas; por debajo de 9, proporcional.
+
+<hr>
+
+**P1.** En el modelo $Y = X\beta + \varepsilon$, donde $X$ es de dimensión $n \times k$, el estimador de Mínimos Cuadrados Ordinarios (MCO) es:
+
+(A) $\hat{\beta} = X'Y$  
+(B) $\hat{\beta} = (X'X)\,X'Y$  
+(C) $\hat{\beta} = (X'X)^{-1}X'Y$  
+(D) $\hat{\beta} = (X'Y)^{-1}X'X$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Resultado directo de minimizar $\|Y-X\beta\|^2$: las condiciones de primer orden $X'(Y-X\hat{\beta})=0$ implican $\hat{\beta}=(X'X)^{-1}X'Y$.
+</div></details>
+
+<hr>
+
+**P2.** En MCO con intercepto, ¿cuál de las siguientes propiedades de los residuos $\hat{u}$ se cumple *siempre*?
+
+(A) $\hat{u}_i > 0$ para toda observación $i$  
+(B) $X'\hat{u} = \mathbf{0}$  
+(C) $\hat{u} = Y$ cuando $R^2 = 0$  
+(D) Los residuos tienen varianza constante por construcción
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Las condiciones de primer orden del MCO son exactamente $X'\hat{u}=0$: los residuos son ortogonales a cada columna de $X$. Con intercepto, esto implica además $\sum \hat{u}_i=0$.
+</div></details>
+
+<hr>
+
+**P3.** La matriz de proyección $P = X(X'X)^{-1}X'$ satisface:
+
+(A) $P$ es antisimétrica  
+(B) $P^2 = I_n$  
+(C) $\operatorname{tr}(P) = n$  
+(D) $P^2 = P$ (es idempotente)
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** $P^2 = X(X'X)^{-1}\underbrace{X'X(X'X)^{-1}}_{I_k}X' = X(X'X)^{-1}X' = P$. También es simétrica ($P'=P$) y $\operatorname{tr}(P) = k$, no $n$.
+</div></details>
+
+<hr>
+
+**P4.** $X$ es de dimensión $n \times 4$ (intercepto y 3 regresores). La traza de $P = X(X'X)^{-1}X'$ es:
+
+(A) $n - 4$  
+(B) $n$  
+(C) $4$  
+(D) $0$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** $\operatorname{tr}(P) = \operatorname{tr}[(X'X)^{-1}X'X] = \operatorname{tr}(I_k) = k = 4$. Nota: $\operatorname{tr}(M) = n-4$.
+</div></details>
+
+<hr>
+
+**P5.** Si $R^2 = 0.72$ en un modelo de regresión lineal, esto significa que:
+
+(A) El 72% de las observaciones son correctamente predichas  
+(B) Todos los coeficientes son estadísticamente significativos al 5%  
+(C) El modelo explica el 72% de la variación total en $Y$  
+(D) El error estándar de la regresión es $0.28$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** $R^2 = 1 - \text{SRC}/\text{STC}$: fracción de la variación total de $Y$ explicada por el modelo. No mide predicciones correctas ni significancia estadística.
+</div></details>
+
+<hr>
+
+**P6.** Si se incluye en el modelo una variable cuyo verdadero coeficiente es cero ($\beta_3 = 0$):
+
+(A) Los estimadores de los demás coeficientes se sesgan  
+(B) El $R^2$ disminuye necesariamente  
+(C) Los estimadores dejan de ser consistentes  
+(D) El MCO sigue siendo insesgado, pero la varianza de los estimadores puede aumentar
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Incluir una variable irrelevante no introduce sesgo (S2 sigue válido) pero puede inflar la varianza de $\hat{\beta}$ si la variable está correlacionada con las demás regresoras. El $R^2$ nunca baja al agregar variables.
+</div></details>
+
+<hr>
+
+**P7.** El Teorema de Frisch–Waugh–Lovell establece que $\hat{\beta}_1$ en el modelo $Y = X_1\beta_1 + X_2\beta_2 + \varepsilon$ es idéntico al obtenido al:
+
+(A) Regresar $Y$ sobre $X_1$ solamente  
+(B) Regresar $M_1 Y$ sobre $X_2$  
+(C) Regresar $X_2$ sobre $X_1$ y luego $Y$ sobre los residuos  
+(D) Regresar $M_2 Y$ sobre $M_2 X_1$ (donde $M_2 = I - P_2$, $P_2 = X_2(X_2'X_2)^{-1}X_2'$)
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** El FWL establece que $\hat{\beta}_1 = ((\tilde{X}_1)'\tilde{X}_1)^{-1}(\tilde{X}_1)'\tilde{Y}$ con $\tilde{X}_1 = M_2 X_1$ y $\tilde{Y} = M_2 Y$: se "limpia" el efecto de $X_2$ tanto en $Y$ como en $X_1$, y luego se regresa.
+</div></details>
+
+<hr>
+
+**P8.** El Teorema de Gauss–Markov establece que, bajo los supuestos clásicos S1–S5, el estimador MCO es:
+
+(A) El estimador con menor varianza entre *todos* los estimadores posibles  
+(B) El estimador lineal insesgado con menor varianza (MELI / BLUE)  
+(C) El estimador de máxima verosimilitud  
+(D) El único estimador insesgado que existe
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** "Mejor Estimador Lineal Insesgado" (MELI) o BLUE. La restricción a la clase *lineal* e *insesgada* es esencial; fuera de ella puede haber estimadores con menor varianza (p.ej. estimadores sesgados como ridge).
+</div></details>
+
+<hr>
+
+**P9.** En el modelo $Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i$, donde $D_i = 1$ si el estudiante es mujer, se estima $\hat{\beta}_1 = 0.4$. La interpretación correcta es:
+
+(A) El 40% de las mujeres obtienen mejor calificación  
+(B) Las mujeres obtienen 40 veces más que los hombres  
+(C) El modelo explica el 40% de la variación en $Y$  
+(D) En promedio, las mujeres obtienen una calificación 0.4 puntos mayor que los hombres, manteniendo lo demás constante
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Con una sola binaria, $\hat{\beta}_1 = \bar{Y}_{\text{mujer}} - \bar{Y}_{\text{hombre}}$. El coeficiente mide la diferencia de medias en unidades de $Y$.
+</div></details>
+
+<hr>
+
+**P10.** Bajo los supuestos S1 (linealidad en parámetros) y S2 (exogeneidad estricta $E[\varepsilon\mid X]=0$), el estimador MCO:
+
+(A) Es sesgado en muestras pequeñas  
+(B) Es inconsistente  
+(C) Es sesgado en muestras grandes  
+(D) Es insesgado: $E[\hat{\beta}\mid X] = \beta$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** $E[\hat{\beta}\mid X]=E[\beta+(X'X)^{-1}X'\varepsilon\mid X]=\beta+(X'X)^{-1}X'E[\varepsilon\mid X]=\beta$. El insesgamiento vale para cualquier $n$.
+</div></details>
+
+<hr>
+
+**P11.** Bajo los supuestos clásicos (incluyendo S4: $\operatorname{Var}(\varepsilon\mid X) = \sigma^2 I_n$), la matriz de varianza-covarianza del estimador MCO es:
+
+(A) $\sigma(X'X)$  
+(B) $\sigma^2 X'X$  
+(C) $\sigma^2(X'X)X$  
+(D) $\sigma^2(X'X)^{-1}$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** $\operatorname{Var}(\hat{\beta}\mid X) = (X'X)^{-1}X'\sigma^2 I X(X'X)^{-1} = \sigma^2(X'X)^{-1}$.
+</div></details>
+
+<hr>
+
+**P12.** El modelo verdadero es $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \varepsilon$, con $\beta_2 > 0$ y $\operatorname{Cov}(X_1, X_2) < 0$. Si se estima la regresión simple de $Y$ sobre $X_1$ (omitiendo $X_2$), el estimador MCO de $\beta_1$:
+
+(A) Es insesgado  
+(B) Está sesgado hacia arriba  
+(C) Está sesgado hacia abajo  
+(D) Es inconsistente solo en muestras pequeñas
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Sesgo por variable omitida: $\tilde{\beta}_1 - \beta_1 = \beta_2 \cdot \operatorname{Cov}(X_1,X_2)/\operatorname{Var}(X_1)$. Como $\beta_2>0$ y $\operatorname{Cov}(X_1,X_2)<0$, el producto es negativo → subestima $\beta_1$.
+</div></details>
+
+<hr>
+
+**P13.** Dado que $X'X = \begin{pmatrix} 4 & 0 \\ 0 & 9 \end{pmatrix}$ y $X'Y = \begin{pmatrix} 8 \\ 27 \end{pmatrix}$, el estimador MCO $\hat{\beta} = (\hat{\beta}_0,\,\hat{\beta}_1)'$ es:
+
+(A) $(32,\;243)'$  
+(B) $(0.5,\;0.33)'$  
+(C) $(2,\;3)'$  
+(D) $(4,\;9)'$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** $(X'X)^{-1}=\operatorname{diag}(1/4,\,1/9)$, por lo que $\hat{\beta}_0=8/4=2$ y $\hat{\beta}_1=27/9=3$.
+</div></details>
+
+<hr>
+
+**P14.** Un investigador crea dummies $D_1$, $D_2$, $D_3$ para tres categorías mutuamente excluyentes (bajo, medio, alto) y estima $Y = \beta_0 + \beta_1 D_1 + \beta_2 D_2 + \beta_3 D_3 + \varepsilon$. ¿Cuál es el problema?
+
+(A) El $R^2$ siempre será igual a cero  
+(B) Los coeficientes no son interpretables  
+(C) El modelo es no lineal  
+(D) Colinealidad perfecta: $D_1 + D_2 + D_3 = 1$ coincide con el intercepto, por lo que $X'X$ no es invertible
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** La columna de intercepto es combinación lineal perfecta de las tres dummies, por lo que $\operatorname{rank}(X)<k$ y $(X'X)^{-1}$ no existe. Solución: omitir una dummy (categoría de referencia).
+</div></details>
+
+<hr>
+
+**P15.** Defina $M = I_n - P$, donde $P = X(X'X)^{-1}X'$. La transformación $MY$ produce:
+
+(A) Los valores ajustados: $\hat{Y} = PY$  
+(B) La media de $Y$  
+(C) Los coeficientes estimados $\hat{\beta}$  
+(D) Los residuos de la regresión: $\hat{u} = MY$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** $\hat{u} = Y - \hat{Y} = Y - PY = (I-P)Y = MY$. $M$ proyecta $Y$ sobre el complemento ortogonal del espacio columna de $X$.
+</div></details>
+
+<hr>
+
+**P16.** Si $\operatorname{Var}(\varepsilon_i\mid X) = \sigma_i^2$ (heterocedasticidad), el estimador MCO:
+
+(A) Deja de ser insesgado  
+(B) Deja de ser consistente  
+(C) Sigue siendo insesgado, pero deja de ser MELI y los errores estándar habituales son incorrectos  
+(D) No puede calcularse
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** El insesgamiento requiere solo S1–S2; la heterocedasticidad viola S4 pero no S2. $\hat{\beta}$ sigue siendo insesgado y consistente, pero $\operatorname{Var}(\hat{\beta}\mid X)\neq\sigma^2(X'X)^{-1}$: se necesitan errores HC (robustos).
+</div></details>
+
+<hr>
+
+**P17.** En el modelo $\ln(Y_i) = \beta_0 + \beta_1\ln(X_i) + \varepsilon_i$, con $\hat{\beta}_1 = 0.4$. La interpretación correcta es:
+
+(A) Un aumento de 1 unidad en $X$ aumenta $Y$ en $0.4$ unidades  
+(B) Un aumento de 1 unidad en $X$ aumenta $Y$ en un 40%  
+(C) Un aumento de 1% en $X$ aumenta $Y$ en $0.4$ unidades  
+(D) Un aumento de 1% en $X$ está asociado con un aumento de $0.4\%$ en $Y$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Modelo log–log: $\hat{\beta}_1$ es la elasticidad de $Y$ respecto a $X$. $\partial\ln Y/\partial\ln X = \beta_1$ → "% cambio en $Y$ / % cambio en $X$ = $\beta_1$".
+</div></details>
+
+<hr>
+
+**P18.** ¿Cuál de las siguientes afirmaciones sobre el $R^2$ ajustado ($\bar{R}^2$) es correcta?
+
+(A) Siempre es mayor o igual que el $R^2$ ordinario  
+(B) Nunca puede ser negativo  
+(C) Aumenta automáticamente al añadir cualquier regresor al modelo  
+(D) Puede disminuir al añadir un regresor si su contribución explicativa no compensa el grado de libertad perdido
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** $\bar{R}^2 = 1 - \frac{\text{SRC}/(n-k)}{\text{STC}/(n-1)}$. Al agregar un regresor irrelevante, SRC baja poco pero $n-k$ también baja, por lo que el cociente SRC/$(n-k)$ puede subir, reduciendo $\bar{R}^2$. Nota: $\bar{R}^2 \leq R^2$ siempre y puede ser negativo.
+</div></details>
+
+<hr>
+
+**P19.** Cuando existe multicolinealidad *imperfecta* entre los regresores, el estimador MCO:
+
+(A) Es sesgado e inconsistente  
+(B) No puede calcularse porque $X'X$ es singular  
+(C) Es sesgado pero consistente  
+(D) Sigue siendo insesgado y consistente, pero la varianza de los estimadores aumenta y los errores estándar son imprecisos
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** La multicolinealidad *imperfecta* no viola el supuesto de rango completo (S3): $X'X$ sigue siendo invertible, así que MCO existe, es insesgado y consistente. El problema es práctico: la alta correlación infla $\operatorname{Var}(\hat{\beta})$ (VIF alto), produciendo intervalos amplios y estadísticos $t$ pequeños.
+</div></details>
+
+<hr>
+
+**P20.** Si los errores $\varepsilon_i$ **no** son normales pero la muestra es grande ($n \to \infty$), las pruebas de hipótesis basadas en los estadísticos $t$ y $F$:
+
+(A) Son completamente inválidas  
+(B) Requieren conocer la distribución exacta de $\varepsilon$  
+(C) Solo son válidas si los errores son simétricamente distribuidos  
+(D) Son aproximadamente válidas gracias al Teorema Central del Límite
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Por el TCL, $\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,\sigma^2 Q_{XX}^{-1})$ aunque los $\varepsilon_i$ no sean normales. Las pruebas $t$ y $F$ son *asintóticamente* válidas en muestra grande, aunque no exactamente en muestras pequeñas sin S6.
+</div></details>
+
+<hr>
+
+## Parte II: Preguntas Abiertas {-}
+
+Responda la pregunta **obligatoria** y **una** de las dos opcionales.
+
+<hr>
+
+### Obligatoria — FWL con observación atípica (1.5 pts) {-} {#obligatoria-fwl-con-observacion-atipica-15-pts}
+
+Un investigador quiere estimar el efecto de las **horas de estudio semanales** ($X$) sobre la **nota del parcial** ($Y$) en un curso de economía. Dispone de datos de $n = 5$ estudiantes. La observación 5 corresponde a un estudiante que entró al curso tarde y se comporta como un caso atípico, por lo que se define la variable ficticia:
+
+$$Z_i = \begin{cases} 1 & \text{si } i = 5 \\ 0 & \text{en otro caso} \end{cases}$$
+
+| Obs. ($i$) | Horas ($X_i$) | Nota ($Y_i$) | Atípico ($Z_i$) |
+|:----------:|:-------------:|:------------:|:---------------:|
+| 1 | 2 | 2.0 | 0 |
+| 2 | 4 | 3.0 | 0 |
+| 3 | 6 | 4.0 | 0 |
+| 4 | 8 | 5.0 | 0 |
+| 5 | 1 | 4.8 | 1 |
+
+**(1) — 0.25 pts.** Plantee el modelo de regresión múltiple $Y_i = \beta_0 + \beta_1 X_i + \beta_2 Z_i + u_i$. ¿Qué mide $\beta_1$ en este modelo? Argumente brevemente por qué incluir $Z$ es importante.
+
+**(2) — 0.25 pts.** Suponga que se estima la regresión simple $Y_i = \alpha_0 + \alpha_1 X_i + v_i$ (sin controlar $Z$). ¿En qué dirección esperaría que el atípico sesgue $\hat{\alpha}_1$ respecto a $\hat{\beta}_1$? Justifique intuitivamente.
+
+**(3) — 0.75 pts.** Aplique el Teorema de Frisch–Waugh–Lovell con $\mathbf{X}_2 = [\mathbf{1},\, Z]$. *Ayuda:* al regresar cualquier variable $v$ sobre $\mathbf{X}_2$, los valores ajustados son $\bar{v}_{1\text{–}4}$ para las obs. 1–4 y $v_5$ para la obs. 5.
+
+- **(a)** Obtenga $\widetilde{X} = M_{\mathbf{X}_2} X$.
+- **(b)** Obtenga $\widetilde{Y} = M_{\mathbf{X}_2} Y$.
+- **(c)** Calcule $\hat{\beta}_1^{FWL} = \dfrac{\sum_i \widetilde{X}_i \widetilde{Y}_i}{\sum_i \widetilde{X}_i^2}$.
+
+**(4) — 0.25 pts.** Muestre que $\hat{\beta}_1^{FWL}$ coincide con el estimador MCO de la regresión simple de $Y$ sobre $X$ usando *únicamente* las observaciones 1–4. Interprete el resultado.
+
+<details><summary>🔑 Ver solución completa</summary><div class="sol-box">
+
+**Solución (1) — Modelo e interpretación de $\beta_1$.**
+
+$$Y_i = \beta_0 + \beta_1 X_i + \beta_2 Z_i + u_i, \qquad E[u_i\mid X_i, Z_i]=0.$$
+
+$\beta_1$ mide el efecto de una hora adicional de estudio sobre la nota, **manteniendo constante** la pertenencia al grupo atípico. Incluir $Z$ es importante porque la observación 5 rompe el patrón lineal (nota alta con pocas horas); omitirla sesga $\hat{\alpha}_1$.
+
+<hr>
+
+**Solución (2) — Dirección del sesgo.**
+
+La obs. 5 tiene $X_5=1$ (pocas horas) pero $Y_5=4.8$ (nota alta). Esto introduce una observación que tira la recta hacia la derecha y hacia abajo: el intercepto sube y la pendiente baja. Sin controlar $Z$, esperamos $\hat{\alpha}_1 < \hat{\beta}_1$: el atípico sesga $\hat{\alpha}_1$ **hacia abajo** (subestima el efecto de estudiar).
+
+<hr>
+
+**Solución (3) — FWL.**
+
+*Resultado clave:* Los residuos de regresar $v$ sobre $\mathbf{X}_2$ son $v_i - \bar{v}_{1\text{–}4}$ para $i=1,\ldots,4$ y $0$ para $i=5$.
+
+**(a)** $\bar{X}_{1\text{–}4} = (2+4+6+8)/4 = 5$
+
+$$\widetilde{X} = M_{\mathbf{X}_2}X = (-3,\; -1,\; 1,\; 3,\; 0)'$$
+
+**(b)** $\bar{Y}_{1\text{–}4} = (2+3+4+5)/4 = 3.5$
+
+$$\widetilde{Y} = M_{\mathbf{X}_2}Y = (-1.5,\; -0.5,\; 0.5,\; 1.5,\; 0)'$$
+
+**(c)**
+
+$$\sum_{i=1}^{5}\widetilde{X}_i\widetilde{Y}_i = (-3)(-1.5)+(-1)(-0.5)+(1)(0.5)+(3)(1.5)+0 = 4.5+0.5+0.5+4.5 = 10$$
+
+$$\sum_{i=1}^{5}\widetilde{X}_i^2 = 9+1+1+9+0 = 20$$
+
+$$\hat{\beta}_1^{FWL} = \frac{10}{20} = \boxed{0.5}$$
+
+<hr>
+
+**Solución (4) — Equivalencia con la regresión en obs. 1–4.**
+
+Usando solo obs. 1–4 ($\bar{X}=5$, $\bar{Y}=3.5$):
+
+$$\hat{\beta}_1 = \frac{\sum_{i=1}^{4}(X_i-5)(Y_i-3.5)}{\sum_{i=1}^{4}(X_i-5)^2} = \frac{10}{20} = 0.5 \quad \checkmark \qquad \hat{\beta}_0 = 3.5 - 0.5\times 5 = 1.0$$
+
+Ambos métodos dan exactamente $\hat{\beta}_1=0.5$. **Interpretación:** "Controlar por el atípico" equivale algebraicamente a estimar la regresión *solo con las observaciones normales*. $M_{\mathbf{X}_2}$ elimina la contribución de la observación 5 tanto de $X$ como de $Y$ antes de calcular la pendiente. Cada hora adicional de estudio aumenta la nota en $0.5$ puntos entre los estudiantes no atípicos.
+
+</div></details>
+
+<hr>
+
+### Opcional 1 — Transformaciones y formas funcionales (1.5 pts) {-}
+
+Considere el modelo de regresión lineal simple $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, donde $y$ es el ingreso mensual (miles de pesos) y $x$ son los años de educación formal.
+
+**(1) — 0.4 pts. Transformación multiplicativa (notación matricial).**
+Para $n = 3$ estudiantes, con $x_i$ centrado en la media muestral:
+
+$$X = \begin{pmatrix} 1 & -1 \\ 1 & 0 \\ 1 & 1 \end{pmatrix}, \qquad Y = \begin{pmatrix} 1 \\ 3 \\ 5 \end{pmatrix}.$$
+
+Un investigador reescala: $\tilde{x}_i = 2\,x_i$ (convierte años en semestres relativos a la media).
+
+- **(a)** Escriba la matriz $\tilde{X}$ que resulta de reemplazar la columna de $x$ por $\tilde{x} = 2x$.
+- **(b)** Calcule $\hat{\beta} = (X'X)^{-1}X'Y$. *(Ayuda: como $x$ está centrado, $X'X$ es diagonal.)*
+- **(c)** Calcule $\hat{\beta}^{*} = (\tilde{X}'\tilde{X})^{-1}\tilde{X}'Y$ y verifique que $\hat{\beta}^{*}_1 = \hat{\beta}_1 / 2$.
+
+**(2) — 0.4 pts. Formas funcionales.** Interprete $\beta_1$ usando $\hat{\beta}_1 = 0.08$ en cada caso:
+
+- **(a)** Lineal–lineal: $y = \beta_0 + \beta_1 x + \varepsilon$
+- **(b)** Log–lineal: $\ln(y) = \beta_0 + \beta_1 x + \varepsilon$
+- **(c)** Log–log: $\ln(y) = \beta_0 + \beta_1 \ln(x) + \varepsilon$
+
+**(3) — 0.4 pts. Estandarización.** Defina $\tilde{y}_i = (y_i - \bar{y})/s_y$ y $\tilde{x}_i = (x_i - \bar{x})/s_x$. Estime $\tilde{y} = \tilde{\beta}_0 + \tilde{\beta}_1 \tilde{x} + u$.
+
+- **(a)** Demuestre que $\hat{\tilde{\beta}}_0 = 0$.
+- **(b)** ¿Qué representa $\hat{\tilde{\beta}}_1$?
+
+**(4) — 0.3 pts.** ¿Por qué el estadístico $t$ de $\hat{\beta}_1$ *no cambia* cuando se multiplica $x_i$ por una constante $c > 0$? Use la fórmula de la varianza del estimador para justificar.
+
+<details><summary>🔑 Ver solución completa</summary><div class="sol-box">
+
+**Solución (1) — Transformación multiplicativa ($c=2$).**
+
+**(a)** Se multiplica la segunda columna de $X$ por $c=2$:
+
+$$\tilde{X} = \begin{pmatrix} 1 & -2 \\ 1 & 0 \\ 1 & 2 \end{pmatrix}.$$
+
+**(b)** Con datos originales ($x$ centrado → $X'X$ diagonal):
+
+$$X'X = \begin{pmatrix}3 & 0 \\ 0 & 2\end{pmatrix}, \quad (X'X)^{-1} = \begin{pmatrix}1/3 & 0 \\ 0 & 1/2\end{pmatrix}, \quad X'Y = \begin{pmatrix}9 \\ 4\end{pmatrix}.$$
+
+$$\hat{\beta} = (X'X)^{-1}X'Y = \begin{pmatrix}9/3 \\ 4/2\end{pmatrix} = \begin{pmatrix}3 \\ 2\end{pmatrix}.$$
+
+**(c)** Con la variable reescalada:
+
+$$\tilde{X}'\tilde{X} = \begin{pmatrix}3 & 0 \\ 0 & 8\end{pmatrix}, \quad (\tilde{X}'\tilde{X})^{-1} = \begin{pmatrix}1/3 & 0 \\ 0 & 1/8\end{pmatrix}, \quad \tilde{X}'Y = \begin{pmatrix}9 \\ 8\end{pmatrix}.$$
+
+$$\hat{\beta}^* = \begin{pmatrix}9/3 \\ 8/8\end{pmatrix} = \begin{pmatrix}3 \\ 1\end{pmatrix}.$$
+
+$\hat{\beta}^*_1 = 1 = 2/2 = \hat{\beta}_1/2$ ✓. El intercepto $\hat{\beta}_0 = 3$ no cambia.
+
+<hr>
+
+**Solución (2) — Formas funcionales con $\hat{\beta}_1 = 0.08$.**
+
+**(a) Lineal–lineal:** Un año más de educación aumenta el ingreso en $0.08$ miles de pesos (= 80 pesos), *ceteris paribus*.
+
+**(b) Log–lineal:** Un año más de educación está asociado con un aumento aproximado del $8\%$ en el ingreso. El retorno porcentual marginal a la educación es constante. *(Error frecuente: llamarlo elasticidad.)*
+
+**(c) Log–log:** Un aumento del $1\%$ en los años de educación está asociado con un aumento del $0.08\%$ en el ingreso. $\hat{\beta}_1$ es la elasticidad del ingreso respecto a la educación.
+
+<hr>
+
+**Solución (3) — Estandarización.**
+
+**(a)** El estimador del intercepto usa la condición de que la recta MCO pasa por $(\bar{\tilde{x}}, \bar{\tilde{y}})$:
+
+$$\hat{\tilde{\beta}}_0 = \bar{\tilde{y}} - \hat{\tilde{\beta}}_1\bar{\tilde{x}} = 0 - \hat{\tilde{\beta}}_1 \cdot 0 = 0.$$
+
+Por construcción, las variables estandarizadas tienen media cero.
+
+**(b)**
+
+$$\hat{\tilde{\beta}}_1 = \frac{\operatorname{Cov}(\tilde{x},\tilde{y})}{\operatorname{Var}(\tilde{x})} = \operatorname{Cov}\!\Bigl(\tfrac{x-\bar{x}}{s_x},\,\tfrac{y-\bar{y}}{s_y}\Bigr) = r_{xy}.$$
+
+$\hat{\tilde{\beta}}_1$ es el **coeficiente de correlación** entre $x$ e $y$: un aumento de 1 desviación estándar en $x$ está asociado con un cambio de $r_{xy}$ desviaciones estándar en $y$.
+
+<hr>
+
+**Solución (4) — Invarianza del estadístico $t$.**
+
+$$t^{\tilde{x}} = \frac{\hat{\beta}_1^{\tilde{x}}}{\operatorname{se}(\hat{\beta}_1^{\tilde{x}})} = \frac{\hat{\beta}_1/c}{\operatorname{se}(\hat{\beta}_1)/c} = \frac{\hat{\beta}_1}{\operatorname{se}(\hat{\beta}_1)} = t^{x}.$$
+
+Multiplicar $x$ por $c$ escala el estimador en $1/c$ y su error estándar también en $1/c$, por lo que el cociente (y la inferencia) es idéntico.
+
+</div></details>
+
+<hr>
+
+### Opcional 2 — Insesgamiento y Gauss–Markov (1.5 pts) {-}
+
+Considere el modelo de regresión lineal múltiple $Y = X\beta + \varepsilon$, con $X$ de dimensión $n \times k$ y rango completo. Asuma los supuestos clásicos S1–S5.
+
+**(1) — 0.5 pts. Insesgamiento.**
+
+- **(a)** A partir de $\hat{\beta} = (X'X)^{-1}X'Y$, sustituya $Y = X\beta + \varepsilon$ y demuestre que $\hat{\beta} = \beta + (X'X)^{-1}X'\varepsilon$.
+- **(b)** Use $E[\varepsilon\mid X] = 0$ para demostrar que $E[\hat{\beta}\mid X] = \beta$.
+
+**(2) — 0.5 pts. Varianza del estimador.**
+
+- **(a)** Escriba la fórmula de $\operatorname{Var}(\hat{\beta}\mid X)$ bajo los supuestos clásicos. ¿Qué supuesto específico sobre $\varepsilon$ se requiere?
+- **(b)** En la regresión simple $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, con $\hat{\sigma}^2 = 9$ y $\sum_i (x_i - \bar{x})^2 = 100$, calcule $\widehat{\operatorname{Var}}(\hat{\beta}_1)$.
+
+**(3) — 0.5 pts. Estimación de $\sigma^2$ y Gauss–Markov.**
+
+- **(a)** ¿Por qué se divide por $(n-k)$ al estimar $\hat{\sigma}^2 = \hat{u}'\hat{u}/(n-k)$? ¿Qué pasaría si se dividiera por $n$?
+- **(b)** ¿Qué supuesto adicional (S6) se necesita para que la distribución de $\hat{\beta}$ sea exactamente normal en muestras finitas?
+- **(c)** Si S6 no se cumple pero $n$ es grande, ¿siguen siendo válidas las pruebas $t$ y $F$? ¿Por qué?
+
+<details><summary>🔑 Ver solución completa</summary><div class="sol-box">
+
+**Solución (1a) — Demostración.**
+
+$$\hat{\beta} = (X'X)^{-1}X'Y = (X'X)^{-1}X'(X\beta + \varepsilon) = \underbrace{(X'X)^{-1}(X'X)}_{I_k}\beta + (X'X)^{-1}X'\varepsilon = \beta + (X'X)^{-1}X'\varepsilon. \quad \checkmark$$
+
+**Solución (1b) — Insesgamiento.**
+
+$$E[\hat{\beta}\mid X] = E\bigl[\beta + (X'X)^{-1}X'\varepsilon \mid X\bigr] = \beta + (X'X)^{-1}X'\underbrace{E[\varepsilon\mid X]}_{=\,0} = \beta. \quad \checkmark$$
+
+Se requiere S2 ($E[\varepsilon\mid X]=0$), que implica exogeneidad estricta.
+
+<hr>
+
+**Solución (2a) — Varianza.**
+
+$$\operatorname{Var}(\hat{\beta}\mid X) = \sigma^2(X'X)^{-1}.$$
+
+Supuesto requerido: **S4** — $\operatorname{Var}(\varepsilon\mid X)=\sigma^2 I_n$ (homocedasticidad y no autocorrelación).
+
+**Solución (2b) — Cálculo numérico.**
+
+$$\widehat{\operatorname{Var}}(\hat{\beta}_1) = \frac{\hat{\sigma}^2}{\sum_i(x_i-\bar{x})^2} = \frac{9}{100} = 0.09.$$
+
+Error estándar estimado: $\widehat{\operatorname{se}}(\hat{\beta}_1) = \sqrt{0.09} = 0.3$.
+
+<hr>
+
+**Solución (3a) — División por $n-k$.**
+
+Estimar $\beta$ impone $k$ restricciones sobre los residuos ($X'\hat{u} = 0$), consumiendo $k$ grados de libertad. Dividir por $n-k$ produce un estimador *insesgado*: $E[\hat{\sigma}^2] = \sigma^2$. Si se divide por $n$, el estimador es sesgado hacia abajo: $E[\hat{\sigma}^2_n] = \frac{n-k}{n}\sigma^2 < \sigma^2$.
+
+**Solución (3b) — Supuesto S6.**
+
+$$\varepsilon\mid X \sim \mathcal{N}(0,\sigma^2 I_n).$$
+
+Bajo S6, $\hat{\beta}\mid X\sim\mathcal{N}(\beta,\sigma^2(X'X)^{-1})$ exactamente, y los estadísticos $t$ y $F$ tienen distribuciones exactas $t_{n-k}$ y $F_{r,n-k}$ en muestras finitas.
+
+**Solución (3c) — Sin S6 con $n$ grande.**
+
+Por el Teorema Central del Límite, $\hat{\beta}$ es asintóticamente normal aunque $\varepsilon$ no lo sea. Las pruebas $t$ y $F$ son *asintóticamente válidas* (válidas en muestra grande), aunque no exactas en muestras pequeñas. En la práctica, con $n\geq 50$–$100$ la aproximación suele ser muy buena.
+
+</div></details>
+
+<hr>
+
+### Bono (0.2 pts) {-}
+
+Describa brevemente (5–7 líneas) un video relacionado con econometría o economía empírica que le haya llamado la atención durante el curso. Indique: (i) cuál era la pregunta de investigación, (ii) cómo cree que el autor identificó el efecto causal, y (iii) qué aprendió de él.
+
+<details><summary>🔑 Criterio de evaluación</summary><div class="sol-box">
+**Respuesta libre.** Se otorga el bono si el estudiante: (i) identifica correctamente la pregunta de investigación del video; (ii) menciona algún elemento de identificación causal (experimento, DiD, VI, RD, etc.); y (iii) muestra reflexión genuina sobre qué aprendió. Se recomienda 0.1 pts por los puntos (i)–(ii) y 0.1 pts por (iii).
+</div></details>

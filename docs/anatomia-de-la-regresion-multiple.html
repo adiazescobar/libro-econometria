@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Anatomía de la Regresión Múltiple | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Anatomía de la Regresión Múltiple | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Anatomía de la Regresión Múltiple | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-03-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regresion-por-minimos-cuadrados-ordinarios-mco.html"/>
+<link rel="next" href="aspectos-algebraicos-de-la-solucion-de-mco.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+<link href="libs/htmltools-fill/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="libs/plotly-binding/plotly.js"></script>
+<script src="libs/typedarray/typedarray.min.js"></script>
+<link href="libs/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main/plotly-latest.min.js"></script>
+<script src="libs/rglWebGL-binding/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Información general {-}</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#descripcion-del-curso"><i class="fa fa-check"></i><b>1.1</b> Descripción del curso {-}</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#material-bibliografico"><i class="fa fa-check"></i><b>1.2</b> Material bibliográfico {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libro-obligatorio"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#evaluacion"><i class="fa fa-check"></i><b>1.3</b> Evaluación {-}</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#inclusion"><i class="fa fa-check"></i><b>1.4</b> Inclusión {-}</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#integridad-academica"><i class="fa fa-check"></i><b>1.5</b> Integridad académica {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#puntaje-automatico"><i class="fa fa-check"></i>Puntaje (automatico)</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#recursos-para-repasar"><i class="fa fa-check"></i>Recursos para Repasar</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#consejos-para-econometria-ii"><i class="fa fa-check"></i>Consejos para Econometria II</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>2</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="repaso.html"><a href="repaso.html#que-estudia-la-econometria"><i class="fa fa-check"></i><b>2.0.1</b> ¿Qué estudia la econometría? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="2.0.2" data-path="repaso.html"><a href="repaso.html#que-hacemos-entonces"><i class="fa fa-check"></i><b>2.0.2</b> ¿Qué hacemos entonces? {-}</a></li>
+<li class="chapter" data-level="2.1" data-path="repaso.html"><a href="repaso.html#construimos-una-poblacion-de-juguete"><i class="fa fa-check"></i><b>2.1</b> Construimos una población de juguete {-}</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="repaso.html"><a href="repaso.html#la-relacion-verdadera-en-la-poblacion"><i class="fa fa-check"></i><b>2.1.1</b> La relación verdadera en la población {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="2.1.2" data-path="repaso.html"><a href="repaso.html#como-saber-si-me-toco-una-muestra-mala"><i class="fa fa-check"></i><b>2.1.2</b> ¿Cómo saber si me tocó una muestra mala? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="2.1.3" data-path="repaso.html"><a href="repaso.html#una-aclaracion-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i><b>2.1.3</b> ☝️ Una aclaración importante sobre el insesgamiento {-}</a></li>
+<li class="chapter" data-level="2.1.4" data-path="repaso.html"><a href="repaso.html#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1"><i class="fa fa-check"></i><b>2.1.4</b> 🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal.html"><a href="regresion-lineal.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="regresion-lineal.html"><a href="regresion-lineal.html#objetivo-del-capitulo"><i class="fa fa-check"></i><b>3.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="3.2" data-path="regresion-lineal.html"><a href="regresion-lineal.html#que-significa-encontrar-la-mejor-linea"><i class="fa fa-check"></i><b>3.2</b> 🔍 ¿Qué significa encontrar la “mejor línea”? {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#ilustremos-esto-con-un-ejemplo-visual"><i class="fa fa-check"></i>🎨 Ilustremos esto con un ejemplo visual</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#mco"><i class="fa fa-check"></i>MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#formalmente"><i class="fa fa-check"></i>Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#propiedades-y-supuestos"><i class="fa fa-check"></i>📊 Propiedades y supuestos</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="regresion-lineal.html"><a href="regresion-lineal.html#que-hace-a-un-buen-estimador"><i class="fa fa-check"></i><b>3.2.1</b> ¿Qué hace a un buen estimador? {-}</a></li>
+<li class="chapter" data-level="3.2.2" data-path="regresion-lineal.html"><a href="regresion-lineal.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>3.2.2</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="3.2.3" data-path="regresion-lineal.html"><a href="regresion-lineal.html#que-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i><b>3.2.3</b> 🤔 ¿Qué propiedades buscamos en un estimador? {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i>🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#propiedad-3-consistencia"><i class="fa fa-check"></i>Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#propiedad-4-eficiencia"><i class="fa fa-check"></i>Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#resumen-de-las-propiedades"><i class="fa fa-check"></i>Resumen de las propiedades</a></li>
+<li class="chapter" data-level="3.2.4" data-path="regresion-lineal.html"><a href="regresion-lineal.html#nota-de-cierre-como-interpretar-cada-propiedad"><i class="fa fa-check"></i><b>3.2.4</b> 🧠 Nota de cierre: cómo interpretar cada propiedad {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresion-lineal.html"><a href="regresion-lineal.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="4.0.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#norma-y-normalizacion"><i class="fa fa-check"></i><b>4.0.1</b> Norma y normalización {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="4.0.2" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#multiplicacion-por-un-escalar"><i class="fa fa-check"></i><b>4.0.2</b> Multiplicación por un escalar {-}</a></li>
+<li class="chapter" data-level="4.0.3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#multiplicacion-de-matrices"><i class="fa fa-check"></i><b>4.0.3</b> Multiplicación de matrices {-}</a></li>
+<li class="chapter" data-level="4.0.4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#transposicion-de-matrices"><i class="fa fa-check"></i><b>4.0.4</b> Transposición de matrices {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="4.0.5" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#id_6-matriz-simetrica"><i class="fa fa-check"></i><b>4.0.5</b> 6. Matriz simétrica {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="4.0.6" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#id_9-matrices-de-proyeccion-p-y-m"><i class="fa fa-check"></i><b>4.0.6</b> 9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span> {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="4.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-funcion-multidimensional"><i class="fa fa-check"></i><b>4.1</b> Derivadas de una función multidimensional {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="4.1.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-cuadratica"><i class="fa fa-check"></i><b>4.1.1</b> Derivadas de una forma cuadrática {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#proceso-generador-de-datos"><i class="fa fa-check"></i>Proceso Generador de Datos</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#tabla-resumen-de-supuestos"><i class="fa fa-check"></i>Tabla Resumen de Supuestos</a></li>
+<li class="chapter" data-level="5.1" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s1-linealidad-en-los-parametros"><i class="fa fa-check"></i><b>5.1</b> S1. Linealidad en los Parámetros {-}</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s2.-exogeneidad-estricta"><i class="fa fa-check"></i>S2. Exogeneidad Estricta</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s3.-colinealidad-imperfecta"><i class="fa fa-check"></i>S3. Colinealidad Imperfecta</a></li>
+<li class="chapter" data-level="5.2" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s4-perturbaciones-esfericas"><i class="fa fa-check"></i><b>5.2</b> S4. Perturbaciones Esféricas {-}</a></li>
+<li class="chapter" data-level="5.3" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s5-regresores-no-estocasticos"><i class="fa fa-check"></i><b>5.3</b> S5. Regresores No Estocásticos {-}</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#s6.-normalidad-del-error"><i class="fa fa-check"></i>S6. Normalidad del Error</a></li>
+<li class="chapter" data-level="5.4" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#glosario-de-simbolos"><i class="fa fa-check"></i><b>5.4</b> Glosario de Símbolos {-}</a></li>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#preguntas-de-repaso-3"><i class="fa fa-check"></i>📘 Preguntas de repaso</a>
+<ul>
+<li class="chapter" data-level="" data-path="supuestos-de-mco.html"><a href="supuestos-de-mco.html#recursos-audiovisuales"><i class="fa fa-check"></i>🎥 Recursos audiovisuales</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html"><i class="fa fa-check"></i><b>6</b> Regresión por Mínimos Cuadrados Ordinarios (MCO)</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#modelo"><i class="fa fa-check"></i>Modelo</a></li>
+<li class="chapter" data-level="6.1" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#que-hace-mco"><i class="fa fa-check"></i><b>6.1</b> ¿Qué hace MCO? {-}</a></li>
+<li class="chapter" data-level="6.2" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#derivacion-del-estimador"><i class="fa fa-check"></i><b>6.2</b> Derivación del estimador {-}</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#como-se-encuentra-el-vector-hatbeta"><i class="fa fa-check"></i><b>6.2.1</b> ¿Cómo se encuentra el vector <span class="math inline">\(\hat{\beta}\)</span>? {-}</a></li>
+<li class="chapter" data-level="6.2.2" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#es-un-minimo"><i class="fa fa-check"></i><b>6.2.2</b> ¿Es un mínimo? {-}</a></li>
+<li class="chapter" data-level="6.2.5" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#interpretacion-en-terminos-de-contraparte-muestral"><i class="fa fa-check"></i><b>6.2.5</b> Interpretación en términos de contraparte muestral {-}</a></li>
+<li class="chapter" data-level="6.2.6" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#supuestos-clave-empleados-hasta-aca"><i class="fa fa-check"></i><b>6.2.6</b> Supuestos clave empleados hasta acá {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#anatomia-de-la-regresion-del-caso-mas-simple-al-mas-complejo"><i class="fa fa-check"></i><b>6.3</b> Anatomía de la regresión: del caso más simple al más complejo {-}</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-1-regresion-sin-variables-explicativas-solo-constante"><i class="fa fa-check"></i><b>6.3.1</b> Caso 1: Regresión sin variables explicativas (solo constante) {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-1"><i class="fa fa-check"></i>Ejercicio 1</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-2-regresion-simple-con-una-variable-explicativa"><i class="fa fa-check"></i><b>6.3.2</b> Caso 2: Regresión simple con una variable explicativa {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-2"><i class="fa fa-check"></i>Ejercicio 2</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-3-variable-binaria-sin-constante"><i class="fa fa-check"></i>Caso 3: Variable binaria sin constante</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-3"><i class="fa fa-check"></i>Ejercicio 3</a></li>
+<li class="chapter" data-level="6.3.3" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-4-variable-binaria-con-constante-categoria-de-referencia"><i class="fa fa-check"></i><b>6.3.3</b> Caso 4: Variable binaria con constante (categoría de referencia) {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-4"><i class="fa fa-check"></i>Ejercicio 4</a></li>
+<li class="chapter" data-level="6.3.4" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-5-multiples-categorias-mutuamente-excluyentes"><i class="fa fa-check"></i><b>6.3.4</b> Caso 5: Múltiples categorías mutuamente excluyentes {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-5"><i class="fa fa-check"></i>Ejercicio 5</a></li>
+<li class="chapter" data-level="6.3.5" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicios-adicionales-de-algebra-lineal"><i class="fa fa-check"></i><b>6.3.5</b> Ejercicios adicionales de álgebra lineal {-}</a></li>
+<li class="chapter" data-level="6.3.6" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-6-verificacion-de-las-ecuaciones-normales"><i class="fa fa-check"></i><b>6.3.6</b> Ejercicio 6: Verificación de las ecuaciones normales {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-7-efecto-del-escalamiento-en-matrices"><i class="fa fa-check"></i>Ejercicio 7: Efecto del escalamiento en matrices</a></li>
+<li class="chapter" data-level="6.3.7" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-8-matrices-de-proyeccion"><i class="fa fa-check"></i><b>6.3.7</b> Ejercicio 8: Matrices de proyección {-}</a></li>
+<li class="chapter" data-level="6.3.8" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#ejercicio-9-descomposicion-de-la-suma-total-de-cuadrados"><i class="fa fa-check"></i><b>6.3.8</b> Ejercicio 9: Descomposición de la suma total de cuadrados {-}</a></li>
+<li class="chapter" data-level="6.3.9" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#caso-general-regresion-multiple"><i class="fa fa-check"></i><b>6.3.9</b> Caso general: Regresión múltiple {-}</a></li>
+<li class="chapter" data-level="6.3.10" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#cuando-coincide-la-regresion-multiple-con-la-simple"><i class="fa fa-check"></i><b>6.3.10</b> ¿Cuándo coincide la regresión múltiple con la simple? {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-r-empleando-matrices"><i class="fa fa-check"></i>Estimador de MCO en R empleando matrices</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-stata-usando-mata"><i class="fa fa-check"></i>Estimador de MCO en Stata usando MATA</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#estimador-de-mco-en-python-usando-numpy"><i class="fa fa-check"></i>Estimador de MCO en Python usando NumPy</a>
+<ul>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#preguntas-de-repaso-4"><i class="fa fa-check"></i>Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#apendice-derivacion-algebraica-del-estimador-para-regresion-simple"><i class="fa fa-check"></i><b>6.4</b> Apéndice: Derivación algebraica del estimador para regresión simple {-}</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#calculo-de-xx"><i class="fa fa-check"></i><b>6.4.1</b> Cálculo de <span class="math inline">\(X&#39;X\)</span> {-}</a></li>
+<li class="chapter" data-level="6.4.2" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#calculo-de-xy"><i class="fa fa-check"></i><b>6.4.2</b> Cálculo de <span class="math inline">\(X&#39;y\)</span> {-}</a></li>
+<li class="chapter" data-level="" data-path="regresion-por-minimos-cuadrados-ordinarios-mco.html"><a href="regresion-por-minimos-cuadrados-ordinarios-mco.html#producto-final"><i class="fa fa-check"></i>Producto final</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html"><i class="fa fa-check"></i><b>7</b> Anatomía de la Regresión Múltiple</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#matrices-de-proyeccion"><i class="fa fa-check"></i><b>7.1</b> Matrices de Proyección {-}</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>7.1.1</b> 🔍 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#propiedades-algebraicas-clave"><i class="fa fa-check"></i>📐 Propiedades algebraicas clave</a></li>
+<li class="chapter" data-level="7.1.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#visualizacion-tridimensional-de-la-proyeccion"><i class="fa fa-check"></i><b>7.1.2</b> ✨ Visualización tridimensional de la proyección {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="7.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#notacion-y-motivacion"><i class="fa fa-check"></i><b>7.2</b> 🎯 Notación y Motivación {-}</a></li>
+<li class="chapter" data-level="7.3" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#cual-es-el-problema-que-resuelve-el-fwl"><i class="fa fa-check"></i><b>7.3</b> ❓¿Cuál es el problema que resuelve el FWL? {-}</a></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl"><i class="fa fa-check"></i>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)</a></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos"><i class="fa fa-check"></i>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos</a></li>
+<li class="chapter" data-level="" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#paso-3-regresar-tildey-sobre-tildex_r"><i class="fa fa-check"></i>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span></a></li>
+<li class="chapter" data-level="7.4" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#interpretacion-final"><i class="fa fa-check"></i><b>7.4</b> ✅ Interpretación final{-}</a></li>
+<li class="chapter" data-level="7.5" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#conclusion"><i class="fa fa-check"></i><b>7.5</b> 📦 Conclusión {-}</a></li>
+<li class="chapter" data-level="7.6" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#demostracion-formal"><i class="fa fa-check"></i><b>7.6</b> Demostración Formal {-}</a></li>
+<li class="chapter" data-level="7.7" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#ejemplo-practico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python"><i class="fa fa-check"></i><b>7.7</b> 🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python {-}</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#codigo-en-stata"><i class="fa fa-check"></i><b>7.7.1</b> 🔵 Código en Stata</a></li>
+<li class="chapter" data-level="7.7.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#codigo-en-r"><i class="fa fa-check"></i><b>7.7.2</b> 🟢 Código en R</a></li>
+<li class="chapter" data-level="7.7.3" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#codigo-en-python"><i class="fa fa-check"></i><b>7.7.3</b> 🔴 Código en Python</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html"><i class="fa fa-check"></i><b>8</b> Aspectos algebraicos de la solución de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#propiedades-del-estimador-de-mco-en-muestras-finitas"><i class="fa fa-check"></i>Propiedades del estimador de MCO en muestras finitas</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#propiedad-de-mejor-estimador-lineal-insesgado-meli"><i class="fa fa-check"></i>Propiedad de mejor estimador lineal insesgado (MELI)</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#teorema-de-gauss-markov"><i class="fa fa-check"></i>Teorema de Gauss Markov</a></li>
+<li class="chapter" data-level="8.1" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#ilustracion-mco-vs-el-estimador-de-wald"><i class="fa fa-check"></i><b>8.1</b> Ilustración: MCO vs el estimador de Wald {-}</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#el-gran-torneo-de-estimadores"><i class="fa fa-check"></i>🏆 El gran torneo de estimadores</a>
+<ul>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#haz-tu-apuesta-antes-de-ver-el-resultado"><i class="fa fa-check"></i>🎮 Haz tu apuesta antes de ver el resultado</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#para-reflexionar-1"><i class="fa fa-check"></i>🧠 Para reflexionar</a></li>
+<li class="chapter" data-level="" data-path="aspectos-algebraicos-de-la-solucion-de-mco.html"><a href="aspectos-algebraicos-de-la-solucion-de-mco.html#preguntas-de-repaso-6"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html"><i class="fa fa-check"></i>Inferencia</a>
+<ul>
+<li class="chapter" data-level="8.2" data-path="inferencia.html"><a href="inferencia.html#pruebas-de-hipotesis-bajo-el-supuesto-de-normalidad"><i class="fa fa-check"></i><b>8.2</b> Pruebas de hipótesis bajo el supuesto de normalidad {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#ejemplo-motivador"><i class="fa fa-check"></i>Ejemplo motivador</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#errores-distribuidos-normalmente"><i class="fa fa-check"></i>📐 Errores distribuidos normalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="inferencia.html"><a href="inferencia.html#contraste-de-hipotesis-sobre-un-coeficiente"><i class="fa fa-check"></i><b>8.3</b> Contraste de hipótesis sobre un coeficiente {-}</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="inferencia.html"><a href="inferencia.html#regla-de-decision-para-el-estadistico-t"><i class="fa fa-check"></i><b>8.3.1</b> Regla de decisión para el estadístico t {-}</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#intervalo-de-confianza"><i class="fa fa-check"></i>Intervalo de confianza</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#el-valor-p-p-value"><i class="fa fa-check"></i>El valor p (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="inferencia.html"><a href="inferencia.html#contraste-de-hipotesis-lineales"><i class="fa fa-check"></i><b>8.4</b> Contraste de hipótesis lineales {-}</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="inferencia.html"><a href="inferencia.html#el-estadistico-f"><i class="fa fa-check"></i><b>8.4.1</b> El estadístico F {-}</a></li>
+<li class="chapter" data-level="8.4.2" data-path="inferencia.html"><a href="inferencia.html#regla-de-decision-con-f"><i class="fa fa-check"></i><b>8.4.2</b> Regla de decisión con F {-}</a></li>
+<li class="chapter" data-level="8.4.3" data-path="inferencia.html"><a href="inferencia.html#formula-alternativa-para-f"><i class="fa fa-check"></i><b>8.4.3</b> Fórmula alternativa para F {-}</a></li>
+<li class="chapter" data-level="8.4.4" data-path="inferencia.html"><a href="inferencia.html#contraste-de-significacion-global"><i class="fa fa-check"></i><b>8.4.4</b> Contraste de significación global {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="inferencia.html"><a href="inferencia.html#relacion-t-vs-f"><i class="fa fa-check"></i><b>8.5</b> Relación t vs F {-}</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="inferencia.html"><a href="inferencia.html#demostracion-del-estadistico"><i class="fa fa-check"></i><b>8.5.1</b> 📑 Demostración del estadístico <span class="math inline">\(t\)</span> {-}</a></li>
+<li class="chapter" data-level="8.5.2" data-path="inferencia.html"><a href="inferencia.html#demostracion-del-estadistico-2"><i class="fa fa-check"></i><b>8.5.2</b> 📑 Demostración del estadístico <span class="math inline">\(F\)</span> {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="inferencia.html"><a href="inferencia.html#aplicacion-en-stata"><i class="fa fa-check"></i><b>8.6</b> 💻 Aplicación en Stata {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#visualizaciones-sugeridas"><i class="fa fa-check"></i>🖼️ Visualizaciones sugeridas</a></li>
+<li class="chapter" data-level="8.7" data-path="inferencia.html"><a href="inferencia.html#notas-practicas-de-inferencia"><i class="fa fa-check"></i><b>8.7</b> 🧩 Notas prácticas de inferencia {-}</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#demostraciones-formales-resumen"><i class="fa fa-check"></i>🔎 Demostraciones formales (resumen)</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#conclusiones-clave"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#preguntas-de-repaso-7"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="inferencia.html"><a href="inferencia.html#codigo-minimo-reproducible-mco-wald"><i class="fa fa-check"></i><b>8.8</b> 🧰 Código mínimo reproducible (MCO + Wald) {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#stata"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r-1"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python-1"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><i class="fa fa-check"></i><b>9</b> Multicolinealidad: detección, consecuencias y (no) soluciones {-}</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#objetivo-y-motivacion"><i class="fa fa-check"></i><b>9.1</b> 🎯 Objetivo y motivación {-}</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#colinealidad-imperfecta-idea-algebraica"><i class="fa fa-check"></i>📚 Colinealidad imperfecta: idea algebraica</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#definicion-y-condicion-de-rango"><i class="fa fa-check"></i><b>9.1.1</b> Definición y condición de rango {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad"><i class="fa fa-check"></i>🧩 Modelo particionado y consecuencias de la multicolinealidad</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza"><i class="fa fa-check"></i>Propiedades: insesgamiento y varianza</a></li>
+<li class="chapter" data-level="9.1.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#controlar-por-otras-variables-via-fwl"><i class="fa fa-check"></i><b>9.2</b> 🧪 “Controlar por otras variables” vía FWL {-}</a></li>
+<li class="chapter" data-level="9.3" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#deteccion-de-multicolinealidad"><i class="fa fa-check"></i><b>9.3</b> 🔎 Detección de multicolinealidad {-}</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#ejemplos-en-stata-r-y-python"><i class="fa fa-check"></i>🛠️ Ejemplos en Stata, R y Python</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-1"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-2"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-2"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#que-hacer-y-que-no-ante-multicolinealidad"><i class="fa fa-check"></i><b>9.4</b> 🚨 Qué hacer (y qué no) ante multicolinealidad {-}</a></li>
+<li class="chapter" data-level="9.5" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#mini-demostracion-varianza-inflada-por-auxiliar"><i class="fa fa-check"></i><b>9.5</b> 🧪 Mini-demostración: varianza inflada por <span class="math inline">\(R^2\)</span> auxiliar {-}</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#ejemplo-reproducible-colinealidad-simulada"><i class="fa fa-check"></i>🔬 Ejemplo reproducible: colinealidad simulada</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-2"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-3"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-3"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#conclusiones-clave-1"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#preguntas-de-repaso-8"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#apendice-comandos-utiles"><i class="fa fa-check"></i><b>9.6</b> 🧰 Apéndice: comandos útiles {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-3"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-4"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-4"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i>Heterocedasticidad</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="regresion-lineal.html"><a href="regresion-lineal.html#objetivo-del-capitulo"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="9.7" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>9.7</b> 1. Introducción {-}</a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#ejemplos-motivadores"><i class="fa fa-check"></i>2. Ejemplos motivadores</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura"><i class="fa fa-check"></i>3. Heterocedasticidad pura vs. impura</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#pura"><i class="fa fa-check"></i>3.1 Pura</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#impura"><i class="fa fa-check"></i>3.2 Impura</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_4-consecuencias-teoricas"><i class="fa fa-check"></i><b>9.8</b> 4. Consecuencias teóricas {-}</a></li>
+<li class="chapter" data-level="9.9" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_5-deteccion-de-heterocedasticidad"><i class="fa fa-check"></i><b>9.9</b> 5. Detección de heterocedasticidad {-}</a>
+<ul>
+<li class="chapter" data-level="9.9.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_51-diagnostico-visual"><i class="fa fa-check"></i><b>9.9.1</b> 5.1 Diagnóstico visual {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#contraste-de-white-1980"><i class="fa fa-check"></i>5.2 Contraste de White (1980)</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#breuschpagan-cookweisberg"><i class="fa fa-check"></i>5.3 Breusch–Pagan / Cook–Weisberg</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#goldfeldquandt"><i class="fa fa-check"></i>5.4 Goldfeld–Quandt</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#soluciones"><i class="fa fa-check"></i>6. Soluciones</a>
+<ul>
+<li class="chapter" data-level="9.9.2" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_61-gls-minimos-cuadrados-generalizados"><i class="fa fa-check"></i><b>9.9.2</b> 6.1 GLS (Mínimos Cuadrados Generalizados) {-}</a></li>
+<li class="chapter" data-level="9.9.3" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_62-wls-minimos-cuadrados-ponderados"><i class="fa fa-check"></i><b>9.9.3</b> 6.2 WLS (Mínimos Cuadrados Ponderados) {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#fglsmcf-gls-factible"><i class="fa fa-check"></i>6.3 FGLS/MCF (GLS factible)</a></li>
+<li class="chapter" data-level="9.9.4" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_64-errores-estandar-robustos-whitehuber"><i class="fa fa-check"></i><b>9.9.4</b> 6.4 Errores estándar robustos (White/Huber) {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="9.10" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_7-ejemplo-reproducible-simulacion"><i class="fa fa-check"></i><b>9.10</b> 7. Ejemplo reproducible (simulación) {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#stata-4"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#r-5"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#python-statsmodels"><i class="fa fa-check"></i>Python (statsmodels)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.11" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_8-visualizaciones-diagnostico"><i class="fa fa-check"></i><b>9.11</b> 8. Visualizaciones (diagnóstico) {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#tabla-resumen-de-contrastes"><i class="fa fa-check"></i>9. Tabla resumen de contrastes</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#conclusiones-clave-2"><i class="fa fa-check"></i>10. Conclusiones clave</a></li>
+<li class="chapter" data-level="9.12" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_11-taller-practico-hands-on"><i class="fa fa-check"></i><b>9.12</b> 11. Taller práctico (hands-on) {-}</a></li>
+<li class="chapter" data-level="9.13" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_12-apendice-comandos-rapidos-por-software"><i class="fa fa-check"></i><b>9.13</b> 12. Apéndice: comandos rápidos por software {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#preguntas-de-repaso-9"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>10</b> Parcial 1 · 2026-1</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-i-seleccion-multiple"><i class="fa fa-check"></i><b>10.1</b> Parte I: Selección Múltiple {-}</a></li>
+<li class="chapter" data-level="" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-ii-preguntas-abiertas"><i class="fa fa-check"></i>Parte II: Preguntas Abiertas</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#obligatoria-fwl-con-observacion-atipica-15-pts"><i class="fa fa-check"></i><b>10.1.1</b> Obligatoria — FWL con observación atípica (1.5 pts) {-}</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anatomia-de-la-regresion-multiple" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">7</span> Anatomía de la Regresión Múltiple<a href="anatomia-de-la-regresion-multiple.html#anatomia-de-la-regresion-multiple" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="matrices-de-proyeccion" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Matrices de Proyección {-}<a href="anatomia-de-la-regresion-multiple.html#matrices-de-proyeccion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Supongamos que estamos estimando una regresión lineal múltiple del tipo:</p>
+<p><span class="math display">\[
+y = X\beta + \varepsilon
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(y \in \mathbb{R}^n\)</span> es el vector de la variable dependiente</li>
+<li><span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span> es la matriz de regresores de rango completo</li>
+<li><span class="math inline">\(\beta \in \mathbb{R}^k\)</span> es el vector de parámetros</li>
+</ul>
+<p>La estimación de mínimos cuadrados se basa en proyectar el vector <span class="math inline">\(y\)</span> sobre el <strong>espacio columna de <span class="math inline">\(X\)</span></strong>, denotado <span class="math inline">\(\mathcal{C}(X)\)</span>. Esta proyección busca encontrar el punto más cercano en ese subespacio a <span class="math inline">\(y\)</span>, minimizando la suma de los residuos al cuadrado.</p>
+<p>Esta proyección se logra mediante la <strong>matriz de proyección</strong>:</p>
+<p><span class="math display">\[
+\mathbf{P}_X = X(X&#39;X)^{-1}X&#39;
+\]</span></p>
+<p>Y su complemento ortogonal (que proyecta sobre el espacio ortogonal a <span class="math inline">\(\mathcal{C}(X)\)</span>) es:</p>
+<p><span class="math display">\[
+\mathbf{M}_X = I - \mathbf{P}_X
+\]</span></p>
+<p><span class="math display">\[
+\hat{y} = \mathbf{P}_X y \quad \text{y} \quad \hat{\varepsilon} = \mathbf{M}_X y
+\]</span></p>
+<div id="intuicion-geometrica" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> 🔍 Intuición geométrica {-}<a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><span class="math inline">\(y\)</span>: vector observado</li>
+<li><span class="math inline">\(\hat{y} = \mathbf{P}_X y\)</span>: predicción, o “sombra” de <span class="math inline">\(y\)</span> sobre el plano generado por <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(\hat{\varepsilon} = y - \hat{y}\)</span>: residuo, perpendicular al plano</li>
+</ul>
+<p>El estimador de MCO se obtiene al minimizar:</p>
+<p><span class="math display">\[
+\min_{\beta} (y - X\beta)&#39;(y - X\beta)
+\]</span></p>
+<p>La solución es:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+</div>
+<div id="propiedades-algebraicas-clave" class="section level3 unnumbered hasAnchor">
+<h3>📐 Propiedades algebraicas clave<a href="anatomia-de-la-regresion-multiple.html#propiedades-algebraicas-clave" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="41%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Propiedad</th>
+<th><span class="math inline">\(\mathbf{P}_X\)</span></th>
+<th><span class="math inline">\(\mathbf{M}_X\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Simetría</td>
+<td><span class="math inline">\(\mathbf{P}_X&#39; = \mathbf{P}_X\)</span></td>
+<td><span class="math inline">\(\mathbf{M}_X&#39; = \mathbf{M}_X\)</span></td>
+</tr>
+<tr class="even">
+<td>Idempotencia</td>
+<td><span class="math inline">\(\mathbf{P}_X^2 = \mathbf{P}_X\)</span></td>
+<td><span class="math inline">\(\mathbf{M}_X^2 = \mathbf{M}_X\)</span></td>
+</tr>
+<tr class="odd">
+<td>Ortogonalidad</td>
+<td><span class="math inline">\(\mathbf{P}_X \mathbf{M}_X = 0\)</span></td>
+<td><span class="math inline">\(\hat{y} \perp \hat{\varepsilon}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Estas propiedades nos permitirán probar resultados como: ortogonalidad entre predicción y residuos, descomposición de la varianza total, y derivar el estimador de varianza del error.</p>
+</div>
+<div id="visualizacion-tridimensional-de-la-proyeccion" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> ✨ Visualización tridimensional de la proyección {-}<a href="anatomia-de-la-regresion-multiple.html#visualizacion-tridimensional-de-la-proyeccion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="figure" style="text-align: center">
+<div id="rgl90204" style="width:672px;height:672px;" class="rglWebGL html-widget" role="img" aria-labelledby="rgl90204-aria"></div>
+<script type="application/json" data-for="rgl90204">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmode":"modulate","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false,"tag":"","blend":["src_alpha","one_minus_src_alpha"]},"rootSubscene":1,"objects":{"10":{"id":10,"type":"surface","material":{"alpha":0.4000000059604645,"isTransparent":true},"vertices":"0","colors":"2","dim":[[10,10]],"centers":"3","normals":"1","ignoreExtent":false,"flipped":true,"flags":32811},"11":{"id":11,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"4","colors":"5","centers":"6","ignoreExtent":false,"flags":41024},"12":{"id":12,"type":"text","material":{"lit":false},"vertices":"7","colors":"8","texts":[["Y"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"9","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"13":{"id":13,"type":"linestrip","material":{"lit":false,"lwd":4},"vertices":"10","colors":"11","centers":"12","ignoreExtent":false,"flags":41024},"14":{"id":14,"type":"text","material":{"lit":false},"vertices":"13","colors":"14","texts":[["PxY"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"15","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"15":{"id":15,"type":"linestrip","material":{"lit":false,"lwd":3},"vertices":"16","colors":"17","centers":"18","ignoreExtent":false,"flags":41024},"16":{"id":16,"type":"text","material":{"lit":false},"vertices":"19","colors":"20","texts":[["Residuo"]],"cex":[[1.2]],"adj":[[0.5,0.5,0.5]],"centers":"21","family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"18":{"id":18,"type":"text","material":{"lit":false,"margin":0,"edge":[0,1,1]},"vertices":"22","colors":"23","texts":[["Proyecci<U+00F3>n de y sobre el espacio generado por X"]],"cex":[[1]],"adj":[[0.5,0.5,0.5]],"centers":"24","family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"5":{"id":5,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"9":{"id":9,"type":"background","material":{"lit":false,"back":"lines"},"colors":"25","centers":"26","sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"17":{"id":17,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":"27","colors":"28","axes":{"mode":["pretty","pretty","pretty"],"step":[1,1,0.5],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.029999971389771,1.029999971389771,1.029999971389771]},"draw_front":false,"flags":32769},"1":{"id":1,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,14.68207263946533],"modelMatrix":[[1,0,0,0],[0,0.3420201539993286,0.9396926164627075,-0.9396926164627075],[0,-0.9396926164627075,0.3420201539993286,-15.02409267425537],[0,0,0,1]],"projMatrix":[[4.665063381195068,0,0,0],[0,4.665063381195068,0,0],[0,0,-3.86370325088501,-52.92716979980469],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.3420201433256682,0.9396926207859085,0],[0,-0.9396926207859085,0.3420201433256682,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":0.800000011920929,"bbox":[-2,2,-2,2,0,2],"windowRect":[100,100,900,900],"family":"sans","font":1,"cex":1,"useFreeType":true,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NA","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[9,17,10,11,12,13,14,15,16,18,5],"subscenes":[],"flags":42363}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":672,"height":672,"buffer":{"accessors":[{"bufferView":0,"componentType":5126,"count":100,"type":"VEC3"},{"bufferView":1,"componentType":5121,"count":100,"type":"VEC3"},{"bufferView":2,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":3,"componentType":5126,"count":81,"type":"VEC3"},{"bufferView":4,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":5,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":6,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":7,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":8,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":9,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":10,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":11,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":12,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":13,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":14,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":15,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":16,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":17,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":18,"componentType":5121,"count":2,"type":"VEC3"},{"bufferView":19,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":20,"componentType":5126,"count":1,"type":"VEC4"},{"bufferView":21,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":22,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":23,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":24,"componentType":5126,"count":1,"type":"VEC3"},{"bufferView":25,"componentType":5121,"count":1,"type":"VEC4"},{"bufferView":26,"componentType":5121,"count":1,"type":"VEC3"},{"bufferView":27,"componentType":5126,"count":15,"type":"VEC3"},{"bufferView":28,"componentType":5121,"count":1,"type":"VEC4"}],"bufferViews":[{"buffer":0,"byteLength":1200,"byteOffset":0},{"buffer":0,"byteLength":300,"byteOffset":1200},{"buffer":0,"byteLength":16,"byteOffset":1500},{"buffer":0,"byteLength":972,"byteOffset":1516},{"buffer":0,"byteLength":6,"byteOffset":2488},{"buffer":0,"byteLength":16,"byteOffset":2496},{"buffer":0,"byteLength":6,"byteOffset":2512},{"buffer":0,"byteLength":3,"byteOffset":2518},{"buffer":0,"byteLength":16,"byteOffset":2524},{"buffer":0,"byteLength":3,"byteOffset":2540},{"buffer":0,"byteLength":6,"byteOffset":2543},{"buffer":0,"byteLength":16,"byteOffset":2552},{"buffer":0,"byteLength":6,"byteOffset":2568},{"buffer":0,"byteLength":3,"byteOffset":2574},{"buffer":0,"byteLength":16,"byteOffset":2580},{"buffer":0,"byteLength":3,"byteOffset":2596},{"buffer":0,"byteLength":6,"byteOffset":2599},{"buffer":0,"byteLength":16,"byteOffset":2608},{"buffer":0,"byteLength":6,"byteOffset":2624},{"buffer":0,"byteLength":3,"byteOffset":2630},{"buffer":0,"byteLength":16,"byteOffset":2636},{"buffer":0,"byteLength":3,"byteOffset":2652},{"buffer":0,"byteLength":12,"byteOffset":2656},{"buffer":0,"byteLength":4,"byteOffset":2668},{"buffer":0,"byteLength":12,"byteOffset":2672},{"buffer":0,"byteLength":4,"byteOffset":2684},{"buffer":0,"byteLength":3,"byteOffset":2688},{"buffer":0,"byteLength":180,"byteOffset":2692},{"buffer":0,"byteLength":4,"byteOffset":2872}],"buffers":[{"byteLength":2876,"bytes":"AAAAwAAAAMAAAAAAchzHvwAAAMAAAAAA5DiOvwAAAMAAAAAAq6oqvwAAAMAAAAAAOY5jvgAA\nAMAAAAAAOY5jPgAAAMAAAAAAq6oqPwAAAMAAAAAA5DiOPwAAAMAAAAAAchzHPwAAAMAAAAAA\nAAAAQAAAAMAAAAAAAAAAwHIcx78AAAAAchzHv3Icx78AAAAA5DiOv3Icx78AAAAAq6oqv3Ic\nx78AAAAAOY5jvnIcx78AAAAAOY5jPnIcx78AAAAAq6oqP3Icx78AAAAA5DiOP3Icx78AAAAA\nchzHP3Icx78AAAAAAAAAQHIcx78AAAAAAAAAwOQ4jr8AAAAAchzHv+Q4jr8AAAAA5DiOv+Q4\njr8AAAAAq6oqv+Q4jr8AAAAAOY5jvuQ4jr8AAAAAOY5jPuQ4jr8AAAAAq6oqP+Q4jr8AAAAA\n5DiOP+Q4jr8AAAAAchzHP+Q4jr8AAAAAAAAAQOQ4jr8AAAAAAAAAwKuqKr8AAAAAchzHv6uq\nKr8AAAAA5DiOv6uqKr8AAAAAq6oqv6uqKr8AAAAAOY5jvquqKr8AAAAAOY5jPquqKr8AAAAA\nq6oqP6uqKr8AAAAA5DiOP6uqKr8AAAAAchzHP6uqKr8AAAAAAAAAQKuqKr8AAAAAAAAAwDmO\nY74AAAAAchzHvzmOY74AAAAA5DiOvzmOY74AAAAAq6oqvzmOY74AAAAAOY5jvjmOY74AAAAA\nOY5jPjmOY74AAAAAq6oqPzmOY74AAAAA5DiOPzmOY74AAAAAchzHPzmOY74AAAAAAAAAQDmO\nY74AAAAAAAAAwDmOYz4AAAAAchzHvzmOYz4AAAAA5DiOvzmOYz4AAAAAq6oqvzmOYz4AAAAA\nOY5jvjmOYz4AAAAAOY5jPjmOYz4AAAAAq6oqPzmOYz4AAAAA5DiOPzmOYz4AAAAAchzHPzmO\nYz4AAAAAAAAAQDmOYz4AAAAAAAAAwKuqKj8AAAAAchzHv6uqKj8AAAAA5DiOv6uqKj8AAAAA\nq6oqv6uqKj8AAAAAOY5jvquqKj8AAAAAOY5jPquqKj8AAAAAq6oqP6uqKj8AAAAA5DiOP6uq\nKj8AAAAAchzHP6uqKj8AAAAAAAAAQKuqKj8AAAAAAAAAwOQ4jj8AAAAAchzHv+Q4jj8AAAAA\n5DiOv+Q4jj8AAAAAq6oqv+Q4jj8AAAAAOY5jvuQ4jj8AAAAAOY5jPuQ4jj8AAAAAq6oqP+Q4\njj8AAAAA5DiOP+Q4jj8AAAAAchzHP+Q4jj8AAAAAAAAAQOQ4jj8AAAAAAAAAwHIcxz8AAAAA\nchzHv3Icxz8AAAAA5DiOv3Icxz8AAAAAq6oqv3Icxz8AAAAAOY5jvnIcxz8AAAAAOY5jPnIc\nxz8AAAAAq6oqP3Icxz8AAAAA5DiOP3Icxz8AAAAAchzHP3Icxz8AAAAAAAAAQHIcxz8AAAAA\nAAAAwAAAAEAAAAAAchzHvwAAAEAAAAAA5DiOvwAAAEAAAAAAq6oqvwAAAEAAAAAAOY5jvgAA\nAEAAAAAAOY5jPgAAAEAAAAAAq6oqPwAAAEAAAAAA5DiOPwAAAEAAAAAAchzHPwAAAEAAAAAA\nAAAAQAAAAEAAAAAAAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAAB\nAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABAAABqKcnP9TTUz/U01M/\nzczMPjiO4784juO/AAAAAKuqqr84juO/AAAAADqOY784juO/AAAAADmO4744juO/AAAAAAAA\nAAA4juO/AAAAADqO4z44juO/AAAAADqOYz84juO/AAAAAKuqqj84juO/AAAAADmO4z84juO/\nAAAAADiO47+rqqq/AAAAAKuqqr+rqqq/AAAAADqOY7+rqqq/AAAAADmO476rqqq/AAAAAAAA\nAACrqqq/AAAAADqO4z6rqqq/AAAAADqOYz+rqqq/AAAAAKuqqj+rqqq/AAAAADmO4z+rqqq/\nAAAAADiO4786jmO/AAAAAKuqqr86jmO/AAAAADqOY786jmO/AAAAADmO4746jmO/AAAAAAAA\nAAA6jmO/AAAAADqO4z46jmO/AAAAADqOYz86jmO/AAAAAKuqqj86jmO/AAAAADmO4z86jmO/\nAAAAADiO4785juO+AAAAAKuqqr85juO+AAAAADqOY785juO+AAAAADmO4745juO+AAAAAAAA\nAAA5juO+AAAAADqO4z45juO+AAAAADqOYz85juO+AAAAAKuqqj85juO+AAAAADmO4z85juO+\nAAAAADiO478AAAAAAAAAAKuqqr8AAAAAAAAAADqOY78AAAAAAAAAADmO474AAAAAAAAAAAAA\nAAAAAAAAAAAAADqO4z4AAAAAAAAAADqOYz8AAAAAAAAAAKuqqj8AAAAAAAAAADmO4z8AAAAA\nAAAAADiO4786juM+AAAAAKuqqr86juM+AAAAADqOY786juM+AAAAADmO4746juM+AAAAAAAA\nAAA6juM+AAAAADqO4z46juM+AAAAADqOYz86juM+AAAAAKuqqj86juM+AAAAADmO4z86juM+\nAAAAADiO4786jmM/AAAAAKuqqr86jmM/AAAAADqOY786jmM/AAAAADmO4746jmM/AAAAAAAA\nAAA6jmM/AAAAADqO4z46jmM/AAAAADqOYz86jmM/AAAAAKuqqj86jmM/AAAAADmO4z86jmM/\nAAAAADiO47+rqqo/AAAAAKuqqr+rqqo/AAAAADqOY7+rqqo/AAAAADmO476rqqo/AAAAAAAA\nAACrqqo/AAAAADqO4z6rqqo/AAAAADqOYz+rqqo/AAAAAKuqqj+rqqo/AAAAADmO4z+rqqo/\nAAAAADiO4785juM/AAAAAKuqqr85juM/AAAAADqOY785juM/AAAAADmO4745juM/AAAAAAAA\nAAA5juM/AAAAADqO4z45juM/AAAAADqOYz85juM/AAAAAKuqqj85juM/AAAAADmO4z85juM/\nAAAAAAAAAAEBAgAAAACAP4uKij4AAAAAAACAPwAAAAEBAgEBAgAAAAAAgD+Lioo+AAAAAAAA\ngD8BAQIAAAABAQAAAAAAAAAAycjIPgAAAAAAAIA/AAAAAQEAAQEAAAAAAAAAAMnIyD4AAAAA\nAACAPwEBAAEBAAEBAgAAAM3MzD7NzMw+zczMPgAAgD8BAQABAQIBAQEAAADNzMw+zczMPs3M\nzD4AAIA/AQEBAAAAwH8AAABAAAAAQAAAAAEAAMB/AAAAQAAAAEABAQEBAAAAAAAAAMAAAMB/\nAADAfwAAgL8AAMB/AADAfwAAAAAAAMB/AADAfwAAgD8AAMB/AADAfwAAAEAAAMB/AADAfwAA\nwH8AAADAAADAfwAAwH8AAIC/AADAfwAAwH8AAAAAAADAfwAAwH8AAIA/AADAfwAAwH8AAABA\nAADAfwAAwH8AAMB/AAAAAAAAwH8AAMB/AAAAPwAAwH8AAMB/AACAPwAAwH8AAMB/AADAPwAA\nwH8AAMB/AAAAQAAAAAE="}]},"context":{"shiny":false,"rmarkdown":null},"vertexShader":"#line 2 1\n// File 1 is the vertex shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\n\nattribute vec3 aPos;\nattribute vec4 aCol;\nuniform mat4 mvMatrix;\nuniform mat4 prMatrix;\nvarying vec4 vCol;\nvarying vec4 vPosition;\n\n#ifdef NEEDS_VNORMAL\nattribute vec3 aNorm;\nuniform mat4 normMatrix;\nvarying vec4 vNormal;\n#endif\n\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nattribute vec2 aTexcoord;\nvarying vec2 vTexcoord;\n#endif\n\n#ifdef FIXED_SIZE\nuniform vec3 textScale;\n#endif\n\n#ifdef FIXED_QUADS\nattribute vec3 aOfs;\n#endif\n\n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\nvarying float normz;\nuniform mat4 invPrMatrix;\n#else\nattribute vec3 aPos1;\nattribute vec3 aPos2;\nvarying float normz;\n#endif\n#endif // IS_TWOSIDED\n\n#ifdef FAT_LINES\nattribute vec3 aNext;\nattribute vec2 aPoint;\nvarying vec2 vPoint;\nvarying float vLength;\nuniform float uAspect;\nuniform float uLwd;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  \n#ifndef IS_BRUSH\n#if defined(NCLIPPLANES) || !defined(FIXED_QUADS) || defined(HAS_FOG) || defined(USE_ENVMAP)\n  vPosition = mvMatrix * vec4(aPos, 1.);\n#endif\n  \n#ifndef FIXED_QUADS\n  gl_Position = prMatrix * vPosition;\n#endif\n#endif // !IS_BRUSH\n  \n#ifdef IS_POINTS\n  gl_PointSize = POINTSIZE;\n#endif\n  \n  vCol = aCol;\n  \n// USE_ENVMAP implies NEEDS_VNORMAL\n\n#ifdef NEEDS_VNORMAL\n  vNormal = normMatrix * vec4(-aNorm, dot(aNorm, aPos));\n#endif\n\n#ifdef USE_ENVMAP\n  vReflection = normalize(reflect(vPosition.xyz/vPosition.w, \n                        normalize(vNormal.xyz/vNormal.w)));\n#endif\n  \n#ifdef IS_TWOSIDED\n#ifdef HAS_NORMALS\n  /* normz should be calculated *after* projection */\n  normz = (invPrMatrix*vNormal).z;\n#else\n  vec4 pos1 = prMatrix*(mvMatrix*vec4(aPos1, 1.));\n  pos1 = pos1/pos1.w - gl_Position/gl_Position.w;\n  vec4 pos2 = prMatrix*(mvMatrix*vec4(aPos2, 1.));\n  pos2 = pos2/pos2.w - gl_Position/gl_Position.w;\n  normz = pos1.x*pos2.y - pos1.y*pos2.x;\n#endif\n#endif // IS_TWOSIDED\n  \n#ifdef NEEDS_VNORMAL\n  vNormal = vec4(normalize(vNormal.xyz), 1);\n#endif\n  \n#if defined(HAS_TEXTURE) || defined(IS_TEXT)\n  vTexcoord = aTexcoord;\n#endif\n  \n#if defined(FIXED_SIZE) && !defined(ROTATING)\n  vec4 pos = prMatrix * mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w;\n  gl_Position = pos + vec4(aOfs*textScale, 0.);\n#endif\n  \n#if defined(IS_SPRITES) && !defined(FIXED_SIZE)\n  vec4 pos = mvMatrix * vec4(aPos, 1.);\n  pos = pos/pos.w + vec4(aOfs,  0.);\n  gl_Position = prMatrix*pos;\n#endif\n  \n#ifdef FAT_LINES\n  /* This code was inspired by Matt Deslauriers' code in \n   https://mattdesl.svbtle.com/drawing-lines-is-hard */\n  vec2 aspectVec = vec2(uAspect, 1.0);\n  mat4 projViewModel = prMatrix * mvMatrix;\n  vec4 currentProjected = projViewModel * vec4(aPos, 1.0);\n  currentProjected = currentProjected/currentProjected.w;\n  vec4 nextProjected = projViewModel * vec4(aNext, 1.0);\n  vec2 currentScreen = currentProjected.xy * aspectVec;\n  vec2 nextScreen = (nextProjected.xy / nextProjected.w) * aspectVec;\n  float len = uLwd;\n  vec2 dir = vec2(1.0, 0.0);\n  vPoint = aPoint;\n  vLength = length(nextScreen - currentScreen)/2.0;\n  vLength = vLength/(vLength + len);\n  if (vLength > 0.0) {\n    dir = normalize(nextScreen - currentScreen);\n  }\n  vec2 normal = vec2(-dir.y, dir.x);\n  dir.x /= uAspect;\n  normal.x /= uAspect;\n  vec4 offset = vec4(len*(normal*aPoint.x*aPoint.y - dir), 0.0, 0.0);\n  gl_Position = currentProjected + offset;\n#endif\n  \n#ifdef IS_BRUSH\n  gl_Position = vec4(aPos, 1.);\n#endif\n}","fragmentShader":"#line 2 2\n// File 2 is the fragment shader\n#ifdef GL_ES\n#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n#endif\nvarying vec4 vCol; // carries alpha\nvarying vec4 vPosition;\n#if defined(HAS_TEXTURE) || defined (IS_TEXT)\nvarying vec2 vTexcoord;\nuniform sampler2D uSampler;\n#endif\n\n#ifdef HAS_FOG\nuniform int uFogMode;\nuniform vec3 uFogColor;\nuniform vec4 uFogParms;\n#endif\n\n#if defined(IS_LIT) && !defined(FIXED_QUADS)\nvarying vec4 vNormal;\n#endif\n\n#if NCLIPPLANES > 0\nuniform vec4 vClipplane[NCLIPPLANES];\n#endif\n\n#if NLIGHTS > 0\nuniform mat4 mvMatrix;\n#endif\n\n#ifdef IS_LIT\nuniform vec3 emission;\nuniform float shininess;\n#if NLIGHTS > 0\nuniform vec3 ambient[NLIGHTS];\nuniform vec3 specular[NLIGHTS]; // light*material\nuniform vec3 diffuse[NLIGHTS];\nuniform vec3 lightDir[NLIGHTS];\nuniform bool viewpoint[NLIGHTS];\nuniform bool finite[NLIGHTS];\n#endif\n#endif // IS_LIT\n\n#ifdef IS_TWOSIDED\nuniform bool front;\nvarying float normz;\n#endif\n\n#ifdef FAT_LINES\nvarying vec2 vPoint;\nvarying float vLength;\n#endif\n\n#ifdef USE_ENVMAP\nvarying vec3 vReflection;\n#endif\n\nvoid main(void) {\n  vec4 fragColor;\n#ifdef FAT_LINES\n  vec2 point = vPoint;\n  bool neg = point.y < 0.0;\n  point.y = neg ? (point.y + vLength)/(1.0 - vLength) :\n                 -(point.y - vLength)/(1.0 - vLength);\n#if defined(IS_TRANSPARENT) && defined(IS_LINESTRIP)\n  if (neg && length(point) <= 1.0) discard;\n#endif\n  point.y = min(point.y, 0.0);\n  if (length(point) > 1.0) discard;\n#endif // FAT_LINES\n  \n#ifdef ROUND_POINTS\n  vec2 coord = gl_PointCoord - vec2(0.5);\n  if (length(coord) > 0.5) discard;\n#endif\n  \n#if NCLIPPLANES > 0\n  for (int i = 0; i < NCLIPPLANES; i++)\n    if (dot(vPosition, vClipplane[i]) < 0.0) discard;\n#endif\n    \n#ifdef FIXED_QUADS\n    vec3 n = vec3(0., 0., 1.);\n#elif defined(IS_LIT)\n    vec3 n = normalize(vNormal.xyz);\n#endif\n    \n#ifdef IS_TWOSIDED\n    if ((normz <= 0.) != front) discard;\n#endif\n\n#ifdef IS_LIT\n    vec3 eye = normalize(-vPosition.xyz/vPosition.w);\n    vec3 lightdir;\n    vec4 colDiff;\n    vec3 halfVec;\n    vec4 lighteffect = vec4(emission, 0.);\n    vec3 col;\n    float nDotL;\n#ifdef FIXED_QUADS\n    n = -faceforward(n, n, eye);\n#endif\n    \n#if NLIGHTS > 0\n    // Simulate two-sided lighting\n    if (n.z < 0.0)\n      n = -n;\n    for (int i=0;i<NLIGHTS;i++) {\n      colDiff = vec4(vCol.rgb * diffuse[i], vCol.a);\n      lightdir = lightDir[i];\n      if (!viewpoint[i]) {\n        if (finite[i]) {\n          lightdir = (mvMatrix * vec4(lightdir, 1.)).xyz;\n        } else {\n          lightdir = (mvMatrix * vec4(lightdir, 0.)).xyz;\n        }\n      }\n      if (!finite[i]) {\n        halfVec = normalize(lightdir + eye);\n      } else {\n        lightdir = normalize(lightdir - vPosition.xyz/vPosition.w);\n        halfVec = normalize(lightdir + eye);\n      }\n      col = ambient[i];\n      nDotL = dot(n, lightdir);\n      col = col + max(nDotL, 0.) * colDiff.rgb;\n      col = col + pow(max(dot(halfVec, n), 0.), shininess) * specular[i];\n      lighteffect = lighteffect + vec4(col, colDiff.a);\n    }\n#endif\n    \n#else // not IS_LIT\n    vec4 colDiff = vCol;\n    vec4 lighteffect = colDiff;\n#endif\n    \n#ifdef IS_TEXT\n    vec4 textureColor = lighteffect*texture2D(uSampler, vTexcoord);\n#endif\n    \n#ifdef HAS_TEXTURE\n\n// These calculations use the definitions from \n// https://docs.gl/gl3/glTexEnv\n\n#ifdef USE_ENVMAP\n    float m = 2.0 * sqrt(dot(vReflection, vReflection) + 2.0*vReflection.z + 1.0);\n    vec4 textureColor = texture2D(uSampler, vReflection.xy / m + vec2(0.5, 0.5));\n#else\n    vec4 textureColor = texture2D(uSampler, vTexcoord);\n#endif\n\n#ifdef TEXTURE_rgb\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(textureColor.rgb, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*vec4(textureColor.rgb, 1.);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb, lighteffect.a);\n#endif\n\n#endif //TEXTURE_rgb\n        \n#ifdef TEXTURE_rgba\n\n#ifdef TEXMODE_replace\n// already done\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = lighteffect*textureColor;\n#endif\n\n#ifdef TEXMODE_decal\n    textureColor = vec4((1. - textureColor.a)*lighteffect.rgb) +\n                     textureColor.a*textureColor.rgb, \n                     lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - textureColor.rgb) * lighteffect.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(lighteffect.rgb + textureColor.rgb,\n                    lighteffect.a*textureColor.a);\n#endif\n    \n#endif //TEXTURE_rgba\n    \n#ifdef TEXTURE_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(lighteffect.rgb, luminance);\n#endif \n\n#if defined(TEXMODE_modulate) || defined(TEXMODE_blend) || defined(TEXMODE_add)\n    textureColor = vec4(lighteffect.rgb, lighteffect.a*luminance);\n#endif\n \n#endif // TEXTURE_alpha\n    \n// The TEXTURE_luminance values are not from that reference    \n#ifdef TEXTURE_luminance\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, lighteffect.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, lighteffect.a);\n#endif\n\n#endif // TEXTURE_luminance\n \n    \n#ifdef TEXTURE_luminance_alpha\n    float luminance = dot(vec3(1.,1.,1.),textureColor.rgb)/3.;\n\n#if defined(TEXMODE_replace) || defined(TEXMODE_decal)\n    textureColor = vec4(luminance, luminance, luminance, textureColor.a);\n#endif \n\n#ifdef TEXMODE_modulate\n    textureColor = vec4(luminance*lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_blend\n    textureColor = vec4((1. - luminance)*lighteffect.rgb,\n                        textureColor.a*lighteffect.a);\n#endif\n\n#ifdef TEXMODE_add\n    textureColor = vec4(luminance + lighteffect.rgb, \n                        textureColor.a*lighteffect.a);\n\n#endif\n\n#endif // TEXTURE_luminance_alpha\n    \n    fragColor = textureColor;\n\n#elif defined(IS_TEXT)\n    if (textureColor.a < 0.1)\n      discard;\n    else\n      fragColor = textureColor;\n#else\n    fragColor = lighteffect;\n#endif // HAS_TEXTURE\n    \n#ifdef HAS_FOG\n    // uFogParms elements: x = near, y = far, z = fogscale, w = (1-sin(FOV/2))/(1+sin(FOV/2))\n    // In Exp and Exp2: use density = density/far\n    // fogF will be the proportion of fog\n    // Initialize it to the linear value\n    float fogF;\n    if (uFogMode > 0) {\n      fogF = (uFogParms.y - vPosition.z/vPosition.w)/(uFogParms.y - uFogParms.x);\n      if (uFogMode > 1)\n        fogF = mix(uFogParms.w, 1.0, fogF);\n      fogF = fogF*uFogParms.z;\n      if (uFogMode == 2)\n        fogF = 1.0 - exp(-fogF);\n      // Docs are wrong: use (density*c)^2, not density*c^2\n      // https://gitlab.freedesktop.org/mesa/mesa/-/blob/master/src/mesa/swrast/s_fog.c#L58\n      else if (uFogMode == 3)\n        fogF = 1.0 - exp(-fogF*fogF);\n      fogF = clamp(fogF, 0.0, 1.0);\n      gl_FragColor = vec4(mix(fragColor.rgb, uFogColor, fogF), fragColor.a);\n    } else gl_FragColor = fragColor;\n#else\n    gl_FragColor = fragColor;\n#endif // HAS_FOG\n    \n}","players":[],"webGLoptions":{"preserveDrawingBuffer":true},"fastTransparency":true},"evals":[],"jsHooks":[]}</script>
+<p id="rgl90204-aria" hidden>
+</p>
+</div>
+<p>La figura muestra cómo el vector <span class="math inline">\(y\)</span> se proyecta sobre el espacio generado por las columnas de <span class="math inline">\(X\)</span>. La diferencia <span class="math inline">\(y - P_X y\)</span> es ortogonal al plano y corresponde a los residuos.</p>
+</div>
+</div>
+<div id="teorema-de-frisch-waugh-lovell-fwl" class="section level2 unnumbered hasAnchor">
+<h2>Teorema de Frisch-Waugh-Lovell (FWL)<a href="anatomia-de-la-regresion-multiple.html#teorema-de-frisch-waugh-lovell-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>Teorema de Frisch-Waugh-Lovell (FWL)</strong> es uno de los resultados más importantes de la econometría, porque <strong>nos permite entender qué significa realmente el coeficiente de una variable en una regresión múltiple</strong>.</p>
+<p>FWL nos dice que, si estamos interesados en el efecto de una variable <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(y\)</span>, <strong>controlando por otras variables</strong> <span class="math inline">\(X_s\)</span>, <strong>podemos obtener exactamente el mismo coeficiente</strong> de una manera alternativa, usando <strong>proyecciones</strong>.</p>
+<p>Esto es extremadamente útil porque:</p>
+<ul>
+<li>Da una interpretación clara del coeficiente como un efecto “depurado”.</li>
+<li>Permite construir regresiones parciales paso a paso.</li>
+<li>Ayuda a entender la mecánica interna de los modelos de regresión múltiples.</li>
+</ul>
+</div>
+<div id="notacion-y-motivacion" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> 🎯 Notación y Motivación {-}<a href="anatomia-de-la-regresion-multiple.html#notacion-y-motivacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considera el siguiente modelo de regresión lineal:</p>
+<p><span class="math display">\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(y \in \mathbb{R}^{n \times 1}\)</span> es la variable dependiente (por ejemplo, salario).</li>
+<li><span class="math inline">\(X_r \in \mathbb{R}^{n \times 1}\)</span> es la <strong>variable de interés</strong> (por ejemplo, educación).</li>
+<li><span class="math inline">\(X_s \in \mathbb{R}^{n \times k}\)</span> es el conjunto de <strong>variables de control</strong> (por ejemplo, experiencia, edad, género, etc.).</li>
+<li><span class="math inline">\(\varepsilon \in \mathbb{R}^{n \times 1}\)</span> es el error.</li>
+</ul>
+<p>Esta forma también puede escribirse más compactamente así:</p>
+<p><span class="math display">\[
+y = [X_r \quad X_s] \begin{bmatrix} \beta_r \\ \beta_s \end{bmatrix} + \varepsilon
+\]</span></p>
+<p>Donde la matriz <span class="math inline">\(X = [X_r \quad X_s] \in \mathbb{R}^{n \times (k+1)}\)</span> contiene <strong>todas</strong> las variables explicativas, y el vector de parámetros <span class="math inline">\(\beta \in \mathbb{R}^{k+1}\)</span> contiene sus coeficientes respectivos.</p>
+</div>
+<div id="cual-es-el-problema-que-resuelve-el-fwl" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> ❓¿Cuál es el problema que resuelve el FWL? {-}<a href="anatomia-de-la-regresion-multiple.html#cual-es-el-problema-que-resuelve-el-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Imagina que quieres saber el <strong>efecto de la educación sobre el salario</strong>, pero sabes que hay muchas otras variables (edad, experiencia, género, etc.) que también afectan el salario. Entonces haces una regresión múltiple, y obtienes el coeficiente de educación controlando por todo lo demás.</p>
+<p>El teorema FWL te dice: <em>“Ese coeficiente se puede obtener en tres pasos, sin necesidad de correr la regresión completa.”</em> Y lo mejor: <strong>el resultado será exactamente igual</strong>.</p>
+<p>Eso es lo que veremos a continuación en el paso a paso.</p>
+</div>
+<div id="paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl" class="section level2 unnumbered hasAnchor">
+<h2>✨ Paso a paso del Teorema de Frisch-Waugh-Lovell (FWL)<a href="anatomia-de-la-regresion-multiple.html#paso-a-paso-del-teorema-de-frisch-waugh-lovell-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El Teorema de FWL nos dice que podemos obtener el coeficiente <span class="math inline">\(\beta_r\)</span> de una regresión múltiple:</p>
+<p><span class="math display">\[
+y = X_r \beta_r + X_s \beta_s + \varepsilon
+\]</span></p>
+<p>realizando <strong>tres regresiones parciales</strong>, sin necesidad de incluir todos los regresores al mismo tiempo. A continuación explicamos cada paso con todo el detalle necesario.</p>
+</div>
+<div id="paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 1: Proyectar <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos<a href="anatomia-de-la-regresion-multiple.html#paso-1-proyectar-y-sobre-x_s-y-obtener-los-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Primero, eliminamos de <span class="math inline">\(y\)</span> la parte que puede ser explicada por los controles <span class="math inline">\(X_s\)</span>. Esto se hace <strong>regresando <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_s\)</span></strong> y guardando los <strong>residuos</strong>. Es decir:</p>
+<p><span class="math display">\[
+\tilde{y} = M_s y = (I - P_s)y
+\]</span></p>
+<p>donde:</p>
+<ul>
+<li><span class="math inline">\(P_s = X_s (X_s&#39;X_s)^{-1} X_s&#39;\)</span> es la <strong>matriz de proyección</strong> sobre el espacio generado por los controles <span class="math inline">\(X_s\)</span>.</li>
+<li><span class="math inline">\(M_s = I - P_s\)</span> es la <strong>matriz de residuos</strong> o complemento ortogonal: elimina todo lo que esté explicado por <span class="math inline">\(X_s\)</span>.</li>
+</ul>
+<p>🔍 <strong>¿Qué significa esto?</strong></p>
+<ul>
+<li>Estamos “limpiando” a <span class="math inline">\(y\)</span>, quitándole la parte que se debe a los controles.</li>
+<li>El resultado <span class="math inline">\(\tilde{y}\)</span> representa la <strong>parte de <span class="math inline">\(y\)</span> que es ortogonal a los controles</strong>.</li>
+</ul>
+<p>📐 <strong>Interpretación geométrica</strong>: proyectamos <span class="math inline">\(y\)</span> sobre el subespacio generado por <span class="math inline">\(X_s\)</span> y nos quedamos con la componente perpendicular.</p>
+</div>
+<div id="paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 2: Proyectar <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(X_s\)</span> y obtener los residuos<a href="anatomia-de-la-regresion-multiple.html#paso-2-proyectar-x_r-sobre-x_s-y-obtener-los-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Ahora hacemos lo mismo con la variable de interés <span class="math inline">\(X_r\)</span>: le quitamos la parte que puede explicarse con los controles.</p>
+<p><span class="math display">\[
+\tilde{X}_r = M_s X_r = (I - P_s)X_r
+\]</span></p>
+<p>🔍 <strong>¿Qué significa esto?</strong></p>
+<ul>
+<li>Estamos “depurando” a <span class="math inline">\(X_r\)</span>, eliminando cualquier relación lineal con los controles.</li>
+<li><span class="math inline">\(\tilde{X}_r\)</span> es la <strong>parte de <span class="math inline">\(X_r\)</span> que no se puede predecir con <span class="math inline">\(X_s\)</span></strong>.</li>
+</ul>
+<p>📐 <strong>Interpretación geométrica</strong>: proyectamos <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(\mathcal{C}(X_s)\)</span> y guardamos el residuo, que es ortogonal a ese subespacio.</p>
+</div>
+<div id="paso-3-regresar-tildey-sobre-tildex_r" class="section level2 unnumbered hasAnchor">
+<h2>🧩 Paso 3: Regresar <span class="math inline">\(\tilde{y}\)</span> sobre <span class="math inline">\(\tilde{X}_r\)</span><a href="anatomia-de-la-regresion-multiple.html#paso-3-regresar-tildey-sobre-tildex_r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finalmente, estimamos el coeficiente que relaciona las dos variables “limpias” o <strong>depuradas</strong>:</p>
+<p><span class="math display">\[
+\tilde{y} = \tilde{X}_r \cdot \gamma + u
+\]</span></p>
+<p>El estimador de MCO de esta regresión es:</p>
+<p><span class="math display">\[
+\hat{\gamma} = (\tilde{X}_r&#39;\tilde{X}_r)^{-1} \tilde{X}_r&#39; \tilde{y}
+\]</span></p>
+<p>🔔 <strong>¡Sorpresa!</strong> Este estimador es exactamente igual a:</p>
+<p><span class="math display">\[
+\hat{\beta}_r \quad \text{(el coeficiente de \( X_r \) en la regresión completa)}
+\]</span></p>
+</div>
+<div id="interpretacion-final" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> ✅ Interpretación final{-}<a href="anatomia-de-la-regresion-multiple.html#interpretacion-final" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este resultado nos dice que:</p>
+<ul>
+<li>El efecto de <span class="math inline">\(X_r\)</span> sobre <span class="math inline">\(y\)</span>, <strong>controlando por <span class="math inline">\(X_s\)</span></strong>, es igual al efecto de la <strong>parte de <span class="math inline">\(X_r\)</span> que no se relaciona con <span class="math inline">\(X_s\)</span></strong> sobre la <strong>parte de <span class="math inline">\(y\)</span> que tampoco se relaciona con <span class="math inline">\(X_s\)</span></strong>.</li>
+<li>En palabras simples: es una regresión entre los residuos.</li>
+</ul>
+</div>
+<div id="conclusion" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> 📦 Conclusión {-}<a href="anatomia-de-la-regresion-multiple.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este teorema tiene implicaciones profundas:</p>
+<ul>
+<li>Muestra que <strong>controlar por variables</strong> equivale a <strong>quitarles su efecto tanto a la variable explicativa como a la dependiente</strong>, y luego ver cómo se relacionan esas partes “limpias”.</li>
+<li>Es la base para entender técnicas como control por regresión parcial, y también para desarrollar intuiciones sobre variables instrumentales, efectos marginales y más.</li>
+</ul>
+</div>
+<div id="demostracion-formal" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Demostración Formal {-}<a href="anatomia-de-la-regresion-multiple.html#demostracion-formal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Usando álgebra matricial:</p>
+<p><span class="math display">\[
+\hat{\beta}_r = (X_r&#39;M_s X_r)^{-1} X_r&#39;M_s y
+\]</span></p>
+<p>Esto se deduce de la forma general del estimador de MCO:</p>
+<p><span class="math display">\[
+\hat{\beta} = (X&#39;X)^{-1}X&#39;y
+\]</span></p>
+<p>pero aplicado al modelo reducido, en el que <span class="math inline">\(y\)</span> y <span class="math inline">\(X_r\)</span> han sido “limpiados” de <span class="math inline">\(X_s\)</span>.</p>
+</div>
+<div id="ejemplo-practico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> 🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python {-}<a href="anatomia-de-la-regresion-multiple.html#ejemplo-practico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A continuación presentamos una simulación sencilla para ilustrar el Teorema de Frisch-Waugh-Lovell (FWL) y mostrar cómo cambia el coeficiente estimado de una variable de interés dependiendo de la correlación con los controles. También implementamos paso a paso la construcción del estimador usando residuos.</p>
+<hr />
+<div id="codigo-en-stata" class="section level3 hasAnchor" number="7.7.1">
+<h3><span class="header-section-number">7.7.1</span> 🔵 Código en Stata<a href="anatomia-de-la-regresion-multiple.html#codigo-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb10-1"><a href="anatomia-de-la-regresion-multiple.html#cb10-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb10-2"><a href="anatomia-de-la-regresion-multiple.html#cb10-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 6981473</span>
+<span id="cb10-3"><a href="anatomia-de-la-regresion-multiple.html#cb10-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 1000</span>
+<span id="cb10-4"><a href="anatomia-de-la-regresion-multiple.html#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="anatomia-de-la-regresion-multiple.html#cb10-5" tabindex="-1"></a>* Variable <span class="kw">de</span> interés Xr</span>
+<span id="cb10-6"><a href="anatomia-de-la-regresion-multiple.html#cb10-6" tabindex="-1"></a><span class="kw">gen</span> altura = runiform()*30+150</span>
+<span id="cb10-7"><a href="anatomia-de-la-regresion-multiple.html#cb10-7" tabindex="-1"></a><span class="kw">replace</span> altura= <span class="fu">round</span>(altura)</span>
+<span id="cb10-8"><a href="anatomia-de-la-regresion-multiple.html#cb10-8" tabindex="-1"></a><span class="kw">label</span> <span class="kw">var</span> altura <span class="st">&quot;altura&quot;</span></span>
+<span id="cb10-9"><a href="anatomia-de-la-regresion-multiple.html#cb10-9" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="anatomia-de-la-regresion-multiple.html#cb10-10" tabindex="-1"></a>* Crear Xs con correlación positiva con Xr</span>
+<span id="cb10-11"><a href="anatomia-de-la-regresion-multiple.html#cb10-11" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh = rnormal() + 5*altura</span>
+<span id="cb10-12"><a href="anatomia-de-la-regresion-multiple.html#cb10-12" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="anatomia-de-la-regresion-multiple.html#cb10-13" tabindex="-1"></a>* Variable dependiente Y</span>
+<span id="cb10-14"><a href="anatomia-de-la-regresion-multiple.html#cb10-14" tabindex="-1"></a><span class="kw">gen</span> salario = 1 + 2*altura + 5*ingreso_hh + rnormal()</span>
+<span id="cb10-15"><a href="anatomia-de-la-regresion-multiple.html#cb10-15" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="anatomia-de-la-regresion-multiple.html#cb10-16" tabindex="-1"></a>* CASO 1: cov(altura, ingreso_hh)&gt;0</span>
+<span id="cb10-17"><a href="anatomia-de-la-regresion-multiple.html#cb10-17" tabindex="-1"></a><span class="kw">reg</span> salario altura</span>
+<span id="cb10-18"><a href="anatomia-de-la-regresion-multiple.html#cb10-18" tabindex="-1"></a><span class="kw">reg</span> salario altura ingreso_hh</span>
+<span id="cb10-19"><a href="anatomia-de-la-regresion-multiple.html#cb10-19" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="anatomia-de-la-regresion-multiple.html#cb10-20" tabindex="-1"></a>* CASO 2: cov(altura, ingreso_hh)=0</span>
+<span id="cb10-21"><a href="anatomia-de-la-regresion-multiple.html#cb10-21" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh2 = rnormal()</span>
+<span id="cb10-22"><a href="anatomia-de-la-regresion-multiple.html#cb10-22" tabindex="-1"></a><span class="kw">gen</span> salario2 = 1 + 2*altura + 5*ingreso_hh2 + rnormal()</span>
+<span id="cb10-23"><a href="anatomia-de-la-regresion-multiple.html#cb10-23" tabindex="-1"></a><span class="kw">reg</span> salario2 altura</span>
+<span id="cb10-24"><a href="anatomia-de-la-regresion-multiple.html#cb10-24" tabindex="-1"></a><span class="kw">reg</span> salario2 altura ingreso_hh2</span>
+<span id="cb10-25"><a href="anatomia-de-la-regresion-multiple.html#cb10-25" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="anatomia-de-la-regresion-multiple.html#cb10-26" tabindex="-1"></a>* CASO 3: cov(salario, ingreso_hh)=0</span>
+<span id="cb10-27"><a href="anatomia-de-la-regresion-multiple.html#cb10-27" tabindex="-1"></a><span class="kw">gen</span> ingreso_hh3 = rnormal() + 3*altura</span>
+<span id="cb10-28"><a href="anatomia-de-la-regresion-multiple.html#cb10-28" tabindex="-1"></a><span class="kw">gen</span> salario3 = 1 + 2*altura + 0*ingreso_hh3 + rnormal()</span>
+<span id="cb10-29"><a href="anatomia-de-la-regresion-multiple.html#cb10-29" tabindex="-1"></a><span class="kw">reg</span> salario3 altura</span>
+<span id="cb10-30"><a href="anatomia-de-la-regresion-multiple.html#cb10-30" tabindex="-1"></a><span class="kw">reg</span> salario3 altura ingreso_hh3</span>
+<span id="cb10-31"><a href="anatomia-de-la-regresion-multiple.html#cb10-31" tabindex="-1"></a></span>
+<span id="cb10-32"><a href="anatomia-de-la-regresion-multiple.html#cb10-32" tabindex="-1"></a>* Teorema <span class="kw">de</span> FWL paso a paso</span>
+<span id="cb10-33"><a href="anatomia-de-la-regresion-multiple.html#cb10-33" tabindex="-1"></a><span class="kw">reg</span> salario ingreso_hh</span>
+<span id="cb10-34"><a href="anatomia-de-la-regresion-multiple.html#cb10-34" tabindex="-1"></a><span class="kw">predict</span> My, res</span>
+<span id="cb10-35"><a href="anatomia-de-la-regresion-multiple.html#cb10-35" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="anatomia-de-la-regresion-multiple.html#cb10-36" tabindex="-1"></a><span class="kw">reg</span> altura ingreso_hh</span>
+<span id="cb10-37"><a href="anatomia-de-la-regresion-multiple.html#cb10-37" tabindex="-1"></a><span class="kw">predict</span> MXr, res</span>
+<span id="cb10-38"><a href="anatomia-de-la-regresion-multiple.html#cb10-38" tabindex="-1"></a></span>
+<span id="cb10-39"><a href="anatomia-de-la-regresion-multiple.html#cb10-39" tabindex="-1"></a><span class="kw">reg</span> salario altura ingreso_hh</span>
+<span id="cb10-40"><a href="anatomia-de-la-regresion-multiple.html#cb10-40" tabindex="-1"></a><span class="kw">reg</span> My MXr</span>
+<span id="cb10-41"><a href="anatomia-de-la-regresion-multiple.html#cb10-41" tabindex="-1"></a>* Comparar coeficientes</span>
+<span id="cb10-42"><a href="anatomia-de-la-regresion-multiple.html#cb10-42" tabindex="-1"></a><span class="kw">di</span> _b[MXr] _b[altura]</span></code></pre></div>
+</div>
+<div id="codigo-en-r" class="section level3 hasAnchor" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> 🟢 Código en R<a href="anatomia-de-la-regresion-multiple.html#codigo-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="anatomia-de-la-regresion-multiple.html#cb11-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="anatomia-de-la-regresion-multiple.html#cb11-2" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="anatomia-de-la-regresion-multiple.html#cb11-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6981473</span>)</span>
+<span id="cb11-4"><a href="anatomia-de-la-regresion-multiple.html#cb11-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb11-5"><a href="anatomia-de-la-regresion-multiple.html#cb11-5" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="anatomia-de-la-regresion-multiple.html#cb11-6" tabindex="-1"></a><span class="co"># Variable de interés</span></span>
+<span id="cb11-7"><a href="anatomia-de-la-regresion-multiple.html#cb11-7" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">0</span>, <span class="dv">30</span>) <span class="sc">+</span> <span class="dv">150</span></span>
+<span id="cb11-8"><a href="anatomia-de-la-regresion-multiple.html#cb11-8" tabindex="-1"></a>altura <span class="ot">&lt;-</span> <span class="fu">round</span>(altura)</span>
+<span id="cb11-9"><a href="anatomia-de-la-regresion-multiple.html#cb11-9" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="anatomia-de-la-regresion-multiple.html#cb11-10" tabindex="-1"></a><span class="co"># Control correlacionado con altura</span></span>
+<span id="cb11-11"><a href="anatomia-de-la-regresion-multiple.html#cb11-11" tabindex="-1"></a>ingreso_hh <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> altura</span>
+<span id="cb11-12"><a href="anatomia-de-la-regresion-multiple.html#cb11-12" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="anatomia-de-la-regresion-multiple.html#cb11-13" tabindex="-1"></a><span class="co"># Variable dependiente</span></span>
+<span id="cb11-14"><a href="anatomia-de-la-regresion-multiple.html#cb11-14" tabindex="-1"></a>salario <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> altura <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> ingreso_hh <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-15"><a href="anatomia-de-la-regresion-multiple.html#cb11-15" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="anatomia-de-la-regresion-multiple.html#cb11-16" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(altura, ingreso_hh, salario)</span>
+<span id="cb11-17"><a href="anatomia-de-la-regresion-multiple.html#cb11-17" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="anatomia-de-la-regresion-multiple.html#cb11-18" tabindex="-1"></a><span class="co"># CASO 1: cov(altura, ingreso_hh)&gt;0</span></span>
+<span id="cb11-19"><a href="anatomia-de-la-regresion-multiple.html#cb11-19" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb11-20"><a href="anatomia-de-la-regresion-multiple.html#cb11-20" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))</span>
+<span id="cb11-21"><a href="anatomia-de-la-regresion-multiple.html#cb11-21" tabindex="-1"></a></span>
+<span id="cb11-22"><a href="anatomia-de-la-regresion-multiple.html#cb11-22" tabindex="-1"></a><span class="co"># CASO 2: cov(altura, ingreso_hh)=0</span></span>
+<span id="cb11-23"><a href="anatomia-de-la-regresion-multiple.html#cb11-23" tabindex="-1"></a>df<span class="sc">$</span>ingreso_hh2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-24"><a href="anatomia-de-la-regresion-multiple.html#cb11-24" tabindex="-1"></a>df<span class="sc">$</span>salario2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> df<span class="sc">$</span>altura <span class="sc">+</span> <span class="dv">5</span> <span class="sc">*</span> df<span class="sc">$</span>ingreso_hh2 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-25"><a href="anatomia-de-la-regresion-multiple.html#cb11-25" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario2 <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb11-26"><a href="anatomia-de-la-regresion-multiple.html#cb11-26" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario2 <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh2, <span class="at">data =</span> df))</span>
+<span id="cb11-27"><a href="anatomia-de-la-regresion-multiple.html#cb11-27" tabindex="-1"></a></span>
+<span id="cb11-28"><a href="anatomia-de-la-regresion-multiple.html#cb11-28" tabindex="-1"></a><span class="co"># CASO 3: cov(y, ingreso_hh)=0</span></span>
+<span id="cb11-29"><a href="anatomia-de-la-regresion-multiple.html#cb11-29" tabindex="-1"></a>df<span class="sc">$</span>ingreso_hh3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> df<span class="sc">$</span>altura</span>
+<span id="cb11-30"><a href="anatomia-de-la-regresion-multiple.html#cb11-30" tabindex="-1"></a>df<span class="sc">$</span>salario3 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> df<span class="sc">$</span>altura <span class="sc">+</span> <span class="dv">0</span> <span class="sc">*</span> df<span class="sc">$</span>ingreso_hh3 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb11-31"><a href="anatomia-de-la-regresion-multiple.html#cb11-31" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario3 <span class="sc">~</span> altura, <span class="at">data =</span> df))</span>
+<span id="cb11-32"><a href="anatomia-de-la-regresion-multiple.html#cb11-32" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario3 <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh3, <span class="at">data =</span> df))</span>
+<span id="cb11-33"><a href="anatomia-de-la-regresion-multiple.html#cb11-33" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="anatomia-de-la-regresion-multiple.html#cb11-34" tabindex="-1"></a><span class="co"># FWL paso a paso</span></span>
+<span id="cb11-35"><a href="anatomia-de-la-regresion-multiple.html#cb11-35" tabindex="-1"></a>modelo_y <span class="ot">&lt;-</span> <span class="fu">lm</span>(salario <span class="sc">~</span> ingreso_hh, <span class="at">data =</span> df)</span>
+<span id="cb11-36"><a href="anatomia-de-la-regresion-multiple.html#cb11-36" tabindex="-1"></a>df<span class="sc">$</span>My <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_y)</span>
+<span id="cb11-37"><a href="anatomia-de-la-regresion-multiple.html#cb11-37" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="anatomia-de-la-regresion-multiple.html#cb11-38" tabindex="-1"></a>modelo_xr <span class="ot">&lt;-</span> <span class="fu">lm</span>(altura <span class="sc">~</span> ingreso_hh, <span class="at">data =</span> df)</span>
+<span id="cb11-39"><a href="anatomia-de-la-regresion-multiple.html#cb11-39" tabindex="-1"></a>df<span class="sc">$</span>MXr <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_xr)</span>
+<span id="cb11-40"><a href="anatomia-de-la-regresion-multiple.html#cb11-40" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="anatomia-de-la-regresion-multiple.html#cb11-41" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(My <span class="sc">~</span> MXr, <span class="at">data =</span> df))  <span class="co"># Igual al coef. de altura</span></span>
+<span id="cb11-42"><a href="anatomia-de-la-regresion-multiple.html#cb11-42" tabindex="-1"></a></span>
+<span id="cb11-43"><a href="anatomia-de-la-regresion-multiple.html#cb11-43" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))  <span class="co"># Verificación</span></span>
+<span id="cb11-44"><a href="anatomia-de-la-regresion-multiple.html#cb11-44" tabindex="-1"></a><span class="co"># Comparar coeficientes</span></span>
+<span id="cb11-45"><a href="anatomia-de-la-regresion-multiple.html#cb11-45" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Coeficiente de altura (residuos):&quot;</span>, <span class="fu">coef</span>(<span class="fu">lm</span>(My <span class="sc">~</span> MXr, <span class="at">data =</span> df))[<span class="st">&quot;MXr&quot;</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb11-46"><a href="anatomia-de-la-regresion-multiple.html#cb11-46" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Coeficiente de altura (modelo completo):&quot;</span>, <span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> ingreso_hh, <span class="at">data =</span> df))[<span class="st">&quot;altura&quot;</span>], <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+</div>
+<div id="codigo-en-python" class="section level3 hasAnchor" number="7.7.3">
+<h3><span class="header-section-number">7.7.3</span> 🔴 Código en Python<a href="anatomia-de-la-regresion-multiple.html#codigo-en-python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="anatomia-de-la-regresion-multiple.html#cb12-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-2"><a href="anatomia-de-la-regresion-multiple.html#cb12-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-3"><a href="anatomia-de-la-regresion-multiple.html#cb12-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb12-4"><a href="anatomia-de-la-regresion-multiple.html#cb12-4" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb12-5"><a href="anatomia-de-la-regresion-multiple.html#cb12-5" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="anatomia-de-la-regresion-multiple.html#cb12-6" tabindex="-1"></a>np.random.seed(<span class="dv">6981473</span>)</span>
+<span id="cb12-7"><a href="anatomia-de-la-regresion-multiple.html#cb12-7" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb12-8"><a href="anatomia-de-la-regresion-multiple.html#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="anatomia-de-la-regresion-multiple.html#cb12-9" tabindex="-1"></a><span class="co"># Variable de interés</span></span>
+<span id="cb12-10"><a href="anatomia-de-la-regresion-multiple.html#cb12-10" tabindex="-1"></a>altura <span class="op">=</span> np.<span class="bu">round</span>(np.random.uniform(<span class="dv">0</span>, <span class="dv">30</span>, n) <span class="op">+</span> <span class="dv">150</span>)</span>
+<span id="cb12-11"><a href="anatomia-de-la-regresion-multiple.html#cb12-11" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="anatomia-de-la-regresion-multiple.html#cb12-12" tabindex="-1"></a><span class="co"># Control correlacionado</span></span>
+<span id="cb12-13"><a href="anatomia-de-la-regresion-multiple.html#cb12-13" tabindex="-1"></a>ingreso_hh <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> altura</span>
+<span id="cb12-14"><a href="anatomia-de-la-regresion-multiple.html#cb12-14" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="anatomia-de-la-regresion-multiple.html#cb12-15" tabindex="-1"></a><span class="co"># Variable dependiente</span></span>
+<span id="cb12-16"><a href="anatomia-de-la-regresion-multiple.html#cb12-16" tabindex="-1"></a>salario <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> altura <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> ingreso_hh <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb12-17"><a href="anatomia-de-la-regresion-multiple.html#cb12-17" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="anatomia-de-la-regresion-multiple.html#cb12-18" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb12-19"><a href="anatomia-de-la-regresion-multiple.html#cb12-19" tabindex="-1"></a>    <span class="st">&#39;altura&#39;</span>: altura,</span>
+<span id="cb12-20"><a href="anatomia-de-la-regresion-multiple.html#cb12-20" tabindex="-1"></a>    <span class="st">&#39;ingreso_hh&#39;</span>: ingreso_hh,</span>
+<span id="cb12-21"><a href="anatomia-de-la-regresion-multiple.html#cb12-21" tabindex="-1"></a>    <span class="st">&#39;salario&#39;</span>: salario</span>
+<span id="cb12-22"><a href="anatomia-de-la-regresion-multiple.html#cb12-22" tabindex="-1"></a>})</span>
+<span id="cb12-23"><a href="anatomia-de-la-regresion-multiple.html#cb12-23" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="anatomia-de-la-regresion-multiple.html#cb12-24" tabindex="-1"></a><span class="co"># CASO 1</span></span>
+<span id="cb12-25"><a href="anatomia-de-la-regresion-multiple.html#cb12-25" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-26"><a href="anatomia-de-la-regresion-multiple.html#cb12-26" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-27"><a href="anatomia-de-la-regresion-multiple.html#cb12-27" tabindex="-1"></a></span>
+<span id="cb12-28"><a href="anatomia-de-la-regresion-multiple.html#cb12-28" tabindex="-1"></a><span class="co"># CASO 2</span></span>
+<span id="cb12-29"><a href="anatomia-de-la-regresion-multiple.html#cb12-29" tabindex="-1"></a>df[<span class="st">&#39;ingreso_hh2&#39;</span>] <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb12-30"><a href="anatomia-de-la-regresion-multiple.html#cb12-30" tabindex="-1"></a>df[<span class="st">&#39;salario2&#39;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>] <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> df[<span class="st">&#39;ingreso_hh2&#39;</span>] <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb12-31"><a href="anatomia-de-la-regresion-multiple.html#cb12-31" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="anatomia-de-la-regresion-multiple.html#cb12-32" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario2 ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-33"><a href="anatomia-de-la-regresion-multiple.html#cb12-33" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario2 ~ altura + ingreso_hh2&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-34"><a href="anatomia-de-la-regresion-multiple.html#cb12-34" tabindex="-1"></a></span>
+<span id="cb12-35"><a href="anatomia-de-la-regresion-multiple.html#cb12-35" tabindex="-1"></a><span class="co"># CASO 3</span></span>
+<span id="cb12-36"><a href="anatomia-de-la-regresion-multiple.html#cb12-36" tabindex="-1"></a>df[<span class="st">&#39;ingreso_hh3&#39;</span>] <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n) <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>]</span>
+<span id="cb12-37"><a href="anatomia-de-la-regresion-multiple.html#cb12-37" tabindex="-1"></a>df[<span class="st">&#39;salario3&#39;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> df[<span class="st">&#39;altura&#39;</span>] <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb12-38"><a href="anatomia-de-la-regresion-multiple.html#cb12-38" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="anatomia-de-la-regresion-multiple.html#cb12-39" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario3 ~ altura&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-40"><a href="anatomia-de-la-regresion-multiple.html#cb12-40" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario3 ~ altura + ingreso_hh3&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-41"><a href="anatomia-de-la-regresion-multiple.html#cb12-41" tabindex="-1"></a></span>
+<span id="cb12-42"><a href="anatomia-de-la-regresion-multiple.html#cb12-42" tabindex="-1"></a><span class="co"># FWL paso a paso</span></span>
+<span id="cb12-43"><a href="anatomia-de-la-regresion-multiple.html#cb12-43" tabindex="-1"></a>modelo_y <span class="op">=</span> sm.OLS.from_formula(<span class="st">&#39;salario ~ ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit()</span>
+<span id="cb12-44"><a href="anatomia-de-la-regresion-multiple.html#cb12-44" tabindex="-1"></a>df[<span class="st">&#39;My&#39;</span>] <span class="op">=</span> modelo_y.resid</span>
+<span id="cb12-45"><a href="anatomia-de-la-regresion-multiple.html#cb12-45" tabindex="-1"></a></span>
+<span id="cb12-46"><a href="anatomia-de-la-regresion-multiple.html#cb12-46" tabindex="-1"></a>modelo_xr <span class="op">=</span> sm.OLS.from_formula(<span class="st">&#39;altura ~ ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit()</span>
+<span id="cb12-47"><a href="anatomia-de-la-regresion-multiple.html#cb12-47" tabindex="-1"></a>df[<span class="st">&#39;MXr&#39;</span>] <span class="op">=</span> modelo_xr.resid</span>
+<span id="cb12-48"><a href="anatomia-de-la-regresion-multiple.html#cb12-48" tabindex="-1"></a></span>
+<span id="cb12-49"><a href="anatomia-de-la-regresion-multiple.html#cb12-49" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;My ~ MXr&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-50"><a href="anatomia-de-la-regresion-multiple.html#cb12-50" tabindex="-1"></a></span>
+<span id="cb12-51"><a href="anatomia-de-la-regresion-multiple.html#cb12-51" tabindex="-1"></a><span class="co"># Verificación</span></span>
+<span id="cb12-52"><a href="anatomia-de-la-regresion-multiple.html#cb12-52" tabindex="-1"></a><span class="bu">print</span>(sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().summary())</span>
+<span id="cb12-53"><a href="anatomia-de-la-regresion-multiple.html#cb12-53" tabindex="-1"></a><span class="co"># Comparar coeficientes</span></span>
+<span id="cb12-54"><a href="anatomia-de-la-regresion-multiple.html#cb12-54" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficiente de altura (residuos):&quot;</span>, sm.OLS.from_formula(<span class="st">&#39;My ~ MXr&#39;</span>, data<span class="op">=</span>df).fit().params[<span class="st">&#39;MXr&#39;</span>])</span>
+<span id="cb12-55"><a href="anatomia-de-la-regresion-multiple.html#cb12-55" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;Coeficiente de altura (modelo completo):&quot;</span>, sm.OLS.from_formula(<span class="st">&#39;salario ~ altura + ingreso_hh&#39;</span>, data<span class="op">=</span>df).fit().params[<span class="st">&#39;altura&#39;</span>])</span></code></pre></div>
+</div>
+<div class="box-repaso">
+<div id="preguntas-de-repaso-5" class="section level3 unnumbered hasAnchor">
+<h3>📘 Preguntas de repaso<a href="anatomia-de-la-regresion-multiple.html#preguntas-de-repaso-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>¿Qué significa que el coeficiente de una variable en una regresión múltiple sea “depurado”?</li>
+</ol>
+</div>
+<div id="preguntas-sobre-fwl-y-matrices-de-proyeccion" class="section level3 hasAnchor" number="7.7.4">
+<h3><span class="header-section-number">7.7.4</span> 📌 Preguntas sobre FWL y matrices de proyección {-}<a href="anatomia-de-la-regresion-multiple.html#preguntas-sobre-fwl-y-matrices-de-proyeccion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p>Sea <span class="math inline">\(y \in \mathbb{R}^{n \times 1}\)</span>, <span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span>, y <span class="math inline">\(D \in \mathbb{R}^{n \times 1}\)</span> una variable binaria tal que <span class="math inline">\(D_i = 1\)</span> solo para una observación <span class="math inline">\(i\)</span>, y <span class="math inline">\(D_j = 0\)</span> para <span class="math inline">\(j \neq i\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Use los pasos del teorema de Frisch-Waugh-Lovell para demostrar que el coeficiente estimado de <span class="math inline">\(D\)</span> representa la diferencia entre la observación <span class="math inline">\(i\)</span> y la predicción para esa observación basada en el resto de la muestra.</p></li>
+<li><p>¿Qué ocurre con la matriz de proyección <span class="math inline">\(P_D\)</span>? ¿Qué dimensión tiene y cómo se interpreta cuando solo proyecta sobre una observación?</p></li>
+<li><p>¿Qué ocurre con la matriz de aniquilación <span class="math inline">\(M_D = I - P_D\)</span>? ¿Qué efecto tiene sobre el resto del vector <span class="math inline">\(y\)</span>?</p></li>
+<li><p>Use esta información para demostrar que al incluir <span class="math inline">\(D\)</span> en la regresión, se está excluyendo efectivamente la observación <span class="math inline">\(i\)</span> del resto del modelo. Es decir, la estimación de los coeficientes asociados a <span class="math inline">\(X\)</span> se hace como si se eliminara la observación <span class="math inline">\(i\)</span>.</p></li>
+</ol></li>
+<li><p>Repita el análisis anterior, pero ahora asuma que la variable <span class="math inline">\(D\)</span> es una constante. ¿Qué ocurre con las matrices de proyección y aniquilación? ¿Qué interpretación tiene proyectar sobre una constante?</p></li>
+<li><p>Suponga ahora que <span class="math inline">\(X\)</span> es una dummy igual a 1 si el individuo es hombre, y que <span class="math inline">\(D\)</span> es una dummy igual a 1 si el individuo es mujer. ¿Qué ocurre en este caso? ¿Cómo se interpretan los coeficientes al incluir ambas dummies en la regresión?</p></li>
+</ol>
+</div>
+<div id="preguntas-sobre-modelos-con-variables-binarias-y-constantes" class="section level3 unnumbered hasAnchor">
+<h3>📘 Preguntas sobre modelos con variables binarias y constantes<a href="anatomia-de-la-regresion-multiple.html#preguntas-sobre-modelos-con-variables-binarias-y-constantes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Se desea estudiar el número de horas de lectura diaria <span class="math inline">\(Y\)</span> como función del nivel educativo. Se tiene una muestra de <span class="math inline">\(N\)</span> individuos clasificados en tres grupos:</p>
+<ul>
+<li>Grupo 1: estudios superiores<br />
+</li>
+<li>Grupo 2: estudios medios<br />
+</li>
+<li>Grupo 3: estudios bajos</li>
+</ul>
+<p>Se definen tres variables binarias <span class="math inline">\(D_1, D_2, D_3\)</span>, donde:</p>
+<p><span class="math display">\[
+D_j = \begin{cases}
+1 &amp; \text{si el individuo pertenece al grupo } j \\
+0 &amp; \text{en caso contrario}
+\end{cases}
+\]</span></p>
+<p>Al estimar el siguiente modelo:</p>
+<p><span class="math display">\[
+Y = 10 D_1 + 5 D_2 + 2 D_3 + u
+\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Demuestre matemáticamente que las medias condicionales de horas de lectura son 10, 5 y 2 para cada grupo.</p></li>
+<li><p>¿Qué sucede si se incluye una constante en este modelo? ¿Qué problema empírico surge? Proponga una solución (por ejemplo, eliminar una de las dummies para evitar colinealidad perfecta).</p></li>
+</ol></li>
+</ol>
+</div>
+<div id="preguntas-sobre-regresiones-simples-con-constantes-y-dummies" class="section level3 unnumbered hasAnchor">
+<h3>🧮 Preguntas sobre regresiones simples con constantes y dummies<a href="anatomia-de-la-regresion-multiple.html#preguntas-sobre-regresiones-simples-con-constantes-y-dummies" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Si se estima una regresión de <span class="math inline">\(Y\)</span> contra una constante y <span class="math inline">\(D_1\)</span>, ¿cuál es el intercepto y cuál es el coeficiente de <span class="math inline">\(D_1\)</span>? Interprételos.</p></li>
+<li><p>Si se estima una regresión de <span class="math inline">\(Y\)</span> contra una constante y <span class="math inline">\(D_2\)</span>, ¿qué coeficiente acompaña a <span class="math inline">\(D_2\)</span>? ¿Cómo cambia la interpretación con respecto al caso anterior?</p></li>
+</ol>
+</div>
+<div id="pregunta-sobre-fwl-y-algebra-matricial" class="section level3 hasAnchor" number="7.7.5">
+<h3><span class="header-section-number">7.7.5</span> 📊 Pregunta sobre FWL y álgebra matricial {-}<a href="anatomia-de-la-regresion-multiple.html#pregunta-sobre-fwl-y-algebra-matricial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="7" style="list-style-type: decimal">
+<li>Considere el siguiente modelo lineal sin constante:</li>
+</ol>
+<p><span class="math display">\[
+Y = X \beta + u
+\]</span></p>
+<p>donde <span class="math inline">\(Y \in \mathbb{R}^{n \times 1}\)</span>, <span class="math inline">\(X \in \mathbb{R}^{n \times k}\)</span>, y <span class="math inline">\(u \in \mathbb{R}^{n \times 1}\)</span>. Suponga además que desea controlar por un conjunto adicional de variables <span class="math inline">\(Z \in \mathbb{R}^{n \times m}\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Defina <span class="math inline">\(\tilde{Y} = M_Z Y\)</span> y <span class="math inline">\(\tilde{X} = M_Z X\)</span>, donde <span class="math inline">\(M_Z = I - P_Z\)</span> y <span class="math inline">\(P_Z = Z(Z&#39;Z)^{-1}Z&#39;\)</span>.<br />
+Explique con detalle qué representan estas transformaciones. ¿Qué parte de <span class="math inline">\(Y\)</span> y de <span class="math inline">\(X\)</span> están conservando? ¿Qué parte están eliminando?</p></li>
+<li><p>Demuestre que el vector de coeficientes <span class="math inline">\(\hat{\beta}\)</span> para <span class="math inline">\(X\)</span>, en la regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span> y <span class="math inline">\(Z\)</span>, puede obtenerse a partir de la siguiente expresión:</p></li>
+</ol>
+<p><span class="math display">\[
+   \hat{\beta} = (\tilde{X}&#39; \tilde{X})^{-1} \tilde{X}&#39; \tilde{Y}
+   \]</span></p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li><p>¿Bajo qué condiciones es válida esta expresión? ¿Qué sucede si <span class="math inline">\(\tilde{X}&#39; \tilde{X}\)</span> no es invertible?</p></li>
+<li><p>Explique cómo se interpreta este resultado en términos del Teorema de Frisch-Waugh-Lovell.</p></li>
+</ol>
+</div>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regresion-por-minimos-cuadrados-ordinarios-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aspectos-algebraicos-de-la-solucion-de-mco.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/06-FWL.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

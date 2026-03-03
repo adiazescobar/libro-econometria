@@ -123,7 +123,7 @@ La **traspuesta** de un vector columna es un vector fila, y viceversa. En línea
 \mathbf{a}'\mathbf{b} = 1 \cdot 4 + 2 \cdot 5 + 3 \cdot 6 = 4 + 10 + 18 = 32
 \]
 
-### Norma y normalización {-}
+### Norma y normalización {-} {#norma-y-normalizacion}
 
 **Definición.** La **norma** de un vector \( \mathbf{x} \) se define como:
 
@@ -205,7 +205,7 @@ A + B =
 **Resta:** se define como \( A - B = A + (-B) \)
 
 
-### Multiplicación por un escalar  {-}
+### Multiplicación por un escalar  {-} {#multiplicacion-por-un-escalar}
 
 \[
 \lambda A = [\lambda a_{ij}]
@@ -223,7 +223,7 @@ A + B =
 \]
 
 
-### Multiplicación de matrices  {-}
+### Multiplicación de matrices  {-} {#multiplicacion-de-matrices}
 
 Sean \( A \in \mathbb{R}^{m \times n} \) y \( B \in \mathbb{R}^{n \times p} \), el producto \( AB \in \mathbb{R}^{m \times p} \) se define por:
 
@@ -266,7 +266,7 @@ F = A B' =
 \]
 
 
-### Transposición de matrices  {-}
+### Transposición de matrices  {-} {#transposicion-de-matrices}
 
 Ya definida en la sección anterior. Propiedades clave:
 
@@ -621,7 +621,7 @@ La **matriz nula** tiene todos sus elementos iguales a cero:
 \]
 
 
-### 6. Matriz simétrica {-}
+### 6. Matriz simétrica {-} {#6-matriz-simetrica}
 
 Una matriz \( A \in \mathbb{R}^{m \times m} \) es **simétrica** si:
 
@@ -664,11 +664,11 @@ Q'Q = QQ' = I
 Sus columnas (y filas) son vectores ortonormales.
 
 
-### 9. Matrices de proyección: \( P \) y \( M \) {-}
+### 9. Matrices de proyección: \( P \) y \( M \) {-} {#9-matrices-de-proyeccion-p-y-m}
 
 En regresión lineal, dos matrices juegan un rol fundamental:
 
-#### a) Matriz de proyección sobre el espacio columna de \( X \): {-}
+#### a) Matriz de proyección sobre el espacio columna de \( X \): {-} {#a-matriz-de-proyeccion-sobre-el-espacio-columna-de-x}
 
 \[
 P = X(X'X)^{-1}X'
@@ -678,7 +678,7 @@ P = X(X'X)^{-1}X'
 - **Simétrica:** \( P' = P \)
 - Proyecta cualquier vector \( y \) sobre el espacio generado por las columnas de \( X \): \( \hat{y} = P y \)
 
-#### b) Matriz de aniquilación o proyección ortogonal: {-}
+#### b) Matriz de aniquilación o proyección ortogonal: {-} {#b-matriz-de-aniquilacion-o-proyeccion-ortogonal}
 
 \[
 M = I - P
@@ -697,7 +697,7 @@ y = \hat{y} + e = P y + M y
 donde \( \hat{y} \) es la parte explicada por \( X \), y \( e \) es la parte no explicada (residuos).
 
 
-## Derivadas de una función multidimensional {-}
+## Derivadas de una función multidimensional {-} {#derivadas-de-una-funcion-multidimensional}
 
 ### Derivadas de una forma lineal {-}
 
@@ -740,7 +740,7 @@ a_1 & a_2 & \cdots & a_n
 \]
 
 
-### Derivadas de una forma cuadrática {-}
+### Derivadas de una forma cuadrática {-} {#derivadas-de-una-forma-cuadratica}
 
 Sea la **forma cuadrática** \( \mathbf{x}'A\mathbf{x} \), donde \( A \) es una matriz simétrica. Esta puede escribirse como:
 

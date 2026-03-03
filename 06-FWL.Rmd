@@ -1,6 +1,6 @@
-# Anatomía de la Regresión Múltiple
+# Anatomía de la Regresión Múltiple {#anatomia-de-la-regresion-multiple}
 
-## Matrices de Proyección {-}
+## Matrices de Proyección {-} {#matrices-de-proyeccion}
 
 Supongamos que estamos estimando una regresión lineal múltiple del tipo:
 
@@ -32,7 +32,7 @@ Y su complemento ortogonal (que proyecta sobre el espacio ortogonal a \( \mathca
 \hat{y} = \mathbf{P}_X y \quad \text{y} \quad \hat{\varepsilon} = \mathbf{M}_X y
 \]
 
-### 🔍 Intuición geométrica {-}
+### 🔍 Intuición geométrica {-} {#intuicion-geometrica}
 
 - \( y \): vector observado
 - \( \hat{y} = \mathbf{P}_X y \): predicción, o "sombra" de \( y \) sobre el plano generado por \( X \)
@@ -62,7 +62,7 @@ La solución es:
 Estas propiedades nos permitirán probar resultados como: ortogonalidad entre predicción y residuos, descomposición de la varianza total, y derivar el estimador de varianza del error.
 
 
-### ✨ Visualización tridimensional de la proyección {-}
+### ✨ Visualización tridimensional de la proyección {-} {#visualizacion-tridimensional-de-la-proyeccion}
 
 ```{r proyeccion-bonita, echo=FALSE, message=FALSE, warning=FALSE, results='asis'}
 library(rgl)
@@ -123,7 +123,7 @@ Esto es extremadamente útil porque:
 - Permite construir regresiones parciales paso a paso.
 - Ayuda a entender la mecánica interna de los modelos de regresión múltiples.
 
-## 🎯 Notación y Motivación {-}
+## 🎯 Notación y Motivación {-} {#notacion-y-motivacion}
 
 Considera el siguiente modelo de regresión lineal:
 
@@ -146,7 +146,7 @@ y = [X_r \quad X_s] \begin{bmatrix} \beta_r \\ \beta_s \end{bmatrix} + \varepsil
 
 Donde la matriz \( X = [X_r \quad X_s] \in \mathbb{R}^{n \times (k+1)} \) contiene **todas** las variables explicativas, y el vector de parámetros \( \beta \in \mathbb{R}^{k+1} \) contiene sus coeficientes respectivos.
 
-## ❓¿Cuál es el problema que resuelve el FWL? {-}
+## ❓¿Cuál es el problema que resuelve el FWL? {-} {#cual-es-el-problema-que-resuelve-el-fwl}
 
 Imagina que quieres saber el **efecto de la educación sobre el salario**, pero sabes que hay muchas otras variables (edad, experiencia, género, etc.) que también afectan el salario. Entonces haces una regresión múltiple, y obtienes el coeficiente de educación controlando por todo lo demás.
 
@@ -222,14 +222,14 @@ El estimador de MCO de esta regresión es:
 \hat{\beta}_r \quad \text{(el coeficiente de \( X_r \) en la regresión completa)}
 \]
 
-## ✅ Interpretación final{-}
+## ✅ Interpretación final{-} {#interpretacion-final}
 
 Este resultado nos dice que:
 
 - El efecto de \( X_r \) sobre \( y \), **controlando por \( X_s \)**, es igual al efecto de la **parte de \( X_r \) que no se relaciona con \( X_s \)** sobre la **parte de \( y \) que tampoco se relaciona con \( X_s \)**.
 - En palabras simples: es una regresión entre los residuos.
 
-## 📦 Conclusión {-}
+## 📦 Conclusión {-} {#conclusion}
 
 Este teorema tiene implicaciones profundas:
 
@@ -237,7 +237,7 @@ Este teorema tiene implicaciones profundas:
 - Es la base para entender técnicas como control por regresión parcial, y también para desarrollar intuiciones sobre variables instrumentales, efectos marginales y más.
 
 
-## Demostración Formal {-}
+## Demostración Formal {-} {#demostracion-formal}
 
 Usando álgebra matricial:
 
@@ -254,13 +254,13 @@ Esto se deduce de la forma general del estimador de MCO:
 pero aplicado al modelo reducido, en el que \( y \) y \( X_r \) han sido "limpiados" de \( X_s \).
 
 
-## 🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python {-}
+## 🧪 Ejemplo práctico del Teorema de Frisch-Waugh-Lovell en Stata, R y Python {-} {#ejemplo-practico-del-teorema-de-frisch-waugh-lovell-en-stata-r-y-python}
 
 A continuación presentamos una simulación sencilla para ilustrar el Teorema de Frisch-Waugh-Lovell (FWL) y mostrar cómo cambia el coeficiente estimado de una variable de interés dependiendo de la correlación con los controles. También implementamos paso a paso la construcción del estimador usando residuos.
 
 ---
 
-### 🔵 Código en Stata
+### 🔵 Código en Stata {#codigo-en-stata}
 
 ```stata
 clear
@@ -306,7 +306,7 @@ reg My MXr
 * Comparar coeficientes
 di _b[MXr] _b[altura]
 ````
-### 🟢 Código en R
+### 🟢 Código en R {#codigo-en-r}
 
 ```r
 library(tidyverse)
@@ -357,7 +357,7 @@ cat("Coeficiente de altura (residuos):", coef(lm(My ~ MXr, data = df))["MXr"], "
 cat("Coeficiente de altura (modelo completo):", coef(lm(salario ~ altura + ingreso_hh, data = df))["altura"], "\n")
 ```
 
-### 🔴 Código en Python
+### 🔴 Código en Python {#codigo-en-python}
 ```python
 import numpy as np
 import pandas as pd
@@ -422,7 +422,7 @@ print("Coeficiente de altura (modelo completo):", sm.OLS.from_formula('salario ~
 
 1. ¿Qué significa que el coeficiente de una variable en una regresión múltiple sea "depurado"?
 
-### 📌 Preguntas sobre FWL y matrices de proyección {-}
+### 📌 Preguntas sobre FWL y matrices de proyección {-} {#preguntas-sobre-fwl-y-matrices-de-proyeccion}
 
 1. Sea \( y \in \mathbb{R}^{n \times 1} \), \( X \in \mathbb{R}^{n \times k} \), y \( D \in \mathbb{R}^{n \times 1} \) una variable binaria tal que \( D_i = 1 \) solo para una observación \( i \), y \( D_j = 0 \) para \( j \neq i \).
    
@@ -475,7 +475,7 @@ print("Coeficiente de altura (modelo completo):", sm.OLS.from_formula('salario ~
 
 
 
-### 📊 Pregunta sobre FWL y álgebra matricial {-}
+### 📊 Pregunta sobre FWL y álgebra matricial {-} {#pregunta-sobre-fwl-y-algebra-matricial}
 
 7. Considere el siguiente modelo lineal sin constante:
 

@@ -11,7 +11,7 @@ link-citations: yes
 github-repo: adiazescobar/libro-econometria
 ---
 
-# Información general {-}
+# Información general {-} {#informacion-general}
 
 | Campo | Detalle |
 |-------|---------|
@@ -24,11 +24,11 @@ github-repo: adiazescobar/libro-econometria
 | **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 2‑207 (Ma) y 67‑303 (Ju) |
 | **Monitor** | Sophia Aristizabal — horarios y oficina por definir |
 
-## Descripción del curso {-}
+## Descripción del curso {-} {#descripcion-del-curso}
 
 El objetivo principal es proporcionar herramientas para el análisis econométrico de datos de corte transversal, series de tiempo y panel. Se revisa el modelo clásico de regresión lineal, las consecuencias de violar sus supuestos, modelos para variables dependientes discretas o limitadas y técnicas básicas de series de tiempo y panel. Al finalizar, el estudiante podrá ejecutar regresiones múltiples, diagnosticar problemas comunes y aplicar soluciones apropiadas.
 
-## Material bibliográfico {-}
+## Material bibliográfico {-} {#material-bibliografico}
 
 ### Libro obligatorio {-}
 
@@ -47,7 +47,7 @@ El objetivo principal es proporcionar herramientas para el análisis econométri
 9. *Stata 11 Time Series Reference Manual*. Stata Press.  
 10. Rosales R. et al. (2010). *Fundamentos de Econometría Intermedia*. CEDE.
 
-## Evaluación {-}
+## Evaluación {-} {#evaluacion}
 
 | Porcentaje | Actividad |
 |-----------:|-----------|
@@ -92,11 +92,11 @@ Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumpl
 - [Stata Cheat Sheets](https://geocenter.github.io/StataTraining/pdf/AllCheatSheets.pdf)  
 - [Seeing Theory – Visual Probability](https://seeing-theory.brown.edu)
 
-## Inclusión {-}
+## Inclusión {-} {#inclusion}
 
 Este curso da la bienvenida a personas de todas las edades, orígenes, creencias, etnias, géneros, identidades, orientaciones sexuales y capacidades. Se espera un ambiente respetuoso e inclusivo.
 
-## Integridad académica {-}
+## Integridad académica {-} {#integridad-academica}
 
 La Universidad Javeriana fomenta la honestidad y establece sanciones por fraude o plagio según el reglamento de estudiantes. Cualquier uso no autorizado de materiales durante evaluaciones se considera falta grave.
 

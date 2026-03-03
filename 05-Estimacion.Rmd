@@ -1,4 +1,4 @@
-# Regresión por Mínimos Cuadrados Ordinarios (MCO)
+# Regresión por Mínimos Cuadrados Ordinarios (MCO) {#regresion-por-minimos-cuadrados-ordinarios-mco}
 
 ## Modelo {-}
 Antes de lanzarnos a minimizar errores, hagamos una pausa para ver cómo funciona esto con álgebra lineal, que es el corazón de MCO.
@@ -49,7 +49,7 @@ y_n
 $$
 
 
-## ¿Qué hace MCO? {-}
+## ¿Qué hace MCO? {-} {#que-hace-mco}
 
 
 La regresión por Mínimos Cuadrados Ordinarios (MCO) es una de las herramientas más fundamentales y utilizadas en econometría. Su objetivo es simple pero poderoso: encontrar la mejor recta (o hiperplano) que se ajusta a los datos observados, minimizando los errores que cometemos al predecir.
@@ -172,9 +172,9 @@ plot_ly(
 ```
 
 
-## Derivación del estimador {-}
+## Derivación del estimador {-} {#derivacion-del-estimador}
 
-### ¿Cómo se encuentra el vector \(\hat{\beta}\)? {-}
+### ¿Cómo se encuentra el vector \(\hat{\beta}\)? {-} {#como-se-encuentra-el-vector-hatbeta}
 
 Queremos minimizar la SRC:
 
@@ -207,7 +207,7 @@ $$
 $$
 
 
-### ¿Es un mínimo? {-}
+### ¿Es un mínimo? {-} {#es-un-minimo}
 
 Sí, y lo podemos verificar con la segunda derivada (matriz Hessiana):
 
@@ -220,7 +220,7 @@ Como \( X'X \) es semidefinida positiva (o positiva definida si no hay colineali
 
 <div class="box-cerebro">
 
-### ¿Qué significa que una matriz sea semidefinida positiva? {-}
+### ¿Qué significa que una matriz sea semidefinida positiva? {-} {#que-significa-que-una-matriz-sea-semidefinida-positiva}
 
 Una matriz simétrica \( A \) es:
 
@@ -239,7 +239,7 @@ Una matriz simétrica \( A \) es:
 En el contexto de mínimos cuadrados, la matriz \( X'X \) es siempre **simétrica** y al menos **semidefinida positiva**. Será **positiva definida** si las columnas de \( X \) no tienen colinealidad perfecta (es decir, no hay combinación lineal exacta entre las variables).
 
 
-### ¿Y por qué importa esto? {-}
+### ¿Y por qué importa esto? {-} {#y-por-que-importa-esto}
 
 Porque si una función cuadrática tiene la forma:
 
@@ -253,7 +253,7 @@ En otras palabras: el hecho de que \( X'X \) sea positiva definida es lo que gar
 
 </div>
 
-### Interpretación en términos de contraparte muestral {-}
+### Interpretación en términos de contraparte muestral {-} {#interpretacion-en-terminos-de-contraparte-muestral}
 
 Podemos escribir:
 
@@ -269,18 +269,18 @@ $$
 
 ---
 
-### Supuestos clave empleados hasta acá {-}
+### Supuestos clave empleados hasta acá {-} {#supuestos-clave-empleados-hasta-aca}
 
 - **S1**: Linealidad en los parámetros
 - **S2**: \( E[\varepsilon_i \mid X_i] = 0 \)
 - **S3**: \( X'X \) invertible (no colinealidad perfecta)
 
 
-## Anatomía de la regresión: del caso más simple al más complejo {-}
+## Anatomía de la regresión: del caso más simple al más complejo {-} {#anatomia-de-la-regresion-del-caso-mas-simple-al-mas-complejo}
 
 Vamos a ver diferentes casos de regresión, desde la más simple hasta la más compleja, para entender la anatomía de la regresión y cómo MCO se adapta a cada uno. En todos los casos, trabajaremos con la formulación matricial \( \hat{\beta} = (X'X)^{-1}X'y \).
 
-### Caso 1: Regresión sin variables explicativas (solo constante) {-}
+### Caso 1: Regresión sin variables explicativas (solo constante) {-} {#caso-1-regresion-sin-variables-explicativas-solo-constante}
 
 En este caso, el modelo es simplemente:
 
@@ -326,7 +326,7 @@ Suponga que tiene 5 observaciones de ingreso mensual (en miles de pesos): \( y =
 </div>
 
 
-### Caso 2: Regresión simple con una variable explicativa {-}
+### Caso 2: Regresión simple con una variable explicativa {-} {#caso-2-regresion-simple-con-una-variable-explicativa}
 
 En este caso, el modelo es:
 
@@ -503,7 +503,7 @@ Considere 8 estudiantes con la siguiente información sobre su promedio académi
 </div>
 
 
-### Caso 4: Variable binaria con constante (categoría de referencia) {-}
+### Caso 4: Variable binaria con constante (categoría de referencia) {-} {#caso-4-variable-binaria-con-constante-categoria-de-referencia}
 
 Ahora veamos qué pasa si en lugar de incluir las dos dummies, incluimos solo **una** dummy y la **constante**. Esto es lo que se hace en la práctica para evitar la llamada "trampa de la variable dummy" (multicolinealidad perfecta, ya que \( D_1 + D_2 = \mathbf{1} \)).
 
@@ -581,7 +581,7 @@ Usando los mismos 8 estudiantes del Ejercicio 3:
 </div>
 
 
-### Caso 5: Múltiples categorías mutuamente excluyentes {-}
+### Caso 5: Múltiples categorías mutuamente excluyentes {-} {#caso-5-multiples-categorias-mutuamente-excluyentes}
 
 Ahora generalicemos a variables categóricas con más de dos niveles. Supongamos que queremos explicar el **salario mensual** de un grupo de trabajadores usando su **nivel educativo**, que tiene 4 categorías mutuamente excluyentes:
 
@@ -692,13 +692,13 @@ Usando los mismos 12 trabajadores de la tabla anterior:
 
 </div>
 
-### Ejercicios adicionales de álgebra lineal {-}
+### Ejercicios adicionales de álgebra lineal {-} {#ejercicios-adicionales-de-algebra-lineal}
 
 Los siguientes ejercicios le ayudarán a afianzar su manejo del álgebra matricial aplicada a MCO.
 
 <div class="box-tarea">
 
-### Ejercicio 6: Verificación de las ecuaciones normales {-}
+### Ejercicio 6: Verificación de las ecuaciones normales {-} {#ejercicio-6-verificacion-de-las-ecuaciones-normales}
 
 Considere los datos \( x = (1, 2, 3, 4, 5)' \) e \( y = (2.1, 3.9, 6.2, 7.8, 10.1)' \).
 
@@ -723,7 +723,7 @@ Sea el modelo \( y = X\beta + \varepsilon \) con \( \hat{\beta} = (X'X)^{-1}X'y 
 
 <div class="box-tarea">
 
-### Ejercicio 8: Matrices de proyección {-}
+### Ejercicio 8: Matrices de proyección {-} {#ejercicio-8-matrices-de-proyeccion}
 
 Defina la **matriz de proyección** (o hat matrix):
 
@@ -741,7 +741,7 @@ H = X(X'X)^{-1}X'
 
 <div class="box-tarea">
 
-### Ejercicio 9: Descomposición de la suma total de cuadrados {-}
+### Ejercicio 9: Descomposición de la suma total de cuadrados {-} {#ejercicio-9-descomposicion-de-la-suma-total-de-cuadrados}
 
 Usando las definiciones de \( H \) y \( M \):
 
@@ -755,7 +755,7 @@ Usando las definiciones de \( H \) y \( M \):
 </div>
 
 
-### Caso general: Regresión múltiple {-}
+### Caso general: Regresión múltiple {-} {#caso-general-regresion-multiple}
 
 En el caso general, el modelo es:
 \[
@@ -766,7 +766,7 @@ Aquí, tenemos \( k+1 \) parámetros a estimar. El estimador de MCO sigue siendo
 \hat{\beta} = (X'X)^{-1}X'y
 \]
 
-### ¿Cuándo coincide la regresión múltiple con la simple? {-}
+### ¿Cuándo coincide la regresión múltiple con la simple? {-} {#cuando-coincide-la-regresion-multiple-con-la-simple}
 
 Si las variables explicativas están centradas y no están correlacionadas entre sí, la estructura de la regresión se simplifica notablemente.
 
@@ -957,7 +957,7 @@ plt.show()
 
 A continuación encontrarás algunas preguntas conceptuales y computacionales para reforzar lo aprendido sobre el estimador de Mínimos Cuadrados Ordinarios (MCO). Puedes intentar resolverlas en papel o programando en R, Stata o Python.
 
-#### Interpretación de coeficientes {-}
+#### Interpretación de coeficientes {-} {#interpretacion-de-coeficientes}
 
 Suponga que ha estimado la siguiente regresión:
 
@@ -981,7 +981,7 @@ Para cada uno de los siguientes coeficientes estimados, interprete el resultado 
 
 ---
 
-#### Álgebra y transformaciones {-}
+#### Álgebra y transformaciones {-} {#algebra-y-transformaciones}
 
 7. ¿Qué ocurre con el estimador de MCO si multiplicamos la variable dependiente por una constante \( c \)?
    *Demuestre usando la expresión matricial \( \hat{\beta} = (X'X)^{-1} X'y \).*
@@ -994,7 +994,7 @@ Para cada uno de los siguientes coeficientes estimados, interprete el resultado 
 10. Si todas las variables explicativas tienen media cero, ¿cuál es el valor estimado del intercepto? ¿Por qué?
 
 
-#### Preguntas de programación {-}
+#### Preguntas de programación {-} {#preguntas-de-programacion}
 
 11. Implemente una función en R que reciba dos vectores \( x \) e \( y \), y devuelva \( \hat{\beta}_0 \), \( \hat{\beta}_1 \) y los errores estándar, usando solo álgebra matricial.
 
@@ -1017,7 +1017,7 @@ Para cada uno de los siguientes coeficientes estimados, interprete el resultado 
 </div>
 
 
-## Apéndice: Derivación algebraica del estimador para regresión simple {-}
+## Apéndice: Derivación algebraica del estimador para regresión simple {-} {#apendice-derivacion-algebraica-del-estimador-para-regresion-simple}
 
 Partimos del modelo de regresión simple en forma matricial:
 
@@ -1044,7 +1044,7 @@ $$
 $$
 
 
-### Cálculo de \( X'X \) {-}
+### Cálculo de \( X'X \) {-} {#calculo-de-xx}
 
 $$
 X'X =
@@ -1078,7 +1078,7 @@ $$
 
 
 
-### Cálculo de \( X'y \) {-}
+### Cálculo de \( X'y \) {-} {#calculo-de-xy}
 
 $$
 X'y =

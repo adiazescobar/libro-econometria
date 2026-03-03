@@ -1,4 +1,4 @@
-# Aspectos algebraicos de la solución de MCO
+# Aspectos algebraicos de la solución de MCO {#aspectos-algebraicos-de-la-solucion-de-mco}
 
 **El vector de residuos de MCO:** es el vector de residuos evaluado en $\tilde{\beta}=\hat{\beta}$, que puede escribirse de la siguienteb manera
 $$\hat{\epsilon}\equiv y-X\hat{\beta}$$
@@ -238,7 +238,7 @@ $$Var[\tilde{\beta}|X]=\sigma^{2}[(X'X)^{-1}+DD']\geq\sigma^{2}(X'X)^{-1}=Var[\h
 
 Esto es cierto ya que $DD'>0$.
 
-## Ilustración: MCO vs el estimador de Wald {-}
+## Ilustración: MCO vs el estimador de Wald {-} {#ilustracion-mco-vs-el-estimador-de-wald}
 
 El teorema de Gauss-Markov afirma que MCO es el **mejor** estimador lineal insesgado, pero ¿qué tan grande es esa ventaja en la práctica? Para verlo, comparamos MCO con el **estimador de Wald**: un estimador lineal e insesgado que divide las observaciones en dos grupos según si $x_i$ está por encima o por debajo de la mediana, y calcula la pendiente como la razón entre las diferencias de medias:
 

@@ -49,7 +49,7 @@ theme_simple <- theme_bw() + theme(
 )
 ```
 
-### ¿Qué estudia la econometría? {-}
+### ¿Qué estudia la econometría? {-} {#que-estudia-la-econometria}
 
 La econometría es la herramienta que usamos para entender el mundo usando datos. Nos ayuda a responder preguntas como: ¿cuánto gana una persona según su nivel educativo? ¿Cómo influye la experiencia laboral en el salario? ¿Cuál es el impacto de una política pública sobre el empleo?
 
@@ -67,7 +67,7 @@ y_i \;=\; \beta_0 \;+\; \beta_1\,x_i \;+\; u_i,
 donde \(u_i\) recoge todo lo que **no** observamos (habilidad, contactos, suerte…).  
 A esta ecuación la llamaremos **Proceso Generador de Datos (PGD)** o **modelo poblacional**. El problema es que no podemos observar \(u_i\) porque es un término de error. Ni tenemos acceso a todos los individuos de la población.
 
-### ¿Qué hacemos entonces? {-}
+### ¿Qué hacemos entonces? {-} {#que-hacemos-entonces}
 
 En la práctica, tomamos una muestra aleatoria de individuos y observamos sus salarios y años de educación \((y_i,\,x_i)\), el termino de error \(u_i\) permanece oculto.
 
@@ -83,7 +83,7 @@ Donde \(\hat{\beta}_0\) y \(\hat{\beta}_1\) son los estimadores de los parámetr
 
 Para entender todo esto mejor, vamos primero a enfocarnos en la muestra que tenemos y cómo podemos usarla para estimar el PGD. Luego veremos cómo la incertidumbre afecta nuestras estimaciones y por qué es importante.
 
-## Construimos una población de juguete {-}
+## Construimos una población de juguete {-} {#construimos-una-poblacion-de-juguete}
 
 Para ilustrar el proceso generador de datos y la incertidumbre, vamos a crear una población de juguete. Esta población será un conjunto de 100 individuos con características específicas. Luego tomaremos muestras aleatorias de esta población y realizaremos regresiones para ver cómo se comportan nuestras estimaciones en comparación con el PGD real.
 
@@ -134,7 +134,7 @@ geom_point(color = "darkslategray", size = 8) +
 ```
 
 
-### La relación verdadera en la población {-}
+### La relación verdadera en la población {-} {#la-relacion-verdadera-en-la-poblacion}
 El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada. 
 
 ```{R, scatter1, echo = F, fig.fullwidth = T, dev = "svg"}
@@ -322,7 +322,7 @@ Mantener un registro de esta incertidumbre es clave para el análisis econométr
 
 Una *muestra mala* es una muestra que, por puro azar, no representa bien a la población. Esto puede pasar incluso si tomamos la muestra correctamente. En esos casos, los estimadores como $\hat{\beta}_1$ pueden estar lejos de su valor verdadero $\beta_1$, y nuestras conclusiones podrían ser engañosas.
 
-### ¿Cómo saber si me tocó una muestra mala? {-}
+### ¿Cómo saber si me tocó una muestra mala? {-} {#como-saber-si-me-toco-una-muestra-mala}
 
 No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero hay señales que nos pueden alertar:
 
@@ -460,7 +460,7 @@ theme_empty
 Aquí vemos que, aunque la muestra es fija, las rectas de regresión se dispersan alrededor de la recta poblacional. Esto es porque el término de error \(u_i\) introduce variabilidad en los valores de \(y_i\).
 
 
-### ☝️ Una aclaración importante sobre el insesgamiento {-}
+### ☝️ Una aclaración importante sobre el insesgamiento {-} {#una-aclaracion-importante-sobre-el-insesgamiento}
 
 Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión. 
 
@@ -475,7 +475,7 @@ Por ejemplo:
 
 ---
 
-### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)?  {-}
+### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)?  {-} {#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1}
 
 Cuando se cumplen los **supuestos del modelo clásico de regresión lineal**, en particular exogeneidad estricta o **independencia del término de error \(u_i\)** respecto a las variables explicativas \(x_i\). En algunos libros se conoce como esperanza condicional igual cero:  
   \[

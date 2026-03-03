@@ -1,14 +1,14 @@
-# Propiedades asintóticas de MCO y pruebas de hipótesis {-}
+# Propiedades asintóticas de MCO y pruebas de hipótesis {-} {#propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis}
 
-## 🎯 Objetivo y motivación {-}
+## 🎯 Objetivo y motivación {-} {#objetivo-y-motivacion}
 
 En este capítulo pasamos de las **propiedades en muestras finitas** del estimador de Mínimos Cuadrados Ordinarios (MCO) a sus **propiedades asintóticas** (cuando $n\to\infty$). Verás por qué la **consistencia** y la **normalidad asintótica** permiten hacer inferencia incluso **sin** normalidad exacta de los errores, y cómo construir **pruebas $t$**, **estadísticos $F$** y el **test de Wald** en grandes muestras.
 
 ---
 
-## 📚 Repaso: modelo clásico y resultados en muestras finitas {-}
+## 📚 Repaso: modelo clásico y resultados en muestras finitas {-} {#repaso-modelo-clasico-y-resultados-en-muestras-finitas}
 
-### Supuestos del MCRL (versión matricial) {-}
+### Supuestos del MCRL (versión matricial) {-} {#supuestos-del-mcrl-version-matricial}
 
 $$
 y = X\beta + \epsilon, \qquad X\in\mathbb{R}^{n\times K},\; y\in\mathbb{R}^{n\times 1}
@@ -86,7 +86,7 @@ Ajustando por \(\tfrac{n}{n-K}\to 1\), se obtiene el resultado.
 
 ---
 
-## 🔔 Normalidad asintótica de MCO {-}
+## 🔔 Normalidad asintótica de MCO {-} {#normalidad-asintotica-de-mco}
 
 $$
 \sqrt{n}\left(\hat{\beta}-\beta\right)
@@ -107,9 +107,9 @@ Por **TCL de Lindeberg–Levy**, \(\tfrac{1}{\sqrt{n}}X'\epsilon \Rightarrow \ma
 
 ---
 
-## 🧪 Pruebas de hipótesis en grandes muestras {-}
+## 🧪 Pruebas de hipótesis en grandes muestras {-} {#pruebas-de-hipotesis-en-grandes-muestras}
 
-### Prueba tipo-$t$ asintótica para un coeficiente {-}
+### Prueba tipo-$t$ asintótica para un coeficiente {-} {#prueba-tipo-asintotica-para-un-coeficiente}
 
 Para $H_0:\beta_k=\beta_{k}^0$,
 
@@ -121,7 +121,7 @@ $$
 
 **Regla de decisión:** Rechazar $H_0$ si $|t_k|\ge z_{\alpha/2}$.
 
-### Prueba múltiple (Wald) para $R\beta=r$ {-}
+### Prueba múltiple (Wald) para $R\beta=r$ {-} {#prueba-multiple-wald-para}
 
 Para $\#r$ restricciones lineales $H_0:R\beta=r$,
 
@@ -136,14 +136,14 @@ $$
 
 ---
 
-### 📐 Intuición geométrica (rápida) {-}
+### 📐 Intuición geométrica (rápida) {-} {#intuicion-geometrica-rapida}
 
 * Consistencia: el promedio de “productos” $x_i\epsilon_i$ se diluye al promediar, por lo que el término de error en $\hat\beta$ **desaparece** al crecer $n$.
 * Normalidad asintótica: la suma de “pequeños choques” $x_i\epsilon_i$ escalada por $\sqrt{n}$ **se aproxima a Normal** (TCL), y al “deshacer” la proyección con $(X'X)^{-1}$ obtenemos una Normal en el espacio de parámetros.
 
 ---
 
-## 🧪 Ejemplos prácticos (simulación) {-}
+## 🧪 Ejemplos prácticos (simulación) {-} {#ejemplos-practicos-simulacion}
 
 > Idea: generar datos con **errores no normales** (p.ej., t-Student con 3 g.l.), estimar MCO y verificar que los $t$ se acercan a $\mathcal{N}(0,1)$ cuando $n$ crece.
 
@@ -266,7 +266,7 @@ knitr::include_graphics("figs/t_density_vs_normal.png")
 
 ---
 
-## 🧩 Notas prácticas de inferencia {-}
+## 🧩 Notas prácticas de inferencia {-} {#notas-practicas-de-inferencia}
 
 * Sin normalidad exacta (sin A6), usa **errores robustos** y **Wald** en grandes muestras.
 * **Muestras pequeñas** con colas pesadas: los niveles de significancia efectivos pueden distorsionarse; considera transformaciones, robustez, o métodos re-muestreo (bootstrap con cuidado).
@@ -318,7 +318,7 @@ Aplicación directa de TCL + Slutsky. La varianza asintótica se estima consiste
 
 ---
 
-## 🧰 Código mínimo reproducible (MCO + Wald) {-}
+## 🧰 Código mínimo reproducible (MCO + Wald) {-} {#codigo-minimo-reproducible-mco-wald}
 
 ### Stata {-}
 

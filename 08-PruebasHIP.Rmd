@@ -1,6 +1,6 @@
 # Inferencia {-}
 
-## Pruebas de hipótesis bajo el supuesto de normalidad {-}
+## Pruebas de hipótesis bajo el supuesto de normalidad {-} {#pruebas-de-hipotesis-bajo-el-supuesto-de-normalidad}
 
 Una vez hemos estimado los parámetros \(\hat{\beta}=(X'X)^{-1}X'y\),  
 y la varianza del estimador \(Var[\beta|X]=\hat{\sigma}^{2}(X'X)^{-1}\),  
@@ -61,7 +61,7 @@ Sabemos que:
 
 ---
 
-## Contraste de hipótesis sobre un coeficiente {-}
+## Contraste de hipótesis sobre un coeficiente {-} {#contraste-de-hipotesis-sobre-un-coeficiente}
 
 Queremos contrastar:
 
@@ -105,7 +105,7 @@ Como \(\hat{\sigma}^2\) está ligado a una \(\chi^2(n-k)\), entonces \(t_k\) tie
 
 ---
 
-### Regla de decisión para el estadístico t {-}
+### Regla de decisión para el estadístico t {-} {#regla-de-decision-para-el-estadistico-t}
 
 1. Calcular \(t_k\).  
 2. Comparar con el valor crítico \(t_{\alpha/2}(n-k)\).  
@@ -140,7 +140,7 @@ p = P(|t|>|t_k|)
 
 ---
 
-## Contraste de hipótesis lineales {-}
+## Contraste de hipótesis lineales {-} {#contraste-de-hipotesis-lineales}
 
 Hipótesis general:  
 \[
@@ -161,7 +161,7 @@ Ejemplos:
 
 ---
 
-### El estadístico F {-}
+### El estadístico F {-} {#el-estadistico-f}
 
 <div class="theorem">
 **Proposición:** Bajo \(H_0: R\beta=r\),
@@ -177,14 +177,14 @@ Por definición, el cociente tiene distribución \(F(\#r,n-k)\).
 
 ---
 
-### Regla de decisión con F {-}
+### Regla de decisión con F {-} {#regla-de-decision-con-f}
 
 - Rechazar \(H_0\) si \(F \geq F_\alpha(\#r,n-k)\).  
 - No rechazar en caso contrario.  
 
 ---
 
-### Fórmula alternativa para F {-}
+### Fórmula alternativa para F {-} {#formula-alternativa-para-f}
 
 \[
 F=\frac{(\hat{\epsilon}_r'\hat{\epsilon}_r - \hat{\epsilon}'\hat{\epsilon})/\#r}{\hat{\epsilon}'\hat{\epsilon}/(n-k)}
@@ -192,7 +192,7 @@ F=\frac{(\hat{\epsilon}_r'\hat{\epsilon}_r - \hat{\epsilon}'\hat{\epsilon})/\#r}
 
 ---
 
-### Contraste de significación global {-}
+### Contraste de significación global {-} {#contraste-de-significacion-global}
 
 \[
 H_0: \beta_2=\cdots=\beta_K=0
@@ -206,7 +206,7 @@ F = \frac{R^2/(K-1)}{(1-R^2)/(n-K)}
 
 ---
 
-## Relación t vs F {-}
+## Relación t vs F {-} {#relacion-t-vs-f}
 
 Si \(\#r=1\):  
 \[
@@ -217,7 +217,7 @@ F(1,n-k)=t(n-k)^2
 
 ---
 
-### 📑 Demostración del estadístico $t$ {-}
+### 📑 Demostración del estadístico $t$ {-} {#demostracion-del-estadistico}
 
 <div class="proof">
 
@@ -271,7 +271,7 @@ y por definición, $t_k \sim t(n-K)$.
 
 ---
 
-### 📑 Demostración del estadístico $F$ {-}
+### 📑 Demostración del estadístico $F$ {-} {#demostracion-del-estadistico-2}
 
 <div class="proof">
 
@@ -319,7 +319,7 @@ $$
 ---
 
 
-## 💻 Aplicación en Stata {-}
+## 💻 Aplicación en Stata {-} {#aplicacion-en-stata}
 
 ```stata
 * Análisis descriptivo
