@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autocorrección · Parcial 1 · Econometría II 2026-1</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         background: #f0f4f8; color: #1a202c; min-height: 100vh; }
+
+  /* Hero */
+  .hero { background: linear-gradient(135deg,#1a3a5c 0%,#2d6a9f 100%);
+          color: white; padding: 2.5rem 1.5rem 3.5rem; text-align: center; }
+  .hero .tag { display:inline-block; background:rgba(255,255,255,.15); border-radius:20px;
+               padding:.3rem 1rem; font-size:.78rem; letter-spacing:.06em;
+               text-transform:uppercase; margin-bottom:1rem; }
+  .hero h1 { font-size:clamp(1.3rem,4vw,1.9rem); font-weight:700; margin-bottom:.4rem; }
+  .hero p  { opacity:.85; font-size:.9rem; }
+
+  /* Container */
+  .container { max-width:740px; margin:-1.5rem auto 3rem; padding:0 1rem; }
+
+  /* Cards */
+  .card { background:white; border-radius:12px; padding:1.5rem 1.7rem;
+          margin-bottom:.85rem; box-shadow:0 2px 8px rgba(0,0,0,.07); }
+
+  /* Info box */
+  .info-box { background:#ebf8ff; border-left:4px solid #2d6a9f; border-radius:0 8px 8px 0;
+              padding:1rem 1.2rem; margin-bottom:1rem; font-size:.88rem; line-height:1.65; }
+  .info-box strong { color:#1a3a5c; }
+
+  /* Section headers */
+  .section-head { display:flex; align-items:center; gap:.75rem; margin:2rem 0 .7rem; }
+  .section-head .badge { background:#1a3a5c; color:white; border-radius:8px;
+                         padding:.3rem .8rem; font-size:.73rem; font-weight:700;
+                         white-space:nowrap; letter-spacing:.02em; }
+  .section-head h2 { font-size:1rem; font-weight:700; color:#1a3a5c; }
+
+  /* Context box (problem setup) */
+  .q-setup { background:#f7fafc; border:1px solid #e2e8f0; border-radius:8px;
+             padding:1rem 1.2rem; margin-bottom:1rem; font-size:.86rem; line-height:1.65; }
+  .q-setup p { margin-bottom:.5rem; }
+  .q-setup p:last-child { margin-bottom:0; }
+
+  /* Data table */
+  .q-table { border-collapse:collapse; margin:.6rem auto; font-size:.84rem; }
+  .q-table th, .q-table td { border:1px solid #e2e8f0; padding:.35rem .9rem; text-align:center; }
+  .q-table th { background:#edf2f7; font-weight:600; }
+
+  /* Question block */
+  .q-block { margin-bottom:.3rem; padding-bottom:.8rem; }
+  .q-block:not(:last-child) { border-bottom:1px solid #edf2f7; margin-bottom:.8rem; }
+  .q-label { font-size:.75rem; font-weight:700; color:#2d6a9f; text-transform:uppercase;
+             letter-spacing:.05em; margin-bottom:.3rem; }
+  .q-text  { font-size:.88rem; color:#2d3748; line-height:1.6; margin-bottom:.45rem; }
+  /* Field (text input) */
+  .field label { display:block; font-weight:600; font-size:.9rem; margin-bottom:.5rem; }
+  .field input[type="text"] { width:100%; border:2px solid #e2e8f0; border-radius:8px;
+    padding:.7rem 1rem; font-size:1rem; outline:none; transition:border-color .2s; }
+  .field input[type="text"]:focus { border-color:#2d6a9f; }
+
+  /* Choices */
+  .choices { display:flex; flex-direction:column; gap:.4rem; }
+  .choice { display:flex; align-items:center; gap:.7rem; border:2px solid #e2e8f0;
+            border-radius:8px; padding:.6rem .95rem; cursor:pointer;
+            transition:border-color .15s, background .15s; font-size:.86rem; user-select:none; }
+  .choice:hover { border-color:#2d6a9f; background:#ebf8ff; }
+  .choice input[type="radio"] { accent-color:#1a3a5c; width:15px; height:15px; flex-shrink:0; }
+  .choice.selected { border-color:#1a3a5c; background:#ebf8ff; font-weight:600; }
+  .choice .pts { margin-left:auto; font-size:.78rem; font-weight:700;
+                 color:#2d6a9f; white-space:nowrap; padding-left:.5rem; }
+  /* Muy parcial option — orange tone */
+  .choice.mp { border-color:#fbd38d; }
+  .choice.mp:hover { border-color:#ed8936; background:#fffaf0; }
+  .choice.mp.selected { border-color:#dd6b20; background:#fffaf0; }
+  .choice.mp .pts { color:#c05621; }
+
+  /* Response textarea (shown only for Muy parcial) */
+  .resp-area { display:none; margin-top:.6rem; padding:.75rem; background:#fffaf0;
+               border:2px dashed #ed8936; border-radius:8px; }
+  .resp-area label { display:block; font-size:.78rem; font-weight:700; color:#c05621; margin-bottom:.4rem; }
+  .resp-area textarea { width:100%; min-height:75px; border:1px solid #fbd38d; border-radius:6px;
+                        padding:.55rem .75rem; font-size:.83rem; resize:vertical;
+                        background:white; font-family:inherit; line-height:1.5; }
+  .resp-area textarea:focus { outline:none; border-color:#ed8936; }
+
+  @media (min-width:540px) {
+    .choices.row { flex-direction:row; }
+    .choices.row .choice { flex:1; justify-content:center; }
+    .choices.row .pts { margin-left:.3rem; }
+  }
+
+  /* Submit */
+  .submit-area { text-align:center; margin-top:2rem; }
+  .btn-submit { background:linear-gradient(135deg,#1a3a5c,#2d6a9f); color:white;
+    border:none; border-radius:10px; padding:1rem 2.5rem; font-size:1.05rem;
+    font-weight:700; cursor:pointer; transition:opacity .2s, transform .1s;
+    box-shadow:0 4px 14px rgba(45,106,159,.4); }
+  .btn-submit:hover { opacity:.9; transform:translateY(-1px); }
+
+  /* Success */
+  #success { display:none; background:#f0fff4; border:2px solid #38a169;
+             border-radius:12px; padding:1.8rem; margin-top:1.5rem; text-align:center; }
+  #success h3 { color:#276749; margin-bottom:.5rem; }
+  #success p  { color:#2f855a; font-size:.9rem; line-height:1.7; }
+  #success .em { font-weight:700; color:#1a3a5c; }
+
+  /* Math abbreviations */
+  var { font-style:italic; }
+  sub, sup { font-size:.75em; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Econometría II · PUJ · 2026-1</div>
+  <h1>Autocorrección — Parcial 1</h1>
+  <p>Lea las soluciones completas antes de responder · Plazo: lunes 9 de marzo a las 12:00 m</p>
+</div>
+
+<div class="container">
+
+<div class="info-box">
+  <strong>Instrucciones:</strong> Antes de responder, abra el capítulo de soluciones en el libro del curso:<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;📘 <a href="https://adiazescobar.github.io/libro-econometria/parcial-1-2026-1.html" target="_blank" style="color:#1a3a5c;font-weight:700">Ver soluciones en el libro → Parcial 1 · 2026-1</a><br><br>
+  Lea cada solución con atención y seleccione el nivel que mejor describe <em>su</em> respuesta.
+  Si eligió <strong>Muy parcial</strong>, pegue su respuesta completa en el cuadro que aparece.
+  Al final haga clic en <strong>"Descargar mi autocorrección"</strong> y envíe el archivo al correo
+  <strong>a.diaz@javeriana.edu.co</strong> con asunto <em>Autocorrección P1 – [su nombre]</em>.
+</div>
+
+<form id="survey" novalidate>
+
+<!-- ===== IDENTIFICACIÓN ===== -->
+<div class="card field">
+  <label for="sid">Código estudiantil (número de documento, sin puntos)</label>
+  <input type="text" id="sid" name="student_id" placeholder="ej. 1012345678">
+</div>
+
+<div class="card">
+  <p class="q-text" style="font-weight:600;margin-bottom:.6rem">¿Cuál pregunta opcional respondió?</p>
+  <div class="choices row">
+    <label class="choice"><input type="radio" name="opcional" value="Opcional 1"> Opcional 1</label>
+    <label class="choice"><input type="radio" name="opcional" value="Opcional 2"> Opcional 2</label>
+  </div>
+</div>
+
+<!-- ===== OBLIGATORIA ===== -->
+<div class="section-head">
+  <span class="badge">OBLIGATORIA · 1.5 pts</span>
+  <h2>FWL con observación atípica</h2>
+</div>
+
+<div class="card">
+
+  <!-- Contexto -->
+  <div class="q-setup">
+    <p>Un investigador quiere estimar el efecto de las <strong>horas de estudio semanales</strong> (<var>X</var>)
+    sobre la <strong>nota del parcial</strong> (<var>Y</var>). Dispone de datos de <var>n</var> = 5 estudiantes.
+    La observación 5 se comporta como un caso atípico; se define:</p>
+    <p style="text-align:center;margin:.6rem 0">
+      <var>Z<sub>i</sub></var> = 1 si <var>i</var> = 5 &nbsp;|&nbsp; <var>Z<sub>i</sub></var> = 0 en otro caso
+    </p>
+    <table class="q-table">
+      <tr><th>Obs. (<var>i</var>)</th><th>Horas (<var>X<sub>i</sub></var>)</th>
+          <th>Nota (<var>Y<sub>i</sub></var>)</th><th>Atípico (<var>Z<sub>i</sub></var>)</th></tr>
+      <tr><td>1</td><td>2</td><td>2.0</td><td>0</td></tr>
+      <tr><td>2</td><td>4</td><td>3.0</td><td>0</td></tr>
+      <tr><td>3</td><td>6</td><td>4.0</td><td>0</td></tr>
+      <tr><td>4</td><td>8</td><td>5.0</td><td>0</td></tr>
+      <tr><td>5</td><td>1</td><td>4.8</td><td>1</td></tr>
+    </table>
+  </div>
+
+  <!-- (1) -->
+  <div class="q-block">
+    <p class="q-label">(1) — 0.25 pts</p>
+    <p class="q-text">Plantee el modelo de regresión múltiple
+      <var>Y<sub>i</sub></var> = <var>β</var><sub>0</sub> + <var>β</var><sub>1</sub><var>X<sub>i</sub></var> +
+      <var>β</var><sub>2</sub><var>Z<sub>i</sub></var> + <var>u<sub>i</sub></var>.
+      ¿Qué mide <var>β</var><sub>1</sub> en este modelo?
+      Argumente brevemente por qué incluir <var>Z</var> en el modelo es importante.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_1" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_1" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_1" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_1" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_1" placeholder="Escriba su respuesta para revisión por la profesora..."></textarea></div>
+  </div>
+
+  <!-- (2) -->
+  <div class="q-block">
+    <p class="q-label">(2) — 0.25 pts</p>
+    <p class="q-text">Suponga que se estima la regresión simple
+      <var>Y<sub>i</sub></var> = <var>α</var><sub>0</sub> + <var>α</var><sub>1</sub><var>X<sub>i</sub></var> + <var>v<sub>i</sub></var>
+      (sin controlar <var>Z</var>).
+      ¿En qué dirección esperaría que el atípico sesgue <var>α̂</var><sub>1</sub> respecto a <var>β̂</var><sub>1</sub>?
+      Justifique intuitivamente (no es necesario calcular <var>α̂</var><sub>1</sub>).</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_2" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_2" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_2" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_2" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_2"></textarea></div>
+  </div>
+
+  <!-- (3a) -->
+  <div class="q-block">
+    <p class="q-label">(3a) — 0.25 pts</p>
+    <p class="q-text">Aplique el Teorema de Frisch–Waugh–Lovell con
+      <strong>X</strong><sub>2</sub> = [<strong>1</strong>, <var>Z</var>].
+      <em>Ayuda:</em> al regresar cualquier variable <var>v</var> sobre <strong>X</strong><sub>2</sub>,
+      los valores ajustados son <var>v̄</var><sub>1–4</sub> para las obs. 1–4 y <var>v</var><sub>5</sub> para la obs. 5.
+      Use este resultado para obtener el vector de residuos
+      <var>X̃</var> = <var>M</var><sub><strong>X</strong><sub>2</sub></sub><var>X</var>.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_3a" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3a" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_3a" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_3a"></textarea></div>
+  </div>
+
+  <!-- (3b) -->
+  <div class="q-block">
+    <p class="q-label">(3b) — 0.25 pts</p>
+    <p class="q-text">De manera análoga, obtenga el vector de residuos
+      <var>Ỹ</var> = <var>M</var><sub><strong>X</strong><sub>2</sub></sub><var>Y</var>.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_3b" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3b" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_3b" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_3b"></textarea></div>
+  </div>
+
+  <!-- (3c) -->
+  <div class="q-block">
+    <p class="q-label">(3c) — 0.25 pts</p>
+    <p class="q-text">Calcule
+      <var>β̂</var><sub>1</sub><sup>FWL</sup> = (Σ<sub><var>i</var></sub> <var>X̃<sub>i</sub></var><var>Ỹ<sub>i</sub></var>)
+      / (Σ<sub><var>i</var></sub> <var>X̃<sub>i</sub></var><sup>2</sup>).</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_3c" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3c" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_3c" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_3c" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_3c"></textarea></div>
+  </div>
+
+  <!-- (4) -->
+  <div class="q-block">
+    <p class="q-label">(4) — 0.25 pts</p>
+    <p class="q-text">Muestre que <var>β̂</var><sub>1</sub><sup>FWL</sup> coincide con el estimador MCO de
+      la regresión simple de <var>Y</var> sobre <var>X</var> usando <em>únicamente</em> las observaciones 1–4.
+      Interprete el resultado en términos de lo que significa «controlar por el atípico».</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="obl_4" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_4" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="obl_4" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="obl_4" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_obl_4"></textarea></div>
+  </div>
+
+</div><!-- /card obligatoria -->
+
+<!-- ===== OPCIONAL 1 ===== -->
+<div id="sec-op1" style="display:none">
+<div class="section-head">
+  <span class="badge">OPCIONAL 1 · 1.5 pts</span>
+  <h2>Transformaciones y formas funcionales</h2>
+</div>
+<div class="card">
+
+  <div class="q-setup">
+    <p>Modelo de regresión lineal simple <var>y<sub>i</sub></var> = <var>β</var><sub>0</sub> +
+      <var>β</var><sub>1</sub><var>x<sub>i</sub></var> + <var>ε<sub>i</sub></var>,
+      donde <var>y</var> = ingreso mensual (miles de pesos) y <var>x</var> = años de educación formal.</p>
+    <p><strong>Datos para la parte (1)</strong> — <var>n</var> = 3 estudiantes,
+      <var>x</var> centrado en la media muestral (<var>x̄</var> = 0):</p>
+    <table class="q-table">
+      <tr><th><var>i</var></th><th><var>x<sub>i</sub></var></th><th><var>y<sub>i</sub></var></th></tr>
+      <tr><td>1</td><td>−1</td><td>1</td></tr>
+      <tr><td>2</td><td>0</td><td>3</td></tr>
+      <tr><td>3</td><td>1</td><td>5</td></tr>
+    </table>
+    <p style="margin-top:.4rem">En notación matricial:
+      <var>X</var> = [[1,−1],[1,0],[1,1]]&thinsp;′ &nbsp;·&nbsp;
+      <var>Y</var> = (1,3,5)&thinsp;′. &nbsp;
+      Un investigador reescala: <var>x̃<sub>i</sub></var> = 2<var>x<sub>i</sub></var>
+      (convierte años en semestres relativos a la media).</p>
+  </div>
+
+  <!-- (1a) -->
+  <div class="q-block">
+    <p class="q-label">(1a) — 0.10 pts</p>
+    <p class="q-text">Escriba la matriz <var>X̃</var> que resulta de reemplazar la columna de <var>x</var>
+      por <var>x̃</var> = 2<var>x</var>.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_1a" value="Pleno (0.10)"> Crédito pleno <span class="pts">0.10 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1a" value="Parcial (0.05)"> Crédito parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_1a" value="Muy parcial (0.03)"> Muy parcial <span class="pts">0.03 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_1a"></textarea></div>
+  </div>
+
+  <!-- (1b) -->
+  <div class="q-block">
+    <p class="q-label">(1b) — 0.15 pts</p>
+    <p class="q-text">Calcule <var>β̂</var> = (<var>X</var>′<var>X</var>)⁻¹<var>X</var>′<var>Y</var>
+      con los datos originales.
+      <em>(Ayuda: como x está centrado, X′X es diagonal y su inversa es trivial.)</em></p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_1b" value="Pleno (0.15)"> Crédito pleno <span class="pts">0.15 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1b" value="Parcial (0.08)"> Crédito parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_1b" value="Muy parcial (0.05)"> Muy parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_1b"></textarea></div>
+  </div>
+
+  <!-- (1c) -->
+  <div class="q-block">
+    <p class="q-label">(1c) — 0.15 pts</p>
+    <p class="q-text">Calcule <var>β̂</var>* = (<var>X̃</var>′<var>X̃</var>)⁻¹<var>X̃</var>′<var>Y</var>
+      y verifique que <var>β̂</var>*<sub>1</sub> = <var>β̂</var><sub>1</sub> / 2.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_1c" value="Pleno (0.15)"> Crédito pleno <span class="pts">0.15 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1c" value="Parcial (0.08)"> Crédito parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_1c" value="Muy parcial (0.05)"> Muy parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_1c" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_1c"></textarea></div>
+  </div>
+
+  <!-- (2a) -->
+  <div class="q-block">
+    <p class="q-label">(2a) — 0.12 pts</p>
+    <p class="q-text"><strong>Lineal–lineal:</strong> <var>y</var> = <var>β</var><sub>0</sub> +
+      <var>β</var><sub>1</sub><var>x</var> + <var>ε</var>.
+      Interprete el coeficiente <var>β</var><sub>1</sub> usando <var>β̂</var><sub>1</sub> = 0.08.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_2a" value="Pleno (0.12)"> Crédito pleno <span class="pts">0.12 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2a" value="Parcial (0.06)"> Crédito parcial <span class="pts">0.06 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_2a" value="Muy parcial (0.04)"> Muy parcial <span class="pts">0.04 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_2a"></textarea></div>
+  </div>
+
+  <!-- (2b) -->
+  <div class="q-block">
+    <p class="q-label">(2b) — 0.15 pts</p>
+    <p class="q-text"><strong>Log–lineal:</strong> ln(<var>y</var>) = <var>β</var><sub>0</sub> +
+      <var>β</var><sub>1</sub><var>x</var> + <var>ε</var>.
+      Interprete el coeficiente <var>β</var><sub>1</sub> usando <var>β̂</var><sub>1</sub> = 0.08.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_2b" value="Pleno (0.15)"> Crédito pleno <span class="pts">0.15 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2b" value="Parcial (0.08)"> Crédito parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_2b" value="Muy parcial (0.05)"> Muy parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_2b"></textarea></div>
+  </div>
+
+  <!-- (2c) -->
+  <div class="q-block">
+    <p class="q-label">(2c) — 0.13 pts</p>
+    <p class="q-text"><strong>Log–log:</strong> ln(<var>y</var>) = <var>β</var><sub>0</sub> +
+      <var>β</var><sub>1</sub>ln(<var>x</var>) + <var>ε</var>.
+      Interprete el coeficiente <var>β</var><sub>1</sub> usando <var>β̂</var><sub>1</sub> = 0.08.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_2c" value="Pleno (0.13)"> Crédito pleno <span class="pts">0.13 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2c" value="Parcial (0.07)"> Crédito parcial <span class="pts">0.07 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_2c" value="Muy parcial (0.04)"> Muy parcial <span class="pts">0.04 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_2c" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_2c"></textarea></div>
+  </div>
+
+  <!-- (3a) -->
+  <div class="q-block">
+    <p class="q-label">(3a) — 0.20 pts</p>
+    <p class="q-text">Defina <var>ỹ<sub>i</sub></var> = (<var>y<sub>i</sub></var> − <var>ȳ</var>)/<var>s<sub>y</sub></var>
+      y <var>x̃<sub>i</sub></var> = (<var>x<sub>i</sub></var> − <var>x̄</var>)/<var>s<sub>x</sub></var>.
+      Estime <var>ỹ</var> = <var>β̃</var><sub>0</sub> + <var>β̃</var><sub>1</sub><var>x̃</var> + <var>u</var>.
+      Demuestre que <var>β̂̃</var><sub>0</sub> = 0.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_3a" value="Pleno (0.20)"> Crédito pleno <span class="pts">0.20 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_3a" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_3a" value="Muy parcial (0.06)"> Muy parcial <span class="pts">0.06 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_3a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_3a"></textarea></div>
+  </div>
+
+  <!-- (3b) -->
+  <div class="q-block">
+    <p class="q-label">(3b) — 0.20 pts</p>
+    <p class="q-text">¿Qué representa <var>β̂̃</var><sub>1</sub>?</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_3b" value="Pleno (0.20)"> Crédito pleno <span class="pts">0.20 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_3b" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_3b" value="Muy parcial (0.06)"> Muy parcial <span class="pts">0.06 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_3b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_3b"></textarea></div>
+  </div>
+
+  <!-- (4) -->
+  <div class="q-block">
+    <p class="q-label">(4) — 0.30 pts</p>
+    <p class="q-text">¿Por qué el estadístico <var>t</var> de <var>β̂</var><sub>1</sub>
+      <em>no cambia</em> cuando se multiplica <var>x<sub>i</sub></var> por una constante <var>c</var> &gt; 0?
+      Use la fórmula de la varianza del estimador para justificar.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op1_4" value="Pleno (0.30)"> Crédito pleno <span class="pts">0.30 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_4" value="Parcial (0.15)"> Crédito parcial <span class="pts">0.15 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op1_4" value="Muy parcial (0.09)"> Muy parcial <span class="pts">0.09 pts</span></label>
+      <label class="choice"><input type="radio" name="op1_4" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op1_4"></textarea></div>
+  </div>
+
+</div>
+</div><!-- /sec-op1 -->
+
+<!-- ===== OPCIONAL 2 ===== -->
+<div id="sec-op2" style="display:none">
+<div class="section-head">
+  <span class="badge">OPCIONAL 2 · 1.5 pts</span>
+  <h2>Insesgamiento y Gauss–Markov</h2>
+</div>
+<div class="card">
+
+  <div class="q-setup">
+    <p>Modelo de regresión lineal múltiple <var>Y</var> = <var>X</var><var>β</var> + <var>ε</var>,
+    con <var>X</var> de dimensión <var>n</var> × <var>k</var> y rango completo.
+    Asuma los supuestos clásicos S1–S5.</p>
+  </div>
+
+  <!-- (1a) -->
+  <div class="q-block">
+    <p class="q-label">(1a) — 0.25 pts</p>
+    <p class="q-text">A partir de <var>β̂</var> = (<var>X</var>′<var>X</var>)⁻¹<var>X</var>′<var>Y</var>,
+      sustituya <var>Y</var> = <var>X</var><var>β</var> + <var>ε</var> y demuestre que
+      <var>β̂</var> = <var>β</var> + (<var>X</var>′<var>X</var>)⁻¹<var>X</var>′<var>ε</var>.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_1a" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_1a" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_1a" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_1a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_1a"></textarea></div>
+  </div>
+
+  <!-- (1b) -->
+  <div class="q-block">
+    <p class="q-label">(1b) — 0.25 pts</p>
+    <p class="q-text">Use <var>E</var>[<var>ε</var>|<var>X</var>] = 0 para demostrar que
+      <var>E</var>[<var>β̂</var>|<var>X</var>] = <var>β</var>.</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_1b" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_1b" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_1b" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_1b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_1b"></textarea></div>
+  </div>
+
+  <!-- (2a) -->
+  <div class="q-block">
+    <p class="q-label">(2a) — 0.25 pts</p>
+    <p class="q-text">Escriba la fórmula de Var(<var>β̂</var>|<var>X</var>) bajo los supuestos clásicos.
+      ¿Qué supuesto específico sobre <var>ε</var> se requiere?</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_2a" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_2a" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_2a" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_2a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_2a"></textarea></div>
+  </div>
+
+  <!-- (2b) -->
+  <div class="q-block">
+    <p class="q-label">(2b) — 0.25 pts</p>
+    <p class="q-text">En la regresión simple <var>y<sub>i</sub></var> = <var>β</var><sub>0</sub> +
+      <var>β</var><sub>1</sub><var>x<sub>i</sub></var> + <var>ε<sub>i</sub></var>,
+      con <var>σ̂</var><sup>2</sup> = 9 y Σ(<var>x<sub>i</sub></var> − <var>x̄</var>)<sup>2</sup> = 100,
+      calcule V̂ar(<var>β̂</var><sub>1</sub>).</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_2b" value="Pleno (0.25)"> Crédito pleno <span class="pts">0.25 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_2b" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_2b" value="Muy parcial (0.08)"> Muy parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_2b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_2b"></textarea></div>
+  </div>
+
+  <!-- (3a) -->
+  <div class="q-block">
+    <p class="q-label">(3a) — 0.15 pts</p>
+    <p class="q-text">¿Por qué se divide por (<var>n</var> − <var>k</var>) al estimar
+      <var>σ̂</var><sup>2</sup> = <var>û</var>′<var>û</var>/(<var>n</var>−<var>k</var>)?
+      ¿Qué pasaría si se dividiera por <var>n</var>?</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_3a" value="Pleno (0.15)"> Crédito pleno <span class="pts">0.15 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3a" value="Parcial (0.08)"> Crédito parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_3a" value="Muy parcial (0.05)"> Muy parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3a" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_3a"></textarea></div>
+  </div>
+
+  <!-- (3b) -->
+  <div class="q-block">
+    <p class="q-label">(3b) — 0.20 pts</p>
+    <p class="q-text">¿Qué supuesto adicional (S6) se necesita para que la distribución de
+      <var>β̂</var> sea exactamente normal en muestras finitas?</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_3b" value="Pleno (0.20)"> Crédito pleno <span class="pts">0.20 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3b" value="Parcial (0.10)"> Crédito parcial <span class="pts">0.10 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_3b" value="Muy parcial (0.06)"> Muy parcial <span class="pts">0.06 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3b" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_3b"></textarea></div>
+  </div>
+
+  <!-- (3c) -->
+  <div class="q-block">
+    <p class="q-label">(3c) — 0.15 pts</p>
+    <p class="q-text">Si S6 no se cumple pero <var>n</var> es grande,
+      ¿siguen siendo válidas las pruebas <var>t</var> y <var>F</var>? ¿Por qué?</p>
+    <div class="choices">
+      <label class="choice"><input type="radio" name="op2_3c" value="Pleno (0.15)"> Crédito pleno <span class="pts">0.15 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3c" value="Parcial (0.08)"> Crédito parcial <span class="pts">0.08 pts</span></label>
+      <label class="choice mp"><input type="radio" name="op2_3c" value="Muy parcial (0.05)"> Muy parcial <span class="pts">0.05 pts</span></label>
+      <label class="choice"><input type="radio" name="op2_3c" value="Sin credito (0)"> Sin crédito <span class="pts">0 pts</span></label>
+    </div>
+    <div class="resp-area"><label>Pegue aquí su respuesta completa:</label>
+      <textarea name="resp_op2_3c"></textarea></div>
+  </div>
+
+</div>
+</div><!-- /sec-op2 -->
+
+<!-- ===== BONO ===== -->
+<div class="section-head">
+  <span class="badge" style="background:#718096">BONO · 0.2 pts</span>
+  <h2>Video de econometría</h2>
+</div>
+<div class="card">
+  <p class="q-text">¿Respondió la pregunta del video (descripción de un video de econometría o economía empírica)?</p>
+  <div class="choices row">
+    <label class="choice"><input type="radio" name="bono" value="Si (0.2)"> Sí <span class="pts">0.20 pts</span></label>
+    <label class="choice"><input type="radio" name="bono" value="No (0)"> No <span class="pts">0 pts</span></label>
+  </div>
+</div>
+
+<!-- ===== SUBMIT ===== -->
+<div class="submit-area">
+  <button type="submit" class="btn-submit">⬇&nbsp; Descargar mi autocorrección</button>
+</div>
+
+<div id="success">
+  <h3>✅ Archivo descargado correctamente</h3>
+  <p>
+    Envíe el archivo <span class="em">autocorreccion_[su_codigo]_p1.csv</span> al correo<br>
+    <span class="em">a.diaz@javeriana.edu.co</span><br>
+    con asunto: <em>Autocorrección P1 – [Su nombre completo]</em><br><br>
+    Plazo: lunes 9 de marzo a las 12:00 m. Gracias.
+  </p>
+</div>
+
+</form>
+</div><!-- /container -->
+
+<script>
+// ---- Highlight selected choice ----
+document.querySelectorAll('input[type="radio"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    var group = this.closest('.choices');
+    if (group) {
+      group.querySelectorAll('.choice').forEach(function(l){ l.classList.remove('selected'); });
+      this.closest('.choice').classList.add('selected');
+    }
+    // Mostrar/ocultar textarea para "Muy parcial"
+    var qBlock = this.closest('.q-block');
+    if (qBlock) {
+      var area = qBlock.querySelector('.resp-area');
+      if (area) area.style.display = this.value.startsWith('Muy parcial') ? 'block' : 'none';
+    }
+    // Mostrar sección opcional
+    if (this.name === 'opcional') {
+      document.getElementById('sec-op1').style.display = this.value === 'Opcional 1' ? 'block' : 'none';
+      document.getElementById('sec-op2').style.display = this.value === 'Opcional 2' ? 'block' : 'none';
+    }
+  });
+});
+
+// ---- Generar CSV y descargar ----
+document.getElementById('survey').addEventListener('submit', function(e) {
+  e.preventDefault();
+  var fd = new FormData(this);
+
+  if (!fd.get('student_id')) { alert('Por favor ingrese su código estudiantil.'); return; }
+  if (!fd.get('opcional'))   { alert('Por favor indique cuál pregunta opcional respondió.'); return; }
+  if (!fd.get('bono'))       { alert('Por favor responda la pregunta del bono.'); return; }
+
+  var cols = [
+    'student_id','opcional',
+    'obl_1','obl_2','obl_3a','obl_3b','obl_3c','obl_4',
+    'op1_1a','op1_1b','op1_1c','op1_2a','op1_2b','op1_2c','op1_3a','op1_3b','op1_4',
+    'op2_1a','op2_1b','op2_2a','op2_2b','op2_3a','op2_3b','op2_3c',
+    'bono',
+    'resp_obl_1','resp_obl_2','resp_obl_3a','resp_obl_3b','resp_obl_3c','resp_obl_4',
+    'resp_op1_1a','resp_op1_1b','resp_op1_1c','resp_op1_2a','resp_op1_2b','resp_op1_2c',
+    'resp_op1_3a','resp_op1_3b','resp_op1_4',
+    'resp_op2_1a','resp_op2_1b','resp_op2_2a','resp_op2_2b',
+    'resp_op2_3a','resp_op2_3b','resp_op2_3c'
+  ];
+
+  var esc = function(v){ return '"' + (v||'').replace(/"/g,'""') + '"'; };
+  var header = cols.join(',');
+  var row    = cols.map(function(c){ return esc(fd.get(c)||''); }).join(',');
+  var csv    = '\uFEFF' + header + '\n' + row + '\n';
+
+  var blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href = url;
+  a.download = 'autocorreccion_' + (fd.get('student_id')||'sin_id') + '_p1.csv';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+
+  document.getElementById('success').style.display = 'block';
+  window.scrollTo({top: document.body.scrollHeight, behavior:'smooth'});
+});
+</script>
+</body>
+</html>
