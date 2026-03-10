@@ -347,6 +347,7 @@ s2=(Y-X*b)'(Y-X*b)/(n-k)
 se=sqrt(diagonal(s2*invsym(X'X)))
 t=b:/se
 end
+```
 
 <div class="box-repaso">
 

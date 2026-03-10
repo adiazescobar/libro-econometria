@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Econometría II</title>
+  <title>9 Propiedades asintóticas de MCO y pruebas de hipótesis | Econometría II</title>
   <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Econometría II" />
+  <meta property="og:title" content="9 Propiedades asintóticas de MCO y pruebas de hipótesis | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
@@ -17,7 +17,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Econometría II" />
+  <meta name="twitter:title" content="9 Propiedades asintóticas de MCO y pruebas de hipótesis | Econometría II" />
   
   <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
@@ -33,8 +33,8 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="prueba-de-entrada---econometria-ii.html"/>
+<link rel="prev" href="inferencia.html"/>
+<link rel="next" href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -552,266 +552,342 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Econometría II</h1>
-<p class="author"><em>Ana María Díaz</em></p>
-<p class="date"><em>2026-03-10</em></p>
+<div id="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">9</span> Propiedades asintóticas de MCO y pruebas de hipótesis<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objetivo-y-motivacion-normas" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> 🎯 Objetivo y motivación {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#objetivo-y-motivacion-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En este capítulo pasamos de las <strong>propiedades en muestras finitas</strong> del estimador de Mínimos Cuadrados Ordinarios (MCO) a sus <strong>propiedades asintóticas</strong> (cuando <span class="math inline">\(n\to\infty\)</span>). Verás por qué la <strong>consistencia</strong> y la <strong>normalidad asintótica</strong> permiten hacer inferencia incluso <strong>sin</strong> normalidad exacta de los errores, y cómo construir <strong>pruebas <span class="math inline">\(t\)</span></strong>, <strong>estadísticos <span class="math inline">\(F\)</span></strong> y el <strong>test de Wald</strong> en grandes muestras.</p>
+<hr />
 </div>
-<div id="informacion-general" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">1</span> Información general {-}<a href="index.html#informacion-general" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<table>
-<colgroup>
-<col width="43%" />
-<col width="56%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Campo</th>
-<th>Detalle</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Curso</strong></td>
-<td>Econometría Avanzada (Cod 1420)</td>
-</tr>
-<tr class="even">
-<td><strong>Docente</strong></td>
-<td>Ana María Díaz</td>
-</tr>
-<tr class="odd">
-<td><strong>Oficina / Atención</strong></td>
-<td>Séptimo piso Edificio 20 | Lunes 9–11 a.m. (o por Teams)</td>
-</tr>
-<tr class="even">
-<td><strong>Sitio web</strong></td>
-<td><a href="http://adiazescobar.com" class="uri">http://adiazescobar.com</a></td>
-</tr>
-<tr class="odd">
-<td><strong>Correo</strong></td>
-<td><a href="mailto:a.diaze@javeriana.edu.co" class="email">a.diaze@javeriana.edu.co</a></td>
-</tr>
-<tr class="even">
-<td><strong>Prerequisito</strong></td>
-<td>Econometría I</td>
-</tr>
-<tr class="odd">
-<td><strong>Horario de clase</strong></td>
-<td>Martes y Jueves 11:00–13:00 | Salones 2‑207 (Ma) y 67‑303 (Ju)</td>
-</tr>
-<tr class="even">
-<td><strong>Monitor</strong></td>
-<td>Sophia Aristizabal — horarios y oficina por definir</td>
-</tr>
-</tbody>
-</table>
-<div id="descripcion-del-curso" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Descripción del curso {-}<a href="index.html#descripcion-del-curso" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El objetivo principal es proporcionar herramientas para el análisis econométrico de datos de corte transversal, series de tiempo y panel. Se revisa el modelo clásico de regresión lineal, las consecuencias de violar sus supuestos, modelos para variables dependientes discretas o limitadas y técnicas básicas de series de tiempo y panel. Al finalizar, el estudiante podrá ejecutar regresiones múltiples, diagnosticar problemas comunes y aplicar soluciones apropiadas.</p>
-</div>
-<div id="material-bibliografico" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Material bibliográfico {-}<a href="index.html#material-bibliografico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="libro-obligatorio" class="section level3 unnumbered hasAnchor">
-<h3>Libro obligatorio<a href="index.html#libro-obligatorio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="repaso-modelo-clasico-y-resultados-en-muestras-finitas" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> 📚 Repaso: modelo clásico y resultados en muestras finitas {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#repaso-modelo-clasico-y-resultados-en-muestras-finitas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-del-mcrl-version-matricial" class="section level3 hasAnchor" number="9.2.1">
+<h3><span class="header-section-number">9.2.1</span> Supuestos del MCRL (versión matricial) {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#supuestos-del-mcrl-version-matricial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+y = X\beta + \epsilon, \qquad X\in\mathbb{R}^{n\times K},\; y\in\mathbb{R}^{n\times 1}
+\]</span></p>
 <ul>
-<li>Verbeek, Marno (2004). <em>A Guide to Modern Econometrics</em>. Wiley.</li>
+<li><strong>A1.</strong> Lineal en los parámetros: <span class="math inline">\(y = X\beta + \epsilon\)</span>.</li>
+<li><strong>A2.</strong> Exogeneidad estricta: <span class="math inline">\(E(\epsilon_i\mid X)=0\)</span>.</li>
+<li><strong>A3.</strong> Colinealidad imperfecta: <span class="math inline">\(\mathrm{rango}(X)=K\)</span>.</li>
+<li><strong>A4.</strong> Perturbaciones esféricas: <span class="math inline">\(Var(\epsilon\mid X)=\sigma^2 I_n\)</span>.</li>
+<li><strong>A5.</strong> (Para resultados exactos clásicos) Regresores no estocásticos.</li>
+<li><strong>A6.</strong> (Para inferencia exacta <span class="math inline">\(t,F\)</span>) Normalidad: <span class="math inline">\(\epsilon\mid X\sim \mathcal{N}(0,\sigma^2 I_n)\)</span>.</li>
 </ul>
 </div>
-<div id="libros-recomendados" class="section level3 unnumbered hasAnchor">
-<h3>Libros recomendados<a href="index.html#libros-recomendados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="estimadores-y-propiedades-finito-muestral" class="section level3 unnumbered hasAnchor">
+<h3>Estimadores y propiedades (finito muestral)<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#estimadores-y-propiedades-finito-muestral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\epsilon,
+\qquad
+\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}.
+\]</span></p>
 <ol style="list-style-type: decimal">
-<li>Greene, William (2003). <em>Econometric Analysis</em>. Prentice Hall.<br />
-</li>
-<li>Wooldridge, Jeffrey (2003). <em>Introductory Econometrics: A Modern Approach</em>. Thomson.<br />
-</li>
-<li>Wooldridge, Jeffrey (2002). <em>Econometric Analysis of Cross Section and Panel Data</em>. MIT Press.<br />
-</li>
-<li>Montenegro, Álvaro (2009). <em>Series de Tiempo</em>. Javegraf, PUJ.<br />
-</li>
-<li>Stock, J. &amp; Watson, M. (2006). <em>Introduction to Econometrics</em>. Addison‑Wesley.<br />
-</li>
-<li>Hayashi, Fumio (2000). <em>Econometrics</em>. Princeton UP.<br />
-</li>
-<li>Angrist, J.D. &amp; Pischke, J.S. (2009). <em>Mostly Harmless Econometrics</em>. Princeton UP.<br />
-</li>
-<li>Cameron, A.C. &amp; Trivedi, P.K. (2009). <em>Microeconometrics Using Stata</em>. Stata Press.<br />
-</li>
-<li><em>Stata 11 Time Series Reference Manual</em>. Stata Press.<br />
-</li>
-<li>Rosales R. et al. (2010). <em>Fundamentos de Econometría Intermedia</em>. CEDE.</li>
+<li>Insesgamiento: <span class="math inline">\(E[\hat{\beta}\mid X]=\beta\)</span>.</li>
+<li>Varianza: <span class="math inline">\(Var[\hat{\beta}\mid X]=\sigma^{2}(X&#39;X)^{-1}\)</span>.</li>
+<li><strong>Teorema de Gauss–Markov</strong>: <span class="math inline">\(\hat{\beta}\)</span> es <strong>ELIO</strong> dentro de estimadores lineales insesgados.</li>
+<li><span class="math inline">\(E[\hat{\sigma}^{2}]=\sigma^{2}\)</span>.</li>
+</ol>
+<p>Bajo <strong>A6</strong>, además:</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}\mid X \sim \mathcal{N}(\beta,\sigma^{2}(X&#39;X)^{-1})\)</span>.</li>
+<li><span class="math inline">\((n-K)\hat{\sigma}^{2}/\sigma^{2}=\hat{\epsilon}&#39;\hat{\epsilon}/\sigma^{2}\sim \chi^{2}_{(n-K)}\)</span>.</li>
+<li>Prueba <span class="math inline">\(t\)</span> exacta para <span class="math inline">\(\beta_k\)</span> y prueba <span class="math inline">\(F\)</span> exacta para <span class="math inline">\(R\beta=r\)</span>.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="consistencia-de-mco" class="section level2 unnumbered hasAnchor">
+<h2>⚖️ Consistencia de MCO<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#consistencia-de-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sea <span class="math inline">\(Q=E(x_ix_i&#39;)\)</span> con <span class="math inline">\(Q\)</span> definida positiva. Usando</p>
+<p><span class="math display">\[
+\hat{\beta}=\beta+\underbrace{\left(\tfrac{1}{n}X&#39;X\right)^{-1}}_{\to_p\, Q^{-1}}\underbrace{\left(\tfrac{1}{n}X&#39;\epsilon\right)}_{\to_p\, 0},
+\]</span></p>
+<p>y la <strong>Ley Débil de los Grandes Números</strong>,</p>
+<p><span class="math display">\[
+plim\left(\tfrac{1}{n}X&#39;X\right)=Q,\qquad plim\left(\tfrac{1}{n}X&#39;\epsilon\right)=0,
+\]</span></p>
+<p>obtenemos</p>
+<p><span class="math display">\[
+plim(\hat{\beta})=\beta.
+\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-10" class="proof"><em>Proof</em>. </span><strong>Demostración (borrador formal).</strong>
+Bajo A2, <span class="math inline">\(E(x_i\epsilon_i)=0\)</span>. Si <span class="math inline">\(\{(x_i,\epsilon_i)\}\)</span> es i.i.d. con <span class="math inline">\(E\|x_ix_i&#39;\|&lt;\infty\)</span>, entonces por la LDGN
+<span class="math inline">\(\tfrac{1}{n}X&#39;X\to_p Q\)</span> y <span class="math inline">\(\tfrac{1}{n}X&#39;\epsilon\to_p 0\)</span>. Por continuidad de la inversión de matrices en el entorno de <span class="math inline">\(Q\)</span>,
+<span class="math inline">\(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\)</span>. Aplicando Slutsky:
+<span class="math inline">\(\hat\beta=\beta+\left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{n}X&#39;\epsilon\right)\to_p \beta\)</span>.</p>
+</div>
+<div id="consistencia-de-hatsigma2" class="section level3 unnumbered hasAnchor">
+<h3>Consistencia de <span class="math inline">\(\hat{\sigma}^2\)</span><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#consistencia-de-hatsigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K},\qquad
+plim(\hat{\sigma}^{2})=\sigma^{2}.
+\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-11" class="proof"><em>Proof</em>. </span>Usa <span class="math inline">\(\hat{\epsilon}_i=\epsilon_i-x_i(\hat{\beta}-\beta)\)</span>. Expandiendo <span class="math inline">\(\hat{\epsilon}_i^2\)</span> y promediando:
+<span class="math inline">\(\tfrac{1}{n}\sum\hat{\epsilon}_i^2=\tfrac{1}{n}\sum\epsilon_i^2 - 2(\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\sum x_i\epsilon_i\right] + (\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\sum x_ix_i&#39;\right](\hat\beta-\beta)\)</span>.
+Por consistencia de <span class="math inline">\(\hat\beta\)</span> y LDGN, el segundo y tercer término <span class="math inline">\(\to_p 0\)</span>; el primero <span class="math inline">\(\to_p E(\epsilon_i^2)=\sigma^2\)</span>.
+Ajustando por <span class="math inline">\(\tfrac{n}{n-K}\to 1\)</span>, se obtiene el resultado.</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="normalidad-asintotica-de-mco" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> 🔔 Normalidad asintótica de MCO {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#normalidad-asintotica-de-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[
+\sqrt{n}\left(\hat{\beta}-\beta\right)
+= \left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{\sqrt{n}}X&#39;\epsilon\right)
+\;\;\underset{d}{\longrightarrow}\;\;
+\mathcal{N}\!\left(0,\; \sigma^{2}Q^{-1}\right),
+\]</span></p>
+<p>bajo condiciones regulares (i.i.d., momentos finitos, exogeneidad). En práctica:</p>
+<p><span class="math display">\[
+\widehat{Avar}(\hat{\beta})=\hat{\sigma}^{2}(X&#39;X)^{-1}.
+\]</span></p>
+<div class="proof">
+<p><span id="unlabeled-div-12" class="proof"><em>Proof</em>. </span>Por <strong>TCL de Lindeberg–Levy</strong>, <span class="math inline">\(\tfrac{1}{\sqrt{n}}X&#39;\epsilon \Rightarrow \mathcal{N}(0,\sigma^2 Q)\)</span>. Por <strong>Slutsky</strong> y <span class="math inline">\(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\)</span>, sigue <span class="math inline">\(\sqrt{n}(\hat\beta-\beta)\Rightarrow \mathcal{N}(0,\sigma^{2}Q^{-1})\)</span>.</p>
+</div>
+<hr />
+</div>
+<div id="pruebas-de-hipotesis-en-grandes-muestras" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> 🧪 Pruebas de hipótesis en grandes muestras {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#pruebas-de-hipotesis-en-grandes-muestras" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="prueba-tipo-asintotica-para-un-coeficiente" class="section level3 hasAnchor" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Prueba tipo-<span class="math inline">\(t\)</span> asintótica para un coeficiente {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#prueba-tipo-asintotica-para-un-coeficiente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para <span class="math inline">\(H_0:\beta_k=\beta_{k}^0\)</span>,</p>
+<p><span class="math display">\[
+t_k \equiv \frac{\hat{\beta}_k-\beta_k^0}{\sqrt{\widehat{Avar}(\hat{\beta}_k)}}
+= \frac{\hat{\beta}_k-\beta_k^0}{\sqrt{\hat{\sigma}^2[(X&#39;X)^{-1}]_{kk}}}
+\;\;\overset{a}{\sim}\;\; \mathcal{N}(0,1).
+\]</span></p>
+<p><strong>Regla de decisión:</strong> Rechazar <span class="math inline">\(H_0\)</span> si <span class="math inline">\(|t_k|\ge z_{\alpha/2}\)</span>.</p>
+</div>
+<div id="prueba-multiple-wald-para" class="section level3 hasAnchor" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Prueba múltiple (Wald) para <span class="math inline">\(R\beta=r\)</span> {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#prueba-multiple-wald-para" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para <span class="math inline">\(\#r\)</span> restricciones lineales <span class="math inline">\(H_0:R\beta=r\)</span>,</p>
+<p><span class="math display">\[
+W \equiv n\,(R\hat{\beta}-r)&#39;\left[R\,\widehat{Avar}(\hat{\beta})\,R&#39;\right]^{-1}(R\hat{\beta}-r)
+\;\;\overset{a}{\sim}\;\; \chi^{2}_{(\#r)}.
+\]</span></p>
+<p><strong>Regla de decisión:</strong> Rechazar <span class="math inline">\(H_0\)</span> si <span class="math inline">\(W\ge \chi^{2}_{(\#r,\;1-\alpha)}\)</span>.</p>
+<blockquote>
+<p>💡 Cuando se mantiene A6 (normalidad), el análogo finito-muestral es el estadístico <span class="math inline">\(F\)</span> exacto. Sin A6, <strong>Wald</strong> es el camino natural en grandes muestras.</p>
+</blockquote>
+<hr />
+</div>
+<div id="intuicion-geometrica-rapida" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> 📐 Intuición geométrica (rápida) {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#intuicion-geometrica-rapida" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Consistencia: el promedio de “productos” <span class="math inline">\(x_i\epsilon_i\)</span> se diluye al promediar, por lo que el término de error en <span class="math inline">\(\hat\beta\)</span> <strong>desaparece</strong> al crecer <span class="math inline">\(n\)</span>.</li>
+<li>Normalidad asintótica: la suma de “pequeños choques” <span class="math inline">\(x_i\epsilon_i\)</span> escalada por <span class="math inline">\(\sqrt{n}\)</span> <strong>se aproxima a Normal</strong> (TCL), y al “deshacer” la proyección con <span class="math inline">\((X&#39;X)^{-1}\)</span> obtenemos una Normal en el espacio de parámetros.</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="ejemplos-practicos-simulacion" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> 🧪 Ejemplos prácticos (simulación) {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#ejemplos-practicos-simulacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<blockquote>
+<p>Idea: generar datos con <strong>errores no normales</strong> (p.ej., t-Student con 3 g.l.), estimar MCO y verificar que los <span class="math inline">\(t\)</span> se acercan a <span class="math inline">\(\mathcal{N}(0,1)\)</span> cuando <span class="math inline">\(n\)</span> crece.</p>
+</blockquote>
+<div id="stata" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb14"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb14-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
+<span id="cb14-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 12345</span>
+<span id="cb14-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 5000   <span class="co">// cambia a 500, 2000, 5000 para ver el efecto del tamaño muestral</span></span>
+<span id="cb14-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-4" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-5" tabindex="-1"></a><span class="co">// Datos simulados</span></span>
+<span id="cb14-6"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-6" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb14-7"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-7" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
+<span id="cb14-8"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-8" tabindex="-1"></a><span class="kw">gen</span> u  = rt(3)                 <span class="co">// errores con colas pesadas (no normales)</span></span>
+<span id="cb14-9"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-9" tabindex="-1"></a><span class="fu">scalar</span> b0 = 1</span>
+<span id="cb14-10"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-10" tabindex="-1"></a><span class="fu">scalar</span> b1 = 0.5</span>
+<span id="cb14-11"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-11" tabindex="-1"></a><span class="fu">scalar</span> b2 = -0.7</span>
+<span id="cb14-12"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-12" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = b0 + b1*x1 + b2*<span class="kw">x2</span> + u</span>
+<span id="cb14-13"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-13" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-14" tabindex="-1"></a><span class="co">// Estimación MCO</span></span>
+<span id="cb14-15"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-15" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb14-16"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-16" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-17" tabindex="-1"></a><span class="co">// Guardar t de x1 para “chequeo” repetido (bootstrap de Monte Carlo rápido)</span></span>
+<span id="cb14-18"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-18" tabindex="-1"></a><span class="kw">tempname</span> mem</span>
+<span id="cb14-19"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-19" tabindex="-1"></a><span class="kw">postfile</span> <span class="ot">`mem&#39;</span> t_x1 <span class="kw">using</span> tvals.dta, <span class="kw">replace</span></span>
+<span id="cb14-20"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-20" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">r</span>=1/1000 {</span>
+<span id="cb14-21"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-21" tabindex="-1"></a>    <span class="kw">preserve</span></span>
+<span id="cb14-22"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-22" tabindex="-1"></a>    <span class="kw">bsample</span></span>
+<span id="cb14-23"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-23" tabindex="-1"></a>    <span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb14-24"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-24" tabindex="-1"></a>    <span class="kw">post</span> <span class="ot">`mem&#39;</span> (_b[x1]/_se[x1])</span>
+<span id="cb14-25"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-25" tabindex="-1"></a>    <span class="kw">restore</span></span>
+<span id="cb14-26"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-26" tabindex="-1"></a>}</span>
+<span id="cb14-27"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-27" tabindex="-1"></a><span class="kw">postclose</span> <span class="ot">`mem&#39;</span></span>
+<span id="cb14-28"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-28" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-29" tabindex="-1"></a><span class="co">// Distribución aproximada de t (debería tender a N(0,1))</span></span>
+<span id="cb14-30"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-30" tabindex="-1"></a><span class="kw">use</span> tvals.dta, <span class="kw">clear</span></span>
+<span id="cb14-31"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-31" tabindex="-1"></a><span class="kw">sum</span> t_x1</span>
+<span id="cb14-32"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb14-32" tabindex="-1"></a><span class="kw">kdensity</span> t_x1</span></code></pre></div>
+<p><strong>Interpretación:</strong> con <span class="math inline">\(n\)</span> grande, la distribución empírica de <span class="math inline">\(t\)</span> para <span class="math inline">\(x_1\)</span> se acerca a <span class="math inline">\(\mathcal{N}(0,1)\)</span> pese a que <span class="math inline">\(u\)</span> no es normal.</p>
+<hr />
+</div>
+<div id="r" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
+<span id="cb15-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># prueba con 500, 2000, 5000</span></span>
+<span id="cb15-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb15-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb15-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rt</span>(n, <span class="at">df =</span> <span class="dv">3</span>)  <span class="co"># no normal</span></span>
+<span id="cb15-6"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-6" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">1</span>; b1 <span class="ot">&lt;-</span> <span class="fl">0.5</span>; b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.7</span></span>
+<span id="cb15-7"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-7" tabindex="-1"></a>y  <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> u</span>
+<span id="cb15-8"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-8" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb15-10"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-10" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb15-11"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-11" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-12" tabindex="-1"></a><span class="co"># Monte Carlo para t de x1</span></span>
+<span id="cb15-13"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-13" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb15-14"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-14" tabindex="-1"></a>tvals <span class="ot">&lt;-</span> <span class="fu">numeric</span>(R)</span>
+<span id="cb15-15"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-15" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
+<span id="cb15-16"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-16" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-17"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-17" tabindex="-1"></a>  fitb <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[idx] <span class="sc">~</span> x1[idx] <span class="sc">+</span> x2[idx])</span>
+<span id="cb15-18"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-18" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">summary</span>(fitb)<span class="sc">$</span>coefficients</span>
+<span id="cb15-19"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-19" tabindex="-1"></a>  tvals[r] <span class="ot">&lt;-</span> s[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;t value&quot;</span>]</span>
+<span id="cb15-20"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-20" tabindex="-1"></a>}</span>
+<span id="cb15-21"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-21" tabindex="-1"></a><span class="fu">mean</span>(tvals); <span class="fu">sd</span>(tvals)</span>
+<span id="cb15-22"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb15-22" tabindex="-1"></a><span class="fu">hist</span>(tvals, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">main =</span> <span class="st">&quot;t de x1 (bootstrap)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
+<p><strong>Interpretación:</strong> la media de los <span class="math inline">\(t\)</span> se acerca a 0 y su desviación estándar a 1 a medida que <span class="math inline">\(n\)</span> crece.</p>
+<hr />
+</div>
+<div id="python" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb16-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-3" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-4" tabindex="-1"></a>np.random.seed(<span class="dv">12345</span>)</span>
+<span id="cb16-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># prueba con 500, 2000, 5000</span></span>
+<span id="cb16-6"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-6" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb16-7"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-7" tabindex="-1"></a>x2 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
+<span id="cb16-8"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-8" tabindex="-1"></a>u  <span class="op">=</span> np.random.standard_t(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>n)  <span class="co"># no normal</span></span>
+<span id="cb16-9"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-9" tabindex="-1"></a>b0, b1, b2 <span class="op">=</span> <span class="fl">1.0</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.7</span></span>
+<span id="cb16-10"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-10" tabindex="-1"></a>y <span class="op">=</span> b0 <span class="op">+</span> b1<span class="op">*</span>x1 <span class="op">+</span> b2<span class="op">*</span>x2 <span class="op">+</span> u</span>
+<span id="cb16-11"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-11" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-12" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([x1, x2])</span>
+<span id="cb16-13"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
+<span id="cb16-14"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-14" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb16-15"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-15" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span>
+<span id="cb16-16"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-16" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-17" tabindex="-1"></a><span class="co"># Monte Carlo rápido para t de x1 (bootstrap)</span></span>
+<span id="cb16-18"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-18" tabindex="-1"></a>R <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb16-19"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-19" tabindex="-1"></a>tvals <span class="op">=</span> []</span>
+<span id="cb16-20"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-20" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
+<span id="cb16-21"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-21" tabindex="-1"></a>    idx <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n, n)</span>
+<span id="cb16-22"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-22" tabindex="-1"></a>    mb <span class="op">=</span> sm.OLS(y[idx], X[idx,:]).fit()</span>
+<span id="cb16-23"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-23" tabindex="-1"></a>    tvals.append(mb.tvalues[<span class="dv">1</span>])  <span class="co"># índice 1 corresponde a x1</span></span>
+<span id="cb16-24"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-24" tabindex="-1"></a>tvals <span class="op">=</span> np.array(tvals)</span>
+<span id="cb16-25"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb16-25" tabindex="-1"></a><span class="bu">print</span>(tvals.mean(), tvals.std())</span></code></pre></div>
+<p><strong>Interpretación:</strong> aun con colas pesadas, el <strong>TCL</strong> “salva” la inferencia: <span class="math inline">\(t\)</span> es aproximadamente normal para <span class="math inline">\(n\)</span> grande.</p>
+<hr />
+</div>
+</div>
+<div id="visualizaciones-sugeridas" class="section level2 unnumbered hasAnchor">
+<h2>🖼️ Visualizaciones sugeridas<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#visualizaciones-sugeridas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Figura 1.</strong> Densidad de <span class="math inline">\(t\)</span> simulados vs. <span class="math inline">\(\mathcal{N}(0,1)\)</span> (código anterior).</li>
+<li><strong>Figura 2.</strong> Q-Q plot de <span class="math inline">\(t\)</span> simulados contra cuantiles normales.</li>
+</ul>
+<p>En R Markdown puedes crear las figuras con <code>ggplot2</code> o incluir imágenes pre-generadas con:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb17-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/t_density_vs_normal.png&quot;</span>)</span></code></pre></div>
+<hr />
+</div>
+<div id="notas-practicas-de-inferencia" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> 🧩 Notas prácticas de inferencia {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#notas-practicas-de-inferencia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Sin normalidad exacta (sin A6), usa <strong>errores robustos</strong> y <strong>Wald</strong> en grandes muestras.</li>
+<li><strong>Muestras pequeñas</strong> con colas pesadas: los niveles de significancia efectivos pueden distorsionarse; considera transformaciones, robustez, o métodos re-muestreo (bootstrap con cuidado).</li>
+<li>Si hay <strong>heterocedasticidad</strong> o <strong>correlación en errores</strong>, reemplaza <span class="math inline">\(\hat{\sigma}^2 (X&#39;X)^{-1}\)</span> por una <strong>matriz robusta</strong> (White, HC; Newey–West, etc.).</li>
+</ul>
+<hr />
+</div>
+<div id="demostraciones-formales-resumen" class="section level2 unnumbered hasAnchor">
+<h2>🔎 Demostraciones formales (resumen)<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#demostraciones-formales-resumen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-13" class="theorem"><strong>Theorem 9.1  </strong></span><strong>Teorema (Consistencia de MCO).</strong>
+Bajo A1–A3, A2 (exogeneidad estricta), y condiciones de regularidad (momentos finitos y <em>LLN</em> aplicable), se cumple <span class="math inline">\(plim(\hat{\beta})=\beta\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-14" class="proof"><em>Proof</em>. </span>Ver demostración en la sección de consistencia: descomposición en dos términos y uso de LLN + continuidad de la inversión + Slutsky.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-15" class="theorem"><strong>Theorem 9.2  </strong></span><strong>Teorema (Normalidad asintótica de MCO).</strong>
+Si, además, el TCL aplica a <span class="math inline">\(\tfrac{1}{\sqrt{n}}X&#39;\epsilon\)</span>, entonces <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\Rightarrow \mathcal{N}(0,\sigma^2 Q^{-1})\)</span>.</p>
+</div>
+<div class="proof">
+<p><span id="unlabeled-div-16" class="proof"><em>Proof</em>. </span>Aplicación directa de TCL + Slutsky. La varianza asintótica se estima consistentemente con <span class="math inline">\(\hat{\sigma}^2(X&#39;X)^{-1}\)</span>.</p>
+</div>
+<hr />
+</div>
+<div id="conclusiones-clave" class="section level2 unnumbered hasAnchor">
+<h2>✅ Conclusiones clave<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#conclusiones-clave" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Consistencia</strong>: <span class="math inline">\(\hat\beta\to_p \beta\)</span> sin requerir normalidad.</li>
+<li><strong>Normalidad asintótica</strong>: habilita pruebas <span class="math inline">\(t\)</span> y <strong>Wald</strong> aun con errores no normales.</li>
+<li><strong>Práctica aplicada</strong>: usa matrices de varianzas robustas cuando haya heterocedasticidad/autocorrelación.</li>
+</ul>
+<hr />
+<div id="preguntas-de-repaso-8" class="section level3 unnumbered hasAnchor box-repaso">
+<h3>📘 Preguntas de repaso<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#preguntas-de-repaso-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li>Explique la diferencia entre <strong>insesgamiento</strong> (finito muestral) y <strong>consistencia</strong> (asintótica). Dé un ejemplo donde un estimador sea sesgado pero consistente.</li>
+<li>Muestre que si <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;X\big)=Q\)</span> y <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;\epsilon\big)=0\)</span>, entonces <span class="math inline">\(plim(\hat\beta)=\beta\)</span>. ¿Qué condiciones hacen plausible cada límite?</li>
+<li>Derive la <strong>varianza asintótica</strong> de <span class="math inline">\(\hat\beta\)</span> y explique cómo se estima con datos. ¿Cuándo usarías una versión <strong>robusta</strong>?</li>
+<li>Para <span class="math inline">\(H_0:\beta_k=\beta_k^0\)</span>, escriba el estadístico <span class="math inline">\(t\)</span> asintótico, su distribución límite y la regla de decisión.</li>
+<li>Para restricciones múltiples <span class="math inline">\(R\beta=r\)</span>, derive el <strong>Wald</strong> y muestre que <span class="math inline">\(W\Rightarrow \chi^2_{\#r}\)</span>. ¿Cómo relacionar esto con un <span class="math inline">\(F\)</span> en grandes muestras?</li>
 </ol>
 </div>
+<hr />
 </div>
-<div id="evaluacion" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Evaluación {-}<a href="index.html#evaluacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<thead>
-<tr class="header">
-<th align="right">Porcentaje</th>
-<th>Actividad</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">25 %</td>
-<td>Parcial 1 teórico</td>
-</tr>
-<tr class="even">
-<td align="right">25 %</td>
-<td>Parcial 2 teórico</td>
-</tr>
-<tr class="odd">
-<td align="right">3 %</td>
-<td>Talleres en clase</td>
-</tr>
-<tr class="even">
-<td align="right">7 %</td>
-<td>Monitorías</td>
-</tr>
-<tr class="odd">
-<td align="right">15 %</td>
-<td>Trabajo final</td>
-</tr>
-<tr class="even">
-<td align="right">25 %</td>
-<td>Examen final</td>
-</tr>
-<tr class="odd">
-<td align="right">+0.5 (para el mejor)</td>
-<td>Video‑bono examen final</td>
-</tr>
-</tbody>
-</table>
-<p>Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumplimiento se sanciona según el reglamento de la universidad. Trabajo Final: - Primera entrega: 10% (Presentación de la idea) - Segunda entrega: 20% (Introducción + Descriptiva + Metodología) - Documento final: 30% - Sustentación: 40% (Presentación &amp; preguntas)</p>
+<div id="codigo-minimo-reproducible-mco-wald" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> 🧰 Código mínimo reproducible (MCO + Wald) {-}<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#codigo-minimo-reproducible-mco-wald" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="stata-1" class="section level3 unnumbered hasAnchor">
+<h3>Stata<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#stata-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb18"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb18-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb18-1" tabindex="-1"></a>* Estimación <span class="fu">y</span> matriz robusta</span>
+<span id="cb18-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb18-2" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">vce</span>(<span class="kw">robust</span>)</span>
+<span id="cb18-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb18-3" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb18-4" tabindex="-1"></a>* Wald para R*beta = <span class="fu">r</span> (ejemplo: beta_x1 = 0 <span class="fu">y</span> beta_x2 = -0.7)</span>
+<span id="cb18-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb18-5" tabindex="-1"></a><span class="kw">test</span> (x1 = 0) (<span class="kw">x2</span> = -0.7)</span></code></pre></div>
 </div>
-<div id="programa-semanal" class="section level2 unnumbered hasAnchor">
-<h2>Programa semanal<a href="index.html#programa-semanal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<colgroup>
-<col width="21%" />
-<col width="39%" />
-<col width="39%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center">Semana</th>
-<th>Tema principal</th>
-<th>Lecturas clave</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>1</strong></td>
-<td>Supuestos del MCRL</td>
-<td>Verbeek cap. 1‑2 (oblig.)  | Hayashi cap. 1; Wooldridge cap. 1‑2 (opc.)</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>2</strong></td>
-<td>Regresión simple vs múltiple; Teorema FWL</td>
-<td>Verbeek cap. 1‑2  | <em>The Stata Journal</em> (2013) 13(1): 92‑106</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>3</strong></td>
-<td>Propiedades de MCO en muestras finitas; Teorema Gauss‑Markov</td>
-<td>Verbeek cap. 2</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>4</strong></td>
-<td>Inferencia y predicción; Propiedades asintóticas de MCO</td>
-<td>Verbeek cap. 3</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>5</strong></td>
-<td><strong>Primer parcial</strong></td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>6</strong></td>
-<td>No linealidad; Multicolinealidad</td>
-<td>Verbeek cap. 3‑4</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>7</strong></td>
-<td>Heterocedasticidad</td>
-<td>Verbeek cap. 4</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>8</strong></td>
-<td>Endogeneidad: simultaneidad, omitidas, medición</td>
-<td>Verbeek cap. 5</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>9</strong></td>
-<td>Variables instrumentales, MCO2E, GMM</td>
-<td>Verbeek cap. 5</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>10</strong></td>
-<td>Modelos LPM, logit y probit</td>
-<td>Verbeek cap. 7</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>11</strong></td>
-<td>Máximo verosimilitud; DID, RD, duración, cuantílica (opc.)</td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>12</strong></td>
-<td>Semana Santa / Receso</td>
-<td>—</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>13</strong></td>
-<td><strong>Segundo parcial</strong></td>
-<td>—</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>14</strong></td>
-<td>Series de tiempo: conceptos básicos</td>
-<td>Verbeek cap. 8</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>15</strong></td>
-<td>AR, MA y VAR estacionarios</td>
-<td>Verbeek cap. 9</td>
-</tr>
-<tr class="even">
-<td align="center"><strong>16</strong></td>
-<td>Datos de panel: pooled, between, FE, RE</td>
-<td>Verbeek cap. 10</td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>17</strong></td>
-<td><strong>Examen final</strong></td>
-<td>—</td>
-</tr>
-</tbody>
-</table>
+<div id="r-1" class="section level3 unnumbered hasAnchor">
+<h3>R<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#r-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
+<span id="cb19-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
+<span id="cb19-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-3" tabindex="-1"></a><span class="fu">coeftest</span>(fit, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))  <span class="co"># t robustos</span></span>
+<span id="cb19-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-4" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-5" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
+<span id="cb19-6"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-6" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb19-7"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-7" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.7</span>)</span>
+<span id="cb19-8"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-8" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit); V <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>)</span>
+<span id="cb19-9"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-9" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">t</span>(R<span class="sc">%*%</span>b <span class="sc">-</span> r) <span class="sc">%*%</span> <span class="fu">solve</span>(R<span class="sc">%*%</span>V<span class="sc">%*%</span><span class="fu">t</span>(R)) <span class="sc">%*%</span> (R<span class="sc">%*%</span>b <span class="sc">-</span> r)</span>
+<span id="cb19-10"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-10" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(W, <span class="at">df =</span> <span class="dv">2</span>)</span>
+<span id="cb19-11"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb19-11" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Wald =</span> W[<span class="dv">1</span>,<span class="dv">1</span>], <span class="at">df =</span> <span class="dv">2</span>, <span class="at">p.value =</span> pval)</span></code></pre></div>
 </div>
-<div id="recursos-adicionales" class="section level2 unnumbered hasAnchor">
-<h2>Recursos adicionales<a href="index.html#recursos-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><a href="https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU">Ben Lambert – Econometrics on YouTube</a><br />
-</li>
-<li><a href="https://mru.org/mastering-econometrics">Mastering Econometrics (MRU)</a><br />
-</li>
-<li><a href="https://www.aeaweb.org/journals/jep/classroom">AEA <em>Journal of Economic Perspectives</em> – Classroom</a><br />
-</li>
-<li><a href="https://toolbox.google.com/datasetsearch">Google Dataset Search</a><br />
-</li>
-<li><a href="https://geocenter.github.io/StataTraining/pdf/AllCheatSheets.pdf">Stata Cheat Sheets</a><br />
-</li>
-<li><a href="https://seeing-theory.brown.edu">Seeing Theory – Visual Probability</a></li>
-</ul>
+<div id="python-1" class="section level3 unnumbered hasAnchor">
+<h3>Python<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#python-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb20"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb20-1"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb20-2"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-2" tabindex="-1"></a>y <span class="op">=</span> y  <span class="co"># define tus datos</span></span>
+<span id="cb20-3"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-3" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(np.column_stack([x1, x2]))</span>
+<span id="cb20-4"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-4" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)  <span class="co"># robusto</span></span>
+<span id="cb20-5"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-5" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
+<span id="cb20-6"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-6" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-7" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
+<span id="cb20-8"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-8" tabindex="-1"></a>R <span class="op">=</span> np.array([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>]])</span>
+<span id="cb20-9"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-9" tabindex="-1"></a>r <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="op">-</span><span class="fl">0.7</span>])</span>
+<span id="cb20-10"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-10" tabindex="-1"></a>b <span class="op">=</span> fit.params.values</span>
+<span id="cb20-11"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-11" tabindex="-1"></a>V <span class="op">=</span> fit.cov_params().values</span>
+<span id="cb20-12"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-12" tabindex="-1"></a>W <span class="op">=</span> (R<span class="op">@</span>b <span class="op">-</span> r).T <span class="op">@</span> np.linalg.inv(R<span class="op">@</span>V<span class="op">@</span>R.T) <span class="op">@</span> (R<span class="op">@</span>b <span class="op">-</span> r)</span>
+<span id="cb20-13"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-13" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2</span>
+<span id="cb20-14"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-14" tabindex="-1"></a>pval <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> chi2.cdf(W, df<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb20-15"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#cb20-15" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;Wald&quot;</span>: <span class="bu">float</span>(W), <span class="st">&quot;df&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;p.value&quot;</span>: <span class="bu">float</span>(pval)})</span></code></pre></div>
+<hr />
+<div class="box-cerebro">
+<p><b>Mensaje clave:</b> Aun sin normalidad exacta, la <em>consistencia</em> y la <em>normalidad asintótica</em> permiten inferencia válida en grandes muestras. En aplicaciones, usa <b>errores robustos</b> y el <b>test de Wald</b> para restricciones múltiples.</p>
 </div>
-<div id="inclusion" class="section level2 hasAnchor" number="1.4">
-<h2><span class="header-section-number">1.4</span> Inclusión {-}<a href="index.html#inclusion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este curso da la bienvenida a personas de todas las edades, orígenes, creencias, etnias, géneros, identidades, orientaciones sexuales y capacidades. Se espera un ambiente respetuoso e inclusivo.</p>
-</div>
-<div id="integridad-academica" class="section level2 hasAnchor" number="1.5">
-<h2><span class="header-section-number">1.5</span> Integridad académica {-}<a href="index.html#integridad-academica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La Universidad Javeriana fomenta la honestidad y establece sanciones por fraude o plagio según el reglamento de estudiantes. Cualquier uso no autorizado de materiales durante evaluaciones se considera falta grave.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -819,8 +895,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-
-<a href="prueba-de-entrada---econometria-ii.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="inferencia.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -851,7 +927,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/index.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/09-NormAs.Rmd",
     "text": "Edit"
   },
   "history": {

@@ -34,7 +34,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   
   
 <link rel="prev" href="aspectos-algebraicos-de-la-solucion-de-mco.html"/>
-<link rel="next" href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"/>
+<link rel="next" href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -400,68 +400,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.6" data-path="inferencia.html"><a href="inferencia.html#aplicacion-en-stata"><i class="fa fa-check"></i><b>8.6</b> 💻 Aplicación en Stata {-}</a>
 <ul>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r"><i class="fa fa-check"></i>R</a></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python"><i class="fa fa-check"></i>Python</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#visualizaciones-sugeridas"><i class="fa fa-check"></i>🖼️ Visualizaciones sugeridas</a></li>
-<li class="chapter" data-level="8.7" data-path="inferencia.html"><a href="inferencia.html#notas-practicas-de-inferencia"><i class="fa fa-check"></i><b>8.7</b> 🧩 Notas prácticas de inferencia {-}</a></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#demostraciones-formales-resumen"><i class="fa fa-check"></i>🔎 Demostraciones formales (resumen)</a></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#conclusiones-clave"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
-<ul>
 <li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#preguntas-de-repaso-7"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
-<li class="chapter" data-level="8.8" data-path="inferencia.html"><a href="inferencia.html#codigo-minimo-reproducible-mco-wald"><i class="fa fa-check"></i><b>8.8</b> 🧰 Código mínimo reproducible (MCO + Wald) {-}</a>
+</ul></li>
+<li class="chapter" data-level="9" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><i class="fa fa-check"></i><b>9</b> Propiedades asintóticas de MCO y pruebas de hipótesis</a>
 <ul>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#stata"><i class="fa fa-check"></i>Stata</a></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#r-1"><i class="fa fa-check"></i>R</a></li>
-<li class="chapter" data-level="" data-path="inferencia.html"><a href="inferencia.html#python-1"><i class="fa fa-check"></i>Python</a></li>
+<li class="chapter" data-level="9.1" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#objetivo-y-motivacion-normas"><i class="fa fa-check"></i><b>9.1</b> 🎯 Objetivo y motivación {-}</a></li>
+<li class="chapter" data-level="9.2" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#repaso-modelo-clasico-y-resultados-en-muestras-finitas"><i class="fa fa-check"></i><b>9.2</b> 📚 Repaso: modelo clásico y resultados en muestras finitas {-}</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#supuestos-del-mcrl-version-matricial"><i class="fa fa-check"></i><b>9.2.1</b> Supuestos del MCRL (versión matricial) {-}</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#estimadores-y-propiedades-finito-muestral"><i class="fa fa-check"></i>Estimadores y propiedades (finito muestral)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#consistencia-de-mco"><i class="fa fa-check"></i>⚖️ Consistencia de MCO</a>
+<ul>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#consistencia-de-hatsigma2"><i class="fa fa-check"></i>Consistencia de <span class="math inline">\(\hat{\sigma}^2\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#normalidad-asintotica-de-mco"><i class="fa fa-check"></i><b>9.3</b> 🔔 Normalidad asintótica de MCO {-}</a></li>
+<li class="chapter" data-level="9.4" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#pruebas-de-hipotesis-en-grandes-muestras"><i class="fa fa-check"></i><b>9.4</b> 🧪 Pruebas de hipótesis en grandes muestras {-}</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#prueba-tipo-asintotica-para-un-coeficiente"><i class="fa fa-check"></i><b>9.4.1</b> Prueba tipo-<span class="math inline">\(t\)</span> asintótica para un coeficiente {-}</a></li>
+<li class="chapter" data-level="9.4.2" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#prueba-multiple-wald-para"><i class="fa fa-check"></i><b>9.4.2</b> Prueba múltiple (Wald) para <span class="math inline">\(R\beta=r\)</span> {-}</a></li>
+<li class="chapter" data-level="9.4.3" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#intuicion-geometrica-rapida"><i class="fa fa-check"></i><b>9.4.3</b> 📐 Intuición geométrica (rápida) {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#ejemplos-practicos-simulacion"><i class="fa fa-check"></i><b>9.5</b> 🧪 Ejemplos prácticos (simulación) {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#stata"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#python"><i class="fa fa-check"></i>Python</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#visualizaciones-sugeridas"><i class="fa fa-check"></i>🖼️ Visualizaciones sugeridas</a></li>
+<li class="chapter" data-level="9.6" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#notas-practicas-de-inferencia"><i class="fa fa-check"></i><b>9.6</b> 🧩 Notas prácticas de inferencia {-}</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#demostraciones-formales-resumen"><i class="fa fa-check"></i>🔎 Demostraciones formales (resumen)</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#conclusiones-clave"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
+<ul>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#preguntas-de-repaso-8"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#codigo-minimo-reproducible-mco-wald"><i class="fa fa-check"></i><b>9.7</b> 🧰 Código mínimo reproducible (MCO + Wald) {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#stata-1"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#r-1"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html"><a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html#python-1"><i class="fa fa-check"></i>Python</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><i class="fa fa-check"></i><b>9</b> Multicolinealidad: detección, consecuencias y (no) soluciones {-}</a>
+<li class="chapter" data-level="10" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><i class="fa fa-check"></i><b>10</b> Multicolinealidad: detección, consecuencias y (no) soluciones {-}</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#objetivo-y-motivacion"><i class="fa fa-check"></i><b>9.1</b> 🎯 Objetivo y motivación {-}</a></li>
+<li class="chapter" data-level="10.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#objetivo-y-motivacion"><i class="fa fa-check"></i><b>10.1</b> 🎯 Objetivo y motivación {-}</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#colinealidad-imperfecta-idea-algebraica"><i class="fa fa-check"></i>📚 Colinealidad imperfecta: idea algebraica</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#definicion-y-condicion-de-rango"><i class="fa fa-check"></i><b>9.1.1</b> Definición y condición de rango {-}</a></li>
+<li class="chapter" data-level="10.1.1" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#definicion-y-condicion-de-rango"><i class="fa fa-check"></i><b>10.1.1</b> Definición y condición de rango {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad"><i class="fa fa-check"></i>🧩 Modelo particionado y consecuencias de la multicolinealidad</a>
 <ul>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza"><i class="fa fa-check"></i>Propiedades: insesgamiento y varianza</a></li>
-<li class="chapter" data-level="9.1.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#intuicion-geometrica-multico"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="10.1.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#intuicion-geometrica-multico"><i class="fa fa-check"></i><b>10.1.2</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#controlar-por-otras-variables-via-fwl"><i class="fa fa-check"></i><b>9.2</b> 🧪 “Controlar por otras variables” vía FWL {-}</a></li>
-<li class="chapter" data-level="9.3" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#deteccion-de-multicolinealidad"><i class="fa fa-check"></i><b>9.3</b> 🔎 Detección de multicolinealidad {-}</a></li>
+<li class="chapter" data-level="10.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#controlar-por-otras-variables-via-fwl"><i class="fa fa-check"></i><b>10.2</b> 🧪 “Controlar por otras variables” vía FWL {-}</a></li>
+<li class="chapter" data-level="10.3" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#deteccion-de-multicolinealidad"><i class="fa fa-check"></i><b>10.3</b> 🔎 Detección de multicolinealidad {-}</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#ejemplos-en-stata-r-y-python"><i class="fa fa-check"></i>🛠️ Ejemplos en Stata, R y Python</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-1"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-2"><i class="fa fa-check"></i>Stata</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-2"><i class="fa fa-check"></i>R</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-2"><i class="fa fa-check"></i>Python</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#que-hacer-y-que-no-ante-multicolinealidad"><i class="fa fa-check"></i><b>9.4</b> 🚨 Qué hacer (y qué no) ante multicolinealidad {-}</a></li>
-<li class="chapter" data-level="9.5" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#mini-demostracion-varianza-inflada-por-auxiliar"><i class="fa fa-check"></i><b>9.5</b> 🧪 Mini-demostración: varianza inflada por <span class="math inline">\(R^2\)</span> auxiliar {-}</a></li>
+<li class="chapter" data-level="10.4" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#que-hacer-y-que-no-ante-multicolinealidad"><i class="fa fa-check"></i><b>10.4</b> 🚨 Qué hacer (y qué no) ante multicolinealidad {-}</a></li>
+<li class="chapter" data-level="10.5" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#mini-demostracion-varianza-inflada-por-auxiliar"><i class="fa fa-check"></i><b>10.5</b> 🧪 Mini-demostración: varianza inflada por <span class="math inline">\(R^2\)</span> auxiliar {-}</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#ejemplo-reproducible-colinealidad-simulada"><i class="fa fa-check"></i>🔬 Ejemplo reproducible: colinealidad simulada</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-2"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-3"><i class="fa fa-check"></i>Stata</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-3"><i class="fa fa-check"></i>R</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-3"><i class="fa fa-check"></i>Python</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#conclusiones-clave-1"><i class="fa fa-check"></i>✅ Conclusiones clave</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#preguntas-de-repaso-8"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#preguntas-de-repaso-9"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#apendice-comandos-utiles"><i class="fa fa-check"></i><b>9.6</b> 🧰 Apéndice: comandos útiles {-}</a>
+<li class="chapter" data-level="10.6" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#apendice-comandos-utiles"><i class="fa fa-check"></i><b>10.6</b> 🧰 Apéndice: comandos útiles {-}</a>
 <ul>
-<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-3"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#stata-4"><i class="fa fa-check"></i>Stata</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#r-4"><i class="fa fa-check"></i>R</a></li>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#python-4"><i class="fa fa-check"></i>Python</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i>Heterocedasticidad</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#objetivo-del-capitulo-hetero"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
-<li class="chapter" data-level="9.7" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>9.7</b> 1. Introducción {-}</a>
+<li class="chapter" data-level="10.6.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#objetivo-del-capitulo-hetero"><i class="fa fa-check"></i><b>10.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="10.7" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>10.7</b> 1. Introducción {-}</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#intuicion-geometrica-hetero"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="10.7.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#intuicion-geometrica-hetero"><i class="fa fa-check"></i><b>10.7.1</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#ejemplos-motivadores"><i class="fa fa-check"></i>2. Ejemplos motivadores</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura"><i class="fa fa-check"></i>3. Heterocedasticidad pura vs. impura</a>
@@ -469,42 +494,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#pura"><i class="fa fa-check"></i>3.1 Pura</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#impura"><i class="fa fa-check"></i>3.2 Impura</a></li>
 </ul></li>
-<li class="chapter" data-level="9.8" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_4-consecuencias-teoricas"><i class="fa fa-check"></i><b>9.8</b> 4. Consecuencias teóricas {-}</a></li>
-<li class="chapter" data-level="9.9" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_5-deteccion-de-heterocedasticidad"><i class="fa fa-check"></i><b>9.9</b> 5. Detección de heterocedasticidad {-}</a>
+<li class="chapter" data-level="10.8" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_4-consecuencias-teoricas"><i class="fa fa-check"></i><b>10.8</b> 4. Consecuencias teóricas {-}</a></li>
+<li class="chapter" data-level="10.9" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_5-deteccion-de-heterocedasticidad"><i class="fa fa-check"></i><b>10.9</b> 5. Detección de heterocedasticidad {-}</a>
 <ul>
-<li class="chapter" data-level="9.9.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_51-diagnostico-visual"><i class="fa fa-check"></i><b>9.9.1</b> 5.1 Diagnóstico visual {-}</a></li>
+<li class="chapter" data-level="10.9.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_51-diagnostico-visual"><i class="fa fa-check"></i><b>10.9.1</b> 5.1 Diagnóstico visual {-}</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#contraste-de-white-1980"><i class="fa fa-check"></i>5.2 Contraste de White (1980)</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#breuschpagan-cookweisberg"><i class="fa fa-check"></i>5.3 Breusch–Pagan / Cook–Weisberg</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#goldfeldquandt"><i class="fa fa-check"></i>5.4 Goldfeld–Quandt</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#soluciones"><i class="fa fa-check"></i>6. Soluciones</a>
 <ul>
-<li class="chapter" data-level="9.9.2" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_61-gls-minimos-cuadrados-generalizados"><i class="fa fa-check"></i><b>9.9.2</b> 6.1 GLS (Mínimos Cuadrados Generalizados) {-}</a></li>
-<li class="chapter" data-level="9.9.3" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_62-wls-minimos-cuadrados-ponderados"><i class="fa fa-check"></i><b>9.9.3</b> 6.2 WLS (Mínimos Cuadrados Ponderados) {-}</a></li>
+<li class="chapter" data-level="10.9.2" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_61-gls-minimos-cuadrados-generalizados"><i class="fa fa-check"></i><b>10.9.2</b> 6.1 GLS (Mínimos Cuadrados Generalizados) {-}</a></li>
+<li class="chapter" data-level="10.9.3" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_62-wls-minimos-cuadrados-ponderados"><i class="fa fa-check"></i><b>10.9.3</b> 6.2 WLS (Mínimos Cuadrados Ponderados) {-}</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#fglsmcf-gls-factible"><i class="fa fa-check"></i>6.3 FGLS/MCF (GLS factible)</a></li>
-<li class="chapter" data-level="9.9.4" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_64-errores-estandar-robustos-whitehuber"><i class="fa fa-check"></i><b>9.9.4</b> 6.4 Errores estándar robustos (White/Huber) {-}</a></li>
+<li class="chapter" data-level="10.9.4" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_64-errores-estandar-robustos-whitehuber"><i class="fa fa-check"></i><b>10.9.4</b> 6.4 Errores estándar robustos (White/Huber) {-}</a></li>
 </ul></li>
-<li class="chapter" data-level="9.10" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_7-ejemplo-reproducible-simulacion"><i class="fa fa-check"></i><b>9.10</b> 7. Ejemplo reproducible (simulación) {-}</a>
+<li class="chapter" data-level="10.10" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_7-ejemplo-reproducible-simulacion"><i class="fa fa-check"></i><b>10.10</b> 7. Ejemplo reproducible (simulación) {-}</a>
 <ul>
-<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#stata-4"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#stata-5"><i class="fa fa-check"></i>Stata</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#r-5"><i class="fa fa-check"></i>R</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#python-statsmodels"><i class="fa fa-check"></i>Python (statsmodels)</a></li>
 </ul></li>
-<li class="chapter" data-level="9.11" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_8-visualizaciones-diagnostico"><i class="fa fa-check"></i><b>9.11</b> 8. Visualizaciones (diagnóstico) {-}</a></li>
+<li class="chapter" data-level="10.11" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_8-visualizaciones-diagnostico"><i class="fa fa-check"></i><b>10.11</b> 8. Visualizaciones (diagnóstico) {-}</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#tabla-resumen-de-contrastes"><i class="fa fa-check"></i>9. Tabla resumen de contrastes</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#conclusiones-clave-2"><i class="fa fa-check"></i>10. Conclusiones clave</a></li>
-<li class="chapter" data-level="9.12" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_11-taller-practico-hands-on"><i class="fa fa-check"></i><b>9.12</b> 11. Taller práctico (hands-on) {-}</a></li>
-<li class="chapter" data-level="9.13" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_12-apendice-comandos-rapidos-por-software"><i class="fa fa-check"></i><b>9.13</b> 12. Apéndice: comandos rápidos por software {-}</a>
+<li class="chapter" data-level="10.12" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_11-taller-practico-hands-on"><i class="fa fa-check"></i><b>10.12</b> 11. Taller práctico (hands-on) {-}</a></li>
+<li class="chapter" data-level="10.13" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_12-apendice-comandos-rapidos-por-software"><i class="fa fa-check"></i><b>10.13</b> 12. Apéndice: comandos rápidos por software {-}</a>
 <ul>
-<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#preguntas-de-repaso-9"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#preguntas-de-repaso-10"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>10</b> Parcial 1 · 2026-1</a>
+<li class="chapter" data-level="11" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>11</b> Parcial 1 · 2026-1</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-i-seleccion-multiple"><i class="fa fa-check"></i><b>10.1</b> Parte I: Selección Múltiple {-}</a></li>
+<li class="chapter" data-level="11.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-i-seleccion-multiple"><i class="fa fa-check"></i><b>11.1</b> Parte I: Selección Múltiple {-}</a></li>
 <li class="chapter" data-level="" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-ii-preguntas-abiertas"><i class="fa fa-check"></i>Parte II: Preguntas Abiertas</a>
 <ul>
-<li class="chapter" data-level="10.1.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#obligatoria-fwl-con-observacion-atipica-15-pts"><i class="fa fa-check"></i><b>10.1.1</b> Obligatoria — FWL con observación atípica (1.5 pts) {-}</a></li>
+<li class="chapter" data-level="11.1.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#obligatoria-fwl-con-observacion-atipica-15-pts"><i class="fa fa-check"></i><b>11.1.1</b> Obligatoria — FWL con observación atípica (1.5 pts) {-}</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -811,373 +836,24 @@ F = \frac{W/\#r}{U/(n-K)} \;\sim\; F(\#r,\;n-K).
 <span id="cb13-22"><a href="inferencia.html#cb13-22" tabindex="-1"></a>s2=(Y-X*b)&#39;(Y-X*b)/(n-<span class="kw">k</span>)</span>
 <span id="cb13-23"><a href="inferencia.html#cb13-23" tabindex="-1"></a>se=<span class="fu">sqrt</span>(diagonal(s2*<span class="fu">invsym</span>(X&#39;X)))</span>
 <span id="cb13-24"><a href="inferencia.html#cb13-24" tabindex="-1"></a>t=b:/se</span>
-<span id="cb13-25"><a href="inferencia.html#cb13-25" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb13-26"><a href="inferencia.html#cb13-26" tabindex="-1"></a></span>
-<span id="cb13-27"><a href="inferencia.html#cb13-27" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;box-repaso&quot;</span>&gt;</span>
-<span id="cb13-28"><a href="inferencia.html#cb13-28" tabindex="-1"></a></span>
-<span id="cb13-29"><a href="inferencia.html#cb13-29" tabindex="-1"></a>### 📘 Preguntas <span class="kw">de</span> repaso {-}</span>
-<span id="cb13-30"><a href="inferencia.html#cb13-30" tabindex="-1"></a></span>
-<span id="cb13-31"><a href="inferencia.html#cb13-31" tabindex="-1"></a>1. ¿Por qué <span class="fu">el</span> supuesto **A6 (normalidad)** es esencial para obtener la distribución exacta <span class="kw">de</span> los estadísticos \(t\) <span class="fu">y</span> \(<span class="fu">F</span>\)?  </span>
-<span id="cb13-32"><a href="inferencia.html#cb13-32" tabindex="-1"></a>2. Demuestre algebraicamente que \[<span class="fu">F</span>(1,n-<span class="kw">k</span>) = t^2\].  </span>
-<span id="cb13-33"><a href="inferencia.html#cb13-33" tabindex="-1"></a>3. Interprete <span class="fu">el</span> intervalo <span class="kw">de</span> confianza del 95% para \(\beta_k\).  </span>
-<span id="cb13-34"><a href="inferencia.html#cb13-34" tabindex="-1"></a>4. ¿Qué significa un *<span class="kw">p</span>-<span class="ot">value</span>* <span class="kw">de</span> 0.07 en una prueba con \(\<span class="kw">alpha</span>=0.05\)?  </span>
-<span id="cb13-35"><a href="inferencia.html#cb13-35" tabindex="-1"></a>5. En **Stata**, ¿cómo verificaría la hipótesis \(\beta_1 = \beta_2\)?  </span>
-<span id="cb13-36"><a href="inferencia.html#cb13-36" tabindex="-1"></a>6. Explique en qué difiere <span class="fu">el</span> contraste **<span class="fu">F</span> <span class="kw">global</span>** <span class="kw">de</span> un contraste individual con \(t\).  </span>
-<span id="cb13-37"><a href="inferencia.html#cb13-37" tabindex="-1"></a></span>
-<span id="cb13-38"><a href="inferencia.html#cb13-38" tabindex="-1"></a>&lt;/div&gt;</span>
-<span id="cb13-39"><a href="inferencia.html#cb13-39" tabindex="-1"></a></span>
-<span id="cb13-40"><a href="inferencia.html#cb13-40" tabindex="-1"></a></span>
-<span id="cb13-41"><a href="inferencia.html#cb13-41" tabindex="-1"></a></span>
-<span id="cb13-42"><a href="inferencia.html#cb13-42" tabindex="-1"></a>&lt;!--chapter:<span class="kw">end</span>:08-PruebasHIP.Rmd--&gt;</span>
-<span id="cb13-43"><a href="inferencia.html#cb13-43" tabindex="-1"></a></span>
-<span id="cb13-44"><a href="inferencia.html#cb13-44" tabindex="-1"></a># Propiedades asintóticas <span class="kw">de</span> MCO <span class="fu">y</span> pruebas <span class="kw">de</span> hipótesis {#propiedades-asintoticas-<span class="kw">de</span>-mco-<span class="fu">y</span>-pruebas-<span class="kw">de</span>-hipotesis}</span>
-<span id="cb13-45"><a href="inferencia.html#cb13-45" tabindex="-1"></a></span>
-<span id="cb13-46"><a href="inferencia.html#cb13-46" tabindex="-1"></a>## 🎯 Objetivo <span class="fu">y</span> motivación {-} {#objetivo-<span class="fu">y</span>-motivacion-normas}</span>
-<span id="cb13-47"><a href="inferencia.html#cb13-47" tabindex="-1"></a></span>
-<span id="cb13-48"><a href="inferencia.html#cb13-48" tabindex="-1"></a>En este capítulo pasamos <span class="kw">de</span> las **propiedades en muestras finitas** del estimador <span class="kw">de</span> Mínimos Cuadrados Ordinarios (MCO) a sus **propiedades asintóticas** (cuando <span class="ot">$n</span>\to\infty$). Verás por qué la **consistencia** <span class="fu">y</span> la **normalidad asintótica** permiten hacer inferencia incluso **<span class="fu">sin</span>** normalidad exacta <span class="kw">de</span> los errores, <span class="fu">y</span> cómo construir **pruebas <span class="ot">$t</span>$**, **estadísticos <span class="ot">$F</span>$** <span class="fu">y</span> <span class="fu">el</span> **<span class="kw">test</span> <span class="kw">de</span> Wald** en grandes muestras.</span>
-<span id="cb13-49"><a href="inferencia.html#cb13-49" tabindex="-1"></a></span>
-<span id="cb13-50"><a href="inferencia.html#cb13-50" tabindex="-1"></a>---</span>
-<span id="cb13-51"><a href="inferencia.html#cb13-51" tabindex="-1"></a></span>
-<span id="cb13-52"><a href="inferencia.html#cb13-52" tabindex="-1"></a>## 📚 Repaso: modelo clásico <span class="fu">y</span> resultados en muestras finitas {-} {#repaso-modelo-clasico-<span class="fu">y</span>-resultados-en-muestras-finitas}</span>
-<span id="cb13-53"><a href="inferencia.html#cb13-53" tabindex="-1"></a></span>
-<span id="cb13-54"><a href="inferencia.html#cb13-54" tabindex="-1"></a>### Supuestos del MCRL (versión matricial) {-} {#supuestos-del-mcrl-<span class="kw">version</span>-matricial}</span>
-<span id="cb13-55"><a href="inferencia.html#cb13-55" tabindex="-1"></a></span>
-<span id="cb13-56"><a href="inferencia.html#cb13-56" tabindex="-1"></a>$$</span>
-<span id="cb13-57"><a href="inferencia.html#cb13-57" tabindex="-1"></a><span class="fu">y</span> = X\beta + \epsilon, \qquad X\<span class="kw">in</span>\mathbb{R}^{n\times K},\; <span class="fu">y</span>\<span class="kw">in</span>\mathbb{R}^{n\times 1}</span>
-<span id="cb13-58"><a href="inferencia.html#cb13-58" tabindex="-1"></a>$$</span>
-<span id="cb13-59"><a href="inferencia.html#cb13-59" tabindex="-1"></a></span>
-<span id="cb13-60"><a href="inferencia.html#cb13-60" tabindex="-1"></a>* **A1.** Lineal en los parámetros: <span class="ot">$y</span> = X\beta + \epsilon$.</span>
-<span id="cb13-61"><a href="inferencia.html#cb13-61" tabindex="-1"></a>* **A2.** Exogeneidad estricta: <span class="ot">$E</span>(\epsilon_i\mid X)=0$.</span>
-<span id="cb13-62"><a href="inferencia.html#cb13-62" tabindex="-1"></a>* **A3.** Colinealidad imperfecta: $\mathrm{rango}(X)=K$.</span>
-<span id="cb13-63"><a href="inferencia.html#cb13-63" tabindex="-1"></a>* **A4.** Perturbaciones esféricas: <span class="ot">$Var</span>(\epsilon\mid X)=\sigma^2 I_n$.</span>
-<span id="cb13-64"><a href="inferencia.html#cb13-64" tabindex="-1"></a>* **A5.** (Para resultados exactos clásicos) Regresores no estocásticos.</span>
-<span id="cb13-65"><a href="inferencia.html#cb13-65" tabindex="-1"></a>* **A6.** (Para inferencia exacta <span class="ot">$t</span>,F$) Normalidad: $\epsilon\mid X\sim \mathcal{<span class="kw">N</span>}(0,\sigma^2 I_n)$.</span>
-<span id="cb13-66"><a href="inferencia.html#cb13-66" tabindex="-1"></a></span>
-<span id="cb13-67"><a href="inferencia.html#cb13-67" tabindex="-1"></a>### Estimadores <span class="fu">y</span> propiedades (finito muestral) {-}</span>
-<span id="cb13-68"><a href="inferencia.html#cb13-68" tabindex="-1"></a></span>
-<span id="cb13-69"><a href="inferencia.html#cb13-69" tabindex="-1"></a>$$</span>
-<span id="cb13-70"><a href="inferencia.html#cb13-70" tabindex="-1"></a>\hat{\beta}=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\epsilon,</span>
-<span id="cb13-71"><a href="inferencia.html#cb13-71" tabindex="-1"></a>\qquad</span>
-<span id="cb13-72"><a href="inferencia.html#cb13-72" tabindex="-1"></a>\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}.</span>
-<span id="cb13-73"><a href="inferencia.html#cb13-73" tabindex="-1"></a>$$</span>
-<span id="cb13-74"><a href="inferencia.html#cb13-74" tabindex="-1"></a></span>
-<span id="cb13-75"><a href="inferencia.html#cb13-75" tabindex="-1"></a>1. Insesgamiento: <span class="ot">$E</span>[\hat{\beta}\mid X]=\beta$.</span>
-<span id="cb13-76"><a href="inferencia.html#cb13-76" tabindex="-1"></a>2. Varianza: <span class="ot">$Var</span>[\hat{\beta}\mid X]=\sigma^{2}(X&#39;X)^{-1}$.</span>
-<span id="cb13-77"><a href="inferencia.html#cb13-77" tabindex="-1"></a>3. **Teorema <span class="kw">de</span> Gauss–Markov**: $\hat{\beta}$ es **ELIO** dentro <span class="kw">de</span> estimadores lineales insesgados.</span>
-<span id="cb13-78"><a href="inferencia.html#cb13-78" tabindex="-1"></a>4. <span class="ot">$E</span>[\hat{\sigma}^{2}]=\sigma^{2}$.</span>
-<span id="cb13-79"><a href="inferencia.html#cb13-79" tabindex="-1"></a></span>
-<span id="cb13-80"><a href="inferencia.html#cb13-80" tabindex="-1"></a>Bajo **A6**, además:</span>
-<span id="cb13-81"><a href="inferencia.html#cb13-81" tabindex="-1"></a></span>
-<span id="cb13-82"><a href="inferencia.html#cb13-82" tabindex="-1"></a>* $\hat{\beta}\mid X \sim \mathcal{<span class="kw">N</span>}(\beta,\sigma^{2}(X&#39;X)^{-1})$.</span>
-<span id="cb13-83"><a href="inferencia.html#cb13-83" tabindex="-1"></a>* $(n-K)\hat{\sigma}^{2}/\sigma^{2}=\hat{\epsilon}&#39;\hat{\epsilon}/\sigma^{2}\sim \chi^{2}_{(n-K)}$.</span>
-<span id="cb13-84"><a href="inferencia.html#cb13-84" tabindex="-1"></a>* Prueba <span class="ot">$t</span>$ exacta para $\beta_k$ <span class="fu">y</span> prueba <span class="ot">$F</span>$ exacta para <span class="ot">$R</span>\beta=r$.</span>
-<span id="cb13-85"><a href="inferencia.html#cb13-85" tabindex="-1"></a></span>
-<span id="cb13-86"><a href="inferencia.html#cb13-86" tabindex="-1"></a>---</span>
-<span id="cb13-87"><a href="inferencia.html#cb13-87" tabindex="-1"></a></span>
-<span id="cb13-88"><a href="inferencia.html#cb13-88" tabindex="-1"></a>## ⚖️ Consistencia <span class="kw">de</span> MCO {-}</span>
-<span id="cb13-89"><a href="inferencia.html#cb13-89" tabindex="-1"></a></span>
-<span id="cb13-90"><a href="inferencia.html#cb13-90" tabindex="-1"></a>Sea <span class="ot">$Q</span>=E(x_ix_i&#39;)$ con <span class="ot">$Q</span>$ definida positiva. Usando</span>
-<span id="cb13-91"><a href="inferencia.html#cb13-91" tabindex="-1"></a></span>
-<span id="cb13-92"><a href="inferencia.html#cb13-92" tabindex="-1"></a>$$</span>
-<span id="cb13-93"><a href="inferencia.html#cb13-93" tabindex="-1"></a>\hat{\beta}=\beta+\underbrace{\left(\tfrac{1}{n}X&#39;X\right)^{-1}}_{\to_p\, Q^{-1}}\underbrace{\left(\tfrac{1}{n}X&#39;\epsilon\right)}_{\to_p\, 0},</span>
-<span id="cb13-94"><a href="inferencia.html#cb13-94" tabindex="-1"></a>$$</span>
-<span id="cb13-95"><a href="inferencia.html#cb13-95" tabindex="-1"></a></span>
-<span id="cb13-96"><a href="inferencia.html#cb13-96" tabindex="-1"></a><span class="fu">y</span> la **Ley Débil <span class="kw">de</span> los Grandes Números**,</span>
-<span id="cb13-97"><a href="inferencia.html#cb13-97" tabindex="-1"></a></span>
-<span id="cb13-98"><a href="inferencia.html#cb13-98" tabindex="-1"></a>$$</span>
-<span id="cb13-99"><a href="inferencia.html#cb13-99" tabindex="-1"></a>plim\left(\tfrac{1}{n}X&#39;X\right)=Q,\qquad plim\left(\tfrac{1}{n}X&#39;\epsilon\right)=0,</span>
-<span id="cb13-100"><a href="inferencia.html#cb13-100" tabindex="-1"></a>$$</span>
-<span id="cb13-101"><a href="inferencia.html#cb13-101" tabindex="-1"></a></span>
-<span id="cb13-102"><a href="inferencia.html#cb13-102" tabindex="-1"></a>obtenemos</span>
-<span id="cb13-103"><a href="inferencia.html#cb13-103" tabindex="-1"></a></span>
-<span id="cb13-104"><a href="inferencia.html#cb13-104" tabindex="-1"></a>$$</span>
-<span id="cb13-105"><a href="inferencia.html#cb13-105" tabindex="-1"></a>plim(\hat{\beta})=\beta.</span>
-<span id="cb13-106"><a href="inferencia.html#cb13-106" tabindex="-1"></a>$$</span>
-<span id="cb13-107"><a href="inferencia.html#cb13-107" tabindex="-1"></a></span>
-<span id="cb13-108"><a href="inferencia.html#cb13-108" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
-<span id="cb13-109"><a href="inferencia.html#cb13-109" tabindex="-1"></a>&lt;strong&gt;Demostración (borrador formal).&lt;/strong&gt;</span>
-<span id="cb13-110"><a href="inferencia.html#cb13-110" tabindex="-1"></a>Bajo A2, \(E(x_i\epsilon_i)=0\). Si \(\{(x_i,\epsilon_i)\}\) es i.i.<span class="kw">d</span>. con \(E\|x_ix_i&#39;\|&lt;\infty\), entonces por la LDGN</span>
-<span id="cb13-111"><a href="inferencia.html#cb13-111" tabindex="-1"></a>\(\tfrac{1}{n}X&#39;X\to_p Q\) <span class="fu">y</span> \(\tfrac{1}{n}X&#39;\epsilon\to_p 0\). Por continuidad <span class="kw">de</span> la inversión <span class="kw">de</span> matrices en <span class="fu">el</span> entorno <span class="kw">de</span> \(Q\),</span>
-<span id="cb13-112"><a href="inferencia.html#cb13-112" tabindex="-1"></a>\(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\). Aplicando Slutsky:</span>
-<span id="cb13-113"><a href="inferencia.html#cb13-113" tabindex="-1"></a>\(\hat\beta=\beta+\left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{n}X&#39;\epsilon\right)\to_p \beta\).</span>
-<span id="cb13-114"><a href="inferencia.html#cb13-114" tabindex="-1"></a>&lt;/div&gt;</span>
-<span id="cb13-115"><a href="inferencia.html#cb13-115" tabindex="-1"></a></span>
-<span id="cb13-116"><a href="inferencia.html#cb13-116" tabindex="-1"></a>### Consistencia <span class="kw">de</span> $\hat{\sigma}^2$ {-}</span>
-<span id="cb13-117"><a href="inferencia.html#cb13-117" tabindex="-1"></a></span>
-<span id="cb13-118"><a href="inferencia.html#cb13-118" tabindex="-1"></a>$$</span>
-<span id="cb13-119"><a href="inferencia.html#cb13-119" tabindex="-1"></a>\hat{\sigma}^{2}=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K},\qquad</span>
-<span id="cb13-120"><a href="inferencia.html#cb13-120" tabindex="-1"></a>plim(\hat{\sigma}^{2})=\sigma^{2}.</span>
-<span id="cb13-121"><a href="inferencia.html#cb13-121" tabindex="-1"></a>$$</span>
-<span id="cb13-122"><a href="inferencia.html#cb13-122" tabindex="-1"></a></span>
-<span id="cb13-123"><a href="inferencia.html#cb13-123" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
-<span id="cb13-124"><a href="inferencia.html#cb13-124" tabindex="-1"></a>Usa \(\hat{\epsilon}_i=\epsilon_i-x_i(\hat{\beta}-\beta)\). Expandiendo \(\hat{\epsilon}_i^2\) <span class="fu">y</span> promediando:</span>
-<span id="cb13-125"><a href="inferencia.html#cb13-125" tabindex="-1"></a>\(\tfrac{1}{n}\<span class="kw">sum</span>\hat{\epsilon}_i^2=\tfrac{1}{n}\<span class="kw">sum</span>\epsilon_i^2 - 2(\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\<span class="kw">sum</span> x_i\epsilon_i\right] + (\hat\beta-\beta)&#39;\left[\tfrac{1}{n}\<span class="kw">sum</span> x_ix_i&#39;\right](\hat\beta-\beta)\).</span>
-<span id="cb13-126"><a href="inferencia.html#cb13-126" tabindex="-1"></a>Por consistencia <span class="kw">de</span> \(\hat\beta\) <span class="fu">y</span> LDGN, <span class="fu">el</span> segundo <span class="fu">y</span> tercer término \(\to_p 0\); <span class="fu">el</span> primero \(\to_p E(\epsilon_i^2)=\sigma^2\).</span>
-<span id="cb13-127"><a href="inferencia.html#cb13-127" tabindex="-1"></a>Ajustando por \(\tfrac{n}{n-K}\to 1\), se obtiene <span class="fu">el</span> resultado.</span>
-<span id="cb13-128"><a href="inferencia.html#cb13-128" tabindex="-1"></a>&lt;/div&gt;</span>
-<span id="cb13-129"><a href="inferencia.html#cb13-129" tabindex="-1"></a></span>
-<span id="cb13-130"><a href="inferencia.html#cb13-130" tabindex="-1"></a>---</span>
-<span id="cb13-131"><a href="inferencia.html#cb13-131" tabindex="-1"></a></span>
-<span id="cb13-132"><a href="inferencia.html#cb13-132" tabindex="-1"></a>## 🔔 Normalidad asintótica <span class="kw">de</span> MCO {-} {#normalidad-asintotica-<span class="kw">de</span>-mco}</span>
-<span id="cb13-133"><a href="inferencia.html#cb13-133" tabindex="-1"></a></span>
-<span id="cb13-134"><a href="inferencia.html#cb13-134" tabindex="-1"></a>$$</span>
-<span id="cb13-135"><a href="inferencia.html#cb13-135" tabindex="-1"></a>\<span class="fu">sqrt</span>{n}\left(\hat{\beta}-\beta\right)</span>
-<span id="cb13-136"><a href="inferencia.html#cb13-136" tabindex="-1"></a>= \left(\tfrac{1}{n}X&#39;X\right)^{-1}\left(\tfrac{1}{\<span class="fu">sqrt</span>{n}}X&#39;\epsilon\right)</span>
-<span id="cb13-137"><a href="inferencia.html#cb13-137" tabindex="-1"></a>\;\;\underset{<span class="kw">d</span>}{\longrightarrow}\;\;</span>
-<span id="cb13-138"><a href="inferencia.html#cb13-138" tabindex="-1"></a>\mathcal{<span class="kw">N</span>}\!\left(0,\; \sigma^{2}Q^{-1}\right),</span>
-<span id="cb13-139"><a href="inferencia.html#cb13-139" tabindex="-1"></a>$$</span>
-<span id="cb13-140"><a href="inferencia.html#cb13-140" tabindex="-1"></a></span>
-<span id="cb13-141"><a href="inferencia.html#cb13-141" tabindex="-1"></a>bajo condiciones regulares (i.i.<span class="kw">d</span>., momentos finitos, exogeneidad). En práctica:</span>
-<span id="cb13-142"><a href="inferencia.html#cb13-142" tabindex="-1"></a></span>
-<span id="cb13-143"><a href="inferencia.html#cb13-143" tabindex="-1"></a>$$</span>
-<span id="cb13-144"><a href="inferencia.html#cb13-144" tabindex="-1"></a>\widehat{Avar}(\hat{\beta})=\hat{\sigma}^{2}(X&#39;X)^{-1}.</span>
-<span id="cb13-145"><a href="inferencia.html#cb13-145" tabindex="-1"></a>$$</span>
-<span id="cb13-146"><a href="inferencia.html#cb13-146" tabindex="-1"></a></span>
-<span id="cb13-147"><a href="inferencia.html#cb13-147" tabindex="-1"></a>&lt;div <span class="kw">class</span>=<span class="st">&quot;proof&quot;</span>&gt;</span>
-<span id="cb13-148"><a href="inferencia.html#cb13-148" tabindex="-1"></a>Por **TCL <span class="kw">de</span> Lindeberg–Levy**, \(\tfrac{1}{\<span class="fu">sqrt</span>{n}}X&#39;\epsilon \Rightarrow \mathcal{<span class="kw">N</span>}(0,\sigma^2 Q)\). Por **Slutsky** <span class="fu">y</span> \(\left(\tfrac{1}{n}X&#39;X\right)^{-1}\to_p Q^{-1}\), sigue \(\<span class="fu">sqrt</span>{n}(\hat\beta-\beta)\Rightarrow \mathcal{<span class="kw">N</span>}(0,\sigma^{2}Q^{-1})\).</span>
-<span id="cb13-149"><a href="inferencia.html#cb13-149" tabindex="-1"></a>&lt;/div&gt;</span>
-<span id="cb13-150"><a href="inferencia.html#cb13-150" tabindex="-1"></a></span>
-<span id="cb13-151"><a href="inferencia.html#cb13-151" tabindex="-1"></a>---</span>
-<span id="cb13-152"><a href="inferencia.html#cb13-152" tabindex="-1"></a></span>
-<span id="cb13-153"><a href="inferencia.html#cb13-153" tabindex="-1"></a>## 🧪 Pruebas <span class="kw">de</span> hipótesis en grandes muestras {-} {#pruebas-<span class="kw">de</span>-hipotesis-en-grandes-muestras}</span>
-<span id="cb13-154"><a href="inferencia.html#cb13-154" tabindex="-1"></a></span>
-<span id="cb13-155"><a href="inferencia.html#cb13-155" tabindex="-1"></a>### Prueba tipo-<span class="ot">$t</span>$ asintótica para un coeficiente {-} {#prueba-tipo-asintotica-para-un-coeficiente}</span>
-<span id="cb13-156"><a href="inferencia.html#cb13-156" tabindex="-1"></a></span>
-<span id="cb13-157"><a href="inferencia.html#cb13-157" tabindex="-1"></a>Para <span class="ot">$H_0</span>:\beta_k=\beta_{<span class="kw">k</span>}^0$,</span>
-<span id="cb13-158"><a href="inferencia.html#cb13-158" tabindex="-1"></a></span>
-<span id="cb13-159"><a href="inferencia.html#cb13-159" tabindex="-1"></a>$$</span>
-<span id="cb13-160"><a href="inferencia.html#cb13-160" tabindex="-1"></a>t_k \equiv \frac{\hat{\beta}_k-\beta_k^0}{\<span class="fu">sqrt</span>{\widehat{Avar}(\hat{\beta}_k)}} </span>
-<span id="cb13-161"><a href="inferencia.html#cb13-161" tabindex="-1"></a>= \frac{\hat{\beta}_k-\beta_k^0}{\<span class="fu">sqrt</span>{\hat{\sigma}^2[(X&#39;X)^{-1}]_{kk}}}</span>
-<span id="cb13-162"><a href="inferencia.html#cb13-162" tabindex="-1"></a>\;\;\overset{a}{\sim}\;\; \mathcal{<span class="kw">N</span>}(0,1).</span>
-<span id="cb13-163"><a href="inferencia.html#cb13-163" tabindex="-1"></a>$$</span>
-<span id="cb13-164"><a href="inferencia.html#cb13-164" tabindex="-1"></a></span>
-<span id="cb13-165"><a href="inferencia.html#cb13-165" tabindex="-1"></a>**Regla <span class="kw">de</span> decisión:** Rechazar <span class="ot">$H_0</span>$ si $|t_k|\ge z_{\<span class="kw">alpha</span>/2}$.</span>
-<span id="cb13-166"><a href="inferencia.html#cb13-166" tabindex="-1"></a></span>
-<span id="cb13-167"><a href="inferencia.html#cb13-167" tabindex="-1"></a>### Prueba múltiple (Wald) para <span class="ot">$R</span>\beta=r$ {-} {#prueba-multiple-wald-para}</span>
-<span id="cb13-168"><a href="inferencia.html#cb13-168" tabindex="-1"></a></span>
-<span id="cb13-169"><a href="inferencia.html#cb13-169" tabindex="-1"></a>Para $\#r$ restricciones lineales <span class="ot">$H_0</span>:R\beta=r$,</span>
-<span id="cb13-170"><a href="inferencia.html#cb13-170" tabindex="-1"></a></span>
-<span id="cb13-171"><a href="inferencia.html#cb13-171" tabindex="-1"></a>$$</span>
-<span id="cb13-172"><a href="inferencia.html#cb13-172" tabindex="-1"></a>W \equiv n\,(R\hat{\beta}-<span class="fu">r</span>)&#39;\left[R\,\widehat{Avar}(\hat{\beta})\,R&#39;\right]^{-1}(R\hat{\beta}-<span class="fu">r</span>)</span>
-<span id="cb13-173"><a href="inferencia.html#cb13-173" tabindex="-1"></a>\;\;\overset{a}{\sim}\;\; \chi^{2}_{(\#r)}.</span>
-<span id="cb13-174"><a href="inferencia.html#cb13-174" tabindex="-1"></a>$$</span>
-<span id="cb13-175"><a href="inferencia.html#cb13-175" tabindex="-1"></a></span>
-<span id="cb13-176"><a href="inferencia.html#cb13-176" tabindex="-1"></a>**Regla <span class="kw">de</span> decisión:** Rechazar <span class="ot">$H_0</span>$ si <span class="ot">$W</span>\ge \chi^{2}_{(\#r,\;1-\<span class="kw">alpha</span>)}$.</span>
-<span id="cb13-177"><a href="inferencia.html#cb13-177" tabindex="-1"></a></span>
-<span id="cb13-178"><a href="inferencia.html#cb13-178" tabindex="-1"></a>&gt; 💡 Cuando se mantiene A6 (normalidad), <span class="fu">el</span> análogo finito-muestral es <span class="fu">el</span> estadístico <span class="ot">$F</span>$ exacto. Sin A6, **Wald** es <span class="fu">el</span> camino natural en grandes muestras.</span>
-<span id="cb13-179"><a href="inferencia.html#cb13-179" tabindex="-1"></a></span>
-<span id="cb13-180"><a href="inferencia.html#cb13-180" tabindex="-1"></a>---</span>
-<span id="cb13-181"><a href="inferencia.html#cb13-181" tabindex="-1"></a></span>
-<span id="cb13-182"><a href="inferencia.html#cb13-182" tabindex="-1"></a>### 📐 Intuición geométrica (rápida) {-} {#intuicion-geometrica-rapida}</span>
-<span id="cb13-183"><a href="inferencia.html#cb13-183" tabindex="-1"></a></span>
-<span id="cb13-184"><a href="inferencia.html#cb13-184" tabindex="-1"></a>* Consistencia: <span class="fu">el</span> promedio <span class="kw">de</span> “productos” <span class="ot">$x_i</span>\epsilon_i$ se diluye al promediar, por lo que <span class="fu">el</span> término <span class="kw">de</span> <span class="kw">error</span> en $\hat\beta$ **desaparece** al crecer <span class="ot">$n</span>$.</span>
-<span id="cb13-185"><a href="inferencia.html#cb13-185" tabindex="-1"></a>* Normalidad asintótica: la suma <span class="kw">de</span> “pequeños choques” <span class="ot">$x_i</span>\epsilon_i$ escalada por $\<span class="fu">sqrt</span>{n}$ **se aproxima a Normal** (TCL), <span class="fu">y</span> al “deshacer” la proyección con $(X&#39;X)^{-1}$ obtenemos una Normal en <span class="fu">el</span> espacio <span class="kw">de</span> parámetros.</span>
-<span id="cb13-186"><a href="inferencia.html#cb13-186" tabindex="-1"></a></span>
-<span id="cb13-187"><a href="inferencia.html#cb13-187" tabindex="-1"></a>---</span>
-<span id="cb13-188"><a href="inferencia.html#cb13-188" tabindex="-1"></a></span>
-<span id="cb13-189"><a href="inferencia.html#cb13-189" tabindex="-1"></a>## 🧪 Ejemplos prácticos (simulación) {-} {#ejemplos-practicos-simulacion}</span>
-<span id="cb13-190"><a href="inferencia.html#cb13-190" tabindex="-1"></a></span>
-<span id="cb13-191"><a href="inferencia.html#cb13-191" tabindex="-1"></a>&gt; Idea: generar datos con **errores no normales** (<span class="kw">p</span>.ej., t-Student con 3 g.<span class="ot">l</span>.), estimar MCO <span class="fu">y</span> verificar que los <span class="ot">$t</span>$ se acercan a $\mathcal{<span class="kw">N</span>}(0,1)$ cuando <span class="ot">$n</span>$ crece.</span>
-<span id="cb13-192"><a href="inferencia.html#cb13-192" tabindex="-1"></a></span>
-<span id="cb13-193"><a href="inferencia.html#cb13-193" tabindex="-1"></a>### Stata {-}</span>
-<span id="cb13-194"><a href="inferencia.html#cb13-194" tabindex="-1"></a></span>
-<span id="cb13-195"><a href="inferencia.html#cb13-195" tabindex="-1"></a>```stata</span>
-<span id="cb13-196"><a href="inferencia.html#cb13-196" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
-<span id="cb13-197"><a href="inferencia.html#cb13-197" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 12345</span>
-<span id="cb13-198"><a href="inferencia.html#cb13-198" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 5000   <span class="co">// cambia a 500, 2000, 5000 para ver el efecto del tamaño muestral</span></span>
-<span id="cb13-199"><a href="inferencia.html#cb13-199" tabindex="-1"></a></span>
-<span id="cb13-200"><a href="inferencia.html#cb13-200" tabindex="-1"></a><span class="co">// Datos simulados</span></span>
-<span id="cb13-201"><a href="inferencia.html#cb13-201" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
-<span id="cb13-202"><a href="inferencia.html#cb13-202" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
-<span id="cb13-203"><a href="inferencia.html#cb13-203" tabindex="-1"></a><span class="kw">gen</span> u  = rt(3)                 <span class="co">// errores con colas pesadas (no normales)</span></span>
-<span id="cb13-204"><a href="inferencia.html#cb13-204" tabindex="-1"></a><span class="fu">scalar</span> b0 = 1</span>
-<span id="cb13-205"><a href="inferencia.html#cb13-205" tabindex="-1"></a><span class="fu">scalar</span> b1 = 0.5</span>
-<span id="cb13-206"><a href="inferencia.html#cb13-206" tabindex="-1"></a><span class="fu">scalar</span> b2 = -0.7</span>
-<span id="cb13-207"><a href="inferencia.html#cb13-207" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span>  = b0 + b1*x1 + b2*<span class="kw">x2</span> + u</span>
-<span id="cb13-208"><a href="inferencia.html#cb13-208" tabindex="-1"></a></span>
-<span id="cb13-209"><a href="inferencia.html#cb13-209" tabindex="-1"></a><span class="co">// Estimación MCO</span></span>
-<span id="cb13-210"><a href="inferencia.html#cb13-210" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb13-211"><a href="inferencia.html#cb13-211" tabindex="-1"></a></span>
-<span id="cb13-212"><a href="inferencia.html#cb13-212" tabindex="-1"></a><span class="co">// Guardar t de x1 para “chequeo” repetido (bootstrap de Monte Carlo rápido)</span></span>
-<span id="cb13-213"><a href="inferencia.html#cb13-213" tabindex="-1"></a><span class="kw">tempname</span> mem</span>
-<span id="cb13-214"><a href="inferencia.html#cb13-214" tabindex="-1"></a><span class="kw">postfile</span> <span class="ot">`mem&#39;</span> t_x1 <span class="kw">using</span> tvals.dta, <span class="kw">replace</span></span>
-<span id="cb13-215"><a href="inferencia.html#cb13-215" tabindex="-1"></a><span class="kw">forvalues</span> <span class="fu">r</span>=1/1000 {</span>
-<span id="cb13-216"><a href="inferencia.html#cb13-216" tabindex="-1"></a>    <span class="kw">preserve</span></span>
-<span id="cb13-217"><a href="inferencia.html#cb13-217" tabindex="-1"></a>    <span class="kw">bsample</span></span>
-<span id="cb13-218"><a href="inferencia.html#cb13-218" tabindex="-1"></a>    <span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb13-219"><a href="inferencia.html#cb13-219" tabindex="-1"></a>    <span class="kw">post</span> <span class="ot">`mem&#39;</span> (_b[x1]/_se[x1])</span>
-<span id="cb13-220"><a href="inferencia.html#cb13-220" tabindex="-1"></a>    <span class="kw">restore</span></span>
-<span id="cb13-221"><a href="inferencia.html#cb13-221" tabindex="-1"></a>}</span>
-<span id="cb13-222"><a href="inferencia.html#cb13-222" tabindex="-1"></a><span class="kw">postclose</span> <span class="ot">`mem&#39;</span></span>
-<span id="cb13-223"><a href="inferencia.html#cb13-223" tabindex="-1"></a></span>
-<span id="cb13-224"><a href="inferencia.html#cb13-224" tabindex="-1"></a><span class="co">// Distribución aproximada de t (debería tender a N(0,1))</span></span>
-<span id="cb13-225"><a href="inferencia.html#cb13-225" tabindex="-1"></a><span class="kw">use</span> tvals.dta, <span class="kw">clear</span></span>
-<span id="cb13-226"><a href="inferencia.html#cb13-226" tabindex="-1"></a><span class="kw">sum</span> t_x1</span>
-<span id="cb13-227"><a href="inferencia.html#cb13-227" tabindex="-1"></a><span class="kw">kdensity</span> t_x1</span></code></pre></div>
-<p><strong>Interpretación:</strong> con <span class="math inline">\(n\)</span> grande, la distribución empírica de <span class="math inline">\(t\)</span> para <span class="math inline">\(x_1\)</span> se acerca a <span class="math inline">\(\mathcal{N}(0,1)\)</span> pese a que <span class="math inline">\(u\)</span> no es normal.</p>
-<hr />
-<div id="r" class="section level3 unnumbered hasAnchor">
-<h3>R<a href="inferencia.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="inferencia.html#cb14-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>)</span>
-<span id="cb14-2"><a href="inferencia.html#cb14-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">5000</span> <span class="co"># prueba con 500, 2000, 5000</span></span>
-<span id="cb14-3"><a href="inferencia.html#cb14-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb14-4"><a href="inferencia.html#cb14-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb14-5"><a href="inferencia.html#cb14-5" tabindex="-1"></a>u  <span class="ot">&lt;-</span> <span class="fu">rt</span>(n, <span class="at">df =</span> <span class="dv">3</span>)  <span class="co"># no normal</span></span>
-<span id="cb14-6"><a href="inferencia.html#cb14-6" tabindex="-1"></a>b0 <span class="ot">&lt;-</span> <span class="dv">1</span>; b1 <span class="ot">&lt;-</span> <span class="fl">0.5</span>; b2 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.7</span></span>
-<span id="cb14-7"><a href="inferencia.html#cb14-7" tabindex="-1"></a>y  <span class="ot">&lt;-</span> b0 <span class="sc">+</span> b1<span class="sc">*</span>x1 <span class="sc">+</span> b2<span class="sc">*</span>x2 <span class="sc">+</span> u</span>
-<span id="cb14-8"><a href="inferencia.html#cb14-8" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="inferencia.html#cb14-9" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb14-10"><a href="inferencia.html#cb14-10" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb14-11"><a href="inferencia.html#cb14-11" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="inferencia.html#cb14-12" tabindex="-1"></a><span class="co"># Monte Carlo para t de x1</span></span>
-<span id="cb14-13"><a href="inferencia.html#cb14-13" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb14-14"><a href="inferencia.html#cb14-14" tabindex="-1"></a>tvals <span class="ot">&lt;-</span> <span class="fu">numeric</span>(R)</span>
-<span id="cb14-15"><a href="inferencia.html#cb14-15" tabindex="-1"></a><span class="cf">for</span> (r <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>R) {</span>
-<span id="cb14-16"><a href="inferencia.html#cb14-16" tabindex="-1"></a>  idx <span class="ot">&lt;-</span> <span class="fu">sample.int</span>(n, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-17"><a href="inferencia.html#cb14-17" tabindex="-1"></a>  fitb <span class="ot">&lt;-</span> <span class="fu">lm</span>(y[idx] <span class="sc">~</span> x1[idx] <span class="sc">+</span> x2[idx])</span>
-<span id="cb14-18"><a href="inferencia.html#cb14-18" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">summary</span>(fitb)<span class="sc">$</span>coefficients</span>
-<span id="cb14-19"><a href="inferencia.html#cb14-19" tabindex="-1"></a>  tvals[r] <span class="ot">&lt;-</span> s[<span class="st">&quot;x1&quot;</span>,<span class="st">&quot;t value&quot;</span>]</span>
-<span id="cb14-20"><a href="inferencia.html#cb14-20" tabindex="-1"></a>}</span>
-<span id="cb14-21"><a href="inferencia.html#cb14-21" tabindex="-1"></a><span class="fu">mean</span>(tvals); <span class="fu">sd</span>(tvals)</span>
-<span id="cb14-22"><a href="inferencia.html#cb14-22" tabindex="-1"></a><span class="fu">hist</span>(tvals, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">main =</span> <span class="st">&quot;t de x1 (bootstrap)&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>)</span></code></pre></div>
-<p><strong>Interpretación:</strong> la media de los <span class="math inline">\(t\)</span> se acerca a 0 y su desviación estándar a 1 a medida que <span class="math inline">\(n\)</span> crece.</p>
-<hr />
-</div>
-<div id="python" class="section level3 unnumbered hasAnchor">
-<h3>Python<a href="inferencia.html#python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="inferencia.html#cb15-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb15-2"><a href="inferencia.html#cb15-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb15-3"><a href="inferencia.html#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="inferencia.html#cb15-4" tabindex="-1"></a>np.random.seed(<span class="dv">12345</span>)</span>
-<span id="cb15-5"><a href="inferencia.html#cb15-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">5000</span>  <span class="co"># prueba con 500, 2000, 5000</span></span>
-<span id="cb15-6"><a href="inferencia.html#cb15-6" tabindex="-1"></a>x1 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb15-7"><a href="inferencia.html#cb15-7" tabindex="-1"></a>x2 <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb15-8"><a href="inferencia.html#cb15-8" tabindex="-1"></a>u  <span class="op">=</span> np.random.standard_t(df<span class="op">=</span><span class="dv">3</span>, size<span class="op">=</span>n)  <span class="co"># no normal</span></span>
-<span id="cb15-9"><a href="inferencia.html#cb15-9" tabindex="-1"></a>b0, b1, b2 <span class="op">=</span> <span class="fl">1.0</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.7</span></span>
-<span id="cb15-10"><a href="inferencia.html#cb15-10" tabindex="-1"></a>y <span class="op">=</span> b0 <span class="op">+</span> b1<span class="op">*</span>x1 <span class="op">+</span> b2<span class="op">*</span>x2 <span class="op">+</span> u</span>
-<span id="cb15-11"><a href="inferencia.html#cb15-11" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="inferencia.html#cb15-12" tabindex="-1"></a>X <span class="op">=</span> np.column_stack([x1, x2])</span>
-<span id="cb15-13"><a href="inferencia.html#cb15-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(X)</span>
-<span id="cb15-14"><a href="inferencia.html#cb15-14" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb15-15"><a href="inferencia.html#cb15-15" tabindex="-1"></a><span class="bu">print</span>(model.summary())</span>
-<span id="cb15-16"><a href="inferencia.html#cb15-16" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="inferencia.html#cb15-17" tabindex="-1"></a><span class="co"># Monte Carlo rápido para t de x1 (bootstrap)</span></span>
-<span id="cb15-18"><a href="inferencia.html#cb15-18" tabindex="-1"></a>R <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb15-19"><a href="inferencia.html#cb15-19" tabindex="-1"></a>tvals <span class="op">=</span> []</span>
-<span id="cb15-20"><a href="inferencia.html#cb15-20" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> <span class="bu">range</span>(R):</span>
-<span id="cb15-21"><a href="inferencia.html#cb15-21" tabindex="-1"></a>    idx <span class="op">=</span> np.random.randint(<span class="dv">0</span>, n, n)</span>
-<span id="cb15-22"><a href="inferencia.html#cb15-22" tabindex="-1"></a>    mb <span class="op">=</span> sm.OLS(y[idx], X[idx,:]).fit()</span>
-<span id="cb15-23"><a href="inferencia.html#cb15-23" tabindex="-1"></a>    tvals.append(mb.tvalues[<span class="dv">1</span>])  <span class="co"># índice 1 corresponde a x1</span></span>
-<span id="cb15-24"><a href="inferencia.html#cb15-24" tabindex="-1"></a>tvals <span class="op">=</span> np.array(tvals)</span>
-<span id="cb15-25"><a href="inferencia.html#cb15-25" tabindex="-1"></a><span class="bu">print</span>(tvals.mean(), tvals.std())</span></code></pre></div>
-<p><strong>Interpretación:</strong> aun con colas pesadas, el <strong>TCL</strong> “salva” la inferencia: <span class="math inline">\(t\)</span> es aproximadamente normal para <span class="math inline">\(n\)</span> grande.</p>
-<hr />
-</div>
-</div>
-<div id="visualizaciones-sugeridas" class="section level2 unnumbered hasAnchor">
-<h2>🖼️ Visualizaciones sugeridas<a href="inferencia.html#visualizaciones-sugeridas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><strong>Figura 1.</strong> Densidad de <span class="math inline">\(t\)</span> simulados vs. <span class="math inline">\(\mathcal{N}(0,1)\)</span> (código anterior).</li>
-<li><strong>Figura 2.</strong> Q-Q plot de <span class="math inline">\(t\)</span> simulados contra cuantiles normales.</li>
-</ul>
-<p>En R Markdown puedes crear las figuras con <code>ggplot2</code> o incluir imágenes pre-generadas con:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="inferencia.html#cb16-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/t_density_vs_normal.png&quot;</span>)</span></code></pre></div>
-<hr />
-</div>
-<div id="notas-practicas-de-inferencia" class="section level2 hasAnchor" number="8.7">
-<h2><span class="header-section-number">8.7</span> 🧩 Notas prácticas de inferencia {-}<a href="inferencia.html#notas-practicas-de-inferencia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li>Sin normalidad exacta (sin A6), usa <strong>errores robustos</strong> y <strong>Wald</strong> en grandes muestras.</li>
-<li><strong>Muestras pequeñas</strong> con colas pesadas: los niveles de significancia efectivos pueden distorsionarse; considera transformaciones, robustez, o métodos re-muestreo (bootstrap con cuidado).</li>
-<li>Si hay <strong>heterocedasticidad</strong> o <strong>correlación en errores</strong>, reemplaza <span class="math inline">\(\hat{\sigma}^2 (X&#39;X)^{-1}\)</span> por una <strong>matriz robusta</strong> (White, HC; Newey–West, etc.).</li>
-</ul>
-<hr />
-</div>
-<div id="demostraciones-formales-resumen" class="section level2 unnumbered hasAnchor">
-<h2>🔎 Demostraciones formales (resumen)<a href="inferencia.html#demostraciones-formales-resumen" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-10" class="theorem"><strong>Theorem 8.3  </strong></span><strong>Teorema (Consistencia de MCO).</strong>
-Bajo A1–A3, A2 (exogeneidad estricta), y condiciones de regularidad (momentos finitos y <em>LLN</em> aplicable), se cumple <span class="math inline">\(plim(\hat{\beta})=\beta\)</span>.</p>
-</div>
-<div class="proof">
-<p><span id="unlabeled-div-11" class="proof"><em>Proof</em>. </span>Ver demostración en la sección de consistencia: descomposición en dos términos y uso de LLN + continuidad de la inversión + Slutsky.</p>
-</div>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-12" class="theorem"><strong>Theorem 8.4  </strong></span><strong>Teorema (Normalidad asintótica de MCO).</strong>
-Si, además, el TCL aplica a <span class="math inline">\(\tfrac{1}{\sqrt{n}}X&#39;\epsilon\)</span>, entonces <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\Rightarrow \mathcal{N}(0,\sigma^2 Q^{-1})\)</span>.</p>
-</div>
-<div class="proof">
-<p><span id="unlabeled-div-13" class="proof"><em>Proof</em>. </span>Aplicación directa de TCL + Slutsky. La varianza asintótica se estima consistentemente con <span class="math inline">\(\hat{\sigma}^2(X&#39;X)^{-1}\)</span>.</p>
-</div>
-<hr />
-</div>
-<div id="conclusiones-clave" class="section level2 unnumbered hasAnchor">
-<h2>✅ Conclusiones clave<a href="inferencia.html#conclusiones-clave" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<ul>
-<li><strong>Consistencia</strong>: <span class="math inline">\(\hat\beta\to_p \beta\)</span> sin requerir normalidad.</li>
-<li><strong>Normalidad asintótica</strong>: habilita pruebas <span class="math inline">\(t\)</span> y <strong>Wald</strong> aun con errores no normales.</li>
-<li><strong>Práctica aplicada</strong>: usa matrices de varianzas robustas cuando haya heterocedasticidad/autocorrelación.</li>
-</ul>
-<hr />
+<span id="cb13-25"><a href="inferencia.html#cb13-25" tabindex="-1"></a><span class="kw">end</span></span></code></pre></div>
 <div id="preguntas-de-repaso-7" class="section level3 unnumbered hasAnchor box-repaso">
 <h3>📘 Preguntas de repaso<a href="inferencia.html#preguntas-de-repaso-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li>Explique la diferencia entre <strong>insesgamiento</strong> (finito muestral) y <strong>consistencia</strong> (asintótica). Dé un ejemplo donde un estimador sea sesgado pero consistente.</li>
-<li>Muestre que si <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;X\big)=Q\)</span> y <span class="math inline">\(plim\big(\tfrac{1}{n}X&#39;\epsilon\big)=0\)</span>, entonces <span class="math inline">\(plim(\hat\beta)=\beta\)</span>. ¿Qué condiciones hacen plausible cada límite?</li>
-<li>Derive la <strong>varianza asintótica</strong> de <span class="math inline">\(\hat\beta\)</span> y explique cómo se estima con datos. ¿Cuándo usarías una versión <strong>robusta</strong>?</li>
-<li>Para <span class="math inline">\(H_0:\beta_k=\beta_k^0\)</span>, escriba el estadístico <span class="math inline">\(t\)</span> asintótico, su distribución límite y la regla de decisión.</li>
-<li>Para restricciones múltiples <span class="math inline">\(R\beta=r\)</span>, derive el <strong>Wald</strong> y muestre que <span class="math inline">\(W\Rightarrow \chi^2_{\#r}\)</span>. ¿Cómo relacionar esto con un <span class="math inline">\(F\)</span> en grandes muestras?</li>
+<li>¿Por qué el supuesto <strong>A6 (normalidad)</strong> es esencial para obtener la distribución exacta de los estadísticos <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>?<br />
+</li>
+<li>Demuestre algebraicamente que <span class="math display">\[F(1,n-k) = t^2\]</span>.<br />
+</li>
+<li>Interprete el intervalo de confianza del 95% para <span class="math inline">\(\beta_k\)</span>.<br />
+</li>
+<li>¿Qué significa un <em>p-value</em> de 0.07 en una prueba con <span class="math inline">\(\alpha=0.05\)</span>?<br />
+</li>
+<li>En <strong>Stata</strong>, ¿cómo verificaría la hipótesis <span class="math inline">\(\beta_1 = \beta_2\)</span>?<br />
+</li>
+<li>Explique en qué difiere el contraste <strong>F global</strong> de un contraste individual con <span class="math inline">\(t\)</span>.</li>
 </ol>
 </div>
-<hr />
-</div>
-<div id="codigo-minimo-reproducible-mco-wald" class="section level2 hasAnchor" number="8.8">
-<h2><span class="header-section-number">8.8</span> 🧰 Código mínimo reproducible (MCO + Wald) {-}<a href="inferencia.html#codigo-minimo-reproducible-mco-wald" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="stata" class="section level3 unnumbered hasAnchor">
-<h3>Stata<a href="inferencia.html#stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb17"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb17-1"><a href="inferencia.html#cb17-1" tabindex="-1"></a>* Estimación <span class="fu">y</span> matriz robusta</span>
-<span id="cb17-2"><a href="inferencia.html#cb17-2" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">vce</span>(<span class="kw">robust</span>)</span>
-<span id="cb17-3"><a href="inferencia.html#cb17-3" tabindex="-1"></a></span>
-<span id="cb17-4"><a href="inferencia.html#cb17-4" tabindex="-1"></a>* Wald para R*beta = <span class="fu">r</span> (ejemplo: beta_x1 = 0 <span class="fu">y</span> beta_x2 = -0.7)</span>
-<span id="cb17-5"><a href="inferencia.html#cb17-5" tabindex="-1"></a><span class="kw">test</span> (x1 = 0) (<span class="kw">x2</span> = -0.7)</span></code></pre></div>
-</div>
-<div id="r-1" class="section level3 unnumbered hasAnchor">
-<h3>R<a href="inferencia.html#r-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="inferencia.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
-<span id="cb18-2"><a href="inferencia.html#cb18-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb18-3"><a href="inferencia.html#cb18-3" tabindex="-1"></a><span class="fu">coeftest</span>(fit, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))  <span class="co"># t robustos</span></span>
-<span id="cb18-4"><a href="inferencia.html#cb18-4" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="inferencia.html#cb18-5" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
-<span id="cb18-6"><a href="inferencia.html#cb18-6" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>), <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
-<span id="cb18-7"><a href="inferencia.html#cb18-7" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.7</span>)</span>
-<span id="cb18-8"><a href="inferencia.html#cb18-8" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">coef</span>(fit); V <span class="ot">&lt;-</span> <span class="fu">vcovHC</span>(fit, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>)</span>
-<span id="cb18-9"><a href="inferencia.html#cb18-9" tabindex="-1"></a>W <span class="ot">&lt;-</span> <span class="fu">t</span>(R<span class="sc">%*%</span>b <span class="sc">-</span> r) <span class="sc">%*%</span> <span class="fu">solve</span>(R<span class="sc">%*%</span>V<span class="sc">%*%</span><span class="fu">t</span>(R)) <span class="sc">%*%</span> (R<span class="sc">%*%</span>b <span class="sc">-</span> r)</span>
-<span id="cb18-10"><a href="inferencia.html#cb18-10" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(W, <span class="at">df =</span> <span class="dv">2</span>)</span>
-<span id="cb18-11"><a href="inferencia.html#cb18-11" tabindex="-1"></a><span class="fu">c</span>(<span class="at">Wald =</span> W[<span class="dv">1</span>,<span class="dv">1</span>], <span class="at">df =</span> <span class="dv">2</span>, <span class="at">p.value =</span> pval)</span></code></pre></div>
-</div>
-<div id="python-1" class="section level3 unnumbered hasAnchor">
-<h3>Python<a href="inferencia.html#python-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb19"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb19-1"><a href="inferencia.html#cb19-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb19-2"><a href="inferencia.html#cb19-2" tabindex="-1"></a>y <span class="op">=</span> y  <span class="co"># define tus datos</span></span>
-<span id="cb19-3"><a href="inferencia.html#cb19-3" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(np.column_stack([x1, x2]))</span>
-<span id="cb19-4"><a href="inferencia.html#cb19-4" tabindex="-1"></a>fit <span class="op">=</span> sm.OLS(y, X).fit(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)  <span class="co"># robusto</span></span>
-<span id="cb19-5"><a href="inferencia.html#cb19-5" tabindex="-1"></a><span class="bu">print</span>(fit.summary())</span>
-<span id="cb19-6"><a href="inferencia.html#cb19-6" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="inferencia.html#cb19-7" tabindex="-1"></a><span class="co"># Wald: H0: beta_x1 = 0, beta_x2 = -0.7</span></span>
-<span id="cb19-8"><a href="inferencia.html#cb19-8" tabindex="-1"></a>R <span class="op">=</span> np.array([[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>]])</span>
-<span id="cb19-9"><a href="inferencia.html#cb19-9" tabindex="-1"></a>r <span class="op">=</span> np.array([<span class="dv">0</span>, <span class="op">-</span><span class="fl">0.7</span>])</span>
-<span id="cb19-10"><a href="inferencia.html#cb19-10" tabindex="-1"></a>b <span class="op">=</span> fit.params.values</span>
-<span id="cb19-11"><a href="inferencia.html#cb19-11" tabindex="-1"></a>V <span class="op">=</span> fit.cov_params().values</span>
-<span id="cb19-12"><a href="inferencia.html#cb19-12" tabindex="-1"></a>W <span class="op">=</span> (R<span class="op">@</span>b <span class="op">-</span> r).T <span class="op">@</span> np.linalg.inv(R<span class="op">@</span>V<span class="op">@</span>R.T) <span class="op">@</span> (R<span class="op">@</span>b <span class="op">-</span> r)</span>
-<span id="cb19-13"><a href="inferencia.html#cb19-13" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2</span>
-<span id="cb19-14"><a href="inferencia.html#cb19-14" tabindex="-1"></a>pval <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> chi2.cdf(W, df<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb19-15"><a href="inferencia.html#cb19-15" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;Wald&quot;</span>: <span class="bu">float</span>(W), <span class="st">&quot;df&quot;</span>: <span class="dv">2</span>, <span class="st">&quot;p.value&quot;</span>: <span class="bu">float</span>(pval)})</span></code></pre></div>
-<hr />
-<div class="box-cerebro">
-<p><b>Mensaje clave:</b> Aun sin normalidad exacta, la <em>consistencia</em> y la <em>normalidad asintótica</em> permiten inferencia válida en grandes muestras. En aplicaciones, usa <b>errores robustos</b> y el <b>test de Wald</b> para restricciones múltiples.</p>
-</div>
 
-</div>
 </div>
 </div>
             </section>
@@ -1186,7 +862,7 @@ Si, además, el TCL aplica a <span class="math inline">\(\tfrac{1}{\sqrt{n}}X&#3
         </div>
       </div>
 <a href="aspectos-algebraicos-de-la-solucion-de-mco.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -1217,7 +893,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/09-NormAs.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/08-PruebasHIP.Rmd",
     "text": "Edit"
   },
   "history": {
