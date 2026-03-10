@@ -1,6 +1,6 @@
-# Propiedades asintóticas de MCO y pruebas de hipótesis {-} {#propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis}
+# Propiedades asintóticas de MCO y pruebas de hipótesis {#propiedades-asintoticas-de-mco-y-pruebas-de-hipotesis}
 
-## 🎯 Objetivo y motivación {-} {#objetivo-y-motivacion}
+## 🎯 Objetivo y motivación {-} {#objetivo-y-motivacion-normas}
 
 En este capítulo pasamos de las **propiedades en muestras finitas** del estimador de Mínimos Cuadrados Ordinarios (MCO) a sus **propiedades asintóticas** (cuando $n\to\infty$). Verás por qué la **consistencia** y la **normalidad asintótica** permiten hacer inferencia incluso **sin** normalidad exacta de los errores, y cómo construir **pruebas $t$**, **estadísticos $F$** y el **test de Wald** en grandes muestras.
 

@@ -103,12 +103,15 @@ codigo-minimo-reproducible-mco-wald
 multicolinealidad-deteccion-consecuencias-y-no-soluciones
 objetivo-y-motivacion
 definicion-y-condicion-de-rango
+intuicion-geometrica-multico
 controlar-por-otras-variables-via-fwl
 deteccion-de-multicolinealidad
 que-hacer-y-que-no-ante-multicolinealidad
 mini-demostracion-varianza-inflada-por-auxiliar
 apendice-comandos-utiles
+objetivo-del-capitulo-hetero
 id_1-introduccion
+intuicion-geometrica-hetero
 id_4-consecuencias-teoricas
 id_5-deteccion-de-heterocedasticidad
 id_51-diagnostico-visual

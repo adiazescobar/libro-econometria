@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-03-03" />
+<meta name="date" content="2026-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad"><i class="fa fa-check"></i>🧩 Modelo particionado y consecuencias de la multicolinealidad</a>
 <ul>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza"><i class="fa fa-check"></i>Propiedades: insesgamiento y varianza</a></li>
-<li class="chapter" data-level="9.1.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#intuicion-geometrica-multico"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#controlar-por-otras-variables-via-fwl"><i class="fa fa-check"></i><b>9.2</b> 🧪 “Controlar por otras variables” vía FWL {-}</a></li>
 <li class="chapter" data-level="9.3" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#deteccion-de-multicolinealidad"><i class="fa fa-check"></i><b>9.3</b> 🔎 Detección de multicolinealidad {-}</a></li>
@@ -458,10 +458,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i>Heterocedasticidad</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="regresion-lineal.html"><a href="regresion-lineal.html#objetivo-del-capitulo"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="9.6.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#objetivo-del-capitulo-hetero"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
 <li class="chapter" data-level="9.7" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>9.7</b> 1. Introducción {-}</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="9.7.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#intuicion-geometrica-hetero"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#ejemplos-motivadores"><i class="fa fa-check"></i>2. Ejemplos motivadores</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura"><i class="fa fa-check"></i>3. Heterocedasticidad pura vs. impura</a>
@@ -830,9 +830,9 @@ F = \frac{W/\#r}{U/(n-K)} \;\sim\; F(\#r,\;n-K).
 <span id="cb13-41"><a href="inferencia.html#cb13-41" tabindex="-1"></a></span>
 <span id="cb13-42"><a href="inferencia.html#cb13-42" tabindex="-1"></a>&lt;!--chapter:<span class="kw">end</span>:08-PruebasHIP.Rmd--&gt;</span>
 <span id="cb13-43"><a href="inferencia.html#cb13-43" tabindex="-1"></a></span>
-<span id="cb13-44"><a href="inferencia.html#cb13-44" tabindex="-1"></a># Propiedades asintóticas <span class="kw">de</span> MCO <span class="fu">y</span> pruebas <span class="kw">de</span> hipótesis {-} {#propiedades-asintoticas-<span class="kw">de</span>-mco-<span class="fu">y</span>-pruebas-<span class="kw">de</span>-hipotesis}</span>
+<span id="cb13-44"><a href="inferencia.html#cb13-44" tabindex="-1"></a># Propiedades asintóticas <span class="kw">de</span> MCO <span class="fu">y</span> pruebas <span class="kw">de</span> hipótesis {#propiedades-asintoticas-<span class="kw">de</span>-mco-<span class="fu">y</span>-pruebas-<span class="kw">de</span>-hipotesis}</span>
 <span id="cb13-45"><a href="inferencia.html#cb13-45" tabindex="-1"></a></span>
-<span id="cb13-46"><a href="inferencia.html#cb13-46" tabindex="-1"></a>## 🎯 Objetivo <span class="fu">y</span> motivación {-} {#objetivo-<span class="fu">y</span>-motivacion}</span>
+<span id="cb13-46"><a href="inferencia.html#cb13-46" tabindex="-1"></a>## 🎯 Objetivo <span class="fu">y</span> motivación {-} {#objetivo-<span class="fu">y</span>-motivacion-normas}</span>
 <span id="cb13-47"><a href="inferencia.html#cb13-47" tabindex="-1"></a></span>
 <span id="cb13-48"><a href="inferencia.html#cb13-48" tabindex="-1"></a>En este capítulo pasamos <span class="kw">de</span> las **propiedades en muestras finitas** del estimador <span class="kw">de</span> Mínimos Cuadrados Ordinarios (MCO) a sus **propiedades asintóticas** (cuando <span class="ot">$n</span>\to\infty$). Verás por qué la **consistencia** <span class="fu">y</span> la **normalidad asintótica** permiten hacer inferencia incluso **<span class="fu">sin</span>** normalidad exacta <span class="kw">de</span> los errores, <span class="fu">y</span> cómo construir **pruebas <span class="ot">$t</span>$**, **estadísticos <span class="ot">$F</span>$** <span class="fu">y</span> <span class="fu">el</span> **<span class="kw">test</span> <span class="kw">de</span> Wald** en grandes muestras.</span>
 <span id="cb13-49"><a href="inferencia.html#cb13-49" tabindex="-1"></a></span>

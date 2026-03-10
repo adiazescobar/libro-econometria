@@ -120,7 +120,7 @@ Aquí $R^2_{x_r\cdot X_s}$ es el $R^2$ de la regresión **auxiliar** de $X_r$ so
 
 ---
 
-### 📐 Intuición geométrica {-} {#intuicion-geometrica}
+### 📐 Intuición geométrica {-} {#intuicion-geometrica-multico}
 
 * $P_{X_s}=X_s(X_s'X_s)^{-1}X_s'$ proyecta sobre $\mathrm{Col}(X_s)$; $M_s=I-P_{X_s}$ proyecta **ortogonalmente** fuera de $\mathrm{Col}(X_s)$.
 * Si $X_r$ “cae casi” en $\mathrm{Col}(X_s)$, entonces $M_s X_r$ es muy pequeño → **poca variación residual** para identificar $\beta_r$ → **grandes** errores estándar.

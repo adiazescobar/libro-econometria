@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-03-03" />
+<meta name="date" content="2026-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -427,7 +427,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#modelo-particionado-y-consecuencias-de-la-multicolinealidad"><i class="fa fa-check"></i>🧩 Modelo particionado y consecuencias de la multicolinealidad</a>
 <ul>
 <li class="chapter" data-level="" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#propiedades-insesgamiento-y-varianza"><i class="fa fa-check"></i>Propiedades: insesgamiento y varianza</a></li>
-<li class="chapter" data-level="9.1.2" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="9.1.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#intuicion-geometrica-multico"><i class="fa fa-check"></i><b>9.1.2</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#controlar-por-otras-variables-via-fwl"><i class="fa fa-check"></i><b>9.2</b> 🧪 “Controlar por otras variables” vía FWL {-}</a></li>
 <li class="chapter" data-level="9.3" data-path="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"><a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html#deteccion-de-multicolinealidad"><i class="fa fa-check"></i><b>9.3</b> 🔎 Detección de multicolinealidad {-}</a></li>
@@ -458,10 +458,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i>Heterocedasticidad</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="regresion-lineal.html"><a href="regresion-lineal.html#objetivo-del-capitulo"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="9.6.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#objetivo-del-capitulo-hetero"><i class="fa fa-check"></i><b>9.6.1</b> 🎯 Objetivo del capítulo {-}</a></li>
 <li class="chapter" data-level="9.7" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>9.7</b> 1. Introducción {-}</a>
 <ul>
-<li class="chapter" data-level="9.7.1" data-path="anatomia-de-la-regresion-multiple.html"><a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
+<li class="chapter" data-level="9.7.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#intuicion-geometrica-hetero"><i class="fa fa-check"></i><b>9.7.1</b> 📐 Intuición geométrica {-}</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#ejemplos-motivadores"><i class="fa fa-check"></i>2. Ejemplos motivadores</a></li>
 <li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura"><i class="fa fa-check"></i>3. Heterocedasticidad pura vs. impura</a>
@@ -529,8 +529,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="heterocedasticidad" class="section level1 unnumbered hasAnchor">
 <h1>Heterocedasticidad<a href="heterocedasticidad.html#heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objetivo-del-capitulo" class="section level3 hasAnchor" number="9.6.1">
-<h3><span class="header-section-number">9.6.1</span> 🎯 Objetivo del capítulo {-}<a href="regresion-lineal.html#objetivo-del-capitulo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="objetivo-del-capitulo-hetero" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> 🎯 Objetivo del capítulo {-}<a href="heterocedasticidad.html#objetivo-del-capitulo-hetero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gráficos y contrastes formales) y cómo corregirla (GLS/WLS/MCF y errores estándar robustos), con ejemplos en <strong>Stata, R y Python</strong>.</p>
 <div class="box-cerebro">
 <p><strong>TL;DR</strong></p>
@@ -562,8 +562,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
 <li>La varianza clásica <span class="math inline">\(\widehat{\mathbb{V}}(\hat\beta)=\hat\sigma^2 (X&#39;X)^{-1}\)</span> es <strong>incorrecta</strong> <span class="math inline">\(\Rightarrow\)</span> <strong>t y F</strong> clásicos <strong>no son válidos</strong>.</li>
 </ul>
-<div id="intuicion-geometrica" class="section level3 hasAnchor" number="9.7.1">
-<h3><span class="header-section-number">9.7.1</span> 📐 Intuición geométrica {-}<a href="anatomia-de-la-regresion-multiple.html#intuicion-geometrica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="intuicion-geometrica-hetero" class="section level3 hasAnchor" number="9.7.1">
+<h3><span class="header-section-number">9.7.1</span> 📐 Intuición geométrica {-}<a href="heterocedasticidad.html#intuicion-geometrica-hetero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En un <strong>gráfico de residuos <span class="math inline">\(\hat\varepsilon_i\)</span> vs. valores ajustados <span class="math inline">\(\hat y_i\)</span></strong>, la heterocedasticidad suele verse como un <strong>abanico</strong> (la dispersión crece o decrece con <span class="math inline">\(\hat y\)</span>) o como bandas donde la variabilidad cambia con alguna covariable (por ejemplo, con el ingreso).</p>
 <hr />
 </div>

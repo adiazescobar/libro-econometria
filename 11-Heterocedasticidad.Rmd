@@ -1,7 +1,7 @@
 
 # Heterocedasticidad {-}
 
-### 🎯 Objetivo del capítulo {-} {#objetivo-del-capitulo}
+### 🎯 Objetivo del capítulo {-} {#objetivo-del-capitulo-hetero}
 
 Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gráficos y contrastes formales) y cómo corregirla (GLS/WLS/MCF y errores estándar robustos), con ejemplos en **Stata, R y Python**.
 
@@ -32,7 +32,7 @@ Cuando este supuesto falla, hablamos de **heterocedasticidad**. En ese caso:
 - \(\hat\beta_{\text{MCO}}\) **no es** eficiente (no es MELI/BLUE).  
 - La varianza clásica \(\widehat{\mathbb{V}}(\hat\beta)=\hat\sigma^2 (X'X)^{-1}\) es **incorrecta** \(\Rightarrow\) **t y F** clásicos **no son válidos**.
 
-### 📐 Intuición geométrica {-} {#intuicion-geometrica}
+### 📐 Intuición geométrica {-} {#intuicion-geometrica-hetero}
 
 En un **gráfico de residuos \(\hat\varepsilon_i\) vs. valores ajustados \(\hat y_i\)**, la heterocedasticidad suele verse como un **abanico** (la dispersión crece o decrece con \(\hat y\)) o como bandas donde la variabilidad cambia con alguna covariable (por ejemplo, con el ingreso).
 
