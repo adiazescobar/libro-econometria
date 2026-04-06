@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Heterocedasticidad | Econometría II</title>
+  <title>12 Variables Instrumentales | Econometría II</title>
   <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Heterocedasticidad | Econometría II" />
+  <meta property="og:title" content="12 Variables Instrumentales | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
@@ -17,7 +17,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Heterocedasticidad | Econometría II" />
+  <meta name="twitter:title" content="12 Variables Instrumentales | Econometría II" />
   
   <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
@@ -33,8 +33,8 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html"/>
-<link rel="next" href="endogeneidad.html"/>
+<link rel="prev" href="endogeneidad.html"/>
+<link rel="next" href="parcial-1-2026-1.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -585,435 +585,273 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="heterocedasticidad" class="section level1 unnumbered hasAnchor">
-<h1>Heterocedasticidad<a href="heterocedasticidad.html#heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objetivo-del-capitulo-hetero" class="section level3 hasAnchor" number="10.6.1">
-<h3><span class="header-section-number">10.6.1</span> 🎯 Objetivo del capítulo {-}<a href="heterocedasticidad.html#objetivo-del-capitulo-hetero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gráficos y contrastes formales) y cómo corregirla (GLS/WLS/MCF y errores estándar robustos), con ejemplos en <strong>Stata, R y Python</strong>.</p>
-<div class="box-cerebro">
-<p><strong>TL;DR</strong></p>
-<ul>
-<li>Homocedasticidad: <span class="math inline">\(\mathbb{V}(\varepsilon_i\mid X)=\sigma^2\)</span> constante.<br />
-</li>
-<li>Heterocedasticidad: <span class="math inline">\(\mathbb{V}(\varepsilon_i\mid X)=\sigma_i^2\)</span> varía entre observaciones.<br />
-</li>
-<li>MCO sigue siendo <strong>insesgado</strong> y <strong>consistente</strong>, pero <strong>no es eficiente</strong> y la varianza clásica es <strong>incorrecta</strong> <span class="math inline">\(\Rightarrow\)</span> pruebas t/F inválidas.<br />
-</li>
-<li>Detección: residuos vs. ajustados, <strong>White</strong>, <strong>Breusch–Pagan/Cook–Weisberg</strong>, <strong>Goldfeld–Quandt</strong>.<br />
-</li>
-<li>Correcciones: <strong>GLS/WLS/MCF</strong> (si conocemos/modelamos <span class="math inline">\(\Omega\)</span>), o <strong>errores estándar robustos (White/Huber)</strong> si no.</li>
-</ul>
-</div>
+<div id="iv" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">12</span> Variables Instrumentales<a href="iv.html#iv" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="la-idea-un-instrumento-como-fuente-de-variación-exógena" class="section level2 unnumbered hasAnchor">
+<h2>La idea: un instrumento como fuente de variación exógena<a href="#la-idea-un-instrumento-como-fuente-de-variaci%C3%B3n-ex%C3%B3gena" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando existe endogeneidad (<span class="math inline">\(Cov(\varepsilon, X) \neq 0\)</span>), necesitamos una fuente de variación en <span class="math inline">\(X\)</span> que sea exógena — es decir, que no esté correlacionada con <span class="math inline">\(\varepsilon\)</span>. Eso es exactamente lo que hace una <strong>variable instrumental</strong> <span class="math inline">\(Z\)</span>.</p>
+<p>La intuición del estimador de variables instrumentales: dado que <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> pero también está correlacionada con el error, buscamos una variable <span class="math inline">\(Z\)</span> que “mueva” a <span class="math inline">\(X\)</span> sin tener efecto directo sobre <span class="math inline">\(Y\)</span>. La variación en <span class="math inline">\(Y\)</span> atribuida a <span class="math inline">\(Z\)</span> identifica el efecto causal de <span class="math inline">\(X\)</span>.</p>
 <hr />
 </div>
-<div id="id_1-introduccion" class="section level2 hasAnchor" number="10.7">
-<h2><span class="header-section-number">10.7</span> 1. Introducción {-}<a href="heterocedasticidad.html#id_1-introduccion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El supuesto clásico de homocedasticidad establece que todos los errores del modelo lineal tienen varianza constante:
-<span class="math display">\[
-\mathbb{V}(\varepsilon_i\mid X)=\sigma^2,\qquad i=1,\dots,n.
-\]</span></p>
-<p>Cuando este supuesto falla, hablamos de <strong>heterocedasticidad</strong>. En ese caso:</p>
-<ul>
-<li><span class="math inline">\(\hat\beta_{\text{MCO}}\)</span> <strong>sigue</strong> siendo insesgada y consistente.<br />
-</li>
-<li><span class="math inline">\(\hat\beta_{\text{MCO}}\)</span> <strong>no es</strong> eficiente (no es MELI/BLUE).<br />
-</li>
-<li>La varianza clásica <span class="math inline">\(\widehat{\mathbb{V}}(\hat\beta)=\hat\sigma^2 (X&#39;X)^{-1}\)</span> es <strong>incorrecta</strong> <span class="math inline">\(\Rightarrow\)</span> <strong>t y F</strong> clásicos <strong>no son válidos</strong>.</li>
-</ul>
-<div id="intuicion-geometrica-hetero" class="section level3 hasAnchor" number="10.7.1">
-<h3><span class="header-section-number">10.7.1</span> 📐 Intuición geométrica {-}<a href="heterocedasticidad.html#intuicion-geometrica-hetero" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En un <strong>gráfico de residuos <span class="math inline">\(\hat\varepsilon_i\)</span> vs. valores ajustados <span class="math inline">\(\hat y_i\)</span></strong>, la heterocedasticidad suele verse como un <strong>abanico</strong> (la dispersión crece o decrece con <span class="math inline">\(\hat y\)</span>) o como bandas donde la variabilidad cambia con alguna covariable (por ejemplo, con el ingreso).</p>
+<div id="condiciones-del-instrumento" class="section level2 unnumbered hasAnchor">
+<h2>Condiciones del instrumento<a href="iv.html#condiciones-del-instrumento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una variable instrumental <span class="math inline">\(Z\)</span> debe cumplir dos condiciones:</p>
+<p><strong>Condición 1 — Validez (exogeneidad):</strong>
+<span class="math display">\[Cov(\varepsilon, Z) = 0 \quad \Rightarrow \quad E[\varepsilon \mid Z] = 0\]</span></p>
+<p>El instrumento no está correlacionado con el error. Esta condición <strong>no puede probarse</strong> directamente en un modelo exactamente identificado — requiere argumentación teórica y conocimiento del contexto.</p>
+<p><strong>Condición 2 — Relevancia:</strong>
+<span class="math display">\[Cov(Z, X) \neq 0 \quad \Rightarrow \quad E[X \mid Z] \neq 0\]</span></p>
+<p>El instrumento sí está correlacionado con la variable endógena. Esta condición <strong>sí puede probarse</strong> con datos: basta con correr la primera etapa y verificar que el instrumento es significativo.</p>
 <hr />
 </div>
-</div>
-<div id="ejemplos-motivadores" class="section level2 unnumbered hasAnchor">
-<h2>2. Ejemplos motivadores<a href="heterocedasticidad.html#ejemplos-motivadores" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="xca">
-<p><strong>Ejemplo 1: Consumo e ingreso.</strong><br />
-<span class="math inline">\(y_i\)</span> = consumo del hogar <span class="math inline">\(i\)</span>, <span class="math inline">\(X_i\)</span> = ingreso. Hogares de bajos ingresos consumen casi todo (poca variación); hogares de altos ingresos difieren mucho en consumo (mucha variación).
-<span class="math display">\[
-y_i=\beta_1+\beta_2 X_i+\varepsilon_i,\quad \mathbb{V}(\varepsilon_i\mid X)=\sigma^2(X_i)\ \text{creciente en }X_i.
-\]</span></p>
-</div>
-<div class="xca">
-<p><strong>Ejemplo 2: Datos per cápita.</strong><br />
-Si agregamos <span class="math inline">\(n_i\)</span> unidades y promediamos: <span class="math inline">\(\bar y_i=\tfrac{1}{n_i}\sum_{j=1}^{n_i}y_{ij}\)</span>, entonces
-<span class="math display">\[
-\mathbb{V}(\bar\varepsilon_i)=\frac{\sigma^2}{n_i}.
-\]</span>
-La varianza <strong>depende de <span class="math inline">\(n_i\)</span></strong> <span class="math inline">\(\Rightarrow\)</span> heterocedasticidad “por construcción”.</p>
-</div>
+<div id="el-estimador-de-variables-instrumentales-iv" class="section level2 unnumbered hasAnchor">
+<h2>El estimador de Variables Instrumentales (IV)<a href="iv.html#el-estimador-de-variables-instrumentales-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sea <span class="math inline">\(Z_{n \times r}\)</span> la matriz de <span class="math inline">\(r\)</span> variables instrumentales y <span class="math inline">\(X_{n \times k}\)</span> la matriz de <span class="math inline">\(k\)</span> variables endógenas.</p>
+<p>De la condición de validez:</p>
+<p><span class="math display">\[E[\varepsilon \mid Z] = 0 \quad \Rightarrow \quad Z&#39;\varepsilon = 0 \quad \Rightarrow \quad Z&#39;(y - X\hat{\beta}) = 0\]</span></p>
+<p>Resolviendo para <span class="math inline">\(\hat{\beta}\)</span>:</p>
+<p><span class="math display">\[\boxed{\hat{\beta}_{VI} = (Z&#39;X)^{-1} Z&#39;y}\]</span></p>
+<p>Este estimador requiere que <span class="math inline">\(r = k\)</span> (modelo <strong>exactamente identificado</strong>: tantos instrumentos como variables endógenas).</p>
+<p><strong>Caso especial — instrumento binario:</strong></p>
+<p>Cuando <span class="math inline">\(Z\)</span> es una variable binaria (ej. asignación aleatoria a un programa), el estimador IV se reduce al <strong>estimador de Wald</strong>:</p>
+<p><span class="math display">\[\hat{\beta}_{VI} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{X}_{Z=1} - \bar{X}_{Z=0}} = \frac{\Delta Y / \Delta Z}{\Delta X / \Delta Z}\]</span></p>
+<p>Es la variación en <span class="math inline">\(Y\)</span> atribuida a <span class="math inline">\(Z\)</span>, dividida entre la variación en <span class="math inline">\(X\)</span> atribuida a <span class="math inline">\(Z\)</span>.</p>
 <hr />
 </div>
-<div id="heterocedasticidad-pura-vs.-impura" class="section level2 unnumbered hasAnchor">
-<h2>3. Heterocedasticidad pura vs. impura<a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="pura" class="section level3 unnumbered hasAnchor">
-<h3>3.1 Pura<a href="heterocedasticidad.html#pura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La varianza <strong>realmente cambia</strong> por unidad:
-<span class="math display">\[
-\mathbb{E}(\varepsilon_i^2)=\sigma_i^2,\qquad
-\mathbb{V}(\varepsilon)=\Omega=\mathrm{diag}(\sigma_1^2,\ldots,\sigma_n^2).
-\]</span></p>
-</div>
-<div id="impura" class="section level3 unnumbered hasAnchor">
-<h3>3.2 Impura<a href="heterocedasticidad.html#impura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Aparece por <strong>omisión de variables</strong> u otros errores de especificación. Si el verdadero modelo es
-<span class="math display">\[
-y_i=\beta_1+\beta_2 X_{2i}+\beta_3 X_{3i}+\varepsilon_i,\quad \varepsilon_i\sim (0,\sigma^2),
-\]</span>
-y estimamos <span class="math inline">\(y_i=\beta_1+\beta_2 X_{2i}+u_i\)</span>, entonces <span class="math inline">\(u_i=\beta_3 X_{3i}+\varepsilon_i\)</span> y
-<span class="math display">\[
-\mathbb{V}(u_i)=\beta_3^2\,\mathbb{V}(X_{3i})+\sigma^2,
-\]</span>
-que suele <strong>variar</strong> con <span class="math inline">\(X_{3i}\)</span> <span class="math inline">\(\Rightarrow\)</span> heterocedasticidad “impura”.</p>
-<hr />
-</div>
-</div>
-<div id="id_4-consecuencias-teoricas" class="section level2 hasAnchor" number="10.8">
-<h2><span class="header-section-number">10.8</span> 4. Consecuencias teóricas {-}<a href="heterocedasticidad.html#id_4-consecuencias-teoricas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-19" class="theorem"><strong>Theorem 10.2  </strong></span><strong>Teorema (Varianza de MCO con heterocedasticidad).</strong><br />
-Sea <span class="math inline">\(y=X\beta+\varepsilon\)</span> con <span class="math inline">\(\mathbb{E}(\varepsilon\mid X)=0\)</span> y <span class="math inline">\(\mathbb{V}(\varepsilon\mid X)=\Omega\)</span> (simétrica, definida positiva). Entonces
-<span class="math display">\[
-\mathbb{V}(\hat\beta_{\text{MCO}}\mid X)=(X&#39;X)^{-1}X&#39;\,\Omega\,X\,(X&#39;X)^{-1}.
-\]</span>
-La estimación clásica <span class="math inline">\(\hat\sigma^2(X&#39;X)^{-1}\)</span> es <strong>inconsistente</strong> salvo que <span class="math inline">\(\Omega=\sigma^2 I\)</span>.</p>
-</div>
-<div class="proof">
-<p><span id="unlabeled-div-20" class="proof"><em>Proof</em>. </span><strong>Demostración (borrador).</strong><br />
-<span class="math inline">\(\hat\beta=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\varepsilon\)</span>.<br />
-Dado <span class="math inline">\(X\)</span>, <span class="math inline">\(\mathbb{E}(\hat\beta)=\beta\)</span> y
-<span class="math display">\[
-\mathbb{V}(\hat\beta\mid X)=(X&#39;X)^{-1}X&#39;\,\mathbb{V}(\varepsilon\mid X)\,X\,(X&#39;X)^{-1}=(X&#39;X)^{-1}X&#39;\,\Omega\,X\,(X&#39;X)^{-1}.
-\]</span>
-Si <span class="math inline">\(\Omega\neq \sigma^2 I\)</span>, reemplazarla por <span class="math inline">\(\hat\sigma^2 I\)</span> no converge al valor verdadero. <span class="math inline">\(\square\)</span></p>
-</div>
-<p><strong>Asintótica “sándwich”.</strong> Si <span class="math inline">\(n^{-1}X&#39;X\to_p Q\succ 0\)</span> y <span class="math inline">\(n^{-1}X&#39;\Omega X\to_p S\)</span>, entonces
-<span class="math display">\[
-\sqrt{n}(\hat\beta-\beta)\ \overset{d}{\longrightarrow}\ \mathcal{N}\!\left(0,\ Q^{-1}SQ^{-1}\right).
-\]</span>
-Un estimador consistente de <span class="math inline">\(Q^{-1}SQ^{-1}\)</span> es la familia HC:
-<span class="math display">\[
-\widehat{\mathbb{V}}_{HC0}(\hat\beta)=(X&#39;X)^{-1}\Big(\sum_{i=1}^n x_i x_i&#39; \hat\varepsilon_i^{2}\Big)(X&#39;X)^{-1}.
-\]</span>
-Variantes: <strong>HC1</strong> (factor <span class="math inline">\(n/(n-k)\)</span>), <strong>HC2</strong> (divide por <span class="math inline">\(1-h_{ii}\)</span>), <strong>HC3</strong> (divide por <span class="math inline">\((1-h_{ii})^2\)</span>).</p>
-<hr />
-</div>
-<div id="id_5-deteccion-de-heterocedasticidad" class="section level2 hasAnchor" number="10.9">
-<h2><span class="header-section-number">10.9</span> 5. Detección de heterocedasticidad {-}<a href="heterocedasticidad.html#id_5-deteccion-de-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="id_51-diagnostico-visual" class="section level3 hasAnchor" number="10.9.1">
-<h3><span class="header-section-number">10.9.1</span> 5.1 Diagnóstico visual {-}<a href="heterocedasticidad.html#id_51-diagnostico-visual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="heterocedasticidad.html#cb30-1" tabindex="-1"></a><span class="co"># R: residuo vs ajustado</span></span>
-<span id="cb30-2"><a href="heterocedasticidad.html#cb30-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">I</span>(x2<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> datos)</span>
-<span id="cb30-3"><a href="heterocedasticidad.html#cb30-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
-<span id="cb30-4"><a href="heterocedasticidad.html#cb30-4" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb31-1"><a href="heterocedasticidad.html#cb31-1" tabindex="-1"></a><span class="co"># Python (statsmodels)</span></span>
-<span id="cb31-2"><a href="heterocedasticidad.html#cb31-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb31-3"><a href="heterocedasticidad.html#cb31-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb31-4"><a href="heterocedasticidad.html#cb31-4" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[[<span class="st">&#39;x1&#39;</span>,<span class="st">&#39;x2&#39;</span>]])</span>
-<span id="cb31-5"><a href="heterocedasticidad.html#cb31-5" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
-<span id="cb31-6"><a href="heterocedasticidad.html#cb31-6" tabindex="-1"></a>plt.scatter(m.fittedvalues, m.resid, s<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb31-7"><a href="heterocedasticidad.html#cb31-7" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, linestyle<span class="op">=</span><span class="st">&#39;--&#39;</span>)</span>
-<span id="cb31-8"><a href="heterocedasticidad.html#cb31-8" tabindex="-1"></a>plt.xlabel(<span class="st">&#39;Ajustados&#39;</span>)<span class="op">;</span> plt.ylabel(<span class="st">&#39;Residuos&#39;</span>)<span class="op">;</span> plt.show()</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="heterocedasticidad.html#cb32-1" tabindex="-1"></a><span class="co"># R Markdown: incluir imagen ya generada</span></span>
-<span id="cb32-2"><a href="heterocedasticidad.html#cb32-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">&quot;figs/hetero_fan.png&quot;</span>)</span></code></pre></div>
-</div>
-<div id="contraste-de-white-1980" class="section level3 unnumbered hasAnchor">
-<h3>5.2 Contraste de White (1980)<a href="heterocedasticidad.html#contraste-de-white-1980" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Hipótesis</strong>
-[
-H_0: (_i<sup>2)=</sup>2
-H_1: (_i^2)=_i^2.]</p>
-<p><strong>Procedimiento (idea):</strong> Regrésese (^2) sobre regresores, sus cuadrados y cruces; compute (W=nR<sup>2</sup>2) (asintótico).</p>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb33-1"><a href="heterocedasticidad.html#cb33-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb33-2"><a href="heterocedasticidad.html#cb33-2" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">imtest</span>, <span class="bn">white</span>   <span class="co">// White general</span></span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="heterocedasticidad.html#cb34-1" tabindex="-1"></a><span class="co"># Aproximación a White vía bptest con ajustados y su cuadrado</span></span>
-<span id="cb34-2"><a href="heterocedasticidad.html#cb34-2" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb34-3"><a href="heterocedasticidad.html#cb34-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb34-4"><a href="heterocedasticidad.html#cb34-4" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> <span class="fu">fitted</span>(m) <span class="sc">+</span> <span class="fu">I</span>(<span class="fu">fitted</span>(m)<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
-<p><strong>Python</strong></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb35-1"><a href="heterocedasticidad.html#cb35-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_white</span>
-<span id="cb35-2"><a href="heterocedasticidad.html#cb35-2" tabindex="-1"></a>white <span class="op">=</span> het_white(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
-<p><strong>Pro/Con:</strong> No requiere saber qué variable genera la hetero; puede ser pesado en muestras pequeñas.</p>
-</div>
-<div id="breuschpagan-cookweisberg" class="section level3 unnumbered hasAnchor">
-<h3>5.3 Breusch–Pagan / Cook–Weisberg<a href="heterocedasticidad.html#breuschpagan-cookweisberg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Asume ((_i)=^2 h(z_i)) lineal en (z).</p>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb36-1"><a href="heterocedasticidad.html#cb36-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb36-2"><a href="heterocedasticidad.html#cb36-2" tabindex="-1"></a><span class="kw">hettest</span>                 <span class="co">// por defecto contra ajustados (Cook–Weisberg)</span></span>
-<span id="cb36-3"><a href="heterocedasticidad.html#cb36-3" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid      <span class="co">// BP clásico con z = (x1, x2)</span></span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="heterocedasticidad.html#cb37-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb37-2"><a href="heterocedasticidad.html#cb37-2" tabindex="-1"></a><span class="fu">bptest</span>(m)               <span class="co"># usa fitted(m) como z</span></span>
-<span id="cb37-3"><a href="heterocedasticidad.html#cb37-3" tabindex="-1"></a><span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)    <span class="co"># especifica z</span></span></code></pre></div>
-<p><strong>Python</strong></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb38-1"><a href="heterocedasticidad.html#cb38-1" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
-<span id="cb38-2"><a href="heterocedasticidad.html#cb38-2" tabindex="-1"></a>bp <span class="op">=</span> het_breuschpagan(m.resid, m.model.exog)  <span class="co"># (LM, pLM, F, pF)</span></span></code></pre></div>
-</div>
-<div id="goldfeldquandt" class="section level3 unnumbered hasAnchor">
-<h3>5.4 Goldfeld–Quandt<a href="heterocedasticidad.html#goldfeldquandt" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Útil si sospechas que la varianza crece con <strong>una</strong> covariable (Z). Ordena por (Z), parte la muestra, omite el tercio central y compara varianzas (estadístico F).</p>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb39-1"><a href="heterocedasticidad.html#cb39-1" tabindex="-1"></a>* Implementación manual si no cuentas con gqtest user-written</span>
-<span id="cb39-2"><a href="heterocedasticidad.html#cb39-2" tabindex="-1"></a><span class="kw">sort</span> Z</span>
-<span id="cb39-3"><a href="heterocedasticidad.html#cb39-3" tabindex="-1"></a>* (particionar, omitir tercio central, estimar en extremos <span class="fu">y</span> comparar RSS/df)</span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="heterocedasticidad.html#cb40-1" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb40-2"><a href="heterocedasticidad.html#cb40-2" tabindex="-1"></a><span class="fu">gqtest</span>(m, <span class="at">order.by =</span> <span class="sc">~</span> Z, <span class="at">data =</span> datos, <span class="at">fraction =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span></code></pre></div>
-<hr />
-</div>
-</div>
-<div id="soluciones" class="section level2 unnumbered hasAnchor">
-<h2>6. Soluciones<a href="heterocedasticidad.html#soluciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="id_61-gls-minimos-cuadrados-generalizados" class="section level3 hasAnchor" number="10.9.2">
-<h3><span class="header-section-number">10.9.2</span> 6.1 GLS (Mínimos Cuadrados Generalizados) {-}<a href="heterocedasticidad.html#id_61-gls-minimos-cuadrados-generalizados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Si conoces (),
-[
-_{GLS}=(X’<sup>{-1}X)</sup>{-1}X’^{-1}y,]
-es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es conocida.</p>
-</div>
-<div id="id_62-wls-minimos-cuadrados-ponderados" class="section level3 hasAnchor" number="10.9.3">
-<h3><span class="header-section-number">10.9.3</span> 6.2 WLS (Mínimos Cuadrados Ponderados) {-}<a href="heterocedasticidad.html#id_62-wls-minimos-cuadrados-ponderados" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Si ((_i)=_i^2) y conoces/estimas (_i^2), pondera por (w_i=1/_i^2):
-[
-<em>{}</em>{i=1}^n w_i (y_i-x_i’)^2.]</p>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb41-1"><a href="heterocedasticidad.html#cb41-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="heterocedasticidad.html#cb42-1" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>sigma2_hat)</span></code></pre></div>
-<p><strong>Python</strong></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb43-1"><a href="heterocedasticidad.html#cb43-1" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>sigma2_hat).fit()</span></code></pre></div>
-</div>
-<div id="fglsmcf-gls-factible" class="section level3 unnumbered hasAnchor">
-<h3>6.3 FGLS/MCF (GLS factible)<a href="heterocedasticidad.html#fglsmcf-gls-factible" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Modela (_i^2) con una <strong>regresión auxiliar</strong> sobre (z_i), extrae (_i^2) y aplica WLS.
-<strong>Consistente y asintóticamente eficiente</strong> si modelas bien (). Requiere muestras moderadas/grandes.</p>
-<p><strong>Stata (esqueleto)</strong></p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="heterocedasticidad.html#cb44-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb44-2"><a href="heterocedasticidad.html#cb44-2" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
-<span id="cb44-3"><a href="heterocedasticidad.html#cb44-3" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
-<span id="cb44-4"><a href="heterocedasticidad.html#cb44-4" tabindex="-1"></a><span class="kw">reg</span> e2 z1 z2 z3</span>
-<span id="cb44-5"><a href="heterocedasticidad.html#cb44-5" tabindex="-1"></a><span class="kw">predict</span> sigma2_hat, <span class="kw">xb</span></span>
-<span id="cb44-6"><a href="heterocedasticidad.html#cb44-6" tabindex="-1"></a><span class="kw">replace</span> sigma2_hat = <span class="fu">exp</span>(sigma2_hat)   <span class="co">// asegura positividad si se modeló en log</span></span>
-<span id="cb44-7"><a href="heterocedasticidad.html#cb44-7" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = 1/sigma2_hat]</span></code></pre></div>
-</div>
-<div id="id_64-errores-estandar-robustos-whitehuber" class="section level3 hasAnchor" number="10.9.4">
-<h3><span class="header-section-number">10.9.4</span> 6.4 Errores estándar robustos (White/Huber) {-}<a href="heterocedasticidad.html#id_64-errores-estandar-robustos-whitehuber" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Mantiene (_{}), pero corrige la <strong>matriz de varianzas</strong>:
-[
-*{HC}()=(X’X)<sup>{-1}(</sup>n x_i x_i’ _i<sup>2)(X’X)</sup>{-1}.]</p>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb45-1"><a href="heterocedasticidad.html#cb45-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>    <span class="co">// ≈ HC1</span></span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="heterocedasticidad.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(sandwich); <span class="fu">library</span>(lmtest)</span>
-<span id="cb46-2"><a href="heterocedasticidad.html#cb46-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb46-3"><a href="heterocedasticidad.html#cb46-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span></code></pre></div>
-<p><strong>Python</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="heterocedasticidad.html#cb47-1" tabindex="-1"></a>m_rob <span class="op">=</span> m.get_robustcov_results(cov_type <span class="op">=</span> <span class="st">&#39;HC1&#39;</span>)</span>
-<span id="cb47-2"><a href="heterocedasticidad.html#cb47-2" tabindex="-1"></a><span class="bu">print</span>(m_rob.summary())</span></code></pre></div>
-<blockquote>
-<p><strong>Cuándo usar qué:</strong></p>
-<ul>
-<li>Si conoces/puedes modelar bien () () <strong>WLS/FGLS</strong>.</li>
-<li>Si no, y solo quieres inferencia válida () <strong>robustos HC</strong> (opción por defecto).</li>
-</ul>
-</blockquote>
-<hr />
-</div>
-</div>
-<div id="id_7-ejemplo-reproducible-simulacion" class="section level2 hasAnchor" number="10.10">
-<h2><span class="header-section-number">10.10</span> 7. Ejemplo reproducible (simulación) {-}<a href="heterocedasticidad.html#id_7-ejemplo-reproducible-simulacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="stata-5" class="section level3 unnumbered hasAnchor">
-<h3>Stata<a href="heterocedasticidad.html#stata-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb48"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb48-1"><a href="heterocedasticidad.html#cb48-1" tabindex="-1"></a><span class="kw">clear</span> <span class="ot">all</span></span>
-<span id="cb48-2"><a href="heterocedasticidad.html#cb48-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
-<span id="cb48-3"><a href="heterocedasticidad.html#cb48-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
-<span id="cb48-4"><a href="heterocedasticidad.html#cb48-4" tabindex="-1"></a><span class="kw">gen</span> x = rnormal()</span>
-<span id="cb48-5"><a href="heterocedasticidad.html#cb48-5" tabindex="-1"></a><span class="kw">gen</span> u = rnormal() * <span class="fu">abs</span>(x)   <span class="co">// varianza crece con |x|</span></span>
-<span id="cb48-6"><a href="heterocedasticidad.html#cb48-6" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 2*x + u</span>
-<span id="cb48-7"><a href="heterocedasticidad.html#cb48-7" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="heterocedasticidad.html#cb48-8" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x</span>
-<span id="cb48-9"><a href="heterocedasticidad.html#cb48-9" tabindex="-1"></a><span class="kw">hettest</span></span>
-<span id="cb48-10"><a href="heterocedasticidad.html#cb48-10" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x, <span class="kw">robust</span></span>
-<span id="cb48-11"><a href="heterocedasticidad.html#cb48-11" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="heterocedasticidad.html#cb48-12" tabindex="-1"></a>* FGLS simple</span>
-<span id="cb48-13"><a href="heterocedasticidad.html#cb48-13" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">e</span>, <span class="kw">resid</span></span>
-<span id="cb48-14"><a href="heterocedasticidad.html#cb48-14" tabindex="-1"></a><span class="kw">gen</span> e2 = <span class="fu">e</span>^2</span>
-<span id="cb48-15"><a href="heterocedasticidad.html#cb48-15" tabindex="-1"></a><span class="kw">reg</span> e2 x</span>
-<span id="cb48-16"><a href="heterocedasticidad.html#cb48-16" tabindex="-1"></a><span class="kw">predict</span> s2, <span class="kw">xb</span></span>
-<span id="cb48-17"><a href="heterocedasticidad.html#cb48-17" tabindex="-1"></a><span class="kw">replace</span> s2 = <span class="fu">exp</span>(s2)   <span class="co">// asegura positividad si modelaste en log</span></span>
-<span id="cb48-18"><a href="heterocedasticidad.html#cb48-18" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x [aw = 1/s2]</span></code></pre></div>
-</div>
-<div id="r-5" class="section level3 unnumbered hasAnchor">
-<h3>R<a href="heterocedasticidad.html#r-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="heterocedasticidad.html#cb49-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb49-2"><a href="heterocedasticidad.html#cb49-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb49-3"><a href="heterocedasticidad.html#cb49-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb49-4"><a href="heterocedasticidad.html#cb49-4" tabindex="-1"></a>u <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n) <span class="sc">*</span> <span class="fu">abs</span>(x)</span>
-<span id="cb49-5"><a href="heterocedasticidad.html#cb49-5" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>x <span class="sc">+</span> u</span>
-<span id="cb49-6"><a href="heterocedasticidad.html#cb49-6" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x)</span>
-<span id="cb49-7"><a href="heterocedasticidad.html#cb49-7" tabindex="-1"></a></span>
-<span id="cb49-8"><a href="heterocedasticidad.html#cb49-8" tabindex="-1"></a>m  <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos)</span>
-<span id="cb49-9"><a href="heterocedasticidad.html#cb49-9" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
-<span id="cb49-10"><a href="heterocedasticidad.html#cb49-10" tabindex="-1"></a><span class="fu">bptest</span>(m)</span>
-<span id="cb49-11"><a href="heterocedasticidad.html#cb49-11" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="at">type =</span> <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb49-12"><a href="heterocedasticidad.html#cb49-12" tabindex="-1"></a></span>
-<span id="cb49-13"><a href="heterocedasticidad.html#cb49-13" tabindex="-1"></a><span class="co"># FGLS básico</span></span>
-<span id="cb49-14"><a href="heterocedasticidad.html#cb49-14" tabindex="-1"></a>ehat2 <span class="ot">&lt;-</span> <span class="fu">resid</span>(m)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb49-15"><a href="heterocedasticidad.html#cb49-15" tabindex="-1"></a>m_aux <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(ehat2 <span class="sc">+</span> <span class="fl">1e-6</span>) <span class="sc">~</span> x, datos)  <span class="co"># en log para positividad</span></span>
-<span id="cb49-16"><a href="heterocedasticidad.html#cb49-16" tabindex="-1"></a>s2hat <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">fitted</span>(m_aux))</span>
-<span id="cb49-17"><a href="heterocedasticidad.html#cb49-17" tabindex="-1"></a>m_wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, datos, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>s2hat)</span>
-<span id="cb49-18"><a href="heterocedasticidad.html#cb49-18" tabindex="-1"></a><span class="fu">summary</span>(m); <span class="fu">summary</span>(m_wls)</span></code></pre></div>
-</div>
-<div id="python-statsmodels" class="section level3 unnumbered hasAnchor">
-<h3>Python (statsmodels)<a href="heterocedasticidad.html#python-statsmodels" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb50"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb50-1"><a href="heterocedasticidad.html#cb50-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd, statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb50-2"><a href="heterocedasticidad.html#cb50-2" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan</span>
-<span id="cb50-3"><a href="heterocedasticidad.html#cb50-3" tabindex="-1"></a></span>
-<span id="cb50-4"><a href="heterocedasticidad.html#cb50-4" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
-<span id="cb50-5"><a href="heterocedasticidad.html#cb50-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb50-6"><a href="heterocedasticidad.html#cb50-6" tabindex="-1"></a>x <span class="op">=</span> np.random.normal(size<span class="op">=</span>n)</span>
-<span id="cb50-7"><a href="heterocedasticidad.html#cb50-7" tabindex="-1"></a>u <span class="op">=</span> np.random.normal(size<span class="op">=</span>n) <span class="op">*</span> np.<span class="bu">abs</span>(x)</span>
-<span id="cb50-8"><a href="heterocedasticidad.html#cb50-8" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span> u</span>
-<span id="cb50-9"><a href="heterocedasticidad.html#cb50-9" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({<span class="st">&#39;y&#39;</span>: y, <span class="st">&#39;x&#39;</span>: x})</span>
-<span id="cb50-10"><a href="heterocedasticidad.html#cb50-10" tabindex="-1"></a></span>
-<span id="cb50-11"><a href="heterocedasticidad.html#cb50-11" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(df[<span class="st">&#39;x&#39;</span>])</span>
-<span id="cb50-12"><a href="heterocedasticidad.html#cb50-12" tabindex="-1"></a>ols <span class="op">=</span> sm.OLS(df[<span class="st">&#39;y&#39;</span>], X).fit()</span>
-<span id="cb50-13"><a href="heterocedasticidad.html#cb50-13" tabindex="-1"></a><span class="bu">print</span>(het_breuschpagan(ols.resid, ols.model.exog))</span>
-<span id="cb50-14"><a href="heterocedasticidad.html#cb50-14" tabindex="-1"></a><span class="bu">print</span>(ols.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>).summary())</span>
-<span id="cb50-15"><a href="heterocedasticidad.html#cb50-15" tabindex="-1"></a></span>
-<span id="cb50-16"><a href="heterocedasticidad.html#cb50-16" tabindex="-1"></a><span class="co"># FGLS</span></span>
-<span id="cb50-17"><a href="heterocedasticidad.html#cb50-17" tabindex="-1"></a>eh2 <span class="op">=</span> ols.resid<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb50-18"><a href="heterocedasticidad.html#cb50-18" tabindex="-1"></a>aux <span class="op">=</span> sm.OLS(np.log(eh2 <span class="op">+</span> <span class="fl">1e-6</span>), X).fit()</span>
-<span id="cb50-19"><a href="heterocedasticidad.html#cb50-19" tabindex="-1"></a>s2hat <span class="op">=</span> np.exp(aux.fittedvalues)</span>
-<span id="cb50-20"><a href="heterocedasticidad.html#cb50-20" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(df[<span class="st">&#39;y&#39;</span>], X, weights <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>s2hat).fit()</span>
-<span id="cb50-21"><a href="heterocedasticidad.html#cb50-21" tabindex="-1"></a><span class="bu">print</span>(wls.summary())</span></code></pre></div>
-<hr />
-</div>
-</div>
-<div id="id_8-visualizaciones-diagnostico" class="section level2 hasAnchor" number="10.11">
-<h2><span class="header-section-number">10.11</span> 8. Visualizaciones (diagnóstico) {-}<a href="heterocedasticidad.html#id_8-visualizaciones-diagnostico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="heterocedasticidad.html#cb51-1" tabindex="-1"></a><span class="co"># Residuo vs Ajustados y vs x</span></span>
-<span id="cb51-2"><a href="heterocedasticidad.html#cb51-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb51-3"><a href="heterocedasticidad.html#cb51-3" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(m), <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;Ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb51-4"><a href="heterocedasticidad.html#cb51-4" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="fu">resid</span>(m), <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>); <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="heterocedasticidad.html#cb52-1" tabindex="-1"></a><span class="co"># Incluir imágenes externas</span></span>
-<span id="cb52-2"><a href="heterocedasticidad.html#cb52-2" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="fu">c</span>(<span class="st">&quot;figs/resid_fitted.png&quot;</span>,<span class="st">&quot;figs/resid_x.png&quot;</span>))</span></code></pre></div>
-<hr />
-</div>
-<div id="tabla-resumen-de-contrastes" class="section level2 unnumbered hasAnchor">
-<h2>9. Tabla resumen de contrastes<a href="heterocedasticidad.html#tabla-resumen-de-contrastes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Tabla 1. Resumen de pruebas de heterocedasticidad</strong></p>
+<div id="propiedades-del-estimador-iv" class="section level2 unnumbered hasAnchor">
+<h2>Propiedades del estimador IV<a href="iv.html#propiedades-del-estimador-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
-<col width="10%" />
-<col width="19%" />
-<col width="28%" />
-<col width="19%" />
-<col width="22%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Prueba</th>
-<th>Supuesto clave</th>
-<th>Idea</th>
-<th>Pros</th>
-<th>Contras</th>
+<th>Propiedad</th>
+<th>Resultado</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>White</td>
-<td>Ninguno específico</td>
-<td>Aux con términos cuadráticos y cruces</td>
-<td>Muy general</td>
-<td>Puede ser pesado en (n) pequeño</td>
+<td>Insesgado</td>
+<td><strong>No</strong>: <span class="math inline">\(E[\hat{\beta}_{VI}] \neq \beta\)</span> en muestras finitas</td>
 </tr>
 <tr class="even">
-<td>Breusch–Pagan</td>
-<td>Varianza lineal en (z)</td>
-<td>LM sobre (^2) vs (z)</td>
-<td>Simple, parametrizable</td>
-<td>Sensible a mala especificación</td>
+<td>Consistente</td>
+<td><strong>Sí</strong>: <span class="math inline">\(\text{plim}(\hat{\beta}_{VI}) = \beta\)</span></td>
 </tr>
 <tr class="odd">
-<td>Cook–Weisberg</td>
-<td>Especial de BP con (y)</td>
-<td>Usa ajustados como (z)</td>
-<td>Muy usado por defecto</td>
-<td>Depende de (y)</td>
-</tr>
-<tr class="even">
-<td>Goldfeld–Quandt</td>
-<td>1 variable responsable</td>
-<td>Comparar varianzas por tramos ordenados</td>
-<td>Intuitivo si 1 driver claro</td>
-<td>Menos general</td>
+<td>Varianza (homoced.)</td>
+<td><span class="math inline">\(Var[\hat{\beta}_{VI}] = \sigma_\varepsilon^2 (Z&#39;X)^{-1} Z&#39;Z (Z&#39;X)^{-1}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p><em>Nota:</em> Con <strong>no normalidad</strong>, prefiera versiones <strong>robustas</strong> (p. ej., Koenker para BP) o diagnóstico visual + HC.</p>
+<p><strong>¿Por qué es consistente?</strong></p>
+<p><span class="math display">\[\hat{\beta}_{VI} = \beta + (Z&#39;X)^{-1} Z&#39;\varepsilon \cdot \frac{1}{n}\]</span></p>
+<p><span class="math display">\[\text{plim}(\hat{\beta}_{VI}) = \beta + \underbrace{E\left[\frac{Z&#39;X}{n}\right]^{-1}}_{\neq 0} \underbrace{E\left[\frac{Z&#39;\varepsilon}{n}\right]}_{=0 \text{ (validez)}} = \beta\]</span></p>
+<p>La validez del instrumento (<span class="math inline">\(E[Z&#39;\varepsilon] = 0\)</span>) garantiza la consistencia, aunque el estimador sea sesgado en muestras finitas.</p>
 <hr />
 </div>
-<div id="conclusiones-clave-2" class="section level2 unnumbered hasAnchor">
-<h2>10. Conclusiones clave<a href="heterocedasticidad.html#conclusiones-clave-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mínimos-cuadrados-en-dos-etapas-mco2e-2sls" class="section level2 unnumbered hasAnchor">
+<h2>Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS)<a href="#m%C3%ADnimos-cuadrados-en-dos-etapas-mco2e-2sls" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando <span class="math inline">\(r &gt; k\)</span> (modelo <strong>sobreidentificado</strong>: más instrumentos que variables endógenas), no podemos usar el estimador IV directamente. El estimador MCO2E generaliza el IV usando la proyección de <span class="math inline">\(X\)</span> sobre todos los instrumentos.</p>
+<p>Sea <span class="math inline">\(P_Z = Z(Z&#39;Z)^{-1}Z&#39;\)</span> la matriz de proyección sobre el espacio de <span class="math inline">\(Z\)</span>.</p>
+<div id="primera-etapa" class="section level3 unnumbered hasAnchor">
+<h3>Primera etapa<a href="iv.html#primera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Estimar <span class="math inline">\(\hat{\delta}\)</span> de la regresión de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display">\[X = Z\delta + \mu \quad \Rightarrow \quad \hat{\delta} = (Z&#39;Z)^{-1}Z&#39;X\]</span></p>
+<p>Calcular los valores ajustados:</p>
+<p><span class="math display">\[\hat{X} = Z\hat{\delta} = Z(Z&#39;Z)^{-1}Z&#39;X = P_Z X\]</span></p>
+</div>
+<div id="segunda-etapa" class="section level3 unnumbered hasAnchor">
+<h3>Segunda etapa<a href="iv.html#segunda-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Reemplazar <span class="math inline">\(X\)</span> por <span class="math inline">\(\hat{X}\)</span> en la ecuación principal y estimar:</p>
+<p><span class="math display">\[y = \hat{X}\beta + \varepsilon\]</span></p>
+<p><span class="math display">\[\boxed{\hat{\beta}_{MCO2E} = (X&#39;P_Z X)^{-1} X&#39;P_Z y}\]</span></p>
+<p><strong>Propiedades de MCO2E:</strong></p>
 <ul>
-<li>La heterocedasticidad <strong>no sesga</strong> MCO, pero <strong>rompe</strong> la inferencia clásica.</li>
-<li><strong>Diagnosticar</strong>: siempre mire <strong>gráficos</strong> y use <strong>BP/White</strong>.</li>
-<li><strong>Corregir</strong>: si puede modelar () () <strong>FGLS/WLS</strong>; si no () <strong>errores robustos</strong>.</li>
-<li>En aplicaciones empíricas, <strong>reportar siempre</strong> robustos (HC) es buena práctica mínima.</li>
+<li><strong>Sesgado</strong> en muestras finitas: <span class="math inline">\(E[\hat{\beta}_{MCO2E}] \neq \beta\)</span></li>
+<li><strong>Consistente</strong>: <span class="math inline">\(\text{plim}[\hat{\beta}_{MCO2E}] = \beta\)</span></li>
+<li><strong>Varianza</strong> bajo homocedasticidad: <span class="math inline">\(Var(\hat{\beta}_{MCO2E}) = \sigma_\varepsilon^2 (X&#39;P_Z X)^{-1}\)</span></li>
+<li><strong>Varianza</strong> bajo heterocedasticidad: <span class="math inline">\(\sigma_\varepsilon^2 (X&#39;P_Z X)^{-1} X&#39;P_Z \Psi P_Z&#39; X (X&#39;P_Z X)^{-1}\)</span></li>
 </ul>
+<p><strong>Resultado importante:</strong> cuando el modelo está exactamente identificado (<span class="math inline">\(r = k\)</span>), MCO2E coincide con el estimador IV:</p>
+<p><span class="math display">\[\hat{\beta}_{MCO2E} = (Z&#39;X)^{-1}(Z&#39;Z)(Z&#39;Z)^{-1}Z&#39;y = (Z&#39;X)^{-1}Z&#39;y = \hat{\beta}_{VI}\]</span></p>
+<p>Por eso, MCO2E se puede usar siempre — esté el modelo exactamente identificado o sobreidentificado.</p>
 <hr />
 </div>
-<div id="id_11-taller-practico-hands-on" class="section level2 hasAnchor" number="10.12">
-<h2><span class="header-section-number">10.12</span> 11. Taller práctico (hands-on) {-}<a href="heterocedasticidad.html#id_11-taller-practico-hands-on" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="box-tarea">
-<p><strong>Simule y compare (entregable corto):</strong></p>
+</div>
+<div id="ejemplos-clásicos" class="section level2 unnumbered hasAnchor">
+<h2>Ejemplos clásicos<a href="#ejemplos-cl%C3%A1sicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>1. Angrist &amp; Krueger (1991) — Retornos a la educación</strong></p>
+<ul>
+<li>Variable endógena: educación (correlacionada con habilidad no observada)</li>
+<li>Instrumento: <strong>trimestre de nacimiento</strong></li>
+<li>Lógica: la ley obliga a ingresar al colegio con 6 años y permanecer hasta los 16. Los nacidos en distintos trimestres terminan con distintos años de educación al cumplir 16.</li>
+<li>Resultado: MCO → 5.7% por año de educación; MCO2E → 3.9%</li>
+</ul>
+<p><strong>2. Card (1993) — Retornos a la educación</strong></p>
+<ul>
+<li>Instrumento: <strong>proximidad a una universidad</strong> en el área de residencia</li>
+<li>Lógica: vivir lejos de una universidad encarece la educación y reduce la inversión educativa, especialmente en familias de bajos ingresos</li>
+<li>Resultado: MCO → 7.3%; MCO2E → 13.2%</li>
+</ul>
+<p><strong>3. Griliches (1976) — Ejemplo en Stata</strong></p>
+<p>Estima retornos a la educación con datos del NLS (758 hombres jóvenes):</p>
+<p><span class="math display">\[LW = \alpha + \beta_1 IQ + \beta_2 Edu + \beta_3 Exp + \beta_4 Tenure + \beta_5 Sur + \beta_6 Urban + \alpha_t + \varepsilon\]</span></p>
+<p>Problemas: omisión de habilidad + IQ medido con error → MCO2E con instrumentos para IQ y educación.</p>
+<hr />
+</div>
+<div id="implementación-en-stata" class="section level2 unnumbered hasAnchor">
+<h2>Implementación en Stata<a href="#implementaci%C3%B3n-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="iv.html#cb56-1" tabindex="-1"></a>* MCO (sesgado si hay endogeneidad)</span>
+<span id="cb56-2"><a href="iv.html#cb56-2" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> controls</span>
+<span id="cb56-3"><a href="iv.html#cb56-3" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="iv.html#cb56-4" tabindex="-1"></a>* MCO2E con un instrumento z1</span>
+<span id="cb56-5"><a href="iv.html#cb56-5" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1)</span>
+<span id="cb56-6"><a href="iv.html#cb56-6" tabindex="-1"></a></span>
+<span id="cb56-7"><a href="iv.html#cb56-7" tabindex="-1"></a>* MCO2E con dos instrumentos z1 z2 para x1</span>
+<span id="cb56-8"><a href="iv.html#cb56-8" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1 z2)</span>
+<span id="cb56-9"><a href="iv.html#cb56-9" tabindex="-1"></a></span>
+<span id="cb56-10"><a href="iv.html#cb56-10" tabindex="-1"></a>* Con errores estándar robustos</span>
+<span id="cb56-11"><a href="iv.html#cb56-11" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1 z2), <span class="kw">robust</span></span>
+<span id="cb56-12"><a href="iv.html#cb56-12" tabindex="-1"></a></span>
+<span id="cb56-13"><a href="iv.html#cb56-13" tabindex="-1"></a>* GMM eficiente (para heterocedasticidad)</span>
+<span id="cb56-14"><a href="iv.html#cb56-14" tabindex="-1"></a>ivregress gmm <span class="fu">y</span> controls (x1 = z1 z2), <span class="kw">robust</span></span>
+<span id="cb56-15"><a href="iv.html#cb56-15" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="iv.html#cb56-16" tabindex="-1"></a>* También disponible: ivreg2 (SSC, más opciones <span class="kw">de</span> pruebas)</span>
+<span id="cb56-17"><a href="iv.html#cb56-17" tabindex="-1"></a><span class="kw">ssc</span> install ivreg2</span>
+<span id="cb56-18"><a href="iv.html#cb56-18" tabindex="-1"></a>ivreg2 <span class="fu">y</span> controls (x1 = z1 z2), <span class="kw">robust</span> first</span></code></pre></div>
+<hr />
+</div>
+<div id="instrumentos-débiles" class="section level2 unnumbered hasAnchor">
+<h2>Instrumentos débiles<a href="#instrumentos-d%C3%A9biles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Un instrumento es <strong>débil</strong> cuando <span class="math inline">\(Cov(Z, X)\)</span> es pequeña — el instrumento explica poco de la variación en <span class="math inline">\(X\)</span>.</p>
+<p><strong>Señales de debilidad:</strong></p>
+<ul>
+<li>La correlación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Z\)</span> es baja</li>
+<li>El <span class="math inline">\(R^2\)</span> de la regresión de primera etapa de <span class="math inline">\(X\)</span> contra <span class="math inline">\(Z\)</span> es bajo</li>
+<li>Los instrumentos no son significativos ni individual ni conjuntamente en la primera etapa</li>
+</ul>
+<p><strong>Regla práctica:</strong> el estadístico <span class="math inline">\(F\)</span> de la primera etapa debe ser <strong>mayor a 10</strong> (Stock &amp; Yogo, 2005). Con <span class="math inline">\(F &lt; 10\)</span>, la inferencia con MCO2E es poco confiable.</p>
+<p><strong>Consecuencias de instrumentos débiles:</strong></p>
+<ul>
+<li>La distribución de <span class="math inline">\(\hat{\beta}_{MCO2E}\)</span> no sigue una normal asintótica</li>
+<li>Los intervalos de confianza estándar son incorrectos</li>
+<li>En el límite (<span class="math inline">\(Cov(Z,X) = 0\)</span>), MCO2E no está identificado</li>
+</ul>
+<p><strong>Cómo verificar en Stata:</strong></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb57-1"><a href="iv.html#cb57-1" tabindex="-1"></a>* Primera etapa con estadístico <span class="fu">F</span></span>
+<span id="cb57-2"><a href="iv.html#cb57-2" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1 z2), first</span>
+<span id="cb57-3"><a href="iv.html#cb57-3" tabindex="-1"></a></span>
+<span id="cb57-4"><a href="iv.html#cb57-4" tabindex="-1"></a>* Test formal <span class="kw">de</span> instrumentos débiles</span>
+<span id="cb57-5"><a href="iv.html#cb57-5" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
+<hr />
+</div>
+<div id="test-de-hausman-endogeneidad" class="section level2 unnumbered hasAnchor">
+<h2>Test de Hausman (endogeneidad)<a href="iv.html#test-de-hausman-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El <strong>test de Hausman</strong> compara MCO e IV. La hipótesis nula es que MCO e IV producen estimadores similares — es decir, que NO hay endogeneidad.</p>
+<p><span class="math display">\[H = \frac{[\hat{\beta}_{MCO2E} - \hat{\beta}_{MCO}]^2}{Var(\hat{\beta}_{MCO2E}) - Var(\hat{\beta}_{MCO})} \sim \chi^2(k)\]</span></p>
+<p>donde <span class="math inline">\(k\)</span> es el número de variables endógenas.</p>
+<p><strong>Forma práctica (regresión auxiliar):</strong></p>
+<p>Dado el modelo <span class="math inline">\(Y_1 = \alpha_1 Y_2 + X\beta + \varepsilon\)</span>, donde <span class="math inline">\(Y_2\)</span> es potencialmente endógena:</p>
 <ol style="list-style-type: decimal">
-<li>Simule (y=1+2x+u) con ((ux)=x^2).</li>
-<li>Estime MCO clásico y reporte t.</li>
-<li>Repita con <strong>robustos HC</strong> y con <strong>WLS</strong> usando (w_i=1/x_i^2).</li>
-<li>Compare magnitud de (), EE y p-valores.</li>
-<li>Comente cuál estrategia usaría y por qué.</li>
+<li>Primera etapa: <span class="math inline">\(Y_2 = Z\delta + X\beta + \mu \quad \Rightarrow \quad \hat{\mu} = Y_2 - \hat{Y}_2\)</span></li>
+<li>Regresión aumentada: <span class="math inline">\(Y_1 = X\beta + \hat{\mu}\rho + \varepsilon\)</span></li>
+<li>Probar <span class="math inline">\(H_0: \rho = 0\)</span> con una prueba <span class="math inline">\(t\)</span></li>
 </ol>
-<p>Entregue código en <strong>Stata o R o Python</strong> + 1 gráfico <strong>residuos vs ajustados</strong>.</p>
-</div>
+<p>Si <span class="math inline">\(\rho \neq 0\)</span>, los residuos de la primera etapa son significativos en la ecuación principal → hay endogeneidad.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb58-1"><a href="iv.html#cb58-1" tabindex="-1"></a>* Test <span class="kw">de</span> Hausman en Stata</span>
+<span id="cb58-2"><a href="iv.html#cb58-2" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1 z2)</span>
+<span id="cb58-3"><a href="iv.html#cb58-3" tabindex="-1"></a><span class="kw">estat</span> endogenous</span></code></pre></div>
+<p><strong>Limitación:</strong> este test es válido solo bajo homocedasticidad.</p>
 <hr />
 </div>
-<div id="id_12-apendice-comandos-rapidos-por-software" class="section level2 hasAnchor" number="10.13">
-<h2><span class="header-section-number">10.13</span> 12. Apéndice: comandos rápidos por software {-}<a href="heterocedasticidad.html#id_12-apendice-comandos-rapidos-por-software" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Stata</strong></p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb53-1"><a href="heterocedasticidad.html#cb53-1" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span>, <span class="kw">robust</span>      <span class="co">// EE robustos</span></span>
-<span id="cb53-2"><a href="heterocedasticidad.html#cb53-2" tabindex="-1"></a><span class="kw">hettest</span> x1 <span class="kw">x2</span>, iid       <span class="co">// BP</span></span>
-<span id="cb53-3"><a href="heterocedasticidad.html#cb53-3" tabindex="-1"></a><span class="kw">imtest</span>, <span class="bn">white</span>            <span class="co">// White general</span></span>
-<span id="cb53-4"><a href="heterocedasticidad.html#cb53-4" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span> [aw = <span class="fu">w</span>]     <span class="co">// WLS con pesos w</span></span></code></pre></div>
-<p><strong>R</strong></p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="heterocedasticidad.html#cb54-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb54-2"><a href="heterocedasticidad.html#cb54-2" tabindex="-1"></a><span class="fu">library</span>(lmtest); <span class="fu">library</span>(sandwich)</span>
-<span id="cb54-3"><a href="heterocedasticidad.html#cb54-3" tabindex="-1"></a><span class="fu">coeftest</span>(m, <span class="at">vcov =</span> <span class="fu">vcovHC</span>(m, <span class="st">&quot;HC1&quot;</span>))</span>
-<span id="cb54-4"><a href="heterocedasticidad.html#cb54-4" tabindex="-1"></a><span class="fu">bptest</span>(m); <span class="fu">bptest</span>(m, <span class="sc">~</span> x1 <span class="sc">+</span> x2)</span>
-<span id="cb54-5"><a href="heterocedasticidad.html#cb54-5" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">weights =</span> w, <span class="at">data =</span> datos)   <span class="co"># WLS</span></span></code></pre></div>
-<p><strong>Python</strong></p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="heterocedasticidad.html#cb55-1" tabindex="-1"></a>m <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb55-2"><a href="heterocedasticidad.html#cb55-2" tabindex="-1"></a>m.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&#39;HC1&#39;</span>)</span>
-<span id="cb55-3"><a href="heterocedasticidad.html#cb55-3" tabindex="-1"></a>het_breuschpagan(m.resid, m.model.exog)</span>
-<span id="cb55-4"><a href="heterocedasticidad.html#cb55-4" tabindex="-1"></a>sm.WLS(y, X, weights <span class="op">=</span> w).fit()</span></code></pre></div>
-<hr />
-<div id="preguntas-de-repaso-10" class="section level3 unnumbered hasAnchor box-repaso">
-<h3>📘 Preguntas de repaso<a href="heterocedasticidad.html#preguntas-de-repaso-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="test-de-sargan-sobreidentificación" class="section level2 unnumbered hasAnchor">
+<h2>Test de Sargan (sobreidentificación)<a href="#test-de-sargan-sobreidentificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando el modelo está <strong>sobreidentificado</strong> (<span class="math inline">\(r &gt; k\)</span>: más instrumentos que variables endógenas), es posible probar si los instrumentos adicionales son exógenos.</p>
+<p><strong>Lógica:</strong> si todos los instrumentos son válidos, los residuos de MCO2E no deben estar correlacionados con ninguno de ellos.</p>
+<p><strong>Procedimiento:</strong></p>
 <ol style="list-style-type: decimal">
-<li>Defina <strong>heterocedasticidad</strong> y explique por qué invalida las pruebas t y F clásicas.</li>
-<li>Muestre (pasos clave) que <span class="math inline">\(\mathbb{V}(\hat{\beta}\mid X)=(X&#39;X)^{-1}X&#39;\Omega X (X&#39;X)^{-1}\)</span> bajo heterocedasticidad.</li>
-<li>Compare <strong>White</strong> y <strong>Breusch–Pagan</strong>: ¿cuándo preferir uno u otro? ¿Qué significa “prueba constructiva”?</li>
-<li>Plantee un caso aplicado donde <strong>Goldfeld–Quandt</strong> sea especialmente útil. ¿Cómo elegirías el “tercio” a omitir?</li>
-<li>Explique diferencias prácticas entre <strong>WLS</strong>, <strong>FGLS</strong> y <strong>HC (White)</strong>. ¿Cuándo usaría cada uno?</li>
-<li>En datos per cápita, ¿por qué la heterocedasticidad aparece “por construcción”? Proponga un esquema de <strong>WLS</strong> apropiado.</li>
-<li>Simule un caso en el que <span class="math inline">\(\hat{\beta}\)</span> sea similar entre MCO y WLS, pero los <strong>EE</strong> cambien de manera sustancial. Interprete.</li>
+<li>Estimar el modelo por MCO2E y obtener los residuos: <span class="math inline">\(\hat{\varepsilon} = y - X\hat{\beta}_{MCO2E}\)</span></li>
+<li>Regresar los residuos contra todos los instrumentos <span class="math inline">\(Z\)</span> y las variables exógenas <span class="math inline">\(X\)</span></li>
+<li>El estadístico de Sargan es:</li>
 </ol>
+<p><span class="math display">\[\text{Sargan} = n \cdot R^2_{\hat{\varepsilon}, Z, X} \sim \chi^2(r - k)\]</span></p>
+<p>donde <span class="math inline">\(r - k\)</span> es el número de restricciones de sobreidentificación.</p>
+<p><strong>Interpretación:</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: todos los instrumentos son válidos (<span class="math inline">\(Cov(Q_i, \varepsilon) = 0\)</span> para los instrumentos adicionales)</li>
+<li>Si <strong>se rechaza</strong>: al menos uno de los instrumentos adicionales no es exógeno — el modelo está mal especificado</li>
+<li>Si <strong>no se rechaza</strong>: los datos son consistentes con la validez de los instrumentos</li>
+</ul>
+<p><strong>Advertencia importante:</strong> si el modelo está exactamente identificado (<span class="math inline">\(r = k\)</span>), el test de Sargan NO puede aplicarse. En ese caso, la exogeneidad del instrumento solo puede argumentarse con teoría económica.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb59-1"><a href="iv.html#cb59-1" tabindex="-1"></a>* Test <span class="kw">de</span> Sargan en Stata</span>
+<span id="cb59-2"><a href="iv.html#cb59-2" tabindex="-1"></a>ivregress 2sls <span class="fu">y</span> controls (x1 = z1 z2), <span class="kw">robust</span></span>
+<span id="cb59-3"><a href="iv.html#cb59-3" tabindex="-1"></a><span class="kw">estat</span> overid</span></code></pre></div>
+<hr />
 </div>
+<div id="método-generalizado-de-momentos-mgmgmm" class="section level2 unnumbered hasAnchor">
+<h2>Método Generalizado de Momentos (MGM/GMM)<a href="#m%C3%A9todo-generalizado-de-momentos-mgmgmm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El estimador IV y MCO2E son casos especiales del <strong>Método Generalizado de Momentos</strong> (MGM). La condición de exogeneidad de los instrumentos implica:</p>
+<p><span class="math display">\[E[Z&#39;\varepsilon \mid X] = 0 \quad \Rightarrow \quad E[g(\beta)] = 0\]</span></p>
+<p>donde los momentos muestrales son:</p>
+<p><span class="math display">\[g(\hat{\beta}) = \frac{1}{n}\sum_{i=1}^{n} Z_i(y_i - X_i\hat{\beta})\]</span></p>
+<p>Cuando el modelo está <strong>sobreidentificado</strong> (<span class="math inline">\(r &gt; K\)</span>), hay más ecuaciones de momentos que parámetros desconocidos. El MGM minimiza la forma cuadrática:</p>
+<p><span class="math display">\[J(\beta) = n \cdot g(\hat{\beta})&#39; W g(\hat{\beta})\]</span></p>
+<p>El estimador MGM es:</p>
+<p><span class="math display">\[\hat{\beta}_{MGM} = (X&#39;ZWZ&#39;X)^{-1}X&#39;ZWZ&#39;y\]</span></p>
+<p><strong>Relación con estimadores conocidos:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Matriz <span class="math inline">\(W\)</span></th>
+<th>Estimador resultante</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(W = (Z&#39;Z)^{-1}\)</span></td>
+<td><span class="math inline">\(\hat{\beta}_{MCO2E}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(W = (X&#39;Z)^{-1}\)</span></td>
+<td><span class="math inline">\(\hat{\beta}_{VI}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(W = S^{-1} = [Var(Z&#39;\varepsilon)]^{-1}\)</span></td>
+<td>MGM eficiente</td>
+</tr>
+</tbody>
+</table>
+<p>El MGM <strong>eficiente</strong> usa <span class="math inline">\(W = S^{-1}\)</span> — la inversa de la varianza de los momentos. En la práctica:</p>
+<ol style="list-style-type: decimal">
+<li>Estimar por MCO2E, obtener residuos: <span class="math inline">\(\hat{\varepsilon} = y - X\hat{\beta}_{MCO2E}\)</span></li>
+<li>Construir <span class="math inline">\(\hat{W} = \left[\frac{1}{n}\sum \hat{\varepsilon}_i^2 Z_i&#39;Z_i\right]^{-1}\)</span></li>
+<li>Estimar: <span class="math inline">\(\hat{\beta}_{MGM} = (X&#39;Z\hat{W}Z&#39;X)^{-1}X&#39;Z\hat{W}Z&#39;y\)</span></li>
+</ol>
+<p><strong>¿Cuándo usar GMM sobre MCO2E?</strong></p>
+<ul>
+<li>Si el modelo está perfectamente identificado: MGM = IV (no hay ganancia)</li>
+<li>Si el modelo está sobreidentificado y hay <strong>homocedasticidad</strong>: MGM = MCO2E</li>
+<li>Si hay <strong>heterocedasticidad</strong>: MCO2E no es eficiente; GMM sí</li>
+</ul>
+<div class="sourceCode" id="cb60"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb60-1"><a href="iv.html#cb60-1" tabindex="-1"></a>* GMM eficiente en Stata</span>
+<span id="cb60-2"><a href="iv.html#cb60-2" tabindex="-1"></a>ivregress gmm <span class="fu">y</span> controls (x1 = z1 z2), wmatrix(<span class="kw">robust</span>)</span>
+<span id="cb60-3"><a href="iv.html#cb60-3" tabindex="-1"></a></span>
+<span id="cb60-4"><a href="iv.html#cb60-4" tabindex="-1"></a>* O usando ivreg2</span>
+<span id="cb60-5"><a href="iv.html#cb60-5" tabindex="-1"></a>ivreg2 <span class="fu">y</span> controls (x1 = z1 z2), gmm2s <span class="kw">robust</span></span></code></pre></div>
+<hr />
+</div>
+<div id="lecturas-recomendadas-1" class="section level2 unnumbered hasAnchor">
+<h2>Lecturas recomendadas<a href="iv.html#lecturas-recomendadas-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li><strong>Verbeek (2017)</strong> — <em>A Guide to Modern Econometrics</em>, Cap. 5 — tratamiento completo de IV, MCO2E y GMM</li>
+<li><strong>Angrist &amp; Pischke (2009)</strong> — <em>Mostly Harmless Econometrics</em>, Cap. 4 — enfoque de programa de evaluación</li>
+<li><strong>Angrist &amp; Krueger (1991)</strong> — “Does compulsory school attendance affect schooling and earnings?”, <em>QJE</em> — ejemplo canónico</li>
+<li><strong>Card (1993)</strong> — “Using geographic variation in college proximity to estimate the return to schooling”, NBER WP — otro ejemplo clásico</li>
+<li><strong>Stock &amp; Yogo (2005)</strong> — “Testing for weak instruments in linear IV regression” — criterio de instrumentos débiles</li>
+</ul>
 
 </div>
 </div>
@@ -1022,8 +860,8 @@ es <strong>eficiente</strong>. Poco usual en práctica porque () rara vez es con
           </div>
         </div>
       </div>
-<a href="multicolinealidad-deteccion-consecuencias-y-no-soluciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="endogeneidad.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="endogeneidad.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parcial-1-2026-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -1054,7 +892,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/11-Heterocedasticidad.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/13-VariablesInstrumentales.Rmd",
     "text": "Edit"
   },
   "history": {
