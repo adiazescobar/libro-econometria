@@ -16,6 +16,30 @@ Para análisis macroeconómico y financiero en Colombia, las fuentes oficiales m
 
 Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráfica es la herramienta más útil del análisis de series de tiempo: permite detectar tendencia, ciclos, estacionalidad, quiebres estructurales y observaciones atípicas, y orienta toda la modelación posterior.
 
+**Ejemplo — PIB en niveles:**
+
+![](images/series/pib1.png)
+
+**Ejemplo — Crecimiento porcentual del PIB:**
+
+![](images/series/pib2.png)
+
+**Ejemplo — PIB (otra serie):**
+
+![](images/series/pib3.png)
+
+**Ejemplo — Crecimiento porcentual del PIB (otra serie):**
+
+![](images/series/pib4.png)
+
+**PIB Real Colombia:**
+
+![](images/series/pibcol1.png)
+
+**Crecimiento del PIB Real Colombia:**
+
+![](images/series/pibcol2.png)
+
 * * *
 
 ## Definiciones clave {-}
@@ -26,7 +50,11 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 
 **Ciclo:** una serie sin tendencia puede mostrar ciclos. En economía, dada la naturaleza estocástica de las series, los ciclos nunca están demarcados claramente.
 
+![](images/series/pib5.png)
+
 **Estacionalidad:** son ciclos cortos que se repiten dentro de un ciclo más largo (típicamente, dentro de un año).
+
+![](images/series/season2.png)
 
 - **Determinística:** el patrón se repite igual cada año (Navidad siempre es en diciembre).
 - **Estocástica:** el patrón se repite pero su intensidad varía año a año (el consumo como porcentaje del ingreso no es fijo).
@@ -40,6 +68,8 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 Una serie con tendencia es fácil de predecir: está autocorrelacionada (alta inercia) y el dato en $t-1$ contiene información sobre el dato en $t$.
 
 Una serie sin tendencia es más difícil: hay que verificar si existe un patrón entre observaciones cercanas. Si las observaciones pasadas no proveen información relevante, será imposible predecir usando el pasado — eso es **ruido**.
+
+![](images/series/ruido.png)
 
 **Ejemplo ilustrativo.** Considere los siguientes datos trimestrales:
 
@@ -114,11 +144,17 @@ Los modelos ARIMA permiten especificar y estimar pronósticos de corto plazo con
 
 Antes de avanzar, necesitamos formalizar cuatro conceptos.
 
+![](images/series/g1.png)
+
 * * *
 
 ## Conceptos básicos {-}
 
 **Estocástico:** la naturaleza de la serie no es determinística — sus realizaciones son producto de un proceso aleatorio subyacente.
+
+![](images/series/pegado1.png)
+
+![](images/series/pegado2.png)
 
 **Estacionario:** las características probabilísticas no varían con el tiempo. Distinguimos dos versiones:
 
@@ -176,6 +212,14 @@ El ruido blanco es el bloque básico de toda la modelación ARMA: los residuos d
 4. Función de Autocorrelación Parcial (PACF)
 5. Análisis de raíz unitaria (Dickey-Fuller y Dickey-Fuller aumentada)
 
+**Durbin-Watson:** regla práctica visual.
+
+![](images/series/pegado3.png)
+
+![](images/series/DurbinWatson.png)
+
+Es una prueba gráfica derivada de la función de autocorrelación simple (ACF), que a su vez depende de la función de autocovarianza.
+
 * * *
 
 ## Función de autocovarianza y autocorrelación (ACF) {-}
@@ -210,6 +254,18 @@ corrgram var, lags(#)
 ac var, lags(#)
 ```
 
+**Correlograma típico:**
+
+![](images/series/g13.png)
+
+**Ejemplo — ACF del Baloto (ruido):**
+
+![](images/series/g11.png)
+
+**Ejemplo — ACF del PIB (tendencia):**
+
+![](images/series/g12.png)
+
 * * *
 
 ## Función de autocorrelación parcial (PACF) {-}
@@ -224,6 +280,10 @@ La PACF se obtiene como el último coeficiente de la regresión:
 $$x_t = c + \alpha_{\tau,1} x_{t-1} + \alpha_{\tau,2} x_{t-2} + \cdots + \alpha_{\tau,\tau} x_{t-\tau}$$
 
 $$r_p(\tau) = \alpha_{\tau,\tau}$$
+
+**PACF para el PIB:**
+
+![](images/series/g14.png)
 
 * * *
 
@@ -247,6 +307,10 @@ Una **caminata aleatoria** es un proceso donde la posición en $t$ depende solo 
 
 $$x_t = x_{t-1} + \varepsilon_t, \quad \varepsilon_t \sim N(0, \sigma^2)$$
 
+**Caminata aleatoria pura, sin intercepto:**
+
+![](images/series/pa1.png)
+
 Iterando:
 
 $$x_t = x_0 + \sum_{s=1}^{t} \varepsilon_s, \quad E(x_t) = x_0, \quad Var(x_t) = t \sigma^2$$
@@ -256,6 +320,8 @@ La varianza crece con $t$ → **no es estacionaria**.
 **Variantes:**
 
 - Con tendencia (deriva): $x_t = \alpha + x_{t-1} + \varepsilon_t$
+
+![](images/series/pa2.png)
 - Autoregresiva: $x_t = \rho x_{t-1} + \varepsilon_t$ con $-1 \leq \rho \leq 1$
 - Con tendencia y autoregresiva: $x_t = \delta + \beta T_t + \rho x_{t-1} + \varepsilon_t$
 
@@ -289,6 +355,30 @@ $$\Delta x_t = \delta + \beta T_t + (\rho - 1) x_{t-1} + \varepsilon_t$$
 
 **¡Atención!** El estadístico de contraste para $\rho = 1$ **no es la $t$ usual**. Dickey y Fuller (1979) y MacKinnon (1994) construyeron tablas especiales mediante simulaciones de Monte Carlo.
 
+**Ejemplo en Stata — PIB de Estados Unidos:**
+
+![](images/series/gdpus1.png)
+
+**ACF y PACF del PIB:**
+
+![](images/series/gdpus2.png)
+
+**Prueba de raíz unitaria (sin tendencia):**
+
+![](images/series/gdpus3.png)
+
+**Prueba de raíz unitaria (con tendencia):**
+
+![](images/series/gdpus4.png)
+
+**Prueba de raíz unitaria con tendencia para $\ln$ PIB:**
+
+![](images/series/gdpus5.png)
+
+**Prueba de raíz unitaria con tendencia para $\Delta \ln$ PIB:**
+
+![](images/series/gdpus6.png)
+
 * * *
 
 ## Dickey-Fuller aumentada (ADF) {-}
@@ -318,6 +408,12 @@ dfuller var, lags(k) trend
 * Dickey-Fuller GLS (selección automática de rezagos)
 dfgls var
 ```
+
+**Ejemplo en Stata — ADF aplicada al PIB:**
+
+![](images/series/gdpus7.png)
+
+![](images/series/gdpus8.png)
 
 * * *
 
@@ -393,11 +489,15 @@ Combina autorregresión (memoria larga vía $x_{t-j}$) con promedio móvil (memo
 4. **Pronóstico**
 5. **Validación del pronóstico**
 
+![](images/series/pasos.png)
+
 * * *
 
 ## Paso 1 — Identificación {-}
 
 Se usa la siguiente regla práctica con base en los correlogramas teóricos:
+
+![](images/series/teorico.png)
 
 | Modelo | ACF | PACF |
 |--------|-----|------|
@@ -412,6 +512,36 @@ $$AIC = \ln\left(\frac{\hat{\varepsilon}'\hat{\varepsilon}}{n}\right) + \frac{2k
 $$BIC = \ln\left(\frac{\hat{\varepsilon}'\hat{\varepsilon}}{n}\right) + \frac{k \cdot \ln(n)}{n}$$
 
 donde $k$ es el número de parámetros y $n$ las observaciones utilizables. Se escoge el modelo con menor valor.
+
+**Correlogramas teóricos — AR(1):**
+
+![](images/series/AR1.png)
+
+![](images/series/AR2.png)
+
+**Correlogramas teóricos — AR(2):**
+
+![](images/series/AR3.png)
+
+![](images/series/AR4.png)
+
+**Correlogramas teóricos — MA(1):**
+
+![](images/series/MA1.png)
+
+![](images/series/MA2.png)
+
+**Correlogramas teóricos — MA(2):**
+
+![](images/series/MA3.png)
+
+![](images/series/MA4.png)
+
+**Correlogramas teóricos — ARMA(1,1):**
+
+![](images/series/ARMA11.png)
+
+![](images/series/ARMA11a.png)
 
 * * *
 
@@ -503,6 +633,24 @@ wntestq r
 * Pronóstico fuera de muestra
 predict yhat, y dynamic(tq(2014q1))
 ```
+
+**Ejemplo en Stata — estimación ARMA y pronóstico del PIB:**
+
+![](images/series/gdpus9.png)
+
+![](images/series/gdpus10.png)
+
+![](images/series/gdpus11.png)
+
+![](images/series/gdpus12.png)
+
+**Pronóstico:**
+
+![](images/series/gdpus123.png)
+
+![](images/series/gpdus14.png)
+
+![](images/series/gpdus145.png)
 
 * * *
 

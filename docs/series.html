@@ -636,6 +636,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="el-análisis-gráfico-es-el-punto-de-partida" class="section level2 unnumbered hasAnchor">
 <h2>El análisis gráfico es el punto de partida<a href="#el-an%C3%A1lisis-gr%C3%A1fico-es-el-punto-de-partida" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Antes de cualquier modelación, los datos <strong>siempre</strong> deben graficarse. La gráfica es la herramienta más útil del análisis de series de tiempo: permite detectar tendencia, ciclos, estacionalidad, quiebres estructurales y observaciones atípicas, y orienta toda la modelación posterior.</p>
+<p><strong>Ejemplo — PIB en niveles:</strong></p>
+<p><img src="images/series/pib1.png" /></p>
+<p><strong>Ejemplo — Crecimiento porcentual del PIB:</strong></p>
+<p><img src="images/series/pib2.png" /></p>
+<p><strong>Ejemplo — PIB (otra serie):</strong></p>
+<p><img src="images/series/pib3.png" /></p>
+<p><strong>Ejemplo — Crecimiento porcentual del PIB (otra serie):</strong></p>
+<p><img src="images/series/pib4.png" /></p>
+<p><strong>PIB Real Colombia:</strong></p>
+<p><img src="images/series/pibcol1.png" /></p>
+<p><strong>Crecimiento del PIB Real Colombia:</strong></p>
+<p><img src="images/series/pibcol2.png" /></p>
 <hr />
 </div>
 <div id="definiciones-clave" class="section level2 unnumbered hasAnchor">
@@ -643,7 +655,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Tendencia:</strong> describe el comportamiento de largo plazo de la serie — hacia dónde va <span class="math inline">\(X_t\)</span> cuando <span class="math inline">\(t\)</span> es grande.</p>
 <p><strong>Media:</strong> dice algo de la serie solo cuando la tendencia ha sido removida. La idea es trabajar con series de media cero, <span class="math inline">\(X_t - \bar{X}\)</span>.</p>
 <p><strong>Ciclo:</strong> una serie sin tendencia puede mostrar ciclos. En economía, dada la naturaleza estocástica de las series, los ciclos nunca están demarcados claramente.</p>
+<p><img src="images/series/pib5.png" /></p>
 <p><strong>Estacionalidad:</strong> son ciclos cortos que se repiten dentro de un ciclo más largo (típicamente, dentro de un año).</p>
+<p><img src="images/series/season2.png" /></p>
 <ul>
 <li><strong>Determinística:</strong> el patrón se repite igual cada año (Navidad siempre es en diciembre).</li>
 <li><strong>Estocástica:</strong> el patrón se repite pero su intensidad varía año a año (el consumo como porcentaje del ingreso no es fijo).</li>
@@ -655,6 +669,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Predicción con tendencia y estacionalidad<a href="#predicci%C3%B3n-con-tendencia-y-estacionalidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Una serie con tendencia es fácil de predecir: está autocorrelacionada (alta inercia) y el dato en <span class="math inline">\(t-1\)</span> contiene información sobre el dato en <span class="math inline">\(t\)</span>.</p>
 <p>Una serie sin tendencia es más difícil: hay que verificar si existe un patrón entre observaciones cercanas. Si las observaciones pasadas no proveen información relevante, será imposible predecir usando el pasado — eso es <strong>ruido</strong>.</p>
+<p><img src="images/series/ruido.png" /></p>
 <p><strong>Ejemplo ilustrativo.</strong> Considere los siguientes datos trimestrales:</p>
 <table>
 <thead>
@@ -761,11 +776,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Componente irregular</li>
 </ol>
 <p>Antes de avanzar, necesitamos formalizar cuatro conceptos.</p>
+<p><img src="images/series/g1.png" /></p>
 <hr />
 </div>
 <div id="conceptos-básicos" class="section level2 unnumbered hasAnchor">
 <h2>Conceptos básicos<a href="#conceptos-b%C3%A1sicos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Estocástico:</strong> la naturaleza de la serie no es determinística — sus realizaciones son producto de un proceso aleatorio subyacente.</p>
+<p><img src="images/series/pegado1.png" /></p>
+<p><img src="images/series/pegado2.png" /></p>
 <p><strong>Estacionario:</strong> las características probabilísticas no varían con el tiempo. Distinguimos dos versiones:</p>
 <ul>
 <li><strong>Estacionariedad fuerte (o estricta) de orden <span class="math inline">\(m\)</span>:</strong> todos los momentos hasta orden <span class="math inline">\(m\)</span> son invariantes en el tiempo:</li>
@@ -817,6 +835,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Función de Autocorrelación Parcial (PACF)</li>
 <li>Análisis de raíz unitaria (Dickey-Fuller y Dickey-Fuller aumentada)</li>
 </ol>
+<p><strong>Durbin-Watson:</strong> regla práctica visual.</p>
+<p><img src="images/series/pegado3.png" /></p>
+<p><img src="images/series/DurbinWatson.png" /></p>
+<p>Es una prueba gráfica derivada de la función de autocorrelación simple (ACF), que a su vez depende de la función de autocovarianza.</p>
 <hr />
 </div>
 <div id="función-de-autocovarianza-y-autocorrelación-acf" class="section level2 unnumbered hasAnchor">
@@ -839,6 +861,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb61"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb61-1"><a href="series.html#cb61-1" tabindex="-1"></a>* Correlograma en Stata</span>
 <span id="cb61-2"><a href="series.html#cb61-2" tabindex="-1"></a><span class="kw">corrgram</span> <span class="kw">var</span>, lags(#)</span>
 <span id="cb61-3"><a href="series.html#cb61-3" tabindex="-1"></a><span class="kw">ac</span> <span class="kw">var</span>, lags(#)</span></code></pre></div>
+<p><strong>Correlograma típico:</strong></p>
+<p><img src="images/series/g13.png" /></p>
+<p><strong>Ejemplo — ACF del Baloto (ruido):</strong></p>
+<p><img src="images/series/g11.png" /></p>
+<p><strong>Ejemplo — ACF del PIB (tendencia):</strong></p>
+<p><img src="images/series/g12.png" /></p>
 <hr />
 </div>
 <div id="función-de-autocorrelación-parcial-pacf" class="section level2 unnumbered hasAnchor">
@@ -851,6 +879,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>La PACF se obtiene como el último coeficiente de la regresión:</p>
 <p><span class="math display">\[x_t = c + \alpha_{\tau,1} x_{t-1} + \alpha_{\tau,2} x_{t-2} + \cdots + \alpha_{\tau,\tau} x_{t-\tau}\]</span></p>
 <p><span class="math display">\[r_p(\tau) = \alpha_{\tau,\tau}\]</span></p>
+<p><strong>PACF para el PIB:</strong></p>
+<p><img src="images/series/g14.png" /></p>
 <hr />
 </div>
 <div id="prueba-q-de-box-pierce" class="section level2 unnumbered hasAnchor">
@@ -866,15 +896,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Caminatas aleatorias y procesos integrados<a href="series.html#caminatas-aleatorias-y-procesos-integrados" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Una <strong>caminata aleatoria</strong> es un proceso donde la posición en <span class="math inline">\(t\)</span> depende solo de la posición en <span class="math inline">\(t-1\)</span> más un choque aleatorio:</p>
 <p><span class="math display">\[x_t = x_{t-1} + \varepsilon_t, \quad \varepsilon_t \sim N(0, \sigma^2)\]</span></p>
+<p><strong>Caminata aleatoria pura, sin intercepto:</strong></p>
+<p><img src="images/series/pa1.png" /></p>
 <p>Iterando:</p>
 <p><span class="math display">\[x_t = x_0 + \sum_{s=1}^{t} \varepsilon_s, \quad E(x_t) = x_0, \quad Var(x_t) = t \sigma^2\]</span></p>
 <p>La varianza crece con <span class="math inline">\(t\)</span> → <strong>no es estacionaria</strong>.</p>
 <p><strong>Variantes:</strong></p>
 <ul>
 <li>Con tendencia (deriva): <span class="math inline">\(x_t = \alpha + x_{t-1} + \varepsilon_t\)</span></li>
-<li>Autoregresiva: <span class="math inline">\(x_t = \rho x_{t-1} + \varepsilon_t\)</span> con <span class="math inline">\(-1 \leq \rho \leq 1\)</span></li>
-<li>Con tendencia y autoregresiva: <span class="math inline">\(x_t = \delta + \beta T_t + \rho x_{t-1} + \varepsilon_t\)</span></li>
 </ul>
+<p><img src="images/series/pa2.png" />
+- Autoregresiva: <span class="math inline">\(x_t = \rho x_{t-1} + \varepsilon_t\)</span> con <span class="math inline">\(-1 \leq \rho \leq 1\)</span>
+- Con tendencia y autoregresiva: <span class="math inline">\(x_t = \delta + \beta T_t + \rho x_{t-1} + \varepsilon_t\)</span></p>
 <p><strong>Proceso integrado de orden <span class="math inline">\(d\)</span>, <span class="math inline">\(I(d)\)</span>:</strong> se refiere al número de veces que hay que diferenciar la serie para volverla estacionaria.</p>
 <ul>
 <li><span class="math inline">\(I(0)\)</span>: estacionaria en niveles</li>
@@ -900,6 +933,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><span class="math inline">\(H_1: \rho \neq 1\)</span> — <strong>NO</strong> contiene raíz unitaria, <strong>NO</strong> es caminata aleatoria, <strong>ES</strong> estacionaria.</li>
 </ul>
 <p><strong>¡Atención!</strong> El estadístico de contraste para <span class="math inline">\(\rho = 1\)</span> <strong>no es la <span class="math inline">\(t\)</span> usual</strong>. Dickey y Fuller (1979) y MacKinnon (1994) construyeron tablas especiales mediante simulaciones de Monte Carlo.</p>
+<p><strong>Ejemplo en Stata — PIB de Estados Unidos:</strong></p>
+<p><img src="images/series/gdpus1.png" /></p>
+<p><strong>ACF y PACF del PIB:</strong></p>
+<p><img src="images/series/gdpus2.png" /></p>
+<p><strong>Prueba de raíz unitaria (sin tendencia):</strong></p>
+<p><img src="images/series/gdpus3.png" /></p>
+<p><strong>Prueba de raíz unitaria (con tendencia):</strong></p>
+<p><img src="images/series/gdpus4.png" /></p>
+<p><strong>Prueba de raíz unitaria con tendencia para <span class="math inline">\(\ln\)</span> PIB:</strong></p>
+<p><img src="images/series/gdpus5.png" /></p>
+<p><strong>Prueba de raíz unitaria con tendencia para <span class="math inline">\(\Delta \ln\)</span> PIB:</strong></p>
+<p><img src="images/series/gdpus6.png" /></p>
 <hr />
 </div>
 <div id="dickey-fuller-aumentada-adf" class="section level2 unnumbered hasAnchor">
@@ -924,6 +969,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb62-9"><a href="series.html#cb62-9" tabindex="-1"></a></span>
 <span id="cb62-10"><a href="series.html#cb62-10" tabindex="-1"></a>* Dickey-Fuller GLS (selección automática <span class="kw">de</span> rezagos)</span>
 <span id="cb62-11"><a href="series.html#cb62-11" tabindex="-1"></a><span class="kw">dfgls</span> <span class="kw">var</span></span></code></pre></div>
+<p><strong>Ejemplo en Stata — ADF aplicada al PIB:</strong></p>
+<p><img src="images/series/gdpus7.png" /></p>
+<p><img src="images/series/gdpus8.png" /></p>
 <hr />
 </div>
 <div id="transformación-de-series-no-estacionarias" class="section level2 unnumbered hasAnchor">
@@ -985,11 +1033,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>Pronóstico</strong></li>
 <li><strong>Validación del pronóstico</strong></li>
 </ol>
+<p><img src="images/series/pasos.png" /></p>
 <hr />
 </div>
 <div id="paso-1-identificación" class="section level2 unnumbered hasAnchor">
 <h2>Paso 1 — Identificación<a href="#paso-1-identificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Se usa la siguiente regla práctica con base en los correlogramas teóricos:</p>
+<p><img src="images/series/teorico.png" /></p>
 <table style="width:100%;">
 <colgroup>
 <col width="42%" />
@@ -1025,6 +1075,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[AIC = \ln\left(\frac{\hat{\varepsilon}&#39;\hat{\varepsilon}}{n}\right) + \frac{2k}{n}\]</span></p>
 <p><span class="math display">\[BIC = \ln\left(\frac{\hat{\varepsilon}&#39;\hat{\varepsilon}}{n}\right) + \frac{k \cdot \ln(n)}{n}\]</span></p>
 <p>donde <span class="math inline">\(k\)</span> es el número de parámetros y <span class="math inline">\(n\)</span> las observaciones utilizables. Se escoge el modelo con menor valor.</p>
+<p><strong>Correlogramas teóricos — AR(1):</strong></p>
+<p><img src="images/series/AR1.png" /></p>
+<p><img src="images/series/AR2.png" /></p>
+<p><strong>Correlogramas teóricos — AR(2):</strong></p>
+<p><img src="images/series/AR3.png" /></p>
+<p><img src="images/series/AR4.png" /></p>
+<p><strong>Correlogramas teóricos — MA(1):</strong></p>
+<p><img src="images/series/MA1.png" /></p>
+<p><img src="images/series/MA2.png" /></p>
+<p><strong>Correlogramas teóricos — MA(2):</strong></p>
+<p><img src="images/series/MA3.png" /></p>
+<p><img src="images/series/MA4.png" /></p>
+<p><strong>Correlogramas teóricos — ARMA(1,1):</strong></p>
+<p><img src="images/series/ARMA11.png" /></p>
+<p><img src="images/series/ARMA11a.png" /></p>
 <hr />
 </div>
 <div id="paso-2-estimación-de-parámetros" class="section level2 unnumbered hasAnchor">
@@ -1098,6 +1163,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb63-15"><a href="series.html#cb63-15" tabindex="-1"></a></span>
 <span id="cb63-16"><a href="series.html#cb63-16" tabindex="-1"></a>* Pronóstico fuera <span class="kw">de</span> muestra</span>
 <span id="cb63-17"><a href="series.html#cb63-17" tabindex="-1"></a><span class="kw">predict</span> yhat, <span class="fu">y</span> dynamic(tq(2014q1))</span></code></pre></div>
+<p><strong>Ejemplo en Stata — estimación ARMA y pronóstico del PIB:</strong></p>
+<p><img src="images/series/gdpus9.png" /></p>
+<p><img src="images/series/gdpus10.png" /></p>
+<p><img src="images/series/gdpus11.png" /></p>
+<p><img src="images/series/gdpus12.png" /></p>
+<p><strong>Pronóstico:</strong></p>
+<p><img src="images/series/gdpus123.png" /></p>
+<p><img src="images/series/gpdus14.png" /></p>
+<p><img src="images/series/gpdus145.png" /></p>
 <hr />
 </div>
 <div id="lecturas-recomendadas-2" class="section level2 unnumbered hasAnchor">
