@@ -134,6 +134,7 @@ id_11-taller-practico-hands-on
 id_12-apendice-comandos-rapidos-por-software
 endogeneidad
 iv
+series
 parcial-1-2026-1
 parte-i-seleccion-multiple
 obligatoria-fwl-con-observacion-atipica-15-pts

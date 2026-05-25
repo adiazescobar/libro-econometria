@@ -1,0 +1,614 @@
+# Parcial 2 · 2026-1 {#parcial-2-2026-1}
+
+**Pontificia Universidad Javeriana · Departamento de Economía**
+**Profesora:** Ana María Díaz · **Semestre:** 2026-1
+**Puntaje máximo:** 5.0 pts
+
+::: {.box-tarea}
+**Cómo usar este capítulo**
+Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver solución** para revelar la respuesta y su explicación. Te recomendamos responder primero y consultar la solución después.
+:::
+
+<hr>
+
+## Parte I: Selección Múltiple {-} {#parte-i-seleccion-multiple}
+
+**20 preguntas · 2 puntos en total**
+
+La escala de calificación asigna 2.00 pts con 20 correctas, hasta 1.00 pts con 10 correctas; por debajo de 10, proporcional.
+
+<hr>
+
+**Clave de respuestas:**
+B A C B A | B C C B C | B C B B B | B C B C C
+
+<hr>
+
+**P1.** La matriz de varianza-covarianza del estimador MCO bajo heterocedasticidad satisface:
+
+(A) $\operatorname{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}$
+(B) $\operatorname{Var}(\hat{\beta}\mid X)=(X'X)^{-1}X'\Omega X(X'X)^{-1}$
+(C) Coincide con la fórmula clásica si $\Omega=\sigma^2 I$
+(D) No puede estimarse sin suponer normalidad
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Bajo heterocedasticidad $\Omega=\operatorname{Var}(\varepsilon\mid X)$ es diagonal pero no es múltiplo de $I_n$. La verdadera varianza es $\operatorname{Var}(\hat{\beta}\mid X)=(X'X)^{-1}X'\Omega X(X'X)^{-1}$. La fórmula clásica $\sigma^2(X'X)^{-1}$ es incorrecta.
+</div></details>
+
+<hr>
+
+**P2.** El estimador MCO en presencia de heterocedasticidad es:
+
+(A) Insesgado y consistente
+(B) Sesgado e inconsistente
+(C) Insesgado en muestras pequeñas pero consistente en grandes
+(D) Consistente pero no eficiente
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: A.** La heterocedasticidad viola el supuesto S4 (homocedasticidad) pero no afecta S1–S2. Luego, MCO sigue siendo insesgado y consistente; el problema es que deja de ser MELI y los errores estándar habituales son inválidos.
+</div></details>
+
+<hr>
+
+**P3.** Defina $H_i = X_i(X'X)^{-1}X_i'$ (apalancamiento de la observación $i$). Si $H_i$ es muy grande:
+
+(A) La observación $i$ tiene bajo impacto en $\hat{\beta}$
+(B) La observación $i$ tiene alto impacto en $\hat{\beta}$ pero bajo residuo
+(C) Los errores estándar disminuyen automáticamente
+(D) El $R^2$ se incrementa
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Un valor alto de $H_i$ indica que $X_i$ está alejado del centro de la distribución de $X$. Eso puede causar alto residuo o bajo residuo (apalancamiento alto), pero *siempre* reduce la varianza del residuo estandarizado. Observaciones atípicas en $X$ tienen potencial para alterar $\hat{\beta}$.
+</div></details>
+
+<hr>
+
+**P4.** En el modelo $Y_i = \beta_0 + \beta_1 X_i + u_i$ con heterocedasticidad, los errores robustos (HC) son preferibles a los errores estándar clásicos porque:
+
+(A) Producen estimadores insesgados
+(B) Proporcionan inferencia válida bajo heterocedasticidad sin especificar su forma
+(C) Mejoran la eficiencia de MCO
+(D) Eliminan la heterocedasticidad del modelo
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Los errores HC estiman directamente $(X'X)^{-1}X'\Omega X(X'X)^{-1}$ sin asumir $\Omega=\sigma^2 I$. Proporcionan intervalos y pruebas válidas bajo cualquier patrón de heterocedasticidad, sin conocer su forma exacta.
+</div></details>
+
+<hr>
+
+**P5.** La Ley de Grandes Números (LGN) y el Teorema Central del Límite (TCL) son herramientas para:
+
+(A) Justificar insesgamiento de MCO
+(B) Garantizar que MCO es MELI
+(C) Establecer propiedades asintóticas de estimadores (consistencia, normalidad asintótica)
+(D) Eliminar la heterocedasticidad
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** LGN justifica consistencia ($\hat{\beta}\xrightarrow{p}\beta$) bajo S1–S2 sin necesidad de S4 ni S6. TCL justifica normalidad asintótica ($\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)$) incluso sin normalidad de errores.
+</div></details>
+
+<hr>
+
+**P6.** Si la variable $Z$ está omitida del modelo verdadero $Y=X_1\beta_1+Z\beta_2+\varepsilon$ y se estima $Y=X_1\alpha_1+v$, el sesgo en $\hat{\alpha}_1$ depende de:
+
+(A) Solo $\beta_2$
+(B) $\beta_2$ y $\operatorname{Cov}(X_1,Z)$
+(C) Solo $\operatorname{Cov}(X_1,Z)$
+(D) La varianza de $X_1$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Sesgo por variable omitida: $E[\tilde{\alpha}_1]-\beta_1\approx\beta_2\cdot\frac{\operatorname{Cov}(X_1,Z)}{\operatorname{Var}(X_1)}$. Se requiere tanto que $Z$ sea relevante ($\beta_2\neq 0$) como que esté correlacionada con $X_1$.
+</div></details>
+
+<hr>
+
+**P7.** En el contexto de variables instrumentales, un instrumento $Z$ es válido si:
+
+(A) $\operatorname{Cov}(Z,X)\neq 0$ solamente
+(B) $\operatorname{Cov}(Z,X)\neq 0$ y $\operatorname{Cov}(Z,\varepsilon)=0$
+(C) $\operatorname{Cov}(Z,\varepsilon)=0$ y $\operatorname{Var}(Z)$ es grande
+(D) $Z$ está disponible en los datos
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Un instrumento válido requiere: (i) **relevancia:** $\operatorname{Cov}(Z,X)\neq 0$ (contribuye información sobre $X$); (ii) **exogeneidad:** $\operatorname{Cov}(Z,\varepsilon)=0$ (no está correlacionado con perturbaciones no observadas). Ambas son necesarias.
+</div></details>
+
+<hr>
+
+**P8.** El estimador MCO2E (mínimos cuadrados en dos etapas) con instrumento $Z$:
+
+(A) Es sesgado pero consistente si $Z$ satisface relevancia y exogeneidad
+(B) Es insesgado incluso sin exogeneidad si $n$ es grande
+(C) Converge a $\beta_1$ en probabilidad bajo relevancia y exogeneidad
+(D) No requiere que $Z$ sea fuerte
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** MCO2E es *consistente* bajo relevancia y exogeneidad: $\hat{\beta}_{IV}\xrightarrow{p}\beta_1$. No es insesgado en muestras finitas (es estimador de variable dependiente límite), pero sí consistente. Instrumentos débiles producen sesgo inicial (aun con $n$ grande).
+</div></details>
+
+<hr>
+
+**P9.** Si el instrumento $Z$ es débil (baja correlación con $X$):
+
+(A) MCO2E sigue siendo consistente aunque lentamente
+(B) MCO2E puede estar muy sesgado incluso en muestras grandes
+(C) Se incrementa automáticamente la eficiencia
+(D) La endogeneidad se resuelve por sí sola
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Instrumentos débiles: $\operatorname{Cov}(Z,X)$ es pequeño. El estimador IV sufre **sesgo inicial** (asymptotic bias) que puede ser sustancial incluso con $n\to\infty$. Una prueba de relevancia (test F > 10) ayuda a detectar este problema.
+</div></details>
+
+<hr>
+
+**P10.** La condición de exclusión en IV requiere que:
+
+(A) $Z$ no tenga efecto directo en $Y$ (fuera de su efecto a través de $X$)
+(B) $Z$ esté correlacionado con $X$
+(C) $Y$ se mida sin error
+(D) La varianza de $\varepsilon$ sea constante
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: A.** La condición de exclusión (exogeneidad del instrumento) requiere que $Z\perp\varepsilon$: es decir, $Z$ afecta $Y$ *solo* a través de $X$, sin canal directo. Formal: $E[Y|Z] = E[E[Y|X,Z]|Z] = E[E[Y|X]|Z]$.
+</div></details>
+
+<hr>
+
+**P11.** En regresión múltiple con multicolinealidad imperfecta, la varianza del estimador $\hat{\beta}_j$ se infla por:
+
+(A) El factor $(1-R_j^2)^{-1}$ solamente
+(B) VIF$_j = (1-R_j^2)^{-1}$, donde $R_j^2$ es el $R^2$ de $X_j$ sobre las demás regresoras
+(C) La correlación entre $X_j$ y $Y$
+(D) El número de observaciones
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Variance Inflation Factor (VIF): $\operatorname{Var}(\hat{\beta}_j\mid X)\approx\frac{\sigma^2}{(1-R_j^2)\sum(X_j-\bar{X}_j)^2}$. Un $R_j^2$ alto (multicolinealidad) incrementa VIF, inflando la varianza y ampliando intervalos de confianza.
+</div></details>
+
+<hr>
+
+**P12.** Bajo los supuestos clásicos S1–S5, se estima $Y = X\beta + \varepsilon$ con $n=100$ y $k=3$. Un test $t$ es válido para hipótesis sobre $\beta_1$ porque:
+
+(A) Los datos son grandes ($n=100$)
+(B) El Teorema Central del Límite garantiza normalidad asintótica de $\hat{\beta}$
+(C) La distribución $t_{n-k}$ aproxima bien $\sqrt{n}(\hat{\beta}-\beta)/\sigma$
+(D) Todas las anteriores
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Con $n=100$ (muestra grande), el TCL garantiza $\hat{\beta}\approx N(\beta,\sigma^2(X'X)^{-1})$ bajo S1–S5. El estadístico $t = \frac{\hat{\beta}_1-\beta_{1,0}}{\operatorname{se}(\hat{\beta}_1)}\sim t_{97}$ es válido (o aproximadamente $N(0,1)$). Las tres afirmaciones son correctas.
+</div></details>
+
+<hr>
+
+**P13.** La normalidad asintótica de MCO requiere:
+
+(A) S6: normalidad de los errores
+(B) S1–S2 solamente, por el TCL
+(C) Homocedasticidad (S4)
+(D) Un instrumento válido
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** El TCL permite demostrar $\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)$ bajo S1–S2 únicamente, sin S6 (normalidad). Incluso con errores no normales, MCO es asintóticamente normal. S4 afecta la forma de $\Sigma$ pero no el resultado límite.
+</div></details>
+
+<hr>
+
+**P14.** Si se omite un regresor importante (variable relevante correlacionada con $X$) del modelo:
+
+(A) Aumenta el R²
+(B) Sesga a $\hat{\beta}$ en dirección determinada por $\operatorname{Cov}(\text{regresor omitido, X})$ y su efecto verdadero
+(C) Reduce automáticamente la heterocedasticidad
+(D) No afecta la eficiencia de MCO
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Sesgo por variable omitida: la dirección depende del signo de (efecto verdadero de la variable omitida) × (correlación con $X$). Si la variable omitida está correlacionada con $X$, su efecto se confunde en el coeficiente de $X$.
+</div></details>
+
+<hr>
+
+**P15.** Un instrumento relevante $Z$ para la variable endógena $X$ debe satisfacer:
+
+(A) $\operatorname{Cov}(Z,X) = 0$
+(B) $\operatorname{Cov}(Z,X) \neq 0$ (correlación significativa)
+(C) $Z$ sea exógeno a toda la población
+(D) $Z$ tenga efecto directo máximo en $Y$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Relevancia del instrumento: se necesita $\operatorname{Cov}(Z,X)\neq 0$, idealmente fuerte ($|r_{Z,X}|$ grande). Un test F de la primera etapa > 10 indica relevancia aceptable.
+</div></details>
+
+<hr>
+
+**P16.** En el modelo $Y = \beta_0 + \beta_1 X + \varepsilon$ con $X$ endógena, si usa un instrumento $Z$ válido:
+
+(A) El estimador MCO de $\beta_1$ sigue siendo consistente
+(B) MCO2E es consistente pero MCO no lo es
+(C) Ambos estimadores coinciden si la endogeneidad es leve
+(D) La endogeneidad desaparece automáticamente
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Si $\operatorname{Cov}(X,\varepsilon)\neq 0$ (endogeneidad), MCO es inconsistente. MCO2E, basado en el instrumento válido $Z$, es consistente. No coinciden a menos que la endogeneidad sea exactamente cero.
+</div></details>
+
+<hr>
+
+**P17.** La prueba de endogeneidad (Hausman test) compara:
+
+(A) Los residuos de MCO y MCO2E
+(B) Las varianzas de $\hat{\beta}_{MCO}$ y $\hat{\beta}_{IV}$
+(C) $\hat{\beta}_{MCO}$ y $\hat{\beta}_{IV}$: si difieren significativamente, hay evidencia de endogeneidad
+(D) El $R^2$ de la primera etapa con el de la segunda
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Test de Hausman: $H = (\hat{\beta}_{IV}-\hat{\beta}_{MCO})'\hat{V}^{-1}(\hat{\beta}_{IV}-\hat{\beta}_{MCO})\sim\chi^2_k$. Si $H$ es grande, MCO y IV difieren → evidencia de endogeneidad. Bajo $H_0$: no hay endogeneidad, ambos son consistentes.
+</div></details>
+
+<hr>
+
+**P18.** El estimador de Mínimos Cuadrados Generalizados (MCG) es útil cuando:
+
+(A) Hay heterocedasticidad (conocida o estimada)
+(B) La matriz de varianza-covarianza de $\varepsilon$ es no escalar
+(C) Se quiere mejorar eficiencia más allá de MCO
+(D) Todas las anteriores
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** MCG transforma $Y = X\beta + \varepsilon$ mediante $\Omega = \operatorname{Var}(\varepsilon)$: si $\Omega$ es no escalar (heterocedasticidad, autocorrelación), MCG es más eficiente que MCO. Si $\Omega = \sigma^2 I$, MCG coincide con MCO.
+</div></details>
+
+<hr>
+
+**P19.** Bajo heterocedasticidad, los errores estándar clásicos son:
+
+(A) Insesgados e imparciales
+(B) Sistemáticamente subestimados (errores HC generalmente más grandes)
+(C) Sistemáticamente sobrestimados
+(D) Válidos si $n$ es grande
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Los errores estándar clásicos $\sqrt{\sigma^2(X'X)^{-1}}$ suponen $\Omega=\sigma^2 I$. Con heterocedasticidad, si los residuos grandes están en $X$ elevados, los errores clásicos subestiman la verdadera varianza de $\hat{\beta}$. Los errores HC corrigen este sesgo.
+</div></details>
+
+<hr>
+
+**P20.** ¿Cuál de las siguientes propiedades de un buen estimador es la más crítica para causalidad en econometría?
+
+(A) Eficiencia (varianza mínima)
+(B) Insesgamiento exacto
+(C) Consistencia bajo identificación válida
+(D) Distribución normal
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Para causalidad, se necesita **consistencia** bajo supuestos de identificación válidos (exogeneidad estricta o IV válido). Insesgamiento exacto no es necesario si es sesgado pero consistente. Eficiencia es deseable pero no esencial. Normalidad es útil para inferencia pero no para consistencia.
+</div></details>
+
+<hr>
+
+## Parte II: Preguntas Abiertas {-}
+
+Responda la pregunta **obligatoria** y **una** de las dos opcionales.
+
+<hr>
+
+### Obligatoria — Sesgo por Variable Omitida e Instrumentos (3 pts) {-}
+
+Un municipio implementa un programa de capacitación laboral $(P)$ que puede mejorar la empleabilidad de personas con discapacidad. Se recopilan datos de $n$ participantes durante un año y se estima el efecto del programa en horas de trabajo mensuales $(Y)$.
+
+**Contexto:** El modelo verdadero es
+$$Y_i = \beta_0 + \beta_1 P_i + \beta_2 C_i + \varepsilon_i,$$
+donde $C_i$ es una variable que mide la **capacidad gestional** (o motivación) no observada del participante, y se supone $E[\varepsilon_i | P_i, C_i] = 0$.
+
+**(1) — 1 pt. Variable omitida y sesgo.**
+
+El investigador no tiene medida de $C$ y estima
+$$Y_i = \alpha_0 + \alpha_1 P_i + v_i.$$
+
+- **(a)** Identifique **una variable plausible** que podría actuar como $C$ (capacidad gestional).
+- **(b)** Escriba la **fórmula del sesgo** de $\hat{\alpha}_1$ como función de los parámetros verdaderos y la correlación entre $P$ y la variable omitida.
+- **(c)** **Argumente el signo del sesgo:** ¿esperaría que $\hat{\alpha}_1 > \beta_1$ o $\hat{\alpha}_1 < \beta_1$? ¿Por qué?
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Variable plausible:** Capacidad de liderazgo del participante, nivel educativo previo, autoestima, o disposición a trabajar (motivación).
+
+**(b) Fórmula del sesgo:**
+$$E[\hat{\alpha}_1] - \beta_1 \approx \beta_2 \cdot \frac{\operatorname{Cov}(P,C)}{\operatorname{Var}(P)}.$$
+
+El sesgo depende de (i) el efecto verdadero de $C$ en horas ($\beta_2$) y (ii) la correlación entre participación y capacidad gestional.
+
+**(c) Signo del sesgo:** Si participantes más capacitados gestionales son *más propensos* a inscribirse ($\operatorname{Cov}(P,C) > 0$) y tienen *mayor efecto* en horas ($\beta_2 > 0$), entonces sesgo positivo: $\hat{\alpha}_1$ sobrestima $\beta_1$. El programa "parece" más efectivo porque confunde su efecto con el de capacidad previa.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Dos instrumentos razonables.**
+
+Para resolver el problema de endogeneidad, el investigador propone dos variables instrumentales $Z_1$ y $Z_2$:
+
+- **$Z_1 :=$** proximidad del domicilio del participante a la sede del programa (en km). Se supone que afecta a $P$ pero no directamente a $Y$.
+- **$Z_2 :=$** número de cupos disponibles ese mes en el programa (asignado aleatoriamente por la administración).
+
+**(a)** Para cada instrumento, explique **qué variación** explota:
+  - ¿Por qué $Z_1$ podría estar correlacionado con $P$?
+  - ¿Por qué $Z_2$ podría estar correlacionado con $P$?
+
+**(b)** Escriba las **dos etapas** de MCO2E usando $Z_1$ como instrumento.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Variación explotada:**
+
+- **$Z_1$ (proximidad):** Aprovecha la variación *geográfica*. Participantes más cercanos tienen menores costos de transporte y tiempo, por lo que es más probable que se inscriban. Esperamos $\operatorname{Cov}(P, Z_1) > 0$ (distancia menor → más inscripción).
+
+- **$Z_2$ (cupos):** Aprovecha la variación *administrativa*. Meses con más cupos ofrecen menos restricción, aumentando la participación. Esperamos $\operatorname{Cov}(P, Z_2) > 0$ (más cupos → más participantes).
+
+**(b) Dos etapas con $Z_1$:**
+
+**Primera etapa:** Regresar $P$ sobre $Z_1$ (y controles):
+$$\hat{P}_i = \hat{\pi}_0 + \hat{\pi}_1 Z_{1,i}.$$
+
+Obtenga los valores ajustados $\hat{P}_i$.
+
+**Segunda etapa:** Regresar $Y$ sobre $\hat{P}$:
+$$Y_i = \hat{\beta}_0 + \hat{\beta}_1^{IV} \hat{P}_i + \hat{u}_i.$$
+
+El coeficiente $\hat{\beta}_1^{IV}$ es consistente si $Z_1$ es relevante ($\operatorname{Cov}(P, Z_1) \neq 0$) y exógeno ($\operatorname{Cov}(Z_1, \varepsilon) = 0$).
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Instrumento más defendible e hipótesis formales.**
+
+**(a)** Elija **cuál de los dos instrumentos** ($Z_1$ o $Z_2$) le parece más defendible y **justifique por qué.**
+
+**(b)** Para el instrumento elegido, escriba **formalmente** las dos condiciones que debe satisfacer un instrumento válido:
+  - **Relevancia:** $\operatorname{Cov}(Z, P) \neq 0$ (o especifique: cuál es el signo esperado y por qué).
+  - **Exogeneidad:** $\operatorname{Cov}(Z, \varepsilon) = 0$ (o equivalentemente, $E[\varepsilon | Z] = 0$).
+
+**(c)** Escriba el **estimador IV** para $\beta_1$.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Instrumento más defendible:**
+
+**$Z_2$ (cupos)** es probablemente más defendible porque:
+- La asignación es *administrativa y aleatoria* (no seleccionada por participantes).
+- Es más difícil que participantes con mayor capacidad gestional se autoselectionen según la cantidad de cupos ese mes.
+- $Z_1$ es vulnerable a un argumento de confusión: participantes en áreas con mejor acceso geográfico podrían tener también mayor empleabilidad por otras razones (mejor infraestructura, más oportunidades laborales en la zona).
+
+**(b) Condiciones formales:**
+
+**Relevancia:**
+$$\operatorname{Cov}(Z_2, P) \neq 0 \quad \Rightarrow \quad E[Z_2 P] \neq E[Z_2]E[P].$$
+
+Esperamos signo positivo: más cupos → mayor participación.
+
+**Exogeneidad (Condición de exclusión):**
+$$\operatorname{Cov}(Z_2, \varepsilon) = 0 \quad \Rightarrow \quad E[\varepsilon | Z_2] = 0.$$
+
+Interpretación: $Z_2$ afecta horas de trabajo *únicamente* a través de su efecto en participación ($P$), sin canal directo. La disponibilidad de cupos no está correlacionada con la capacidad gestional no observada $C$.
+
+**(c) Estimador IV:**
+
+$$\hat{\beta}_1^{IV} = \frac{\operatorname{Cov}(Z_2, Y)}{\operatorname{Cov}(Z_2, P)}.$$
+
+En forma computacional:
+$$\hat{\beta}_1^{IV} = \frac{\sum_i (Z_{2,i} - \bar{Z}_2)(Y_i - \bar{Y})}{\sum_i (Z_{2,i} - \bar{Z}_2)(P_i - \bar{P})}.$$
+
+</div></details>
+
+<hr>
+
+### Opcional 1 — Heterocedasticidad y Multicolinealidad (3 pts) {-}
+
+Considere un modelo de regresión lineal múltiple que explica salarios en función de educación, experiencia y género. Se sospecha heterocedasticidad y multicolinealidad.
+
+**(1) — 1 pt. Heterocedasticidad.**
+
+**(a)** Defina homocedasticidad y heterocedasticidad formalmente usando la varianza condicional.
+
+**(b)** Si $\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2$ (heterocedasticidad):
+- ¿Se sesga el estimador MCO?
+- ¿Se invalida la matriz de varianza-covarianza clásica $\sigma^2(X'X)^{-1}$?
+
+**(c)** Proponga **dos acciones** para abordar heterocedasticidad en la inferencia.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definiciones:**
+
+**Homocedasticidad (S4):**
+$$\operatorname{Var}(\varepsilon_i | X) = \sigma^2 \quad \forall i.$$
+La varianza del error es constante e igual para todas las observaciones.
+
+**Heterocedasticidad:**
+$$\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2 \quad (\text{varía con } i).$$
+La varianza depende de características observables o no observables.
+
+**(b) Impacto de heterocedasticidad:**
+
+- **¿Se sesga MCO?** No. Insesgamiento depende de S1 (linealidad) y S2 (exogeneidad $E[\varepsilon|X]=0$). Heterocedasticidad viola S4 pero no S2 → MCO sigue siendo insesgado.
+
+- **¿Se invalida la varianza clásica?** Sí. La verdadera varianza es
+$$\operatorname{Var}(\hat{\beta}|X) = (X'X)^{-1}X'\Omega X(X'X)^{-1},$$
+donde $\Omega = \operatorname{diag}(\sigma_1^2, \ldots, \sigma_n^2)$. La fórmula clásica $\sigma^2(X'X)^{-1}$ es incorrecta → errores estándar incorrectos → pruebas inválidas.
+
+**(c) Dos acciones:**
+
+1. **Errores estándar robustos (HC):** Estimar $\Omega$ directamente de los residuos sin asumir su forma. Los errores HC válidos proporcionan inferencia válida bajo cualquier patrón de heterocedasticidad.
+
+2. **Mínimos Cuadrados Generalizados (MCG):** Si se conoce (o estima) la estructura de heterocedasticidad, transformar el modelo mediante $\Omega^{-1/2}$ para obtener un modelo homocedástico. MCG es más eficiente que MCO cuando $\Omega$ es conocida.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Multicolinealidad.**
+
+**(a)** Defina multicolinealidad *imperfecta* usando la matriz $X'X$ y su relación con la correlación entre regresores.
+
+**(b)** ¿Sesga el estimador MCO si existe multicolinealidad imperfecta? Justifique.
+
+**(c)** ¿Cómo afecta al estimador la correlación alta entre regresores? Use la fórmula del Variance Inflation Factor (VIF).
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definición:**
+
+**Multicolinealidad imperfecta:** Alta correlación lineal entre regresores. Formalmente, $\operatorname{rank}(X) = k$ (rango completo, MCO existe) pero ciertos menores de $X'X$ son muy pequeños.
+
+Equivalentemente: un regresor $X_j$ tiene $R_j^2$ muy alto cuando se regresa sobre los demás, indicando que es *casi* una combinación lineal de otros regresores.
+
+**(b) ¿Sesga MCO?**
+
+No. Multicolinealidad imperfecta no viola S3 (rango completo), ni afecta S1–S2. Luego:
+$$E[\hat{\beta}|X] = \beta \quad \text{(insesgado)}.$$
+
+También es consistente bajo S1–S2.
+
+**(c) Efecto en varianza (VIF):**
+
+$$\operatorname{Var}(\hat{\beta}_j | X) = \frac{\sigma^2}{(1-R_j^2) \sum_i(X_{j,i} - \bar{X}_j)^2},$$
+
+donde $R_j^2$ es el $R^2$ de regresionar $X_j$ sobre los demás regresores.
+
+**Variance Inflation Factor:** $\text{VIF}_j = (1-R_j^2)^{-1}$.
+
+Si $R_j^2 \to 1$ (alta multicolinealidad), $\text{VIF}_j \to \infty$ → varianza se infla → intervalos de confianza muy amplios → estadísticos $t$ pequeños → dificultad para detectar significancia, aunque MCO es insesgado.
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Acciones para abordar ambos problemas.**
+
+Proponga **dos acciones distintas:**
+- Una para **heterocedasticidad** (distinta de errores HC).
+- Otra para **multicolinealidad** (distinta de recolectar más datos).
+
+Justifique brevemente por qué cada acción aborda el problema.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**Para heterocedasticidad:**
+
+1. **Transformación logarítmica de $Y$:** Si $\sigma_i \propto E[Y_i]$ (heterocedasticidad proporcional al nivel), transformar $\ln(Y)$ homogeniza la varianza. El modelo transformado $\ln(Y) = X\beta + \varepsilon'$ tiene $\operatorname{Var}(\varepsilon'|X)$ más cercana a constante.
+
+2. **Mínimos Cuadrados Ponderados (WLS):** Si se estima la estructura de heterocedasticidad (p.ej., $\sigma_i^2 \propto X_{j,i}^2$), usar pesos $w_i = 1/\sigma_i^2$ para downweight observaciones con mayor varianza. Formalmente:
+$$\hat{\beta}_{WLS} = (X'WX)^{-1}X'WY \quad \text{(más eficiente que MCO)}.$$
+
+**Para multicolinealidad:**
+
+1. **Selección de variables (eliminar regresores muy correlacionados):** Usar criterios de información (AIC, BIC) o stepwise selection para remover regresores que añaden poco poder explicativo y están altamente correlacionados. Sacrificamos insesgamiento potencial de un regresor omitido a cambio de precisión en los coeficientes restantes.
+
+2. **Regresión ridge (estimador regularizado):** Usar estimador regularizado $\hat{\beta}_{\text{ridge}} = (X'X + \lambda I)^{-1}X'Y$ ($\lambda > 0$). Acepta sesgo controlado a cambio de reducir varianza. Especialmente útil cuando el objetivo es predicción, no interpretación causal de coeficientes.
+
+</div></details>
+
+<hr>
+
+### Opcional 2 — Normalidad Asintótica y Pruebas de Hipótesis (3 pts) {-}
+
+**(1) — 1 pt. Normalidad asintótica formal.**
+
+**(a)** Escriba la definición de normalidad asintótica del estimador MCO sin asumir que los errores son normales.
+
+**(b)** ¿Qué teorema econométrico fundamental la justifica? Explique brevemente el rol del supuesto S2 en su derivación.
+
+**(c)** ¿Es necesario el supuesto S6 (normalidad de $\varepsilon$) para normalidad asintótica de $\hat{\beta}$?
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definición:**
+
+Bajo S1–S5 (sin S6), el estimador MCO satisface
+$$\sqrt{n}(\hat{\beta} - \beta) \xrightarrow{d} \mathcal{N}(0, \sigma^2 Q^{-1}),$$
+donde $Q = \lim_{n\to\infty} \frac{1}{n}X'X$.
+
+Equivalentemente: para grandes $n$, $\hat{\beta} \approx N(\beta, \sigma^2(X'X)^{-1})$ aproximadamente.
+
+**(b) Teorema fundamental:**
+
+El **Teorema Central del Límite (TCL)** para variables i.i.d. (o débilmente correlacionadas).
+
+Rol de S2: Bajo exogeneidad $E[\varepsilon|X]=0$, los regresores no están correlacionados con las perturbaciones. Esto permite aplicar TCL a sumas como $\frac{1}{n}X'\varepsilon$ sin sesgo inicial.
+
+**(c) ¿Necesario S6?**
+
+No. S6 (normalidad de $\varepsilon$) es *suficiente* para normalidad exacta en muestras finitas, pero no *necesario* para normalidad asintótica. El TCL solo requiere que los errores sean i.i.d. (u obedezcan condiciones de Lindeberg) e independientes de $X$, sin distribuirse normalmente.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Test $t$ con ejemplo numérico.**
+
+Se estima el modelo $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$ con $n = 150$ observaciones. Se obtiene:
+$$\hat{\beta}_1 = 0.40, \quad \widehat{\operatorname{se}}(\hat{\beta}_1) = 0.20.$$
+
+Realice un test $t$ bilateral para $H_0: \beta_1 = 0$ vs. $H_1: \beta_1 \neq 0$ al nivel $\alpha = 0.05$.
+
+**(a)** Calcule el estadístico $t$.
+
+**(b)** Determine el valor crítico. ¿Rechaza o no rechaza $H_0$?
+
+**(c)** Interprete el resultado en términos del efecto causal de $X$ sobre $Y$.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Estadístico $t$:**
+
+$$t = \frac{\hat{\beta}_1 - 0}{\widehat{\operatorname{se}}(\hat{\beta}_1)} = \frac{0.40}{0.20} = 2.0.$$
+
+**(b) Valor crítico y decisión:**
+
+Para $n=150$, $n-k = 150 - 2 = 148$ grados de libertad. El valor crítico bilateral a $\alpha=0.05$ es aproximadamente $t_{0.025, 148} \approx 1.96$ (o más precisamente, $1.975$).
+
+Como $|t| = 2.0 > 1.96$, **rechazamos $H_0$ al 5%.**
+
+**(c) Interpretación:**
+
+Hay evidencia estadísticamente significativa (al 5%) de que $\beta_1 \neq 0$. El coeficiente estimado de 0.40 es significativamente distinto de cero: un cambio unitario en $X$ está asociado con un cambio de 0.40 unidades en $Y$, manteniendo lo demás constante.
+
+(Nota: significancia estadística no implica automáticamente importancia económica ni causalidad sin los supuestos de identificación.)
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Errores robustos y supuestos de inferencia.**
+
+**(a)** Bajo heterocedasticidad, explique por qué los errores estándar clásicos pueden ser **muy sesgados** pero los errores robustos (HC) siguen siendo válidos.
+
+**(b)** ¿Qué supuesto *no* se necesita para inferencia asintótica válida?
+- S2 (exogeneidad)
+- S4 (homocedasticidad)
+- S6 (normalidad de $\varepsilon$)
+
+Justifique.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Por qué errores clásicos fallan pero HC funciona:**
+
+Los errores estándar clásicos asuben $\operatorname{Var}(\varepsilon|X) = \sigma^2 I$. Con heterocedasticidad $\operatorname{Var}(\varepsilon|X) = \Omega \neq \sigma^2 I$, la fórmula clásica $\sigma^2(X'X)^{-1}$ no es correcta.
+
+Los errores HC estiman directamente:
+$$\widehat{\operatorname{Var}}_{HC}(\hat{\beta}) = (X'X)^{-1} X' \widehat{\Omega} X (X'X)^{-1},$$
+donde $\widehat{\Omega} = \operatorname{diag}(\hat{u}_i^2)$ (residuos al cuadrado en la diagonal). Esto no presupone ninguna forma de heterocedasticidad → válido bajo cualquier $\Omega$ diagonal.
+
+**(b) Supuesto no necesario:**
+
+**S6 (normalidad)** no es necesario para inferencia asintótica válida.
+
+Bajo S1–S5 (incluyendo S2: exogeneidad), el TCL garantiza normalidad asintótica de $\hat{\beta}$ sin importar la distribución de $\varepsilon$.
+
+- **S2 (exogeneidad) sí es necesario** para consistencia y para que la media asintótica sea correcta.
+- **S4 (homocedasticidad)** afecta la forma de la varianza asintótica, pero se puede reemplazar con varianza HC.
+- **S6** es innecesario asintóticamente.
+
+</div></details>
+
+<hr>
