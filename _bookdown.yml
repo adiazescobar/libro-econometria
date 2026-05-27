@@ -18,4 +18,4 @@ rmd_files:
   - 15-VarDepBinaria.Rmd
   - P1-Parcial1_2026-1.Rmd
 output_dir: "docs"
-delete_merged_file: true
+delete_merged_file: false
