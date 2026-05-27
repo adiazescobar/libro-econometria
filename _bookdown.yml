@@ -15,6 +15,7 @@ rmd_files:
   - 12-Endogeneidad.Rmd
   - 13-VariablesInstrumentales.Rmd
   - 14-SeriesTiempo.Rmd
+  - 15-VarDepBinaria.Rmd
   - P1-Parcial1_2026-1.Rmd
 output_dir: "docs"
 delete_merged_file: true
