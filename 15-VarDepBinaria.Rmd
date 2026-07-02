@@ -8,8 +8,7 @@ $$P(Y_i = 1 \mid X_i) = E(Y_i \mid X_i)$$
 
 Tres modelos compiten para estimar esa probabilidad: el **Modelo Lineal de Probabilidad (MPL)**, el **Probit** y el **Logit**.
 
-## La pregunta motivadora: quien habla ingles
-
+## La pregunta motivadora: quien habla ingles {.unnumbered}
 Imaginemos datos ficticios donde $Y = 1$ si el individuo habla inglés y $X$ = ingreso de los padres. La variable explicada es binaria: solo toma los valores 0 y 1. Si graficamos los puntos contra el ingreso, vemos lo siguiente:
 
 - En ingresos bajos, casi todos los puntos caen en $Y=0$.
@@ -23,8 +22,7 @@ Dos modelos compiten por ajustar estos datos:
 
 A primera vista la curva gana — parece ajustar mejor en los extremos. Pero como veremos, cuando la relación entre $X$ y $Y$ es difusa (situación común en ciencias sociales), la recta y la curva se parecen mucho en todo el rango, y la diferencia práctica entre los dos modelos se vuelve pequeña.
 
-## El Modelo Lineal de Probabilidad (MPL)
-
+## El Modelo Lineal de Probabilidad (MPL) {.unnumbered}
 El MPL aplica directamente MCO a una regresión donde la variable dependiente es binaria:
 
 $$Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
@@ -53,8 +51,7 @@ La varianza del error depende de $X_i$ — el supuesto de homocedasticidad falla
 
 **Defensa del MPL — Angrist y Pischke.** A pesar de estos problemas, Angrist y Pischke defienden el MPL enfáticamente: poco para perder, mucho para ganar. En la práctica, cuando la relación entre $Y$ y $X$ es difusa, la recta rara vez se va del intervalo observado, y su pendiente se parece mucho a la de la curva logit/probit en casi todo el soporte. Además, el MPL se estima por MCO y hereda toda la tecnología disponible: variables instrumentales, paneles, efectos fijos, diferencias en diferencias.
 
-## El enfoque de variable latente
-
+## El enfoque de variable latente {.unnumbered}
 Pensar en una variable latente $Y_i^*$ no observada:
 
 $$Y_i^* = X_i\beta + u_i, \quad Y_i = 1 \text{ si } Y_i^* > 0, \quad Y_i = 0 \text{ si no.}$$
@@ -69,16 +66,14 @@ $$P(Y_i = 1 \mid X_i) = G(X_i\beta)$$
 
 donde $G(\cdot)$ es la CDF de $u_i$. La elección de $G$ define el modelo: Probit usa $\Phi$ (CDF normal); Logit usa $\Lambda(e) = \exp(e)/(1+\exp(e))$.
 
-## El modelo Probit
-
+## El modelo Probit {.unnumbered}
 En Probit suponemos $u_i \sim N(0,1)$:
 
 $$g(X_i\beta) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}(X_i\beta)^2\right)$$
 
 $$G(X_i\beta) = \Phi(X_i\beta) = \int_{-\infty}^{X_i\beta} \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}t^2\right) dt$$
 
-## El modelo Logit
-
+## El modelo Logit {.unnumbered}
 En Logit suponemos que $u_i$ sigue una distribución logística estándar:
 
 $$g(X_i\beta) = \lambda(X_i\beta) = \frac{\exp(X_i\beta)}{(1+\exp(X_i\beta))^2}$$
@@ -91,8 +86,7 @@ $$\frac{P(Y_i=1\mid X_i)}{P(Y_i=0\mid X_i)} = \exp(X_i\beta)$$
 
 Tomando logaritmos, el log-odds es lineal en $X_i\beta$. Un aumento de una unidad en $X_j$ multiplica los odds por $\exp(\beta_j)$ (el odds-ratio).
 
-## Estimación por máxima verosimilitud
-
+## Estimación por máxima verosimilitud {.unnumbered}
 Para Probit y Logit no hay solución cerrada. Se estima por máxima verosimilitud. La log-verosimilitud:
 
 $$\ln L(\beta) = \sum_{i=1}^n \left\{ Y_i \ln G(X_i\beta) + (1-Y_i)\ln[1-G(X_i\beta)] \right\}$$
@@ -103,8 +97,7 @@ $$\sum_{i=1}^n \frac{Y_i - G(X_i\beta)}{G(X_i\beta)\,[1-G(X_i\beta)]} \, g(X_i\b
 
 Este sistema no tiene solución cerrada. Se resuelve numéricamente con Newton-Raphson. Bajo regularidad, $\hat{\beta}^{ML}$ es consistente, asintóticamente normal y eficiente.
 
-## Efectos marginales
-
+## Efectos marginales {.unnumbered}
 En Probit y Logit, $\beta_j$ no es el efecto marginal. Hay que aplicar la regla de la cadena.
 
 **Caso 1: variable continua.** Sea $P(Y_i=1\mid X_i) = G(\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i})$. El efecto marginal de $X_1$:
@@ -119,8 +112,7 @@ $$\frac{\Delta P(Y_i=1\mid X_i)}{\Delta X_{1i}} = G(\beta_0 + \beta_1 + \beta_2 
 
 evaluada típicamente en $\bar{X}_2$.
 
-## Ejemplo aplicado: mortalidad por COVID-19
-
+## Ejemplo aplicado: mortalidad por COVID-19 {.unnumbered}
 Sea $Y = 1$ si el paciente murió de COVID-19. Las covariables:
 
 - $X_1$ = Edad (continua), $\bar{X}_1 = 55$ años.
@@ -145,24 +137,21 @@ $$\lambda(0.76) \approx 0.218 \quad\Rightarrow\quad \text{Efecto marginal} = 0.2
 
 Los dos modelos dan efectos marginales muy parecidos (2.3 pp vs 2.4 pp) aunque los $\hat{\beta}$ son distintos.
 
-## Términos de interacción y cuadráticos
-
+## Términos de interacción y cuadráticos {.unnumbered}
 **Interacción $X_1 \times X_2$.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2)$, el efecto marginal cruzado no es simplemente $\beta_3$: depende del nivel de las otras variables y de la densidad $g(\cdot)$ evaluada en el punto correspondiente.
 
 **Término cuadrático.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)$:
 
 $$\frac{\partial P(Y=1\mid X)}{\partial X_1} = g(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)(\beta_1 + 2\beta_2 X_1)$$
 
-## Comparación de los tres modelos
-
+## Comparación de los tres modelos {.unnumbered}
 Las magnitudes de los coeficientes no son comparables. Como referencia aproximada:
 
 $$\beta_{Logit} \approx 1.6 \cdot \beta_{Probit} \approx 4 \cdot \beta_{MPL}$$
 
 Pero los efectos parciales promedio suelen ser muy similares. La elección entre Probit y Logit rara vez cambia las conclusiones; la diferencia importante es entre MPL y los modelos no lineales.
 
-## Inferencia: prueba de razón de verosimilitudes (LR)
-
+## Inferencia: prueba de razón de verosimilitudes (LR) {.unnumbered}
 El estadístico:
 
 $$LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$$
@@ -179,8 +168,7 @@ $$LR = 2(-13580.409 - (-13616.76)) = 2 \cdot 36.351 = 72.70$$
 
 Bajo $H_0: \beta_{grade} = 0$, $LR \sim \chi^2_1$ — el valor crítico al 5% es 3.84, así que rechazamos con holgura. El `test grade` de Stata (test de Wald) da 72.46, casi idéntico al LR a mano: en muestras grandes los dos tests convergen.
 
-## Bondad de ajuste
-
+## Bondad de ajuste {.unnumbered}
 El $R^2$ tradicional no aplica en Probit y Logit. Las alternativas estándar:
 
 **McFadden $R^2$ (Pseudo-$R^2$ de Stata):**
@@ -191,8 +179,7 @@ donde $\ln L_0$ es la log-verosimilitud del modelo solo con intercepto. En el ej
 
 **Tabla de clasificación.** Clasificamos $\hat{Y}_i = 1$ si $\hat{P}(Y_i=1) > 0.5$ y comparamos con el $Y_i$ observado. La tasa de error con modelo se compara con la regla ingenua (predecir todo según la moda) para obtener un $R^2$ predictivo. En Stata se obtiene con `estat classification`.
 
-## Heterocedasticidad en modelos no lineales
-
+## Heterocedasticidad en modelos no lineales {.unnumbered}
 En MCO, la heterocedasticidad afecta la eficiencia del estimador pero no el sesgo. En Probit y Logit la cosa es muy distinta: la heterocedasticidad cambia la forma funcional del modelo.
 
 Considere el modelo de variable latente con error heterocedástico:
@@ -205,8 +192,7 @@ $$P(y_i=1\mid x_{i1}) = \Phi\left(\psi_0 \frac{1}{x_{i1}} + \psi_1\right)$$
 
 La forma funcional ha cambiado completamente. Si usted escribe $P(y_i=1\mid x_i) = \Phi(\psi_0 + \psi_1 x_{i1})$ ignorando la heterocedasticidad, estaría especificando mal el modelo. **Conclusión práctica:** en Probit y Logit, ignorar la heterocedasticidad no es solo un problema de errores estándar — produce estimadores inconsistentes. Si hay sospecha, hay que modelarla explícitamente con `hetprobit` en Stata.
 
-## Implementación en Stata
-
+## Implementación en Stata {.unnumbered}
 ```
 * Cargar datos
 use empleo.dta, clear
@@ -236,8 +222,7 @@ logit trabaja edad educ hijos, or   // odds ratios
 hetprobit trabaja edad educ hijos, het(edad)
 ```
 
-## Resumen de la clase
-
+## Resumen de la clase {.unnumbered}
 - El MPL es MCO sobre una $Y$ binaria. Simple e interpretable, pero predice fuera del rango admisible, genera heterocedasticidad por construcción e impone efectos parciales constantes. Use errores robustos siempre.
 - Probit y Logit modelan $P(Y=1\mid X) = G(X\beta)$ con $G$ una CDF acotada. Probit usa $\Phi$; Logit usa $\Lambda$. Estimación por máxima verosimilitud, resuelta por Newton-Raphson.
 - Los coeficientes $\beta_j$ no son los efectos marginales. Use `margins, dydx(*)`. El signo de $\beta_j$ sí corresponde al signo del efecto marginal.

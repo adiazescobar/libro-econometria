@@ -11,8 +11,7 @@ Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver s
 
 <hr>
 
-## Parte I: Selección Múltiple {#parte-i-seleccion-multiple}
-
+## Parte I: Selección Múltiple {#parte-i-seleccion-multiple .unnumbered}
 **20 preguntas · 2 puntos en total**
 
 La escala de calificación asigna 2.00 pts con 20 correctas, hasta 1.00 pts con 10 correctas; por debajo de 10, proporcional.
@@ -284,14 +283,12 @@ B A C B A | B C C B C | B C B B B | B C B C C
 
 <hr>
 
-## Parte II: Preguntas Abiertas
-
+## Parte II: Preguntas Abiertas {.unnumbered}
 Responda la pregunta **obligatoria** y **una** de las dos opcionales.
 
 <hr>
 
-### Obligatoria — Sesgo por Variable Omitida e Instrumentos (3 pts)
-
+### Obligatoria — Sesgo por Variable Omitida e Instrumentos (3 pts) {.unnumbered}
 Un municipio implementa un programa de capacitación laboral $(P)$ que puede mejorar la empleabilidad de personas con discapacidad. Se recopilan datos de $n$ participantes durante un año y se estima el efecto del programa en horas de trabajo mensuales $(Y)$.
 
 **Contexto:** El modelo verdadero es
@@ -401,8 +398,7 @@ $$\hat{\beta}_1^{IV} = \frac{\sum_i (Z_{2,i} - \bar{Z}_2)(Y_i - \bar{Y})}{\sum_i
 
 <hr>
 
-### Opcional 1 — Heterocedasticidad y Multicolinealidad (3 pts)
-
+### Opcional 1 — Heterocedasticidad y Multicolinealidad (3 pts) {.unnumbered}
 Considere un modelo de regresión lineal múltiple que explica salarios en función de educación, experiencia y género. Se sospecha heterocedasticidad y multicolinealidad.
 
 **(1) — 1 pt. Heterocedasticidad.**
@@ -509,8 +505,7 @@ $$\hat{\beta}_{WLS} = (X'WX)^{-1}X'WY \quad \text{(más eficiente que MCO)}.$$
 
 <hr>
 
-### Opcional 2 — Normalidad Asintótica y Pruebas de Hipótesis (3 pts)
-
+### Opcional 2 — Normalidad Asintótica y Pruebas de Hipótesis (3 pts) {.unnumbered}
 **(1) — 1 pt. Normalidad asintótica formal.**
 
 **(a)** Escriba la definición de normalidad asintótica del estimador MCO sin asumir que los errores son normales.

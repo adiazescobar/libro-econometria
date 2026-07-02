@@ -1,5 +1,4 @@
-# Prueba de Entrada - Econometria II
-
+# Prueba de Entrada - Econometria II {.unnumbered}
 ```{r setup-quiz, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
@@ -170,8 +169,7 @@ Esta prueba diagnostica evalua tus conocimientos de Econometria I, que son prere
 
 <div id="prueba-entrada-quiz">
 
-## Seccion 1: Modelo de Regresion Lineal
-
+## Seccion 1: Modelo de Regresion Lineal {.unnumbered}
 <div class="quiz-section" data-section="Modelo de Regresion Lineal">
 
 Esta seccion evalua tu comprension del modelo clasico de regresion lineal.
@@ -220,8 +218,7 @@ $R^2 = 1 - \frac{SCR}{SCT}$ mide la proporcion de varianza explicada. Como $0 \l
 
 ---
 
-## Seccion 2: Supuestos de MCO
-
+## Seccion 2: Supuestos de MCO {.unnumbered}
 <div class="quiz-section" data-section="Supuestos de MCO">
 
 Esta seccion evalua tu conocimiento de los supuestos del modelo clasico y sus implicaciones.
@@ -270,8 +267,7 @@ Gauss-Markov: bajo supuestos A1-A5, MCO es BLUE (Best Linear Unbiased Estimator)
 
 ---
 
-## Seccion 3: Inferencia Estadistica
-
+## Seccion 3: Inferencia Estadistica {.unnumbered}
 <div class="quiz-section" data-section="Inferencia Estadistica">
 
 Esta seccion evalua tu comprension de pruebas de hipotesis e intervalos de confianza.
@@ -320,8 +316,7 @@ El test F permite contrastar restricciones lineales conjuntas, como $H_0: \beta_
 
 ---
 
-## Seccion 4: Algebra Matricial y MCO
-
+## Seccion 4: Algebra Matricial y MCO {.unnumbered}
 <div class="quiz-section" data-section="Algebra Matricial">
 
 Esta seccion evalua conocimientos basicos de matrices aplicados a econometria.
@@ -370,8 +365,7 @@ El residuo $e_i = y_i - \hat{y}_i$ es la diferencia entre el valor observado y e
 
 ---
 
-## Seccion 5: Stata
-
+## Seccion 5: Stata {.unnumbered}
 <div class="quiz-section" data-section="Stata">
 
 Esta seccion evalua tu familiaridad con comandos basicos de Stata.
@@ -422,8 +416,7 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 
 ---
 
-## Puntaje (automatico)
-
+## Puntaje (automatico) {.unnumbered}
 <div class="scoring-guide">
   <button type="button" id="btn-finalizar" class="btn-score">
     Finalizar y calcular puntaje
@@ -618,12 +611,10 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 
 ---
 
-## Recursos para Repasar
-
+## Recursos para Repasar {.unnumbered}
 <div class="resources-box">
 
-### Si necesitas repasar el Modelo de Regresion Lineal
-
+### Si necesitas repasar el Modelo de Regresion Lineal {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulos 1-2
 - Wooldridge, Jeffrey. *Introductory Econometrics*. Capitulos 1-4
 - Ben Lambert (playlist de YouTube)
@@ -631,8 +622,7 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU
 ```
 
-### Si necesitas repasar Supuestos y Propiedades de MCO
-
+### Si necesitas repasar Supuestos y Propiedades de MCO {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 2
 - Greene, William. *Econometric Analysis*. Capitulos 2-4
 - Notas del curso:
@@ -640,21 +630,18 @@ https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU
 https://adiazescobar.github.io/libro-econometria/
 ```
 
-### Si necesitas repasar Inferencia Estadistica
-
+### Si necesitas repasar Inferencia Estadistica {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 3
 - Stock & Watson. *Introduction to Econometrics*. Capitulos 4-7
 
-### Si necesitas repasar Algebra Matricial
-
+### Si necesitas repasar Algebra Matricial {.unnumbered}
 - Apendice de cualquier libro de econometria intermedia
 - Khan Academy - Algebra Lineal
 ```text
 https://es.khanacademy.org/math/linear-algebra
 ```
 
-### Si necesitas repasar Stata
-
+### Si necesitas repasar Stata {.unnumbered}
 - UCLA IDRE Stata Modules
 ```text
 https://stats.oarc.ucla.edu/stata/modules/
@@ -671,8 +658,7 @@ https://www.stata.com/links/video-tutorials/
 
 <div class="tip-box">
 
-### Consejos para Econometria II
-
+### Consejos para Econometria II {.unnumbered}
 1. **Repasa las derivaciones matriciales** de MCO antes de la primera clase.
 2. **Practica con Stata** regularmente; el curso tiene componente aplicado.
 3. **Entiende los supuestos** y sus consecuencias, no solo los memorices.

@@ -1,7 +1,6 @@
 # Series de Tiempo {#series}
 
-## ¿Dónde buscar datos?
-
+## ¿Dónde buscar datos? {.unnumbered}
 Para análisis macroeconómico y financiero en Colombia, las fuentes oficiales más usadas son:
 
 - **Banco de la República:** <http://www.banrep.gov.co/>
@@ -12,8 +11,7 @@ Para análisis macroeconómico y financiero en Colombia, las fuentes oficiales m
 
 * * *
 
-## El análisis gráfico es el punto de partida
-
+## El análisis gráfico es el punto de partida {.unnumbered}
 Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráfica es la herramienta más útil del análisis de series de tiempo: permite detectar tendencia, ciclos, estacionalidad, quiebres estructurales y observaciones atípicas, y orienta toda la modelación posterior.
 
 **Ejemplo — PIB en niveles:**
@@ -42,8 +40,7 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 
 * * *
 
-## Definiciones clave
-
+## Definiciones clave {.unnumbered}
 **Tendencia:** describe el comportamiento de largo plazo de la serie — hacia dónde va $X_t$ cuando $t$ es grande.
 
 **Media:** dice algo de la serie solo cuando la tendencia ha sido removida. La idea es trabajar con series de media cero, $X_t - \bar{X}$.
@@ -63,8 +60,7 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 
 * * *
 
-## Predicción con tendencia y estacionalidad
-
+## Predicción con tendencia y estacionalidad {.unnumbered}
 Una serie con tendencia es fácil de predecir: está autocorrelacionada (alta inercia) y el dato en $t-1$ contiene información sobre el dato en $t$.
 
 Una serie sin tendencia es más difícil: hay que verificar si existe un patrón entre observaciones cercanas. Si las observaciones pasadas no proveen información relevante, será imposible predecir usando el pasado — eso es **ruido**.
@@ -105,8 +101,7 @@ La elección entre aditivo y multiplicativo depende de si la amplitud estacional
 
 * * *
 
-## Modelos con tendencia determinística
-
+## Modelos con tendencia determinística {.unnumbered}
 A partir de la gráfica se identifica la forma funcional de la tendencia:
 
 - **Lineal:** $Y_t = \alpha_1 + \alpha_2 T + \varepsilon$
@@ -123,8 +118,7 @@ Si la gráfica no permite decidir, hay que estimar todas las formas y comparar:
 
 * * *
 
-## Métodos de atenuación exponencial
-
+## Métodos de atenuación exponencial {.unnumbered}
 Son técnicas **no paramétricas** que no requieren especificar una forma funcional. La información de $y_t$ se relaciona únicamente con su propio pasado, no con una tendencia explícita:
 
 - Promedio móvil
@@ -133,8 +127,7 @@ Son técnicas **no paramétricas** que no requieren especificar una forma funcio
 
 * * *
 
-## Modelos ARIMA y la metodología Box-Jenkins
-
+## Modelos ARIMA y la metodología Box-Jenkins {.unnumbered}
 Los modelos ARIMA permiten especificar y estimar pronósticos de corto plazo con muestras grandes. Incluyen, conjuntamente, los cuatro componentes de una serie de tiempo:
 
 1. Tendencia
@@ -148,8 +141,7 @@ Antes de avanzar, necesitamos formalizar cuatro conceptos.
 
 * * *
 
-## Conceptos básicos
-
+## Conceptos básicos {.unnumbered}
 **Estocástico:** la naturaleza de la serie no es determinística — sus realizaciones son producto de un proceso aleatorio subyacente.
 
 ![](images/series/pegado1.png)
@@ -180,8 +172,7 @@ En la práctica, "estacionariedad" se refiere a la versión débil. Implica una 
 
 * * *
 
-## ¿Por qué nos importa la estacionariedad?
-
+## ¿Por qué nos importa la estacionariedad? {.unnumbered}
 Muchas técnicas de series de tiempo (incluida la metodología Box-Jenkins) asumen estacionariedad. Cuando la serie no es estacionaria:
 
 - Los modelos tienen mal ajuste
@@ -192,8 +183,7 @@ Por eso, el primer paso de cualquier análisis es verificar estacionariedad y, s
 
 * * *
 
-## Ruido blanco
-
+## Ruido blanco {.unnumbered}
 Un proceso $\varepsilon_t$ es **ruido blanco** si:
 
 - Media nula: $E(\varepsilon_t) = 0$
@@ -204,8 +194,7 @@ El ruido blanco es el bloque básico de toda la modelación ARMA: los residuos d
 
 * * *
 
-## Métodos para detectar estacionariedad
-
+## Métodos para detectar estacionariedad {.unnumbered}
 1. Análisis gráfico
 2. Durbin-Watson
 3. Función de Autocorrelación Simple (ACF)
@@ -222,8 +211,7 @@ Es una prueba gráfica derivada de la función de autocorrelación simple (ACF),
 
 * * *
 
-## Función de autocovarianza y autocorrelación (ACF)
-
+## Función de autocovarianza y autocorrelación (ACF) {.unnumbered}
 La **función de autocovarianza** mide la covarianza entre $x_t$ y su rezago $x_{t-\tau}$, como si fueran dos variables distintas:
 
 $$R(\tau) = Cov(x_t, x_{t-\tau}) = E\left[(x_t - \mu)(x_{t-\tau} - \mu)\right]$$
@@ -268,8 +256,7 @@ ac var, lags(#)
 
 * * *
 
-## Función de autocorrelación parcial (PACF)
-
+## Función de autocorrelación parcial (PACF) {.unnumbered}
 La PACF calcula la correlación entre $x_t$ y $x_{t-\tau}$ **neta del efecto de los rezagos intermedios**:
 
 - **ACF:** incluye, para el rezago $\tau$, tanto la correlación directa como la correlación implícita a través de los rezagos menores.
@@ -287,8 +274,7 @@ $$r_p(\tau) = \alpha_{\tau,\tau}$$
 
 * * *
 
-## Prueba Q de Box-Pierce
-
+## Prueba Q de Box-Pierce {.unnumbered}
 Para evaluar formalmente si la serie es ruido blanco, se prueba la significancia conjunta de las primeras $\tau$ autocorrelaciones:
 
 $$H_0: r(1) = r(2) = \cdots = r(\tau) = 0 \quad \text{(la serie es ruido blanco)}$$
@@ -301,8 +287,7 @@ Si $Q$ supera el valor crítico, se rechaza ruido blanco: la serie tiene estruct
 
 * * *
 
-## Caminatas aleatorias y procesos integrados
-
+## Caminatas aleatorias y procesos integrados {.unnumbered}
 Una **caminata aleatoria** es un proceso donde la posición en $t$ depende solo de la posición en $t-1$ más un choque aleatorio:
 
 $$x_t = x_{t-1} + \varepsilon_t, \quad \varepsilon_t \sim N(0, \sigma^2)$$
@@ -334,8 +319,7 @@ La varianza crece con $t$ → **no es estacionaria**.
 
 * * *
 
-## Prueba de raíz unitaria de Dickey-Fuller (DF)
-
+## Prueba de raíz unitaria de Dickey-Fuller (DF) {.unnumbered}
 Es la prueba formal y concluyente de estacionariedad. Se basa en las tres especificaciones de caminata aleatoria:
 
 $$x_t = \rho x_{t-1} + \varepsilon_t$$
@@ -381,8 +365,7 @@ $$\Delta x_t = \delta + \beta T_t + (\rho - 1) x_{t-1} + \varepsilon_t$$
 
 * * *
 
-## Dickey-Fuller aumentada (ADF)
-
+## Dickey-Fuller aumentada (ADF) {.unnumbered}
 La DF original es válida solo si los errores no presentan autocorrelación serial — limitación severa. La versión **aumentada** corrige esto agregando rezagos de la diferencia:
 
 $$\Delta x_t = (\rho - 1) x_{t-1} + \sum_{j=1}^{\tau} b_j \Delta x_{t-j} + \varepsilon_t$$
@@ -417,8 +400,7 @@ dfgls var
 
 * * *
 
-## Transformación de series no estacionarias
-
+## Transformación de series no estacionarias {.unnumbered}
 Cuando la serie no es estacionaria, hay tres estrategias:
 
 1. **Diferencias:** $\Delta x_t = x_t - x_{t-1}$
@@ -429,8 +411,7 @@ Tras transformar, se vuelve a aplicar la prueba ADF para verificar que la serie 
 
 * * *
 
-## Modelos Autorregresivos y de Promedio Móvil
-
+## Modelos Autorregresivos y de Promedio Móvil {.unnumbered}
 La idea central: el comportamiento pasado de la serie contiene información sobre su futuro y puede, en muchos casos, reemplazar la información de otras variables.
 
 Estos modelos representan la variable en función de su propio pasado:
@@ -443,24 +424,21 @@ Estos modelos representan la variable en función de su propio pasado:
 
 * * *
 
-## Modelo Autorregresivo $AR(p)$
-
+## Modelo Autorregresivo $AR(p)$ {.unnumbered}
 $$x_t = c + \alpha_1 x_{t-1} + \alpha_2 x_{t-2} + \cdots + \alpha_p x_{t-p} + \varepsilon_t$$
 
 donde $p$ es el rezago máximo y $\varepsilon_t$ es ruido blanco con media cero y varianza constante.
 
 * * *
 
-## Modelo de Promedio Móvil $MA(q)$
-
+## Modelo de Promedio Móvil $MA(q)$ {.unnumbered}
 $$x_t = c + \beta_0 \varepsilon_t + \beta_1 \varepsilon_{t-1} + \beta_2 \varepsilon_{t-2} + \cdots + \beta_q \varepsilon_{t-q}$$
 
 La serie se expresa como combinación lineal de choques de ruido blanco presentes y pasados.
 
 * * *
 
-## Teorema de descomposición de Wold
-
+## Teorema de descomposición de Wold {.unnumbered}
 Todo proceso estocástico $x_t$ débilmente estacionario con media cero puede representarse como:
 
 $$x_t = D_t + S_t$$
@@ -473,16 +451,14 @@ $$S_t = \sum_{v=0}^{\infty} \beta_v \varepsilon_{t-v}$$
 
 * * *
 
-## Modelo $ARMA(p, q)$
-
+## Modelo $ARMA(p, q)$ {.unnumbered}
 $$x_t = c + \alpha_1 x_{t-1} + \cdots + \alpha_p x_{t-p} + \varepsilon_t + \beta_1 \varepsilon_{t-1} + \cdots + \beta_q \varepsilon_{t-q}$$
 
 Combina autorregresión (memoria larga vía $x_{t-j}$) con promedio móvil (memoria corta vía $\varepsilon_{t-j}$).
 
 * * *
 
-## Los cinco pasos de Box-Jenkins
-
+## Los cinco pasos de Box-Jenkins {.unnumbered}
 1. **Identificación del modelo** (orden $p$ y $q$) a partir de ACF y PACF
 2. **Estimación de parámetros**
 3. **Validación del modelo** (residuos = ruido blanco)
@@ -493,8 +469,7 @@ Combina autorregresión (memoria larga vía $x_{t-j}$) con promedio móvil (memo
 
 * * *
 
-## Paso 1 — Identificación
-
+## Paso 1 — Identificación {.unnumbered}
 Se usa la siguiente regla práctica con base en los correlogramas teóricos:
 
 ![](images/series/teorico.png)
@@ -545,8 +520,7 @@ donde $k$ es el número de parámetros y $n$ las observaciones utilizables. Se e
 
 * * *
 
-## Paso 2 — Estimación de parámetros
-
+## Paso 2 — Estimación de parámetros {.unnumbered}
 Existen tres métodos principales:
 
 1. **Método de Momentos (Yule-Walker)** — solo para $AR(p)$, menos usado.
@@ -569,8 +543,7 @@ Se toman logaritmos y se maximiza la log-verosimilitud para hallar $\hat{\alpha}
 
 * * *
 
-## Paso 3 — Validación del modelo
-
+## Paso 3 — Validación del modelo {.unnumbered}
 Se analiza el correlograma de la ACF y la PACF **de los residuos** del modelo estimado.
 
 **Diagnóstico esperado:** los coeficientes de autocorrelación de los residuos deben ser estadísticamente iguales a cero — es decir, los residuos deben comportarse como ruido blanco.
@@ -579,8 +552,7 @@ Se analiza el correlograma de la ACF y la PACF **de los residuos** del modelo es
 
 * * *
 
-## Paso 4 — Pronóstico
-
+## Paso 4 — Pronóstico {.unnumbered}
 **$AR(1)$:**
 
 $$x_t = c + \alpha_1 x_{t-1} + \varepsilon_t \quad \Rightarrow \quad \hat{x}_{t+1} = \hat{c} + \hat{\alpha}_1 x_t$$
@@ -595,15 +567,13 @@ $$\hat{x}_{t+1} = \hat{c} + \hat{\alpha}_1 x_t + \cdots + \hat{\alpha}_p x_{t+1-
 
 * * *
 
-## Paso 5 — Validación del pronóstico
-
+## Paso 5 — Validación del pronóstico {.unnumbered}
 - **Gráfica:** comparar la trayectoria temporal de valores observados y proyectados.
 - **Intervalos de confianza:** una buena predicción produce intervalos de confianza estrechos. Si los intervalos crecen rápido con el horizonte, el modelo solo sirve para muy corto plazo.
 
 * * *
 
-## Ventajas y desventajas de los modelos ARMA
-
+## Ventajas y desventajas de los modelos ARMA {.unnumbered}
 **Ventajas:**
 
 - Excelente herramienta para pronóstico de corto plazo.
@@ -654,8 +624,7 @@ predict yhat, y dynamic(tq(2014q1))
 
 * * *
 
-## Lecturas recomendadas
-
+## Lecturas recomendadas {.unnumbered}
 - **Enders (2014)** — *Applied Econometric Time Series*, 4ª ed. — referencia estándar para el curso, cubre ARMA, raíz unitaria y Box-Jenkins.
 - **Hamilton (1994)** — *Time Series Analysis* — tratado de referencia avanzado.
 - **Box, Jenkins & Reinsel (2008)** — *Time Series Analysis: Forecasting and Control* — la metodología original.

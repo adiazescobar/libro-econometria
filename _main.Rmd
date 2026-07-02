@@ -11,8 +11,7 @@ link-citations: yes
 github-repo: adiazescobar/libro-econometria
 ---
 
-# Información general {#informacion-general}
-
+# Información general {#informacion-general .unnumbered}
 | Campo | Detalle |
 |-------|---------|
 | **Curso** | Econometría Avanzada (Cod 1420) |
@@ -24,18 +23,14 @@ github-repo: adiazescobar/libro-econometria
 | **Horario de clase** | Martes y Jueves 11:00–13:00 \| Salones 2‑207 (Ma) y 67‑303 (Ju) |
 | **Monitor** | Sophia Aristizabal — horarios y oficina por definir |
 
-## Descripción del curso {#descripcion-del-curso}
-
+## Descripción del curso {#descripcion-del-curso .unnumbered}
 El objetivo principal es proporcionar herramientas para el análisis econométrico de datos de corte transversal, series de tiempo y panel. Se revisa el modelo clásico de regresión lineal, las consecuencias de violar sus supuestos, modelos para variables dependientes discretas o limitadas y técnicas básicas de series de tiempo y panel. Al finalizar, el estudiante podrá ejecutar regresiones múltiples, diagnosticar problemas comunes y aplicar soluciones apropiadas.
 
-## Material bibliográfico {#material-bibliografico}
-
-### Libro obligatorio
-
+## Material bibliográfico {#material-bibliografico .unnumbered}
+### Libro obligatorio {.unnumbered}
 - Verbeek, Marno (2004). *A Guide to Modern Econometrics*. Wiley.
 
-### Libros recomendados
-
+### Libros recomendados {.unnumbered}
 1. Greene, William (2003). *Econometric Analysis*. Prentice Hall.  
 2. Wooldridge, Jeffrey (2003). *Introductory Econometrics: A Modern Approach*. Thomson.  
 3. Wooldridge, Jeffrey (2002). *Econometric Analysis of Cross Section and Panel Data*. MIT Press.  
@@ -47,8 +42,7 @@ El objetivo principal es proporcionar herramientas para el análisis econométri
 9. *Stata 11 Time Series Reference Manual*. Stata Press.  
 10. Rosales R. et al. (2010). *Fundamentos de Econometría Intermedia*. CEDE.
 
-## Evaluación {#evaluacion}
-
+## Evaluación {#evaluacion .unnumbered}
 | Porcentaje | Actividad |
 |-----------:|-----------|
 | 25 % | Parcial 1 teórico |
@@ -61,8 +55,7 @@ El objetivo principal es proporcionar herramientas para el análisis econométri
 
 Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumplimiento se sanciona según el reglamento de la universidad. Trabajo Final: - Primera entrega: 10% (Presentación de la idea) - Segunda entrega: 20% (Introducción + Descriptiva + Metodología) - Documento final: 30% - Sustentación: 40% (Presentación & preguntas)
 
-## Programa semanal
-
+## Programa semanal {.unnumbered}
 | Semana | Tema principal | Lecturas clave |
 |:------:|---------------|---------------|
 | **1** | Supuestos del MCRL | Verbeek cap. 1‑2 (oblig.)  \| Hayashi cap. 1; Wooldridge cap. 1‑2 (opc.) |
@@ -83,8 +76,7 @@ Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumpl
 | **16** | Datos de panel: pooled, between, FE, RE | Verbeek cap. 10 |
 | **17** | **Examen final** | — |
 
-## Recursos adicionales
-
+## Recursos adicionales {.unnumbered}
 - [Ben Lambert – Econometrics on YouTube](https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU)  
 - [Mastering Econometrics (MRU)](https://mru.org/mastering-econometrics)  
 - [AEA *Journal of Economic Perspectives* – Classroom](https://www.aeaweb.org/journals/jep/classroom)  
@@ -92,12 +84,10 @@ Los exámenes son con libro cerrado y sin dispositivos electrónicos. El incumpl
 - [Stata Cheat Sheets](https://geocenter.github.io/StataTraining/pdf/AllCheatSheets.pdf)  
 - [Seeing Theory – Visual Probability](https://seeing-theory.brown.edu)
 
-## Inclusión {#inclusion}
-
+## Inclusión {#inclusion .unnumbered}
 Este curso da la bienvenida a personas de todas las edades, orígenes, creencias, etnias, géneros, identidades, orientaciones sexuales y capacidades. Se espera un ambiente respetuoso e inclusivo.
 
-## Integridad académica {#integridad-academica}
-
+## Integridad académica {#integridad-academica .unnumbered}
 La Universidad Javeriana fomenta la honestidad y establece sanciones por fraude o plagio según el reglamento de estudiantes. Cualquier uso no autorizado de materiales durante evaluaciones se considera falta grave.
 
 
@@ -112,8 +102,7 @@ knitr::write_bib(c(
 
 <!--chapter:end:index.Rmd-->
 
-# Prueba de Entrada - Econometria II
-
+# Prueba de Entrada - Econometria II {.unnumbered}
 ```{r setup-quiz, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
@@ -284,8 +273,7 @@ Esta prueba diagnostica evalua tus conocimientos de Econometria I, que son prere
 
 <div id="prueba-entrada-quiz">
 
-## Seccion 1: Modelo de Regresion Lineal
-
+## Seccion 1: Modelo de Regresion Lineal {.unnumbered}
 <div class="quiz-section" data-section="Modelo de Regresion Lineal">
 
 Esta seccion evalua tu comprension del modelo clasico de regresion lineal.
@@ -334,8 +322,7 @@ $R^2 = 1 - \frac{SCR}{SCT}$ mide la proporcion de varianza explicada. Como $0 \l
 
 ---
 
-## Seccion 2: Supuestos de MCO
-
+## Seccion 2: Supuestos de MCO {.unnumbered}
 <div class="quiz-section" data-section="Supuestos de MCO">
 
 Esta seccion evalua tu conocimiento de los supuestos del modelo clasico y sus implicaciones.
@@ -384,8 +371,7 @@ Gauss-Markov: bajo supuestos A1-A5, MCO es BLUE (Best Linear Unbiased Estimator)
 
 ---
 
-## Seccion 3: Inferencia Estadistica
-
+## Seccion 3: Inferencia Estadistica {.unnumbered}
 <div class="quiz-section" data-section="Inferencia Estadistica">
 
 Esta seccion evalua tu comprension de pruebas de hipotesis e intervalos de confianza.
@@ -434,8 +420,7 @@ El test F permite contrastar restricciones lineales conjuntas, como $H_0: \beta_
 
 ---
 
-## Seccion 4: Algebra Matricial y MCO
-
+## Seccion 4: Algebra Matricial y MCO {.unnumbered}
 <div class="quiz-section" data-section="Algebra Matricial">
 
 Esta seccion evalua conocimientos basicos de matrices aplicados a econometria.
@@ -484,8 +469,7 @@ El residuo $e_i = y_i - \hat{y}_i$ es la diferencia entre el valor observado y e
 
 ---
 
-## Seccion 5: Stata
-
+## Seccion 5: Stata {.unnumbered}
 <div class="quiz-section" data-section="Stata">
 
 Esta seccion evalua tu familiaridad con comandos basicos de Stata.
@@ -536,8 +520,7 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 
 ---
 
-## Puntaje (automatico)
-
+## Puntaje (automatico) {.unnumbered}
 <div class="scoring-guide">
   <button type="button" id="btn-finalizar" class="btn-score">
     Finalizar y calcular puntaje
@@ -732,12 +715,10 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 
 ---
 
-## Recursos para Repasar
-
+## Recursos para Repasar {.unnumbered}
 <div class="resources-box">
 
-### Si necesitas repasar el Modelo de Regresion Lineal
-
+### Si necesitas repasar el Modelo de Regresion Lineal {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulos 1-2
 - Wooldridge, Jeffrey. *Introductory Econometrics*. Capitulos 1-4
 - Ben Lambert (playlist de YouTube)
@@ -745,8 +726,7 @@ Esta seccion evalua tu familiaridad con comandos basicos de Stata.
 https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU
 ```
 
-### Si necesitas repasar Supuestos y Propiedades de MCO
-
+### Si necesitas repasar Supuestos y Propiedades de MCO {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 2
 - Greene, William. *Econometric Analysis*. Capitulos 2-4
 - Notas del curso:
@@ -754,21 +734,18 @@ https://www.youtube.com/playlist?list=PLwJRxp3blEvZyQBTTOMFRP_TDaSdly3gU
 https://adiazescobar.github.io/libro-econometria/
 ```
 
-### Si necesitas repasar Inferencia Estadistica
-
+### Si necesitas repasar Inferencia Estadistica {.unnumbered}
 - Verbeek, Marno. *A Guide to Modern Econometrics*. Capitulo 3
 - Stock & Watson. *Introduction to Econometrics*. Capitulos 4-7
 
-### Si necesitas repasar Algebra Matricial
-
+### Si necesitas repasar Algebra Matricial {.unnumbered}
 - Apendice de cualquier libro de econometria intermedia
 - Khan Academy - Algebra Lineal
 ```text
 https://es.khanacademy.org/math/linear-algebra
 ```
 
-### Si necesitas repasar Stata
-
+### Si necesitas repasar Stata {.unnumbered}
 - UCLA IDRE Stata Modules
 ```text
 https://stats.oarc.ucla.edu/stata/modules/
@@ -785,8 +762,7 @@ https://www.stata.com/links/video-tutorials/
 
 <div class="tip-box">
 
-### Consejos para Econometria II
-
+### Consejos para Econometria II {.unnumbered}
 1. **Repasa las derivaciones matriciales** de MCO antes de la primera clase.
 2. **Practica con Stata** regularmente; el curso tiene componente aplicado.
 3. **Entiende los supuestos** y sus consecuencias, no solo los memorices.
@@ -852,26 +828,23 @@ theme_simple <- theme_bw() + theme(
 )
 ```
 
-### ¿Qué estudia la econometría? {#que-estudia-la-econometria}
-
+### ¿Qué estudia la econometría? {#que-estudia-la-econometria .unnumbered}
 La econometría es la herramienta que usamos para entender el mundo usando datos. Nos ayuda a responder preguntas como: ¿cuánto gana una persona según su nivel educativo? ¿Cómo influye la experiencia laboral en el salario? ¿Cuál es el impacto de una política pública sobre el empleo?
 
 Pero aquí hay un reto importante: casi nunca podemos observar a toda la población. En vez de eso, trabajamos con una muestra. Usamos esta muestra para hacer inferencias sobre cómo funciona el mundo real, ese que no podemos ver completamente. En este capítulo vamos a entender, paso a paso, por qué eso genera incertidumbre —y por qué esa incertidumbre es una parte inevitable (¡y valiosa!) del análisis econométrico.
 
 
-### El proceso generador de datos
-
+### El proceso generador de datos {.unnumbered}
 Supongamos que el salario de un individuo, \(y_i\), depende de forma lineal de su nivel educativo, \(x_i\):
 
 \[
 y_i \;=\; \beta_0 \;+\; \beta_1\,x_i \;+\; u_i,
 \]
 
-donde \(u_i\) recoge todo lo que **no** observamos (habilidad, contactos, suerte…).  
+donde \(u_i\) recoge todo lo que **no** observamos (habilidad, contactos, suerte…).
 A esta ecuación la llamaremos **Proceso Generador de Datos (PGD)** o **modelo poblacional**. El problema es que no podemos observar \(u_i\) porque es un término de error. Ni tenemos acceso a todos los individuos de la población.
 
-### ¿Qué hacemos entonces? {#que-hacemos-entonces}
-
+### ¿Qué hacemos entonces? {#que-hacemos-entonces .unnumbered}
 En la práctica, tomamos una muestra aleatoria de individuos y observamos sus salarios y años de educación \((y_i,\,x_i)\), el termino de error \(u_i\) permanece oculto.
 
 Con una muestra aleatoria de tamaño \(n\), estimamos los parámetros \(\beta_0\) y \(\beta_1\) de la siguiente manera:
@@ -886,8 +859,7 @@ Donde \(\hat{\beta}_0\) y \(\hat{\beta}_1\) son los estimadores de los parámetr
 
 Para entender todo esto mejor, vamos primero a enfocarnos en la muestra que tenemos y cómo podemos usarla para estimar el PGD. Luego veremos cómo la incertidumbre afecta nuestras estimaciones y por qué es importante.
 
-## Construimos una población de juguete {#construimos-una-poblacion-de-juguete}
-
+## Construimos una población de juguete {#construimos-una-poblacion-de-juguete .unnumbered}
 Para ilustrar el proceso generador de datos y la incertidumbre, vamos a crear una población de juguete. Esta población será un conjunto de 100 individuos con características específicas. Luego tomaremos muestras aleatorias de esta población y realizaremos regresiones para ver cómo se comportan nuestras estimaciones en comparación con el PGD real.
 
 Vamos a crear un mundo ficticio con 100 individuos. A cada uno le asignamos:
@@ -937,8 +909,7 @@ geom_point(color = "darkslategray", size = 8) +
 ```
 
 
-### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion}
-El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada. 
+### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion .unnumbered}El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada.
 
 ```{R, scatter1, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = x, y = y)) +
@@ -946,7 +917,7 @@ geom_abline(
   intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
   color = red_pink, size = 3
 ) +
-geom_point(color = "darkslategray", size = 6) + 
+geom_point(color = "darkslategray", size = 6) +
   labs(
     title = "Grafica 2. Línea de regresión",
     subtitle = "Relación verdadera"
@@ -954,13 +925,13 @@ geom_point(color = "darkslategray", size = 6) +
 theme_empty
 ```
 
-Obtenemos que los coeficientes son muy similares a los que usamos para generar la población: 
+Obtenemos que los coeficientes son muy similares a los que usamos para generar la población:
 
 $$ y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i $$
 Esto significa que el modelo poblacional es:
 
 $$ y_i = \beta_0 + \beta_1 x_i + u_i $$
-Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a *todos* los egresados. Podemos estimar la relación entre $y$ y $x$ en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos: 
+Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a *todos* los egresados. Podemos estimar la relación entre $y$ y $x$ en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos:
 
 ```{R, sample1, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
@@ -985,7 +956,7 @@ geom_abline(
   intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
   size = 2, linetype = 2, color = "black"
 ) +
-scale_shape_manual(values = c(1, 19))  + 
+scale_shape_manual(values = c(1, 19))  +
   labs(
     title = "Grafica 4. Línea de regresión",
     subtitle = "Relación Muestral"
@@ -1003,12 +974,12 @@ $y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i
 <br>
 $\hat{y}_i = `r round(lm1$coefficients[1], 2)` + `r round(lm1$coefficients[2], 2)` x_i$
 
-Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión. 
+Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión.
 
 ```{R, sample2, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
 geom_point(color = "darkslategray", size = 10) +
-scale_shape_manual(values = c(1, 19)) +  
+scale_shape_manual(values = c(1, 19)) +
   labs(
     title = "Grafica 5. Otros 30 individuos al azar",
   )+
@@ -1090,7 +1061,7 @@ Siguen siendo diferentes a los del modelo poblacional y también diferentes entr
 
 Ahora repitamos esto **10,000 veces**. Este ejercicio se conoce como Ejercicio de Monte Carlo. Vamos a tomar 10,000 muestras aleatorias de 30 individuos de nuestra población y estimar los coeficientes de regresión para cada muestra. Luego, graficaremos todas las líneas de regresión obtenidas para ver cómo se distribuyen en relación con la línea poblacional.
 
-¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos). 
+¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos).
 
 ```{R, simulation scatter, echo = F, dev = "png", dpi = 300, cache = T}
 # Reshape sim_df
@@ -1115,18 +1086,16 @@ En resumen, en **promedio** las líneas de regresión se ajustan muy bien a la l
 
 Eso implica que cuando estimamos los coeficientes de regresión, no podemos estar seguros de que nuestros estimadores sean exactamente iguales a los parámetros poblacionales. En cambio, obtenemos estimaciones que son **variables aleatorias**. En otras palabras,  $\hat{\beta}$ en sí mismo es una variable aleatoria, dependiente de la muestra aleatoria. Cuando tomamos una muestra y realizamos una regresión, no sabemos si es una muestra 'buena' ( $\hat{\beta}$ está cerca de $\beta$) o una muestra 'mala' (nuestra muestra difiere significativamente de la población).
 
-Mantener un registro de esta incertidumbre es clave para el análisis econométrico. Nos permite entender la precisión de nuestras estimaciones y cómo podemos mejorar nuestro modelo. 
+Mantener un registro de esta incertidumbre es clave para el análisis econométrico. Nos permite entender la precisión de nuestras estimaciones y cómo podemos mejorar nuestro modelo.
 
 
-## ¿Y si mi muestra es mala?
-
-> ❓ **Pregunta del lector:**  
+## ¿Y si mi muestra es mala? {.unnumbered}
+> ❓ **Pregunta del lector:**
 > ¿Qué pasa si me toca una muestra mala? ¿Cómo lo sé? ¿Se puede hacer algo para reducir esa incertidumbre?
 
 Una *muestra mala* es una muestra que, por puro azar, no representa bien a la población. Esto puede pasar incluso si tomamos la muestra correctamente. En esos casos, los estimadores como $\hat{\beta}_1$ pueden estar lejos de su valor verdadero $\beta_1$, y nuestras conclusiones podrían ser engañosas.
 
-### ¿Cómo saber si me tocó una muestra mala? {#como-saber-si-me-toco-una-muestra-mala}
-
+### ¿Cómo saber si me tocó una muestra mala? {#como-saber-si-me-toco-una-muestra-mala .unnumbered}
 No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero hay señales que nos pueden alertar:
 
 - **Errores estándar grandes**: indican mucha variabilidad en la estimación.
@@ -1134,54 +1103,50 @@ No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero 
 - **Signos o tamaños inesperados en los coeficientes**: pueden deberse a una muestra no representativa.
 - **Pruebas de diagnóstico del modelo**: pueden revelar si los supuestos no se cumplen (residuos no normales, heterocedasticidad, etc.).
 
-### ¿Se puede reducir la incertidumbre muestral?
-
+### ¿Se puede reducir la incertidumbre muestral? {.unnumbered}
 ¡Sí! Estas son algunas estrategias comunes:
 
-- **Aumentar el tamaño de la muestra ($n$)**   
+- **Aumentar el tamaño de la muestra ($n$)**
   Entre más observaciones, más cerca estará $\hat{\beta}$ de $\beta$ (por la ley de los grandes números).
 
-- **Mejorar el diseño muestral**  
+- **Mejorar el diseño muestral**
   Muestreos estratificados, por conglomerados o con pesos pueden hacer las estimaciones más precisas.
 
-- **Controlar por variables relevantes**  
+- **Controlar por variables relevantes**
   Incluir más covariables reduce la varianza al explicar mejor el comportamiento de $y$.
 
-- **Usar estimadores eficientes o robustos**  
+- **Usar estimadores eficientes o robustos**
   Si hay heterocedasticidad, los errores estándar robustos o el uso de métodos como MCO ponderado pueden mejorar la precisión.
 
 ---
 
-### ✅ La importancia de la fuente de los datos
-
+### ✅ La importancia de la fuente de los datos {.unnumbered}
 Una forma muy eficaz de minimizar el riesgo de una muestra sesgada es **usar datos de fuentes confiables y con buen diseño muestral**.
 
-> Por ejemplo, confiar en los datos del **DANE** en Colombia o de institutos nacionales de estadística en otros países es una práctica fundamental.  
-> Estas instituciones diseñan cuidadosamente sus encuestas (como la ECH, ENUT o ENDS) para asegurar que sean **representativas de la población**.  
+> Por ejemplo, confiar en los datos del **DANE** en Colombia o de institutos nacionales de estadística en otros países es una práctica fundamental.
+> Estas instituciones diseñan cuidadosamente sus encuestas (como la ECH, ENUT o ENDS) para asegurar que sean **representativas de la población**.
 > Si el muestreo está bien hecho desde el inicio, el margen de error se reduce y nuestras inferencias serán mucho más confiables.
 
 ---
 
-> 💡 **Mensaje clave:**  
+> 💡 **Mensaje clave:**
 > La incertidumbre **no es un error**: es una característica natural del trabajo con datos. Lo importante no es eliminarla, sino **medirla bien, comunicarla con claridad y tenerla en cuenta al tomar decisiones**.
 
 
 
-## ¿Y si mantengo fija la muestra?
-
+## ¿Y si mantengo fija la muestra? {.unnumbered}
 Hasta ahora nos enfocamos en la incertidumbre que surge por el azar de la muestra. Ahora exploramos otra fuente igual de importante: la variabilidad del término de error , incluso si la muestra es fija.
 
 Hasta ahora vimos que la incertidumbre puede surgir del hecho de que trabajamos con una **muestra**: cada subconjunto aleatorio de la población genera estimadores ligeramente diferentes.
 
 Pero hay una **segunda fuente de incertidumbre**: el **término de error \(u_i\)**.
 
-### Recordemos el modelo:
-
+### Recordemos el modelo: {.unnumbered}
 \[
 y_i = \beta_0 + \beta_1 x_i + u_i
 \]
 
-Aunque tuviéramos **toda la población** (o una muestra perfecta), no podríamos **predecir perfectamente \(y_i\)** porque el valor de \(u_i\) sigue siendo desconocido. 
+Aunque tuviéramos **toda la población** (o una muestra perfecta), no podríamos **predecir perfectamente \(y_i\)** porque el valor de \(u_i\) sigue siendo desconocido.
 
 El termino de error \(u_i\) representa **todo lo que influye en \(y_i\)** pero **no está capturado por \(x_i\)**. Por ejemplo, en un modelo donde \(y_i\) es el salario y \(x_i\) es la educación:
 
@@ -1210,7 +1175,7 @@ geom_abline(
   size = 2, linetype = 2, color = "black"
 ) +
 scale_shape_manual(values = c(1, 19)) +
-  
+
   labs(
     title = "Grafica 6. Efecto del término de error",
     subtitle = "Dispersión de los valores observados"
@@ -1219,7 +1184,7 @@ scale_shape_manual(values = c(1, 19)) +
 ```
 
 
-Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán **dispersas alrededor de la recta poblacional**. 
+Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán **dispersas alrededor de la recta poblacional**.
 
 Vamos a hacer lo siguiente:
 
@@ -1263,9 +1228,8 @@ theme_empty
 Aquí vemos que, aunque la muestra es fija, las rectas de regresión se dispersan alrededor de la recta poblacional. Esto es porque el término de error \(u_i\) introduce variabilidad en los valores de \(y_i\).
 
 
-### ☝️ Una aclaración importante sobre el insesgamiento {#una-aclaracion-importante-sobre-el-insesgamiento}
-
-Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión. 
+### ☝️ Una aclaración importante sobre el insesgamiento {#una-aclaracion-importante-sobre-el-insesgamiento .unnumbered}
+Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión.
 
 Pero **ojo**: aunque esas rectas se vean "alrededor" de la recta poblacional en nuestras simulaciones, **esto no siempre ocurre en la vida real**.
 
@@ -1278,15 +1242,14 @@ Por ejemplo:
 
 ---
 
-### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)? {#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1}
-
-Cuando se cumplen los **supuestos del modelo clásico de regresión lineal**, en particular exogeneidad estricta o **independencia del término de error \(u_i\)** respecto a las variables explicativas \(x_i\). En algunos libros se conoce como esperanza condicional igual cero:  
+### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)? {#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1 .unnumbered}
+Cuando se cumplen los **supuestos del modelo clásico de regresión lineal**, en particular exogeneidad estricta o **independencia del término de error \(u_i\)** respecto a las variables explicativas \(x_i\). En algunos libros se conoce como esperanza condicional igual cero:
   \[
   \mathbb{E}[u_i \mid x_i] = 0
   \]
 
 
-> 🔁 **Si este supuestos se cumplen**, entonces nuestro estimador de Mínimos Cuadrados Ordinarios (MCO) es **insesgado**:  
+> 🔁 **Si este supuestos se cumplen**, entonces nuestro estimador de Mínimos Cuadrados Ordinarios (MCO) es **insesgado**:
 > \[
 > \mathbb{E}[\hat{\beta}_1] = \beta_1
 > \]
@@ -1295,31 +1258,29 @@ Es decir, **si repitiéramos el experimento de muestreo muchas veces**, el **pro
 
 Pero si **no se cumplen**, como veremos más adelante, podemos tener:
 
-- Estimadores sesgados  
-- Estimadores inconsistentes  
+- Estimadores sesgados
+- Estimadores inconsistentes
 - Intervalos de confianza y pruebas de hipótesis inválidos
 
 ---
 
-### 💬 Entonces, ¿las simulaciones que hicimos son “realistas”?
-
+### 💬 Entonces, ¿las simulaciones que hicimos son “realistas”? {.unnumbered}
 Sí... **bajo los supuestos del modelo clásico**. En nuestras simulaciones controlamos todo: sabemos exactamente cómo se genera \(y_i\), y aseguramos que \(u_i\) sea independiente de \(x_i\). Por eso nuestras estimaciones tienden a agruparse cerca de la recta poblacional.
 
 Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplidos”.
 
-> Por eso uno de los grandes desafíos del análisis econométrico es **diagnosticar y justificar** si los supuestos se cumplen.  
+> Por eso uno de los grandes desafíos del análisis econométrico es **diagnosticar y justificar** si los supuestos se cumplen.
 > Y si no se cumplen, buscar soluciones: variables instrumentales, variables omitidas, diseños cuasiexperimentales, diseños experimentales, etc.
 
 
-> 💡 **Conclusión clave:**  
-> El término de error no desaparece, incluso cuando tenemos una muestra grande o bien diseñada.  
-> Por eso, cualquier estimación puntual (\( \hat{\beta}_1 \)) debe ir acompañada de una **medida de incertidumbre**, como el **error estándar** o un **intervalo de confianza**.  
+> 💡 **Conclusión clave:**
+> El término de error no desaparece, incluso cuando tenemos una muestra grande o bien diseñada.
+> Por eso, cualquier estimación puntual (\( \hat{\beta}_1 \)) debe ir acompañada de una **medida de incertidumbre**, como el **error estándar** o un **intervalo de confianza**.
 > Esto nos prepara para el siguiente paso: la inferencia estadística.
 
 <div class="box-repaso">
 
-## 📘 Preguntas de repaso
-
+## 📘 Preguntas de repaso {.unnumbered}
 1. ¿Qué diferencia hay entre el modelo poblacional y el modelo muestral? ¿Cuál de los dos observamos y cuál inferimos?
 
 2. ¿Por qué decimos que el término de error \(u_i\) es una fuente de incertidumbre, incluso si la muestra está fija?
@@ -2279,8 +2240,7 @@ La equivalencia conceptual es:
 
 Antes de introducir los supuestos fundamentales del modelo de regresión lineal, es importante repasar algunos conceptos clave del álgebra matricial. Este lenguaje permite expresar de forma compacta y elegante muchos de los resultados econométricos, facilitando la comprensión de los modelos lineales y sus propiedades.
 
-## Matrices
-
+## Matrices {.unnumbered}
 Una **matriz** \( A \in \mathbb{R}^{m \times n} \) es un conjunto de elementos \( a_{ij} \), donde \( i = 1, \ldots, m \) (filas) y \( j = 1, \ldots, n \) (columnas), organizados de la siguiente manera:
 
 \[
@@ -2309,8 +2269,7 @@ B =
 
 es una matriz **rectangular** de orden \( 2 \times 3 \). Tiene 2 filas y 3 columnas. El elemento en la fila 2 y columna 3 es \( b_{23} = 5 \).
 
-### Traspuesta de una matriz
-
+### Traspuesta de una matriz {.unnumbered}
 La **traspuesta** de una matriz \( A = [a_{ij}] \) de dimensión \( m \times n \) es otra matriz \( A' = [a_{ji}] \) de dimensión \( n \times m \), obtenida al intercambiar filas por columnas. Es decir, la primera fila de \( A \) se convierte en la primera columna de \( A' \), la segunda fila en la segunda columna, y así sucesivamente.
 
 \[
@@ -2349,8 +2308,7 @@ A' =
 Esta nueva matriz es de orden \( 4 \times 3 \).
 
 
-## Vectores
-
+## Vectores {.unnumbered}
 Un **vector columna** es una matriz de orden \( m \times 1 \), es decir, una matriz que solo tiene una columna:
 
 \[
@@ -2386,8 +2344,7 @@ La **traspuesta** de un vector columna es un vector fila, y viceversa. En línea
 \quad \text{su traspuesta es } \mathbf{v}' = \begin{pmatrix} 2 & -1 & 4 \end{pmatrix}
 \]
 
-### Producto escalar
-
+### Producto escalar {.unnumbered}
 **Definición.** Sean \( \mathbf{a} = (a_1, \ldots, a_m)' \) y \( \mathbf{b} = (b_1, \ldots, b_m)' \) dos vectores columna del mismo orden \( m \times 1 \), su **producto escalar** es:
 
 \[
@@ -2400,8 +2357,7 @@ La **traspuesta** de un vector columna es un vector fila, y viceversa. En línea
 \mathbf{a}'\mathbf{b} = 1 \cdot 4 + 2 \cdot 5 + 3 \cdot 6 = 4 + 10 + 18 = 32
 \]
 
-### Norma y normalización {#norma-y-normalizacion}
-
+### Norma y normalización {#norma-y-normalizacion .unnumbered}
 **Definición.** La **norma** de un vector \( \mathbf{x} \) se define como:
 
 \[
@@ -2414,8 +2370,7 @@ El vector **normalizado** es:
 \frac{\mathbf{x}}{\|\mathbf{x}\|}
 \]
 
-### Ortogonalidad
-
+### Ortogonalidad {.unnumbered}
 **Definición.** Dos vectores \( \mathbf{a} \) y \( \mathbf{b} \) son **ortogonales** (se denota \( \mathbf{a} \perp \mathbf{b} \)) si:
 
 \[
@@ -2427,18 +2382,15 @@ El vector **normalizado** es:
 \bar{y} = \frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{i}}
 \]
 
-## Operaciones con matrices
-
-### Igualdad de matrices
-
+## Operaciones con matrices {.unnumbered}
+### Igualdad de matrices {.unnumbered}
 Dos matrices \( A = [a_{ij}] \) y \( B = [b_{ij}] \) de igual orden \( m \times n \) son **iguales** si:
 
 \[
 a_{ij} = b_{ij}, \quad \text{para todo } i = 1, \ldots, m; \; j = 1, \ldots, n
 \]
 
-### Suma y resta de matrices
-
+### Suma y resta de matrices {.unnumbered}
 La **suma** de dos matrices del mismo orden es la matriz \( C = A + B = [c_{ij}] \) donde:
 
 \[
@@ -2482,8 +2434,7 @@ A + B =
 **Resta:** se define como \( A - B = A + (-B) \)
 
 
-### Multiplicación por un escalar {#multiplicacion-por-un-escalar}
-
+### Multiplicación por un escalar {#multiplicacion-por-un-escalar .unnumbered}
 \[
 \lambda A = [\lambda a_{ij}]
 \]
@@ -2500,8 +2451,7 @@ A + B =
 \]
 
 
-### Multiplicación de matrices {#multiplicacion-de-matrices}
-
+### Multiplicación de matrices {#multiplicacion-de-matrices .unnumbered}
 Sean \( A \in \mathbb{R}^{m \times n} \) y \( B \in \mathbb{R}^{n \times p} \), el producto \( AB \in \mathbb{R}^{m \times p} \) se define por:
 
 \[
@@ -2543,8 +2493,7 @@ F = A B' =
 \]
 
 
-### Transposición de matrices {#transposicion-de-matrices}
-
+### Transposición de matrices {#transposicion-de-matrices .unnumbered}
 Ya definida en la sección anterior. Propiedades clave:
 
 - \( (A')' = A \)
@@ -2553,8 +2502,7 @@ Ya definida en la sección anterior. Propiedades clave:
 
 
 
-### Traza de una matriz
-
+### Traza de una matriz {.unnumbered}
 La **traza** de una matriz cuadrada es la suma de los elementos de su diagonal principal:
 
 \[
@@ -2574,8 +2522,7 @@ La **traza** de una matriz cuadrada es la suma de los elementos de su diagonal p
 \]
 
 
-## Determinantes
-
+## Determinantes {.unnumbered}
 Para matrices cuadradas \( A \in \mathbb{R}^{n \times n} \), el **determinante** se denota \( |A| \).
 
 - Para \( 2 \times 2 \):
@@ -2609,8 +2556,7 @@ G =
 \]
 
 
-## Matriz inversa
-
+## Matriz inversa {.unnumbered}
 Una matriz cuadrada \( A \) es **invertible** si existe \( A^{-1} \) tal que:
 
 \[
@@ -2643,8 +2589,7 @@ G^{-1} = \frac{1}{-6}
 \]
 
 
-## Rango de una matriz
-
+## Rango de una matriz {.unnumbered}
 El **rango** de una matriz es el número máximo de filas (o columnas) linealmente independientes.
 
 **Definiciones:**
@@ -2659,8 +2604,7 @@ El **rango** de una matriz es el número máximo de filas (o columnas) linealmen
 3. \( \text{rang}(A) = \text{rang}(A A') = \text{rang}(A' A) \)
 
 
-## Sistemas de ecuaciones lineales
-
+## Sistemas de ecuaciones lineales {.unnumbered}
 Un **sistema de ecuaciones lineales** con \( m \) ecuaciones y \( n \) incógnitas se puede escribir de la forma:
 
 \[
@@ -2706,8 +2650,7 @@ b_m
 \end{pmatrix}
 \]
 
-### Sistema de Cramer
-
+### Sistema de Cramer {.unnumbered}
 **Definición.** Un sistema de ecuaciones lineales se denomina **sistema de Cramer** si:
 
 - La matriz \( A \) es cuadrada (\( m = n \))
@@ -2814,14 +2757,12 @@ x_1 = 19, \quad x_2 = 8
 Este procedimiento es válido siempre que la matriz \( A \) sea cuadrada y su determinante no sea cero. Si \( |A| = 0 \), el sistema no tiene solución única: puede ser incompatible o tener infinitas soluciones.
 
 
-## Matrices cuadradas especiales
-
+## Matrices cuadradas especiales {.unnumbered}
 Las siguientes matrices cuadradas tienen propiedades estructurales claves que facilitan el desarrollo de métodos econométricos.
 
 
 
-### 1. Matriz diagonal
-
+### 1. Matriz diagonal {.unnumbered}
 Una **matriz diagonal** \( A = [a_{ij}] \in \mathbb{R}^{m \times m} \) tiene ceros fuera de la diagonal principal:
 
 \[
@@ -2837,8 +2778,7 @@ a_{11} & 0 & \cdots & 0 \\
 
 
 
-### 2. Matriz identidad
-
+### 2. Matriz identidad {.unnumbered}
 La **matriz identidad** \( I_m \) es una matriz diagonal con unos en la diagonal:
 
 \[
@@ -2854,8 +2794,7 @@ I_m =
 Propiedades: \( AI_m = I_mA = A \), \( I_m^{-1} = I_m \)
 
 
-### 3. Matriz escalar
-
+### 3. Matriz escalar {.unnumbered}
 Una **matriz escalar** es una matriz diagonal cuyos elementos en la diagonal son iguales a un mismo número \( \lambda \):
 
 \[
@@ -2863,8 +2802,7 @@ A = \lambda I_m
 \]
 
 
-### 4. Matriz triangular inferior
-
+### 4. Matriz triangular inferior {.unnumbered}
 Una **matriz triangular inferior** cumple:
 
 \[
@@ -2883,8 +2821,7 @@ a_{m1} & a_{m2} & \cdots & a_{mm}
 
 
 
-### 5. Matriz nula
-
+### 5. Matriz nula {.unnumbered}
 La **matriz nula** tiene todos sus elementos iguales a cero:
 
 \[
@@ -2898,8 +2835,7 @@ La **matriz nula** tiene todos sus elementos iguales a cero:
 \]
 
 
-### 6. Matriz simétrica {#6-matriz-simetrica}
-
+### 6. Matriz simétrica {#6-matriz-simetrica .unnumbered}
 Una matriz \( A \in \mathbb{R}^{m \times m} \) es **simétrica** si:
 
 \[
@@ -2908,8 +2844,7 @@ A = A' \quad \text{es decir, } a_{ij} = a_{ji}
 
 
 
-### 7. Matriz idempotente
-
+### 7. Matriz idempotente {.unnumbered}
 Una matriz \( A \) es **idempotente** si:
 
 \[
@@ -2929,8 +2864,7 @@ Cumple:
 
 
 
-### 8. Matriz ortogonal
-
+### 8. Matriz ortogonal {.unnumbered}
 Una matriz \( Q \) es **ortogonal** si:
 
 \[
@@ -2941,12 +2875,10 @@ Q'Q = QQ' = I
 Sus columnas (y filas) son vectores ortonormales.
 
 
-### 9. Matrices de proyección: \( P \) y \( M \) {#9-matrices-de-proyeccion-p-y-m}
-
+### 9. Matrices de proyección: \( P \) y \( M \) {#9-matrices-de-proyeccion-p-y-m .unnumbered}
 En regresión lineal, dos matrices juegan un rol fundamental:
 
-#### a) Matriz de proyección sobre el espacio columna de \( X \): {#a-matriz-de-proyeccion-sobre-el-espacio-columna-de-x}
-
+#### a) Matriz de proyección sobre el espacio columna de \( X \): {#a-matriz-de-proyeccion-sobre-el-espacio-columna-de-x .unnumbered}
 \[
 P = X(X'X)^{-1}X'
 \]
@@ -2955,8 +2887,7 @@ P = X(X'X)^{-1}X'
 - **Simétrica:** \( P' = P \)
 - Proyecta cualquier vector \( y \) sobre el espacio generado por las columnas de \( X \): \( \hat{y} = P y \)
 
-#### b) Matriz de aniquilación o proyección ortogonal: {#b-matriz-de-aniquilacion-o-proyeccion-ortogonal}
-
+#### b) Matriz de aniquilación o proyección ortogonal: {#b-matriz-de-aniquilacion-o-proyeccion-ortogonal .unnumbered}
 \[
 M = I - P
 \]
@@ -2974,10 +2905,8 @@ y = \hat{y} + e = P y + M y
 donde \( \hat{y} \) es la parte explicada por \( X \), y \( e \) es la parte no explicada (residuos).
 
 
-## Derivadas de una función multidimensional {#derivadas-de-una-funcion-multidimensional}
-
-### Derivadas de una forma lineal
-
+## Derivadas de una función multidimensional {#derivadas-de-una-funcion-multidimensional .unnumbered}
+### Derivadas de una forma lineal {.unnumbered}
 Sea la **forma lineal** \( \mathbf{a}'\mathbf{x} = a_1x_1 + a_2x_2 + \cdots + a_nx_n \), una función escalar de \( n \) variables independientes \( x_1, \ldots, x_n \). 
 
 La **derivada parcial** con respecto a una variable \( x_i \) es simplemente:
@@ -3017,8 +2946,7 @@ a_1 & a_2 & \cdots & a_n
 \]
 
 
-### Derivadas de una forma cuadrática {#derivadas-de-una-forma-cuadratica}
-
+### Derivadas de una forma cuadrática {#derivadas-de-una-forma-cuadratica .unnumbered}
 Sea la **forma cuadrática** \( \mathbf{x}'A\mathbf{x} \), donde \( A \) es una matriz simétrica. Esta puede escribirse como:
 
 \[
@@ -3037,8 +2965,7 @@ Esto es, un vector columna cuya i-ésima componente es:
 \frac{\partial (\mathbf{x}'A\mathbf{x})}{\partial x_i} = 2(a_{i1}x_1 + a_{i2}x_2 + \cdots + a_{in}x_n)
 \]
 
-### Derivadas de segundo orden (matriz Hessiana)
-
+### Derivadas de segundo orden (matriz Hessiana) {.unnumbered}
 La derivada segunda de \( \mathbf{x}'A\mathbf{x} \) con respecto a \( x_i \) es:
 
 \[
@@ -3059,15 +2986,13 @@ La **matriz de segundas derivadas** (Hessiana) es:
 
 
 
-### Resumen
-
+### Resumen {.unnumbered}
 - Derivada de forma lineal: \( \frac{\partial (\mathbf{a}'\mathbf{x})}{\partial \mathbf{x}} = \mathbf{a} \)
 - Derivada de forma cuadrática: \( \frac{\partial (\mathbf{x}'A\mathbf{x})}{\partial \mathbf{x}} = 2A\mathbf{x} \)
 - Matriz Hessiana: \( \frac{\partial^2 (\mathbf{x}'A\mathbf{x})}{\partial \mathbf{x} \partial \mathbf{x}'} = 2A \)
 
 
-## 📘 Preguntas de repaso
-
+## 📘 Preguntas de repaso {.unnumbered}
 1. Sea \( \mathbf{i} = (1, 1, \ldots, 1)' \) un vector \( m \times 1 \) de unos. Calcule \( \mathbf{i}'\mathbf{i} \).
 2. Sean \( \mathbf{i} = (1, \ldots, 1)' \) y \( \mathbf{y} = (y_1, \ldots, y_m)' \). Calcule \( \mathbf{i}'\mathbf{y} \).
 3. Demuestre que la **media** de las observaciones \( y_1, \ldots, y_m \) puede expresarse como:
@@ -6424,10 +6349,8 @@ Los tres programas estiman el mismo modelo y ofrecen diagnósticos equivalentes.
 <!--chapter:end:10-Multico-practica.Rmd-->
 
 
-# Heterocedasticidad
-
-### 🎯 Objetivo del capítulo {#objetivo-del-capitulo-hetero}
-
+# Heterocedasticidad {.unnumbered}
+### 🎯 Objetivo del capítulo {#objetivo-del-capitulo-hetero .unnumbered}
 Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gráficos y contrastes formales) y cómo corregirla (GLS/WLS/MCF y errores estándar robustos), con ejemplos en **Stata, R y Python**.
 
 <div class="box-cerebro">
@@ -6444,8 +6367,7 @@ Presentar qué es la heterocedasticidad, por qué importa, cómo detectarla (gr�
 
 ---
 
-## 1. Introducción {#1-introduccion}
-
+## 1. Introducción {#1-introduccion .unnumbered}
 El supuesto clásico de homocedasticidad establece que todos los errores del modelo lineal tienen varianza constante:
 \[
 \mathbb{V}(\varepsilon_i\mid X)=\sigma^2,\qquad i=1,\dots,n.
@@ -6457,14 +6379,12 @@ Cuando este supuesto falla, hablamos de **heterocedasticidad**. En ese caso:
 - \(\hat\beta_{\text{MCO}}\) **no es** eficiente (no es MELI/BLUE).  
 - La varianza clásica \(\widehat{\mathbb{V}}(\hat\beta)=\hat\sigma^2 (X'X)^{-1}\) es **incorrecta** \(\Rightarrow\) **t y F** clásicos **no son válidos**.
 
-### 📐 Intuición geométrica {#intuicion-geometrica-hetero}
-
+### 📐 Intuición geométrica {#intuicion-geometrica-hetero .unnumbered}
 En un **gráfico de residuos \(\hat\varepsilon_i\) vs. valores ajustados \(\hat y_i\)**, la heterocedasticidad suele verse como un **abanico** (la dispersión crece o decrece con \(\hat y\)) o como bandas donde la variabilidad cambia con alguna covariable (por ejemplo, con el ingreso).
 
 ---
 
-## 2. Ejemplos motivadores
-
+## 2. Ejemplos motivadores {.unnumbered}
 <div class="xca">
 
 **Ejemplo 1: Consumo e ingreso.**  
@@ -6488,18 +6408,15 @@ La varianza **depende de \(n_i\)** \(\Rightarrow\) heterocedasticidad “por con
 
 ---
 
-## 3. Heterocedasticidad pura vs. impura
-
-### 3.1 Pura
-
+## 3. Heterocedasticidad pura vs. impura {.unnumbered}
+### 3.1 Pura {.unnumbered}
 La varianza **realmente cambia** por unidad:
 \[
 \mathbb{E}(\varepsilon_i^2)=\sigma_i^2,\qquad
 \mathbb{V}(\varepsilon)=\Omega=\mathrm{diag}(\sigma_1^2,\ldots,\sigma_n^2).
 \]
 
-### 3.2 Impura
-
+### 3.2 Impura {.unnumbered}
 Aparece por **omisión de variables** u otros errores de especificación. Si el verdadero modelo es
 \[
 y_i=\beta_1+\beta_2 X_{2i}+\beta_3 X_{3i}+\varepsilon_i,\quad \varepsilon_i\sim (0,\sigma^2),
@@ -6512,8 +6429,7 @@ que suele **variar** con \(X_{3i}\) \(\Rightarrow\) heterocedasticidad “impura
 
 ---
 
-## 4. Consecuencias teóricas {#4-consecuencias-teoricas}
-
+## 4. Consecuencias teóricas {#4-consecuencias-teoricas .unnumbered}
 <div class="theorem">
 
 **Teorema (Varianza de MCO con heterocedasticidad).**  
@@ -6549,10 +6465,8 @@ Variantes: **HC1** (factor \(n/(n-k)\)), **HC2** (divide por \(1-h_{ii}\)), **HC
 
 ---
 
-## 5. Detección de heterocedasticidad {#5-deteccion-de-heterocedasticidad}
-
-### 5.1 Diagnóstico visual {#51-diagnostico-visual}
-
+## 5. Detección de heterocedasticidad {#5-deteccion-de-heterocedasticidad .unnumbered}
+### 5.1 Diagnóstico visual {#51-diagnostico-visual .unnumbered}
 ```r
 # R: residuo vs ajustado
 m <- lm(y ~ x1 + x2 + I(x2^2), data = datos)
@@ -6576,8 +6490,7 @@ plt.xlabel('Ajustados'); plt.ylabel('Residuos'); plt.show()
 knitr::include_graphics("figs/hetero_fan.png")
 ```
 
-### 5.2 Contraste de White (1980)
-
+### 5.2 Contraste de White (1980) {.unnumbered}
 **Hipótesis**
 [
 H_0:\ \mathbb{E}(\varepsilon_i^2)=\sigma^2
@@ -6612,8 +6525,7 @@ white = het_white(m.resid, m.model.exog)  # (LM, pLM, F, pF)
 
 **Pro/Con:** No requiere saber qué variable genera la hetero; puede ser pesado en muestras pequeñas.
 
-### 5.3 Breusch–Pagan / Cook–Weisberg
-
+### 5.3 Breusch–Pagan / Cook–Weisberg {.unnumbered}
 Asume (\mathbb{V}(\varepsilon_i)=\sigma^2 h(z_i)) lineal en (z).
 
 **Stata**
@@ -6639,8 +6551,7 @@ from statsmodels.stats.diagnostic import het_breuschpagan
 bp = het_breuschpagan(m.resid, m.model.exog)  # (LM, pLM, F, pF)
 ```
 
-### 5.4 Goldfeld–Quandt
-
+### 5.4 Goldfeld–Quandt {.unnumbered}
 Útil si sospechas que la varianza crece con **una** covariable (Z). Ordena por (Z), parte la muestra, omite el tercio central y compara varianzas (estadístico F).
 
 **Stata**
@@ -6660,18 +6571,15 @@ gqtest(m, order.by = ~ Z, data = datos, fraction = 1/3)
 
 ---
 
-## 6. Soluciones
-
-### 6.1 GLS (Mínimos Cuadrados Generalizados) {#61-gls-minimos-cuadrados-generalizados}
-
+## 6. Soluciones {.unnumbered}
+### 6.1 GLS (Mínimos Cuadrados Generalizados) {#61-gls-minimos-cuadrados-generalizados .unnumbered}
 Si conoces (\Omega),
 [
 \hat\beta_{GLS}=(X'\Omega^{-1}X)^{-1}X'\Omega^{-1}y,
 ]
 es **eficiente**. Poco usual en práctica porque (\Omega) rara vez es conocida.
 
-### 6.2 WLS (Mínimos Cuadrados Ponderados) {#62-wls-minimos-cuadrados-ponderados}
-
+### 6.2 WLS (Mínimos Cuadrados Ponderados) {#62-wls-minimos-cuadrados-ponderados .unnumbered}
 Si (\mathbb{V}(\varepsilon_i)=\sigma_i^2) y conoces/estimas (\sigma_i^2), pondera por (w_i=1/\sigma_i^2):
 [
 \min_{\beta}\sum_{i=1}^n w_i \big(y_i-x_i'\beta\big)^2.
@@ -6695,8 +6603,7 @@ lm(y ~ x1 + x2, data = datos, weights = 1/sigma2_hat)
 wls = sm.WLS(df['y'], X, weights = 1/sigma2_hat).fit()
 ```
 
-### 6.3 FGLS/MCF (GLS factible)
-
+### 6.3 FGLS/MCF (GLS factible) {.unnumbered}
 Modela (\sigma_i^2) con una **regresión auxiliar** sobre (z_i), extrae (\hat\sigma_i^2) y aplica WLS.
 **Consistente y asintóticamente eficiente** si modelas bien (\Omega). Requiere muestras moderadas/grandes.
 
@@ -6712,8 +6619,7 @@ replace sigma2_hat = exp(sigma2_hat)   // asegura positividad si se modeló en l
 reg y x1 x2 [aw = 1/sigma2_hat]
 ```
 
-### 6.4 Errores estándar robustos (White/Huber) {#64-errores-estandar-robustos-whitehuber}
-
+### 6.4 Errores estándar robustos (White/Huber) {#64-errores-estandar-robustos-whitehuber .unnumbered}
 Mantiene (\hat\beta_{\text{MCO}}), pero corrige la **matriz de varianzas**:
 [
 \widehat{\mathbb{V}}*{HC}(\hat\beta)=(X'X)^{-1}\Big(\sum*{i=1}^n x_i x_i' \hat\varepsilon_i^2\Big)(X'X)^{-1}.
@@ -6747,10 +6653,8 @@ print(m_rob.summary())
 
 ---
 
-## 7. Ejemplo reproducible (simulación) {#7-ejemplo-reproducible-simulacion}
-
-### Stata
-
+## 7. Ejemplo reproducible (simulación) {#7-ejemplo-reproducible-simulacion .unnumbered}
+### Stata {.unnumbered}
 ```stata
 clear all
 set seed 123
@@ -6772,8 +6676,7 @@ replace s2 = exp(s2)   // asegura positividad si modelaste en log
 reg y x [aw = 1/s2]
 ```
 
-### R
-
+### R {.unnumbered}
 ```r
 set.seed(123)
 n <- 200
@@ -6795,8 +6698,7 @@ m_wls <- lm(y ~ x, datos, weights = 1/s2hat)
 summary(m); summary(m_wls)
 ```
 
-### Python (statsmodels)
-
+### Python (statsmodels) {.unnumbered}
 ```python
 import numpy as np, pandas as pd, statsmodels.api as sm
 from statsmodels.stats.diagnostic import het_breuschpagan
@@ -6823,8 +6725,7 @@ print(wls.summary())
 
 ---
 
-## 8. Visualizaciones (diagnóstico) {#8-visualizaciones-diagnostico}
-
+## 8. Visualizaciones (diagnóstico) {#8-visualizaciones-diagnostico .unnumbered}
 ```r
 # Residuo vs Ajustados y vs x
 par(mfrow = c(1,2))
@@ -6839,8 +6740,7 @@ knitr::include_graphics(c("figs/resid_fitted.png","figs/resid_x.png"))
 
 ---
 
-## 9. Tabla resumen de contrastes
-
+## 9. Tabla resumen de contrastes {.unnumbered}
 **Tabla 1. Resumen de pruebas de heterocedasticidad**
 
 | Prueba          | Supuesto clave              | Idea                                    | Pros                        | Contras                         |
@@ -6854,8 +6754,7 @@ knitr::include_graphics(c("figs/resid_fitted.png","figs/resid_x.png"))
 
 ---
 
-## 10. Conclusiones clave
-
+## 10. Conclusiones clave {.unnumbered}
 * La heterocedasticidad **no sesga** MCO, pero **rompe** la inferencia clásica.
 * **Diagnosticar**: siempre mire **gráficos** y use **BP/White**.
 * **Corregir**: si puede modelar (\Omega) (\Rightarrow) **FGLS/WLS**; si no (\Rightarrow) **errores robustos**.
@@ -6863,8 +6762,7 @@ knitr::include_graphics(c("figs/resid_fitted.png","figs/resid_x.png"))
 
 ---
 
-## 11. Taller práctico (hands-on) {#11-taller-practico-hands-on}
-
+## 11. Taller práctico (hands-on) {#11-taller-practico-hands-on .unnumbered}
 <div class="box-tarea">
 
 **Simule y compare (entregable corto):**
@@ -6881,8 +6779,7 @@ Entregue código en **Stata o R o Python** + 1 gráfico **residuos vs ajustados*
 
 ---
 
-## 12. Apéndice: comandos rápidos por software {#12-apendice-comandos-rapidos-por-software}
-
+## 12. Apéndice: comandos rápidos por software {#12-apendice-comandos-rapidos-por-software .unnumbered}
 **Stata**
 
 ```stata
@@ -6914,8 +6811,7 @@ sm.WLS(y, X, weights = w).fit()
 ---
 <div class="box-repaso">
 
-### 📘 Preguntas de repaso
-
+### 📘 Preguntas de repaso {.unnumbered}
 1. Defina **heterocedasticidad** y explique por qué invalida las pruebas t y F clásicas.
 2. Muestre (pasos clave) que \(\mathbb{V}(\hat{\beta}\mid X)=(X'X)^{-1}X'\Omega X (X'X)^{-1}\) bajo heterocedasticidad.
 3. Compare **White** y **Breusch–Pagan**: ¿cuándo preferir uno u otro? ¿Qué significa “prueba constructiva”?
@@ -6934,8 +6830,7 @@ sm.WLS(y, X, weights = w).fit()
 
 # Endogeneidad {#endogeneidad}
 
-## Violación de la exogeneidad estricta
-
+## Violación de la exogeneidad estricta {.unnumbered}
 El supuesto fundamental de MCO es que los regresores son exógenos: $E(\varepsilon_i \mid X) = 0$. Cuando este supuesto se viola, existe al menos una variable explicativa $X_j$ correlacionada con el error:
 
 $$Cov(\varepsilon_i, X_j) \neq 0$$
@@ -6954,8 +6849,7 @@ $$Cov(\varepsilon_i, X) = E(X\varepsilon_i) - E(X)E(\varepsilon_i) \neq 0$$
 
 * * *
 
-## Causas de la endogeneidad
-
+## Causas de la endogeneidad {.unnumbered}
 Hay tres fuentes principales de endogeneidad:
 
 1. **Variables Omitidas Relevantes**
@@ -6964,8 +6858,7 @@ Hay tres fuentes principales de endogeneidad:
 
 * * *
 
-## 1. Variables omitidas
-
+## 1. Variables omitidas {.unnumbered}
 Supongamos que el modelo correcto es:
 
 $$y = X_r \beta_r + X_s \beta_s + \varepsilon$$
@@ -6988,8 +6881,7 @@ El problema surge cuando queremos controlar por variables adicionales pero, por 
 
 * * *
 
-## 2. Error de medición
-
+## 2. Error de medición {.unnumbered}
 Muchas veces no observamos el valor verdadero de una variable sino una medida imperfecta. Causas comunes:
 
 - Errores en la recolección de datos
@@ -6997,8 +6889,7 @@ Muchas veces no observamos el valor verdadero de una variable sino una medida im
 - Problemas de memoria (¿cuánto ganó el año pasado?)
 - Preguntas ambiguas o respuestas falsas
 
-### Error en la variable dependiente
-
+### Error en la variable dependiente {.unnumbered}
 Si $y^* = X\beta + \varepsilon$ es el modelo correcto pero observamos $y^* = y + w$ (con $w \sim iid(0, \sigma_w^2)$, $Cov(w,\varepsilon)=0$, $Cov(w,X)=0$), entonces:
 
 $$y = X\beta + \underbrace{(\varepsilon - w)}_{\mu}$$
@@ -7010,8 +6901,7 @@ El nuevo error $\mu = \varepsilon - w$ tiene:
 
 **Consecuencia:** MCO sigue siendo insesgado y consistente, pero **pierde eficiencia**.
 
-### Error en las variables independientes
-
+### Error en las variables independientes {.unnumbered}
 Si el modelo correcto usa $X^*$ pero observamos $X^* = X + w$:
 
 $$y = (X + w)\beta + \varepsilon = X\beta + \underbrace{w\beta + \varepsilon}_{\mu}$$
@@ -7047,8 +6937,7 @@ Este resultado se conoce como **sesgo de atenuación**: independientemente del s
 
 * * *
 
-## 3. Simultaneidad
-
+## 3. Simultaneidad {.unnumbered}
 La teoría económica sugiere que dos o más variables se determinan simultáneamente. Ejemplos:
 
 1. Determinación de precios y cantidades en equilibrio parcial
@@ -7082,8 +6971,7 @@ $$E(\hat{\alpha}_1) = \alpha_1 - \frac{Var(u_i)}{(\alpha_1 - \beta_1)Var(p_i)}$$
 
 * * *
 
-## Resumen
-
+## Resumen {.unnumbered}
 | Causa | Fuente de $Cov(\varepsilon, X) \neq 0$ | ¿MCO sesgado? | ¿MCO consistente? |
 |-------|---------------------------------------|---------------|-------------------|
 | Variables omitidas | Correlación con omitida | Sí | No |
@@ -7094,8 +6982,7 @@ En todos los casos, la solución general son las **Variables Instrumentales** (C
 
 * * *
 
-## Lecturas recomendadas
-
+## Lecturas recomendadas {.unnumbered}
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5
 - **Wooldridge (2010)** — *Econometric Analysis of Cross Section and Panel Data*, Cap. 5
 - **Angrist & Pischke (2009)** — *Mostly Harmless Econometrics*, Cap. 4
@@ -7104,16 +6991,14 @@ En todos los casos, la solución general son las **Variables Instrumentales** (C
 
 # Variables Instrumentales {#iv}
 
-## La idea: un instrumento como fuente de variación exógena
-
+## La idea: un instrumento como fuente de variación exógena {.unnumbered}
 Cuando existe endogeneidad ($Cov(\varepsilon, X) \neq 0$), necesitamos una fuente de variación en $X$ que sea exógena — es decir, que no esté correlacionada con $\varepsilon$. Eso es exactamente lo que hace una **variable instrumental** $Z$.
 
 La intuición del estimador de variables instrumentales: dado que $X$ causa $Y$ pero también está correlacionada con el error, buscamos una variable $Z$ que "mueva" a $X$ sin tener efecto directo sobre $Y$. La variación en $Y$ atribuida a $Z$ identifica el efecto causal de $X$.
 
 * * *
 
-## Condiciones del instrumento
-
+## Condiciones del instrumento {.unnumbered}
 Una variable instrumental $Z$ debe cumplir dos condiciones:
 
 **Condición 1 — Validez (exogeneidad):**
@@ -7128,8 +7013,7 @@ El instrumento sí está correlacionado con la variable endógena. Esta condici�
 
 * * *
 
-## El estimador de Variables Instrumentales (IV)
-
+## El estimador de Variables Instrumentales (IV) {.unnumbered}
 Sea $Z_{n \times r}$ la matriz de $r$ variables instrumentales y $X_{n \times k}$ la matriz de $k$ variables endógenas.
 
 De la condición de validez:
@@ -7152,8 +7036,7 @@ Es la variación en $Y$ atribuida a $Z$, dividida entre la variación en $X$ atr
 
 * * *
 
-## Propiedades del estimador IV
-
+## Propiedades del estimador IV {.unnumbered}
 | Propiedad | Resultado |
 |-----------|-----------|
 | Insesgado | **No**: $E[\hat{\beta}_{VI}] \neq \beta$ en muestras finitas |
@@ -7170,14 +7053,12 @@ La validez del instrumento ($E[Z'\varepsilon] = 0$) garantiza la consistencia, a
 
 * * *
 
-## Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS)
-
+## Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS) {.unnumbered}
 Cuando $r > k$ (modelo **sobreidentificado**: más instrumentos que variables endógenas), no podemos usar el estimador IV directamente. El estimador MCO2E generaliza el IV usando la proyección de $X$ sobre todos los instrumentos.
 
 Sea $P_Z = Z(Z'Z)^{-1}Z'$ la matriz de proyección sobre el espacio de $Z$.
 
-### Primera etapa
-
+### Primera etapa {.unnumbered}
 Estimar $\hat{\delta}$ de la regresión de $X$ sobre $Z$:
 
 $$X = Z\delta + \mu \quad \Rightarrow \quad \hat{\delta} = (Z'Z)^{-1}Z'X$$
@@ -7186,8 +7067,7 @@ Calcular los valores ajustados:
 
 $$\hat{X} = Z\hat{\delta} = Z(Z'Z)^{-1}Z'X = P_Z X$$
 
-### Segunda etapa
-
+### Segunda etapa {.unnumbered}
 Reemplazar $X$ por $\hat{X}$ en la ecuación principal y estimar:
 
 $$y = \hat{X}\beta + \varepsilon$$
@@ -7209,8 +7089,7 @@ Por eso, MCO2E se puede usar siempre — esté el modelo exactamente identificad
 
 * * *
 
-## Ejemplos clásicos
-
+## Ejemplos clásicos {.unnumbered}
 **1. Angrist & Krueger (1991) — Retornos a la educación**
 
 - Variable endógena: educación (correlacionada con habilidad no observada)
@@ -7234,8 +7113,7 @@ Problemas: omisión de habilidad + IQ medido con error → MCO2E con instrumento
 
 * * *
 
-## Implementación en Stata
-
+## Implementación en Stata {.unnumbered}
 ```stata
 * MCO (sesgado si hay endogeneidad)
 reg y x1 x2 controls
@@ -7259,8 +7137,7 @@ ivreg2 y controls (x1 = z1 z2), robust first
 
 * * *
 
-## Instrumentos débiles
-
+## Instrumentos débiles {.unnumbered}
 Un instrumento es **débil** cuando $Cov(Z, X)$ es pequeña — el instrumento explica poco de la variación en $X$.
 
 **Señales de debilidad:**
@@ -7289,8 +7166,7 @@ estat firststage
 
 * * *
 
-## Test de Hausman (endogeneidad)
-
+## Test de Hausman (endogeneidad) {.unnumbered}
 El **test de Hausman** compara MCO e IV. La hipótesis nula es que MCO e IV producen estimadores similares — es decir, que NO hay endogeneidad.
 
 $$H = \frac{[\hat{\beta}_{MCO2E} - \hat{\beta}_{MCO}]^2}{Var(\hat{\beta}_{MCO2E}) - Var(\hat{\beta}_{MCO})} \sim \chi^2(k)$$
@@ -7317,8 +7193,7 @@ estat endogenous
 
 * * *
 
-## Test de Sargan (sobreidentificación)
-
+## Test de Sargan (sobreidentificación) {.unnumbered}
 Cuando el modelo está **sobreidentificado** ($r > k$: más instrumentos que variables endógenas), es posible probar si los instrumentos adicionales son exógenos.
 
 **Lógica:** si todos los instrumentos son válidos, los residuos de MCO2E no deben estar correlacionados con ninguno de ellos.
@@ -7349,8 +7224,7 @@ estat overid
 
 * * *
 
-## Método Generalizado de Momentos (MGM/GMM)
-
+## Método Generalizado de Momentos (MGM/GMM) {.unnumbered}
 El estimador IV y MCO2E son casos especiales del **Método Generalizado de Momentos** (MGM). La condición de exogeneidad de los instrumentos implica:
 
 $$E[Z'\varepsilon \mid X] = 0 \quad \Rightarrow \quad E[g(\beta)] = 0$$
@@ -7397,8 +7271,7 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 
 * * *
 
-## Lecturas recomendadas
-
+## Lecturas recomendadas {.unnumbered}
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5 — tratamiento completo de IV, MCO2E y GMM
 - **Angrist & Pischke (2009)** — *Mostly Harmless Econometrics*, Cap. 4 — enfoque de programa de evaluación
 - **Angrist & Krueger (1991)** — "Does compulsory school attendance affect schooling and earnings?", *QJE* — ejemplo canónico
@@ -7409,8 +7282,7 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 
 # Series de Tiempo {#series}
 
-## ¿Dónde buscar datos?
-
+## ¿Dónde buscar datos? {.unnumbered}
 Para análisis macroeconómico y financiero en Colombia, las fuentes oficiales más usadas son:
 
 - **Banco de la República:** <http://www.banrep.gov.co/>
@@ -7421,8 +7293,7 @@ Para análisis macroeconómico y financiero en Colombia, las fuentes oficiales m
 
 * * *
 
-## El análisis gráfico es el punto de partida
-
+## El análisis gráfico es el punto de partida {.unnumbered}
 Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráfica es la herramienta más útil del análisis de series de tiempo: permite detectar tendencia, ciclos, estacionalidad, quiebres estructurales y observaciones atípicas, y orienta toda la modelación posterior.
 
 **Ejemplo — PIB en niveles:**
@@ -7451,8 +7322,7 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 
 * * *
 
-## Definiciones clave
-
+## Definiciones clave {.unnumbered}
 **Tendencia:** describe el comportamiento de largo plazo de la serie — hacia dónde va $X_t$ cuando $t$ es grande.
 
 **Media:** dice algo de la serie solo cuando la tendencia ha sido removida. La idea es trabajar con series de media cero, $X_t - \bar{X}$.
@@ -7472,8 +7342,7 @@ Antes de cualquier modelación, los datos **siempre** deben graficarse. La gráf
 
 * * *
 
-## Predicción con tendencia y estacionalidad
-
+## Predicción con tendencia y estacionalidad {.unnumbered}
 Una serie con tendencia es fácil de predecir: está autocorrelacionada (alta inercia) y el dato en $t-1$ contiene información sobre el dato en $t$.
 
 Una serie sin tendencia es más difícil: hay que verificar si existe un patrón entre observaciones cercanas. Si las observaciones pasadas no proveen información relevante, será imposible predecir usando el pasado — eso es **ruido**.
@@ -7514,8 +7383,7 @@ La elección entre aditivo y multiplicativo depende de si la amplitud estacional
 
 * * *
 
-## Modelos con tendencia determinística
-
+## Modelos con tendencia determinística {.unnumbered}
 A partir de la gráfica se identifica la forma funcional de la tendencia:
 
 - **Lineal:** $Y_t = \alpha_1 + \alpha_2 T + \varepsilon$
@@ -7532,8 +7400,7 @@ Si la gráfica no permite decidir, hay que estimar todas las formas y comparar:
 
 * * *
 
-## Métodos de atenuación exponencial
-
+## Métodos de atenuación exponencial {.unnumbered}
 Son técnicas **no paramétricas** que no requieren especificar una forma funcional. La información de $y_t$ se relaciona únicamente con su propio pasado, no con una tendencia explícita:
 
 - Promedio móvil
@@ -7542,8 +7409,7 @@ Son técnicas **no paramétricas** que no requieren especificar una forma funcio
 
 * * *
 
-## Modelos ARIMA y la metodología Box-Jenkins
-
+## Modelos ARIMA y la metodología Box-Jenkins {.unnumbered}
 Los modelos ARIMA permiten especificar y estimar pronósticos de corto plazo con muestras grandes. Incluyen, conjuntamente, los cuatro componentes de una serie de tiempo:
 
 1. Tendencia
@@ -7557,8 +7423,7 @@ Antes de avanzar, necesitamos formalizar cuatro conceptos.
 
 * * *
 
-## Conceptos básicos
-
+## Conceptos básicos {.unnumbered}
 **Estocástico:** la naturaleza de la serie no es determinística — sus realizaciones son producto de un proceso aleatorio subyacente.
 
 ![](images/series/pegado1.png)
@@ -7589,8 +7454,7 @@ En la práctica, "estacionariedad" se refiere a la versión débil. Implica una 
 
 * * *
 
-## ¿Por qué nos importa la estacionariedad?
-
+## ¿Por qué nos importa la estacionariedad? {.unnumbered}
 Muchas técnicas de series de tiempo (incluida la metodología Box-Jenkins) asumen estacionariedad. Cuando la serie no es estacionaria:
 
 - Los modelos tienen mal ajuste
@@ -7601,8 +7465,7 @@ Por eso, el primer paso de cualquier análisis es verificar estacionariedad y, s
 
 * * *
 
-## Ruido blanco
-
+## Ruido blanco {.unnumbered}
 Un proceso $\varepsilon_t$ es **ruido blanco** si:
 
 - Media nula: $E(\varepsilon_t) = 0$
@@ -7613,8 +7476,7 @@ El ruido blanco es el bloque básico de toda la modelación ARMA: los residuos d
 
 * * *
 
-## Métodos para detectar estacionariedad
-
+## Métodos para detectar estacionariedad {.unnumbered}
 1. Análisis gráfico
 2. Durbin-Watson
 3. Función de Autocorrelación Simple (ACF)
@@ -7631,8 +7493,7 @@ Es una prueba gráfica derivada de la función de autocorrelación simple (ACF),
 
 * * *
 
-## Función de autocovarianza y autocorrelación (ACF)
-
+## Función de autocovarianza y autocorrelación (ACF) {.unnumbered}
 La **función de autocovarianza** mide la covarianza entre $x_t$ y su rezago $x_{t-\tau}$, como si fueran dos variables distintas:
 
 $$R(\tau) = Cov(x_t, x_{t-\tau}) = E\left[(x_t - \mu)(x_{t-\tau} - \mu)\right]$$
@@ -7677,8 +7538,7 @@ ac var, lags(#)
 
 * * *
 
-## Función de autocorrelación parcial (PACF)
-
+## Función de autocorrelación parcial (PACF) {.unnumbered}
 La PACF calcula la correlación entre $x_t$ y $x_{t-\tau}$ **neta del efecto de los rezagos intermedios**:
 
 - **ACF:** incluye, para el rezago $\tau$, tanto la correlación directa como la correlación implícita a través de los rezagos menores.
@@ -7696,8 +7556,7 @@ $$r_p(\tau) = \alpha_{\tau,\tau}$$
 
 * * *
 
-## Prueba Q de Box-Pierce
-
+## Prueba Q de Box-Pierce {.unnumbered}
 Para evaluar formalmente si la serie es ruido blanco, se prueba la significancia conjunta de las primeras $\tau$ autocorrelaciones:
 
 $$H_0: r(1) = r(2) = \cdots = r(\tau) = 0 \quad \text{(la serie es ruido blanco)}$$
@@ -7710,8 +7569,7 @@ Si $Q$ supera el valor crítico, se rechaza ruido blanco: la serie tiene estruct
 
 * * *
 
-## Caminatas aleatorias y procesos integrados
-
+## Caminatas aleatorias y procesos integrados {.unnumbered}
 Una **caminata aleatoria** es un proceso donde la posición en $t$ depende solo de la posición en $t-1$ más un choque aleatorio:
 
 $$x_t = x_{t-1} + \varepsilon_t, \quad \varepsilon_t \sim N(0, \sigma^2)$$
@@ -7743,8 +7601,7 @@ La varianza crece con $t$ → **no es estacionaria**.
 
 * * *
 
-## Prueba de raíz unitaria de Dickey-Fuller (DF)
-
+## Prueba de raíz unitaria de Dickey-Fuller (DF) {.unnumbered}
 Es la prueba formal y concluyente de estacionariedad. Se basa en las tres especificaciones de caminata aleatoria:
 
 $$x_t = \rho x_{t-1} + \varepsilon_t$$
@@ -7790,8 +7647,7 @@ $$\Delta x_t = \delta + \beta T_t + (\rho - 1) x_{t-1} + \varepsilon_t$$
 
 * * *
 
-## Dickey-Fuller aumentada (ADF)
-
+## Dickey-Fuller aumentada (ADF) {.unnumbered}
 La DF original es válida solo si los errores no presentan autocorrelación serial — limitación severa. La versión **aumentada** corrige esto agregando rezagos de la diferencia:
 
 $$\Delta x_t = (\rho - 1) x_{t-1} + \sum_{j=1}^{\tau} b_j \Delta x_{t-j} + \varepsilon_t$$
@@ -7826,8 +7682,7 @@ dfgls var
 
 * * *
 
-## Transformación de series no estacionarias
-
+## Transformación de series no estacionarias {.unnumbered}
 Cuando la serie no es estacionaria, hay tres estrategias:
 
 1. **Diferencias:** $\Delta x_t = x_t - x_{t-1}$
@@ -7838,8 +7693,7 @@ Tras transformar, se vuelve a aplicar la prueba ADF para verificar que la serie 
 
 * * *
 
-## Modelos Autorregresivos y de Promedio Móvil
-
+## Modelos Autorregresivos y de Promedio Móvil {.unnumbered}
 La idea central: el comportamiento pasado de la serie contiene información sobre su futuro y puede, en muchos casos, reemplazar la información de otras variables.
 
 Estos modelos representan la variable en función de su propio pasado:
@@ -7852,24 +7706,21 @@ Estos modelos representan la variable en función de su propio pasado:
 
 * * *
 
-## Modelo Autorregresivo $AR(p)$
-
+## Modelo Autorregresivo $AR(p)$ {.unnumbered}
 $$x_t = c + \alpha_1 x_{t-1} + \alpha_2 x_{t-2} + \cdots + \alpha_p x_{t-p} + \varepsilon_t$$
 
 donde $p$ es el rezago máximo y $\varepsilon_t$ es ruido blanco con media cero y varianza constante.
 
 * * *
 
-## Modelo de Promedio Móvil $MA(q)$
-
+## Modelo de Promedio Móvil $MA(q)$ {.unnumbered}
 $$x_t = c + \beta_0 \varepsilon_t + \beta_1 \varepsilon_{t-1} + \beta_2 \varepsilon_{t-2} + \cdots + \beta_q \varepsilon_{t-q}$$
 
 La serie se expresa como combinación lineal de choques de ruido blanco presentes y pasados.
 
 * * *
 
-## Teorema de descomposición de Wold
-
+## Teorema de descomposición de Wold {.unnumbered}
 Todo proceso estocástico $x_t$ débilmente estacionario con media cero puede representarse como:
 
 $$x_t = D_t + S_t$$
@@ -7882,16 +7733,14 @@ $$S_t = \sum_{v=0}^{\infty} \beta_v \varepsilon_{t-v}$$
 
 * * *
 
-## Modelo $ARMA(p, q)$
-
+## Modelo $ARMA(p, q)$ {.unnumbered}
 $$x_t = c + \alpha_1 x_{t-1} + \cdots + \alpha_p x_{t-p} + \varepsilon_t + \beta_1 \varepsilon_{t-1} + \cdots + \beta_q \varepsilon_{t-q}$$
 
 Combina autorregresión (memoria larga vía $x_{t-j}$) con promedio móvil (memoria corta vía $\varepsilon_{t-j}$).
 
 * * *
 
-## Los cinco pasos de Box-Jenkins
-
+## Los cinco pasos de Box-Jenkins {.unnumbered}
 1. **Identificación del modelo** (orden $p$ y $q$) a partir de ACF y PACF
 2. **Estimación de parámetros**
 3. **Validación del modelo** (residuos = ruido blanco)
@@ -7902,8 +7751,7 @@ Combina autorregresión (memoria larga vía $x_{t-j}$) con promedio móvil (memo
 
 * * *
 
-## Paso 1 — Identificación
-
+## Paso 1 — Identificación {.unnumbered}
 Se usa la siguiente regla práctica con base en los correlogramas teóricos:
 
 ![](images/series/teorico.png)
@@ -7954,8 +7802,7 @@ donde $k$ es el número de parámetros y $n$ las observaciones utilizables. Se e
 
 * * *
 
-## Paso 2 — Estimación de parámetros
-
+## Paso 2 — Estimación de parámetros {.unnumbered}
 Existen tres métodos principales:
 
 1. **Método de Momentos (Yule-Walker)** — solo para $AR(p)$, menos usado.
@@ -7978,8 +7825,7 @@ Se toman logaritmos y se maximiza la log-verosimilitud para hallar $\hat{\alpha}
 
 * * *
 
-## Paso 3 — Validación del modelo
-
+## Paso 3 — Validación del modelo {.unnumbered}
 Se analiza el correlograma de la ACF y la PACF **de los residuos** del modelo estimado.
 
 **Diagnóstico esperado:** los coeficientes de autocorrelación de los residuos deben ser estadísticamente iguales a cero — es decir, los residuos deben comportarse como ruido blanco.
@@ -7988,8 +7834,7 @@ Se analiza el correlograma de la ACF y la PACF **de los residuos** del modelo es
 
 * * *
 
-## Paso 4 — Pronóstico
-
+## Paso 4 — Pronóstico {.unnumbered}
 **$AR(1)$:**
 
 $$x_t = c + \alpha_1 x_{t-1} + \varepsilon_t \quad \Rightarrow \quad \hat{x}_{t+1} = \hat{c} + \hat{\alpha}_1 x_t$$
@@ -8004,15 +7849,13 @@ $$\hat{x}_{t+1} = \hat{c} + \hat{\alpha}_1 x_t + \cdots + \hat{\alpha}_p x_{t+1-
 
 * * *
 
-## Paso 5 — Validación del pronóstico
-
+## Paso 5 — Validación del pronóstico {.unnumbered}
 - **Gráfica:** comparar la trayectoria temporal de valores observados y proyectados.
 - **Intervalos de confianza:** una buena predicción produce intervalos de confianza estrechos. Si los intervalos crecen rápido con el horizonte, el modelo solo sirve para muy corto plazo.
 
 * * *
 
-## Ventajas y desventajas de los modelos ARMA
-
+## Ventajas y desventajas de los modelos ARMA {.unnumbered}
 **Ventajas:**
 
 - Excelente herramienta para pronóstico de corto plazo.
@@ -8063,8 +7906,7 @@ predict yhat, y dynamic(tq(2014q1))
 
 * * *
 
-## Lecturas recomendadas
-
+## Lecturas recomendadas {.unnumbered}
 - **Enders (2014)** — *Applied Econometric Time Series*, 4ª ed. — referencia estándar para el curso, cubre ARMA, raíz unitaria y Box-Jenkins.
 - **Hamilton (1994)** — *Time Series Analysis* — tratado de referencia avanzado.
 - **Box, Jenkins & Reinsel (2008)** — *Time Series Analysis: Forecasting and Control* — la metodología original.
@@ -8083,8 +7925,7 @@ $$P(Y_i = 1 \mid X_i) = E(Y_i \mid X_i)$$
 
 Tres modelos compiten para estimar esa probabilidad: el **Modelo Lineal de Probabilidad (MPL)**, el **Probit** y el **Logit**.
 
-## La pregunta motivadora: quien habla ingles
-
+## La pregunta motivadora: quien habla ingles {.unnumbered}
 Imaginemos datos ficticios donde $Y = 1$ si el individuo habla inglés y $X$ = ingreso de los padres. La variable explicada es binaria: solo toma los valores 0 y 1. Si graficamos los puntos contra el ingreso, vemos lo siguiente:
 
 - En ingresos bajos, casi todos los puntos caen en $Y=0$.
@@ -8098,8 +7939,7 @@ Dos modelos compiten por ajustar estos datos:
 
 A primera vista la curva gana — parece ajustar mejor en los extremos. Pero como veremos, cuando la relación entre $X$ y $Y$ es difusa (situación común en ciencias sociales), la recta y la curva se parecen mucho en todo el rango, y la diferencia práctica entre los dos modelos se vuelve pequeña.
 
-## El Modelo Lineal de Probabilidad (MPL)
-
+## El Modelo Lineal de Probabilidad (MPL) {.unnumbered}
 El MPL aplica directamente MCO a una regresión donde la variable dependiente es binaria:
 
 $$Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
@@ -8128,8 +7968,7 @@ La varianza del error depende de $X_i$ — el supuesto de homocedasticidad falla
 
 **Defensa del MPL — Angrist y Pischke.** A pesar de estos problemas, Angrist y Pischke defienden el MPL enfáticamente: poco para perder, mucho para ganar. En la práctica, cuando la relación entre $Y$ y $X$ es difusa, la recta rara vez se va del intervalo observado, y su pendiente se parece mucho a la de la curva logit/probit en casi todo el soporte. Además, el MPL se estima por MCO y hereda toda la tecnología disponible: variables instrumentales, paneles, efectos fijos, diferencias en diferencias.
 
-## El enfoque de variable latente
-
+## El enfoque de variable latente {.unnumbered}
 Pensar en una variable latente $Y_i^*$ no observada:
 
 $$Y_i^* = X_i\beta + u_i, \quad Y_i = 1 \text{ si } Y_i^* > 0, \quad Y_i = 0 \text{ si no.}$$
@@ -8144,16 +7983,14 @@ $$P(Y_i = 1 \mid X_i) = G(X_i\beta)$$
 
 donde $G(\cdot)$ es la CDF de $u_i$. La elección de $G$ define el modelo: Probit usa $\Phi$ (CDF normal); Logit usa $\Lambda(e) = \exp(e)/(1+\exp(e))$.
 
-## El modelo Probit
-
+## El modelo Probit {.unnumbered}
 En Probit suponemos $u_i \sim N(0,1)$:
 
 $$g(X_i\beta) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}(X_i\beta)^2\right)$$
 
 $$G(X_i\beta) = \Phi(X_i\beta) = \int_{-\infty}^{X_i\beta} \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}t^2\right) dt$$
 
-## El modelo Logit
-
+## El modelo Logit {.unnumbered}
 En Logit suponemos que $u_i$ sigue una distribución logística estándar:
 
 $$g(X_i\beta) = \lambda(X_i\beta) = \frac{\exp(X_i\beta)}{(1+\exp(X_i\beta))^2}$$
@@ -8166,8 +8003,7 @@ $$\frac{P(Y_i=1\mid X_i)}{P(Y_i=0\mid X_i)} = \exp(X_i\beta)$$
 
 Tomando logaritmos, el log-odds es lineal en $X_i\beta$. Un aumento de una unidad en $X_j$ multiplica los odds por $\exp(\beta_j)$ (el odds-ratio).
 
-## Estimación por máxima verosimilitud
-
+## Estimación por máxima verosimilitud {.unnumbered}
 Para Probit y Logit no hay solución cerrada. Se estima por máxima verosimilitud. La log-verosimilitud:
 
 $$\ln L(\beta) = \sum_{i=1}^n \left\{ Y_i \ln G(X_i\beta) + (1-Y_i)\ln[1-G(X_i\beta)] \right\}$$
@@ -8178,8 +8014,7 @@ $$\sum_{i=1}^n \frac{Y_i - G(X_i\beta)}{G(X_i\beta)\,[1-G(X_i\beta)]} \, g(X_i\b
 
 Este sistema no tiene solución cerrada. Se resuelve numéricamente con Newton-Raphson. Bajo regularidad, $\hat{\beta}^{ML}$ es consistente, asintóticamente normal y eficiente.
 
-## Efectos marginales
-
+## Efectos marginales {.unnumbered}
 En Probit y Logit, $\beta_j$ no es el efecto marginal. Hay que aplicar la regla de la cadena.
 
 **Caso 1: variable continua.** Sea $P(Y_i=1\mid X_i) = G(\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i})$. El efecto marginal de $X_1$:
@@ -8194,8 +8029,7 @@ $$\frac{\Delta P(Y_i=1\mid X_i)}{\Delta X_{1i}} = G(\beta_0 + \beta_1 + \beta_2 
 
 evaluada típicamente en $\bar{X}_2$.
 
-## Ejemplo aplicado: mortalidad por COVID-19
-
+## Ejemplo aplicado: mortalidad por COVID-19 {.unnumbered}
 Sea $Y = 1$ si el paciente murió de COVID-19. Las covariables:
 
 - $X_1$ = Edad (continua), $\bar{X}_1 = 55$ años.
@@ -8220,24 +8054,21 @@ $$\lambda(0.76) \approx 0.218 \quad\Rightarrow\quad \text{Efecto marginal} = 0.2
 
 Los dos modelos dan efectos marginales muy parecidos (2.3 pp vs 2.4 pp) aunque los $\hat{\beta}$ son distintos.
 
-## Términos de interacción y cuadráticos
-
+## Términos de interacción y cuadráticos {.unnumbered}
 **Interacción $X_1 \times X_2$.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2)$, el efecto marginal cruzado no es simplemente $\beta_3$: depende del nivel de las otras variables y de la densidad $g(\cdot)$ evaluada en el punto correspondiente.
 
 **Término cuadrático.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)$:
 
 $$\frac{\partial P(Y=1\mid X)}{\partial X_1} = g(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)(\beta_1 + 2\beta_2 X_1)$$
 
-## Comparación de los tres modelos
-
+## Comparación de los tres modelos {.unnumbered}
 Las magnitudes de los coeficientes no son comparables. Como referencia aproximada:
 
 $$\beta_{Logit} \approx 1.6 \cdot \beta_{Probit} \approx 4 \cdot \beta_{MPL}$$
 
 Pero los efectos parciales promedio suelen ser muy similares. La elección entre Probit y Logit rara vez cambia las conclusiones; la diferencia importante es entre MPL y los modelos no lineales.
 
-## Inferencia: prueba de razón de verosimilitudes (LR)
-
+## Inferencia: prueba de razón de verosimilitudes (LR) {.unnumbered}
 El estadístico:
 
 $$LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$$
@@ -8254,8 +8085,7 @@ $$LR = 2(-13580.409 - (-13616.76)) = 2 \cdot 36.351 = 72.70$$
 
 Bajo $H_0: \beta_{grade} = 0$, $LR \sim \chi^2_1$ — el valor crítico al 5% es 3.84, así que rechazamos con holgura. El `test grade` de Stata (test de Wald) da 72.46, casi idéntico al LR a mano: en muestras grandes los dos tests convergen.
 
-## Bondad de ajuste
-
+## Bondad de ajuste {.unnumbered}
 El $R^2$ tradicional no aplica en Probit y Logit. Las alternativas estándar:
 
 **McFadden $R^2$ (Pseudo-$R^2$ de Stata):**
@@ -8266,8 +8096,7 @@ donde $\ln L_0$ es la log-verosimilitud del modelo solo con intercepto. En el ej
 
 **Tabla de clasificación.** Clasificamos $\hat{Y}_i = 1$ si $\hat{P}(Y_i=1) > 0.5$ y comparamos con el $Y_i$ observado. La tasa de error con modelo se compara con la regla ingenua (predecir todo según la moda) para obtener un $R^2$ predictivo. En Stata se obtiene con `estat classification`.
 
-## Heterocedasticidad en modelos no lineales
-
+## Heterocedasticidad en modelos no lineales {.unnumbered}
 En MCO, la heterocedasticidad afecta la eficiencia del estimador pero no el sesgo. En Probit y Logit la cosa es muy distinta: la heterocedasticidad cambia la forma funcional del modelo.
 
 Considere el modelo de variable latente con error heterocedástico:
@@ -8280,8 +8109,7 @@ $$P(y_i=1\mid x_{i1}) = \Phi\left(\psi_0 \frac{1}{x_{i1}} + \psi_1\right)$$
 
 La forma funcional ha cambiado completamente. Si usted escribe $P(y_i=1\mid x_i) = \Phi(\psi_0 + \psi_1 x_{i1})$ ignorando la heterocedasticidad, estaría especificando mal el modelo. **Conclusión práctica:** en Probit y Logit, ignorar la heterocedasticidad no es solo un problema de errores estándar — produce estimadores inconsistentes. Si hay sospecha, hay que modelarla explícitamente con `hetprobit` en Stata.
 
-## Implementación en Stata
-
+## Implementación en Stata {.unnumbered}
 ```
 * Cargar datos
 use empleo.dta, clear
@@ -8311,8 +8139,7 @@ logit trabaja edad educ hijos, or   // odds ratios
 hetprobit trabaja edad educ hijos, het(edad)
 ```
 
-## Resumen de la clase
-
+## Resumen de la clase {.unnumbered}
 - El MPL es MCO sobre una $Y$ binaria. Simple e interpretable, pero predice fuera del rango admisible, genera heterocedasticidad por construcción e impone efectos parciales constantes. Use errores robustos siempre.
 - Probit y Logit modelan $P(Y=1\mid X) = G(X\beta)$ con $G$ una CDF acotada. Probit usa $\Phi$; Logit usa $\Lambda$. Estimación por máxima verosimilitud, resuelta por Newton-Raphson.
 - Los coeficientes $\beta_j$ no son los efectos marginales. Use `margins, dydx(*)`. El signo de $\beta_j$ sí corresponde al signo del efecto marginal.
@@ -8337,8 +8164,7 @@ Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver s
 
 <hr>
 
-## Parte I: Selección Múltiple {#parte-i-seleccion-multiple}
-
+## Parte I: Selección Múltiple {#parte-i-seleccion-multiple .unnumbered}
 **20 preguntas · 2 puntos en total**
 
 La escala de calificación asigna 2.00 pts con 17 correctas, hasta 1.06 pts con 9 correctas; por debajo de 9, proporcional.
@@ -8605,14 +8431,12 @@ La escala de calificación asigna 2.00 pts con 17 correctas, hasta 1.06 pts con 
 
 <hr>
 
-## Parte II: Preguntas Abiertas
-
+## Parte II: Preguntas Abiertas {.unnumbered}
 Responda la pregunta **obligatoria** y **una** de las dos opcionales.
 
 <hr>
 
-### Obligatoria — FWL con observación atípica (1.5 pts) {#obligatoria-fwl-con-observacion-atipica-15-pts}
-
+### Obligatoria — FWL con observación atípica (1.5 pts) {#obligatoria-fwl-con-observacion-atipica-15-pts .unnumbered}
 Un investigador quiere estimar el efecto de las **horas de estudio semanales** ($X$) sobre la **nota del parcial** ($Y$) en un curso de economía. Dispone de datos de $n = 5$ estudiantes. La observación 5 corresponde a un estudiante que entró al curso tarde y se comporta como un caso atípico, por lo que se define la variable ficticia:
 
 $$Z_i = \begin{cases} 1 & \text{si } i = 5 \\ 0 & \text{en otro caso} \end{cases}$$
@@ -8687,8 +8511,7 @@ Ambos métodos dan exactamente $\hat{\beta}_1=0.5$. **Interpretación:** "Contro
 
 <hr>
 
-### Opcional 1 — Transformaciones y formas funcionales (1.5 pts)
-
+### Opcional 1 — Transformaciones y formas funcionales (1.5 pts) {.unnumbered}
 Considere el modelo de regresión lineal simple $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, donde $y$ es el ingreso mensual (miles de pesos) y $x$ son los años de educación formal.
 
 **(1) — 0.4 pts. Transformación multiplicativa (notación matricial).**
@@ -8775,8 +8598,7 @@ Multiplicar $x$ por $c$ escala el estimador en $1/c$ y su error estándar tambi�
 
 <hr>
 
-### Opcional 2 — Insesgamiento y Gauss–Markov (1.5 pts)
-
+### Opcional 2 — Insesgamiento y Gauss–Markov (1.5 pts) {.unnumbered}
 Considere el modelo de regresión lineal múltiple $Y = X\beta + \varepsilon$, con $X$ de dimensión $n \times k$ y rango completo. Asuma los supuestos clásicos S1–S5.
 
 **(1) — 0.5 pts. Insesgamiento.**
@@ -8841,8 +8663,7 @@ Por el Teorema Central del Límite, $\hat{\beta}$ es asintóticamente normal aun
 
 <hr>
 
-### Bono (0.2 pts)
-
+### Bono (0.2 pts) {.unnumbered}
 Describa brevemente (5–7 líneas) un video relacionado con econometría o economía empírica que le haya llamado la atención durante el curso. Indique: (i) cuál era la pregunta de investigación, (ii) cómo cree que el autor identificó el efecto causal, y (iii) qué aprendió de él.
 
 <details><summary>🔑 Criterio de evaluación</summary><div class="sol-box">

@@ -11,8 +11,7 @@ Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver s
 
 <hr>
 
-## Parte I: Selección Múltiple {#parte-i-seleccion-multiple}
-
+## Parte I: Selección Múltiple {#parte-i-seleccion-multiple .unnumbered}
 **20 preguntas · 2 puntos en total**
 
 La escala de calificación asigna 2.00 pts con 17 correctas, hasta 1.06 pts con 9 correctas; por debajo de 9, proporcional.
@@ -279,14 +278,12 @@ La escala de calificación asigna 2.00 pts con 17 correctas, hasta 1.06 pts con 
 
 <hr>
 
-## Parte II: Preguntas Abiertas
-
+## Parte II: Preguntas Abiertas {.unnumbered}
 Responda la pregunta **obligatoria** y **una** de las dos opcionales.
 
 <hr>
 
-### Obligatoria — FWL con observación atípica (1.5 pts) {#obligatoria-fwl-con-observacion-atipica-15-pts}
-
+### Obligatoria — FWL con observación atípica (1.5 pts) {#obligatoria-fwl-con-observacion-atipica-15-pts .unnumbered}
 Un investigador quiere estimar el efecto de las **horas de estudio semanales** ($X$) sobre la **nota del parcial** ($Y$) en un curso de economía. Dispone de datos de $n = 5$ estudiantes. La observación 5 corresponde a un estudiante que entró al curso tarde y se comporta como un caso atípico, por lo que se define la variable ficticia:
 
 $$Z_i = \begin{cases} 1 & \text{si } i = 5 \\ 0 & \text{en otro caso} \end{cases}$$
@@ -361,8 +358,7 @@ Ambos métodos dan exactamente $\hat{\beta}_1=0.5$. **Interpretación:** "Contro
 
 <hr>
 
-### Opcional 1 — Transformaciones y formas funcionales (1.5 pts)
-
+### Opcional 1 — Transformaciones y formas funcionales (1.5 pts) {.unnumbered}
 Considere el modelo de regresión lineal simple $y_i = \beta_0 + \beta_1 x_i + \varepsilon_i$, donde $y$ es el ingreso mensual (miles de pesos) y $x$ son los años de educación formal.
 
 **(1) — 0.4 pts. Transformación multiplicativa (notación matricial).**
@@ -449,8 +445,7 @@ Multiplicar $x$ por $c$ escala el estimador en $1/c$ y su error estándar tambi�
 
 <hr>
 
-### Opcional 2 — Insesgamiento y Gauss–Markov (1.5 pts)
-
+### Opcional 2 — Insesgamiento y Gauss–Markov (1.5 pts) {.unnumbered}
 Considere el modelo de regresión lineal múltiple $Y = X\beta + \varepsilon$, con $X$ de dimensión $n \times k$ y rango completo. Asuma los supuestos clásicos S1–S5.
 
 **(1) — 0.5 pts. Insesgamiento.**
@@ -515,8 +510,7 @@ Por el Teorema Central del Límite, $\hat{\beta}$ es asintóticamente normal aun
 
 <hr>
 
-### Bono (0.2 pts)
-
+### Bono (0.2 pts) {.unnumbered}
 Describa brevemente (5–7 líneas) un video relacionado con econometría o economía empírica que le haya llamado la atención durante el curso. Indique: (i) cuál era la pregunta de investigación, (ii) cómo cree que el autor identificó el efecto causal, y (iii) qué aprendió de él.
 
 <details><summary>🔑 Criterio de evaluación</summary><div class="sol-box">

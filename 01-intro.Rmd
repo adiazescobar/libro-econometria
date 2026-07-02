@@ -49,26 +49,23 @@ theme_simple <- theme_bw() + theme(
 )
 ```
 
-### ¿Qué estudia la econometría? {#que-estudia-la-econometria}
-
+### ¿Qué estudia la econometría? {#que-estudia-la-econometria .unnumbered}
 La econometría es la herramienta que usamos para entender el mundo usando datos. Nos ayuda a responder preguntas como: ¿cuánto gana una persona según su nivel educativo? ¿Cómo influye la experiencia laboral en el salario? ¿Cuál es el impacto de una política pública sobre el empleo?
 
 Pero aquí hay un reto importante: casi nunca podemos observar a toda la población. En vez de eso, trabajamos con una muestra. Usamos esta muestra para hacer inferencias sobre cómo funciona el mundo real, ese que no podemos ver completamente. En este capítulo vamos a entender, paso a paso, por qué eso genera incertidumbre —y por qué esa incertidumbre es una parte inevitable (¡y valiosa!) del análisis econométrico.
 
 
-### El proceso generador de datos
-
+### El proceso generador de datos {.unnumbered}
 Supongamos que el salario de un individuo, \(y_i\), depende de forma lineal de su nivel educativo, \(x_i\):
 
 \[
 y_i \;=\; \beta_0 \;+\; \beta_1\,x_i \;+\; u_i,
 \]
 
-donde \(u_i\) recoge todo lo que **no** observamos (habilidad, contactos, suerte…).  
+donde \(u_i\) recoge todo lo que **no** observamos (habilidad, contactos, suerte…).
 A esta ecuación la llamaremos **Proceso Generador de Datos (PGD)** o **modelo poblacional**. El problema es que no podemos observar \(u_i\) porque es un término de error. Ni tenemos acceso a todos los individuos de la población.
 
-### ¿Qué hacemos entonces? {#que-hacemos-entonces}
-
+### ¿Qué hacemos entonces? {#que-hacemos-entonces .unnumbered}
 En la práctica, tomamos una muestra aleatoria de individuos y observamos sus salarios y años de educación \((y_i,\,x_i)\), el termino de error \(u_i\) permanece oculto.
 
 Con una muestra aleatoria de tamaño \(n\), estimamos los parámetros \(\beta_0\) y \(\beta_1\) de la siguiente manera:
@@ -83,8 +80,7 @@ Donde \(\hat{\beta}_0\) y \(\hat{\beta}_1\) son los estimadores de los parámetr
 
 Para entender todo esto mejor, vamos primero a enfocarnos en la muestra que tenemos y cómo podemos usarla para estimar el PGD. Luego veremos cómo la incertidumbre afecta nuestras estimaciones y por qué es importante.
 
-## Construimos una población de juguete {#construimos-una-poblacion-de-juguete}
-
+## Construimos una población de juguete {#construimos-una-poblacion-de-juguete .unnumbered}
 Para ilustrar el proceso generador de datos y la incertidumbre, vamos a crear una población de juguete. Esta población será un conjunto de 100 individuos con características específicas. Luego tomaremos muestras aleatorias de esta población y realizaremos regresiones para ver cómo se comportan nuestras estimaciones en comparación con el PGD real.
 
 Vamos a crear un mundo ficticio con 100 individuos. A cada uno le asignamos:
@@ -134,8 +130,7 @@ geom_point(color = "darkslategray", size = 8) +
 ```
 
 
-### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion}
-El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada. 
+### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion .unnumbered}El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada.
 
 ```{R, scatter1, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = x, y = y)) +
@@ -143,7 +138,7 @@ geom_abline(
   intercept = lm0$coefficients[1], slope = lm0$coefficients[2],
   color = red_pink, size = 3
 ) +
-geom_point(color = "darkslategray", size = 6) + 
+geom_point(color = "darkslategray", size = 6) +
   labs(
     title = "Grafica 2. Línea de regresión",
     subtitle = "Relación verdadera"
@@ -151,13 +146,13 @@ geom_point(color = "darkslategray", size = 6) +
 theme_empty
 ```
 
-Obtenemos que los coeficientes son muy similares a los que usamos para generar la población: 
+Obtenemos que los coeficientes son muy similares a los que usamos para generar la población:
 
 $$ y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i + u_i $$
 Esto significa que el modelo poblacional es:
 
 $$ y_i = \beta_0 + \beta_1 x_i + u_i $$
-Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a *todos* los egresados. Podemos estimar la relación entre $y$ y $x$ en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos: 
+Sin embargo, esa linea está fuera de nuestro alcance porque requeriría encuestar a *todos* los egresados. Podemos estimar la relación entre $y$ y $x$ en una muestra aleatoria de individuos. Comencemos tomando 30 graduados al azar de nuestro grupo de 100 individuos:
 
 ```{R, sample1, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = row, y = col, shape = s1)) +
@@ -182,7 +177,7 @@ geom_abline(
   intercept = lm1$coefficients[1], slope = lm1$coefficients[2],
   size = 2, linetype = 2, color = "black"
 ) +
-scale_shape_manual(values = c(1, 19))  + 
+scale_shape_manual(values = c(1, 19))  +
   labs(
     title = "Grafica 4. Línea de regresión",
     subtitle = "Relación Muestral"
@@ -200,12 +195,12 @@ $y_i = `r round(lm0$coefficients[1], 2)` + `r round(lm0$coefficients[2], 2)` x_i
 <br>
 $\hat{y}_i = `r round(lm1$coefficients[1], 2)` + `r round(lm1$coefficients[2], 2)` x_i$
 
-Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión. 
+Tomemos otros 30 individuos al azar de la población y veamos cómo se comporta la regresión.
 
 ```{R, sample2, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = row, y = col, shape = s2)) +
 geom_point(color = "darkslategray", size = 10) +
-scale_shape_manual(values = c(1, 19)) +  
+scale_shape_manual(values = c(1, 19)) +
   labs(
     title = "Grafica 5. Otros 30 individuos al azar",
   )+
@@ -287,7 +282,7 @@ Siguen siendo diferentes a los del modelo poblacional y también diferentes entr
 
 Ahora repitamos esto **10,000 veces**. Este ejercicio se conoce como Ejercicio de Monte Carlo. Vamos a tomar 10,000 muestras aleatorias de 30 individuos de nuestra población y estimar los coeficientes de regresión para cada muestra. Luego, graficaremos todas las líneas de regresión obtenidas para ver cómo se distribuyen en relación con la línea poblacional.
 
-¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos). 
+¿Lo interesante? Aunque cada recta individual es distinta, en promedio todas convergen hacia la recta verdadera (la primera que estimamos).
 
 ```{R, simulation scatter, echo = F, dev = "png", dpi = 300, cache = T}
 # Reshape sim_df
@@ -312,18 +307,16 @@ En resumen, en **promedio** las líneas de regresión se ajustan muy bien a la l
 
 Eso implica que cuando estimamos los coeficientes de regresión, no podemos estar seguros de que nuestros estimadores sean exactamente iguales a los parámetros poblacionales. En cambio, obtenemos estimaciones que son **variables aleatorias**. En otras palabras,  $\hat{\beta}$ en sí mismo es una variable aleatoria, dependiente de la muestra aleatoria. Cuando tomamos una muestra y realizamos una regresión, no sabemos si es una muestra 'buena' ( $\hat{\beta}$ está cerca de $\beta$) o una muestra 'mala' (nuestra muestra difiere significativamente de la población).
 
-Mantener un registro de esta incertidumbre es clave para el análisis econométrico. Nos permite entender la precisión de nuestras estimaciones y cómo podemos mejorar nuestro modelo. 
+Mantener un registro de esta incertidumbre es clave para el análisis econométrico. Nos permite entender la precisión de nuestras estimaciones y cómo podemos mejorar nuestro modelo.
 
 
-## ¿Y si mi muestra es mala?
-
-> ❓ **Pregunta del lector:**  
+## ¿Y si mi muestra es mala? {.unnumbered}
+> ❓ **Pregunta del lector:**
 > ¿Qué pasa si me toca una muestra mala? ¿Cómo lo sé? ¿Se puede hacer algo para reducir esa incertidumbre?
 
 Una *muestra mala* es una muestra que, por puro azar, no representa bien a la población. Esto puede pasar incluso si tomamos la muestra correctamente. En esos casos, los estimadores como $\hat{\beta}_1$ pueden estar lejos de su valor verdadero $\beta_1$, y nuestras conclusiones podrían ser engañosas.
 
-### ¿Cómo saber si me tocó una muestra mala? {#como-saber-si-me-toco-una-muestra-mala}
-
+### ¿Cómo saber si me tocó una muestra mala? {#como-saber-si-me-toco-una-muestra-mala .unnumbered}
 No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero hay señales que nos pueden alertar:
 
 - **Errores estándar grandes**: indican mucha variabilidad en la estimación.
@@ -331,54 +324,50 @@ No podemos saberlo con certeza, porque no conocemos la verdad poblacional. Pero 
 - **Signos o tamaños inesperados en los coeficientes**: pueden deberse a una muestra no representativa.
 - **Pruebas de diagnóstico del modelo**: pueden revelar si los supuestos no se cumplen (residuos no normales, heterocedasticidad, etc.).
 
-### ¿Se puede reducir la incertidumbre muestral?
-
+### ¿Se puede reducir la incertidumbre muestral? {.unnumbered}
 ¡Sí! Estas son algunas estrategias comunes:
 
-- **Aumentar el tamaño de la muestra ($n$)**   
+- **Aumentar el tamaño de la muestra ($n$)**
   Entre más observaciones, más cerca estará $\hat{\beta}$ de $\beta$ (por la ley de los grandes números).
 
-- **Mejorar el diseño muestral**  
+- **Mejorar el diseño muestral**
   Muestreos estratificados, por conglomerados o con pesos pueden hacer las estimaciones más precisas.
 
-- **Controlar por variables relevantes**  
+- **Controlar por variables relevantes**
   Incluir más covariables reduce la varianza al explicar mejor el comportamiento de $y$.
 
-- **Usar estimadores eficientes o robustos**  
+- **Usar estimadores eficientes o robustos**
   Si hay heterocedasticidad, los errores estándar robustos o el uso de métodos como MCO ponderado pueden mejorar la precisión.
 
 ---
 
-### ✅ La importancia de la fuente de los datos
-
+### ✅ La importancia de la fuente de los datos {.unnumbered}
 Una forma muy eficaz de minimizar el riesgo de una muestra sesgada es **usar datos de fuentes confiables y con buen diseño muestral**.
 
-> Por ejemplo, confiar en los datos del **DANE** en Colombia o de institutos nacionales de estadística en otros países es una práctica fundamental.  
-> Estas instituciones diseñan cuidadosamente sus encuestas (como la ECH, ENUT o ENDS) para asegurar que sean **representativas de la población**.  
+> Por ejemplo, confiar en los datos del **DANE** en Colombia o de institutos nacionales de estadística en otros países es una práctica fundamental.
+> Estas instituciones diseñan cuidadosamente sus encuestas (como la ECH, ENUT o ENDS) para asegurar que sean **representativas de la población**.
 > Si el muestreo está bien hecho desde el inicio, el margen de error se reduce y nuestras inferencias serán mucho más confiables.
 
 ---
 
-> 💡 **Mensaje clave:**  
+> 💡 **Mensaje clave:**
 > La incertidumbre **no es un error**: es una característica natural del trabajo con datos. Lo importante no es eliminarla, sino **medirla bien, comunicarla con claridad y tenerla en cuenta al tomar decisiones**.
 
 
 
-## ¿Y si mantengo fija la muestra?
-
+## ¿Y si mantengo fija la muestra? {.unnumbered}
 Hasta ahora nos enfocamos en la incertidumbre que surge por el azar de la muestra. Ahora exploramos otra fuente igual de importante: la variabilidad del término de error , incluso si la muestra es fija.
 
 Hasta ahora vimos que la incertidumbre puede surgir del hecho de que trabajamos con una **muestra**: cada subconjunto aleatorio de la población genera estimadores ligeramente diferentes.
 
 Pero hay una **segunda fuente de incertidumbre**: el **término de error \(u_i\)**.
 
-### Recordemos el modelo:
-
+### Recordemos el modelo: {.unnumbered}
 \[
 y_i = \beta_0 + \beta_1 x_i + u_i
 \]
 
-Aunque tuviéramos **toda la población** (o una muestra perfecta), no podríamos **predecir perfectamente \(y_i\)** porque el valor de \(u_i\) sigue siendo desconocido. 
+Aunque tuviéramos **toda la población** (o una muestra perfecta), no podríamos **predecir perfectamente \(y_i\)** porque el valor de \(u_i\) sigue siendo desconocido.
 
 El termino de error \(u_i\) representa **todo lo que influye en \(y_i\)** pero **no está capturado por \(x_i\)**. Por ejemplo, en un modelo donde \(y_i\) es el salario y \(x_i\) es la educación:
 
@@ -407,7 +396,7 @@ geom_abline(
   size = 2, linetype = 2, color = "black"
 ) +
 scale_shape_manual(values = c(1, 19)) +
-  
+
   labs(
     title = "Grafica 6. Efecto del término de error",
     subtitle = "Dispersión de los valores observados"
@@ -416,7 +405,7 @@ scale_shape_manual(values = c(1, 19)) +
 ```
 
 
-Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán **dispersas alrededor de la recta poblacional**. 
+Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión, pero todas estarán **dispersas alrededor de la recta poblacional**.
 
 Vamos a hacer lo siguiente:
 
@@ -460,9 +449,8 @@ theme_empty
 Aquí vemos que, aunque la muestra es fija, las rectas de regresión se dispersan alrededor de la recta poblacional. Esto es porque el término de error \(u_i\) introduce variabilidad en los valores de \(y_i\).
 
 
-### ☝️ Una aclaración importante sobre el insesgamiento {#una-aclaracion-importante-sobre-el-insesgamiento}
-
-Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión. 
+### ☝️ Una aclaración importante sobre el insesgamiento {#una-aclaracion-importante-sobre-el-insesgamiento .unnumbered}
+Al repetir el proceso de muestreo muchas veces, cada muestra tendrá su propia recta de regresión.
 
 Pero **ojo**: aunque esas rectas se vean "alrededor" de la recta poblacional en nuestras simulaciones, **esto no siempre ocurre en la vida real**.
 
@@ -475,15 +463,14 @@ Por ejemplo:
 
 ---
 
-### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)? {#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1}
-
-Cuando se cumplen los **supuestos del modelo clásico de regresión lineal**, en particular exogeneidad estricta o **independencia del término de error \(u_i\)** respecto a las variables explicativas \(x_i\). En algunos libros se conoce como esperanza condicional igual cero:  
+### 🎯 ¿Cuándo es cierto que nuestras estimaciones "se agrupan" alrededor del verdadero \(\beta_1\)? {#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1 .unnumbered}
+Cuando se cumplen los **supuestos del modelo clásico de regresión lineal**, en particular exogeneidad estricta o **independencia del término de error \(u_i\)** respecto a las variables explicativas \(x_i\). En algunos libros se conoce como esperanza condicional igual cero:
   \[
   \mathbb{E}[u_i \mid x_i] = 0
   \]
 
 
-> 🔁 **Si este supuestos se cumplen**, entonces nuestro estimador de Mínimos Cuadrados Ordinarios (MCO) es **insesgado**:  
+> 🔁 **Si este supuestos se cumplen**, entonces nuestro estimador de Mínimos Cuadrados Ordinarios (MCO) es **insesgado**:
 > \[
 > \mathbb{E}[\hat{\beta}_1] = \beta_1
 > \]
@@ -492,31 +479,29 @@ Es decir, **si repitiéramos el experimento de muestreo muchas veces**, el **pro
 
 Pero si **no se cumplen**, como veremos más adelante, podemos tener:
 
-- Estimadores sesgados  
-- Estimadores inconsistentes  
+- Estimadores sesgados
+- Estimadores inconsistentes
 - Intervalos de confianza y pruebas de hipótesis inválidos
 
 ---
 
-### 💬 Entonces, ¿las simulaciones que hicimos son “realistas”?
-
+### 💬 Entonces, ¿las simulaciones que hicimos son “realistas”? {.unnumbered}
 Sí... **bajo los supuestos del modelo clásico**. En nuestras simulaciones controlamos todo: sabemos exactamente cómo se genera \(y_i\), y aseguramos que \(u_i\) sea independiente de \(x_i\). Por eso nuestras estimaciones tienden a agruparse cerca de la recta poblacional.
 
 Pero en el mundo real, los datos no vienen con etiqueta de “supuestos cumplidos”.
 
-> Por eso uno de los grandes desafíos del análisis econométrico es **diagnosticar y justificar** si los supuestos se cumplen.  
+> Por eso uno de los grandes desafíos del análisis econométrico es **diagnosticar y justificar** si los supuestos se cumplen.
 > Y si no se cumplen, buscar soluciones: variables instrumentales, variables omitidas, diseños cuasiexperimentales, diseños experimentales, etc.
 
 
-> 💡 **Conclusión clave:**  
-> El término de error no desaparece, incluso cuando tenemos una muestra grande o bien diseñada.  
-> Por eso, cualquier estimación puntual (\( \hat{\beta}_1 \)) debe ir acompañada de una **medida de incertidumbre**, como el **error estándar** o un **intervalo de confianza**.  
+> 💡 **Conclusión clave:**
+> El término de error no desaparece, incluso cuando tenemos una muestra grande o bien diseñada.
+> Por eso, cualquier estimación puntual (\( \hat{\beta}_1 \)) debe ir acompañada de una **medida de incertidumbre**, como el **error estándar** o un **intervalo de confianza**.
 > Esto nos prepara para el siguiente paso: la inferencia estadística.
 
 <div class="box-repaso">
 
-## 📘 Preguntas de repaso
-
+## 📘 Preguntas de repaso {.unnumbered}
 1. ¿Qué diferencia hay entre el modelo poblacional y el modelo muestral? ¿Cuál de los dos observamos y cuál inferimos?
 
 2. ¿Por qué decimos que el término de error \(u_i\) es una fuente de incertidumbre, incluso si la muestra está fija?
