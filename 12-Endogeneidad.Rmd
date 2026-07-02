@@ -1,6 +1,6 @@
 # Endogeneidad {#endogeneidad}
 
-## Violación de la exogeneidad estricta {-}
+## Violación de la exogeneidad estricta
 
 El supuesto fundamental de MCO es que los regresores son exógenos: $E(\varepsilon_i \mid X) = 0$. Cuando este supuesto se viola, existe al menos una variable explicativa $X_j$ correlacionada con el error:
 
@@ -20,7 +20,7 @@ $$Cov(\varepsilon_i, X) = E(X\varepsilon_i) - E(X)E(\varepsilon_i) \neq 0$$
 
 * * *
 
-## Causas de la endogeneidad {-}
+## Causas de la endogeneidad
 
 Hay tres fuentes principales de endogeneidad:
 
@@ -30,7 +30,7 @@ Hay tres fuentes principales de endogeneidad:
 
 * * *
 
-## 1. Variables omitidas {-}
+## 1. Variables omitidas
 
 Supongamos que el modelo correcto es:
 
@@ -54,7 +54,7 @@ El problema surge cuando queremos controlar por variables adicionales pero, por 
 
 * * *
 
-## 2. Error de medición {-}
+## 2. Error de medición
 
 Muchas veces no observamos el valor verdadero de una variable sino una medida imperfecta. Causas comunes:
 
@@ -63,7 +63,7 @@ Muchas veces no observamos el valor verdadero de una variable sino una medida im
 - Problemas de memoria (¿cuánto ganó el año pasado?)
 - Preguntas ambiguas o respuestas falsas
 
-### Error en la variable dependiente {-}
+### Error en la variable dependiente
 
 Si $y^* = X\beta + \varepsilon$ es el modelo correcto pero observamos $y^* = y + w$ (con $w \sim iid(0, \sigma_w^2)$, $Cov(w,\varepsilon)=0$, $Cov(w,X)=0$), entonces:
 
@@ -76,7 +76,7 @@ El nuevo error $\mu = \varepsilon - w$ tiene:
 
 **Consecuencia:** MCO sigue siendo insesgado y consistente, pero **pierde eficiencia**.
 
-### Error en las variables independientes {-}
+### Error en las variables independientes
 
 Si el modelo correcto usa $X^*$ pero observamos $X^* = X + w$:
 
@@ -113,7 +113,7 @@ Este resultado se conoce como **sesgo de atenuación**: independientemente del s
 
 * * *
 
-## 3. Simultaneidad {-}
+## 3. Simultaneidad
 
 La teoría económica sugiere que dos o más variables se determinan simultáneamente. Ejemplos:
 
@@ -148,7 +148,7 @@ $$E(\hat{\alpha}_1) = \alpha_1 - \frac{Var(u_i)}{(\alpha_1 - \beta_1)Var(p_i)}$$
 
 * * *
 
-## Resumen {-}
+## Resumen
 
 | Causa | Fuente de $Cov(\varepsilon, X) \neq 0$ | ¿MCO sesgado? | ¿MCO consistente? |
 |-------|---------------------------------------|---------------|-------------------|
@@ -160,7 +160,7 @@ En todos los casos, la solución general son las **Variables Instrumentales** (C
 
 * * *
 
-## Lecturas recomendadas {-}
+## Lecturas recomendadas
 
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5
 - **Wooldridge (2010)** — *Econometric Analysis of Cross Section and Panel Data*, Cap. 5

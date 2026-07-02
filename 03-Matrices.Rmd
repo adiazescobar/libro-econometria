@@ -2,7 +2,7 @@
 
 Antes de introducir los supuestos fundamentales del modelo de regresión lineal, es importante repasar algunos conceptos clave del álgebra matricial. Este lenguaje permite expresar de forma compacta y elegante muchos de los resultados econométricos, facilitando la comprensión de los modelos lineales y sus propiedades.
 
-## Matrices {-}
+## Matrices
 
 Una **matriz** \( A \in \mathbb{R}^{m \times n} \) es un conjunto de elementos \( a_{ij} \), donde \( i = 1, \ldots, m \) (filas) y \( j = 1, \ldots, n \) (columnas), organizados de la siguiente manera:
 
@@ -32,7 +32,7 @@ B =
 
 es una matriz **rectangular** de orden \( 2 \times 3 \). Tiene 2 filas y 3 columnas. El elemento en la fila 2 y columna 3 es \( b_{23} = 5 \).
 
-### Traspuesta de una matriz {-}
+### Traspuesta de una matriz
 
 La **traspuesta** de una matriz \( A = [a_{ij}] \) de dimensión \( m \times n \) es otra matriz \( A' = [a_{ji}] \) de dimensión \( n \times m \), obtenida al intercambiar filas por columnas. Es decir, la primera fila de \( A \) se convierte en la primera columna de \( A' \), la segunda fila en la segunda columna, y así sucesivamente.
 
@@ -72,7 +72,7 @@ A' =
 Esta nueva matriz es de orden \( 4 \times 3 \).
 
 
-## Vectores {-}
+## Vectores
 
 Un **vector columna** es una matriz de orden \( m \times 1 \), es decir, una matriz que solo tiene una columna:
 
@@ -109,7 +109,7 @@ La **traspuesta** de un vector columna es un vector fila, y viceversa. En línea
 \quad \text{su traspuesta es } \mathbf{v}' = \begin{pmatrix} 2 & -1 & 4 \end{pmatrix}
 \]
 
-### Producto escalar {-}
+### Producto escalar
 
 **Definición.** Sean \( \mathbf{a} = (a_1, \ldots, a_m)' \) y \( \mathbf{b} = (b_1, \ldots, b_m)' \) dos vectores columna del mismo orden \( m \times 1 \), su **producto escalar** es:
 
@@ -123,7 +123,7 @@ La **traspuesta** de un vector columna es un vector fila, y viceversa. En línea
 \mathbf{a}'\mathbf{b} = 1 \cdot 4 + 2 \cdot 5 + 3 \cdot 6 = 4 + 10 + 18 = 32
 \]
 
-### Norma y normalización {-} {#norma-y-normalizacion}
+### Norma y normalización {#norma-y-normalizacion}
 
 **Definición.** La **norma** de un vector \( \mathbf{x} \) se define como:
 
@@ -137,7 +137,7 @@ El vector **normalizado** es:
 \frac{\mathbf{x}}{\|\mathbf{x}\|}
 \]
 
-### Ortogonalidad {-}
+### Ortogonalidad
 
 **Definición.** Dos vectores \( \mathbf{a} \) y \( \mathbf{b} \) son **ortogonales** (se denota \( \mathbf{a} \perp \mathbf{b} \)) si:
 
@@ -150,9 +150,9 @@ El vector **normalizado** es:
 \bar{y} = \frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{i}}
 \]
 
-## Operaciones con matrices {-}
+## Operaciones con matrices
 
-### Igualdad de matrices  {-}
+### Igualdad de matrices
 
 Dos matrices \( A = [a_{ij}] \) y \( B = [b_{ij}] \) de igual orden \( m \times n \) son **iguales** si:
 
@@ -160,7 +160,7 @@ Dos matrices \( A = [a_{ij}] \) y \( B = [b_{ij}] \) de igual orden \( m \times 
 a_{ij} = b_{ij}, \quad \text{para todo } i = 1, \ldots, m; \; j = 1, \ldots, n
 \]
 
-### Suma y resta de matrices  {-}
+### Suma y resta de matrices
 
 La **suma** de dos matrices del mismo orden es la matriz \( C = A + B = [c_{ij}] \) donde:
 
@@ -205,7 +205,7 @@ A + B =
 **Resta:** se define como \( A - B = A + (-B) \)
 
 
-### Multiplicación por un escalar  {-} {#multiplicacion-por-un-escalar}
+### Multiplicación por un escalar {#multiplicacion-por-un-escalar}
 
 \[
 \lambda A = [\lambda a_{ij}]
@@ -223,7 +223,7 @@ A + B =
 \]
 
 
-### Multiplicación de matrices  {-} {#multiplicacion-de-matrices}
+### Multiplicación de matrices {#multiplicacion-de-matrices}
 
 Sean \( A \in \mathbb{R}^{m \times n} \) y \( B \in \mathbb{R}^{n \times p} \), el producto \( AB \in \mathbb{R}^{m \times p} \) se define por:
 
@@ -266,7 +266,7 @@ F = A B' =
 \]
 
 
-### Transposición de matrices  {-} {#transposicion-de-matrices}
+### Transposición de matrices {#transposicion-de-matrices}
 
 Ya definida en la sección anterior. Propiedades clave:
 
@@ -276,7 +276,7 @@ Ya definida en la sección anterior. Propiedades clave:
 
 
 
-### Traza de una matriz  {-}
+### Traza de una matriz
 
 La **traza** de una matriz cuadrada es la suma de los elementos de su diagonal principal:
 
@@ -297,7 +297,7 @@ La **traza** de una matriz cuadrada es la suma de los elementos de su diagonal p
 \]
 
 
-## Determinantes  {-}
+## Determinantes
 
 Para matrices cuadradas \( A \in \mathbb{R}^{n \times n} \), el **determinante** se denota \( |A| \).
 
@@ -332,7 +332,7 @@ G =
 \]
 
 
-## Matriz inversa  {-}
+## Matriz inversa
 
 Una matriz cuadrada \( A \) es **invertible** si existe \( A^{-1} \) tal que:
 
@@ -366,7 +366,7 @@ G^{-1} = \frac{1}{-6}
 \]
 
 
-## Rango de una matriz  {-}
+## Rango de una matriz
 
 El **rango** de una matriz es el número máximo de filas (o columnas) linealmente independientes.
 
@@ -382,7 +382,7 @@ El **rango** de una matriz es el número máximo de filas (o columnas) linealmen
 3. \( \text{rang}(A) = \text{rang}(A A') = \text{rang}(A' A) \)
 
 
-## Sistemas de ecuaciones lineales  {-}
+## Sistemas de ecuaciones lineales
 
 Un **sistema de ecuaciones lineales** con \( m \) ecuaciones y \( n \) incógnitas se puede escribir de la forma:
 
@@ -429,7 +429,7 @@ b_m
 \end{pmatrix}
 \]
 
-### Sistema de Cramer {-}
+### Sistema de Cramer
 
 **Definición.** Un sistema de ecuaciones lineales se denomina **sistema de Cramer** si:
 
@@ -537,13 +537,13 @@ x_1 = 19, \quad x_2 = 8
 Este procedimiento es válido siempre que la matriz \( A \) sea cuadrada y su determinante no sea cero. Si \( |A| = 0 \), el sistema no tiene solución única: puede ser incompatible o tener infinitas soluciones.
 
 
-## Matrices cuadradas especiales {-}
+## Matrices cuadradas especiales
 
 Las siguientes matrices cuadradas tienen propiedades estructurales claves que facilitan el desarrollo de métodos econométricos.
 
 
 
-### 1. Matriz diagonal {-}
+### 1. Matriz diagonal
 
 Una **matriz diagonal** \( A = [a_{ij}] \in \mathbb{R}^{m \times m} \) tiene ceros fuera de la diagonal principal:
 
@@ -560,7 +560,7 @@ a_{11} & 0 & \cdots & 0 \\
 
 
 
-### 2. Matriz identidad {-}
+### 2. Matriz identidad
 
 La **matriz identidad** \( I_m \) es una matriz diagonal con unos en la diagonal:
 
@@ -577,7 +577,7 @@ I_m =
 Propiedades: \( AI_m = I_mA = A \), \( I_m^{-1} = I_m \)
 
 
-### 3. Matriz escalar {-}
+### 3. Matriz escalar
 
 Una **matriz escalar** es una matriz diagonal cuyos elementos en la diagonal son iguales a un mismo número \( \lambda \):
 
@@ -586,7 +586,7 @@ A = \lambda I_m
 \]
 
 
-### 4. Matriz triangular inferior {-}
+### 4. Matriz triangular inferior
 
 Una **matriz triangular inferior** cumple:
 
@@ -606,7 +606,7 @@ a_{m1} & a_{m2} & \cdots & a_{mm}
 
 
 
-### 5. Matriz nula {-}
+### 5. Matriz nula
 
 La **matriz nula** tiene todos sus elementos iguales a cero:
 
@@ -621,7 +621,7 @@ La **matriz nula** tiene todos sus elementos iguales a cero:
 \]
 
 
-### 6. Matriz simétrica {-} {#6-matriz-simetrica}
+### 6. Matriz simétrica {#6-matriz-simetrica}
 
 Una matriz \( A \in \mathbb{R}^{m \times m} \) es **simétrica** si:
 
@@ -631,7 +631,7 @@ A = A' \quad \text{es decir, } a_{ij} = a_{ji}
 
 
 
-### 7. Matriz idempotente {-}
+### 7. Matriz idempotente
 
 Una matriz \( A \) es **idempotente** si:
 
@@ -652,7 +652,7 @@ Cumple:
 
 
 
-### 8. Matriz ortogonal {-}
+### 8. Matriz ortogonal
 
 Una matriz \( Q \) es **ortogonal** si:
 
@@ -664,11 +664,11 @@ Q'Q = QQ' = I
 Sus columnas (y filas) son vectores ortonormales.
 
 
-### 9. Matrices de proyección: \( P \) y \( M \) {-} {#9-matrices-de-proyeccion-p-y-m}
+### 9. Matrices de proyección: \( P \) y \( M \) {#9-matrices-de-proyeccion-p-y-m}
 
 En regresión lineal, dos matrices juegan un rol fundamental:
 
-#### a) Matriz de proyección sobre el espacio columna de \( X \): {-} {#a-matriz-de-proyeccion-sobre-el-espacio-columna-de-x}
+#### a) Matriz de proyección sobre el espacio columna de \( X \): {#a-matriz-de-proyeccion-sobre-el-espacio-columna-de-x}
 
 \[
 P = X(X'X)^{-1}X'
@@ -678,7 +678,7 @@ P = X(X'X)^{-1}X'
 - **Simétrica:** \( P' = P \)
 - Proyecta cualquier vector \( y \) sobre el espacio generado por las columnas de \( X \): \( \hat{y} = P y \)
 
-#### b) Matriz de aniquilación o proyección ortogonal: {-} {#b-matriz-de-aniquilacion-o-proyeccion-ortogonal}
+#### b) Matriz de aniquilación o proyección ortogonal: {#b-matriz-de-aniquilacion-o-proyeccion-ortogonal}
 
 \[
 M = I - P
@@ -697,9 +697,9 @@ y = \hat{y} + e = P y + M y
 donde \( \hat{y} \) es la parte explicada por \( X \), y \( e \) es la parte no explicada (residuos).
 
 
-## Derivadas de una función multidimensional {-} {#derivadas-de-una-funcion-multidimensional}
+## Derivadas de una función multidimensional {#derivadas-de-una-funcion-multidimensional}
 
-### Derivadas de una forma lineal {-}
+### Derivadas de una forma lineal
 
 Sea la **forma lineal** \( \mathbf{a}'\mathbf{x} = a_1x_1 + a_2x_2 + \cdots + a_nx_n \), una función escalar de \( n \) variables independientes \( x_1, \ldots, x_n \). 
 
@@ -740,7 +740,7 @@ a_1 & a_2 & \cdots & a_n
 \]
 
 
-### Derivadas de una forma cuadrática {-} {#derivadas-de-una-forma-cuadratica}
+### Derivadas de una forma cuadrática {#derivadas-de-una-forma-cuadratica}
 
 Sea la **forma cuadrática** \( \mathbf{x}'A\mathbf{x} \), donde \( A \) es una matriz simétrica. Esta puede escribirse como:
 
@@ -760,7 +760,7 @@ Esto es, un vector columna cuya i-ésima componente es:
 \frac{\partial (\mathbf{x}'A\mathbf{x})}{\partial x_i} = 2(a_{i1}x_1 + a_{i2}x_2 + \cdots + a_{in}x_n)
 \]
 
-### Derivadas de segundo orden (matriz Hessiana) {-}
+### Derivadas de segundo orden (matriz Hessiana)
 
 La derivada segunda de \( \mathbf{x}'A\mathbf{x} \) con respecto a \( x_i \) es:
 
@@ -782,14 +782,14 @@ La **matriz de segundas derivadas** (Hessiana) es:
 
 
 
-### Resumen {-}
+### Resumen
 
 - Derivada de forma lineal: \( \frac{\partial (\mathbf{a}'\mathbf{x})}{\partial \mathbf{x}} = \mathbf{a} \)
 - Derivada de forma cuadrática: \( \frac{\partial (\mathbf{x}'A\mathbf{x})}{\partial \mathbf{x}} = 2A\mathbf{x} \)
 - Matriz Hessiana: \( \frac{\partial^2 (\mathbf{x}'A\mathbf{x})}{\partial \mathbf{x} \partial \mathbf{x}'} = 2A \)
 
 
-## 📘 Preguntas de repaso {-}
+## 📘 Preguntas de repaso
 
 1. Sea \( \mathbf{i} = (1, 1, \ldots, 1)' \) un vector \( m \times 1 \) de unos. Calcule \( \mathbf{i}'\mathbf{i} \).
 2. Sean \( \mathbf{i} = (1, \ldots, 1)' \) y \( \mathbf{y} = (y_1, \ldots, y_m)' \). Calcule \( \mathbf{i}'\mathbf{y} \).

@@ -1,6 +1,6 @@
 # Variables Instrumentales {#iv}
 
-## La idea: un instrumento como fuente de variación exógena {-}
+## La idea: un instrumento como fuente de variación exógena
 
 Cuando existe endogeneidad ($Cov(\varepsilon, X) \neq 0$), necesitamos una fuente de variación en $X$ que sea exógena — es decir, que no esté correlacionada con $\varepsilon$. Eso es exactamente lo que hace una **variable instrumental** $Z$.
 
@@ -8,7 +8,7 @@ La intuición del estimador de variables instrumentales: dado que $X$ causa $Y$ 
 
 * * *
 
-## Condiciones del instrumento {-}
+## Condiciones del instrumento
 
 Una variable instrumental $Z$ debe cumplir dos condiciones:
 
@@ -24,7 +24,7 @@ El instrumento sí está correlacionado con la variable endógena. Esta condici�
 
 * * *
 
-## El estimador de Variables Instrumentales (IV) {-}
+## El estimador de Variables Instrumentales (IV)
 
 Sea $Z_{n \times r}$ la matriz de $r$ variables instrumentales y $X_{n \times k}$ la matriz de $k$ variables endógenas.
 
@@ -48,7 +48,7 @@ Es la variación en $Y$ atribuida a $Z$, dividida entre la variación en $X$ atr
 
 * * *
 
-## Propiedades del estimador IV {-}
+## Propiedades del estimador IV
 
 | Propiedad | Resultado |
 |-----------|-----------|
@@ -66,13 +66,13 @@ La validez del instrumento ($E[Z'\varepsilon] = 0$) garantiza la consistencia, a
 
 * * *
 
-## Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS) {-}
+## Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS)
 
 Cuando $r > k$ (modelo **sobreidentificado**: más instrumentos que variables endógenas), no podemos usar el estimador IV directamente. El estimador MCO2E generaliza el IV usando la proyección de $X$ sobre todos los instrumentos.
 
 Sea $P_Z = Z(Z'Z)^{-1}Z'$ la matriz de proyección sobre el espacio de $Z$.
 
-### Primera etapa {-}
+### Primera etapa
 
 Estimar $\hat{\delta}$ de la regresión de $X$ sobre $Z$:
 
@@ -82,7 +82,7 @@ Calcular los valores ajustados:
 
 $$\hat{X} = Z\hat{\delta} = Z(Z'Z)^{-1}Z'X = P_Z X$$
 
-### Segunda etapa {-}
+### Segunda etapa
 
 Reemplazar $X$ por $\hat{X}$ en la ecuación principal y estimar:
 
@@ -105,7 +105,7 @@ Por eso, MCO2E se puede usar siempre — esté el modelo exactamente identificad
 
 * * *
 
-## Ejemplos clásicos {-}
+## Ejemplos clásicos
 
 **1. Angrist & Krueger (1991) — Retornos a la educación**
 
@@ -130,7 +130,7 @@ Problemas: omisión de habilidad + IQ medido con error → MCO2E con instrumento
 
 * * *
 
-## Implementación en Stata {-}
+## Implementación en Stata
 
 ```stata
 * MCO (sesgado si hay endogeneidad)
@@ -155,7 +155,7 @@ ivreg2 y controls (x1 = z1 z2), robust first
 
 * * *
 
-## Instrumentos débiles {-}
+## Instrumentos débiles
 
 Un instrumento es **débil** cuando $Cov(Z, X)$ es pequeña — el instrumento explica poco de la variación en $X$.
 
@@ -185,7 +185,7 @@ estat firststage
 
 * * *
 
-## Test de Hausman (endogeneidad) {-}
+## Test de Hausman (endogeneidad)
 
 El **test de Hausman** compara MCO e IV. La hipótesis nula es que MCO e IV producen estimadores similares — es decir, que NO hay endogeneidad.
 
@@ -213,7 +213,7 @@ estat endogenous
 
 * * *
 
-## Test de Sargan (sobreidentificación) {-}
+## Test de Sargan (sobreidentificación)
 
 Cuando el modelo está **sobreidentificado** ($r > k$: más instrumentos que variables endógenas), es posible probar si los instrumentos adicionales son exógenos.
 
@@ -245,7 +245,7 @@ estat overid
 
 * * *
 
-## Método Generalizado de Momentos (MGM/GMM) {-}
+## Método Generalizado de Momentos (MGM/GMM)
 
 El estimador IV y MCO2E son casos especiales del **Método Generalizado de Momentos** (MGM). La condición de exogeneidad de los instrumentos implica:
 
@@ -293,7 +293,7 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 
 * * *
 
-## Lecturas recomendadas {-}
+## Lecturas recomendadas
 
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5 — tratamiento completo de IV, MCO2E y GMM
 - **Angrist & Pischke (2009)** — *Mostly Harmless Econometrics*, Cap. 4 — enfoque de programa de evaluación
