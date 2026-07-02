@@ -909,7 +909,9 @@ geom_point(color = "darkslategray", size = 8) +
 ```
 
 
-### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion .unnumbered}El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada.
+### La relación verdadera en la población {#la-relacion-verdadera-en-la-poblacion .unnumbered}
+
+El modelo poblacional que usamos, es decir el PGD, es: $y = 3 + 0.5x$: Así que en promedio los salarios de los individuos aumentan en 0.5 por cada año adicional de educación. Esta es la verdad de nuestra población simulada.
 
 ```{R, scatter1, echo = F, fig.fullwidth = T, dev = "svg"}
 ggplot(data = pop_df, aes(x = x, y = y)) +

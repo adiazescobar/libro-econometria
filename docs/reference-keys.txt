@@ -38,7 +38,6 @@ fig:grafico-vif-multico
 tab:comparacion-se-multico
 thm:unlabeled-div-1
 repaso
-la-relación-verdadera-en-la-población-la-relacion-verdadera-en-la-poblacion-.unnumberedel-modelo-poblacional-que-usamos-es-decir-el-pgd-es-y-3-0.5x-así-que-en-promedio-los-salarios-de-los-individuos-aumentan-en-0.5-por-cada-año-adicional-de-educación.-esta-es-la-verdad-de-nuestra-población-simulada.
 regresion-lineal-teoria
 objetivos-regresion-lineal-teoria
 intuicion-regresion-lineal
