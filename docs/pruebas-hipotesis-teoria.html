@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 14 Pruebas de hipótesis: teoría | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 14 Pruebas de hipótesis: teoría | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 14 Pruebas de hipótesis: teoría | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="propiedades-mco-practica.html"/>
+<link rel="next" href="pruebas-hipotesis-practica.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Información general {-}</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#descripcion-del-curso"><i class="fa fa-check"></i><b>1.1</b> Descripción del curso {-}</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#material-bibliografico"><i class="fa fa-check"></i><b>1.2</b> Material bibliográfico {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libro-obligatorio"><i class="fa fa-check"></i>Libro obligatorio</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#libros-recomendados"><i class="fa fa-check"></i>Libros recomendados</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#evaluacion"><i class="fa fa-check"></i><b>1.3</b> Evaluación {-}</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#programa-semanal"><i class="fa fa-check"></i>Programa semanal</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#recursos-adicionales"><i class="fa fa-check"></i>Recursos adicionales</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#inclusion"><i class="fa fa-check"></i><b>1.4</b> Inclusión {-}</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#integridad-academica"><i class="fa fa-check"></i><b>1.5</b> Integridad académica {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#puntaje-automatico"><i class="fa fa-check"></i>Puntaje (automatico)</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#recursos-para-repasar"><i class="fa fa-check"></i>Recursos para Repasar</a>
+<ul>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html#consejos-para-econometria-ii"><i class="fa fa-check"></i>Consejos para Econometria II</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>2</b> Repaso</a>
+<ul>
+<li class="chapter" data-level="2.0.1" data-path="repaso.html"><a href="repaso.html#que-estudia-la-econometria"><i class="fa fa-check"></i><b>2.0.1</b> ¿Qué estudia la econometría? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#el-proceso-generador-de-datos"><i class="fa fa-check"></i>El proceso generador de datos</a></li>
+<li class="chapter" data-level="2.0.2" data-path="repaso.html"><a href="repaso.html#que-hacemos-entonces"><i class="fa fa-check"></i><b>2.0.2</b> ¿Qué hacemos entonces? {-}</a></li>
+<li class="chapter" data-level="2.1" data-path="repaso.html"><a href="repaso.html#construimos-una-poblacion-de-juguete"><i class="fa fa-check"></i><b>2.1</b> Construimos una población de juguete {-}</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="repaso.html"><a href="repaso.html#la-relacion-verdadera-en-la-poblacion"><i class="fa fa-check"></i><b>2.1.1</b> La relación verdadera en la población {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mi-muestra-es-mala"><i class="fa fa-check"></i>¿Y si mi muestra es mala?</a>
+<ul>
+<li class="chapter" data-level="2.1.2" data-path="repaso.html"><a href="repaso.html#como-saber-si-me-toco-una-muestra-mala"><i class="fa fa-check"></i><b>2.1.2</b> ¿Cómo saber si me tocó una muestra mala? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#se-puede-reducir-la-incertidumbre-muestral"><i class="fa fa-check"></i>¿Se puede reducir la incertidumbre muestral?</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#la-importancia-de-la-fuente-de-los-datos"><i class="fa fa-check"></i>✅ La importancia de la fuente de los datos</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#y-si-mantengo-fija-la-muestra"><i class="fa fa-check"></i>¿Y si mantengo fija la muestra?</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#recordemos-el-modelo"><i class="fa fa-check"></i>Recordemos el modelo:</a></li>
+<li class="chapter" data-level="2.1.3" data-path="repaso.html"><a href="repaso.html#una-aclaracion-importante-sobre-el-insesgamiento"><i class="fa fa-check"></i><b>2.1.3</b> ☝️ Una aclaración importante sobre el insesgamiento {-}</a></li>
+<li class="chapter" data-level="2.1.4" data-path="repaso.html"><a href="repaso.html#cuando-es-cierto-que-nuestras-estimaciones-se-agrupan-alrededor-del-verdadero-beta1"><i class="fa fa-check"></i><b>2.1.4</b> 🎯 ¿Cuándo es cierto que nuestras estimaciones “se agrupan” alrededor del verdadero <span class="math inline">\(\beta_1\)</span>? {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#entonces-las-simulaciones-que-hicimos-son-realistas"><i class="fa fa-check"></i>💬 Entonces, ¿las simulaciones que hicimos son “realistas”?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso.html"><a href="repaso.html#preguntas-de-repaso"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: teoría</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#objetivos-regresion-lineal-teoria"><i class="fa fa-check"></i><b>3.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="3.2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#intuicion-regresion-lineal"><i class="fa fa-check"></i><b>3.2</b> Intuición y motivación</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="08-PruebasHIP-teoria.html"><a href="#ilustraci%C3%B3n-visual"><i class="fa fa-check"></i><b>3.2.1</b> Ilustración visual</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#desarrollo-teorico-regresion-lineal"><i class="fa fa-check"></i><b>3.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#formalmente"><i class="fa fa-check"></i><b>3.3.1</b> Formalmente</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#supuestos-propiedades-regresion-lineal"><i class="fa fa-check"></i><b>3.4</b> Supuestos y propiedades</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#que-hace-a-un-buen-estimador"><i class="fa fa-check"></i><b>3.4.1</b> ¿Qué hace a un buen estimador?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#repaso-funciones-de-densidad"><i class="fa fa-check"></i><b>3.4.2</b> 📈 Repaso: Funciones de densidad</a></li>
+<li class="chapter" data-level="3.4.3" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#que-propiedades-buscamos-en-un-estimador"><i class="fa fa-check"></i><b>3.4.3</b> 🤔 ¿Qué propiedades buscamos en un estimador?</a></li>
+<li class="chapter" data-level="3.4.4" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#el-trade-off-sesgo-vs.-varianza"><i class="fa fa-check"></i><b>3.4.4</b> 🎯 El trade-off: sesgo vs. varianza</a></li>
+<li class="chapter" data-level="3.4.5" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#propiedad-3-consistencia"><i class="fa fa-check"></i><b>3.4.5</b> Propiedad 3: Consistencia</a></li>
+<li class="chapter" data-level="3.4.6" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#propiedad-4-eficiencia"><i class="fa fa-check"></i><b>3.4.6</b> Propiedad 4: Eficiencia</a></li>
+<li class="chapter" data-level="3.4.7" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#resumen-de-las-propiedades"><i class="fa fa-check"></i><b>3.4.7</b> Resumen de las propiedades</a></li>
+<li class="chapter" data-level="3.4.8" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#nota-de-cierre-como-interpretar-cada-propiedad"><i class="fa fa-check"></i><b>3.4.8</b> 🧠 Nota de cierre: cómo interpretar cada propiedad</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#errores-comunes-regresion-lineal"><i class="fa fa-check"></i><b>3.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="3.6" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#resumen-regresion-lineal-teoria"><i class="fa fa-check"></i><b>3.6</b> Resumen</a></li>
+<li class="chapter" data-level="3.7" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#ejercicios-regresion-lineal-teoria"><i class="fa fa-check"></i><b>3.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="3.8" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html#referencias-regresion-lineal-teoria"><i class="fa fa-check"></i><b>3.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>4</b> Regresión lineal: práctica</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#objetivos-regresion-lineal-practica"><i class="fa fa-check"></i><b>4.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="4.2" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#pregunta-aplicada-regresion-lineal"><i class="fa fa-check"></i><b>4.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="4.3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#datos-regresion-lineal-practica"><i class="fa fa-check"></i><b>4.3</b> Datos</a></li>
+<li class="chapter" data-level="4.4" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#estimacion-r-regresion-lineal"><i class="fa fa-check"></i><b>4.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="4.5" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#interpretacion-r-regresion-lineal"><i class="fa fa-check"></i><b>4.5</b> Interpretación</a></li>
+<li class="chapter" data-level="4.6" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#estimacion-stata-regresion-lineal"><i class="fa fa-check"></i><b>4.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="4.7" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#estimacion-python-colab-regresion-lineal"><i class="fa fa-check"></i><b>4.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="4.8" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#comparacion-software-regresion-lineal"><i class="fa fa-check"></i><b>4.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="4.9" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#errores-frecuentes-practica-regresion-lineal"><i class="fa fa-check"></i><b>4.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="4.10" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html#ejercicios-computacionales-regresion-lineal"><i class="fa fa-check"></i><b>4.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>5</b> Repaso de matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices"><i class="fa fa-check"></i>Matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traspuesta-de-una-matriz"><i class="fa fa-check"></i>Traspuesta de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#vectores"><i class="fa fa-check"></i>Vectores</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#producto-escalar"><i class="fa fa-check"></i>Producto escalar</a></li>
+<li class="chapter" data-level="5.0.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#norma-y-normalizacion"><i class="fa fa-check"></i><b>5.0.1</b> Norma y normalización {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#ortogonalidad"><i class="fa fa-check"></i>Ortogonalidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#operaciones-con-matrices"><i class="fa fa-check"></i>Operaciones con matrices</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#igualdad-de-matrices"><i class="fa fa-check"></i>Igualdad de matrices</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#suma-y-resta-de-matrices"><i class="fa fa-check"></i>Suma y resta de matrices</a></li>
+<li class="chapter" data-level="5.0.2" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#multiplicacion-por-un-escalar"><i class="fa fa-check"></i><b>5.0.2</b> Multiplicación por un escalar {-}</a></li>
+<li class="chapter" data-level="5.0.3" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#multiplicacion-de-matrices"><i class="fa fa-check"></i><b>5.0.3</b> Multiplicación de matrices {-}</a></li>
+<li class="chapter" data-level="5.0.4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#transposicion-de-matrices"><i class="fa fa-check"></i><b>5.0.4</b> Transposición de matrices {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#traza-de-una-matriz"><i class="fa fa-check"></i>Traza de una matriz</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#determinantes"><i class="fa fa-check"></i>Determinantes</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-inversa"><i class="fa fa-check"></i>Matriz inversa</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#rango-de-una-matriz"><i class="fa fa-check"></i>Rango de una matriz</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistemas-de-ecuaciones-lineales"><i class="fa fa-check"></i>Sistemas de ecuaciones lineales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#sistema-de-cramer"><i class="fa fa-check"></i>Sistema de Cramer</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matrices-cuadradas-especiales"><i class="fa fa-check"></i>Matrices cuadradas especiales</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-diagonal"><i class="fa fa-check"></i>1. Matriz diagonal</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-identidad"><i class="fa fa-check"></i>2. Matriz identidad</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-escalar"><i class="fa fa-check"></i>3. Matriz escalar</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-triangular-inferior"><i class="fa fa-check"></i>4. Matriz triangular inferior</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-nula"><i class="fa fa-check"></i>5. Matriz nula</a></li>
+<li class="chapter" data-level="5.0.5" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#id_6-matriz-simetrica"><i class="fa fa-check"></i><b>5.0.5</b> 6. Matriz simétrica {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-idempotente"><i class="fa fa-check"></i>7. Matriz idempotente</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#matriz-ortogonal"><i class="fa fa-check"></i>8. Matriz ortogonal</a></li>
+<li class="chapter" data-level="5.0.6" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#id_9-matrices-de-proyeccion-p-y-m"><i class="fa fa-check"></i><b>5.0.6</b> 9. Matrices de proyección: <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span> {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="5.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-funcion-multidimensional"><i class="fa fa-check"></i><b>5.1</b> Derivadas de una función multidimensional {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-lineal"><i class="fa fa-check"></i>Derivadas de una forma lineal</a></li>
+<li class="chapter" data-level="5.1.1" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-una-forma-cuadratica"><i class="fa fa-check"></i><b>5.1.1</b> Derivadas de una forma cuadrática {-}</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#derivadas-de-segundo-orden-matriz-hessiana"><i class="fa fa-check"></i>Derivadas de segundo orden (matriz Hessiana)</a></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#resumen"><i class="fa fa-check"></i>Resumen</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html#preguntas-de-repaso-1"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: teoría</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#objetivos-supuestos-teoria"><i class="fa fa-check"></i><b>6.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="6.2" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#intuicion-supuestos-teoria"><i class="fa fa-check"></i><b>6.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="6.3" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#desarrollo-teorico-supuestos"><i class="fa fa-check"></i><b>6.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="08-PruebasHIP-teoria.html"><a href="#linealidad-en-los-par%C3%A1metros"><i class="fa fa-check"></i><b>6.3.1</b> Linealidad en los parámetros</a></li>
+<li class="chapter" data-level="6.3.2" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#exogeneidad-estricta"><i class="fa fa-check"></i><b>6.3.2</b> Exogeneidad estricta</a></li>
+<li class="chapter" data-level="6.3.3" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#colinealidad-imperfecta"><i class="fa fa-check"></i><b>6.3.3</b> Colinealidad imperfecta</a></li>
+<li class="chapter" data-level="6.3.4" data-path="08-PruebasHIP-teoria.html"><a href="#perturbaciones-esf%C3%A9ricas"><i class="fa fa-check"></i><b>6.3.4</b> Perturbaciones esféricas</a></li>
+<li class="chapter" data-level="6.3.5" data-path="08-PruebasHIP-teoria.html"><a href="#regresores-no-estoc%C3%A1sticos"><i class="fa fa-check"></i><b>6.3.5</b> Regresores no estocásticos</a></li>
+<li class="chapter" data-level="6.3.6" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#normalidad-del-error"><i class="fa fa-check"></i><b>6.3.6</b> Normalidad del error</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#supuestos-propiedades-supuestos"><i class="fa fa-check"></i><b>6.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="6.5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#errores-comunes-supuestos"><i class="fa fa-check"></i><b>6.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="6.6" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#resumen-supuestos-teoria"><i class="fa fa-check"></i><b>6.6</b> Resumen</a></li>
+<li class="chapter" data-level="6.7" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#ejercicios-conceptuales-supuestos"><i class="fa fa-check"></i><b>6.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="6.8" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html#referencias-supuestos-teoria"><i class="fa fa-check"></i><b>6.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>7</b> Supuestos de MCO: práctica</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#objetivos-supuestos-practica"><i class="fa fa-check"></i><b>7.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="7.2" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#pregunta-aplicada-supuestos"><i class="fa fa-check"></i><b>7.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="7.3" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#datos-supuestos-practica"><i class="fa fa-check"></i><b>7.3</b> Datos</a></li>
+<li class="chapter" data-level="7.4" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#estimacion-r-supuestos"><i class="fa fa-check"></i><b>7.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="7.5" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#interpretacion-supuestos"><i class="fa fa-check"></i><b>7.5</b> Interpretación</a></li>
+<li class="chapter" data-level="7.6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#estimacion-stata-supuestos"><i class="fa fa-check"></i><b>7.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="7.7" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#estimacion-python-colab-supuestos"><i class="fa fa-check"></i><b>7.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="7.8" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#comparacion-software-supuestos"><i class="fa fa-check"></i><b>7.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="7.9" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#errores-frecuentes-practica-supuestos"><i class="fa fa-check"></i><b>7.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="7.10" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html#ejercicios-computacionales-supuestos"><i class="fa fa-check"></i><b>7.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: teoría</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#objetivos-estimacion-teoria"><i class="fa fa-check"></i><b>8.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="8.2" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#intuicion-estimacion-teoria"><i class="fa fa-check"></i><b>8.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="8.3" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#desarrollo-teorico-estimacion"><i class="fa fa-check"></i><b>8.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="08-PruebasHIP-teoria.html"><a href="#variables-binarias-y-categor%C3%ADas-de-referencia"><i class="fa fa-check"></i><b>8.3.1</b> Variables binarias y categorías de referencia</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#supuestos-propiedades-estimacion"><i class="fa fa-check"></i><b>8.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="8.5" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#errores-comunes-estimacion"><i class="fa fa-check"></i><b>8.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="8.6" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#resumen-estimacion-teoria"><i class="fa fa-check"></i><b>8.6</b> Resumen</a></li>
+<li class="chapter" data-level="8.7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#ejercicios-conceptuales-estimacion"><i class="fa fa-check"></i><b>8.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="8.8" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html#referencias-estimacion-teoria"><i class="fa fa-check"></i><b>8.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>9</b> Estimación de MCO: práctica</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#objetivos-estimacion-practica"><i class="fa fa-check"></i><b>9.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="9.2" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#pregunta-aplicada-estimacion"><i class="fa fa-check"></i><b>9.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="9.3" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#datos-estimacion-practica"><i class="fa fa-check"></i><b>9.3</b> Datos</a></li>
+<li class="chapter" data-level="9.4" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#estimacion-r-estimacion"><i class="fa fa-check"></i><b>9.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="9.5" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#interpretacion-estimacion"><i class="fa fa-check"></i><b>9.5</b> Interpretación</a></li>
+<li class="chapter" data-level="9.6" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#estimacion-stata-estimacion"><i class="fa fa-check"></i><b>9.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="9.7" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#estimacion-python-colab-estimacion"><i class="fa fa-check"></i><b>9.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="9.8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#comparacion-software-estimacion"><i class="fa fa-check"></i><b>9.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="9.9" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#errores-frecuentes-practica-estimacion"><i class="fa fa-check"></i><b>9.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="9.10" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html#ejercicios-computacionales-estimacion"><i class="fa fa-check"></i><b>9.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: teoría</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="fwl-teoria.html"><a href="fwl-teoria.html#objetivos-fwl-teoria"><i class="fa fa-check"></i><b>10.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="10.2" data-path="fwl-teoria.html"><a href="fwl-teoria.html#intuicion-fwl-teoria"><i class="fa fa-check"></i><b>10.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="10.3" data-path="fwl-teoria.html"><a href="fwl-teoria.html#desarrollo-teorico-fwl"><i class="fa fa-check"></i><b>10.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="fwl-teoria.html"><a href="fwl-teoria.html#paso-1-limpiar-y"><i class="fa fa-check"></i><b>10.3.1</b> Paso 1: limpiar <span class="math inline">\(y\)</span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="fwl-teoria.html"><a href="fwl-teoria.html#paso-2-limpiar-x_r"><i class="fa fa-check"></i><b>10.3.2</b> Paso 2: limpiar <span class="math inline">\(X_r\)</span></a></li>
+<li class="chapter" data-level="10.3.3" data-path="fwl-teoria.html"><a href="fwl-teoria.html#paso-3-regresar-residuos-contra-residuos"><i class="fa fa-check"></i><b>10.3.3</b> Paso 3: regresar residuos contra residuos</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="fwl-teoria.html"><a href="fwl-teoria.html#supuestos-propiedades-fwl"><i class="fa fa-check"></i><b>10.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="10.5" data-path="fwl-teoria.html"><a href="fwl-teoria.html#errores-comunes-fwl"><i class="fa fa-check"></i><b>10.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="10.6" data-path="fwl-teoria.html"><a href="fwl-teoria.html#resumen-fwl-teoria"><i class="fa fa-check"></i><b>10.6</b> Resumen</a></li>
+<li class="chapter" data-level="10.7" data-path="fwl-teoria.html"><a href="fwl-teoria.html#ejercicios-conceptuales-fwl"><i class="fa fa-check"></i><b>10.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="10.8" data-path="fwl-teoria.html"><a href="fwl-teoria.html#referencias-fwl-teoria"><i class="fa fa-check"></i><b>10.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>11</b> Frisch-Waugh-Lovell: práctica</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="fwl-practica.html"><a href="fwl-practica.html#objetivos-fwl-practica"><i class="fa fa-check"></i><b>11.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="11.2" data-path="fwl-practica.html"><a href="fwl-practica.html#pregunta-aplicada-fwl"><i class="fa fa-check"></i><b>11.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="11.3" data-path="fwl-practica.html"><a href="fwl-practica.html#datos-fwl-practica"><i class="fa fa-check"></i><b>11.3</b> Datos</a></li>
+<li class="chapter" data-level="11.4" data-path="fwl-practica.html"><a href="fwl-practica.html#estimacion-r-fwl"><i class="fa fa-check"></i><b>11.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="11.5" data-path="fwl-practica.html"><a href="fwl-practica.html#interpretacion-fwl"><i class="fa fa-check"></i><b>11.5</b> Interpretación</a></li>
+<li class="chapter" data-level="11.6" data-path="fwl-practica.html"><a href="fwl-practica.html#estimacion-stata-fwl"><i class="fa fa-check"></i><b>11.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="11.7" data-path="fwl-practica.html"><a href="fwl-practica.html#estimacion-python-colab-fwl"><i class="fa fa-check"></i><b>11.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="11.8" data-path="fwl-practica.html"><a href="fwl-practica.html#comparacion-software-fwl"><i class="fa fa-check"></i><b>11.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="11.9" data-path="fwl-practica.html"><a href="fwl-practica.html#errores-frecuentes-practica-fwl"><i class="fa fa-check"></i><b>11.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="11.10" data-path="fwl-practica.html"><a href="fwl-practica.html#ejercicios-computacionales-fwl"><i class="fa fa-check"></i><b>11.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: teoría</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#objetivos-propiedades-teoria"><i class="fa fa-check"></i><b>12.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="12.2" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#intuicion-propiedades-teoria"><i class="fa fa-check"></i><b>12.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="12.3" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#desarrollo-teorico-propiedades"><i class="fa fa-check"></i><b>12.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#insesgamiento"><i class="fa fa-check"></i><b>12.3.1</b> Insesgamiento</a></li>
+<li class="chapter" data-level="12.3.2" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#varianza"><i class="fa fa-check"></i><b>12.3.2</b> Varianza</a></li>
+<li class="chapter" data-level="12.3.3" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#gauss-markov"><i class="fa fa-check"></i><b>12.3.3</b> Gauss-Markov</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#supuestos-propiedades-propiedades"><i class="fa fa-check"></i><b>12.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="12.5" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#errores-comunes-propiedades"><i class="fa fa-check"></i><b>12.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="12.6" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#resumen-propiedades-teoria"><i class="fa fa-check"></i><b>12.6</b> Resumen</a></li>
+<li class="chapter" data-level="12.7" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#ejercicios-conceptuales-propiedades"><i class="fa fa-check"></i><b>12.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="12.8" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html#referencias-propiedades-teoria"><i class="fa fa-check"></i><b>12.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>13</b> Propiedades de MCO: práctica</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#objetivos-propiedades-practica"><i class="fa fa-check"></i><b>13.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="13.2" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#pregunta-aplicada-propiedades"><i class="fa fa-check"></i><b>13.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="13.3" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#datos-propiedades-practica"><i class="fa fa-check"></i><b>13.3</b> Datos</a></li>
+<li class="chapter" data-level="13.4" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#estimacion-r-propiedades"><i class="fa fa-check"></i><b>13.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="13.5" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#interpretacion-propiedades"><i class="fa fa-check"></i><b>13.5</b> Interpretación</a></li>
+<li class="chapter" data-level="13.6" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#estimacion-stata-propiedades"><i class="fa fa-check"></i><b>13.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="13.7" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#estimacion-python-colab-propiedades"><i class="fa fa-check"></i><b>13.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="13.8" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#comparacion-software-propiedades"><i class="fa fa-check"></i><b>13.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="13.9" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#errores-frecuentes-practica-propiedades"><i class="fa fa-check"></i><b>13.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="13.10" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html#ejercicios-computacionales-propiedades"><i class="fa fa-check"></i><b>13.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: teoría</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#objetivos-pruebas-teoria"><i class="fa fa-check"></i><b>14.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="14.2" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#intuicion-pruebas-teoria"><i class="fa fa-check"></i><b>14.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="14.3" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#desarrollo-teorico-pruebas"><i class="fa fa-check"></i><b>14.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="14.3.1" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#prueba-sobre-un-coeficiente"><i class="fa fa-check"></i><b>14.3.1</b> Prueba sobre un coeficiente</a></li>
+<li class="chapter" data-level="14.3.2" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#intervalo-de-confianza"><i class="fa fa-check"></i><b>14.3.2</b> Intervalo de confianza</a></li>
+<li class="chapter" data-level="14.3.3" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#restricciones-lineales-conjuntas"><i class="fa fa-check"></i><b>14.3.3</b> Restricciones lineales conjuntas</a></li>
+<li class="chapter" data-level="14.3.4" data-path="08-PruebasHIP-teoria.html"><a href="#relaci%C3%B3n-entre-t-y-f"><i class="fa fa-check"></i><b>14.3.4</b> Relación entre <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#supuestos-propiedades-pruebas"><i class="fa fa-check"></i><b>14.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="14.5" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#errores-comunes-pruebas"><i class="fa fa-check"></i><b>14.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="14.6" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#resumen-pruebas-teoria"><i class="fa fa-check"></i><b>14.6</b> Resumen</a></li>
+<li class="chapter" data-level="14.7" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#ejercicios-conceptuales-pruebas"><i class="fa fa-check"></i><b>14.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="14.8" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html#referencias-pruebas-teoria"><i class="fa fa-check"></i><b>14.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>15</b> Pruebas de hipótesis: práctica</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#objetivos-pruebas-practica"><i class="fa fa-check"></i><b>15.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="15.2" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#pregunta-aplicada-pruebas"><i class="fa fa-check"></i><b>15.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="15.3" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#datos-pruebas-practica"><i class="fa fa-check"></i><b>15.3</b> Datos</a></li>
+<li class="chapter" data-level="15.4" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#estimacion-r-pruebas"><i class="fa fa-check"></i><b>15.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="15.5" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#interpretacion-pruebas"><i class="fa fa-check"></i><b>15.5</b> Interpretación</a></li>
+<li class="chapter" data-level="15.6" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#estimacion-stata-pruebas"><i class="fa fa-check"></i><b>15.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="15.7" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#estimacion-python-colab-pruebas"><i class="fa fa-check"></i><b>15.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="15.8" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#comparacion-software-pruebas"><i class="fa fa-check"></i><b>15.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="15.9" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#errores-frecuentes-practica-pruebas"><i class="fa fa-check"></i><b>15.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="15.10" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html#ejercicios-computacionales-pruebas"><i class="fa fa-check"></i><b>15.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: teoría</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#objetivos-normas-teoria"><i class="fa fa-check"></i><b>16.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="16.2" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#intuicion-normas-teoria"><i class="fa fa-check"></i><b>16.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="16.3" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#desarrollo-teorico-normas"><i class="fa fa-check"></i><b>16.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="16.3.1" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#consistencia"><i class="fa fa-check"></i><b>16.3.1</b> Consistencia</a></li>
+<li class="chapter" data-level="16.3.2" data-path="08-PruebasHIP-teoria.html"><a href="#normalidad-asint%C3%B3tica"><i class="fa fa-check"></i><b>16.3.2</b> Normalidad asintótica</a></li>
+<li class="chapter" data-level="16.3.3" data-path="08-PruebasHIP-teoria.html"><a href="#prueba-tipo-t-asint%C3%B3tica"><i class="fa fa-check"></i><b>16.3.3</b> Prueba tipo <span class="math inline">\(t\)</span> asintótica</a></li>
+<li class="chapter" data-level="16.3.4" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#prueba-de-wald"><i class="fa fa-check"></i><b>16.3.4</b> Prueba de Wald</a></li>
+</ul></li>
+<li class="chapter" data-level="16.4" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#supuestos-propiedades-normas"><i class="fa fa-check"></i><b>16.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="16.5" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#errores-comunes-normas"><i class="fa fa-check"></i><b>16.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="16.6" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#resumen-normas-teoria"><i class="fa fa-check"></i><b>16.6</b> Resumen</a></li>
+<li class="chapter" data-level="16.7" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#ejercicios-conceptuales-normas"><i class="fa fa-check"></i><b>16.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="16.8" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html#referencias-normas-teoria"><i class="fa fa-check"></i><b>16.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>17</b> Normalidad asintótica e inferencia: práctica</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#objetivos-normas-practica"><i class="fa fa-check"></i><b>17.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="17.2" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#pregunta-aplicada-normas"><i class="fa fa-check"></i><b>17.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="17.3" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#datos-normas-practica"><i class="fa fa-check"></i><b>17.3</b> Datos</a></li>
+<li class="chapter" data-level="17.4" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#estimacion-r-normas"><i class="fa fa-check"></i><b>17.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="17.5" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#interpretacion-normas"><i class="fa fa-check"></i><b>17.5</b> Interpretación</a></li>
+<li class="chapter" data-level="17.6" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#estimacion-stata-normas"><i class="fa fa-check"></i><b>17.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="17.7" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#estimacion-python-colab-normas"><i class="fa fa-check"></i><b>17.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="17.8" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#comparacion-software-normas"><i class="fa fa-check"></i><b>17.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="17.9" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#errores-frecuentes-practica-normas"><i class="fa fa-check"></i><b>17.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="17.10" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html#ejercicios-computacionales-normas"><i class="fa fa-check"></i><b>17.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: teoría</a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#objetivos-multico-teoria"><i class="fa fa-check"></i><b>18.1</b> Objetivos de aprendizaje</a></li>
+<li class="chapter" data-level="18.2" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#intuicion-multico-teoria"><i class="fa fa-check"></i><b>18.2</b> Intuición y motivación</a></li>
+<li class="chapter" data-level="18.3" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#desarrollo-teorico-multico"><i class="fa fa-check"></i><b>18.3</b> Desarrollo teórico</a>
+<ul>
+<li class="chapter" data-level="18.3.1" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#multicolinealidad-perfecta"><i class="fa fa-check"></i><b>18.3.1</b> Multicolinealidad perfecta</a></li>
+<li class="chapter" data-level="18.3.2" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#multicolinealidad-aproximada"><i class="fa fa-check"></i><b>18.3.2</b> Multicolinealidad aproximada</a></li>
+<li class="chapter" data-level="18.3.3" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#modelo-particionado-y-varianza-inflada"><i class="fa fa-check"></i><b>18.3.3</b> Modelo particionado y varianza inflada</a></li>
+</ul></li>
+<li class="chapter" data-level="18.4" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#supuestos-propiedades-multico"><i class="fa fa-check"></i><b>18.4</b> Supuestos y propiedades</a></li>
+<li class="chapter" data-level="18.5" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#errores-comunes-multico"><i class="fa fa-check"></i><b>18.5</b> Errores comunes y cuidados</a></li>
+<li class="chapter" data-level="18.6" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#resumen-multico-teoria"><i class="fa fa-check"></i><b>18.6</b> Resumen</a></li>
+<li class="chapter" data-level="18.7" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#ejercicios-conceptuales-multico"><i class="fa fa-check"></i><b>18.7</b> Ejercicios conceptuales</a></li>
+<li class="chapter" data-level="18.8" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html#referencias-multico-teoria"><i class="fa fa-check"></i><b>18.8</b> Referencias</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>19</b> Multicolinealidad: práctica</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#objetivos-multico-practica"><i class="fa fa-check"></i><b>19.1</b> Objetivos de la práctica</a></li>
+<li class="chapter" data-level="19.2" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#pregunta-aplicada-multico"><i class="fa fa-check"></i><b>19.2</b> Pregunta aplicada</a></li>
+<li class="chapter" data-level="19.3" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#datos-multico-practica"><i class="fa fa-check"></i><b>19.3</b> Datos</a></li>
+<li class="chapter" data-level="19.4" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#estimacion-r-multico"><i class="fa fa-check"></i><b>19.4</b> Estimación en R</a></li>
+<li class="chapter" data-level="19.5" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#interpretacion-multico"><i class="fa fa-check"></i><b>19.5</b> Interpretación</a></li>
+<li class="chapter" data-level="19.6" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#estimacion-stata-multico"><i class="fa fa-check"></i><b>19.6</b> Estimación en Stata</a></li>
+<li class="chapter" data-level="19.7" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#estimacion-python-colab-multico"><i class="fa fa-check"></i><b>19.7</b> Estimación en Python y Google Colab</a></li>
+<li class="chapter" data-level="19.8" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#comparacion-software-multico"><i class="fa fa-check"></i><b>19.8</b> Comparación R, Stata y Python</a></li>
+<li class="chapter" data-level="19.9" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#errores-frecuentes-practica-multico"><i class="fa fa-check"></i><b>19.9</b> Errores frecuentes en la práctica</a></li>
+<li class="chapter" data-level="19.10" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html#ejercicios-computacionales-multico"><i class="fa fa-check"></i><b>19.10</b> Ejercicios computacionales</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i>Heterocedasticidad</a>
+<ul>
+<li class="chapter" data-level="19.10.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#objetivo-del-capitulo-hetero"><i class="fa fa-check"></i><b>19.10.1</b> 🎯 Objetivo del capítulo {-}</a></li>
+<li class="chapter" data-level="19.11" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_1-introduccion"><i class="fa fa-check"></i><b>19.11</b> 1. Introducción {-}</a>
+<ul>
+<li class="chapter" data-level="19.11.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#intuicion-geometrica-hetero"><i class="fa fa-check"></i><b>19.11.1</b> 📐 Intuición geométrica {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#ejemplos-motivadores"><i class="fa fa-check"></i>2. Ejemplos motivadores</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#heterocedasticidad-pura-vs.-impura"><i class="fa fa-check"></i>3. Heterocedasticidad pura vs. impura</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#pura"><i class="fa fa-check"></i>3.1 Pura</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#impura"><i class="fa fa-check"></i>3.2 Impura</a></li>
+</ul></li>
+<li class="chapter" data-level="19.12" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_4-consecuencias-teoricas"><i class="fa fa-check"></i><b>19.12</b> 4. Consecuencias teóricas {-}</a></li>
+<li class="chapter" data-level="19.13" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_5-deteccion-de-heterocedasticidad"><i class="fa fa-check"></i><b>19.13</b> 5. Detección de heterocedasticidad {-}</a>
+<ul>
+<li class="chapter" data-level="19.13.1" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_51-diagnostico-visual"><i class="fa fa-check"></i><b>19.13.1</b> 5.1 Diagnóstico visual {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#contraste-de-white-1980"><i class="fa fa-check"></i>5.2 Contraste de White (1980)</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#breuschpagan-cookweisberg"><i class="fa fa-check"></i>5.3 Breusch–Pagan / Cook–Weisberg</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#goldfeldquandt"><i class="fa fa-check"></i>5.4 Goldfeld–Quandt</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#soluciones"><i class="fa fa-check"></i>6. Soluciones</a>
+<ul>
+<li class="chapter" data-level="19.13.2" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_61-gls-minimos-cuadrados-generalizados"><i class="fa fa-check"></i><b>19.13.2</b> 6.1 GLS (Mínimos Cuadrados Generalizados) {-}</a></li>
+<li class="chapter" data-level="19.13.3" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_62-wls-minimos-cuadrados-ponderados"><i class="fa fa-check"></i><b>19.13.3</b> 6.2 WLS (Mínimos Cuadrados Ponderados) {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#fglsmcf-gls-factible"><i class="fa fa-check"></i>6.3 FGLS/MCF (GLS factible)</a></li>
+<li class="chapter" data-level="19.13.4" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_64-errores-estandar-robustos-whitehuber"><i class="fa fa-check"></i><b>19.13.4</b> 6.4 Errores estándar robustos (White/Huber) {-}</a></li>
+</ul></li>
+<li class="chapter" data-level="19.14" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_7-ejemplo-reproducible-simulacion"><i class="fa fa-check"></i><b>19.14</b> 7. Ejemplo reproducible (simulación) {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#stata"><i class="fa fa-check"></i>Stata</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#r"><i class="fa fa-check"></i>R</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#python-statsmodels"><i class="fa fa-check"></i>Python (statsmodels)</a></li>
+</ul></li>
+<li class="chapter" data-level="19.15" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_8-visualizaciones-diagnostico"><i class="fa fa-check"></i><b>19.15</b> 8. Visualizaciones (diagnóstico) {-}</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#tabla-resumen-de-contrastes"><i class="fa fa-check"></i>9. Tabla resumen de contrastes</a></li>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#conclusiones-clave"><i class="fa fa-check"></i>10. Conclusiones clave</a></li>
+<li class="chapter" data-level="19.16" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_11-taller-practico-hands-on"><i class="fa fa-check"></i><b>19.16</b> 11. Taller práctico (hands-on) {-}</a></li>
+<li class="chapter" data-level="19.17" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#id_12-apendice-comandos-rapidos-por-software"><i class="fa fa-check"></i><b>19.17</b> 12. Apéndice: comandos rápidos por software {-}</a>
+<ul>
+<li class="chapter" data-level="" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html#preguntas-de-repaso-2"><i class="fa fa-check"></i>📘 Preguntas de repaso</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#violaci%C3%B3n-de-la-exogeneidad-estricta"><i class="fa fa-check"></i>Violación de la exogeneidad estricta</a></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#causas-de-la-endogeneidad"><i class="fa fa-check"></i>Causas de la endogeneidad</a></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#variables-omitidas"><i class="fa fa-check"></i>1. Variables omitidas</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#error-de-medici%C3%B3n"><i class="fa fa-check"></i>2. Error de medición</a>
+<ul>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#error-en-la-variable-dependiente"><i class="fa fa-check"></i>Error en la variable dependiente</a></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#error-en-las-variables-independientes"><i class="fa fa-check"></i>Error en las variables independientes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#simultaneidad"><i class="fa fa-check"></i>3. Simultaneidad</a></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#resumen-1"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="" data-path="endogeneidad.html"><a href="endogeneidad.html#lecturas-recomendadas"><i class="fa fa-check"></i>Lecturas recomendadas</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#la-idea-un-instrumento-como-fuente-de-variaci%C3%B3n-ex%C3%B3gena"><i class="fa fa-check"></i>La idea: un instrumento como fuente de variación exógena</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#condiciones-del-instrumento"><i class="fa fa-check"></i>Condiciones del instrumento</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#el-estimador-de-variables-instrumentales-iv"><i class="fa fa-check"></i>El estimador de Variables Instrumentales (IV)</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#propiedades-del-estimador-iv"><i class="fa fa-check"></i>Propiedades del estimador IV</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#m%C3%ADnimos-cuadrados-en-dos-etapas-mco2e-2sls"><i class="fa fa-check"></i>Mínimos Cuadrados en Dos Etapas (MCO2E / 2SLS)</a>
+<ul>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#primera-etapa"><i class="fa fa-check"></i>Primera etapa</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#segunda-etapa"><i class="fa fa-check"></i>Segunda etapa</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path=""><a href="#ejemplos-cl%C3%A1sicos"><i class="fa fa-check"></i>Ejemplos clásicos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#implementaci%C3%B3n-en-stata"><i class="fa fa-check"></i>Implementación en Stata</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#instrumentos-d%C3%A9biles"><i class="fa fa-check"></i>Instrumentos débiles</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#test-de-hausman-endogeneidad"><i class="fa fa-check"></i>Test de Hausman (endogeneidad)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#test-de-sargan-sobreidentificaci%C3%B3n"><i class="fa fa-check"></i>Test de Sargan (sobreidentificación)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#m%C3%A9todo-generalizado-de-momentos-mgmgmm"><i class="fa fa-check"></i>Método Generalizado de Momentos (MGM/GMM)</a></li>
+<li class="chapter" data-level="" data-path="iv.html"><a href="iv.html#lecturas-recomendadas-1"><i class="fa fa-check"></i>Lecturas recomendadas</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>22</b> Series de Tiempo</a>
+<ul>
+<li class="chapter" data-level="" data-path=""><a href="#d%C3%B3nde-buscar-datos"><i class="fa fa-check"></i>¿Dónde buscar datos?</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#el-an%C3%A1lisis-gr%C3%A1fico-es-el-punto-de-partida"><i class="fa fa-check"></i>El análisis gráfico es el punto de partida</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#definiciones-clave"><i class="fa fa-check"></i>Definiciones clave</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#predicci%C3%B3n-con-tendencia-y-estacionalidad"><i class="fa fa-check"></i>Predicción con tendencia y estacionalidad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#modelos-con-tendencia-determin%C3%ADstica"><i class="fa fa-check"></i>Modelos con tendencia determinística</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#m%C3%A9todos-de-atenuaci%C3%B3n-exponencial"><i class="fa fa-check"></i>Métodos de atenuación exponencial</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#modelos-arima-y-la-metodolog%C3%ADa-box-jenkins"><i class="fa fa-check"></i>Modelos ARIMA y la metodología Box-Jenkins</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#conceptos-b%C3%A1sicos"><i class="fa fa-check"></i>Conceptos básicos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#por-qu%C3%A9-nos-importa-la-estacionariedad"><i class="fa fa-check"></i>¿Por qué nos importa la estacionariedad?</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#ruido-blanco"><i class="fa fa-check"></i>Ruido blanco</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#m%C3%A9todos-para-detectar-estacionariedad"><i class="fa fa-check"></i>Métodos para detectar estacionariedad</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#funci%C3%B3n-de-autocovarianza-y-autocorrelaci%C3%B3n-acf"><i class="fa fa-check"></i>Función de autocovarianza y autocorrelación (ACF)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#funci%C3%B3n-de-autocorrelaci%C3%B3n-parcial-pacf"><i class="fa fa-check"></i>Función de autocorrelación parcial (PACF)</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#prueba-q-de-box-pierce"><i class="fa fa-check"></i>Prueba Q de Box-Pierce</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#caminatas-aleatorias-y-procesos-integrados"><i class="fa fa-check"></i>Caminatas aleatorias y procesos integrados</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#prueba-de-ra%C3%ADz-unitaria-de-dickey-fuller-df"><i class="fa fa-check"></i>Prueba de raíz unitaria de Dickey-Fuller (DF)</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#dickey-fuller-aumentada-adf"><i class="fa fa-check"></i>Dickey-Fuller aumentada (ADF)</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#transformaci%C3%B3n-de-series-no-estacionarias"><i class="fa fa-check"></i>Transformación de series no estacionarias</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#modelos-autorregresivos-y-de-promedio-m%C3%B3vil"><i class="fa fa-check"></i>Modelos Autorregresivos y de Promedio Móvil</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#modelo-autorregresivo-arp"><i class="fa fa-check"></i>Modelo Autorregresivo <span class="math inline">\(AR(p)\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#modelo-de-promedio-m%C3%B3vil-maq"><i class="fa fa-check"></i>Modelo de Promedio Móvil <span class="math inline">\(MA(q)\)</span></a></li>
+<li class="chapter" data-level="" data-path=""><a href="#teorema-de-descomposici%C3%B3n-de-wold"><i class="fa fa-check"></i>Teorema de descomposición de Wold</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#modelo-armap-q"><i class="fa fa-check"></i>Modelo <span class="math inline">\(ARMA(p, q)\)</span></a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#los-cinco-pasos-de-box-jenkins"><i class="fa fa-check"></i>Los cinco pasos de Box-Jenkins</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#paso-1-identificaci%C3%B3n"><i class="fa fa-check"></i>Paso 1 — Identificación</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#paso-2-estimaci%C3%B3n-de-par%C3%A1metros"><i class="fa fa-check"></i>Paso 2 — Estimación de parámetros</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#paso-3-validaci%C3%B3n-del-modelo"><i class="fa fa-check"></i>Paso 3 — Validación del modelo</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#paso-4-pron%C3%B3stico"><i class="fa fa-check"></i>Paso 4 — Pronóstico</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#paso-5-validaci%C3%B3n-del-pron%C3%B3stico"><i class="fa fa-check"></i>Paso 5 — Validación del pronóstico</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#ventajas-y-desventajas-de-los-modelos-arma"><i class="fa fa-check"></i>Ventajas y desventajas de los modelos ARMA</a></li>
+<li class="chapter" data-level="" data-path="series.html"><a href="series.html#lecturas-recomendadas-2"><i class="fa fa-check"></i>Lecturas recomendadas</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>23</b> Modelos con variable dependiente binaria</a>
+<ul>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#la-pregunta-motivadora-quien-habla-ingles"><i class="fa fa-check"></i>La pregunta motivadora: quien habla ingles</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#el-modelo-lineal-de-probabilidad-mpl"><i class="fa fa-check"></i>El Modelo Lineal de Probabilidad (MPL)</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#el-enfoque-de-variable-latente"><i class="fa fa-check"></i>El enfoque de variable latente</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#el-modelo-probit"><i class="fa fa-check"></i>El modelo Probit</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#el-modelo-logit"><i class="fa fa-check"></i>El modelo Logit</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#estimaci%C3%B3n-por-m%C3%A1xima-verosimilitud"><i class="fa fa-check"></i>Estimación por máxima verosimilitud</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#efectos-marginales"><i class="fa fa-check"></i>Efectos marginales</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#ejemplo-aplicado-mortalidad-por-covid-19"><i class="fa fa-check"></i>Ejemplo aplicado: mortalidad por COVID-19</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#t%C3%A9rminos-de-interacci%C3%B3n-y-cuadr%C3%A1ticos"><i class="fa fa-check"></i>Términos de interacción y cuadráticos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#comparaci%C3%B3n-de-los-tres-modelos"><i class="fa fa-check"></i>Comparación de los tres modelos</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#inferencia-prueba-de-raz%C3%B3n-de-verosimilitudes-lr"><i class="fa fa-check"></i>Inferencia: prueba de razón de verosimilitudes (LR)</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#bondad-de-ajuste"><i class="fa fa-check"></i>Bondad de ajuste</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#heterocedasticidad-en-modelos-no-lineales"><i class="fa fa-check"></i>Heterocedasticidad en modelos no lineales</a></li>
+<li class="chapter" data-level="" data-path=""><a href="#implementaci%C3%B3n-en-stata-1"><i class="fa fa-check"></i>Implementación en Stata</a></li>
+<li class="chapter" data-level="" data-path="binaria.html"><a href="binaria.html#resumen-de-la-clase"><i class="fa fa-check"></i>Resumen de la clase</a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>24</b> Parcial 1 · 2026-1</a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-i-seleccion-multiple"><i class="fa fa-check"></i><b>24.1</b> Parte I: Selección Múltiple {-}</a></li>
+<li class="chapter" data-level="" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#parte-ii-preguntas-abiertas"><i class="fa fa-check"></i>Parte II: Preguntas Abiertas</a>
+<ul>
+<li class="chapter" data-level="24.1.1" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html#obligatoria-fwl-con-observacion-atipica-15-pts"><i class="fa fa-check"></i><b>24.1.1</b> Obligatoria — FWL con observación atípica (1.5 pts) {-}</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pruebas-hipotesis-teoria" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Capítulo 14</span> Pruebas de hipótesis: teoría<a href="pruebas-hipotesis-teoria.html#pruebas-hipotesis-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objetivos-pruebas-teoria" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Objetivos de aprendizaje<a href="pruebas-hipotesis-teoria.html#objetivos-pruebas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar esta página podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Formular hipótesis nulas y alternativas sobre uno o varios coeficientes.</li>
+<li>Construir estadísticos <span class="math inline">\(t\)</span> para restricciones individuales.</li>
+<li>Construir estadísticos <span class="math inline">\(F\)</span> para restricciones lineales conjuntas.</li>
+<li>Interpretar valores críticos, valores <span class="math inline">\(p\)</span> e intervalos de confianza.</li>
+<li>Reconocer la relación entre pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> cuando hay una sola restricción.</li>
+</ol>
+</div>
+<div id="intuicion-pruebas-teoria" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Intuición y motivación<a href="pruebas-hipotesis-teoria.html#intuicion-pruebas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Después de estimar un modelo lineal, rara vez basta con mirar el signo y el tamaño de <span class="math inline">\(\hat{\beta}\)</span>. La inferencia pregunta si la evidencia muestral es compatible con una hipótesis sobre el parámetro poblacional.</p>
+<div class="box-intuicion">
+<p>Una prueba de hipótesis compara una señal con su ruido estadístico. La señal es la distancia entre el estimador y el valor planteado por la hipótesis nula. El ruido es el error estándar del estimador.</p>
+</div>
+<p>Por ejemplo, en una función Cobb-Douglas en logaritmos:</p>
+<p><span class="math display">\[
+\log(Y_i)=\alpha \log(K_i)+\beta \log(L_i)+\epsilon_i,
+\]</span></p>
+<p>la hipótesis de rendimientos constantes a escala se escribe como:</p>
+<p><span class="math display">\[
+H_0:\alpha+\beta=1.
+\]</span></p>
+<p>Esta es una restricción lineal sobre los parámetros y puede evaluarse con la misma lógica que usamos para hipótesis sobre coeficientes individuales.</p>
+</div>
+<div id="desarrollo-teorico-pruebas" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Desarrollo teórico<a href="pruebas-hipotesis-teoria.html#desarrollo-teorico-pruebas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Partimos del modelo lineal:</p>
+<p><span class="math display">\[
+y=X\beta+\epsilon,
+\]</span></p>
+<p>con estimador:</p>
+<p><span class="math display">\[
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y.
+\]</span></p>
+<p>Bajo normalidad condicional de los errores:</p>
+<p><span class="math display">\[
+\epsilon\mid X\sim \mathcal{N}(0,\sigma^2I),
+\]</span></p>
+<p>se obtiene:</p>
+<p><span class="math display">\[
+\hat{\beta}\mid X\sim \mathcal{N}\left(\beta,\sigma^2(X&#39;X)^{-1}\right).
+\]</span></p>
+<div id="prueba-sobre-un-coeficiente" class="section level3 hasAnchor" number="14.3.1">
+<h3><span class="header-section-number">14.3.1</span> Prueba sobre un coeficiente<a href="pruebas-hipotesis-teoria.html#prueba-sobre-un-coeficiente" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para contrastar:</p>
+<p><span class="math display">\[
+H_0:\beta_k=\beta_k^0,
+\qquad
+H_1:\beta_k\neq \beta_k^0,
+\]</span></p>
+<p>usamos:</p>
+<p><span class="math display">\[
+t_k=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}.
+\]</span></p>
+<p>Bajo <span class="math inline">\(H_0\)</span> y los supuestos clásicos con normalidad:</p>
+<p><span class="math display">\[
+t_k\sim t(n-K).
+\]</span></p>
+<p>La regla bilateral con nivel <span class="math inline">\(\alpha\)</span> es rechazar <span class="math inline">\(H_0\)</span> si:</p>
+<p><span class="math display">\[
+|t_k|\geq t_{1-\alpha/2,n-K}.
+\]</span></p>
+<p>Equivalente, rechazamos si el valor <span class="math inline">\(p\)</span> es menor o igual que <span class="math inline">\(\alpha\)</span>.</p>
+</div>
+<div id="intervalo-de-confianza" class="section level3 hasAnchor" number="14.3.2">
+<h3><span class="header-section-number">14.3.2</span> Intervalo de confianza<a href="pruebas-hipotesis-teoria.html#intervalo-de-confianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El intervalo de confianza bilateral para <span class="math inline">\(\beta_k\)</span> es:</p>
+<p><span class="math display">\[
+\hat{\beta}_k \pm t_{1-\alpha/2,n-K}EE(\hat{\beta}_k).
+\]</span></p>
+<p>Si el valor planteado por <span class="math inline">\(H_0\)</span> queda fuera del intervalo, la prueba bilateral rechaza al mismo nivel de significancia.</p>
+</div>
+<div id="restricciones-lineales-conjuntas" class="section level3 hasAnchor" number="14.3.3">
+<h3><span class="header-section-number">14.3.3</span> Restricciones lineales conjuntas<a href="pruebas-hipotesis-teoria.html#restricciones-lineales-conjuntas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Una hipótesis lineal general se escribe como:</p>
+<p><span class="math display">\[
+H_0:R\beta=r,
+\]</span></p>
+<p>donde <span class="math inline">\(R\)</span> contiene <span class="math inline">\(q\)</span> restricciones lineales. El estadístico <span class="math inline">\(F\)</span> clásico es:</p>
+<p><span class="math display">\[
+F=
+\frac{(R\hat{\beta}-r)&#39;\left[R(X&#39;X)^{-1}R&#39;\right]^{-1}(R\hat{\beta}-r)/q}
+{\hat{\sigma}^2}.
+\]</span></p>
+<p>Bajo <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[
+F\sim F(q,n-K).
+\]</span></p>
+<p>También puede calcularse comparando el modelo restringido y el no restringido:</p>
+<p><span class="math display">\[
+F=\frac{(\text{SRC}_R-\text{SRC}_{UR})/q}{\text{SRC}_{UR}/(n-K)}.
+\]</span></p>
+<p>Aquí <span class="math inline">\(\text{SRC}_R\)</span> es la suma de residuos al cuadrado del modelo restringido y <span class="math inline">\(\text{SRC}_{UR}\)</span> la del modelo no restringido.</p>
+</div>
+<div id="relación-entre-t-y-f" class="section level3 hasAnchor" number="14.3.4">
+<h3><span class="header-section-number">14.3.4</span> Relación entre <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span><a href="#relaci%C3%B3n-entre-t-y-f" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando hay una sola restricción lineal, <span class="math inline">\(q=1\)</span>, las pruebas son equivalentes:</p>
+<p><span class="math display">\[
+F(1,n-K)=t(n-K)^2.
+\]</span></p>
+<div class="box-ejemplo">
+<p>Si la hipótesis es <span class="math inline">\(H_0:\beta_1=0\)</span>, el estadístico <span class="math inline">\(F\)</span> para esa única restricción entrega la misma decisión que el estadístico <span class="math inline">\(t\)</span> bilateral, porque ambos miden la distancia estandarizada entre <span class="math inline">\(\hat{\beta}_1\)</span> y cero.</p>
+</div>
+</div>
+</div>
+<div id="supuestos-propiedades-pruebas" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Supuestos y propiedades<a href="pruebas-hipotesis-teoria.html#supuestos-propiedades-pruebas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las pruebas exactas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> dependen de los supuestos clásicos:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Condición</th>
+<th>Papel en la inferencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Exogeneidad estricta</td>
+<td>Centra <span class="math inline">\(\hat{\beta}\)</span> en <span class="math inline">\(\beta\)</span>.</td>
+</tr>
+<tr class="even">
+<td>Rango completo de <span class="math inline">\(X\)</span></td>
+<td>Permite estimar <span class="math inline">\(\hat{\beta}\)</span> y su varianza.</td>
+</tr>
+<tr class="odd">
+<td>Perturbaciones esféricas</td>
+<td>Justifica la matriz de varianza clásica.</td>
+</tr>
+<tr class="even">
+<td>Normalidad condicional</td>
+<td>Da distribuciones exactas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> en muestras pequeñas.</td>
+</tr>
+</tbody>
+</table>
+<div class="box-cuidado">
+<p>La normalidad no hace que MCO sea insesgado. Su papel aquí es justificar la distribución exacta de los estadísticos de prueba en muestras pequeñas. En muestras grandes, la inferencia puede apoyarse en resultados asintóticos que se estudian en el capítulo siguiente.</p>
+</div>
+</div>
+<div id="errores-comunes-pruebas" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> Errores comunes y cuidados<a href="pruebas-hipotesis-teoria.html#errores-comunes-pruebas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-cuidado">
+<p>No escribas la hipótesis nula como <span class="math inline">\(H_0:\hat{\beta}_k=0\)</span>. La hipótesis se formula sobre el parámetro poblacional: <span class="math inline">\(H_0:\beta_k=0\)</span>. El estimador <span class="math inline">\(\hat{\beta}_k\)</span> es la evidencia muestral.</p>
+</div>
+<div class="box-cuidado">
+<p>Un valor <span class="math inline">\(p\)</span> no es la probabilidad de que la hipótesis nula sea verdadera. Es la probabilidad, bajo <span class="math inline">\(H_0\)</span>, de observar un estadístico tan extremo como el observado o más extremo.</p>
+</div>
+<div class="box-cuidado">
+<p>No confundas significancia estadística con importancia económica. Un coeficiente puede ser estadísticamente distinto de cero y aun así ser pequeño en magnitud sustantiva.</p>
+</div>
+</div>
+<div id="resumen-pruebas-teoria" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">14.6</span> Resumen<a href="pruebas-hipotesis-teoria.html#resumen-pruebas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<ul>
+<li>Las pruebas de hipótesis contrastan afirmaciones sobre <span class="math inline">\(\beta\)</span>, no sobre <span class="math inline">\(\hat{\beta}\)</span>.</li>
+<li>La prueba <span class="math inline">\(t\)</span> evalúa restricciones individuales.</li>
+<li>La prueba <span class="math inline">\(F\)</span> evalúa restricciones lineales conjuntas.</li>
+<li>El intervalo de confianza y la prueba bilateral contienen la misma información para una restricción individual.</li>
+<li>Con una sola restricción, <span class="math inline">\(F=t^2\)</span>.</li>
+</ul>
+</div>
+</div>
+<div id="ejercicios-conceptuales-pruebas" class="section level2 hasAnchor" number="14.7">
+<h2><span class="header-section-number">14.7</span> Ejercicios conceptuales<a href="pruebas-hipotesis-teoria.html#ejercicios-conceptuales-pruebas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Formula <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_1\)</span> para evaluar si el retorno de la educación es igual a 0.08.</li>
+<li>Explica por qué una prueba <span class="math inline">\(F\)</span> es necesaria cuando queremos evaluar dos restricciones simultáneas.</li>
+<li>Demuestra que, con una sola restricción, el estadístico <span class="math inline">\(F\)</span> equivale al cuadrado del estadístico <span class="math inline">\(t\)</span>.</li>
+<li>Interpreta un valor <span class="math inline">\(p\)</span> de 0.07 con <span class="math inline">\(\alpha=0.05\)</span> y con <span class="math inline">\(\alpha=0.10\)</span>.</li>
+<li>En una función Cobb-Douglas, escribe <span class="math inline">\(R\beta=r\)</span> para la hipótesis de rendimientos constantes a escala.</li>
+</ol>
+</div>
+</div>
+<div id="referencias-pruebas-teoria" class="section level2 hasAnchor" number="14.8">
+<h2><span class="header-section-number">14.8</span> Referencias<a href="pruebas-hipotesis-teoria.html#referencias-pruebas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Wooldridge, Jeffrey. <em>Introductory Econometrics: A Modern Approach</em>, capítulos 4 y 5.</li>
+<li>Greene, William. <em>Econometric Analysis</em>, capítulos 4 y 5.</li>
+<li>Verbeek, Marno. <em>A Guide to Modern Econometrics</em>, capítulos 2 y 3.</li>
+</ul>
+<p><a href="pruebas-hipotesis-practica.html">Continúa en la práctica →</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="propiedades-mco-practica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pruebas-hipotesis-practica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

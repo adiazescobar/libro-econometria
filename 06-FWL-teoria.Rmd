@@ -1,0 +1,163 @@
+# Frisch-Waugh-Lovell: teoría {#fwl-teoria}
+
+```{r setup-fwl-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-fwl-teoria}
+
+Al finalizar esta página podrás:
+
+1. Definir las matrices de proyección y aniquilación.
+2. Explicar la intuición geométrica de una regresión múltiple.
+3. Enunciar y derivar el teorema de Frisch-Waugh-Lovell.
+4. Interpretar un coeficiente parcial como una relación entre residuos.
+
+## Intuición y motivación {#intuicion-fwl-teoria}
+
+En una regresión múltiple, el coeficiente de una variable no compara observaciones "en bruto". Compara la parte de la variable dependiente que queda después de remover los controles con la parte de la variable de interés que también queda después de remover esos controles.
+
+::: {.box-intuicion}
+El teorema de Frisch-Waugh-Lovell dice que controlar por variables equivale a limpiar tanto \(y\) como la variable de interés \(X_r\), y luego estimar una regresión entre esas dos partes limpias.
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-fwl}
+
+Partimos del modelo:
+
+\[
+y=X_r\beta_r+X_s\beta_s+\epsilon,
+\]
+
+donde \(X_r\) es la variable de interés y \(X_s\) contiene los controles. La matriz de regresores completa es \(X=[X_r \; X_s]\).
+
+La matriz de proyección sobre el espacio columna de \(X_s\) es:
+
+\[
+P_s=X_s(X_s'X_s)^{-1}X_s'.
+\]
+
+La matriz que remueve la parte explicada por \(X_s\) es:
+
+\[
+M_s=I-P_s.
+\]
+
+Las matrices \(P_s\) y \(M_s\) son simétricas e idempotentes:
+
+\[
+P_s'=P_s, \quad P_s^2=P_s,
+\]
+
+\[
+M_s'=M_s, \quad M_s^2=M_s.
+\]
+
+### Paso 1: limpiar \(y\)
+
+Regresamos \(y\) sobre los controles \(X_s\) y guardamos los residuos:
+
+\[
+y^\perp=M_s y.
+\]
+
+### Paso 2: limpiar \(X_r\)
+
+Regresamos \(X_r\) sobre los mismos controles y guardamos los residuos:
+
+\[
+X_r^\perp=M_s X_r.
+\]
+
+### Paso 3: regresar residuos contra residuos
+
+Estimamos:
+
+\[
+y^\perp=X_r^\perp\gamma+u.
+\]
+
+El estimador de \(\gamma\) es:
+
+\[
+\hat{\gamma}
+= ((X_r^\perp)'X_r^\perp)^{-1}(X_r^\perp)'y^\perp
+= (X_r'M_sX_r)^{-1}X_r'M_s y.
+\]
+
+El teorema de Frisch-Waugh-Lovell establece que:
+
+\[
+\hat{\gamma}=\hat{\beta}_r,
+\]
+
+donde \(\hat{\beta}_r\) es el coeficiente de \(X_r\) en la regresión completa de \(y\) sobre \(X_r\) y \(X_s\).
+
+::: {.box-ejemplo}
+Si \(y\) es salario, \(X_r\) es educación y \(X_s\) contiene experiencia, FWL dice que el coeficiente de educación se puede obtener estimando la relación entre salario residualizado por experiencia y educación residualizada por experiencia.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-fwl}
+
+FWL es un resultado algebraico. Para que el coeficiente tenga la interpretación econométrica usual, se requieren los supuestos del modelo lineal.
+
+| Condición | Papel |
+|---|---|
+| Rango completo | Asegura que las matrices relevantes sean invertibles. |
+| Misma muestra | Las tres regresiones parciales deben usar exactamente las mismas observaciones. |
+| Exogeneidad | Permite interpretar el coeficiente como parámetro poblacional bajo los supuestos del modelo. |
+| Especificación común | Los controles que se remueven de \(y\) y de \(X_r\) deben ser los mismos. |
+
+::: {.box-resumen}
+FWL no cambia el estimador. Cambia la forma de verlo: una regresión múltiple puede entenderse como una regresión simple entre componentes ortogonales a los controles.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-fwl}
+
+::: {.box-cuidado}
+No uses muestras diferentes en las regresiones auxiliares. Si una variable tiene valores faltantes y cambia el conjunto de observaciones, la igualdad de FWL puede romperse en la práctica.
+:::
+
+::: {.box-cuidado}
+El intercepto debe tratarse de manera consistente. Si la regresión completa incluye constante, las regresiones auxiliares también deben incluirla.
+:::
+
+::: {.box-cuidado}
+FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilon\mid X]\neq 0\), residualizar controles no convierte automáticamente el coeficiente en causal.
+:::
+
+## Resumen {#resumen-fwl-teoria}
+
+::: {.box-resumen}
+- \(P_s\) proyecta sobre el espacio generado por los controles.
+- \(M_s=I-P_s\) remueve la parte explicada por los controles.
+- FWL estima el coeficiente parcial regresando \(y^\perp=M_sy\) sobre \(X_r^\perp=M_sX_r\).
+- El coeficiente obtenido es igual al coeficiente de \(X_r\) en la regresión múltiple completa.
+- La igualdad es algebraica, pero la interpretación depende de los supuestos econométricos.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-fwl}
+
+::: {.box-ejercicios}
+1. Explica con tus palabras qué significa "limpiar" una variable de los controles.
+2. Demuestra que \(M_sX_s=0\).
+3. ¿Por qué \(M_s\) se llama matriz de aniquilación?
+4. Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.
+5. Explica por qué FWL exige usar la misma muestra en todas las regresiones.
+:::
+
+## Referencias {#referencias-fwl-teoria}
+
+- Frisch, Ragnar y Frederick Waugh. "Partial Time Regressions as Compared with Individual Trends", *Econometrica*, 1933.
+- Lovell, Michael. "Seasonal Adjustment of Economic Time Series and Multiple Regression Analysis", *Journal of the American Statistical Association*, 1963.
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulo 3.
+
+[Continúa en la práctica →](fwl-practica.html)

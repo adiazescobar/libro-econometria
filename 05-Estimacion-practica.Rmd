@@ -1,0 +1,261 @@
+# Estimación de MCO: práctica {#estimacion-mco-practica}
+
+```{r setup-estimacion-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](estimacion-mco-teoria.html)
+
+## Objetivos de la práctica {#objetivos-estimacion-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Estimar MCO con álgebra matricial en R.
+2. Comparar la estimación matricial con `lm()`.
+3. Reproducir los mismos coeficientes en Stata/Mata y Python/NumPy.
+4. Interpretar coeficientes, residuos y errores estándar usando resultados calculados en R.
+
+## Pregunta aplicada {#pregunta-aplicada-estimacion}
+
+Queremos estudiar la asociación entre salario por hora, educación y experiencia en una base pequeña y reproducible.
+
+::: {.box-intuicion}
+La pregunta no es solo cuánto vale la pendiente, sino si podemos reconstruir todo el cálculo de MCO desde matrices: \(X'X\), \(X'y\), \(\hat{\beta}\), residuos y errores estándar.
+:::
+
+Estimaremos:
+
+\[
+\text{salario\_hora}_i
+= \beta_0+\beta_1\text{educacion}_i+\beta_2\text{experiencia}_i+\epsilon_i.
+\]
+
+## Datos {#datos-estimacion-practica}
+
+Usaremos una base determinística para que R, Stata y Python trabajen exactamente con la misma muestra.
+
+```{r datos-estimacion-practica}
+datos_est <- data.frame(
+  educacion = c(10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16),
+  experiencia = c(2, 3, 5, 4, 6, 5, 7, 6, 8, 7, 9, 10),
+  ajuste = c(-0.5, 0.2, -0.1, 0.4, -0.2, 0.1, 0.3, -0.3, 0.2, 0.5, -0.4, 0.1)
+)
+
+datos_est$salario_hora <- 5 +
+  0.75 * datos_est$educacion +
+  0.35 * datos_est$experiencia +
+  datos_est$ajuste
+
+kable(datos_est, digits = 2, caption = "Datos de práctica para estimar MCO con matrices")
+```
+
+```{r grafico-datos-estimacion, fig.cap="Relación entre educación y salario por hora en la práctica de estimación"}
+ggplot(datos_est, aes(x = educacion, y = salario_hora)) +
+  geom_point(color = "#2f4858", size = 2.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Años de educación", y = "Salario por hora") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-estimacion}
+
+Primero estimamos el modelo con álgebra matricial:
+
+```{r estimacion-matricial-r}
+X_est <- cbind(
+  constante = 1,
+  educacion = datos_est$educacion,
+  experiencia = datos_est$experiencia
+)
+Y_est <- matrix(datos_est$salario_hora, ncol = 1)
+
+beta_mat <- solve(t(X_est) %*% X_est) %*% t(X_est) %*% Y_est
+Y_hat_est <- X_est %*% beta_mat
+resid_est <- Y_est - Y_hat_est
+
+n_est <- nrow(X_est)
+k_est <- ncol(X_est)
+src_est <- as.numeric(t(resid_est) %*% resid_est)
+s2_est <- src_est / (n_est - k_est)
+vcov_est <- s2_est * solve(t(X_est) %*% X_est)
+se_mat <- sqrt(diag(vcov_est))
+```
+
+Verificamos que el resultado coincide con `lm()`:
+
+```{r estimacion-lm-r}
+modelo_est <- lm(salario_hora ~ educacion + experiencia, data = datos_est)
+tabla_est <- coef(summary(modelo_est))
+
+beta0_est <- unname(coef(modelo_est)[["(Intercept)"]])
+beta_educ_est <- unname(coef(modelo_est)[["educacion"]])
+beta_exp_est <- unname(coef(modelo_est)[["experiencia"]])
+se0_est <- tabla_est["(Intercept)", "Std. Error"]
+se_educ_est <- tabla_est["educacion", "Std. Error"]
+se_exp_est <- tabla_est["experiencia", "Std. Error"]
+r2_est <- summary(modelo_est)$r.squared
+
+kable(
+  data.frame(
+    termino = rownames(tabla_est),
+    beta_matricial = as.numeric(beta_mat),
+    beta_lm = unname(coef(modelo_est)),
+    error_estandar = se_mat,
+    row.names = NULL
+  ),
+  digits = 4,
+  caption = "Comparación entre MCO matricial y lm() en R"
+)
+```
+
+## Interpretación {#interpretacion-estimacion}
+
+::: {.box-ejemplo}
+La pendiente de educación es `r sprintf("%.3f", beta_educ_est)`. Manteniendo constante la experiencia, un año adicional de educación se asocia con `r sprintf("%.3f", beta_educ_est)` unidades más de salario por hora en esta muestra.
+:::
+
+La pendiente de experiencia es `r sprintf("%.3f", beta_exp_est)`. El \(R^2\) es `r sprintf("%.3f", r2_est)` y la SRC es `r sprintf("%.3f", src_est)`.
+
+::: {.box-cuidado}
+La igualdad entre el cálculo matricial y `lm()` no demuestra causalidad. Solo verifica que ambos implementan el mismo estimador de MCO sobre la misma base y especificación.
+:::
+
+## Estimación en Stata {#estimacion-stata-estimacion}
+
+El mismo ejercicio puede reproducirse en Stata y Mata:
+
+```stata
+clear
+input educacion experiencia ajuste
+10 2  -0.5
+11 3   0.2
+11 5  -0.1
+12 4   0.4
+12 6  -0.2
+13 5   0.1
+13 7   0.3
+14 6  -0.3
+14 8   0.2
+15 7   0.5
+15 9  -0.4
+16 10  0.1
+end
+
+gen salario_hora = 5 + 0.75 * educacion + 0.35 * experiencia + ajuste
+reg salario_hora educacion experiencia
+
+gen constante = 1
+mata:
+st_view(Y=., ., "salario_hora")
+st_view(X=., ., ("constante", "educacion", "experiencia"))
+b = invsym(X'X) * X'Y
+e = Y - X*b
+s2 = (e'e) / (rows(X) - cols(X))
+V = s2 * invsym(X'X)
+se = sqrt(diagonal(V))
+b
+se
+end
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_est)` | `r sprintf("%.3f", se0_est)` |
+| Educación | `r sprintf("%.3f", beta_educ_est)` | `r sprintf("%.3f", se_educ_est)` |
+| Experiencia | `r sprintf("%.3f", beta_exp_est)` | `r sprintf("%.3f", se_exp_est)` |
+| \(R^2\) | `r sprintf("%.3f", r2_est)` |  |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-estimacion}
+
+Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:
+
+```python
+!pip -q install pandas numpy statsmodels matplotlib seaborn
+```
+
+Luego reproduce el cálculo:
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+datos_est = pd.DataFrame({
+    "educacion": [10, 11, 11, 12, 12, 13, 13, 14, 14, 15, 15, 16],
+    "experiencia": [2, 3, 5, 4, 6, 5, 7, 6, 8, 7, 9, 10],
+    "ajuste": [-0.5, 0.2, -0.1, 0.4, -0.2, 0.1, 0.3, -0.3, 0.2, 0.5, -0.4, 0.1]
+})
+
+datos_est["salario_hora"] = (
+    5 + 0.75 * datos_est["educacion"] +
+    0.35 * datos_est["experiencia"] +
+    datos_est["ajuste"]
+)
+
+X = np.column_stack([
+    np.ones(len(datos_est)),
+    datos_est["educacion"],
+    datos_est["experiencia"]
+])
+Y = datos_est["salario_hora"].to_numpy().reshape(-1, 1)
+
+beta = np.linalg.inv(X.T @ X) @ X.T @ Y
+print(beta.ravel())
+
+modelo = sm.OLS(datos_est["salario_hora"], sm.add_constant(datos_est[["educacion", "experiencia"]])).fit()
+print(modelo.summary())
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_est)` | `r sprintf("%.3f", se0_est)` |
+| Educación | `r sprintf("%.3f", beta_educ_est)` | `r sprintf("%.3f", se_educ_est)` |
+| Experiencia | `r sprintf("%.3f", beta_exp_est)` | `r sprintf("%.3f", se_exp_est)` |
+| \(R^2\) | `r sprintf("%.3f", r2_est)` |  |
+
+## Comparación R, Stata y Python {#comparacion-software-estimacion}
+
+::: {.box-resumen}
+R, Stata/Mata y Python/NumPy aplican la misma fórmula matricial. Si \(X\), \(y\) y la muestra son idénticas, los coeficientes y errores estándar coinciden salvo diferencias mínimas de redondeo.
+:::
+
+| Tarea | R | Stata/Mata | Python |
+|---|---|---|---|
+| Crear \(X\) | `cbind(1, x1, x2)` | `st_view(X=., ., vars)` | `np.column_stack()` |
+| Estimar \(\hat{\beta}\) | `solve(t(X)%*%X)%*%t(X)%*%Y` | `invsym(X'X)*X'Y` | `np.linalg.inv(X.T @ X) @ X.T @ Y` |
+| Residuos | `Y - X %*% beta` | `Y - X*b` | `Y - X @ beta` |
+| Comparar con comando base | `lm()` | `reg` | `statsmodels.OLS()` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-estimacion}
+
+::: {.box-cuidado}
+- **Olvidar la constante.** Si el modelo teórico tiene intercepto, la matriz \(X\) debe incluir una columna de unos.
+- **Comparar modelos con muestras distintas.** La fórmula matricial y `lm()` solo coinciden si usan exactamente las mismas observaciones.
+- **Invertir una matriz singular.** Si hay colinealidad perfecta, \(X'X\) no se puede invertir.
+- **Confundir SRC con varianza del error.** La SRC es \(\hat{\epsilon}'\hat{\epsilon}\); la varianza estimada divide por \(n-K\).
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-estimacion}
+
+::: {.box-ejercicios}
+1. Elimina la constante de \(X\). ¿Cómo cambian los coeficientes?
+2. Agrega una variable que sea exactamente `educacion + experiencia`. ¿Qué ocurre con `solve(t(X) %*% X)`?
+3. Cambia la unidad de salario multiplicando `salario_hora` por 1000. ¿Qué coeficientes cambian?
+4. Repite el cálculo en Stata/Mata y Python. Verifica que los coeficientes coincidan con R.
+5. Calcula manualmente `sum(resid_est^2)` y compáralo con `src_est`.
+:::

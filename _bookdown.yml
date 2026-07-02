@@ -2,15 +2,23 @@ rmd_files:
   - index.Rmd
   - 00-PruebaEntrada.Rmd
   - 01-intro.Rmd
-  - 02-MCOsuma.Rmd
+  - 02-MCOsuma-teoria.Rmd
+  - 02-MCOsuma-practica.Rmd
   - 03-Matrices.Rmd
-  - 04-Supuestos.Rmd
-  - 05-Estimacion.Rmd
-  - 06-FWL.Rmd
-  - 07-Propiedades.Rmd
-  - 08-PruebasHIP.Rmd
-  - 09-NormAs.Rmd
-  - 10-Multico.Rmd
+  - 04-Supuestos-teoria.Rmd
+  - 04-Supuestos-practica.Rmd
+  - 05-Estimacion-teoria.Rmd
+  - 05-Estimacion-practica.Rmd
+  - 06-FWL-teoria.Rmd
+  - 06-FWL-practica.Rmd
+  - 07-Propiedades-teoria.Rmd
+  - 07-Propiedades-practica.Rmd
+  - 08-PruebasHIP-teoria.Rmd
+  - 08-PruebasHIP-practica.Rmd
+  - 09-NormAs-teoria.Rmd
+  - 09-NormAs-practica.Rmd
+  - 10-Multico-teoria.Rmd
+  - 10-Multico-practica.Rmd
   - 11-Heterocedasticidad.Rmd
   - 12-Endogeneidad.Rmd
   - 13-VariablesInstrumentales.Rmd
@@ -19,3 +27,20 @@ rmd_files:
   - P1-Parcial1_2026-1.Rmd
 output_dir: "docs"
 delete_merged_file: false
+language:
+  ui:
+    chapter_name: "Capítulo "
+  label:
+    fig: "Figura "
+    tab: "Tabla "
+    eq: "Ecuación "
+    thm: "Teorema "
+    lem: "Lema "
+    cor: "Corolario "
+    prp: "Proposición "
+    cnj: "Conjetura "
+    def: "Definición "
+    exm: "Ejemplo "
+    exr: "Ejercicio "
+    proof: "Demostración"
+    remark: "Comentario"

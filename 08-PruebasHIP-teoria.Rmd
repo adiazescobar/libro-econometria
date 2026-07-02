@@ -1,0 +1,210 @@
+# Pruebas de hipótesis: teoría {#pruebas-hipotesis-teoria}
+
+```{r setup-pruebas-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-pruebas-teoria}
+
+Al finalizar esta página podrás:
+
+1. Formular hipótesis nulas y alternativas sobre uno o varios coeficientes.
+2. Construir estadísticos \(t\) para restricciones individuales.
+3. Construir estadísticos \(F\) para restricciones lineales conjuntas.
+4. Interpretar valores críticos, valores \(p\) e intervalos de confianza.
+5. Reconocer la relación entre pruebas \(t\) y \(F\) cuando hay una sola restricción.
+
+## Intuición y motivación {#intuicion-pruebas-teoria}
+
+Después de estimar un modelo lineal, rara vez basta con mirar el signo y el tamaño de \(\hat{\beta}\). La inferencia pregunta si la evidencia muestral es compatible con una hipótesis sobre el parámetro poblacional.
+
+::: {.box-intuicion}
+Una prueba de hipótesis compara una señal con su ruido estadístico. La señal es la distancia entre el estimador y el valor planteado por la hipótesis nula. El ruido es el error estándar del estimador.
+:::
+
+Por ejemplo, en una función Cobb-Douglas en logaritmos:
+
+\[
+\log(Y_i)=\alpha \log(K_i)+\beta \log(L_i)+\epsilon_i,
+\]
+
+la hipótesis de rendimientos constantes a escala se escribe como:
+
+\[
+H_0:\alpha+\beta=1.
+\]
+
+Esta es una restricción lineal sobre los parámetros y puede evaluarse con la misma lógica que usamos para hipótesis sobre coeficientes individuales.
+
+## Desarrollo teórico {#desarrollo-teorico-pruebas}
+
+Partimos del modelo lineal:
+
+\[
+y=X\beta+\epsilon,
+\]
+
+con estimador:
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Bajo normalidad condicional de los errores:
+
+\[
+\epsilon\mid X\sim \mathcal{N}(0,\sigma^2I),
+\]
+
+se obtiene:
+
+\[
+\hat{\beta}\mid X\sim \mathcal{N}\left(\beta,\sigma^2(X'X)^{-1}\right).
+\]
+
+### Prueba sobre un coeficiente
+
+Para contrastar:
+
+\[
+H_0:\beta_k=\beta_k^0,
+\qquad
+H_1:\beta_k\neq \beta_k^0,
+\]
+
+usamos:
+
+\[
+t_k=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}.
+\]
+
+Bajo \(H_0\) y los supuestos clásicos con normalidad:
+
+\[
+t_k\sim t(n-K).
+\]
+
+La regla bilateral con nivel \(\alpha\) es rechazar \(H_0\) si:
+
+\[
+|t_k|\geq t_{1-\alpha/2,n-K}.
+\]
+
+Equivalente, rechazamos si el valor \(p\) es menor o igual que \(\alpha\).
+
+### Intervalo de confianza
+
+El intervalo de confianza bilateral para \(\beta_k\) es:
+
+\[
+\hat{\beta}_k \pm t_{1-\alpha/2,n-K}EE(\hat{\beta}_k).
+\]
+
+Si el valor planteado por \(H_0\) queda fuera del intervalo, la prueba bilateral rechaza al mismo nivel de significancia.
+
+### Restricciones lineales conjuntas
+
+Una hipótesis lineal general se escribe como:
+
+\[
+H_0:R\beta=r,
+\]
+
+donde \(R\) contiene \(q\) restricciones lineales. El estadístico \(F\) clásico es:
+
+\[
+F=
+\frac{(R\hat{\beta}-r)'\left[R(X'X)^{-1}R'\right]^{-1}(R\hat{\beta}-r)/q}
+{\hat{\sigma}^2}.
+\]
+
+Bajo \(H_0\):
+
+\[
+F\sim F(q,n-K).
+\]
+
+También puede calcularse comparando el modelo restringido y el no restringido:
+
+\[
+F=\frac{(\text{SRC}_R-\text{SRC}_{UR})/q}{\text{SRC}_{UR}/(n-K)}.
+\]
+
+Aquí \(\text{SRC}_R\) es la suma de residuos al cuadrado del modelo restringido y \(\text{SRC}_{UR}\) la del modelo no restringido.
+
+### Relación entre \(t\) y \(F\)
+
+Cuando hay una sola restricción lineal, \(q=1\), las pruebas son equivalentes:
+
+\[
+F(1,n-K)=t(n-K)^2.
+\]
+
+::: {.box-ejemplo}
+Si la hipótesis es \(H_0:\beta_1=0\), el estadístico \(F\) para esa única restricción entrega la misma decisión que el estadístico \(t\) bilateral, porque ambos miden la distancia estandarizada entre \(\hat{\beta}_1\) y cero.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-pruebas}
+
+Las pruebas exactas \(t\) y \(F\) dependen de los supuestos clásicos:
+
+| Condición | Papel en la inferencia |
+|---|---|
+| Exogeneidad estricta | Centra \(\hat{\beta}\) en \(\beta\). |
+| Rango completo de \(X\) | Permite estimar \(\hat{\beta}\) y su varianza. |
+| Perturbaciones esféricas | Justifica la matriz de varianza clásica. |
+| Normalidad condicional | Da distribuciones exactas \(t\) y \(F\) en muestras pequeñas. |
+
+::: {.box-cuidado}
+La normalidad no hace que MCO sea insesgado. Su papel aquí es justificar la distribución exacta de los estadísticos de prueba en muestras pequeñas. En muestras grandes, la inferencia puede apoyarse en resultados asintóticos que se estudian en el capítulo siguiente.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-pruebas}
+
+::: {.box-cuidado}
+No escribas la hipótesis nula como \(H_0:\hat{\beta}_k=0\). La hipótesis se formula sobre el parámetro poblacional: \(H_0:\beta_k=0\). El estimador \(\hat{\beta}_k\) es la evidencia muestral.
+:::
+
+::: {.box-cuidado}
+Un valor \(p\) no es la probabilidad de que la hipótesis nula sea verdadera. Es la probabilidad, bajo \(H_0\), de observar un estadístico tan extremo como el observado o más extremo.
+:::
+
+::: {.box-cuidado}
+No confundas significancia estadística con importancia económica. Un coeficiente puede ser estadísticamente distinto de cero y aun así ser pequeño en magnitud sustantiva.
+:::
+
+## Resumen {#resumen-pruebas-teoria}
+
+::: {.box-resumen}
+- Las pruebas de hipótesis contrastan afirmaciones sobre \(\beta\), no sobre \(\hat{\beta}\).
+- La prueba \(t\) evalúa restricciones individuales.
+- La prueba \(F\) evalúa restricciones lineales conjuntas.
+- El intervalo de confianza y la prueba bilateral contienen la misma información para una restricción individual.
+- Con una sola restricción, \(F=t^2\).
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-pruebas}
+
+::: {.box-ejercicios}
+1. Formula \(H_0\) y \(H_1\) para evaluar si el retorno de la educación es igual a 0.08.
+2. Explica por qué una prueba \(F\) es necesaria cuando queremos evaluar dos restricciones simultáneas.
+3. Demuestra que, con una sola restricción, el estadístico \(F\) equivale al cuadrado del estadístico \(t\).
+4. Interpreta un valor \(p\) de 0.07 con \(\alpha=0.05\) y con \(\alpha=0.10\).
+5. En una función Cobb-Douglas, escribe \(R\beta=r\) para la hipótesis de rendimientos constantes a escala.
+:::
+
+## Referencias {#referencias-pruebas-teoria}
+
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 4 y 5.
+- Greene, William. *Econometric Analysis*, capítulos 4 y 5.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulos 2 y 3.
+
+[Continúa en la práctica →](pruebas-hipotesis-practica.html)

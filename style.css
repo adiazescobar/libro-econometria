@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 p.caption {
   color: #777;
   margin-top: 10px;
@@ -78,8 +79,7 @@ pre code {
   padding: 1em;
   margin: 1em 0;
   font-family: Georgia, serif;
-  label: "Demostración"" ;
-  }
+}
 
 .theorem {
   background-color: #e8f8f5;
@@ -136,21 +136,123 @@ details[open] > summary::before { content: "▼ "; font-size: 0.75em; }
   margin: 0.8em 0;
 }
 
-language:
-  ui:
-    chapter_name: "Capítulo "
-  label:
-    fig: 'Figura '
-    tab: 'Tabla '
-    eq: 'Ecuación '
-    thm: 'Teorema '
-    lem: 'Lema '
-    cor: 'Corolario '
-    prp: 'Proposición '
-    cnj: 'Conjetura '
-    def: 'Definición '
-    exm: 'Ejemplo '
-    exr: 'Ejercicio '
-    proof: 'Demostración'
-    remark: 'Comentario'
+/* === Cajas pedagogicas canonicas === */
 
+.box-intuicion,
+.box-ejemplo,
+.box-cuidado,
+.box-resumen,
+.box-ejercicios {
+  border-radius: 6px;
+  padding: 0.9em 1.05em;
+  margin: 1em 0;
+  font-size: 0.96em;
+  line-height: 1.65;
+}
+
+.box-intuicion p,
+.box-ejemplo p,
+.box-cuidado p,
+.box-resumen p,
+.box-ejercicios p {
+  margin-top: 0;
+}
+
+.box-intuicion p:last-child,
+.box-ejemplo p:last-child,
+.box-cuidado p:last-child,
+.box-resumen p:last-child,
+.box-ejercicios p:last-child {
+  margin-bottom: 0;
+}
+
+.box-intuicion {
+  background: #eef7f4;
+  border-left: 5px solid #2a9d8f;
+}
+
+.box-ejemplo {
+  background: #f3f6fb;
+  border-left: 5px solid #3d5a80;
+}
+
+.box-cuidado {
+  background: #fff4ed;
+  border-left: 5px solid #e76f51;
+}
+
+.box-resumen {
+  background: #f6f3ea;
+  border-left: 5px solid #8a6f3d;
+}
+
+.box-ejercicios {
+  background: #fffbe6;
+  border-left: 5px solid #e6ac00;
+}
+
+.box-intuicion::before,
+.box-ejemplo::before,
+.box-cuidado::before,
+.box-resumen::before,
+.box-ejercicios::before {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35em;
+}
+
+.box-intuicion::before {
+  content: "Intuición";
+  color: #1f756b;
+}
+
+.box-ejemplo::before {
+  content: "Ejemplo";
+  color: #2f4d6f;
+}
+
+.box-cuidado::before {
+  content: "Cuidado";
+  color: #b54d35;
+}
+
+.box-resumen::before {
+  content: "Resumen";
+  color: #6f592f;
+}
+
+.box-ejercicios::before {
+  content: "Ejercicios";
+  color: #9a7600;
+}
+
+
+/* ============================================================
+   Unificacion con el sitio adiazescobar.com (Mono claro) — !important para vencer gitbook
+   ============================================================ */
+:root{
+  --paper:#FCFCFB; --ink:#17181A; --muted:#6A6C70; --line:#E7E7E3; --accent:#C0562F;
+  --display:"Fraunces",Georgia,serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+.book .book-body, .book.color-theme-0 .book-body{ background:var(--paper) !important; }
+.book .book-body, .book.font-family-1,
+.book .book-body .page-wrapper .page-inner section.normal{
+  font-family:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif !important;
+  color:var(--ink) !important;
+}
+.book .book-body .page-inner{ max-width:840px; }
+.book .book-body .page-inner section h1,
+.book .book-body .page-inner section h2,
+.book .book-body .page-inner section h3,
+.book .book-body .page-inner section h4{
+  font-family:var(--display) !important; font-weight:500 !important; color:var(--ink) !important; letter-spacing:-.012em;
+}
+.book .book-body .page-inner section a{ color:var(--accent) !important; }
+.book .book-body .page-inner section code,
+.book .book-body pre, .book .book-body pre code{ font-family:var(--mono) !important; }
+.book .book-summary{ font-family:var(--mono) !important; font-size:.78rem; background:#FBFAF7 !important; border-right:1px solid var(--line) !important; }
+.book .book-summary ul.summary li.chapter ul{ display:none !important; }
+.book .book-summary ul.summary li.active > a{ color:var(--accent) !important; }
+.book .book-summary ul.summary li a:hover{ color:var(--accent) !important; }
+.book .book-header{ background:var(--paper) !important; color:var(--muted) !important; box-shadow:none !important; }
+.book .book-header h1{ font-family:var(--mono) !important; font-weight:500; font-size:.78rem; letter-spacing:.03em; }

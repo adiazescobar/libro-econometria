@@ -1,0 +1,171 @@
+# Propiedades de MCO: teoría {#propiedades-mco-teoria}
+
+```{r setup-propiedades-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-propiedades-teoria}
+
+Al finalizar esta página podrás:
+
+1. Derivar el error muestral de \(\hat{\beta}\).
+2. Demostrar el insesgamiento condicional de MCO bajo exogeneidad.
+3. Obtener la varianza clásica de \(\hat{\beta}\).
+4. Enunciar el teorema de Gauss-Markov y su interpretación como MELI.
+
+## Intuición y motivación {#intuicion-propiedades-teoria}
+
+Después de aprender a calcular \(\hat{\beta}\), la pregunta central es qué tan bueno es ese estimador. Las propiedades de muestras finitas analizan el comportamiento de \(\hat{\beta}\) en muestras repetidas, manteniendo fijo el tamaño muestral.
+
+::: {.box-intuicion}
+Un estimador puede cambiar de una muestra a otra. Las propiedades de MCO responden tres preguntas: si acierta en promedio, qué tanto varía y si usa la información de manera eficiente dentro de la clase de estimadores lineales insesgados.
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-propiedades}
+
+Partimos del modelo:
+
+\[
+y=X\beta+\epsilon.
+\]
+
+El estimador de MCO es:
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Sustituyendo el modelo poblacional:
+
+\[
+\begin{aligned}
+\hat{\beta}
+&=(X'X)^{-1}X'(X\beta+\epsilon)\\
+&=\beta+(X'X)^{-1}X'\epsilon.
+\end{aligned}
+\]
+
+Por tanto, el error muestral es:
+
+\[
+\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon.
+\]
+
+### Insesgamiento
+
+Si se cumple exogeneidad estricta:
+
+\[
+\mathbb{E}[\epsilon\mid X]=0,
+\]
+
+entonces:
+
+\[
+\begin{aligned}
+\mathbb{E}[\hat{\beta}\mid X]
+&=\mathbb{E}\left[\beta+(X'X)^{-1}X'\epsilon\mid X\right]\\
+&=\beta+(X'X)^{-1}X'\mathbb{E}[\epsilon\mid X]\\
+&=\beta.
+\end{aligned}
+\]
+
+MCO es insesgado condicional a \(X\). Esto no significa que cada estimación sea igual a \(\beta\), sino que el promedio de las estimaciones en muestras repetidas se centra en \(\beta\).
+
+### Varianza
+
+Bajo perturbaciones esféricas:
+
+\[
+\text{Var}(\epsilon\mid X)=\sigma^2I,
+\]
+
+la varianza condicional de \(\hat{\beta}\) es:
+
+\[
+\begin{aligned}
+\text{Var}(\hat{\beta}\mid X)
+&=\text{Var}\left((X'X)^{-1}X'\epsilon\mid X\right)\\
+&=(X'X)^{-1}X'\text{Var}(\epsilon\mid X)X(X'X)^{-1}\\
+&=(X'X)^{-1}X'\sigma^2IX(X'X)^{-1}\\
+&=\sigma^2(X'X)^{-1}.
+\end{aligned}
+\]
+
+En la práctica reemplazamos \(\sigma^2\) por:
+
+\[
+\hat{\sigma}^2=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}
+=\frac{\text{SRC}}{n-K}.
+\]
+
+### Gauss-Markov
+
+El teorema de Gauss-Markov afirma que, bajo los supuestos clásicos, MCO es el mejor estimador lineal insesgado, o MELI. Es decir, entre todos los estimadores lineales e insesgados, \(\hat{\beta}\) tiene la menor varianza.
+
+::: {.box-ejemplo}
+Si dos estimadores son insesgados, ambos aciertan en promedio. Gauss-Markov dice que MCO, además, es el que se dispersa menos dentro de la clase de estimadores lineales insesgados.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-propiedades}
+
+| Propiedad | Supuesto clave | Resultado |
+|---|---|---|
+| Insesgamiento | \(\mathbb{E}[\epsilon\mid X]=0\) | \(\mathbb{E}[\hat{\beta}\mid X]=\beta\). |
+| Varianza clásica | \(\text{Var}(\epsilon\mid X)=\sigma^2I\) | \(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}\). |
+| MELI | Supuestos clásicos de Gauss-Markov | MCO tiene mínima varianza entre estimadores lineales insesgados. |
+| Inferencia exacta | Normalidad adicional | Se estudia al discutir pruebas de hipótesis. |
+
+::: {.box-resumen}
+La normalidad no es necesaria para Gauss-Markov. Es útil para inferencia exacta en muestras pequeñas, tema que se trabaja con más detalle en capítulos posteriores.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-propiedades}
+
+::: {.box-cuidado}
+Insesgado no significa correcto en cada muestra. Significa correcto en promedio, bajo el proceso de muestreo y los supuestos del modelo.
+:::
+
+::: {.box-cuidado}
+MELI no significa "mejor entre todos los estimadores posibles". Significa mejor dentro de la clase de estimadores lineales e insesgados.
+:::
+
+::: {.box-cuidado}
+Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo exogeneidad, pero la fórmula clásica de varianza deja de ser adecuada. Ese tema se estudia en detalle más adelante.
+:::
+
+## Resumen {#resumen-propiedades-teoria}
+
+::: {.box-resumen}
+- El error muestral de MCO es \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
+- Bajo \(\mathbb{E}[\epsilon\mid X]=0\), MCO es insesgado.
+- Bajo \(\text{Var}(\epsilon\mid X)=\sigma^2I\), \(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}\).
+- Gauss-Markov establece que MCO es MELI: el mejor estimador lineal insesgado.
+- Las propiedades dependen de los supuestos; no se derivan solo de correr una regresión.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-propiedades}
+
+::: {.box-ejercicios}
+1. Demuestra que \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
+2. Explica por qué \(\mathbb{E}[\epsilon\mid X]=0\) implica insesgamiento condicional.
+3. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
+4. Explica qué significa que MCO sea "lineal" como estimador.
+5. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
+:::
+
+## Referencias {#referencias-propiedades-teoria}
+
+- Greene, William. *Econometric Analysis*, capítulo 4.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulo 2.
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 2 y 3.
+
+[Continúa en la práctica →](propiedades-mco-practica.html)

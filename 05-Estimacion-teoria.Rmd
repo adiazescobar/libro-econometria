@@ -1,0 +1,167 @@
+# Estimación de MCO: teoría {#estimacion-mco-teoria}
+
+```{r setup-estimacion-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-estimacion-teoria}
+
+Al finalizar esta página podrás:
+
+1. Escribir el modelo lineal en notación matricial.
+2. Derivar el estimador de MCO a partir de la minimización de la SRC.
+3. Interpretar las ecuaciones normales como condiciones de ortogonalidad.
+4. Reconocer cómo cambian los coeficientes cuando el modelo incluye variables binarias.
+
+## Intuición y motivación {#intuicion-estimacion-teoria}
+
+La regresión por mínimos cuadrados ordinarios busca una combinación lineal de regresores que se acerque lo más posible al vector observado \(y\). En regresión múltiple, esa "recta" se convierte en un hiperplano. La estimación consiste en elegir el vector \(\hat{\beta}\) que minimiza la suma de residuos al cuadrado.
+
+::: {.box-intuicion}
+MCO puede leerse como un problema geométrico: proyectamos \(y\) sobre el espacio generado por las columnas de \(X\). Los valores ajustados son la proyección y los residuos son la parte de \(y\) que queda fuera de ese espacio.
+:::
+
+El modelo poblacional es:
+
+\[
+y = X\beta + \epsilon,
+\]
+
+donde \(y\) es un vector \(n \times 1\), \(X\) es una matriz \(n \times K\), \(\beta\) es un vector \(K \times 1\) y \(\epsilon\) es el vector de errores poblacionales.
+
+## Desarrollo teórico {#desarrollo-teorico-estimacion}
+
+Para un vector candidato \(b\), el vector de residuos estimados es:
+
+\[
+\hat{\epsilon}(b) = y - Xb.
+\]
+
+El criterio de mínimos cuadrados es:
+
+\[
+\text{SRC}(b)
+= \hat{\epsilon}(b)'\hat{\epsilon}(b)
+= (y-Xb)'(y-Xb).
+\]
+
+Al expandir:
+
+\[
+\text{SRC}(b)
+= y'y - 2b'X'y + b'X'Xb.
+\]
+
+Derivando con respecto a \(b\):
+
+\[
+\frac{\partial \text{SRC}}{\partial b}
+= -2X'y + 2X'Xb.
+\]
+
+Las condiciones de primer orden igualan esta derivada a cero:
+
+\[
+X'X\hat{\beta}=X'y.
+\]
+
+Estas son las ecuaciones normales. Si \(X'X\) es invertible, entonces:
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+::: {.box-ejemplo}
+Cuando el modelo solo contiene una constante, \(X\) es una columna de unos. En ese caso, \(X'X=n\), \(X'y=\sum_i y_i\) y \(\hat{\beta}_0=\bar{y}\). MCO reproduce la media muestral porque esa es la mejor predicción constante bajo pérdida cuadrática.
+:::
+
+La matriz \(X'X\) es simétrica y semidefinida positiva. Si las columnas de \(X\) son linealmente independientes, \(X'X\) es definida positiva y el punto que resuelve las ecuaciones normales es un mínimo de la SRC.
+
+### Variables binarias y categorías de referencia
+
+Las variables binarias muestran que los coeficientes de MCO dependen de la codificación del modelo. Si estimamos un modelo sin constante con dos grupos mutuamente excluyentes:
+
+\[
+y_i=\beta_1D_{1i}+\beta_2D_{2i}+\epsilon_i,
+\]
+
+cada coeficiente es la media del grupo correspondiente. Si estimamos con constante y omitimos una categoría:
+
+\[
+y_i=\beta_0+\beta_1D_{1i}+\epsilon_i,
+\]
+
+el intercepto es la media del grupo omitido y \(\beta_1\) es la diferencia de medias entre el grupo \(D_1=1\) y el grupo de referencia.
+
+::: {.box-cuidado}
+Incluir todas las categorías de una variable cualitativa junto con una constante genera colinealidad perfecta. La solución usual es omitir una categoría y usarla como referencia.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-estimacion}
+
+Para que la fórmula \(\hat{\beta}=(X'X)^{-1}X'y\) exista y tenga interpretación econométrica necesitamos:
+
+| Condición | Papel en la estimación |
+|---|---|
+| Linealidad en parámetros | Permite escribir el modelo como \(y=X\beta+\epsilon\). |
+| Rango completo de \(X\) | Garantiza que \(X'X\) sea invertible. |
+| Exogeneidad | Conecta las ecuaciones normales muestrales con \(\mathbb{E}[\epsilon\mid X]=0\). |
+| Perturbaciones esféricas | Se usa después para obtener la varianza clásica de \(\hat{\beta}\). |
+
+Las ecuaciones normales implican:
+
+\[
+X'\hat{\epsilon}=0.
+\]
+
+Esto significa que los residuos estimados son ortogonales a cada columna de \(X\). Si el modelo incluye constante, también se cumple que la suma de residuos es cero.
+
+## Errores comunes y cuidados {#errores-comunes-estimacion}
+
+::: {.box-cuidado}
+No confundas el error poblacional \(\epsilon_i\) con el residuo estimado \(\hat{\epsilon}_i\). El primero no se observa; el segundo se calcula después de estimar el modelo.
+:::
+
+::: {.box-cuidado}
+La fórmula matricial no reemplaza los supuestos. Podemos calcular \(\hat{\beta}\) siempre que \(X'X\) sea invertible, pero las propiedades de \(\hat{\beta}\) dependen del proceso generador de datos.
+:::
+
+::: {.box-cuidado}
+Los coeficientes de variables binarias siempre se interpretan respecto a una categoría omitida cuando el modelo incluye constante. Cambiar la referencia cambia los coeficientes, aunque no cambia los valores ajustados.
+:::
+
+## Resumen {#resumen-estimacion-teoria}
+
+::: {.box-resumen}
+- MCO minimiza \(\text{SRC}(b)=(y-Xb)'(y-Xb)\).
+- Las ecuaciones normales son \(X'X\hat{\beta}=X'y\).
+- Si \(X'X\) es invertible, \(\hat{\beta}=(X'X)^{-1}X'y\).
+- Los residuos de MCO son ortogonales a los regresores: \(X'\hat{\epsilon}=0\).
+- Con variables binarias, el significado de los coeficientes depende de si el modelo incluye constante y de cuál categoría se omite.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-estimacion}
+
+::: {.box-ejercicios}
+1. Demuestra que, en un modelo con solo constante, \(\hat{\beta}_0=\bar{y}\).
+2. Explica por qué \(X'X\) no es invertible si dos columnas de \(X\) son idénticas.
+3. En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.
+4. Demuestra que \(X'\hat{\epsilon}=0\) usando la fórmula \(\hat{\beta}=(X'X)^{-1}X'y\).
+5. Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.
+:::
+
+## Referencias {#referencias-estimacion-teoria}
+
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulos 1 y 2.
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 2 y 3.
+- Greene, William. *Econometric Analysis*, capítulos 2 y 3.
+
+[Continúa en la práctica →](estimacion-mco-practica.html)

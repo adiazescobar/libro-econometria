@@ -1,0 +1,279 @@
+# Pruebas de hipótesis: práctica {#pruebas-hipotesis-practica}
+
+```{r setup-pruebas-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](pruebas-hipotesis-teoria.html)
+
+## Objetivos de la práctica {#objetivos-pruebas-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Estimar un modelo lineal y extraer estadísticos \(t\), valores \(p\) e intervalos de confianza.
+2. Evaluar una hipótesis individual sobre un coeficiente.
+3. Evaluar una hipótesis conjunta con una prueba \(F\).
+4. Reproducir las mismas pruebas en R, Stata y Python.
+
+## Pregunta aplicada {#pregunta-aplicada-pruebas}
+
+Queremos estudiar si el salario por hora está asociado con educación y experiencia. La pregunta aplicada es:
+
+::: {.box-intuicion}
+¿La evidencia muestral permite rechazar que educación y experiencia no estén asociadas con el salario por hora?
+:::
+
+Estimaremos:
+
+\[
+\text{salario\_hora}_i
+=\beta_0+\beta_1\text{educacion}_i+\beta_2\text{experiencia}_i+\epsilon_i.
+\]
+
+Evaluaremos una prueba individual para educación y una prueba conjunta para educación y experiencia.
+
+## Datos {#datos-pruebas-practica}
+
+Usaremos una base determinística para que los resultados sean reproducibles en los tres programas.
+
+```{r datos-pruebas-practica}
+datos_hip <- data.frame(
+  educacion = c(10, 10, 11, 11, 12, 12, 13, 13, 14, 14,
+                15, 15, 16, 16, 17, 17, 18, 18),
+  experiencia = c(1, 4, 2, 6, 3, 8, 4, 9, 5, 10,
+                  6, 11, 7, 12, 8, 13, 9, 14),
+  ajuste = c(-0.7, 0.1, -0.3, 0.5, -0.2, 0.4, 0.0, 0.6, -0.1, 0.5,
+             0.2, 0.7, -0.2, 0.4, 0.1, 0.8, -0.1, 0.3)
+)
+
+datos_hip$salario_hora <- 4.5 +
+  0.68 * datos_hip$educacion +
+  0.22 * datos_hip$experiencia +
+  datos_hip$ajuste
+
+kable(datos_hip, digits = 2, caption = "Datos de práctica para pruebas de hipótesis")
+```
+
+```{r grafico-datos-pruebas, fig.cap="Relación entre educación y salario por hora en la práctica de pruebas"}
+ggplot(datos_hip, aes(x = educacion, y = salario_hora)) +
+  geom_point(color = "#2f4858", size = 2.7) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Años de educación", y = "Salario por hora") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-pruebas}
+
+Estimamos el modelo no restringido y extraemos los objetos necesarios para las pruebas.
+
+```{r estimacion-r-pruebas}
+modelo_hip <- lm(salario_hora ~ educacion + experiencia, data = datos_hip)
+tabla_hip <- coef(summary(modelo_hip))
+
+beta0_hip <- unname(coef(modelo_hip)[["(Intercept)"]])
+beta_educ_hip <- unname(coef(modelo_hip)[["educacion"]])
+beta_exp_hip <- unname(coef(modelo_hip)[["experiencia"]])
+se0_hip <- tabla_hip["(Intercept)", "Std. Error"]
+se_educ_hip <- tabla_hip["educacion", "Std. Error"]
+se_exp_hip <- tabla_hip["experiencia", "Std. Error"]
+t_educ_hip <- tabla_hip["educacion", "t value"]
+p_educ_hip <- tabla_hip["educacion", "Pr(>|t|)"]
+r2_hip <- summary(modelo_hip)$r.squared
+gl_resid_hip <- df.residual(modelo_hip)
+ic_educ_hip <- confint(modelo_hip)["educacion", ]
+
+modelo_hip_restr <- lm(salario_hora ~ 1, data = datos_hip)
+anova_hip <- anova(modelo_hip_restr, modelo_hip)
+f_global_hip <- anova_hip$F[2]
+p_global_hip <- anova_hip$`Pr(>F)`[2]
+src_restr_hip <- deviance(modelo_hip_restr)
+src_no_restr_hip <- deviance(modelo_hip)
+
+kable(
+  data.frame(
+    termino = rownames(tabla_hip),
+    estimacion = tabla_hip[, "Estimate"],
+    error_estandar = tabla_hip[, "Std. Error"],
+    t = tabla_hip[, "t value"],
+    p_valor = tabla_hip[, "Pr(>|t|)"],
+    row.names = NULL
+  ),
+  digits = 4,
+  caption = "Resultados del modelo para pruebas de hipótesis en R"
+)
+```
+
+```{r intervalo-educacion-pruebas, fig.cap="Intervalo de confianza para el coeficiente de educación"}
+ic_plot_hip <- data.frame(
+  termino = "Educación",
+  estimacion = beta_educ_hip,
+  inferior = ic_educ_hip[1],
+  superior = ic_educ_hip[2]
+)
+
+ggplot(ic_plot_hip, aes(x = termino, y = estimacion)) +
+  geom_hline(yintercept = 0, color = "grey65", linewidth = 0.7) +
+  geom_errorbar(aes(ymin = inferior, ymax = superior), width = 0.08, color = "#2f4858", linewidth = 1) +
+  geom_point(color = "#C0562F", size = 3) +
+  labs(x = NULL, y = "Coeficiente estimado") +
+  theme_minimal()
+```
+
+La prueba conjunta se calcula comparando el modelo restringido con el no restringido:
+
+```{r prueba-f-r}
+kable(
+  data.frame(
+    prueba = "H0: educación = 0 y experiencia = 0",
+    SRC_restringida = src_restr_hip,
+    SRC_no_restringida = src_no_restr_hip,
+    F = f_global_hip,
+    p_valor = p_global_hip
+  ),
+  digits = 4,
+  caption = "Prueba F conjunta calculada en R"
+)
+```
+
+## Interpretación {#interpretacion-pruebas}
+
+::: {.box-ejemplo}
+La pendiente de educación es `r sprintf("%.3f", beta_educ_hip)`, con estadístico \(t\) igual a `r sprintf("%.3f", t_educ_hip)` y valor \(p\) igual a `r sprintf("%.4f", p_educ_hip)`. El intervalo de confianza va de `r sprintf("%.3f", ic_educ_hip[1])` a `r sprintf("%.3f", ic_educ_hip[2])`.
+:::
+
+La prueba conjunta de \(H_0:\beta_{\text{educacion}}=\beta_{\text{experiencia}}=0\) entrega un estadístico \(F\) igual a `r sprintf("%.3f", f_global_hip)` y un valor \(p\) igual a `r sprintf("%.4f", p_global_hip)`.
+
+::: {.box-cuidado}
+Rechazar una hipótesis de coeficiente cero no convierte automáticamente la asociación en causal. La interpretación causal depende de la exogeneidad y del diseño empírico.
+:::
+
+## Estimación en Stata {#estimacion-stata-pruebas}
+
+El mismo ejercicio puede correrse en Stata:
+
+```stata
+clear
+input educacion experiencia ajuste
+10 1  -0.7
+10 4   0.1
+11 2  -0.3
+11 6   0.5
+12 3  -0.2
+12 8   0.4
+13 4   0.0
+13 9   0.6
+14 5  -0.1
+14 10  0.5
+15 6   0.2
+15 11  0.7
+16 7  -0.2
+16 12  0.4
+17 8   0.1
+17 13  0.8
+18 9  -0.1
+18 14  0.3
+end
+
+gen salario_hora = 4.5 + 0.68 * educacion + 0.22 * experiencia + ajuste
+reg salario_hora educacion experiencia
+test educacion
+test educacion experiencia
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_hip)` | `r sprintf("%.3f", se0_hip)` |
+| Educación | `r sprintf("%.3f", beta_educ_hip)` | `r sprintf("%.3f", se_educ_hip)` |
+| Experiencia | `r sprintf("%.3f", beta_exp_hip)` | `r sprintf("%.3f", se_exp_hip)` |
+| \(R^2\) | `r sprintf("%.3f", r2_hip)` |  |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-pruebas}
+
+Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:
+
+```python
+!pip -q install pandas numpy statsmodels
+```
+
+Luego reproduce el modelo y las pruebas:
+
+```python
+import pandas as pd
+import statsmodels.api as sm
+
+datos_hip = pd.DataFrame({
+    "educacion": [10, 10, 11, 11, 12, 12, 13, 13, 14, 14,
+                  15, 15, 16, 16, 17, 17, 18, 18],
+    "experiencia": [1, 4, 2, 6, 3, 8, 4, 9, 5, 10,
+                    6, 11, 7, 12, 8, 13, 9, 14],
+    "ajuste": [-0.7, 0.1, -0.3, 0.5, -0.2, 0.4, 0.0, 0.6, -0.1, 0.5,
+               0.2, 0.7, -0.2, 0.4, 0.1, 0.8, -0.1, 0.3]
+})
+
+datos_hip["salario_hora"] = (
+    4.5 + 0.68 * datos_hip["educacion"] +
+    0.22 * datos_hip["experiencia"] +
+    datos_hip["ajuste"]
+)
+
+X = sm.add_constant(datos_hip[["educacion", "experiencia"]])
+y = datos_hip["salario_hora"]
+modelo = sm.OLS(y, X).fit()
+print(modelo.summary())
+print(modelo.t_test("educacion = 0"))
+print(modelo.f_test("educacion = 0, experiencia = 0"))
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_hip)` | `r sprintf("%.3f", se0_hip)` |
+| Educación | `r sprintf("%.3f", beta_educ_hip)` | `r sprintf("%.3f", se_educ_hip)` |
+| Experiencia | `r sprintf("%.3f", beta_exp_hip)` | `r sprintf("%.3f", se_exp_hip)` |
+| \(R^2\) | `r sprintf("%.3f", r2_hip)` |  |
+
+## Comparación R, Stata y Python {#comparacion-software-pruebas}
+
+::: {.box-resumen}
+R, Stata y Python entregan los mismos coeficientes y las mismas pruebas si usan la misma base, la misma especificación y la misma hipótesis nula. Las diferencias están en la sintaxis: `test` en Stata, `anova()` o contrastes en R, y `t_test()`/`f_test()` en Python.
+:::
+
+| Tarea | R | Stata | Python |
+|---|---|---|---|
+| Modelo MCO | `lm()` | `reg` | `sm.OLS()` |
+| Prueba individual | `coef(summary())` | `test educacion` | `t_test()` |
+| Prueba conjunta | `anova(restringido, no_restringido)` | `test educacion experiencia` | `f_test()` |
+| Intervalo de confianza | `confint()` | `estat`/salida de `reg` | `conf_int()` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-pruebas}
+
+::: {.box-cuidado}
+- **Probar el estimador en vez del parámetro.** La hipótesis se formula sobre \(\beta\), no sobre \(\hat{\beta}\).
+- **Cambiar de muestra entre modelos.** La prueba \(F\) con modelos restringidos y no restringidos requiere la misma muestra.
+- **Reportar solo significancia.** También interpreta magnitudes, unidades y relevancia económica.
+- **Confundir prueba individual y conjunta.** Dos coeficientes pueden no ser significativos individualmente y sí serlo conjuntamente, o al revés.
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-pruebas}
+
+::: {.box-ejercicios}
+1. Evalúa \(H_0:\beta_{\text{educacion}}=0.5\) en R, Stata y Python.
+2. Calcula manualmente el estadístico \(t\) de educación usando el coeficiente y su error estándar.
+3. Estima un modelo restringido sin experiencia y compara su SRC con la del modelo completo.
+4. Cambia el nivel de significancia de 5% a 10%. ¿Cambia alguna decisión?
+5. Verifica en Python que la prueba \(F\) de una sola restricción coincide con el cuadrado del estadístico \(t\).
+:::

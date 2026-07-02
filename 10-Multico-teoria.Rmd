@@ -1,0 +1,173 @@
+# Multicolinealidad: teoría {#multicolinealidad-teoria}
+
+```{r setup-multico-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-multico-teoria}
+
+Al finalizar esta página podrás:
+
+1. Distinguir multicolinealidad perfecta de multicolinealidad aproximada.
+2. Explicar por qué el rango completo de \(X\) es necesario para estimar MCO.
+3. Derivar cómo la colinealidad aumenta la varianza de los estimadores.
+4. Interpretar el \(R^2\) auxiliar y el VIF como diagnósticos de precisión.
+5. Evaluar qué hacer y qué no hacer ante multicolinealidad.
+
+## Intuición y motivación {#intuicion-multico-teoria}
+
+La multicolinealidad aparece cuando los regresores contienen información muy parecida entre sí. Si la relación es exacta, el modelo no se puede estimar. Si la relación es alta pero no exacta, el modelo se puede estimar, pero los coeficientes pueden volverse imprecisos.
+
+::: {.box-intuicion}
+MCO identifica el efecto parcial de un regresor usando la variación que queda después de descontar los demás regresores. Si casi no queda variación independiente, el coeficiente se estima con mucho ruido.
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-multico}
+
+Considera el modelo:
+
+\[
+y=X\beta+\epsilon.
+\]
+
+El estimador de MCO existe si \(X'X\) es invertible:
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Esto requiere:
+
+\[
+\text{rango}(X)=K.
+\]
+
+Si una columna de \(X\) es combinación lineal exacta de otras columnas, entonces \(X'X\) no es invertible y los coeficientes no están identificados.
+
+### Multicolinealidad perfecta
+
+La multicolinealidad perfecta ocurre cuando existe un vector \(a\neq 0\) tal que:
+
+\[
+Xa=0.
+\]
+
+Ejemplos frecuentes:
+
+1. Incluir una constante y todas las categorías de una variable cualitativa.
+2. Incluir dos variables idénticas.
+3. Incluir una variable que es suma exacta de otras variables del modelo.
+
+### Multicolinealidad aproximada
+
+La multicolinealidad aproximada ocurre cuando los regresores están muy relacionados, pero no de forma exacta. En ese caso \(X'X\) se puede invertir, aunque puede estar mal condicionada.
+
+::: {.box-cuidado}
+La multicolinealidad aproximada no sesga MCO por sí sola. Bajo \(\mathbb{E}[\epsilon\mid X]=0\), el problema central es de precisión: errores estándar grandes, intervalos amplios y estadísticos \(t\) pequeños.
+:::
+
+### Modelo particionado y varianza inflada
+
+Particiona los regresores como:
+
+\[
+X=[X_r\;X_s].
+\]
+
+Sea:
+
+\[
+M_s=I-X_s(X_s'X_s)^{-1}X_s'
+\]
+
+la matriz que elimina la proyección sobre \(X_s\). El coeficiente parcial de \(X_r\) puede escribirse como:
+
+\[
+\hat{\beta}_r
+= (X_r'M_sX_r)^{-1}X_r'M_sy.
+\]
+
+Esta expresión muestra que \(\hat{\beta}_r\) se estima con la variación de \(X_r\) que queda después de descontar \(X_s\). Si esa variación residual es pequeña, la varianza aumenta.
+
+Para un regresor \(x_j\), una forma útil de escribir la varianza es:
+
+\[
+\text{Var}(\hat{\beta}_j\mid X)
+=
+\frac{\sigma^2}{\sum_i (x_{ij}-\bar{x}_j)^2(1-R_j^2)},
+\]
+
+donde \(R_j^2\) proviene de la regresión auxiliar de \(x_j\) sobre los demás regresores.
+
+El factor de inflación de varianza es:
+
+\[
+VIF_j=\frac{1}{1-R_j^2}.
+\]
+
+Cuando \(R_j^2\) se acerca a uno, \(VIF_j\) crece y el error estándar de \(\hat{\beta}_j\) aumenta.
+
+## Supuestos y propiedades {#supuestos-propiedades-multico}
+
+La multicolinealidad se relaciona con el supuesto de colinealidad imperfecta:
+
+| Situación | Implicación |
+|---|---|
+| Rango completo | MCO puede estimarse. |
+| Colinealidad perfecta | \(X'X\) no es invertible; el modelo no identifica todos los coeficientes. |
+| Colinealidad aproximada | MCO existe, pero puede ser impreciso. |
+| Exogeneidad mantenida | La colinealidad no introduce sesgo por sí sola. |
+
+::: {.box-resumen}
+El supuesto de rango completo es una condición de identificación. La multicolinealidad aproximada no rompe ese supuesto, pero reduce la información independiente disponible para estimar algunos efectos parciales.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-multico}
+
+::: {.box-cuidado}
+No elimines automáticamente una variable con VIF alto. Si la variable es sustantivamente importante, retirarla puede generar sesgo por omisión.
+:::
+
+::: {.box-cuidado}
+Una correlación simple baja no garantiza ausencia de multicolinealidad. Un regresor puede estar muy explicado por una combinación de varios regresores aunque sus correlaciones bivariadas no parezcan extremas.
+:::
+
+::: {.box-cuidado}
+Centrar variables puede ayudar a interpretar polinomios o interacciones, pero no crea información nueva. No resuelve una falta de variación independiente.
+:::
+
+## Resumen {#resumen-multico-teoria}
+
+::: {.box-resumen}
+- La multicolinealidad perfecta impide estimar todos los coeficientes.
+- La multicolinealidad aproximada permite estimar, pero aumenta errores estándar.
+- El problema es de precisión, no de sesgo, si se mantiene \(\mathbb{E}[\epsilon\mid X]=0\).
+- El VIF resume cuánto se infla la varianza por la relación de un regresor con los demás.
+- La decisión de eliminar variables debe basarse en la pregunta económica, no solo en diagnósticos mecánicos.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-multico}
+
+::: {.box-ejercicios}
+1. Da un ejemplo de multicolinealidad perfecta con variables binarias.
+2. Explica por qué un VIF alto aumenta la incertidumbre de un coeficiente.
+3. ¿Por qué multicolinealidad aproximada no implica sesgo si se mantiene exogeneidad?
+4. Discute cuándo sería razonable mantener una variable con VIF alto.
+5. Explica por qué las correlaciones bivariadas no bastan para diagnosticar multicolinealidad.
+:::
+
+## Referencias {#referencias-multico-teoria}
+
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 3 y 4.
+- Greene, William. *Econometric Analysis*, capítulo 3.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulos 2 y 3.
+
+[Continúa en la práctica →](multicolinealidad-practica.html)

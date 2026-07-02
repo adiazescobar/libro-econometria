@@ -1,0 +1,230 @@
+# Supuestos de MCO: teoría {#supuestos-mco-teoria}
+
+```{r setup-supuestos-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-supuestos-teoria}
+
+Al finalizar esta página podrás:
+
+1. Explicar qué papel cumplen los supuestos clásicos del modelo lineal.
+2. Distinguir entre supuestos necesarios para insesgamiento, eficiencia e inferencia exacta.
+3. Reconocer qué implica la exogeneidad estricta, la colinealidad imperfecta y las perturbaciones esféricas.
+4. Interpretar la normalidad como un supuesto de inferencia en muestras pequeñas, no como requisito para estimar por MCO.
+
+## Intuición y motivación {#intuicion-supuestos-teoria}
+
+El estimador de mínimos cuadrados ordinarios siempre puede calcularse si los datos permiten invertir \(X'X\). Sin embargo, que podamos calcular una regresión no significa que sus coeficientes tengan las propiedades que queremos. Los supuestos del modelo clásico indican cuándo MCO es un estimador confiable para resumir el proceso generador de datos.
+
+::: {.box-intuicion}
+Los supuestos no son adornos técnicos: conectan la recta estimada con la pregunta econométrica. Nos dicen cuándo \(\hat{\beta}\) está centrado en \(\beta\), cuándo tiene varianza mínima dentro de una clase de estimadores y cuándo las pruebas \(t\) y \(F\) tienen interpretación exacta.
+:::
+
+Partimos del modelo poblacional en forma matricial:
+
+\[
+Y = X\beta + \epsilon,
+\]
+
+donde \(Y\) es el vector de la variable dependiente, \(X\) es la matriz de regresores, \(\beta\) es el vector de parámetros poblacionales y \(\epsilon\) contiene los errores poblacionales no observados.
+
+## Desarrollo teórico {#desarrollo-teorico-supuestos}
+
+La tabla resume los supuestos clásicos y la propiedad que sostienen:
+
+| Supuesto | Notación | Implicación principal |
+|---|---|---|
+| Linealidad en los parámetros | \(Y = X\beta + \epsilon\) | El modelo puede estimarse con álgebra lineal de MCO. |
+| Exogeneidad estricta | \(\mathbb{E}[\epsilon \mid X] = 0\) | MCO es insesgado condicional a \(X\). |
+| Colinealidad imperfecta | \(\text{rango}(X) = K\) | Los parámetros están identificados. |
+| Perturbaciones esféricas | \(\text{Var}(\epsilon \mid X) = \sigma^2 I\) | MCO es eficiente entre estimadores lineales insesgados. |
+| Regresores no estocásticos | \(X\) fija en repetidas muestras | Simplifica las demostraciones clásicas. |
+| Normalidad | \(\epsilon \mid X \sim \mathcal{N}(0,\sigma^2 I)\) | Permite inferencia exacta en muestras pequeñas. |
+
+### Linealidad en los parámetros
+
+El supuesto de linealidad se refiere a los parámetros, no necesariamente a las variables originales. Por eso, los siguientes modelos son lineales en parámetros:
+
+\[
+y_i = \beta_0 + \beta_1 x_i + \epsilon_i,
+\]
+
+\[
+\log(y_i) = \beta_0 + \beta_1 \log(x_i) + \epsilon_i,
+\]
+
+\[
+y_i = \beta_0 + \beta_1 x_i + \beta_2 x_i^2 + \epsilon_i.
+\]
+
+::: {.box-ejemplo}
+Un modelo cuadrático en \(x\) sigue siendo lineal en los parámetros porque \(\beta_0\), \(\beta_1\) y \(\beta_2\) entran de forma aditiva y no aparecen elevados a potencias, dentro de logaritmos o multiplicados entre sí.
+:::
+
+### Exogeneidad estricta
+
+La exogeneidad estricta exige:
+
+\[
+\mathbb{E}[\epsilon_i \mid X] = 0.
+\]
+
+Esto significa que, para cualquier combinación de los regresores, el valor esperado del error es cero. Si esta condición se cumple:
+
+\[
+\mathbb{E}[\epsilon_i] =
+\mathbb{E}\left[\mathbb{E}[\epsilon_i \mid X]\right]
+= \mathbb{E}[0] = 0.
+\]
+
+También implica que no hay correlación sistemática entre los regresores y el error:
+
+\[
+\text{Cov}(\epsilon_i, X_j)=0 \quad \forall j.
+\]
+
+::: {.box-cuidado}
+\(\mathbb{E}[\epsilon_i \mid X]=0\) es más fuerte que \(\mathbb{E}[\epsilon_i]=0\). El promedio incondicional del error puede ser cero, pero aun así el error puede variar sistemáticamente con \(X\).
+:::
+
+### Colinealidad imperfecta
+
+Para que el modelo esté identificado, la matriz \(X\) debe tener rango completo:
+
+\[
+\text{rango}(X)=K.
+\]
+
+Esto requiere que no exista una relación lineal exacta entre los regresores. El supuesto permite que los regresores estén correlacionados; lo que excluye es la multicolinealidad perfecta.
+
+Ejemplos de violaciones:
+
+1. Una variable explicativa constante que duplica el intercepto.
+2. Dos regresores idénticos.
+3. Una variable que es combinación lineal exacta de otras, como incluir todas las categorías de una variable binaria junto con intercepto.
+
+### Perturbaciones esféricas
+
+Este supuesto combina homocedasticidad y ausencia de autocorrelación:
+
+\[
+\text{Var}(\epsilon_i \mid X)=\sigma^2 \quad \forall i,
+\]
+
+\[
+\text{Cov}(\epsilon_i,\epsilon_j \mid X)=0 \quad \text{para } i \neq j.
+\]
+
+En forma matricial:
+
+\[
+\text{Var}(\epsilon \mid X)=\sigma^2 I.
+\]
+
+Bajo exogeneidad estricta:
+
+\[
+\text{Var}(\epsilon \mid X)
+= \mathbb{E}[\epsilon\epsilon' \mid X]
+- \mathbb{E}[\epsilon \mid X]\mathbb{E}[\epsilon' \mid X]
+= \mathbb{E}[\epsilon\epsilon' \mid X].
+\]
+
+Si las varianzas son constantes y las covarianzas son cero, la matriz resultante es:
+
+\[
+\begin{bmatrix}
+\sigma^2 & 0 & \cdots & 0 \\
+0 & \sigma^2 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \vdots \\
+0 & 0 & \cdots & \sigma^2
+\end{bmatrix}
+= \sigma^2 I.
+\]
+
+### Regresores no estocásticos
+
+En la teoría clásica se suele tratar \(X\) como fija en repetidas muestras. En aplicaciones empíricas, los regresores normalmente provienen de una muestra aleatoria. Por eso, esta condición se interpreta muchas veces como una forma conveniente de trabajar con inferencia condicional a \(X\).
+
+::: {.box-intuicion}
+La idea práctica es que analizamos la incertidumbre de \(\hat{\beta}\) manteniendo fija la matriz observada de regresores. Si los regresores son aleatorios, la condición central vuelve a ser la exogeneidad: \(\mathbb{E}[\epsilon \mid X]=0\).
+:::
+
+### Normalidad del error
+
+El supuesto de normalidad establece:
+
+\[
+\epsilon \mid X \sim \mathcal{N}(0,\sigma^2 I).
+\]
+
+La normalidad no es necesaria para que MCO sea insesgado ni para el resultado de Gauss-Markov. Su función principal es justificar la distribución exacta de estadísticos \(t\) y \(F\) en muestras pequeñas. En muestras grandes, los resultados asintóticos permiten relajar esta condición bajo supuestos regulares.
+
+## Supuestos y propiedades {#supuestos-propiedades-supuestos}
+
+Los supuestos clásicos se conectan con tres propiedades centrales:
+
+| Propiedad | Condición clave | Interpretación |
+|---|---|---|
+| Insesgamiento | \(\mathbb{E}[\epsilon \mid X]=0\) | En promedio, \(\hat{\beta}\) coincide con \(\beta\). |
+| Eficiencia lineal | \(\text{Var}(\epsilon \mid X)=\sigma^2 I\) | MCO es el estimador lineal insesgado de menor varianza. |
+| Inferencia exacta | \(\epsilon \mid X\) normal | Las pruebas \(t\) y \(F\) tienen distribución exacta en muestras pequeñas. |
+
+::: {.box-resumen}
+El teorema de Gauss-Markov no dice que MCO siempre sea el mejor estimador. Dice que, bajo linealidad, exogeneidad, rango completo y perturbaciones esféricas, MCO es el mejor estimador lineal insesgado.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-supuestos}
+
+::: {.box-cuidado}
+No confundas residuos con errores poblacionales. El error \(\epsilon_i\) no se observa. El residuo estimado \(\hat{\epsilon}_i\) se calcula después de estimar el modelo y solo aproxima parcialmente al error.
+:::
+
+::: {.box-cuidado}
+No confundas multicolinealidad con multicolinealidad perfecta. Regresores muy correlacionados pueden aumentar errores estándar, pero el supuesto de rango se rompe solo cuando hay una relación lineal exacta.
+:::
+
+::: {.box-cuidado}
+La normalidad no es el supuesto que hace que MCO sea insesgado. La condición central para insesgamiento es la exogeneidad estricta.
+:::
+
+## Resumen {#resumen-supuestos-teoria}
+
+::: {.box-resumen}
+- Los supuestos clásicos permiten pasar de una regresión calculable a una regresión con propiedades econométricas claras.
+- La linealidad en parámetros define la clase de modelos estimables por MCO.
+- La exogeneidad estricta sostiene el insesgamiento.
+- La colinealidad imperfecta asegura identificación.
+- Las perturbaciones esféricas sostienen la eficiencia de MCO dentro de los estimadores lineales insesgados.
+- La normalidad es útil para inferencia exacta en muestras pequeñas, pero puede relajarse en muestras grandes.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-supuestos}
+
+::: {.box-ejercicios}
+1. Explica con tus palabras por qué \(\mathbb{E}[\epsilon \mid X]=0\) es más exigente que \(\mathbb{E}[\epsilon]=0\).
+2. Clasifica estos modelos como lineales o no lineales en parámetros:
+   a. \(y_i=\beta_0+\beta_1x_i+\epsilon_i\)
+   b. \(\log(y_i)=\beta_0+\beta_1\log(x_i)+\epsilon_i\)
+   c. \(y_i=\frac{\beta_0}{1+e^{-\beta_1x_i}}+\epsilon_i\)
+3. Da un ejemplo de multicolinealidad perfecta en un modelo con variables binarias.
+4. ¿Qué propiedad de MCO se pierde si las perturbaciones no son esféricas, manteniendo exogeneidad?
+5. ¿Por qué la normalidad es más importante en muestras pequeñas que en muestras grandes?
+:::
+
+## Referencias {#referencias-supuestos-teoria}
+
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 2 y 3.
+- Stock, James H. y Watson, Mark W. *Introduction to Econometrics*, capítulos 4 y 5.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulos 1 y 2.
+
+[Continúa en la práctica →](supuestos-mco-practica.html)

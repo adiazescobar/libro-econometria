@@ -1,0 +1,223 @@
+# Normalidad asintótica e inferencia: teoría {#normalidad-asintotica-teoria}
+
+```{r setup-normas-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-normas-teoria}
+
+Al finalizar esta página podrás:
+
+1. Distinguir propiedades en muestras finitas de propiedades asintóticas.
+2. Explicar la consistencia de MCO usando leyes de grandes números.
+3. Explicar la normalidad asintótica de MCO usando el teorema central del límite.
+4. Construir pruebas tipo \(t\) y pruebas de Wald en muestras grandes.
+5. Reconocer el papel de Slutsky en la inferencia asintótica.
+
+## Intuición y motivación {#intuicion-normas-teoria}
+
+En muestras pequeñas, las pruebas exactas \(t\) y \(F\) requieren normalidad de los errores. En muchas aplicaciones, ese supuesto es demasiado fuerte. La teoría asintótica permite justificar inferencia aproximada cuando la muestra es grande, aun si los errores no son normales.
+
+::: {.box-intuicion}
+La idea asintótica es estudiar qué ocurre con el estimador cuando \(n\) crece. La consistencia dice que \(\hat{\beta}\) se acerca a \(\beta\). La normalidad asintótica dice cómo se distribuye el error de estimación alrededor de \(\beta\) cuando lo escalamos por \(\sqrt{n}\).
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-normas}
+
+Partimos del modelo:
+
+\[
+y_i=x_i'\beta+\epsilon_i,
+\]
+
+y del estimador:
+
+\[
+\hat{\beta}
+=\left(X'X\right)^{-1}X'y
+=\beta+\left(X'X\right)^{-1}X'\epsilon.
+\]
+
+Multiplicando y dividiendo por \(n\):
+
+\[
+\hat{\beta}-\beta
+=\left(\frac{X'X}{n}\right)^{-1}
+\left(\frac{X'\epsilon}{n}\right).
+\]
+
+### Consistencia
+
+Si:
+
+\[
+\frac{X'X}{n}\xrightarrow{p}Q,
+\qquad
+\frac{X'\epsilon}{n}\xrightarrow{p}0,
+\]
+
+con \(Q\) definida positiva, entonces:
+
+\[
+\hat{\beta}\xrightarrow{p}\beta.
+\]
+
+La primera convergencia dice que la matriz de segundos momentos de los regresores se estabiliza. La segunda dice que los productos \(x_i\epsilon_i\) se promedian hacia cero por exogeneidad y ley de grandes números.
+
+::: {.box-ejemplo}
+Bajo \(\mathbb{E}[\epsilon_i\mid x_i]=0\), se cumple \(\mathbb{E}[x_i\epsilon_i]=0\). Si además hay momentos finitos y observaciones suficientemente regulares, el promedio \(\frac{1}{n}\sum_i x_i\epsilon_i\) converge a cero.
+:::
+
+### Normalidad asintótica
+
+Para estudiar la distribución aproximada de \(\hat{\beta}\), escribimos:
+
+\[
+\sqrt{n}(\hat{\beta}-\beta)
+=\left(\frac{X'X}{n}\right)^{-1}
+\left(\frac{X'\epsilon}{\sqrt{n}}\right).
+\]
+
+Si:
+
+\[
+\frac{X'\epsilon}{\sqrt{n}}
+\xrightarrow{d}
+\mathcal{N}(0,\sigma^2 Q),
+\]
+
+y:
+
+\[
+\frac{X'X}{n}\xrightarrow{p}Q,
+\]
+
+entonces por Slutsky:
+
+\[
+\sqrt{n}(\hat{\beta}-\beta)
+\xrightarrow{d}
+\mathcal{N}(0,\sigma^2 Q^{-1}).
+\]
+
+En la práctica estimamos la varianza de \(\hat{\beta}\) con:
+
+\[
+\widehat{\text{Var}}(\hat{\beta})
+=\hat{\sigma}^2(X'X)^{-1},
+\qquad
+\hat{\sigma}^2=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}.
+\]
+
+### Prueba tipo \(t\) asintótica
+
+Para:
+
+\[
+H_0:\beta_k=\beta_k^0,
+\]
+
+usamos:
+
+\[
+t_k=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}
+\xrightarrow{d}\mathcal{N}(0,1).
+\]
+
+La regla bilateral aproximada rechaza \(H_0\) si:
+
+\[
+|t_k|\ge z_{1-\alpha/2}.
+\]
+
+### Prueba de Wald
+
+Para \(q\) restricciones:
+
+\[
+H_0:R\beta=r,
+\]
+
+el estadístico de Wald es:
+
+\[
+W=(R\hat{\beta}-r)'
+\left[R\widehat{\text{Var}}(\hat{\beta})R'\right]^{-1}
+(R\hat{\beta}-r).
+\]
+
+Bajo \(H_0\):
+
+\[
+W\xrightarrow{d}\chi^2(q).
+\]
+
+::: {.box-cuidado}
+En muestras finitas, las distribuciones exactas dependen de supuestos más fuertes. En muestras grandes, la aproximación asintótica mejora, pero sigue siendo una aproximación.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-normas}
+
+La teoría asintótica requiere condiciones de regularidad:
+
+| Condición | Papel |
+|---|---|
+| Exogeneidad | Garantiza que \(\mathbb{E}[x_i\epsilon_i]=0\). |
+| Momentos finitos | Permite aplicar leyes de grandes números y teoremas centrales del límite. |
+| No colinealidad asintótica | Asegura que \(Q\) sea definida positiva. |
+| Observaciones regulares | Evita que pocas observaciones dominen la muestra. |
+| Varianza estimable | Permite reemplazar cantidades poblacionales por estimadores consistentes. |
+
+::: {.box-resumen}
+La consistencia es una propiedad de localización: \(\hat{\beta}\) se acerca a \(\beta\). La normalidad asintótica es una propiedad de distribución: describe la incertidumbre alrededor de \(\beta\) cuando \(n\) es grande.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-normas}
+
+::: {.box-cuidado}
+No interpretes "asintótico" como "automáticamente válido". Con muestras pequeñas, colas extremas, observaciones influyentes o mala especificación, la aproximación normal puede ser pobre.
+:::
+
+::: {.box-cuidado}
+No confundas consistencia con insesgamiento. Un estimador puede ser sesgado en muestras finitas y aun así converger al parámetro cuando \(n\) crece.
+:::
+
+::: {.box-cuidado}
+La inferencia robusta frente a heterocedasticidad se estudia en detalle más adelante. En este capítulo el objetivo es entender la lógica asintótica que permite construir pruebas aproximadas.
+:::
+
+## Resumen {#resumen-normas-teoria}
+
+::: {.box-resumen}
+- La consistencia de MCO se obtiene si \(\frac{X'X}{n}\) converge a una matriz invertible y \(\frac{X'\epsilon}{n}\) converge a cero.
+- La normalidad asintótica surge del teorema central del límite aplicado a \(\frac{X'\epsilon}{\sqrt{n}}\).
+- Slutsky permite combinar convergencia en probabilidad y convergencia en distribución.
+- Las pruebas tipo \(t\) usan una aproximación normal estándar.
+- Las pruebas de Wald para restricciones múltiples usan una aproximación \(\chi^2\).
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-normas}
+
+::: {.box-ejercicios}
+1. Explica la diferencia entre \(\hat{\beta}\xrightarrow{p}\beta\) y \(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,V)\).
+2. ¿Por qué la condición \(\mathbb{E}[\epsilon_i\mid x_i]=0\) ayuda a que \(\frac{1}{n}X'\epsilon\) converja a cero?
+3. Escribe una hipótesis lineal \(R\beta=r\) con dos restricciones y define el estadístico de Wald.
+4. Explica el papel de Slutsky en la derivación de la normalidad asintótica de MCO.
+5. Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.
+:::
+
+## Referencias {#referencias-normas-teoria}
+
+- Wooldridge, Jeffrey. *Econometric Analysis of Cross Section and Panel Data*, capítulos 4 y 5.
+- Hayashi, Fumio. *Econometrics*, capítulos 2 y 3.
+- Greene, William. *Econometric Analysis*, capítulos 4 y 5.
+
+[Continúa en la práctica →](normalidad-asintotica-practica.html)

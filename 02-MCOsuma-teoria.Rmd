@@ -1,7 +1,7 @@
-# Regresión lineal {#regresion-lineal}
+# Regresión lineal: teoría {#regresion-lineal-teoria}
 
 
-## 🎯 Objetivo del capítulo  {-} {#objetivo-del-capitulo}
+## Objetivos de aprendizaje {#objetivos-regresion-lineal-teoria}
 
 
 ```{r setup-poblacion, include=FALSE}
@@ -12,7 +12,7 @@ library(ggplot2)
 library(ggtext)
 
 # Color institucional
-red_pink <- "#e64173"
+red_pink <- "#C0562F"
 
 # Opciones globales de knitr
 opts_chunk$set(
@@ -53,12 +53,14 @@ theme_simple <- theme_bw() + theme(
 )
 ```
 
-En este capítulo vamos a:
-1. Entender qué es una regresión lineal y cómo se ve gráficamente.
-2. Aprender cómo se calcula la mejor línea con mínimos cuadrados ordinarios (MCO)
-3. Explorar qué hace un buen estimador y cómo evaluarlo
+Al finalizar esta página podrás:
 
-## 🔍 ¿Qué significa encontrar la “mejor línea”? {-} {#que-significa-encontrar-la-mejor-linea}
+1. Entender qué es una regresión lineal y cómo se ve gráficamente.
+2. Explicar por qué MCO elige la línea que minimiza la suma de residuos al cuadrado.
+3. Derivar los estimadores de pendiente e intercepto en una regresión lineal simple.
+4. Distinguir entre sesgo, varianza, consistencia y eficiencia.
+
+## Intuición y motivación {#intuicion-regresion-lineal}
 
 Antes de hablar de estimaciones, pensemos en cómo se generan los datos:
 
@@ -87,11 +89,11 @@ $$ \text{SRC} = \sum_{i = 1}^{n} \hat{\epsilon}_i^2 $$
 
 Esto se conoce como el **criterio de mínimos cuadrados**.
 
-### 🎨 Ilustremos esto con un ejemplo visual {-}
+### Ilustración visual
 
 Creemos unos nuevos datos para ilustrar esto.
 
-```{R, ols vs lines 1, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 1, echo = F, dev = "svg", fig.height = 6, fig.cap="Gráfico de dispersión de la población"}
 # Generate a population
 set.seed(98731)
 n <- 100
@@ -104,16 +106,12 @@ lm0 <- lm(y ~ x, data = pop_df)
 # The plot
 ggplot(data = pop_df, aes(x = x, y = y)) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
-  labs(
-    title = "Grafica 1. Gráfico de dispersión de la población",
-    subtitle = "Relación entre Y y X"
-  ) +
 theme_empty
 ```
 
-La linea de regresión es igual a $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$ donde \hat{\beta}_0$ y $\hat{\beta}_1$ son los parámetros estimados de la regresión. En este caso, $\hat{\beta}_0 = 6$ y $\hat{\beta}_1 = 0.2$. Para cada una de las observaciones podemos encontrar el y estimado $\hat{y}_i$. En la siguiente figura, la línea naranja representa la línea de regresión estimada.
+La linea de regresión es igual a $\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x$, donde $\hat{\beta}_0$ y $\hat{\beta}_1$ son los parámetros estimados de la regresión. En este caso, $\hat{\beta}_0 = 6$ y $\hat{\beta}_1 = 0.2$. Para cada una de las observaciones podemos encontrar el y estimado $\hat{y}_i$. En la siguiente figura, la línea naranja representa la línea de regresión estimada.
 
-```{R, vs lines 2, echo = F, dev = "svg", fig.height = 6}
+```{R, vs lines 2, echo = F, dev = "svg", fig.height = 6, fig.cap="Línea de regresión propuesta sobre la nube de puntos"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -124,17 +122,13 @@ ggplot(data = pop_df, aes(x = x, y = y)) +
 # geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 2. Línea de regresión estimada",
-  subtitle = "Relación entre Y y X"
-) +
 theme_empty
 ```
 
 Para cada una de las observaciones podemos calcular los errores: $\epsilon_i = y_i - \hat{y}_i$, como se observa en el siguiente gráfico.
 
 
-```{R, ols vs lines 3, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 3, echo = F, dev = "svg", fig.height = 6, fig.cap="Residuos verticales alrededor de una recta propuesta"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -145,16 +139,12 @@ ggplot(data = pop_df, aes(x = x, y = y)) +
 geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 3. Errores de la regresión",
-  subtitle = "Relación entre Y y X"
-) +
 theme_empty
 ```
 
 Ahora podemos probar con otras lineas y ver cómo se comportan los errores. En el siguiente grafico, la línea de regresión estimada es $\hat{y} = 3 + 0.2 x$. Es evidente que los errores estiamdos son más grandes que los errores estimados en el gráfico anterior.
 
-```{R, ols vs lines 4, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 4, echo = F, dev = "svg", fig.height = 6, fig.cap="Residuos cuando el intercepto propuesto es demasiado bajo"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -165,16 +155,12 @@ ggplot(data = pop_df, aes(x = x, y = y)) +
 geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 4. Línea de regresión propuesta",
-  subtitle = "Relación entre Y y X"
-) +
   theme_empty
 ```
 
 Probemos ahora con una línea de regresión estimada que no se ajusta a los datos, $\hat{y} = 10 - 0.8 x$. En este caso, los errores son aún más grandes.
 
-```{R, ols vs lines 5, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 5, echo = F, dev = "svg", fig.height = 6, fig.cap="Residuos cuando la pendiente propuesta tiene signo contrario"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -185,15 +171,12 @@ ggplot(data = pop_df, aes(x = x, y = y)) +
 geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1)), size = 0.5, alpha = 0.2) +
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
-labs(
-  title = "Gráfico 5. Línea de regresión propuesta",
-) +
 theme_empty
 ```
 
 Recuerda que SRC es igual a: $\left(\sum e_i^2\right)$: Errores más grandes reciben penalizaciones más grandes.
 
-```{R, ols vs lines 6, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 6, echo = F, dev = "svg", fig.height = 6, fig.cap="Penalización cuadrática de los residuos"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -205,16 +188,12 @@ geom_segment(aes(x = x, xend = x, y = y, yend = y_hat(x, b0, b1), color = (y - y
 geom_point(size = 5, color = "darkslategray", alpha = 0.9) +
 geom_abline(intercept = b0, slope = b1, color = "orange", size = 2, alpha = 0.9) +
 scale_color_viridis(option = "cividis", direction = -1) +
-labs(
-  title = "Gráfico 6. Errores de la regresión",
-  subtitle = "Relación entre Y y X"
-) +
 theme_empty
 ```
 
 La estimación de MCO es la combinación de $\hat{\beta}_0$ y $\hat{\beta}_1$ que minimiza la SRC
 
-```{R, ols vs lines 7, echo = F, dev = "svg", fig.height = 6}
+```{R, ols vs lines 7, echo = F, dev = "svg", fig.height = 6, fig.cap="Recta de MCO que minimiza la SRC"}
 # Define a function
 y_hat <- function(x, b0, b1) {b0 + b1 * x}
 # Define line's parameters
@@ -230,9 +209,9 @@ theme_empty
 ```
 
 
-## MCO {-}
+## Desarrollo teórico {#desarrollo-teorico-regresion-lineal}
 
-### Formalmente {-}
+### Formalmente
 
 En una regresión lineal simple, el estimador de MCO proviene de escoger  $\hat{\beta}_0$ y $\hat{\beta}_1$ que minimice la suma de residuos al cuadrado (SRC), _i.e._,
 
@@ -242,22 +221,22 @@ donde
 $$ \text{SRC} = \sum_{i = 1}^{n} (y_i - \hat{y}_i)^2 = \sum_{i = 1}^{n} (y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i)^2 $$
 El estimador de MCO es el valor de $\hat{\beta}_0$ y $\hat{\beta}_1$ que minimiza la SRC.
 
-pero nosotros sabemos que $\text{SRC} = \sum_i \tilde{\epsilon_i}^2$. Now use the definitions of $\tilde{\epsilon_i}$ and $\hat{y}$.
+Sabemos que $\text{SRC} = \sum_i \hat{\epsilon}_i^2$. Usando las definiciones de $\hat{\epsilon}_i$ y $\hat{y}_i$:
 
 $$
 \begin{aligned}
-  \tilde{\epsilon_i}^2 &= \left( y_i - \hat{y}_i \right)^2 = \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \right)^2 \\
+  \hat{\epsilon}_i^2 &= \left( y_i - \hat{y}_i \right)^2 = \left( y_i - \hat{\beta}_0 - \hat{\beta}_1 x_i \right)^2 \\
   &= y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2
 \end{aligned}
 $$
 
 **Recordatorio:** Minimizar una función multivariada requiere (**1**) que las primeras derivadas sean iguales a cero (las *condiciones de primer orden*) y (**2**) las condiciones de segundo orden (concavidad).
 
-Nos estamos acercando. Necesitamos  **minimizar la SRC**. 
+Necesitamos **minimizar la SRC**. 
 
-$$ \text{SRE} = \sum_i \tilde{e_i}^2 = \sum_i \left( y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2 \right) $$
+$$ \text{SRC} = \sum_i \hat{\epsilon}_i^2 = \sum_i \left( y_i^2 - 2 y_i \hat{\beta}_0 - 2 y_i \hat{\beta}_1 x_i + \hat{\beta}_0^2 + 2 \hat{\beta}_0 \hat{\beta}_1 x_i + \hat{\beta}_1^2 x_i^2 \right) $$
 
-For the first-order conditions of minimization, we now take the first derivates of SSE with respect to $\hat{\beta}_0$ and $\hat{\beta}_1$.
+Para obtener las condiciones de primer orden, derivamos la SRC con respecto a $\hat{\beta}_0$ y $\hat{\beta}_1$.
 
 $$
 \begin{aligned}
@@ -269,7 +248,7 @@ $$
 donde $\overline{x} = \frac{\sum x_i}{n}$ y $\overline{y} = \frac{\sum y_i}{n}$ son medias muestrales de $x$ y $y$ (de tamaño $n$).
 
 Las condiciones de primer orden establecen que las derivadas deben ser iguales a cero: 
-$$ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_0} = 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y} = 0 $$
+$$ \dfrac{\partial \text{SRC}}{\partial \hat{\beta}_0} = 2n \hat{\beta}_0 + 2n \hat{\beta}_1 \overline{x} - 2n \overline{y} = 0 $$
 
 Lo que implica
 
@@ -280,14 +259,14 @@ Tomemos la derivada de la SRC con respecto a $\hat{\beta}_1$
 
 $$
 \begin{aligned}
-  \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} &= \sum_i \left( 2 \hat{\beta}_0 x_i + 2 \hat{\beta}_1 x_i^2 - 2 y_i x_i \right) = 2 \hat{\beta}_0 \sum_i x_i + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i \\
+  \dfrac{\partial \text{SRC}}{\partial \hat{\beta}_1} &= \sum_i \left( 2 \hat{\beta}_0 x_i + 2 \hat{\beta}_1 x_i^2 - 2 y_i x_i \right) = 2 \hat{\beta}_0 \sum_i x_i + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i \\
   &= 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i
 \end{aligned}
 $$
 Igualarlo a cero 
 
-$$ \dfrac{\partial \text{SSE}}{\partial \hat{\beta}_1} = 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 $$
-y reemplazarlo  $\hat{\beta}_0$, _i.e._, $\hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x}$. Thus,
+$$ \dfrac{\partial \text{SRC}}{\partial \hat{\beta}_1} = 2n \hat{\beta}_0 \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 $$
+y reemplazar $\hat{\beta}_0$ por $\overline{y} - \hat{\beta}_1 \overline{x}$. Así:
 
 $$
  2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0
@@ -298,25 +277,24 @@ $$ 2n \left(\overline{y} - \hat{\beta}_1 \overline{x}\right) \overline{x} + 2 \h
 $$ 2n \overline{y}\,\overline{x} - 2n \hat{\beta}_1 \overline{x}^2 + 2 \hat{\beta}_1 \sum_i x_i^2 - 2 \sum_i y_i x_i = 0 $$
 $$ \implies 2 \hat{\beta}_1 \left( \sum_i x_i^2 - n \overline{x}^2 \right) = 2 \sum_i y_i x_i - 2n \overline{y}\,\overline{x} $$
 
-$$ \implies \hat{\beta}_1 = \dfrac{\sum_i y_i x_i - 2n \overline{y}\,\overline{x}}{\sum_i x_i^2 - n \overline{x}^2} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} $$
-LISTOO!
+$$ \implies \hat{\beta}_1 = \dfrac{\sum_i y_i x_i - n \overline{y}\,\overline{x}}{\sum_i x_i^2 - n \overline{x}^2} = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} $$
 
-Ahora tenemos nuestros lindos estimadores
+Por tanto, los estimadores de MCO en regresión lineal simple son:
 
 $$ \hat{\beta}_1 = \dfrac{\sum_i (x_i - \overline{x})(y_i - \overline{y})}{\sum_i (x_i - \overline{x})^2} $$
-and the intercept
+y
 
 $$ \hat{\beta}_0 = \overline{y} - \hat{\beta}_1 \overline{x} $$
 
-Ya sabes de dónde proviene la parte de *mínimos cuadrados* en el término "mínimos cuadrados ordinarios". 🎊
+Esta derivación muestra de dónde proviene la parte de *mínimos cuadrados* en el término "mínimos cuadrados ordinarios".
 
 Ahora pasamos a las propiedades (implícitas) de los  Mínimos Cuadrados Ordinarios (MCO / OLS).
 
 
 
-## 📊 Propiedades y supuestos {-}
+## Supuestos y propiedades {#supuestos-propiedades-regresion-lineal}
 
-### ¿Qué hace a un buen estimador? {-} {#que-hace-a-un-buen-estimador}
+### ¿Qué hace a un buen estimador? {#que-hace-a-un-buen-estimador}
 
 Antes de hablar de propiedades del estimador de MCO, recordemos algunas herramientas fundamentales de estadística.
 
@@ -328,7 +306,7 @@ Ejemplo: para una variable normal estándar, la probabilidad de que tome un valo
 
 $$ \mathop{\text{P}}\left(-2 \leq X \leq 0\right) = 0.48 $$
 
-```{r, example: pdf, echo=FALSE, dev="svg", fig.height=3.5}
+```{r, example: pdf, echo=FALSE, dev="svg", fig.height=3.5, fig.cap="Área bajo una función de densidad normal estándar entre -2 y 0"}
 tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
 tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
 
@@ -336,15 +314,12 @@ ggplot(data = tmp, aes(x, y)) +
   geom_polygon(fill = "grey85") +
   geom_polygon(data = tmp %>% filter(between(x, -2, 0)), fill = red_pink) +
   geom_hline(yintercept = 0, color = "black") +
-  labs(
-    title = "Gráfico 1. Función de densidad de probabilidad",
-  ) +
   theme_simple
 ```
 
 Otro ejemplo clásico es la probabilidad de que una variable aleatoria normal estándar tome un valor entre -1.96 y 1.96: $\mathop{\text{P}}\left(-1.96 \leq X \leq 1.96\right) = 0.95$
 
-```{R, example: pdf 2, echo = F, dev = "svg", fig.height = 3.5}
+```{R, example: pdf 2, echo = F, dev = "svg", fig.height = 3.5, fig.cap="Área bajo una función de densidad normal estándar entre -1.96 y 1.96"}
 # Generate data for density's polygon
 tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
 tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
@@ -353,14 +328,11 @@ ggplot(data = tmp, aes(x, y)) +
 geom_polygon(fill = "grey85") +
 geom_polygon(data = tmp %>% filter(between(x, -1.96, 1.96)), fill = red_pink) +
 geom_hline(yintercept = 0, color = "black") +
-labs(
-  title = "Gráfico 2. Función de densidad de probabilidad",
-) +
 theme_simple
 ```
 O la probabilidad de que una variable aleatoria normal estándar tome un valor mayor a 2: $\mathop{\text{P}}\left(X > 2\right) = 0.023$
 
-```{R, example: pdf 3, echo = F, dev = "svg", fig.height = 3.5}
+```{R, example: pdf 3, echo = F, dev = "svg", fig.height = 3.5, fig.cap="Cola superior de una función de densidad normal estándar"}
 # Generate data for density's polygon
 tmp <- tibble(x = seq(-4, 4, 0.01), y = dnorm(x))
 tmp <- rbind(tmp, tibble(x = seq(4, -4, -0.01), y = 0))
@@ -372,12 +344,12 @@ geom_hline(yintercept = 0, color = "black") +
 theme_simple
 ```
 
-### 🤔 ¿Qué propiedades buscamos en un estimador? {-} {#que-propiedades-buscamos-en-un-estimador}
+### 🤔 ¿Qué propiedades buscamos en un estimador? {#que-propiedades-buscamos-en-un-estimador}
 
 Imaginemos que intentamos estimar un parámetro verdadero \( \beta \), y tenemos tres métodos distintos. Cada uno produce una distribución diferente para \( \hat{\beta} \).
 
 
-```{r competing_pdfs, echo = FALSE, fig.height = 4.5}
+```{r competing_pdfs, echo = FALSE, fig.height = 4.5, fig.cap="Distribuciones muestrales hipotéticas de tres estimadores"}
 # Cargar paquetes (por si el chunk se ejecuta solo)
 library(tibble); library(dplyr); library(ggplot2)
 
@@ -434,7 +406,7 @@ En promedio (después de *muchas* repeticiones), ¿el estimador tiende hacia el 
 $$ \mathop{\text{Sesgo}}_\beta \left( \hat{\beta} \right) = \mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] - \beta $$
 **Estimador Insesagado:** $\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] = \beta$
 
-```{r unbiased_pdf, echo = FALSE, dev = "svg"}
+```{r unbiased_pdf, echo = FALSE, dev = "svg", fig.cap="Distribución muestral de un estimador insesgado"}
 ggplot(tmp, aes(x, y)) +
   geom_polygon(fill = red_pink, alpha = 0.9) +
   geom_hline(yintercept = 0, colour = "black") +
@@ -447,7 +419,7 @@ ggplot(tmp, aes(x, y)) +
 
 **Estimador Sesagado:** $\mathop{\boldsymbol{E}}\left[ \hat{\beta} \right] \neq \beta$
 
-```{R, biased pdf, echo = F, dev = "svg"}
+```{R, biased pdf, echo = F, dev = "svg", fig.cap="Distribución muestral de un estimador sesgado"}
 ggplot(data = tmp, aes(x, y)) +
 geom_polygon(aes(x = x + 2), fill = "darkslategray", alpha = 0.9) +
 geom_hline(yintercept = 0, color = "black") +
@@ -473,7 +445,7 @@ Un estimador con **menor varianza** produce resultados más consistentes entre m
 
 Veamos un ejemplo visual de cómo la varianza afecta a las distribuciones de los estimadores.
 
-```{r, variance pdf, echo = FALSE, dev = "svg", fig.height = 5}
+```{r, variance pdf, echo = FALSE, dev = "svg", fig.height = 5, fig.cap="Comparación entre estimadores con distinta varianza"}
 d4 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 1)) %>%
   rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
 d5 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
@@ -490,7 +462,7 @@ ggplot() +
 
 La curva rosada representa un estimador con baja varianza: la mayoría de los valores de \( \hat{\beta} \) están cerca de \( \beta \). Mientras que la curva gris oscuro representa un estimador con alta varianza: sus valores están más dispersos. A igualdad de sesgo, preferimos el estimador que tenga menor varianza.
 
-### 🎯 El trade-off: sesgo vs. varianza {-}
+### 🎯 El trade-off: sesgo vs. varianza
 
 Hasta ahora hablamos del sesgo y de la varianza por separado.   Pero muchas veces, mejorar uno implica empeorar el otro.  Esto se conoce como el ** trade-off entre sesgo y varianza**.
 
@@ -500,7 +472,7 @@ En econometría, solemos preferir estimadores **insesgados** (o al menos **consi
 
 veámos esta idea:
 
-```{r, variance bias, echo = FALSE, dev = "svg"}
+```{r, variance bias, echo = FALSE, dev = "svg", fig.cap="Trade-off entre sesgo y varianza"}
 d4 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0.3, sd = 1)) %>%
   rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
 d5 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
@@ -515,7 +487,7 @@ ggplot() +
   theme(axis.text.x = element_text(size = 20))
 ```
 
-### Propiedad 3: Consistencia {-}
+### Propiedad 3: Consistencia
 
 La **consistencia** es una propiedad clave que nos dice qué pasa con el estimador cuando la muestra es cada vez más grande.
 
@@ -536,7 +508,7 @@ Es decir, **la probabilidad de que \( \hat{\beta} \) se aleje mucho de \( \beta 
 
 Veámos lo que ocurre cuando la muestra crece:
 
-```{r, consistency pdf, echo = FALSE, dev = "svg"}
+```{r, consistency pdf, echo = FALSE, dev = "svg", fig.cap="Concentración de la distribución muestral a medida que aumenta el tamaño de muestra"}
 d6 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 3)) %>%
   rbind(., tibble(x = seq(7.5, -7.5, -0.01), y = 0))
 d7 <- tibble(x = seq(-7.5, 7.5, 0.01), y = dnorm(x, mean = 0, sd = 2)) %>%
@@ -558,7 +530,7 @@ La curva naranja representa una estimación con mucha incertidumbre (muestra peq
 
 🎯 Un estimador consistente se “afina” con más datos: no solo mejora su varianza, sino que tiende a decir la verdad.
 
-### Propiedad 4: Eficiencia {-}
+### Propiedad 4: Eficiencia
 
 La **eficiencia** combina las ideas de sesgo y varianza.
 
@@ -592,7 +564,7 @@ para cualquier otro estimador \( \hat{\beta}' \) que también sea insesgado.
 > 🎓 En resumen, un estimador eficiente **es tan preciso como permite la información disponible en los datos**, sin sacrificar insesgamiento.
 
 
-### Resumen de las propiedades {-}
+### Resumen de las propiedades
 | Propiedad     | Descripción                                                                                   |
 |---------------|-----------------------------------------------------------------------------------------------|
 | Insesgamiento  | El estimador no se aleja sistemáticamente del valor verdadero.                                 |
@@ -601,7 +573,7 @@ para cualquier otro estimador \( \hat{\beta}' \) que también sea insesgado.
 | Eficiencia    | El estimador tiene la menor varianza posible entre todos los estimadores insesgados.         |
 ---
 
-### 🧠 Nota de cierre: cómo interpretar cada propiedad {-} {#nota-de-cierre-como-interpretar-cada-propiedad}
+### 🧠 Nota de cierre: cómo interpretar cada propiedad {#nota-de-cierre-como-interpretar-cada-propiedad}
 
 Cada propiedad que vimos tiene un enfoque ligeramente distinto sobre cómo pensar la incertidumbre:
 
@@ -618,8 +590,33 @@ Estas ideas son fundamentales para entender cómo evaluar y justificar un estima
 
 ---
 
-## 📘 Preguntas de repaso {-}
+## Errores comunes y cuidados {#errores-comunes-regresion-lineal}
 
+::: {.box-cuidado}
+No toda pendiente es causal. Una regresión lineal describe una asociación condicional entre \(x\) y \(y\). Para interpretar \(\hat{\beta}_1\) como un efecto causal se necesitan supuestos adicionales sobre el proceso que genera \(x\) y el término de error.
+:::
+
+::: {.box-cuidado}
+Los residuos no son los errores poblacionales. El error \(\epsilon_i\) es un objeto teórico no observado. El residuo \(\hat{\epsilon}_i\) se calcula después de estimar el modelo y depende de la muestra.
+:::
+
+::: {.box-cuidado}
+Un buen ajuste visual no garantiza un buen modelo. Una línea puede verse razonable en el gráfico y aun así violar supuestos importantes, omitir variables relevantes o mezclar grupos con relaciones muy distintas.
+:::
+
+## Resumen {#resumen-regresion-lineal-teoria}
+
+::: {.box-resumen}
+- La regresión lineal simple resume la relación entre \(y\) y \(x\) mediante una recta.
+- MCO escoge \(\hat{\beta}_0\) y \(\hat{\beta}_1\) minimizando la suma de residuos al cuadrado.
+- La pendiente estimada mide cuánto cambia la predicción de \(y\) cuando \(x\) aumenta en una unidad.
+- Las propiedades de un estimador se evalúan pensando en muchas muestras posibles o en muestras cada vez más grandes.
+- Sesgo, varianza, consistencia y eficiencia responden preguntas distintas sobre la calidad de un estimador.
+:::
+
+## Ejercicios conceptuales {#ejercicios-regresion-lineal-teoria}
+
+::: {.box-ejercicios}
 1. Verdadero o falso
 
 - **(V/F)** Un estimador puede ser insesgado pero tener alta varianza.
@@ -627,7 +624,7 @@ Estas ideas son fundamentales para entender cómo evaluar y justificar un estima
 - **(V/F)** Un estimador eficiente siempre es consistente.
 - **(V/F)** Si un estimador es insesgado y eficiente, no puede ser mejorado bajo los supuestos del modelo.
 
-2. Selección múltiple {-}
+2. Selección múltiple
 
 **¿Cuál de las siguientes afirmaciones es correcta respecto a la eficiencia?**
 
@@ -652,3 +649,12 @@ D. Se aproxima al valor verdadero con alta probabilidad.
 3. ¿En qué se diferencia el concepto de varianza del de eficiencia? ¿Pueden dos estimadores tener la misma varianza pero distinta eficiencia?**
 
 4. Supón que tienes dos estimadores:   - A es insesgado pero tiene alta varianza.   - B tiene un pequeño sesgo pero varianza muy baja.  ¿Cuál elegirías para un problema donde la prioridad es predecir bien el valor de \( y \)?  ¿Cambiaría tu respuesta si el objetivo fuera estimar un efecto causal? Justifica tu elección.
+:::
+
+## Referencias {#referencias-regresion-lineal-teoria}
+
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulos 1 y 2.
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulos 1 y 2.
+- Stock, James H. y Watson, Mark W. *Introduction to Econometrics*, capítulo 4.
+
+[Continúa en la práctica →](regresion-lineal-practica.html)

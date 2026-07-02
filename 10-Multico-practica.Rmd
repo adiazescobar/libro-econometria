@@ -1,0 +1,296 @@
+# Multicolinealidad: práctica {#multicolinealidad-practica}
+
+```{r setup-multico-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](multicolinealidad-teoria.html)
+
+## Objetivos de la práctica {#objetivos-multico-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Estimar un modelo con regresores altamente correlacionados.
+2. Calcular correlaciones, regresiones auxiliares y VIF.
+3. Comparar errores estándar entre un modelo con y sin regresores colineales.
+4. Reproducir el diagnóstico en R, Stata y Python.
+
+## Pregunta aplicada {#pregunta-aplicada-multico}
+
+Queremos explicar un puntaje académico con educación, horas de estudio e índice educativo de los padres. La pregunta aplicada es:
+
+::: {.box-intuicion}
+¿Qué ocurre con la precisión de los coeficientes cuando dos regresores contienen información muy parecida?
+:::
+
+Estimaremos:
+
+\[
+\text{puntaje}_i
+=\beta_0+\beta_1\text{educacion}_i+\beta_2\text{indice\_padres}_i+\beta_3\text{horas\_estudio}_i+\epsilon_i.
+\]
+
+## Datos {#datos-multico-practica}
+
+La base se crea con una regla determinística. El índice educativo de los padres está construido para estar muy relacionado con educación, pero no de manera exacta.
+
+```{r datos-multico-practica}
+i_multico <- 1:60
+datos_multi <- data.frame(
+  i = i_multico,
+  educacion = 9 + (i_multico %% 10) + 0.03 * i_multico,
+  horas_estudio = 2 + (i_multico %% 7) + 0.2 * sin(i_multico / 2)
+)
+
+datos_multi$indice_padres <- 0.92 * datos_multi$educacion +
+  0.35 * sin(i_multico / 3)
+
+datos_multi$ajuste <- 0.8 * sin(1.1 * i_multico) -
+  0.25 * cos(i_multico / 4)
+
+datos_multi$puntaje <- 38 +
+  1.15 * datos_multi$educacion +
+  0.55 * datos_multi$horas_estudio +
+  datos_multi$ajuste
+
+kable(head(datos_multi, 12), digits = 3, caption = "Primeras observaciones de la base para diagnosticar multicolinealidad")
+```
+
+```{r grafico-colinealidad-multico, fig.cap="Relación entre educación e índice educativo de los padres"}
+ggplot(datos_multi, aes(x = educacion, y = indice_padres)) +
+  geom_point(color = "#2f4858", size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Educación", y = "Índice educativo de los padres") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-multico}
+
+Estimamos un modelo con los regresores colineales y calculamos diagnósticos.
+
+```{r estimacion-r-multico}
+modelo_multi <- lm(puntaje ~ educacion + indice_padres + horas_estudio, data = datos_multi)
+modelo_multi_simple <- lm(puntaje ~ educacion + horas_estudio, data = datos_multi)
+
+tabla_multi <- coef(summary(modelo_multi))
+tabla_simple_multi <- coef(summary(modelo_multi_simple))
+
+beta0_multi <- unname(coef(modelo_multi)[["(Intercept)"]])
+beta_educ_multi <- unname(coef(modelo_multi)[["educacion"]])
+beta_padres_multi <- unname(coef(modelo_multi)[["indice_padres"]])
+beta_horas_multi <- unname(coef(modelo_multi)[["horas_estudio"]])
+se0_multi <- tabla_multi["(Intercept)", "Std. Error"]
+se_educ_multi <- tabla_multi["educacion", "Std. Error"]
+se_padres_multi <- tabla_multi["indice_padres", "Std. Error"]
+se_horas_multi <- tabla_multi["horas_estudio", "Std. Error"]
+r2_multi <- summary(modelo_multi)$r.squared
+
+se_educ_simple_multi <- tabla_simple_multi["educacion", "Std. Error"]
+cor_educ_padres <- cor(datos_multi$educacion, datos_multi$indice_padres)
+
+calcular_vif <- function(modelo) {
+  X <- as.data.frame(model.matrix(modelo)[, -1, drop = FALSE])
+  sapply(names(X), function(nombre) {
+    otros <- setdiff(names(X), nombre)
+    r2_aux <- summary(lm(X[[nombre]] ~ ., data = X[otros]))$r.squared
+    1 / (1 - r2_aux)
+  })
+}
+
+vif_multi <- calcular_vif(modelo_multi)
+vif_educ_multi <- unname(vif_multi["educacion"])
+vif_padres_multi <- unname(vif_multi["indice_padres"])
+vif_horas_multi <- unname(vif_multi["horas_estudio"])
+
+kable(
+  data.frame(
+    termino = rownames(tabla_multi),
+    estimacion = tabla_multi[, "Estimate"],
+    error_estandar = tabla_multi[, "Std. Error"],
+    t = tabla_multi[, "t value"],
+    p_valor = tabla_multi[, "Pr(>|t|)"],
+    row.names = NULL
+  ),
+  digits = 4,
+  caption = "Modelo con regresores colineales en R"
+)
+```
+
+```{r diagnosticos-vif-multico}
+kable(
+  data.frame(
+    regresor = names(vif_multi),
+    VIF = as.numeric(vif_multi),
+    row.names = NULL
+  ),
+  digits = 3,
+  caption = "Factores de inflación de varianza calculados en R"
+)
+```
+
+```{r grafico-vif-multico, fig.cap="Factores de inflación de varianza por regresor"}
+datos_vif <- data.frame(
+  regresor = names(vif_multi),
+  VIF = as.numeric(vif_multi)
+)
+
+ggplot(datos_vif, aes(x = regresor, y = VIF)) +
+  geom_col(fill = "#C0562F", width = 0.55) +
+  geom_hline(yintercept = 5, color = "grey50", linewidth = 0.7) +
+  labs(x = NULL, y = "VIF") +
+  theme_minimal()
+```
+
+Comparamos el error estándar de educación cuando incluimos y cuando excluimos el índice educativo de los padres.
+
+```{r comparacion-se-multico}
+kable(
+  data.frame(
+    modelo = c("Con índice de padres", "Sin índice de padres"),
+    coeficiente_educacion = c(beta_educ_multi, unname(coef(modelo_multi_simple)[["educacion"]])),
+    error_estandar_educacion = c(se_educ_multi, se_educ_simple_multi)
+  ),
+  digits = 4,
+  caption = "Comparación del coeficiente de educación entre especificaciones"
+)
+```
+
+## Interpretación {#interpretacion-multico}
+
+::: {.box-ejemplo}
+La correlación entre educación e índice educativo de los padres es `r sprintf("%.3f", cor_educ_padres)`. El VIF de educación es `r sprintf("%.2f", vif_educ_multi)` y el VIF del índice de padres es `r sprintf("%.2f", vif_padres_multi)`.
+:::
+
+El coeficiente de educación en el modelo completo es `r sprintf("%.3f", beta_educ_multi)` y su error estándar es `r sprintf("%.3f", se_educ_multi)`. En el modelo sin índice de padres, el error estándar de educación es `r sprintf("%.3f", se_educ_simple_multi)`.
+
+::: {.box-cuidado}
+La caída del error estándar al retirar un regresor no significa automáticamente que esa sea la especificación correcta. Si el índice de padres es relevante para la pregunta económica, eliminarlo puede cambiar la interpretación del coeficiente de educación.
+:::
+
+## Estimación en Stata {#estimacion-stata-multico}
+
+El mismo diagnóstico puede reproducirse en Stata:
+
+```stata
+clear
+set obs 60
+gen i = _n
+gen educacion = 9 + mod(i, 10) + 0.03 * i
+gen horas_estudio = 2 + mod(i, 7) + 0.2 * sin(i / 2)
+gen indice_padres = 0.92 * educacion + 0.35 * sin(i / 3)
+gen ajuste = 0.8 * sin(1.1 * i) - 0.25 * cos(i / 4)
+gen puntaje = 38 + 1.15 * educacion + 0.55 * horas_estudio + ajuste
+
+reg puntaje educacion indice_padres horas_estudio
+estat vif
+corr educacion indice_padres horas_estudio
+
+reg puntaje educacion horas_estudio
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_multi)` | `r sprintf("%.3f", se0_multi)` |
+| Educación | `r sprintf("%.3f", beta_educ_multi)` | `r sprintf("%.3f", se_educ_multi)` |
+| Índice de padres | `r sprintf("%.3f", beta_padres_multi)` | `r sprintf("%.3f", se_padres_multi)` |
+| Horas de estudio | `r sprintf("%.3f", beta_horas_multi)` | `r sprintf("%.3f", se_horas_multi)` |
+| \(R^2\) | `r sprintf("%.3f", r2_multi)` |  |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-multico}
+
+Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:
+
+```python
+!pip -q install pandas numpy statsmodels matplotlib seaborn
+```
+
+Luego reproduce la base, el modelo y los VIF:
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+i = np.arange(1, 61)
+datos_multi = pd.DataFrame({"i": i})
+datos_multi["educacion"] = 9 + (i % 10) + 0.03 * i
+datos_multi["horas_estudio"] = 2 + (i % 7) + 0.2 * np.sin(i / 2)
+datos_multi["indice_padres"] = 0.92 * datos_multi["educacion"] + 0.35 * np.sin(i / 3)
+datos_multi["ajuste"] = 0.8 * np.sin(1.1 * i) - 0.25 * np.cos(i / 4)
+datos_multi["puntaje"] = (
+    38 + 1.15 * datos_multi["educacion"] +
+    0.55 * datos_multi["horas_estudio"] +
+    datos_multi["ajuste"]
+)
+
+X = sm.add_constant(datos_multi[["educacion", "indice_padres", "horas_estudio"]])
+y = datos_multi["puntaje"]
+modelo = sm.OLS(y, X).fit()
+print(modelo.summary())
+
+X_sin_constante = datos_multi[["educacion", "indice_padres", "horas_estudio"]]
+X_vif = sm.add_constant(X_sin_constante)
+vif = pd.Series(
+    [variance_inflation_factor(X_vif.values, j)
+     for j in range(1, X_vif.shape[1])],
+    index=X_sin_constante.columns
+)
+print(vif)
+print(datos_multi[["educacion", "indice_padres", "horas_estudio"]].corr())
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_multi)` | `r sprintf("%.3f", se0_multi)` |
+| Educación | `r sprintf("%.3f", beta_educ_multi)` | `r sprintf("%.3f", se_educ_multi)` |
+| Índice de padres | `r sprintf("%.3f", beta_padres_multi)` | `r sprintf("%.3f", se_padres_multi)` |
+| Horas de estudio | `r sprintf("%.3f", beta_horas_multi)` | `r sprintf("%.3f", se_horas_multi)` |
+| \(R^2\) | `r sprintf("%.3f", r2_multi)` |  |
+
+## Comparación R, Stata y Python {#comparacion-software-multico}
+
+::: {.box-resumen}
+Los tres programas estiman el mismo modelo y ofrecen diagnósticos equivalentes. R calcula el VIF con regresiones auxiliares, Stata lo obtiene con `estat vif`, y Python lo calcula con `variance_inflation_factor`.
+:::
+
+| Tarea | R | Stata | Python |
+|---|---|---|---|
+| Estimar modelo | `lm()` | `reg` | `sm.OLS()` |
+| Correlaciones | `cor()` | `corr` | `.corr()` |
+| VIF | regresiones auxiliares | `estat vif` | `variance_inflation_factor()` |
+| Comparar especificaciones | varios objetos `lm()` | varias llamadas a `reg` | varios modelos `OLS` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-multico}
+
+::: {.box-cuidado}
+- **Eliminar variables solo para bajar el VIF.** La decisión debe responder a la pregunta económica.
+- **Leer el VIF como prueba causal.** El VIF mide dependencia entre regresores, no validez de identificación.
+- **Diagnosticar solo con correlaciones bivariadas.** Las regresiones auxiliares capturan combinaciones de varios regresores.
+- **Confundir multicolinealidad con endogeneidad.** La endogeneidad se estudia más adelante y afecta sesgo; la multicolinealidad afecta precisión.
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-multico}
+
+::: {.box-ejercicios}
+1. Reduce el término `0.35 * sin(i / 3)` en `indice_padres`. ¿Qué ocurre con los VIF?
+2. Aumenta el tamaño de la muestra a 120 observaciones manteniendo la misma regla. ¿Cambian los errores estándar?
+3. Calcula manualmente el \(R^2\) auxiliar de educación sobre los demás regresores y verifica el VIF.
+4. Estima el modelo sin `indice_padres`. ¿Cómo cambia la interpretación del coeficiente de educación?
+5. Reproduce el diagnóstico en Python y compara la tabla de VIF con R.
+:::
