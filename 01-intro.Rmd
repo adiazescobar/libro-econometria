@@ -8,7 +8,7 @@ library(ggplot2)
 library(ggtext)
 
 # Color institucional
-red_pink <- "#e64173"
+red_pink <- "#C0562F"
 
 # Opciones globales de knitr
 opts_chunk$set(
