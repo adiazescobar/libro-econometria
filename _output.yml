@@ -1,7 +1,7 @@
 bookdown::gitbook:
   css: style.css
   toc_depth: 1
-  number_sections: false
+  number_sections: true
   config:
     toc:
       before: |
