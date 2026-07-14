@@ -2,9 +2,9 @@
 
 Este taller integra dos problemas frecuentes en aplicaciones de MCO: regresores muy correlacionados y varianza no constante del error. Está pensado para resolverse después de estudiar los capítulos 10 y 11.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 Multicolinealidad y heterocedasticidad no son el mismo problema. La primera afecta la precisión con la que separamos efectos entre regresores relacionados; la segunda afecta la forma correcta de medir la incertidumbre cuando la varianza del error cambia con las covariables.
-:::
+::::
 
 ## Objetivos del taller
 
@@ -22,13 +22,13 @@ Al finalizar este problem set podrás:
 - En las preguntas de heterocedasticidad, distingue el estimador de los coeficientes de los errores estándar.
 - En la parte computacional, entrega código reproducible y comenta la diferencia entre estimación e inferencia.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 No digas que la multicolinealidad aproximada "sesga" MCO. Si los supuestos de exogeneidad se mantienen, el problema principal es de precisión: errores estándar grandes y coeficientes inestables.
-:::
+::::
 
 ## Parte A: Multicolinealidad
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Explica la diferencia entre multicolinealidad perfecta y multicolinealidad aproximada. ¿En cuál de los dos casos no existe \((X'X)^{-1}\)?
 
 2. Considera:
@@ -44,11 +44,11 @@ donde \(x_i=X_i-\bar{X}\) y \(z_i=Z_i-\bar{Z}\). Usa las ecuaciones normales par
 4. En una regresión con educación, experiencia y experiencia al cuadrado, ¿por qué puede aparecer multicolinealidad aproximada? ¿Qué harías para diagnosticarla?
 
 5. Explica por qué eliminar variables solo para reducir el VIF puede ser una mala decisión si esas variables son controles conceptualmente importantes.
-:::
+::::
 
 ## Parte B: Heterocedasticidad
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Considera la regresión desde el origen:
 
 \[
@@ -70,11 +70,11 @@ Escribe la regresión auxiliar. ¿Qué variable va al lado izquierdo? ¿Qué té
 4. Explica la diferencia entre heterocedasticidad pura e impura. Da un ejemplo de cada una.
 
 5. Explica cuándo preferirías errores estándar robustos y cuándo tendría sentido estimar un modelo ponderado.
-:::
+::::
 
 ## Parte C: Aplicación conceptual
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. En el modelo:
 
 \[
@@ -94,11 +94,11 @@ donde \(Mujer_i=1-Hombre_i\). Propón una forma de estimar \(\sigma_1^2\) y \(\s
 3. Con esos estimadores de varianza, ¿cómo modificarías MCO para obtener una estimación ponderada?
 
 4. ¿Qué parte de este ejercicio cambia los coeficientes y qué parte cambia solamente los errores estándar?
-:::
+::::
 
 ## Parte D: Simulación de multicolinealidad
 
-::: {.box-ejemplo}
+:::: {.box-ejemplo}
 Genera:
 
 \[
@@ -106,16 +106,16 @@ y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
 \]
 
 con \(X_1\sim N(0,1)\), \(X_2\sim N(0,1)\), \(\epsilon_i\sim N(0,1)\) y \(X_3=X_1+X_2+\eta_i\), donde \(\eta_i\) tiene varianza pequeña.
-:::
+::::
 
 ### Preguntas
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Estima el modelo completo con \(n=100\). Repite la simulación varias veces. ¿Qué tan estables son los coeficientes?
 2. Aumenta la muestra a \(n=10000\). ¿Desaparece el problema? ¿Qué mejora y qué no?
 3. Calcula la matriz de correlaciones y el VIF. ¿Qué diagnóstico entregan?
 4. Repite el ejercicio aumentando la varianza de \(\eta_i\). ¿Qué ocurre con los errores estándar?
-:::
+::::
 
 ### Código base en R
 
@@ -178,12 +178,12 @@ print(modelo.summary())
 
 ## Parte E: Simulación de heterocedasticidad
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Genera \(x_i\sim U(1,10)\), \(\epsilon_i\sim N(0, \sigma_i^2)\), con \(\sigma_i=0.5+0.3x_i\), y \(y_i=1+2x_i+\epsilon_i\).
 2. Estima MCO con errores convencionales y con errores robustos.
 3. Haz un gráfico de residuos contra valores ajustados.
 4. Estima una versión ponderada usando pesos proporcionales a \(1/\sigma_i^2\). Compara.
-:::
+::::
 
 ### Código base en R
 
@@ -208,9 +208,9 @@ abline(h = 0, col = "#C0562F", lwd = 2)
 
 ## Cierre
 
-::: {.box-resumen}
+:::: {.box-resumen}
 Este taller separa dos diagnósticos distintos: multicolinealidad habla de la información disponible para separar regresores; heterocedasticidad habla de cómo se comporta la varianza del error. En ambos casos, la solución depende de entender primero cuál es el problema estadístico exacto.
-:::
+::::
 
 [← Volver al índice de problem sets](#problem-sets)
 

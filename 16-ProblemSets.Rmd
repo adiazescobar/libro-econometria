@@ -2,9 +2,9 @@
 
 Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones computacionales. A diferencia de los ejercicios cortos al final de cada capítulo, estos problem sets integran varios temas y sirven para preparar parciales, discusiones en clase y trabajo autónomo.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.
-:::
+::::
 
 ## Cómo usarlos
 
@@ -13,9 +13,9 @@ La idea es estudiar por bloques. Primero se repasan los conceptos en el capítul
 3. En las partes computacionales, conserva el código y comenta cada resultado.
 4. Si el taller se asigna como evaluable, las fechas y el mecanismo de entrega se anunciarán por Teams y por correo.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.
-:::
+::::
 
 ## Mapa de talleres
 
@@ -29,9 +29,9 @@ Los enunciados están diseñados para que practiques razonamiento econométrico.
 
 ## Recomendación de trabajo
 
-::: {.box-resumen}
+:::: {.box-resumen}
 - Los problem sets no reemplazan los capítulos: los integran.
 - Las preguntas de demostración preparan para parciales.
 - Las preguntas aplicadas preparan para leer resultados empíricos.
 - Las preguntas computacionales deben resolverse con código reproducible.
-:::
+::::

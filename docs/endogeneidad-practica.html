@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 22 Endogeneidad: práctica | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 22 Endogeneidad: práctica | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 22 Endogeneidad: práctica | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="endogeneidad-teoria.html"/>
+<link rel="next" href="iv-teoria.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad-teoria.html"><a href="heterocedasticidad-teoria.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad: teoría</a></li>
+<li class="chapter" data-level="20" data-path="heterocedasticidad-practica.html"><a href="heterocedasticidad-practica.html"><i class="fa fa-check"></i><b>20</b> Heterocedasticidad: práctica</a></li>
+<li class="chapter" data-level="21" data-path="endogeneidad-teoria.html"><a href="endogeneidad-teoria.html"><i class="fa fa-check"></i><b>21</b> Endogeneidad: teoría</a></li>
+<li class="chapter" data-level="22" data-path="endogeneidad-practica.html"><a href="endogeneidad-practica.html"><i class="fa fa-check"></i><b>22</b> Endogeneidad: práctica</a></li>
+<li class="chapter" data-level="23" data-path="iv-teoria.html"><a href="iv-teoria.html"><i class="fa fa-check"></i><b>23</b> Variables instrumentales: teoría</a></li>
+<li class="chapter" data-level="24" data-path="iv-practica.html"><a href="iv-practica.html"><i class="fa fa-check"></i><b>24</b> Variables instrumentales: práctica</a></li>
+<li class="chapter" data-level="25" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>25</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="26" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>26</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="27" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>27</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>28</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>29</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="30" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>30</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="31" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>31</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="32" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>32</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="33" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>33</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="endogeneidad-practica" class="section level1 hasAnchor" number="22">
+<h1><span class="header-section-number">Capítulo 22</span> Endogeneidad: práctica<a href="endogeneidad-practica.html#endogeneidad-practica" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><a href="endogeneidad-teoria.html">← Volver a la teoría</a></p>
+<div id="objetivos-endogeneidad-practica" class="section level2 hasAnchor" number="22.1">
+<h2><span class="header-section-number">22.1</span> Objetivos de la práctica<a href="endogeneidad-practica.html#objetivos-endogeneidad-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar esta práctica podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Simular un caso donde una variable omitida sesga MCO.</li>
+<li>Comparar un modelo corto y un modelo largo.</li>
+<li>Mostrar sesgo de atenuación por error de medición en un regresor.</li>
+<li>Reproducir el ejercicio en R, Stata y Python.</li>
+<li>Interpretar por qué el problema no se resuelve solo con errores robustos.</li>
+</ol>
+</div>
+<div id="pregunta-aplicada-endogeneidad" class="section level2 hasAnchor" number="22.2">
+<h2><span class="header-section-number">22.2</span> Pregunta aplicada<a href="endogeneidad-practica.html#pregunta-aplicada-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Queremos estudiar el retorno de la educación sobre salarios. La pregunta aplicada es:</p>
+<div class="box-intuicion">
+<p>¿Qué pasa si educación está relacionada con habilidad no observada y omitimos esa habilidad de la regresión?</p>
+</div>
+<p>El modelo verdadero de la simulación será:</p>
+<p><span class="math display">\[
+\log(salario_i)=\beta_0+\beta_1educ_i+\beta_2habilidad_i+\epsilon_i.
+\]</span></p>
+</div>
+<div id="datos-endogeneidad-practica" class="section level2 hasAnchor" number="22.3">
+<h2><span class="header-section-number">22.3</span> Datos<a href="endogeneidad-practica.html#datos-endogeneidad-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Creamos datos reproducibles. La habilidad afecta salarios y también está relacionada con educación.</p>
+<table>
+<caption><span id="tab:datos-endogeneidad-practica">Tabla 22.1: </span>Primeras observaciones de la base de endogeneidad</caption>
+<thead>
+<tr class="header">
+<th align="right">lwage</th>
+<th align="right">educ</th>
+<th align="right">habilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">2.926</td>
+<td align="right">12.342</td>
+<td align="right">1.019</td>
+</tr>
+<tr class="even">
+<td align="right">3.060</td>
+<td align="right">12.597</td>
+<td align="right">1.136</td>
+</tr>
+<tr class="odd">
+<td align="right">3.171</td>
+<td align="right">12.827</td>
+<td align="right">1.240</td>
+</tr>
+<tr class="even">
+<td align="right">3.250</td>
+<td align="right">13.026</td>
+<td align="right">1.330</td>
+</tr>
+<tr class="odd">
+<td align="right">3.294</td>
+<td align="right">13.187</td>
+<td align="right">1.402</td>
+</tr>
+<tr class="even">
+<td align="right">3.301</td>
+<td align="right">13.305</td>
+<td align="right">1.454</td>
+</tr>
+<tr class="odd">
+<td align="right">3.271</td>
+<td align="right">13.375</td>
+<td align="right">1.487</td>
+</tr>
+<tr class="even">
+<td align="right">3.210</td>
+<td align="right">13.396</td>
+<td align="right">1.497</td>
+</tr>
+<tr class="odd">
+<td align="right">3.124</td>
+<td align="right">13.365</td>
+<td align="right">1.484</td>
+</tr>
+<tr class="even">
+<td align="right">3.022</td>
+<td align="right">13.284</td>
+<td align="right">1.448</td>
+</tr>
+<tr class="odd">
+<td align="right">2.913</td>
+<td align="right">13.152</td>
+<td align="right">1.389</td>
+</tr>
+<tr class="even">
+<td align="right">2.806</td>
+<td align="right">12.974</td>
+<td align="right">1.307</td>
+</tr>
+</tbody>
+</table>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-endogeneidad-datos"></span>
+<img src="_main_files/figure-html/grafico-endogeneidad-datos-1.png" alt="Relación entre educación y habilidad en la simulación" width="80%" />
+<p class="caption">
+Figura 22.1: Relación entre educación y habilidad en la simulación
+</p>
+</div>
+</div>
+<div id="estimacion-r-endogeneidad" class="section level2 hasAnchor" number="22.4">
+<h2><span class="header-section-number">22.4</span> Estimación en R<a href="endogeneidad-practica.html#estimacion-r-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Estimamos primero un modelo corto que omite habilidad y luego el modelo largo que sí la incluye.</p>
+<table>
+<caption><span id="tab:estimacion-r-endogeneidad">Tabla 22.2: </span>Comparación entre modelo corto y modelo largo</caption>
+<thead>
+<tr class="header">
+<th align="left">modelo</th>
+<th align="right">beta_educacion</th>
+<th align="right">error_estandar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Corto: omite habilidad</td>
+<td align="right">0.3426</td>
+<td align="right">0.0116</td>
+</tr>
+<tr class="even">
+<td align="left">Largo: incluye habilidad</td>
+<td align="right">0.0938</td>
+<td align="right">0.0294</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora simulamos error de medición clásico en educación.</p>
+<table>
+<caption><span id="tab:error-medicion-r">Tabla 22.3: </span>Sesgo de atenuación por error de medición en educación</caption>
+<thead>
+<tr class="header">
+<th align="left">modelo</th>
+<th align="right">beta_educacion</th>
+<th align="right">error_estandar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Educación verdadera</td>
+<td align="right">0.0938</td>
+<td align="right">0.0294</td>
+</tr>
+<tr class="even">
+<td align="left">Educación medida con error</td>
+<td align="right">0.0239</td>
+<td align="right">0.0186</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="interpretacion-endogeneidad" class="section level2 hasAnchor" number="22.5">
+<h2><span class="header-section-number">22.5</span> Interpretación<a href="endogeneidad-practica.html#interpretacion-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejemplo">
+<p>La correlación entre educación y habilidad es 0.943. Al omitir habilidad, la pendiente de educación es 0.343; al incluirla, es 0.094.</p>
+</div>
+<p>La diferencia entre ambas pendientes es 0.249. Esa diferencia ilustra el sesgo por variable omitida en esta base simulada. Cuando medimos educación con error, la pendiente cae a 0.024, consistente con la intuición del sesgo de atenuación.</p>
+<div class="box-cuidado">
+<p>En datos reales, normalmente no observamos habilidad. La comparación corto/largo aquí es pedagógica: muestra el mecanismo del sesgo, no una receta automática para resolverlo.</p>
+</div>
+</div>
+<div id="estimacion-stata-endogeneidad" class="section level2 hasAnchor" number="22.6">
+<h2><span class="header-section-number">22.6</span> Estimación en Stata<a href="endogeneidad-practica.html#estimacion-stata-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El ejercicio puede reproducirse en Stata:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb38-1"><a href="endogeneidad-practica.html#cb38-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb38-2"><a href="endogeneidad-practica.html#cb38-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
+<span id="cb38-3"><a href="endogeneidad-practica.html#cb38-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb38-4"><a href="endogeneidad-practica.html#cb38-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/7) + <span class="fu">cos</span>(i/11)</span>
+<span id="cb38-5"><a href="endogeneidad-practica.html#cb38-5" tabindex="-1"></a>summ habilidad</span>
+<span id="cb38-6"><a href="endogeneidad-practica.html#cb38-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb38-7"><a href="endogeneidad-practica.html#cb38-7" tabindex="-1"></a><span class="kw">gen</span> educ = 11 + 1.2 * habilidad + 0.6 * <span class="fu">sin</span>(i/5)</span>
+<span id="cb38-8"><a href="endogeneidad-practica.html#cb38-8" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25 * <span class="fu">sin</span>(i/3)</span>
+<span id="cb38-9"><a href="endogeneidad-practica.html#cb38-9" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon</span>
+<span id="cb38-10"><a href="endogeneidad-practica.html#cb38-10" tabindex="-1"></a></span>
+<span id="cb38-11"><a href="endogeneidad-practica.html#cb38-11" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
+<span id="cb38-12"><a href="endogeneidad-practica.html#cb38-12" tabindex="-1"></a><span class="kw">reg</span> lwage educ habilidad</span>
+<span id="cb38-13"><a href="endogeneidad-practica.html#cb38-13" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="endogeneidad-practica.html#cb38-14" tabindex="-1"></a><span class="kw">gen</span> educ_medida = educ + 0.8 * <span class="fu">sin</span>(i/4)</span>
+<span id="cb38-15"><a href="endogeneidad-practica.html#cb38-15" tabindex="-1"></a><span class="kw">reg</span> lwage educ_medida habilidad</span></code></pre></div>
+<p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th align="right">Pendiente educación aproximada</th>
+<th align="right">Error estándar aproximado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Corto</td>
+<td align="right">0.343</td>
+<td align="right">0.012</td>
+</tr>
+<tr class="even">
+<td>Largo</td>
+<td align="right">0.094</td>
+<td align="right">0.029</td>
+</tr>
+<tr class="odd">
+<td>Con educación medida con error</td>
+<td align="right">0.024</td>
+<td align="right">0.019</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="estimacion-python-colab-endogeneidad" class="section level2 hasAnchor" number="22.7">
+<h2><span class="header-section-number">22.7</span> Estimación en Python y Google Colab<a href="endogeneidad-practica.html#estimacion-python-colab-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para correr esta práctica en Google Colab:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="endogeneidad-practica.html#cb39-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<p>Luego ejecuta:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="endogeneidad-practica.html#cb40-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb40-2"><a href="endogeneidad-practica.html#cb40-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb40-3"><a href="endogeneidad-practica.html#cb40-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb40-4"><a href="endogeneidad-practica.html#cb40-4" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="endogeneidad-practica.html#cb40-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb40-6"><a href="endogeneidad-practica.html#cb40-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb40-7"><a href="endogeneidad-practica.html#cb40-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">7</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">11</span>)</span>
+<span id="cb40-8"><a href="endogeneidad-practica.html#cb40-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb40-9"><a href="endogeneidad-practica.html#cb40-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">11</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> habilidad <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb40-10"><a href="endogeneidad-practica.html#cb40-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
+<span id="cb40-11"><a href="endogeneidad-practica.html#cb40-11" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.08</span> <span class="op">*</span> educ <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> habilidad <span class="op">+</span> epsilon</span>
+<span id="cb40-12"><a href="endogeneidad-practica.html#cb40-12" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;habilidad&quot;</span>: habilidad})</span>
+<span id="cb40-13"><a href="endogeneidad-practica.html#cb40-13" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="endogeneidad-practica.html#cb40-14" tabindex="-1"></a>corto <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
+<span id="cb40-15"><a href="endogeneidad-practica.html#cb40-15" tabindex="-1"></a>largo <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb40-16"><a href="endogeneidad-practica.html#cb40-16" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="endogeneidad-practica.html#cb40-17" tabindex="-1"></a>datos[<span class="st">&quot;educ_medida&quot;</span>] <span class="op">=</span> datos[<span class="st">&quot;educ&quot;</span>] <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb40-18"><a href="endogeneidad-practica.html#cb40-18" tabindex="-1"></a>medicion <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb40-19"><a href="endogeneidad-practica.html#cb40-19" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="endogeneidad-practica.html#cb40-20" tabindex="-1"></a><span class="bu">print</span>(corto.summary())</span>
+<span id="cb40-21"><a href="endogeneidad-practica.html#cb40-21" tabindex="-1"></a><span class="bu">print</span>(largo.summary())</span>
+<span id="cb40-22"><a href="endogeneidad-practica.html#cb40-22" tabindex="-1"></a><span class="bu">print</span>(medicion.summary())</span></code></pre></div>
+<p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.</p>
+</div>
+<div id="comparacion-software-endogeneidad" class="section level2 hasAnchor" number="22.8">
+<h2><span class="header-section-number">22.8</span> Comparación R, Stata y Python<a href="endogeneidad-practica.html#comparacion-software-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<p>Los tres programas muestran el mismo fenómeno: cuando una variable omitida está correlacionada con educación y afecta salarios, el modelo corto no estima el mismo parámetro que el modelo largo.</p>
+</div>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tarea</th>
+<th>R</th>
+<th>Stata</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Modelo corto</td>
+<td><code>lm(lwage ~ educ)</code></td>
+<td><code>reg lwage educ</code></td>
+<td><code>sm.OLS(y, X).fit()</code></td>
+</tr>
+<tr class="even">
+<td>Modelo largo</td>
+<td><code>lm(lwage ~ educ + habilidad)</code></td>
+<td><code>reg lwage educ habilidad</code></td>
+<td><code>sm.OLS(y, X_largo).fit()</code></td>
+</tr>
+<tr class="odd">
+<td>Error de medición</td>
+<td>crear <code>educ_medida</code></td>
+<td><code>gen educ_medida</code></td>
+<td>crear columna en <code>pandas</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="errores-frecuentes-practica-endogeneidad" class="section level2 hasAnchor" number="22.9">
+<h2><span class="header-section-number">22.9</span> Errores frecuentes en la práctica<a href="endogeneidad-practica.html#errores-frecuentes-practica-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-cuidado">
+<ul>
+<li><strong>Pensar que robustos corrigen endogeneidad.</strong> Los errores robustos corrigen varianzas, no correlación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(\epsilon\)</span>.</li>
+<li><strong>Agregar controles sin teoría.</strong> Un control mal elegido puede cambiar la interpretación o introducir sesgo.</li>
+<li><strong>Confundir correlación con identificación.</strong> Que educación prediga salarios no implica que la pendiente sea causal.</li>
+<li><strong>Olvidar el error de medición.</strong> Medir mal un regresor puede sesgar el coeficiente incluso si el modelo conceptual es correcto.</li>
+</ul>
+</div>
+</div>
+<div id="ejercicios-computacionales-endogeneidad" class="section level2 hasAnchor" number="22.10">
+<h2><span class="header-section-number">22.10</span> Ejercicios computacionales<a href="endogeneidad-practica.html#ejercicios-computacionales-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Cambia la relación entre habilidad y educación. ¿Cómo cambia el sesgo del modelo corto?</li>
+<li>Cambia el efecto de habilidad sobre salarios. ¿Qué pasa con la diferencia entre modelo corto y largo?</li>
+<li>Aumenta la magnitud del error de medición en educación. ¿Qué ocurre con la pendiente?</li>
+<li>Reproduce el ejercicio en Stata o Python y verifica que los coeficientes coincidan con R.</li>
+<li>Resuelve las partes A, B y E del <a href="problem-set-4.html#problem-set-4">Problem Set 4: Endogeneidad y variables instrumentales</a>.</li>
+</ol>
+</div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="endogeneidad-teoria.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iv-teoria.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/12-Endogeneidad-practica.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

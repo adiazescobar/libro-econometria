@@ -1,0 +1,296 @@
+# Heterocedasticidad: práctica {#heterocedasticidad-practica}
+
+```{r setup-heterocedasticidad-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](heterocedasticidad-teoria.html)
+
+## Objetivos de la práctica {#objetivos-heterocedasticidad-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Estimar un modelo con heterocedasticidad generada de forma reproducible.
+2. Comparar errores estándar clásicos y robustos tipo HC1.
+3. Implementar pruebas auxiliares de Breusch-Pagan y White en R.
+4. Estimar una versión ponderada del modelo y comparar resultados.
+5. Reproducir el mismo flujo en Stata y Python/Google Colab.
+
+## Pregunta aplicada {#pregunta-aplicada-heterocedasticidad}
+
+Queremos estudiar la relación entre gasto en alimentos e ingreso del hogar. La pregunta aplicada es:
+
+::: {.box-intuicion}
+¿Qué cambia en la inferencia cuando la variabilidad del gasto aumenta con el ingreso?
+:::
+
+Estimaremos:
+
+\[
+\text{gasto}_i=\beta_0+\beta_1\text{ingreso}_i+\epsilon_i.
+\]
+
+## Datos {#datos-heterocedasticidad-practica}
+
+Construimos una base reproducible donde la varianza del error crece con el ingreso.
+
+```{r datos-heterocedasticidad-practica}
+n_het <- 120
+i_het <- 1:n_het
+ingreso <- 1.5 + 0.07 * i_het
+escala <- 0.15 + 0.05 * ingreso
+ruido <- escala * sin(1.7 * i_het)
+gasto <- 0.8 + 0.42 * ingreso + ruido
+
+datos_het <- data.frame(
+  ingreso = ingreso,
+  gasto = gasto,
+  escala = escala
+)
+
+kable(head(datos_het, 12), digits = 3, caption = "Primeras observaciones de la base de heterocedasticidad")
+```
+
+```{r grafico-datos-heterocedasticidad, fig.cap="Gasto en alimentos e ingreso en la base simulada"}
+ggplot(datos_het, aes(x = ingreso, y = gasto)) +
+  geom_point(color = "#2f4858", size = 2.4) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Ingreso", y = "Gasto en alimentos") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-heterocedasticidad}
+
+Estimamos MCO y calculamos manualmente errores estándar robustos HC1.
+
+```{r estimacion-r-heterocedasticidad}
+modelo_het <- lm(gasto ~ ingreso, data = datos_het)
+tabla_het <- coef(summary(modelo_het))
+
+X_het <- model.matrix(modelo_het)
+e_het <- resid(modelo_het)
+n_het <- nrow(X_het)
+k_het <- ncol(X_het)
+XtX_inv_het <- solve(t(X_het) %*% X_het)
+omega_hat_het <- diag(as.numeric(e_het^2))
+vcov_hc0_het <- XtX_inv_het %*% t(X_het) %*% omega_hat_het %*% X_het %*% XtX_inv_het
+vcov_hc1_het <- (n_het / (n_het - k_het)) * vcov_hc0_het
+se_hc1_het <- sqrt(diag(vcov_hc1_het))
+
+beta0_het <- unname(coef(modelo_het)[["(Intercept)"]])
+beta_ing_het <- unname(coef(modelo_het)[["ingreso"]])
+se0_clasico_het <- tabla_het["(Intercept)", "Std. Error"]
+se_ing_clasico_het <- tabla_het["ingreso", "Std. Error"]
+se0_hc1_het <- unname(se_hc1_het["(Intercept)"])
+se_ing_hc1_het <- unname(se_hc1_het["ingreso"])
+r2_het <- summary(modelo_het)$r.squared
+
+t_ing_clasico_het <- beta_ing_het / se_ing_clasico_het
+t_ing_hc1_het <- beta_ing_het / se_ing_hc1_het
+
+kable(
+  data.frame(
+    termino = names(coef(modelo_het)),
+    estimacion = unname(coef(modelo_het)),
+    ee_clasico = tabla_het[, "Std. Error"],
+    ee_robusto_HC1 = se_hc1_het,
+    row.names = NULL
+  ),
+  digits = 4,
+  caption = "MCO con errores estándar clásicos y robustos HC1"
+)
+```
+
+Calculamos pruebas auxiliares estilo Breusch-Pagan y White usando regresiones sobre \(\hat{\epsilon}_i^2\).
+
+```{r pruebas-heterocedasticidad-r}
+datos_het$residuo <- e_het
+datos_het$ajustado <- fitted(modelo_het)
+datos_het$residuo2 <- e_het^2
+
+bp_aux <- lm(residuo2 ~ ingreso, data = datos_het)
+bp_lm <- nrow(datos_het) * summary(bp_aux)$r.squared
+bp_p <- 1 - pchisq(bp_lm, df = 1)
+
+white_aux <- lm(residuo2 ~ ajustado + I(ajustado^2), data = datos_het)
+white_lm <- nrow(datos_het) * summary(white_aux)$r.squared
+white_p <- 1 - pchisq(white_lm, df = 2)
+
+kable(
+  data.frame(
+    prueba = c("Breusch-Pagan auxiliar", "White auxiliar"),
+    estadistico_LM = c(bp_lm, white_lm),
+    grados_libertad = c(1, 2),
+    p_valor = c(bp_p, white_p)
+  ),
+  digits = 4,
+  caption = "Pruebas auxiliares de heterocedasticidad calculadas en R"
+)
+```
+
+Estimamos también un modelo ponderado usando los pesos verdaderos de la simulación. En aplicaciones reales, estos pesos rara vez se conocen.
+
+```{r wls-heterocedasticidad-r}
+modelo_wls_het <- lm(gasto ~ ingreso, data = datos_het, weights = 1 / escala^2)
+tabla_wls_het <- coef(summary(modelo_wls_het))
+
+beta_ing_wls_het <- unname(coef(modelo_wls_het)[["ingreso"]])
+se_ing_wls_het <- tabla_wls_het["ingreso", "Std. Error"]
+
+kable(
+  data.frame(
+    modelo = c("MCO clásico", "MCO con EE HC1", "WLS con pesos conocidos"),
+    beta_ingreso = c(beta_ing_het, beta_ing_het, beta_ing_wls_het),
+    error_estandar = c(se_ing_clasico_het, se_ing_hc1_het, se_ing_wls_het),
+    t = c(t_ing_clasico_het, t_ing_hc1_het, beta_ing_wls_het / se_ing_wls_het)
+  ),
+  digits = 4,
+  caption = "Comparación entre MCO, errores robustos y WLS"
+)
+```
+
+```{r residuos-heterocedasticidad, fig.cap="Residuos frente a valores ajustados bajo heterocedasticidad"}
+ggplot(datos_het, aes(x = ajustado, y = residuo)) +
+  geom_hline(yintercept = 0, color = "grey55", linewidth = 0.7) +
+  geom_point(color = "#2f4858", size = 2.4) +
+  geom_smooth(method = "loess", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Valores ajustados", y = "Residuos") +
+  theme_minimal()
+```
+
+## Interpretación {#interpretacion-heterocedasticidad}
+
+::: {.box-ejemplo}
+La pendiente estimada de ingreso es `r sprintf("%.3f", beta_ing_het)`. Con errores clásicos, su error estándar es `r sprintf("%.3f", se_ing_clasico_het)`; con HC1, es `r sprintf("%.3f", se_ing_hc1_het)`.
+:::
+
+El estadístico LM de Breusch-Pagan es `r sprintf("%.3f", bp_lm)` y su \(p\)-valor es `r sprintf("%.3f", bp_p)`. El estadístico auxiliar de White es `r sprintf("%.3f", white_lm)` y su \(p\)-valor es `r sprintf("%.3f", white_p)`.
+
+::: {.box-cuidado}
+En esta práctica conocemos la forma de la varianza porque la simulamos. En datos reales, WLS requiere justificar o estimar los pesos. Si no hay una forma clara de modelar \(\Omega\), reportar errores robustos suele ser una primera respuesta razonable.
+:::
+
+## Estimación en Stata {#estimacion-stata-heterocedasticidad}
+
+El mismo ejercicio puede reproducirse en Stata:
+
+```stata
+clear
+set obs 120
+gen i = _n
+gen ingreso = 1.5 + 0.07 * i
+gen escala = 0.15 + 0.05 * ingreso
+gen ruido = escala * sin(1.7 * i)
+gen gasto = 0.8 + 0.42 * ingreso + ruido
+
+reg gasto ingreso
+predict residuo, resid
+predict ajustado, xb
+
+reg gasto ingreso, robust
+
+gen residuo2 = residuo^2
+reg residuo2 ingreso
+display "LM BP = " e(N) * e(r2)
+
+gen ajustado2 = ajustado^2
+reg residuo2 ajustado ajustado2
+display "LM White = " e(N) * e(r2)
+
+reg gasto ingreso [aw = 1/(escala^2)]
+scatter residuo ajustado, yline(0)
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | EE clásico aproximado | EE HC1 aproximado |
+|---|---:|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_het)` | `r sprintf("%.3f", se0_clasico_het)` | `r sprintf("%.3f", se0_hc1_het)` |
+| Ingreso | `r sprintf("%.3f", beta_ing_het)` | `r sprintf("%.3f", se_ing_clasico_het)` | `r sprintf("%.3f", se_ing_hc1_het)` |
+| \(R^2\) | `r sprintf("%.3f", r2_het)` |  |  |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-heterocedasticidad}
+
+Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:
+
+```python
+!pip -q install pandas numpy statsmodels matplotlib seaborn
+```
+
+Luego reproduce la base y estima:
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+from statsmodels.stats.diagnostic import het_breuschpagan, het_white
+
+i = np.arange(1, 121)
+ingreso = 1.5 + 0.07 * i
+escala = 0.15 + 0.05 * ingreso
+ruido = escala * np.sin(1.7 * i)
+gasto = 0.8 + 0.42 * ingreso + ruido
+datos = pd.DataFrame({"gasto": gasto, "ingreso": ingreso, "escala": escala})
+
+X = sm.add_constant(datos["ingreso"])
+ols = sm.OLS(datos["gasto"], X).fit()
+rob = ols.get_robustcov_results(cov_type="HC1")
+wls = sm.WLS(datos["gasto"], X, weights=1 / datos["escala"]**2).fit()
+
+print(ols.summary())
+print(rob.summary())
+print(wls.summary())
+print(het_breuschpagan(ols.resid, X))
+print(het_white(ols.resid, X))
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:
+
+| Término | Estimación aproximada | EE clásico aproximado | EE HC1 aproximado |
+|---|---:|---:|---:|
+| Constante | `r sprintf("%.3f", beta0_het)` | `r sprintf("%.3f", se0_clasico_het)` | `r sprintf("%.3f", se0_hc1_het)` |
+| Ingreso | `r sprintf("%.3f", beta_ing_het)` | `r sprintf("%.3f", se_ing_clasico_het)` | `r sprintf("%.3f", se_ing_hc1_het)` |
+
+## Comparación R, Stata y Python {#comparacion-software-heterocedasticidad}
+
+::: {.box-resumen}
+R, Stata y Python estiman los mismos coeficientes de MCO si usan la misma base. Las diferencias prácticas aparecen en cómo se piden los errores robustos, las pruebas auxiliares y los pesos para WLS.
+:::
+
+| Tarea | R | Stata | Python |
+|---|---|---|---|
+| MCO | `lm(gasto ~ ingreso)` | `reg gasto ingreso` | `sm.OLS(y, X).fit()` |
+| Robustos HC1 | matriz manual o paquetes | `reg, robust` | `cov_type="HC1"` |
+| BP | regresión auxiliar de \(\hat{\epsilon}^2\) | `hettest` o auxiliar | `het_breuschpagan()` |
+| WLS | `lm(..., weights=)` | `reg [aw=]` | `sm.WLS()` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-heterocedasticidad}
+
+::: {.box-cuidado}
+- **Concluir causalidad por corregir errores estándar.** Los robustos corrigen inferencia bajo heterocedasticidad, no endogeneidad.
+- **Usar WLS sin justificar pesos.** Los pesos deben venir de una estructura de varianza defendible.
+- **Ignorar gráficos.** Las pruebas resumen patrones, pero el gráfico de residuos ayuda a ver la forma del problema.
+- **Comparar \(t\) clásicos y robustos como si fueran distintos coeficientes.** En MCO con robustos, el coeficiente no cambia; cambia su error estándar.
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-heterocedasticidad}
+
+::: {.box-ejercicios}
+1. Cambia la forma de `escala` para que la varianza crezca más rápido con ingreso. ¿Cómo cambian los errores robustos?
+2. Estima el modelo sin errores robustos y con HC1. Compara los \(t\).
+3. Reemplaza los pesos verdaderos de WLS por pesos estimados desde una regresión auxiliar. ¿Qué cambia?
+4. Reproduce la práctica en Stata o Python y verifica que los coeficientes coincidan con R.
+5. Resuelve las partes B, C y E del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
+:::
+

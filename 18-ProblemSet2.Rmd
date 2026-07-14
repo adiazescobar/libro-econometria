@@ -2,9 +2,9 @@
 
 Este taller cierra el bloque central de MCO. Integra el teorema de Frisch-Waugh-Lovell, las propiedades de los estimadores, las pruebas de hipótesis y la intuición asintótica. Está pensado para resolverse después de estudiar los capítulos 06 a 09.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 La idea es pasar de "estimar una regresión" a entender qué está haciendo la regresión: qué variación usa, qué propiedades tiene el estimador y cómo convertimos una estimación en una afirmación estadística.
-:::
+::::
 
 ## Objetivos del taller
 
@@ -23,13 +23,13 @@ Al finalizar este problem set podrás:
 - En preguntas de inferencia, escribe siempre hipótesis nula, alternativa, estadístico y conclusión.
 - En la parte computacional, entrega código reproducible y una interpretación breve.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 No confundas significancia estadística con importancia económica. Una prueba puede rechazar una hipótesis con un efecto pequeño si la muestra es grande, y puede no rechazar con un efecto relevante si la estimación es imprecisa.
-:::
+::::
 
 ## Parte A: Frisch-Waugh-Lovell
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Considera:
 
 \[
@@ -61,11 +61,11 @@ Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
 \]
 
 describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
-:::
+::::
 
 ## Parte B: Propiedades de MCO
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y de varianza mínima dentro de una clase de estimadores.
 
 2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
@@ -81,11 +81,11 @@ describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
 4. Si estimas una regresión de \(Y\) sobre una constante y \(\hat{\epsilon}\), ¿qué esperas para el intercepto, la pendiente y el \(R^2\)? Justifica usando las propiedades de los residuos de MCO.
 
 5. Considera una transformación \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
-:::
+::::
 
 ## Parte C: Inferencia inicial
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. En un estudio sobre estudiantes becados se estima:
 
 \[
@@ -107,13 +107,13 @@ donde \(HE_i\) son horas de estudio. Interpreta \(\alpha\), \(\beta\), \(\delta\
 4. Camilo pregunta: "¿cómo sé si la ganancia de un año más de educación es diferente de cero?". Responde usando hipótesis, estadístico \(t\), \(p\)-valor e intervalo de confianza.
 
 5. Camilo cree que un año más de educación aumenta más los salarios de las mujeres que los salarios de los hombres. Escribe el modelo que permitiría estudiar esa hipótesis y especifica qué coeficiente o prueba mirarías.
-:::
+::::
 
 ## Parte D: Simulación de propiedades
 
 Esta parte retoma la idea de Monte Carlo: generar muchas muestras, estimar el mismo modelo y estudiar la distribución de \(\hat{\beta}\).
 
-::: {.box-ejemplo}
+:::: {.box-ejemplo}
 Usa el proceso generador:
 
 \[
@@ -121,16 +121,16 @@ y_i=2+1.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1).
 \]
 
 Compara muestras de tamaño \(n=50\), \(n=200\) y \(n=1000\).
-:::
+::::
 
 ### Preguntas
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Para cada tamaño muestral, genera 1000 muestras y estima \(y_i\) sobre una constante y \(x_i\).
 2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}_1\).
 3. Explica qué parte de los resultados se relaciona con insesgadez y cuál con consistencia.
 4. Repite el ejercicio con errores cuya varianza crece con \(x_i\). ¿Qué cambia en la interpretación de los errores estándar convencionales?
-:::
+::::
 
 ### Código base en R
 
@@ -203,9 +203,9 @@ for n in [50, 200, 1000]:
 
 ## Cierre
 
-::: {.box-resumen}
+:::: {.box-resumen}
 Este taller une tres piezas que suelen estudiarse por separado: FWL muestra de dónde sale la variación útil, las propiedades explican qué podemos esperar del estimador y la inferencia traduce una estimación en una afirmación con incertidumbre.
-:::
+::::
 
 [← Volver al índice de problem sets](#problem-sets)
 

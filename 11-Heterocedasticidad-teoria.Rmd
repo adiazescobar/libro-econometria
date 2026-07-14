@@ -1,0 +1,258 @@
+# Heterocedasticidad: teoría {#heterocedasticidad-teoria}
+
+```{r setup-heterocedasticidad-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-heterocedasticidad-teoria}
+
+Al finalizar esta página podrás:
+
+1. Definir heterocedasticidad y distinguirla de homocedasticidad.
+2. Explicar por qué MCO puede seguir siendo insesgado pero perder eficiencia.
+3. Derivar la varianza de \(\hat{\beta}\) cuando \(\text{Var}(\epsilon\mid X)=\Omega\).
+4. Describir la lógica de las pruebas de White, Breusch-Pagan y Goldfeld-Quandt.
+5. Comparar errores estándar robustos, WLS, GLS y FGLS.
+
+## Intuición y motivación {#intuicion-heterocedasticidad-teoria}
+
+El supuesto clásico de homocedasticidad dice que la varianza del error es constante para todas las observaciones:
+
+\[
+\text{Var}(\epsilon_i\mid X)=\sigma^2.
+\]
+
+La heterocedasticidad aparece cuando esa varianza cambia entre observaciones:
+
+\[
+\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
+\]
+
+::: {.box-intuicion}
+En un modelo de consumo e ingreso, los hogares de bajos ingresos suelen tener poca dispersión en consumo, mientras que los hogares de altos ingresos pueden diferir mucho entre sí. La recta puede seguir pasando por el centro de la nube, pero la incertidumbre alrededor de la recta no es igual en toda la muestra.
+:::
+
+El problema principal no es necesariamente el coeficiente de MCO. Si se mantiene \(\mathbb{E}[\epsilon\mid X]=0\), MCO sigue siendo insesgado y consistente. El problema es que la matriz clásica de varianzas:
+
+\[
+\hat{\sigma}^2(X'X)^{-1}
+\]
+
+ya no estima correctamente la incertidumbre de \(\hat{\beta}\). Por eso las pruebas \(t\) y \(F\) clásicas pueden ser engañosas.
+
+## Desarrollo teórico {#desarrollo-teorico-heterocedasticidad}
+
+Partimos del modelo lineal:
+
+\[
+y=X\beta+\epsilon,
+\qquad
+\mathbb{E}[\epsilon\mid X]=0,
+\qquad
+\text{Var}(\epsilon\mid X)=\Omega.
+\]
+
+El estimador MCO es:
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Sustituyendo el modelo:
+
+\[
+\hat{\beta}
+= (X'X)^{-1}X'(X\beta+\epsilon)
+= \beta + (X'X)^{-1}X'\epsilon.
+\]
+
+Por tanto, si \(\mathbb{E}[\epsilon\mid X]=0\),
+
+\[
+\mathbb{E}[\hat{\beta}\mid X]=\beta.
+\]
+
+La varianza condicional cambia:
+
+\[
+\text{Var}(\hat{\beta}\mid X)
+= (X'X)^{-1}X'\Omega X(X'X)^{-1}.
+\]
+
+::: {.box-cuidado}
+La heterocedasticidad no viola automáticamente la exogeneidad. Si el error sigue teniendo media condicional cero, el problema clásico es de eficiencia e inferencia, no de sesgo.
+:::
+
+Cuando \(\Omega=\sigma^2I\), la expresión anterior se reduce a:
+
+\[
+\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}.
+\]
+
+Si \(\Omega\neq \sigma^2I\), usar \(\hat{\sigma}^2(X'X)^{-1}\) ignora la forma real de la dispersión.
+
+### Heterocedasticidad pura e impura
+
+La heterocedasticidad puede ser pura o impura.
+
+La heterocedasticidad pura ocurre cuando la varianza del error realmente cambia entre observaciones, aun con el modelo bien especificado:
+
+\[
+\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
+\]
+
+La heterocedasticidad impura aparece como síntoma de mala especificación. Por ejemplo, si el verdadero modelo incluye \(X_3\):
+
+\[
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\epsilon_i,
+\]
+
+pero se estima:
+
+\[
+y_i=\beta_1+\beta_2X_{2i}+u_i,
+\]
+
+entonces:
+
+\[
+u_i=\beta_3X_{3i}+\epsilon_i.
+\]
+
+Si \(X_3\) cambia sistemáticamente con \(X_2\), la varianza del error compuesto también puede cambiar.
+
+### Pruebas de heterocedasticidad
+
+Las pruebas formales usan una idea común: si hay heterocedasticidad, los residuos al cuadrado deberían estar relacionados con variables observables.
+
+En la prueba de Breusch-Pagan se estima una regresión auxiliar:
+
+\[
+\hat{\epsilon}_i^2 = \alpha_0+\alpha_1z_{1i}+\cdots+\alpha_mz_{mi}+v_i.
+\]
+
+El estadístico LM suele escribirse como:
+
+\[
+LM=nR^2_{\text{aux}}.
+\]
+
+Bajo la hipótesis nula de homocedasticidad:
+
+\[
+LM \overset{a}{\sim} \chi^2_m.
+\]
+
+La prueba de White es más general: usa regresores, cuadrados y cruces en la regresión auxiliar. Es flexible, pero puede consumir muchos grados de libertad en muestras pequeñas.
+
+::: {.box-ejemplo}
+Si el modelo contiene \(x\) y \(x^2\), la regresión auxiliar de White no debe duplicar mecánicamente términos idénticos. La idea es incluir las combinaciones relevantes sin crear colinealidad perfecta.
+:::
+
+Goldfeld-Quandt es útil cuando se sospecha que la varianza cambia con una variable específica. Ordena la muestra por esa variable, compara grupos extremos y usa una razón de varianzas.
+
+### Correcciones
+
+Hay dos familias de respuestas.
+
+La primera mantiene \(\hat{\beta}_{MCO}\) y corrige la matriz de varianzas con errores estándar robustos tipo White/Huber:
+
+\[
+\widehat{\text{Var}}_{HC0}(\hat{\beta})
+= (X'X)^{-1}
+\left(\sum_{i=1}^n x_ix_i'\hat{\epsilon}_i^2\right)
+(X'X)^{-1}.
+\]
+
+Equivalente, en forma matricial:
+
+\[
+\widehat{\text{Var}}_{HC0}(\hat{\beta})
+= (X'X)^{-1}X'\widehat{\Omega}X(X'X)^{-1},
+\]
+
+donde:
+
+\[
+\widehat{\Omega}=\text{diag}(\hat{\epsilon}_1^2,\ldots,\hat{\epsilon}_n^2).
+\]
+
+La segunda familia cambia el estimador. Si conocemos \(\Omega\), el estimador GLS es:
+
+\[
+\hat{\beta}_{GLS}=(X'\Omega^{-1}X)^{-1}X'\Omega^{-1}y.
+\]
+
+Si \(\Omega\) es diagonal y conocemos o estimamos \(\sigma_i^2\), usamos mínimos cuadrados ponderados:
+
+\[
+\min_\beta \sum_{i=1}^n w_i(y_i-x_i'\beta)^2,
+\qquad
+w_i=\frac{1}{\sigma_i^2}.
+\]
+
+## Supuestos y propiedades {#supuestos-propiedades-heterocedasticidad}
+
+| Situación | Consecuencia |
+|---|---|
+| \(\mathbb{E}[\epsilon\mid X]=0\) y heterocedasticidad | MCO sigue siendo insesgado y consistente. |
+| \(\Omega\neq\sigma^2I\) | MCO ya no es eficiente dentro de los estimadores lineales insesgados. |
+| Errores estándar clásicos bajo heterocedasticidad | Pruebas \(t\), \(F\) e intervalos clásicos pueden ser inválidos. |
+| Errores robustos HC | Corrigen la inferencia asintótica sin cambiar los coeficientes. |
+| WLS/GLS bien especificado | Puede mejorar eficiencia y cambiar los coeficientes. |
+
+::: {.box-resumen}
+La heterocedasticidad no destruye toda la regresión. Obliga a separar dos preguntas: si el coeficiente está centrado en el parámetro y si estamos midiendo bien su incertidumbre.
+:::
+
+## Errores comunes y cuidados {#errores-comunes-heterocedasticidad}
+
+::: {.box-cuidado}
+No digas que la heterocedasticidad sesga MCO si la exogeneidad se mantiene. El sesgo aparece por problemas como variables omitidas, simultaneidad o error de medición en regresores.
+:::
+
+::: {.box-cuidado}
+No uses WLS solo porque una prueba rechaza homocedasticidad. Para ponderar necesitas una razón defendible para la forma de la varianza.
+:::
+
+::: {.box-cuidado}
+Un gráfico de residuos no prueba formalmente heterocedasticidad, pero sí ayuda a detectar patrones que las pruebas pueden resumir.
+:::
+
+## Resumen {#resumen-heterocedasticidad-teoria}
+
+::: {.box-resumen}
+- Hay heterocedasticidad cuando \(\text{Var}(\epsilon_i\mid X)\) cambia entre observaciones.
+- Con exogeneidad, MCO sigue siendo insesgado y consistente.
+- La varianza correcta es \((X'X)^{-1}X'\Omega X(X'X)^{-1}\).
+- White y Breusch-Pagan evalúan si los residuos al cuadrado se relacionan con variables observables.
+- Los errores robustos corrigen inferencia; WLS/GLS cambian el estimador.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-heterocedasticidad}
+
+::: {.box-ejercicios}
+1. Explica por qué la heterocedasticidad invalida la matriz clásica de varianzas.
+2. Deriva \(\text{Var}(\hat{\beta}\mid X)\) cuando \(\text{Var}(\epsilon\mid X)=\Omega\).
+3. Compara White y Breusch-Pagan: ¿cuándo preferirías cada prueba?
+4. Da un ejemplo de heterocedasticidad pura y uno de heterocedasticidad impura.
+5. Explica cuándo usarías errores robustos y cuándo WLS.
+6. Para practicar estos diagnósticos junto con multicolinealidad, resuelve las partes B, C y E del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
+:::
+
+## Referencias {#referencias-heterocedasticidad-teoria}
+
+- White, Halbert. "A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity", *Econometrica*, 1980.
+- Breusch, Trevor y Adrian Pagan. "A Simple Test for Heteroscedasticity and Random Coefficient Variation", *Econometrica*, 1979.
+- Wooldridge, Jeffrey. *Introductory Econometrics: A Modern Approach*, capítulo 8.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulo 4.
+
+[Continúa en la práctica →](heterocedasticidad-practica.html)

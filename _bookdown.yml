@@ -19,9 +19,12 @@ rmd_files:
   - 09-NormAs-practica.Rmd
   - 10-Multico-teoria.Rmd
   - 10-Multico-practica.Rmd
-  - 11-Heterocedasticidad.Rmd
-  - 12-Endogeneidad.Rmd
-  - 13-VariablesInstrumentales.Rmd
+  - 11-Heterocedasticidad-teoria.Rmd
+  - 11-Heterocedasticidad-practica.Rmd
+  - 12-Endogeneidad-teoria.Rmd
+  - 12-Endogeneidad-practica.Rmd
+  - 13-VariablesInstrumentales-teoria.Rmd
+  - 13-VariablesInstrumentales-practica.Rmd
   - 15-VarDepBinaria.Rmd
   - 14-SeriesTiempo.Rmd
   - 16-ProblemSets.Rmd

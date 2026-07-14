@@ -2,9 +2,9 @@
 
 Este taller integra los primeros bloques del curso: notación de sumas, álgebra matricial, supuestos básicos, estimación de MCO e interpretación de coeficientes. Está pensado para resolverse después de estudiar los capítulos 02 a 05.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 El objetivo no es hacer muchos ejercicios mecánicos, sino conectar tres formas de ver MCO: como una recta que minimiza residuos, como una proyección matricial y como una herramienta para interpretar diferencias entre grupos.
-:::
+::::
 
 ## Objetivos del taller
 
@@ -23,13 +23,13 @@ Al finalizar este problem set podrás:
 - En los ejercicios computacionales, entrega código reproducible y una interpretación breve.
 - Si este taller se asigna como evaluable, la fecha y el formato de entrega se anunciarán por Teams.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 No mezcles errores poblacionales con residuos estimados. Usa \(\epsilon_i\) para el error poblacional y \(\hat{\epsilon}_i\) para el residuo que se calcula después de estimar.
-:::
+::::
 
 ## Parte A: Álgebra matricial
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Sea \(\iota=(1,1,\ldots,1)'\) un vector \(n\times 1\) de unos. Calcula \(\iota'\iota\). Explica la dimensión del resultado.
 
 2. Sea \(y=(y_1,\ldots,y_n)'\). Calcula \(\iota'y\) y muestra que:
@@ -69,11 +69,11 @@ Demuestra que \(PX=X\). Luego demuestra que \(P\) es idempotente, es decir, \(P^
    a. \(\frac{\partial a'x}{\partial x}\)  
    b. \(\frac{\partial x'x}{\partial x}\)  
    c. \(\frac{\partial x'(aa')x}{\partial x}\)
-:::
+::::
 
 ## Parte B: MCO en sumas y matrices
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. En un estudio sobre estudiantes becados y no becados se estima:
 
 \[
@@ -137,11 +137,11 @@ y obtiene:
 \]
 
 ¿Son coherentes estos resultados con las ecuaciones normales de MCO? Justifica.
-:::
+::::
 
 ## Parte C: Modelos lineales, dummies e interpretación
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Clasifica cada modelo como lineal o no lineal en parámetros. Justifica:
 
    a. \(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i\)  
@@ -176,11 +176,11 @@ y_i=\alpha+\beta E_{1i}+\delta Ingresos_i+\gamma(E_{1i}\times Ingresos_i)+\epsil
 \]
 
 Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué permite estudiar la interacción?
-:::
+::::
 
 ## Parte D: Propiedades, supuestos y FWL
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Considera el modelo \(y=X\beta+u\). Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y "mejor" dentro de una clase de estimadores.
 
 2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
@@ -210,13 +210,13 @@ M_2=I-X_2(X_2'X_2)^{-1}X_2'.
 Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coeficiente obtenido al regresar \(M_2y\) sobre \(M_2X_1\). Explica la intuición de este resultado.
 
 6. Supón que \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
-:::
+::::
 
 ## Parte E: Simulación Monte Carlo
 
 Esta parte reproduce la idea computacional del taller histórico: estudiar insesgadez, varianza y consistencia simulando muchas muestras.
 
-::: {.box-ejemplo}
+:::: {.box-ejemplo}
 El proceso generador de datos será:
 
 \[
@@ -224,16 +224,16 @@ y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
 \]
 
 con \(x_i\) generado de una distribución uniforme entre 3 y 10.
-:::
+::::
 
 ### Preguntas
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Genera 1000 muestras de tamaño \(n=150\). En cada muestra estima una regresión de \(y_i\) sobre \(x_i\) sin constante.
 2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}\). ¿Qué sugieren sobre insesgadez y varianza?
 3. Repite el ejercicio con \(n=1000\). ¿Qué cambia? ¿Qué sugiere sobre consistencia?
 4. Grafica la distribución de \(\hat{\beta}\) para \(n=150\) y \(n=1000\). Compara visualmente.
-:::
+::::
 
 ### Código base en R
 
@@ -307,9 +307,9 @@ print(beta_1000.mean(), beta_1000.std(ddof=1))
 
 ## Cierre
 
-::: {.box-resumen}
+:::: {.box-resumen}
 Este taller conecta la mecánica de MCO con su interpretación. Si puedes resolverlo con calma, ya tienes una base sólida para estudiar propiedades, FWL, pruebas de hipótesis y problemas como multicolinealidad o heterocedasticidad.
-:::
+::::
 
 [← Volver al índice de problem sets](#problem-sets)
 

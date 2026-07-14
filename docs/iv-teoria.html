@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 27 Talleres y problem sets | Econometría II</title>
+  <title>Capítulo 23 Variables instrumentales: teoría | Econometría II</title>
   <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 27 Talleres y problem sets | Econometría II" />
+  <meta property="og:title" content="Capítulo 23 Variables instrumentales: teoría | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
@@ -17,7 +17,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 27 Talleres y problem sets | Econometría II" />
+  <meta name="twitter:title" content="Capítulo 23 Variables instrumentales: teoría | Econometría II" />
   
   <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
@@ -33,8 +33,8 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="series.html"/>
-<link rel="next" href="problem-set-1.html"/>
+<link rel="prev" href="endogeneidad-practica.html"/>
+<link rel="next" href="iv-practica.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -199,85 +199,194 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="problem-sets" class="section level1 hasAnchor" number="27">
-<h1><span class="header-section-number">Capítulo 27</span> Talleres y problem sets<a href="problem-sets.html#problem-sets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones computacionales. A diferencia de los ejercicios cortos al final de cada capítulo, estos problem sets integran varios temas y sirven para preparar parciales, discusiones en clase y trabajo autónomo.</p>
-<div class="box-intuicion">
-<p>La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.</p>
-</div>
-<div id="cómo-usarlos" class="section level2 hasAnchor" number="27.1">
-<h2><span class="header-section-number">27.1</span> Cómo usarlos<a href="#c%C3%B3mo-usarlos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="iv-teoria" class="section level1 hasAnchor" number="23">
+<h1><span class="header-section-number">Capítulo 23</span> Variables instrumentales: teoría<a href="iv-teoria.html#iv-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objetivos-iv-teoria" class="section level2 hasAnchor" number="23.1">
+<h2><span class="header-section-number">23.1</span> Objetivos de aprendizaje<a href="iv-teoria.html#objetivos-iv-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar esta página podrás:</p>
 <ol style="list-style-type: decimal">
-<li>Lee primero los capítulos asociados al taller.</li>
-<li>Resuelve las partes conceptuales sin mirar apuntes durante el primer intento.</li>
-<li>En las partes computacionales, conserva el código y comenta cada resultado.</li>
-<li>Si el taller se asigna como evaluable, las fechas y el mecanismo de entrega se anunciarán por Teams y por correo.</li>
+<li>Explicar una variable instrumental como fuente de variación exógena.</li>
+<li>Distinguir relevancia y exogeneidad del instrumento.</li>
+<li>Derivar el estimador IV en el caso exactamente identificado.</li>
+<li>Explicar MCO en dos etapas y su relación con IV.</li>
+<li>Interpretar instrumentos débiles y pruebas de sobreidentificación.</li>
 </ol>
+</div>
+<div id="intuicion-iv-teoria" class="section level2 hasAnchor" number="23.2">
+<h2><span class="header-section-number">23.2</span> Intuición y motivación<a href="iv-teoria.html#intuicion-iv-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cuando un regresor <span class="math inline">\(X\)</span> es endógeno, MCO usa variación contaminada por el error. Una variable instrumental <span class="math inline">\(Z\)</span> busca aislar una parte de la variación de <span class="math inline">\(X\)</span> que explique <span class="math inline">\(X\)</span>, pero que no esté relacionada directamente con el error de la ecuación de interés.</p>
+<div class="box-intuicion">
+<p>Un buen instrumento mueve el regresor endógeno, pero no mueve el resultado por otros canales. En educación y salarios, la cercanía a una universidad puede cambiar años de educación; la pregunta difícil es si también afecta salarios por canales distintos a educación.</p>
+</div>
+</div>
+<div id="desarrollo-teorico-iv" class="section level2 hasAnchor" number="23.3">
+<h2><span class="header-section-number">23.3</span> Desarrollo teórico<a href="iv-teoria.html#desarrollo-teorico-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considera el modelo:</p>
+<p><span class="math display">\[
+y=X\beta+\epsilon,
+\]</span></p>
+<p>donde una o más columnas de <span class="math inline">\(X\)</span> son endógenas. Una matriz de instrumentos <span class="math inline">\(Z\)</span> debe cumplir dos condiciones.</p>
+<p>La primera es relevancia:</p>
+<p><span class="math display">\[
+\text{Cov}(Z,X)\neq 0.
+\]</span></p>
+<p>La segunda es exogeneidad:</p>
+<p><span class="math display">\[
+\mathbb{E}[Z&#39;\epsilon]=0.
+\]</span></p>
+<p>La relevancia se evalúa con la primera etapa. La exogeneidad requiere argumento económico, institucional o de diseño; no se puede probar directamente en un modelo exactamente identificado.</p>
+<div id="caso-exactamente-identificado" class="section level3 hasAnchor" number="23.3.1">
+<h3><span class="header-section-number">23.3.1</span> Caso exactamente identificado<a href="iv-teoria.html#caso-exactamente-identificado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Si hay tantos instrumentos como regresores instrumentados, las condiciones muestrales son:</p>
+<p><span class="math display">\[
+Z&#39;(y-X\hat{\beta}_{IV})=0.
+\]</span></p>
+<p>Resolviendo:</p>
+<p><span class="math display">\[
+\hat{\beta}_{IV}=(Z&#39;X)^{-1}Z&#39;y.
+\]</span></p>
+<p>En el caso de un instrumento binario, IV se reduce al estimador de Wald:</p>
+<p><span class="math display">\[
+\hat{\beta}_{Wald}
+=\frac{\bar{Y}_{Z=1}-\bar{Y}_{Z=0}}
+{\bar{X}_{Z=1}-\bar{X}_{Z=0}}.
+\]</span></p>
+</div>
+<div id="mínimos-cuadrados-en-dos-etapas" class="section level3 hasAnchor" number="23.3.2">
+<h3><span class="header-section-number">23.3.2</span> Mínimos cuadrados en dos etapas<a href="#m%C3%ADnimos-cuadrados-en-dos-etapas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando hay más instrumentos que variables endógenas, usamos la proyección de <span class="math inline">\(X\)</span> sobre el espacio generado por <span class="math inline">\(Z\)</span>:</p>
+<p><span class="math display">\[
+P_Z=Z(Z&#39;Z)^{-1}Z&#39;.
+\]</span></p>
+<p>La primera etapa estima:</p>
+<p><span class="math display">\[
+X=Z\Pi+V,
+\qquad
+\hat{X}=P_ZX.
+\]</span></p>
+<p>La segunda etapa estima <span class="math inline">\(y\)</span> sobre <span class="math inline">\(\hat{X}\)</span>. El estimador compacto es:</p>
+<p><span class="math display">\[
+\hat{\beta}_{2SLS}
+= (X&#39;P_ZX)^{-1}X&#39;P_Zy.
+\]</span></p>
 <div class="box-cuidado">
-<p>Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.</p>
+<p>La segunda etapa hecha manualmente sirve para entender el procedimiento, pero sus errores estándar no son los correctos si se tratan <span class="math inline">\(\hat{X}\)</span> como datos observados. Los programas ajustan la matriz de varianza.</p>
+</div>
+<p>Cuando el modelo está exactamente identificado, 2SLS coincide con IV.</p>
+</div>
+<div id="instrumentos-débiles" class="section level3 hasAnchor" number="23.3.3">
+<h3><span class="header-section-number">23.3.3</span> Instrumentos débiles<a href="#instrumentos-d%C3%A9biles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un instrumento es débil cuando explica poca variación de la variable endógena. En la primera etapa:</p>
+<p><span class="math display">\[
+X=\pi_0+\pi_1Z+\text{controles}+v,
+\]</span></p>
+<p>la relevancia se evalúa con el estadístico <span class="math inline">\(F\)</span> de los instrumentos excluidos. Una regla práctica común es mirar si <span class="math inline">\(F&gt;10\)</span>, aunque el diagnóstico depende del contexto y del número de instrumentos.</p>
+</div>
+<div id="sobreidentificación" class="section level3 hasAnchor" number="23.3.4">
+<h3><span class="header-section-number">23.3.4</span> Sobreidentificación<a href="#sobreidentificaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Si hay más instrumentos que variables endógenas, se pueden hacer pruebas de sobreidentificación. La lógica es revisar si los residuos de 2SLS están correlacionados con los instrumentos adicionales.</p>
+<p>La prueba de Sargan usa:</p>
+<p><span class="math display">\[
+nR^2_{\hat{\epsilon}\sim Z}
+\overset{a}{\sim}\chi^2_{r-k},
+\]</span></p>
+<p>donde <span class="math inline">\(r-k\)</span> es el número de restricciones de sobreidentificación.</p>
+<div class="box-cuidado">
+<p>No rechazar una prueba de sobreidentificación no demuestra que los instrumentos sean válidos. Solo indica que los datos no contradicen conjuntamente las restricciones evaluadas.</p>
 </div>
 </div>
-<div id="mapa-de-talleres" class="section level2 hasAnchor" number="27.2">
-<h2><span class="header-section-number">27.2</span> Mapa de talleres<a href="problem-sets.html#mapa-de-talleres" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="supuestos-propiedades-iv" class="section level2 hasAnchor" number="23.4">
+<h2><span class="header-section-number">23.4</span> Supuestos y propiedades<a href="iv-teoria.html#supuestos-propiedades-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Taller</th>
-<th>Tema integrador</th>
-<th>Capítulos asociados</th>
-<th>Estado</th>
+<th>Elemento</th>
+<th>Papel</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="problem-set-1.html#problem-set-1">Problem Set 1: MCO y matrices</a></td>
-<td>Álgebra matricial, MCO, dummies, interpretación y simulación</td>
-<td>02, 03, 04, 05</td>
-<td>Piloto disponible</td>
+<td>Relevancia</td>
+<td>El instrumento debe explicar variación de la variable endógena.</td>
 </tr>
 <tr class="even">
-<td><a href="problem-set-2.html#problem-set-2">Problem Set 2: FWL, propiedades e inferencia</a></td>
-<td>FWL, Gauss-Markov, pruebas de hipótesis y simulación</td>
-<td>06, 07, 08, 09</td>
-<td>Disponible</td>
+<td>Exogeneidad</td>
+<td>El instrumento no debe estar correlacionado con el error estructural.</td>
 </tr>
 <tr class="odd">
-<td><a href="problem-set-3.html#problem-set-3">Problem Set 3: Multicolinealidad y heterocedasticidad</a></td>
-<td>Colinealidad, VIF, White, Breusch-Pagan, WLS y errores robustos</td>
-<td>10, 11</td>
-<td>Disponible</td>
+<td>Rango</td>
+<td><span class="math inline">\(Z&#39;X\)</span> o <span class="math inline">\(X&#39;P_ZX\)</span> debe tener rango suficiente.</td>
 </tr>
 <tr class="even">
-<td><a href="problem-set-4.html#problem-set-4">Problem Set 4: Endogeneidad y variables instrumentales</a></td>
-<td>Sesgo, error de medición, relevancia, exogeneidad, IV y 2SLS</td>
-<td>12, 13</td>
-<td>Disponible</td>
+<td>Consistencia</td>
+<td>IV/2SLS es consistente bajo relevancia y exogeneidad.</td>
 </tr>
 <tr class="odd">
-<td><a href="problem-set-5.html#problem-set-5">Problem Set 5: Variable dependiente binaria y series de tiempo</a></td>
-<td>MPL, logit, probit, efectos marginales, ACF, PACF y AR</td>
-<td>15, 14</td>
-<td>Disponible</td>
+<td>Sesgo finito</td>
+<td>IV/2SLS puede estar sesgado en muestras finitas.</td>
+</tr>
+<tr class="even">
+<td>Instrumentos débiles</td>
+<td>Pueden hacer que la inferencia usual sea poco confiable.</td>
 </tr>
 </tbody>
 </table>
+<div class="box-resumen">
+<p>IV cambia la fuente de variación usada para estimar el efecto. En lugar de usar toda la variación de <span class="math inline">\(X\)</span>, usa la parte de <span class="math inline">\(X\)</span> explicada por <span class="math inline">\(Z\)</span>.</p>
 </div>
-<div id="recomendación-de-trabajo" class="section level2 hasAnchor" number="27.3">
-<h2><span class="header-section-number">27.3</span> Recomendación de trabajo<a href="#recomendaci%C3%B3n-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="errores-comunes-iv" class="section level2 hasAnchor" number="23.5">
+<h2><span class="header-section-number">23.5</span> Errores comunes y cuidados<a href="iv-teoria.html#errores-comunes-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-cuidado">
+<p>No basta con que el instrumento sea significativo en la primera etapa. La relevancia no garantiza exogeneidad.</p>
+</div>
+<div class="box-cuidado">
+<p>No controles por variables que estén en el camino causal entre el instrumento y la variable endógena si eso destruye la variación que identifica el efecto.</p>
+</div>
+<div class="box-cuidado">
+<p>No interpretes IV como el mismo parámetro que MCO en todos los contextos. Con efectos heterogéneos, IV puede identificar un efecto local para quienes cambian <span class="math inline">\(X\)</span> por el instrumento.</p>
+</div>
+</div>
+<div id="resumen-iv-teoria" class="section level2 hasAnchor" number="23.6">
+<h2><span class="header-section-number">23.6</span> Resumen<a href="iv-teoria.html#resumen-iv-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
-<li>Los problem sets no reemplazan los capítulos: los integran.</li>
-<li>Las preguntas de demostración preparan para parciales.</li>
-<li>Las preguntas aplicadas preparan para leer resultados empíricos.</li>
-<li>Las preguntas computacionales deben resolverse con código reproducible.</li>
+<li>Una variable instrumental debe ser relevante y exógena.</li>
+<li>En el caso exactamente identificado, <span class="math inline">\(\hat{\beta}_{IV}=(Z&#39;X)^{-1}Z&#39;y\)</span>.</li>
+<li>2SLS proyecta la variable endógena sobre instrumentos y usa esa variación predicha.</li>
+<li>La primera etapa diagnostica relevancia, no exogeneidad.</li>
+<li>Instrumentos débiles y restricciones de sobreidentificación deben reportarse con cuidado.</li>
 </ul>
 </div>
+</div>
+<div id="ejercicios-conceptuales-iv" class="section level2 hasAnchor" number="23.7">
+<h2><span class="header-section-number">23.7</span> Ejercicios conceptuales<a href="iv-teoria.html#ejercicios-conceptuales-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Explica con tus palabras la diferencia entre relevancia y exogeneidad.</li>
+<li>Deriva <span class="math inline">\(\hat{\beta}_{IV}\)</span> desde <span class="math inline">\(Z&#39;(y-X\hat{\beta})=0\)</span>.</li>
+<li>Muestra por qué el estimador de Wald es un caso especial de IV.</li>
+<li>Explica por qué la primera etapa no prueba la validez del instrumento.</li>
+<li>¿Por qué un instrumento débil puede ser peligroso aun si es exógeno?</li>
+<li>Para practicar relevancia, exogeneidad, primera etapa e IV/2SLS, resuelve las partes C, D y F del <a href="problem-set-4.html#problem-set-4">Problem Set 4: Endogeneidad y variables instrumentales</a>.</li>
+</ol>
+</div>
+</div>
+<div id="referencias-iv-teoria" class="section level2 hasAnchor" number="23.8">
+<h2><span class="header-section-number">23.8</span> Referencias<a href="iv-teoria.html#referencias-iv-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Angrist, Joshua y Jörn-Steffen Pischke. <em>Mostly Harmless Econometrics</em>, capítulo 4.</li>
+<li>Wooldridge, Jeffrey. <em>Econometric Analysis of Cross Section and Panel Data</em>, capítulo 5.</li>
+<li>Verbeek, Marno. <em>A Guide to Modern Econometrics</em>, capítulo 5.</li>
+<li>Card, David. “Using Geographic Variation in College Proximity to Estimate the Return to Schooling”, NBER Working Paper, 1993.</li>
+<li>Stock, James y Motohiro Yogo. “Testing for Weak Instruments in Linear IV Regression”, 2005.</li>
+</ul>
+<p><a href="iv-practica.html">Continúa en la práctica →</a></p>
 
 </div>
 </div>
@@ -286,8 +395,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="series.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="problem-set-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="endogeneidad-practica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="iv-practica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -318,7 +427,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/16-ProblemSets.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/13-VariablesInstrumentales-teoria.Rmd",
     "text": "Edit"
   },
   "history": {

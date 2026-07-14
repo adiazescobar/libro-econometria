@@ -1,0 +1,194 @@
+# Variables instrumentales: teoría {#iv-teoria}
+
+```{r setup-iv-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-iv-teoria}
+
+Al finalizar esta página podrás:
+
+1. Explicar una variable instrumental como fuente de variación exógena.
+2. Distinguir relevancia y exogeneidad del instrumento.
+3. Derivar el estimador IV en el caso exactamente identificado.
+4. Explicar MCO en dos etapas y su relación con IV.
+5. Interpretar instrumentos débiles y pruebas de sobreidentificación.
+
+## Intuición y motivación {#intuicion-iv-teoria}
+
+Cuando un regresor \(X\) es endógeno, MCO usa variación contaminada por el error. Una variable instrumental \(Z\) busca aislar una parte de la variación de \(X\) que explique \(X\), pero que no esté relacionada directamente con el error de la ecuación de interés.
+
+::: {.box-intuicion}
+Un buen instrumento mueve el regresor endógeno, pero no mueve el resultado por otros canales. En educación y salarios, la cercanía a una universidad puede cambiar años de educación; la pregunta difícil es si también afecta salarios por canales distintos a educación.
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-iv}
+
+Considera el modelo:
+
+\[
+y=X\beta+\epsilon,
+\]
+
+donde una o más columnas de \(X\) son endógenas. Una matriz de instrumentos \(Z\) debe cumplir dos condiciones.
+
+La primera es relevancia:
+
+\[
+\text{Cov}(Z,X)\neq 0.
+\]
+
+La segunda es exogeneidad:
+
+\[
+\mathbb{E}[Z'\epsilon]=0.
+\]
+
+La relevancia se evalúa con la primera etapa. La exogeneidad requiere argumento económico, institucional o de diseño; no se puede probar directamente en un modelo exactamente identificado.
+
+### Caso exactamente identificado
+
+Si hay tantos instrumentos como regresores instrumentados, las condiciones muestrales son:
+
+\[
+Z'(y-X\hat{\beta}_{IV})=0.
+\]
+
+Resolviendo:
+
+\[
+\hat{\beta}_{IV}=(Z'X)^{-1}Z'y.
+\]
+
+En el caso de un instrumento binario, IV se reduce al estimador de Wald:
+
+\[
+\hat{\beta}_{Wald}
+=\frac{\bar{Y}_{Z=1}-\bar{Y}_{Z=0}}
+{\bar{X}_{Z=1}-\bar{X}_{Z=0}}.
+\]
+
+### Mínimos cuadrados en dos etapas
+
+Cuando hay más instrumentos que variables endógenas, usamos la proyección de \(X\) sobre el espacio generado por \(Z\):
+
+\[
+P_Z=Z(Z'Z)^{-1}Z'.
+\]
+
+La primera etapa estima:
+
+\[
+X=Z\Pi+V,
+\qquad
+\hat{X}=P_ZX.
+\]
+
+La segunda etapa estima \(y\) sobre \(\hat{X}\). El estimador compacto es:
+
+\[
+\hat{\beta}_{2SLS}
+= (X'P_ZX)^{-1}X'P_Zy.
+\]
+
+::: {.box-cuidado}
+La segunda etapa hecha manualmente sirve para entender el procedimiento, pero sus errores estándar no son los correctos si se tratan \(\hat{X}\) como datos observados. Los programas ajustan la matriz de varianza.
+:::
+
+Cuando el modelo está exactamente identificado, 2SLS coincide con IV.
+
+### Instrumentos débiles
+
+Un instrumento es débil cuando explica poca variación de la variable endógena. En la primera etapa:
+
+\[
+X=\pi_0+\pi_1Z+\text{controles}+v,
+\]
+
+la relevancia se evalúa con el estadístico \(F\) de los instrumentos excluidos. Una regla práctica común es mirar si \(F>10\), aunque el diagnóstico depende del contexto y del número de instrumentos.
+
+### Sobreidentificación
+
+Si hay más instrumentos que variables endógenas, se pueden hacer pruebas de sobreidentificación. La lógica es revisar si los residuos de 2SLS están correlacionados con los instrumentos adicionales.
+
+La prueba de Sargan usa:
+
+\[
+nR^2_{\hat{\epsilon}\sim Z}
+\overset{a}{\sim}\chi^2_{r-k},
+\]
+
+donde \(r-k\) es el número de restricciones de sobreidentificación.
+
+::: {.box-cuidado}
+No rechazar una prueba de sobreidentificación no demuestra que los instrumentos sean válidos. Solo indica que los datos no contradicen conjuntamente las restricciones evaluadas.
+:::
+
+## Supuestos y propiedades {#supuestos-propiedades-iv}
+
+| Elemento | Papel |
+|---|---|
+| Relevancia | El instrumento debe explicar variación de la variable endógena. |
+| Exogeneidad | El instrumento no debe estar correlacionado con el error estructural. |
+| Rango | \(Z'X\) o \(X'P_ZX\) debe tener rango suficiente. |
+| Consistencia | IV/2SLS es consistente bajo relevancia y exogeneidad. |
+| Sesgo finito | IV/2SLS puede estar sesgado en muestras finitas. |
+| Instrumentos débiles | Pueden hacer que la inferencia usual sea poco confiable. |
+
+::: {.box-resumen}
+IV cambia la fuente de variación usada para estimar el efecto. En lugar de usar toda la variación de \(X\), usa la parte de \(X\) explicada por \(Z\).
+:::
+
+## Errores comunes y cuidados {#errores-comunes-iv}
+
+::: {.box-cuidado}
+No basta con que el instrumento sea significativo en la primera etapa. La relevancia no garantiza exogeneidad.
+:::
+
+::: {.box-cuidado}
+No controles por variables que estén en el camino causal entre el instrumento y la variable endógena si eso destruye la variación que identifica el efecto.
+:::
+
+::: {.box-cuidado}
+No interpretes IV como el mismo parámetro que MCO en todos los contextos. Con efectos heterogéneos, IV puede identificar un efecto local para quienes cambian \(X\) por el instrumento.
+:::
+
+## Resumen {#resumen-iv-teoria}
+
+::: {.box-resumen}
+- Una variable instrumental debe ser relevante y exógena.
+- En el caso exactamente identificado, \(\hat{\beta}_{IV}=(Z'X)^{-1}Z'y\).
+- 2SLS proyecta la variable endógena sobre instrumentos y usa esa variación predicha.
+- La primera etapa diagnostica relevancia, no exogeneidad.
+- Instrumentos débiles y restricciones de sobreidentificación deben reportarse con cuidado.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-iv}
+
+::: {.box-ejercicios}
+1. Explica con tus palabras la diferencia entre relevancia y exogeneidad.
+2. Deriva \(\hat{\beta}_{IV}\) desde \(Z'(y-X\hat{\beta})=0\).
+3. Muestra por qué el estimador de Wald es un caso especial de IV.
+4. Explica por qué la primera etapa no prueba la validez del instrumento.
+5. ¿Por qué un instrumento débil puede ser peligroso aun si es exógeno?
+6. Para practicar relevancia, exogeneidad, primera etapa e IV/2SLS, resuelve las partes C, D y F del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+
+## Referencias {#referencias-iv-teoria}
+
+- Angrist, Joshua y Jörn-Steffen Pischke. *Mostly Harmless Econometrics*, capítulo 4.
+- Wooldridge, Jeffrey. *Econometric Analysis of Cross Section and Panel Data*, capítulo 5.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulo 5.
+- Card, David. "Using Geographic Variation in College Proximity to Estimate the Return to Schooling", NBER Working Paper, 1993.
+- Stock, James y Motohiro Yogo. "Testing for Weak Instruments in Linear IV Regression", 2005.
+
+[Continúa en la práctica →](iv-practica.html)
+

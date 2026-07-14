@@ -1,0 +1,222 @@
+# Endogeneidad: teoría {#endogeneidad-teoria}
+
+```{r setup-endogeneidad-teoria, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Objetivos de aprendizaje {#objetivos-endogeneidad-teoria}
+
+Al finalizar esta página podrás:
+
+1. Definir endogeneidad como violación de \(\mathbb{E}[\epsilon\mid X]=0\).
+2. Explicar por qué MCO es sesgado e inconsistente cuando un regresor está correlacionado con el error.
+3. Identificar tres fuentes principales de endogeneidad: variables omitidas, error de medición y simultaneidad.
+4. Derivar el sesgo por variables omitidas en forma matricial.
+5. Reconocer cuándo el problema requiere un diseño de identificación o variables instrumentales.
+
+## Intuición y motivación {#intuicion-endogeneidad-teoria}
+
+El supuesto central para interpretar MCO como un estimador confiable del parámetro poblacional es:
+
+\[
+\mathbb{E}[\epsilon\mid X]=0.
+\]
+
+Cuando esta condición falla, al menos un regresor contiene información sobre el error. En ese caso, la regresión mezcla el efecto del regresor con factores no observados que también afectan \(y\).
+
+::: {.box-intuicion}
+Si estudiamos el efecto de educación sobre salarios y no observamos habilidad, redes familiares o motivación, el coeficiente de educación puede recoger parte de esos factores. El problema no es computacional: la fórmula de MCO corre igual. El problema es de identificación.
+:::
+
+## Desarrollo teórico {#desarrollo-teorico-endogeneidad}
+
+Un regresor \(X_j\) es endógeno si:
+
+\[
+\text{Cov}(X_j,\epsilon)\neq 0.
+\]
+
+En forma matricial:
+
+\[
+\hat{\beta}
+=\beta+(X'X)^{-1}X'\epsilon.
+\]
+
+Si \(\mathbb{E}[\epsilon\mid X]\neq 0\), entonces:
+
+\[
+\mathbb{E}[\hat{\beta}\mid X]
+=\beta+(X'X)^{-1}X'\mathbb{E}[\epsilon\mid X]
+\neq \beta.
+\]
+
+Además, en muestras grandes:
+
+\[
+\text{plim}(\hat{\beta})
+=\beta+\left(\text{plim}\frac{X'X}{n}\right)^{-1}
+\text{plim}\frac{X'\epsilon}{n}.
+\]
+
+Si \(\text{plim}(X'\epsilon/n)\neq 0\), MCO no converge a \(\beta\).
+
+### Variables omitidas
+
+Supongamos que el modelo correcto es:
+
+\[
+y=X_r\beta_r+X_s\beta_s+\epsilon,
+\]
+
+pero estimamos el modelo corto:
+
+\[
+y=X_r\beta_r+u.
+\]
+
+El error del modelo corto es:
+
+\[
+u=X_s\beta_s+\epsilon.
+\]
+
+El estimador del modelo corto satisface:
+
+\[
+\hat{\beta}_r^{corto}
+= (X_r'X_r)^{-1}X_r'y.
+\]
+
+Sustituyendo el modelo verdadero:
+
+\[
+\hat{\beta}_r^{corto}
+=\beta_r+(X_r'X_r)^{-1}X_r'X_s\beta_s
++(X_r'X_r)^{-1}X_r'\epsilon.
+\]
+
+El término:
+
+\[
+(X_r'X_r)^{-1}X_r'X_s\beta_s
+\]
+
+es el sesgo por variables omitidas. Aparece cuando la variable omitida afecta a \(y\) y está relacionada con los regresores incluidos.
+
+### Error de medición
+
+Si el error de medición está en la variable dependiente:
+
+\[
+y^*=y+w,
+\]
+
+y \(w\) no está correlacionado con \(X\), el error compuesto aumenta su varianza pero no sesga la pendiente.
+
+Si el error de medición está en un regresor:
+
+\[
+x^*=x+v,
+\]
+
+la variable observada \(x^*\) queda correlacionada con el error compuesto. En el caso clásico con una variable, el estimador se sesga hacia cero:
+
+\[
+\text{plim}(\hat{\beta})
+=\beta\frac{\text{Var}(x)}{\text{Var}(x)+\text{Var}(v)}.
+\]
+
+Este resultado se conoce como sesgo de atenuación.
+
+### Simultaneidad
+
+Hay simultaneidad cuando \(X\) y \(Y\) se determinan conjuntamente. En un mercado, precio y cantidad surgen del equilibrio entre oferta y demanda. Si estimamos una curva de demanda usando precios de equilibrio, el precio incorpora choques de oferta y demanda.
+
+Un sistema simple es:
+
+\[
+q_i^d=\alpha_0+\alpha_1p_i+u_i,
+\]
+
+\[
+q_i^s=\beta_0+\beta_1p_i+v_i,
+\]
+
+\[
+q_i^d=q_i^s.
+\]
+
+Al resolver el sistema, \(p_i\) depende de \(u_i\) y \(v_i\). Por eso, en la ecuación de demanda:
+
+\[
+\text{Cov}(p_i,u_i)\neq 0.
+\]
+
+MCO no identifica la curva de demanda: mezcla desplazamientos de oferta y demanda.
+
+## Supuestos y propiedades {#supuestos-propiedades-endogeneidad}
+
+| Fuente | Qué ocurre | Consecuencia para MCO |
+|---|---|---|
+| Variable omitida | El error contiene un determinante no observado de \(y\). | Sesgo e inconsistencia si la omitida se correlaciona con \(X\). |
+| Error de medición en \(y\) | El error compuesto tiene más varianza. | No sesga si el error de medición es clásico. |
+| Error de medición en \(X\) | El regresor observado se correlaciona con el error compuesto. | Sesgo de atenuación en el caso clásico. |
+| Simultaneidad | \(X\) y \(Y\) se determinan conjuntamente. | MCO no identifica el efecto estructural. |
+
+::: {.box-resumen}
+La endogeneidad es un problema de identificación. Cambiar errores estándar, agregar gráficos o aumentar la muestra no corrige que \(X\) esté correlacionado con \(\epsilon\).
+:::
+
+## Errores comunes y cuidados {#errores-comunes-endogeneidad}
+
+::: {.box-cuidado}
+No confundas endogeneidad con heterocedasticidad. La heterocedasticidad afecta la matriz de varianzas; la endogeneidad afecta el centro al que converge el estimador.
+:::
+
+::: {.box-cuidado}
+Agregar controles puede reducir sesgo, pero también puede introducir problemas si esos controles son variables post-tratamiento o colisionadores. La selección de controles debe venir de la pregunta económica.
+:::
+
+::: {.box-cuidado}
+Una muestra grande no elimina el sesgo por endogeneidad. Si \(\text{plim}(X'\epsilon/n)\neq 0\), el estimador converge al valor equivocado.
+:::
+
+## Resumen {#resumen-endogeneidad-teoria}
+
+::: {.box-resumen}
+- Hay endogeneidad cuando un regresor está correlacionado con el error.
+- Bajo endogeneidad, MCO es sesgado e inconsistente.
+- Las fuentes principales son variables omitidas, error de medición en regresores y simultaneidad.
+- El sesgo por omitidas depende de la relación entre variables incluidas y omitidas y del efecto de la omitida sobre \(y\).
+- La solución suele requerir mejores datos, mejor especificación, diseño experimental/cuasi-experimental o variables instrumentales.
+:::
+
+## Ejercicios conceptuales {#ejercicios-conceptuales-endogeneidad}
+
+::: {.box-ejercicios}
+1. Explica por qué \(\mathbb{E}[\epsilon\mid X]\neq 0\) implica que MCO no es insesgado.
+2. Deriva el sesgo por variable omitida en el caso de dos regresores.
+3. Da un ejemplo donde el error de medición en \(y\) no sesga la pendiente.
+4. Explica intuitivamente el sesgo de atenuación.
+5. En el modelo de oferta y demanda, explica por qué el precio de equilibrio es endógeno.
+6. Para practicar sesgo por variable omitida, error de medición y simultaneidad antes de pasar a IV, resuelve las partes A, B y E del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+
+## Referencias {#referencias-endogeneidad-teoria}
+
+- Wooldridge, Jeffrey. *Econometric Analysis of Cross Section and Panel Data*, capítulo 5.
+- Verbeek, Marno. *A Guide to Modern Econometrics*, capítulo 5.
+- Angrist, Joshua y Jörn-Steffen Pischke. *Mostly Harmless Econometrics*, capítulo 4.
+- Working, Elmer. "What Do Statistical Demand Curves Show?", *Quarterly Journal of Economics*, 1927.
+
+[Continúa en la práctica →](endogeneidad-practica.html)
+

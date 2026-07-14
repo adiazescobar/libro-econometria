@@ -2,9 +2,9 @@
 
 Este taller integra los dos últimos bloques del curso: modelos con variable dependiente binaria y una introducción a series de tiempo. Respeta el orden del curso: primero variable dependiente binaria y después series.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 En variable binaria, el resultado ya no es una cantidad continua sino una probabilidad. En series de tiempo, las observaciones ya no son intercambiables en el tiempo. En ambos casos, hay que ajustar la forma de pensar el modelo y la interpretación.
-:::
+::::
 
 ## Objetivos del taller
 
@@ -22,13 +22,13 @@ Al finalizar este problem set podrás:
 - En series de tiempo, justifica siempre si estás hablando de estacionariedad, persistencia o predicción.
 - Cuando una pregunta sea aplicada, acompaña la fórmula con una frase de interpretación.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 En logit y probit, el signo del coeficiente sí indica la dirección del efecto sobre la probabilidad, pero su magnitud no es directamente un cambio en puntos porcentuales. Para eso necesitas efectos marginales o cambios discretos en probabilidad.
-:::
+::::
 
 ## Parte A: Probit con regresor binario
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 Supón que quieres estimar un modelo probit donde la única variable explicativa \(X_i\) es binaria:
 
 \[
@@ -54,11 +54,11 @@ P_1=\Pr(Y_i=1\mid X_i=1),\qquad P_0=\Pr(Y_i=1\mid X_i=0).
 \[
 Y_i=\beta_0+\beta_1X_i+\epsilon_i.
 \]
-:::
+::::
 
 ## Parte B: Logit, odds y efectos marginales
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 Considera el modelo logit:
 
 \[
@@ -75,11 +75,11 @@ Considera el modelo logit:
 4. Explica por qué los efectos marginales son más útiles que los coeficientes brutos para comunicar resultados.
 
 5. Supón que una salida logit reporta \(\hat{\beta}_1=0.345\) y \(\hat{\beta}_2=-0.276\). ¿Qué puedes decir sobre la dirección de los efectos? ¿Qué información adicional necesitas para calcular efectos marginales?
-:::
+::::
 
 ## Parte C: Modelo latente e interacciones
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 Considera el modelo latente:
 
 \[
@@ -102,11 +102,11 @@ y_i=0\quad \text{si }y_i^*\leq 0.
 \[
 \frac{\partial^2 \Pr(y=1\mid X)}{\partial X_2\partial X_3}.
 \]
-:::
+::::
 
 ## Parte D: Aplicación a deserción escolar
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 años. La variable dependiente \(DESERTA\) vale 1 si la persona no asiste a secundaria. Las covariables disponibles son edad, sexo, número de hermanos, logaritmo del ingreso per cápita familiar, jefatura femenina del hogar y educación máxima de los padres.
 
 1. Escribe un modelo probit para la probabilidad de deserción.
@@ -114,11 +114,11 @@ El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 año
 3. Explica cómo calcularías efectos marginales en las medias y por qué también puede ser útil calcularlos para perfiles específicos.
 4. Repite conceptualmente el análisis con MPL y logit. ¿Qué similitudes y diferencias esperarías?
 5. Plantea una simulación de política: ¿cómo calcularías el cambio en probabilidad de deserción ante un subsidio que aumenta el ingreso familiar?
-:::
+::::
 
 ## Parte E: Series de tiempo, ACF y PACF
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Define estacionariedad débil. ¿Qué condiciones deben ser independientes del tiempo?
 
 2. ¿Qué significa que una serie sea integrada de orden \(d\)? Si una serie es \(I(3)\), ¿cuántas veces debe diferenciarse para volverla estacionaria?
@@ -130,11 +130,11 @@ El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 año
 5. Explica qué puede ocurrir si se aplican técnicas Box-Jenkins a series no estacionarias.
 
 6. ¿En qué sentido un VAR puede considerarse ateórico? ¿Cuál es la conexión entre causalidad de Granger y modelos VAR?
-:::
+::::
 
 ## Parte F: Modelos autorregresivos y predicción
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Considera:
 
 \[
@@ -175,7 +175,7 @@ Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
 \]
 
 Calcula la media de largo plazo si el proceso es estacionario. Luego, usando \(Y_{1996-III}=550\) y \(Y_{1996-IV}=600\), calcula las predicciones para 1997-I y 1997-II.
-:::
+::::
 
 ## Parte G: Código base
 
@@ -219,9 +219,9 @@ pacf(y)
 
 ## Cierre
 
-::: {.box-resumen}
+:::: {.box-resumen}
 Este taller junta dos cambios de lenguaje. Con variable binaria hablamos en probabilidades y efectos marginales; con series hablamos en dependencia temporal, persistencia y estacionariedad. En ambos casos, la interpretación correcta depende de respetar la estructura de los datos.
-:::
+::::
 
 [← Volver al índice de problem sets](#problem-sets)
 

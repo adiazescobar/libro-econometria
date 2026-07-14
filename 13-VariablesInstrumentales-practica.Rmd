@@ -1,0 +1,238 @@
+# Variables instrumentales: práctica {#iv-practica}
+
+```{r setup-iv-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](iv-teoria.html)
+
+## Objetivos de la práctica {#objetivos-iv-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Simular un problema de educación endógena en una ecuación de salarios.
+2. Estimar MCO, primera etapa y 2SLS manual en R.
+3. Calcular e interpretar el estadístico \(F\) de primera etapa.
+4. Reproducir el ejercicio en Stata y Python.
+5. Comparar qué variación usa MCO y qué variación usa IV.
+
+## Pregunta aplicada {#pregunta-aplicada-iv}
+
+Queremos estimar el retorno de la educación sobre salarios cuando educación está correlacionada con habilidad no observada.
+
+::: {.box-intuicion}
+¿Podemos usar una variable de cercanía a la universidad para aislar variación en educación que no dependa directamente de habilidad?
+:::
+
+## Datos {#datos-iv-practica}
+
+Creamos una base reproducible. La variable `cercania` actúa como instrumento: afecta educación, pero en la simulación no entra directamente en salarios.
+
+```{r datos-iv-practica}
+n_iv <- 300
+i_iv <- 1:n_iv
+habilidad_iv <- scale(sin(i_iv / 9) + cos(i_iv / 13))[, 1]
+cercania <- scale(cos(i_iv / 17) + sin(i_iv / 6))[, 1]
+educ_iv <- 12 + 0.9 * cercania + 0.8 * habilidad_iv + 0.4 * sin(i_iv / 5)
+epsilon_iv <- 0.25 * sin(i_iv / 4)
+lwage_iv <- 1.2 + 0.10 * educ_iv + 0.45 * habilidad_iv + epsilon_iv
+
+datos_iv <- data.frame(
+  lwage = lwage_iv,
+  educ = educ_iv,
+  cercania = cercania,
+  habilidad = habilidad_iv
+)
+
+kable(head(datos_iv, 12), digits = 3, caption = "Primeras observaciones de la base de variables instrumentales")
+```
+
+```{r grafico-primera-etapa-iv, fig.cap="Primera etapa: cercanía a universidad y educación"}
+ggplot(datos_iv, aes(x = cercania, y = educ)) +
+  geom_point(color = "#2f4858", size = 2.3) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Cercanía a universidad", y = "Educación") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-iv}
+
+Estimamos MCO, primera etapa y 2SLS manual.
+
+```{r estimacion-r-iv}
+mco_iv <- lm(lwage ~ educ, data = datos_iv)
+primera_iv <- lm(educ ~ cercania, data = datos_iv)
+datos_iv$educ_hat <- fitted(primera_iv)
+iv_manual <- lm(lwage ~ educ_hat, data = datos_iv)
+
+tabla_mco_iv <- coef(summary(mco_iv))
+tabla_primera_iv <- coef(summary(primera_iv))
+tabla_iv_manual <- coef(summary(iv_manual))
+
+beta_mco_iv <- unname(coef(mco_iv)[["educ"]])
+se_mco_iv <- tabla_mco_iv["educ", "Std. Error"]
+pi_cercania_iv <- unname(coef(primera_iv)[["cercania"]])
+se_pi_cercania_iv <- tabla_primera_iv["cercania", "Std. Error"]
+t_primera_iv <- pi_cercania_iv / se_pi_cercania_iv
+f_primera_iv <- as.numeric(t_primera_iv^2)
+r2_primera_iv <- summary(primera_iv)$r.squared
+beta_iv_manual <- unname(coef(iv_manual)[["educ_hat"]])
+se_iv_manual <- tabla_iv_manual["educ_hat", "Std. Error"]
+
+kable(
+  data.frame(
+    modelo = c("MCO", "Primera etapa", "2SLS manual"),
+    coeficiente_clave = c(beta_mco_iv, pi_cercania_iv, beta_iv_manual),
+    error_estandar = c(se_mco_iv, se_pi_cercania_iv, se_iv_manual)
+  ),
+  digits = 4,
+  caption = "MCO, primera etapa y 2SLS manual en R"
+)
+```
+
+También podemos escribir 2SLS con matrices. Usamos \(Z=[1,cercania]\) y \(X=[1,educ]\).
+
+```{r iv-matricial-r}
+y_iv <- matrix(datos_iv$lwage, ncol = 1)
+X_iv <- cbind(1, datos_iv$educ)
+Z_iv <- cbind(1, datos_iv$cercania)
+Pz_iv <- Z_iv %*% solve(t(Z_iv) %*% Z_iv) %*% t(Z_iv)
+beta_2sls_mat <- solve(t(X_iv) %*% Pz_iv %*% X_iv) %*% t(X_iv) %*% Pz_iv %*% y_iv
+beta_2sls_matriz_iv <- as.numeric(beta_2sls_mat[2, 1])
+```
+
+```{r grafico-iv-ajustado, fig.cap="Educación predicha por el instrumento y log salario"}
+ggplot(datos_iv, aes(x = educ_hat, y = lwage)) +
+  geom_point(color = "#2f4858", size = 2.3) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Educación predicha por el instrumento", y = "Log salario") +
+  theme_minimal()
+```
+
+## Interpretación {#interpretacion-iv}
+
+::: {.box-ejemplo}
+La pendiente MCO de educación es `r sprintf("%.3f", beta_mco_iv)`. La pendiente 2SLS manual es `r sprintf("%.3f", beta_iv_manual)`. En esta simulación, la diferencia aparece porque educación está correlacionada con habilidad no observada.
+:::
+
+La primera etapa estima un efecto de cercanía sobre educación de `r sprintf("%.3f", pi_cercania_iv)`. El estadístico \(F\) de primera etapa es `r sprintf("%.2f", f_primera_iv)` y el \(R^2\) de primera etapa es `r sprintf("%.3f", r2_primera_iv)`.
+
+::: {.box-cuidado}
+El error estándar del 2SLS manual no debe usarse como error estándar final en una aplicación real. Sirve para entender el cálculo. En Stata, Python o R con paquetes especializados se debe usar una rutina IV que ajuste la matriz de varianza.
+:::
+
+## Estimación en Stata {#estimacion-stata-iv}
+
+El mismo ejercicio puede reproducirse en Stata:
+
+```stata
+clear
+set obs 300
+gen i = _n
+gen habilidad = sin(i/9) + cos(i/13)
+summ habilidad
+replace habilidad = (habilidad - r(mean)) / r(sd)
+gen cercania = cos(i/17) + sin(i/6)
+summ cercania
+replace cercania = (cercania - r(mean)) / r(sd)
+gen educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*sin(i/5)
+gen epsilon = 0.25*sin(i/4)
+gen lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon
+
+reg lwage educ
+reg educ cercania
+ivregress 2sls lwage (educ = cercania), first
+estat firststage
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Modelo | Coeficiente clave aproximado | Error estándar aproximado |
+|---|---:|---:|
+| MCO: educación | `r sprintf("%.3f", beta_mco_iv)` | `r sprintf("%.3f", se_mco_iv)` |
+| Primera etapa: cercanía | `r sprintf("%.3f", pi_cercania_iv)` | `r sprintf("%.3f", se_pi_cercania_iv)` |
+| 2SLS manual: educación predicha | `r sprintf("%.3f", beta_iv_manual)` | `r sprintf("%.3f", se_iv_manual)` |
+| \(F\) primera etapa | `r sprintf("%.2f", f_primera_iv)` |  |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-iv}
+
+Para correr esta práctica en Google Colab:
+
+```python
+!pip -q install pandas numpy statsmodels matplotlib seaborn
+```
+
+Luego ejecuta:
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+n = 300
+i = np.arange(1, n + 1)
+habilidad = np.sin(i / 9) + np.cos(i / 13)
+habilidad = (habilidad - habilidad.mean()) / habilidad.std(ddof=1)
+cercania = np.cos(i / 17) + np.sin(i / 6)
+cercania = (cercania - cercania.mean()) / cercania.std(ddof=1)
+educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*np.sin(i / 5)
+epsilon = 0.25*np.sin(i / 4)
+lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon
+datos = pd.DataFrame({"lwage": lwage, "educ": educ, "cercania": cercania})
+
+mco = sm.OLS(datos["lwage"], sm.add_constant(datos[["educ"]])).fit()
+primera = sm.OLS(datos["educ"], sm.add_constant(datos[["cercania"]])).fit()
+datos["educ_hat"] = primera.fittedvalues
+iv_manual = sm.OLS(datos["lwage"], sm.add_constant(datos[["educ_hat"]])).fit()
+
+print(mco.summary())
+print(primera.summary())
+print(iv_manual.summary())
+print("F primera etapa:", float(primera.tvalues["cercania"]**2))
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.
+
+## Comparación R, Stata y Python {#comparacion-software-iv}
+
+::: {.box-resumen}
+R, Stata y Python coinciden en la primera etapa y en los coeficientes si usan la misma base. Para inferencia final en IV, Stata y paquetes especializados ajustan los errores estándar de 2SLS; la segunda etapa manual es pedagógica.
+:::
+
+| Tarea | R | Stata | Python |
+|---|---|---|---|
+| MCO | `lm(lwage ~ educ)` | `reg lwage educ` | `sm.OLS()` |
+| Primera etapa | `lm(educ ~ cercania)` | `reg educ cercania` | `sm.OLS(educ, Z)` |
+| 2SLS | matriz o paquetes | `ivregress 2sls` | matriz o paquetes |
+| \(F\) primera etapa | \(t^2\) si hay un instrumento | `estat firststage` | `tvalues^2` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-iv}
+
+::: {.box-cuidado}
+- **Confundir primera etapa fuerte con instrumento válido.** La fuerza habla de relevancia, no de exogeneidad.
+- **Usar errores estándar de una segunda etapa manual.** Sirve para aprender, no para reportar inferencia final.
+- **No reportar primera etapa.** Sin primera etapa, el lector no puede evaluar relevancia.
+- **Olvidar el canal directo.** Si el instrumento afecta \(y\) por un canal distinto a \(X\), viola exogeneidad.
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-iv}
+
+::: {.box-ejercicios}
+1. Reduce el coeficiente de `cercania` en la ecuación de educación. ¿Qué ocurre con el \(F\) de primera etapa?
+2. Haz que `cercania` afecte directamente `lwage`. ¿Qué supuesto se viola?
+3. Compara MCO, 2SLS manual y el estimador matricial.
+4. Reproduce el ejercicio en Stata o Python.
+5. Resuelve las partes C, D y F del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+

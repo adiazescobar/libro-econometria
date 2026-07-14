@@ -1,0 +1,234 @@
+# Endogeneidad: práctica {#endogeneidad-practica}
+
+```{r setup-endogeneidad-practica, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.width = 7,
+  fig.height = 4.5,
+  out.width = "80%",
+  warning = FALSE,
+  message = FALSE
+)
+
+library(ggplot2)
+library(knitr)
+```
+
+[← Volver a la teoría](endogeneidad-teoria.html)
+
+## Objetivos de la práctica {#objetivos-endogeneidad-practica}
+
+Al finalizar esta práctica podrás:
+
+1. Simular un caso donde una variable omitida sesga MCO.
+2. Comparar un modelo corto y un modelo largo.
+3. Mostrar sesgo de atenuación por error de medición en un regresor.
+4. Reproducir el ejercicio en R, Stata y Python.
+5. Interpretar por qué el problema no se resuelve solo con errores robustos.
+
+## Pregunta aplicada {#pregunta-aplicada-endogeneidad}
+
+Queremos estudiar el retorno de la educación sobre salarios. La pregunta aplicada es:
+
+::: {.box-intuicion}
+¿Qué pasa si educación está relacionada con habilidad no observada y omitimos esa habilidad de la regresión?
+:::
+
+El modelo verdadero de la simulación será:
+
+\[
+\log(salario_i)=\beta_0+\beta_1educ_i+\beta_2habilidad_i+\epsilon_i.
+\]
+
+## Datos {#datos-endogeneidad-practica}
+
+Creamos datos reproducibles. La habilidad afecta salarios y también está relacionada con educación.
+
+```{r datos-endogeneidad-practica}
+n_end <- 200
+i_end <- 1:n_end
+habilidad <- scale(sin(i_end / 7) + cos(i_end / 11))[, 1]
+educ <- 11 + 1.2 * habilidad + 0.6 * sin(i_end / 5)
+epsilon <- 0.25 * sin(i_end / 3)
+lwage <- 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon
+
+datos_end <- data.frame(
+  lwage = lwage,
+  educ = educ,
+  habilidad = habilidad
+)
+
+kable(head(datos_end, 12), digits = 3, caption = "Primeras observaciones de la base de endogeneidad")
+```
+
+```{r grafico-endogeneidad-datos, fig.cap="Relación entre educación y habilidad en la simulación"}
+ggplot(datos_end, aes(x = educ, y = habilidad)) +
+  geom_point(color = "#2f4858", size = 2.4) +
+  geom_smooth(method = "lm", se = FALSE, color = "#C0562F", linewidth = 1) +
+  labs(x = "Educación", y = "Habilidad no observada") +
+  theme_minimal()
+```
+
+## Estimación en R {#estimacion-r-endogeneidad}
+
+Estimamos primero un modelo corto que omite habilidad y luego el modelo largo que sí la incluye.
+
+```{r estimacion-r-endogeneidad}
+modelo_corto_end <- lm(lwage ~ educ, data = datos_end)
+modelo_largo_end <- lm(lwage ~ educ + habilidad, data = datos_end)
+
+tabla_corto_end <- coef(summary(modelo_corto_end))
+tabla_largo_end <- coef(summary(modelo_largo_end))
+
+beta_educ_corto_end <- unname(coef(modelo_corto_end)[["educ"]])
+beta_educ_largo_end <- unname(coef(modelo_largo_end)[["educ"]])
+se_educ_corto_end <- tabla_corto_end["educ", "Std. Error"]
+se_educ_largo_end <- tabla_largo_end["educ", "Std. Error"]
+beta_hab_largo_end <- unname(coef(modelo_largo_end)[["habilidad"]])
+cor_educ_hab_end <- cor(datos_end$educ, datos_end$habilidad)
+sesgo_observado_end <- beta_educ_corto_end - beta_educ_largo_end
+
+kable(
+  data.frame(
+    modelo = c("Corto: omite habilidad", "Largo: incluye habilidad"),
+    beta_educacion = c(beta_educ_corto_end, beta_educ_largo_end),
+    error_estandar = c(se_educ_corto_end, se_educ_largo_end)
+  ),
+  digits = 4,
+  caption = "Comparación entre modelo corto y modelo largo"
+)
+```
+
+Ahora simulamos error de medición clásico en educación.
+
+```{r error-medicion-r}
+error_medicion <- 0.8 * sin(i_end / 4)
+datos_end$educ_medida <- datos_end$educ + error_medicion
+
+modelo_medicion_end <- lm(lwage ~ educ_medida + habilidad, data = datos_end)
+tabla_medicion_end <- coef(summary(modelo_medicion_end))
+beta_educ_medida_end <- unname(coef(modelo_medicion_end)[["educ_medida"]])
+se_educ_medida_end <- tabla_medicion_end["educ_medida", "Std. Error"]
+
+kable(
+  data.frame(
+    modelo = c("Educación verdadera", "Educación medida con error"),
+    beta_educacion = c(beta_educ_largo_end, beta_educ_medida_end),
+    error_estandar = c(se_educ_largo_end, se_educ_medida_end)
+  ),
+  digits = 4,
+  caption = "Sesgo de atenuación por error de medición en educación"
+)
+```
+
+## Interpretación {#interpretacion-endogeneidad}
+
+::: {.box-ejemplo}
+La correlación entre educación y habilidad es `r sprintf("%.3f", cor_educ_hab_end)`. Al omitir habilidad, la pendiente de educación es `r sprintf("%.3f", beta_educ_corto_end)`; al incluirla, es `r sprintf("%.3f", beta_educ_largo_end)`.
+:::
+
+La diferencia entre ambas pendientes es `r sprintf("%.3f", sesgo_observado_end)`. Esa diferencia ilustra el sesgo por variable omitida en esta base simulada. Cuando medimos educación con error, la pendiente cae a `r sprintf("%.3f", beta_educ_medida_end)`, consistente con la intuición del sesgo de atenuación.
+
+::: {.box-cuidado}
+En datos reales, normalmente no observamos habilidad. La comparación corto/largo aquí es pedagógica: muestra el mecanismo del sesgo, no una receta automática para resolverlo.
+:::
+
+## Estimación en Stata {#estimacion-stata-endogeneidad}
+
+El ejercicio puede reproducirse en Stata:
+
+```stata
+clear
+set obs 200
+gen i = _n
+gen habilidad = sin(i/7) + cos(i/11)
+summ habilidad
+replace habilidad = (habilidad - r(mean)) / r(sd)
+gen educ = 11 + 1.2 * habilidad + 0.6 * sin(i/5)
+gen epsilon = 0.25 * sin(i/3)
+gen lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon
+
+reg lwage educ
+reg lwage educ habilidad
+
+gen educ_medida = educ + 0.8 * sin(i/4)
+reg lwage educ_medida habilidad
+```
+
+Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:
+
+| Modelo | Pendiente educación aproximada | Error estándar aproximado |
+|---|---:|---:|
+| Corto | `r sprintf("%.3f", beta_educ_corto_end)` | `r sprintf("%.3f", se_educ_corto_end)` |
+| Largo | `r sprintf("%.3f", beta_educ_largo_end)` | `r sprintf("%.3f", se_educ_largo_end)` |
+| Con educación medida con error | `r sprintf("%.3f", beta_educ_medida_end)` | `r sprintf("%.3f", se_educ_medida_end)` |
+
+## Estimación en Python y Google Colab {#estimacion-python-colab-endogeneidad}
+
+Para correr esta práctica en Google Colab:
+
+```python
+!pip -q install pandas numpy statsmodels matplotlib seaborn
+```
+
+Luego ejecuta:
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+n = 200
+i = np.arange(1, n + 1)
+habilidad = np.sin(i / 7) + np.cos(i / 11)
+habilidad = (habilidad - habilidad.mean()) / habilidad.std(ddof=1)
+educ = 11 + 1.2 * habilidad + 0.6 * np.sin(i / 5)
+epsilon = 0.25 * np.sin(i / 3)
+lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon
+datos = pd.DataFrame({"lwage": lwage, "educ": educ, "habilidad": habilidad})
+
+corto = sm.OLS(datos["lwage"], sm.add_constant(datos[["educ"]])).fit()
+largo = sm.OLS(datos["lwage"], sm.add_constant(datos[["educ", "habilidad"]])).fit()
+
+datos["educ_medida"] = datos["educ"] + 0.8 * np.sin(i / 4)
+medicion = sm.OLS(datos["lwage"], sm.add_constant(datos[["educ_medida", "habilidad"]])).fit()
+
+print(corto.summary())
+print(largo.summary())
+print(medicion.summary())
+```
+
+Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.
+
+## Comparación R, Stata y Python {#comparacion-software-endogeneidad}
+
+::: {.box-resumen}
+Los tres programas muestran el mismo fenómeno: cuando una variable omitida está correlacionada con educación y afecta salarios, el modelo corto no estima el mismo parámetro que el modelo largo.
+:::
+
+| Tarea | R | Stata | Python |
+|---|---|---|---|
+| Modelo corto | `lm(lwage ~ educ)` | `reg lwage educ` | `sm.OLS(y, X).fit()` |
+| Modelo largo | `lm(lwage ~ educ + habilidad)` | `reg lwage educ habilidad` | `sm.OLS(y, X_largo).fit()` |
+| Error de medición | crear `educ_medida` | `gen educ_medida` | crear columna en `pandas` |
+
+## Errores frecuentes en la práctica {#errores-frecuentes-practica-endogeneidad}
+
+::: {.box-cuidado}
+- **Pensar que robustos corrigen endogeneidad.** Los errores robustos corrigen varianzas, no correlación entre \(X\) y \(\epsilon\).
+- **Agregar controles sin teoría.** Un control mal elegido puede cambiar la interpretación o introducir sesgo.
+- **Confundir correlación con identificación.** Que educación prediga salarios no implica que la pendiente sea causal.
+- **Olvidar el error de medición.** Medir mal un regresor puede sesgar el coeficiente incluso si el modelo conceptual es correcto.
+:::
+
+## Ejercicios computacionales {#ejercicios-computacionales-endogeneidad}
+
+::: {.box-ejercicios}
+1. Cambia la relación entre habilidad y educación. ¿Cómo cambia el sesgo del modelo corto?
+2. Cambia el efecto de habilidad sobre salarios. ¿Qué pasa con la diferencia entre modelo corto y largo?
+3. Aumenta la magnitud del error de medición en educación. ¿Qué ocurre con la pendiente?
+4. Reproduce el ejercicio en Stata o Python y verifica que los coeficientes coincidan con R.
+5. Resuelve las partes A, B y E del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+

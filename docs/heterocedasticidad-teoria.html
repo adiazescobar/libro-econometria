@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 27 Talleres y problem sets | Econometría II</title>
+  <title>Capítulo 19 Heterocedasticidad: teoría | Econometría II</title>
   <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 27 Talleres y problem sets | Econometría II" />
+  <meta property="og:title" content="Capítulo 19 Heterocedasticidad: teoría | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
@@ -17,7 +17,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 27 Talleres y problem sets | Econometría II" />
+  <meta name="twitter:title" content="Capítulo 19 Heterocedasticidad: teoría | Econometría II" />
   
   <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
@@ -33,8 +33,8 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="series.html"/>
-<link rel="next" href="problem-set-1.html"/>
+<link rel="prev" href="multicolinealidad-practica.html"/>
+<link rel="next" href="heterocedasticidad-practica.html"/>
 <script src="libs/jquery/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook/css/style.css" rel="stylesheet" />
@@ -199,85 +199,234 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="problem-sets" class="section level1 hasAnchor" number="27">
-<h1><span class="header-section-number">Capítulo 27</span> Talleres y problem sets<a href="problem-sets.html#problem-sets" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones computacionales. A diferencia de los ejercicios cortos al final de cada capítulo, estos problem sets integran varios temas y sirven para preparar parciales, discusiones en clase y trabajo autónomo.</p>
-<div class="box-intuicion">
-<p>La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.</p>
-</div>
-<div id="cómo-usarlos" class="section level2 hasAnchor" number="27.1">
-<h2><span class="header-section-number">27.1</span> Cómo usarlos<a href="#c%C3%B3mo-usarlos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="heterocedasticidad-teoria" class="section level1 hasAnchor" number="19">
+<h1><span class="header-section-number">Capítulo 19</span> Heterocedasticidad: teoría<a href="heterocedasticidad-teoria.html#heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objetivos-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.1">
+<h2><span class="header-section-number">19.1</span> Objetivos de aprendizaje<a href="heterocedasticidad-teoria.html#objetivos-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar esta página podrás:</p>
 <ol style="list-style-type: decimal">
-<li>Lee primero los capítulos asociados al taller.</li>
-<li>Resuelve las partes conceptuales sin mirar apuntes durante el primer intento.</li>
-<li>En las partes computacionales, conserva el código y comenta cada resultado.</li>
-<li>Si el taller se asigna como evaluable, las fechas y el mecanismo de entrega se anunciarán por Teams y por correo.</li>
+<li>Definir heterocedasticidad y distinguirla de homocedasticidad.</li>
+<li>Explicar por qué MCO puede seguir siendo insesgado pero perder eficiencia.</li>
+<li>Derivar la varianza de <span class="math inline">\(\hat{\beta}\)</span> cuando <span class="math inline">\(\text{Var}(\epsilon\mid X)=\Omega\)</span>.</li>
+<li>Describir la lógica de las pruebas de White, Breusch-Pagan y Goldfeld-Quandt.</li>
+<li>Comparar errores estándar robustos, WLS, GLS y FGLS.</li>
 </ol>
+</div>
+<div id="intuicion-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.2">
+<h2><span class="header-section-number">19.2</span> Intuición y motivación<a href="heterocedasticidad-teoria.html#intuicion-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El supuesto clásico de homocedasticidad dice que la varianza del error es constante para todas las observaciones:</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon_i\mid X)=\sigma^2.
+\]</span></p>
+<p>La heterocedasticidad aparece cuando esa varianza cambia entre observaciones:</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
+\]</span></p>
+<div class="box-intuicion">
+<p>En un modelo de consumo e ingreso, los hogares de bajos ingresos suelen tener poca dispersión en consumo, mientras que los hogares de altos ingresos pueden diferir mucho entre sí. La recta puede seguir pasando por el centro de la nube, pero la incertidumbre alrededor de la recta no es igual en toda la muestra.</p>
+</div>
+<p>El problema principal no es necesariamente el coeficiente de MCO. Si se mantiene <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, MCO sigue siendo insesgado y consistente. El problema es que la matriz clásica de varianzas:</p>
+<p><span class="math display">\[
+\hat{\sigma}^2(X&#39;X)^{-1}
+\]</span></p>
+<p>ya no estima correctamente la incertidumbre de <span class="math inline">\(\hat{\beta}\)</span>. Por eso las pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> clásicas pueden ser engañosas.</p>
+</div>
+<div id="desarrollo-teorico-heterocedasticidad" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> Desarrollo teórico<a href="heterocedasticidad-teoria.html#desarrollo-teorico-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Partimos del modelo lineal:</p>
+<p><span class="math display">\[
+y=X\beta+\epsilon,
+\qquad
+\mathbb{E}[\epsilon\mid X]=0,
+\qquad
+\text{Var}(\epsilon\mid X)=\Omega.
+\]</span></p>
+<p>El estimador MCO es:</p>
+<p><span class="math display">\[
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y.
+\]</span></p>
+<p>Sustituyendo el modelo:</p>
+<p><span class="math display">\[
+\hat{\beta}
+= (X&#39;X)^{-1}X&#39;(X\beta+\epsilon)
+= \beta + (X&#39;X)^{-1}X&#39;\epsilon.
+\]</span></p>
+<p>Por tanto, si <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>,</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat{\beta}\mid X]=\beta.
+\]</span></p>
+<p>La varianza condicional cambia:</p>
+<p><span class="math display">\[
+\text{Var}(\hat{\beta}\mid X)
+= (X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}.
+\]</span></p>
 <div class="box-cuidado">
-<p>Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.</p>
+<p>La heterocedasticidad no viola automáticamente la exogeneidad. Si el error sigue teniendo media condicional cero, el problema clásico es de eficiencia e inferencia, no de sesgo.</p>
+</div>
+<p>Cuando <span class="math inline">\(\Omega=\sigma^2I\)</span>, la expresión anterior se reduce a:</p>
+<p><span class="math display">\[
+\text{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}.
+\]</span></p>
+<p>Si <span class="math inline">\(\Omega\neq \sigma^2I\)</span>, usar <span class="math inline">\(\hat{\sigma}^2(X&#39;X)^{-1}\)</span> ignora la forma real de la dispersión.</p>
+<div id="heterocedasticidad-pura-e-impura" class="section level3 hasAnchor" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Heterocedasticidad pura e impura<a href="heterocedasticidad-teoria.html#heterocedasticidad-pura-e-impura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La heterocedasticidad puede ser pura o impura.</p>
+<p>La heterocedasticidad pura ocurre cuando la varianza del error realmente cambia entre observaciones, aun con el modelo bien especificado:</p>
+<p><span class="math display">\[
+\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
+\]</span></p>
+<p>La heterocedasticidad impura aparece como síntoma de mala especificación. Por ejemplo, si el verdadero modelo incluye <span class="math inline">\(X_3\)</span>:</p>
+<p><span class="math display">\[
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\epsilon_i,
+\]</span></p>
+<p>pero se estima:</p>
+<p><span class="math display">\[
+y_i=\beta_1+\beta_2X_{2i}+u_i,
+\]</span></p>
+<p>entonces:</p>
+<p><span class="math display">\[
+u_i=\beta_3X_{3i}+\epsilon_i.
+\]</span></p>
+<p>Si <span class="math inline">\(X_3\)</span> cambia sistemáticamente con <span class="math inline">\(X_2\)</span>, la varianza del error compuesto también puede cambiar.</p>
+</div>
+<div id="pruebas-de-heterocedasticidad" class="section level3 hasAnchor" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Pruebas de heterocedasticidad<a href="heterocedasticidad-teoria.html#pruebas-de-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las pruebas formales usan una idea común: si hay heterocedasticidad, los residuos al cuadrado deberían estar relacionados con variables observables.</p>
+<p>En la prueba de Breusch-Pagan se estima una regresión auxiliar:</p>
+<p><span class="math display">\[
+\hat{\epsilon}_i^2 = \alpha_0+\alpha_1z_{1i}+\cdots+\alpha_mz_{mi}+v_i.
+\]</span></p>
+<p>El estadístico LM suele escribirse como:</p>
+<p><span class="math display">\[
+LM=nR^2_{\text{aux}}.
+\]</span></p>
+<p>Bajo la hipótesis nula de homocedasticidad:</p>
+<p><span class="math display">\[
+LM \overset{a}{\sim} \chi^2_m.
+\]</span></p>
+<p>La prueba de White es más general: usa regresores, cuadrados y cruces en la regresión auxiliar. Es flexible, pero puede consumir muchos grados de libertad en muestras pequeñas.</p>
+<div class="box-ejemplo">
+<p>Si el modelo contiene <span class="math inline">\(x\)</span> y <span class="math inline">\(x^2\)</span>, la regresión auxiliar de White no debe duplicar mecánicamente términos idénticos. La idea es incluir las combinaciones relevantes sin crear colinealidad perfecta.</p>
+</div>
+<p>Goldfeld-Quandt es útil cuando se sospecha que la varianza cambia con una variable específica. Ordena la muestra por esa variable, compara grupos extremos y usa una razón de varianzas.</p>
+</div>
+<div id="correcciones" class="section level3 hasAnchor" number="19.3.3">
+<h3><span class="header-section-number">19.3.3</span> Correcciones<a href="heterocedasticidad-teoria.html#correcciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Hay dos familias de respuestas.</p>
+<p>La primera mantiene <span class="math inline">\(\hat{\beta}_{MCO}\)</span> y corrige la matriz de varianzas con errores estándar robustos tipo White/Huber:</p>
+<p><span class="math display">\[
+\widehat{\text{Var}}_{HC0}(\hat{\beta})
+= (X&#39;X)^{-1}
+\left(\sum_{i=1}^n x_ix_i&#39;\hat{\epsilon}_i^2\right)
+(X&#39;X)^{-1}.
+\]</span></p>
+<p>Equivalente, en forma matricial:</p>
+<p><span class="math display">\[
+\widehat{\text{Var}}_{HC0}(\hat{\beta})
+= (X&#39;X)^{-1}X&#39;\widehat{\Omega}X(X&#39;X)^{-1},
+\]</span></p>
+<p>donde:</p>
+<p><span class="math display">\[
+\widehat{\Omega}=\text{diag}(\hat{\epsilon}_1^2,\ldots,\hat{\epsilon}_n^2).
+\]</span></p>
+<p>La segunda familia cambia el estimador. Si conocemos <span class="math inline">\(\Omega\)</span>, el estimador GLS es:</p>
+<p><span class="math display">\[
+\hat{\beta}_{GLS}=(X&#39;\Omega^{-1}X)^{-1}X&#39;\Omega^{-1}y.
+\]</span></p>
+<p>Si <span class="math inline">\(\Omega\)</span> es diagonal y conocemos o estimamos <span class="math inline">\(\sigma_i^2\)</span>, usamos mínimos cuadrados ponderados:</p>
+<p><span class="math display">\[
+\min_\beta \sum_{i=1}^n w_i(y_i-x_i&#39;\beta)^2,
+\qquad
+w_i=\frac{1}{\sigma_i^2}.
+\]</span></p>
 </div>
 </div>
-<div id="mapa-de-talleres" class="section level2 hasAnchor" number="27.2">
-<h2><span class="header-section-number">27.2</span> Mapa de talleres<a href="problem-sets.html#mapa-de-talleres" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-propiedades-heterocedasticidad" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">19.4</span> Supuestos y propiedades<a href="heterocedasticidad-teoria.html#supuestos-propiedades-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
+<col width="50%" />
+<col width="50%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Taller</th>
-<th>Tema integrador</th>
-<th>Capítulos asociados</th>
-<th>Estado</th>
+<th>Situación</th>
+<th>Consecuencia</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="problem-set-1.html#problem-set-1">Problem Set 1: MCO y matrices</a></td>
-<td>Álgebra matricial, MCO, dummies, interpretación y simulación</td>
-<td>02, 03, 04, 05</td>
-<td>Piloto disponible</td>
+<td><span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span> y heterocedasticidad</td>
+<td>MCO sigue siendo insesgado y consistente.</td>
 </tr>
 <tr class="even">
-<td><a href="problem-set-2.html#problem-set-2">Problem Set 2: FWL, propiedades e inferencia</a></td>
-<td>FWL, Gauss-Markov, pruebas de hipótesis y simulación</td>
-<td>06, 07, 08, 09</td>
-<td>Disponible</td>
+<td><span class="math inline">\(\Omega\neq\sigma^2I\)</span></td>
+<td>MCO ya no es eficiente dentro de los estimadores lineales insesgados.</td>
 </tr>
 <tr class="odd">
-<td><a href="problem-set-3.html#problem-set-3">Problem Set 3: Multicolinealidad y heterocedasticidad</a></td>
-<td>Colinealidad, VIF, White, Breusch-Pagan, WLS y errores robustos</td>
-<td>10, 11</td>
-<td>Disponible</td>
+<td>Errores estándar clásicos bajo heterocedasticidad</td>
+<td>Pruebas <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> e intervalos clásicos pueden ser inválidos.</td>
 </tr>
 <tr class="even">
-<td><a href="problem-set-4.html#problem-set-4">Problem Set 4: Endogeneidad y variables instrumentales</a></td>
-<td>Sesgo, error de medición, relevancia, exogeneidad, IV y 2SLS</td>
-<td>12, 13</td>
-<td>Disponible</td>
+<td>Errores robustos HC</td>
+<td>Corrigen la inferencia asintótica sin cambiar los coeficientes.</td>
 </tr>
 <tr class="odd">
-<td><a href="problem-set-5.html#problem-set-5">Problem Set 5: Variable dependiente binaria y series de tiempo</a></td>
-<td>MPL, logit, probit, efectos marginales, ACF, PACF y AR</td>
-<td>15, 14</td>
-<td>Disponible</td>
+<td>WLS/GLS bien especificado</td>
+<td>Puede mejorar eficiencia y cambiar los coeficientes.</td>
 </tr>
 </tbody>
 </table>
+<div class="box-resumen">
+<p>La heterocedasticidad no destruye toda la regresión. Obliga a separar dos preguntas: si el coeficiente está centrado en el parámetro y si estamos midiendo bien su incertidumbre.</p>
 </div>
-<div id="recomendación-de-trabajo" class="section level2 hasAnchor" number="27.3">
-<h2><span class="header-section-number">27.3</span> Recomendación de trabajo<a href="#recomendaci%C3%B3n-de-trabajo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="errores-comunes-heterocedasticidad" class="section level2 hasAnchor" number="19.5">
+<h2><span class="header-section-number">19.5</span> Errores comunes y cuidados<a href="heterocedasticidad-teoria.html#errores-comunes-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-cuidado">
+<p>No digas que la heterocedasticidad sesga MCO si la exogeneidad se mantiene. El sesgo aparece por problemas como variables omitidas, simultaneidad o error de medición en regresores.</p>
+</div>
+<div class="box-cuidado">
+<p>No uses WLS solo porque una prueba rechaza homocedasticidad. Para ponderar necesitas una razón defendible para la forma de la varianza.</p>
+</div>
+<div class="box-cuidado">
+<p>Un gráfico de residuos no prueba formalmente heterocedasticidad, pero sí ayuda a detectar patrones que las pruebas pueden resumir.</p>
+</div>
+</div>
+<div id="resumen-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.6">
+<h2><span class="header-section-number">19.6</span> Resumen<a href="heterocedasticidad-teoria.html#resumen-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
-<li>Los problem sets no reemplazan los capítulos: los integran.</li>
-<li>Las preguntas de demostración preparan para parciales.</li>
-<li>Las preguntas aplicadas preparan para leer resultados empíricos.</li>
-<li>Las preguntas computacionales deben resolverse con código reproducible.</li>
+<li>Hay heterocedasticidad cuando <span class="math inline">\(\text{Var}(\epsilon_i\mid X)\)</span> cambia entre observaciones.</li>
+<li>Con exogeneidad, MCO sigue siendo insesgado y consistente.</li>
+<li>La varianza correcta es <span class="math inline">\((X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}\)</span>.</li>
+<li>White y Breusch-Pagan evalúan si los residuos al cuadrado se relacionan con variables observables.</li>
+<li>Los errores robustos corrigen inferencia; WLS/GLS cambian el estimador.</li>
 </ul>
 </div>
+</div>
+<div id="ejercicios-conceptuales-heterocedasticidad" class="section level2 hasAnchor" number="19.7">
+<h2><span class="header-section-number">19.7</span> Ejercicios conceptuales<a href="heterocedasticidad-teoria.html#ejercicios-conceptuales-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Explica por qué la heterocedasticidad invalida la matriz clásica de varianzas.</li>
+<li>Deriva <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)\)</span> cuando <span class="math inline">\(\text{Var}(\epsilon\mid X)=\Omega\)</span>.</li>
+<li>Compara White y Breusch-Pagan: ¿cuándo preferirías cada prueba?</li>
+<li>Da un ejemplo de heterocedasticidad pura y uno de heterocedasticidad impura.</li>
+<li>Explica cuándo usarías errores robustos y cuándo WLS.</li>
+<li>Para practicar estos diagnósticos junto con multicolinealidad, resuelve las partes B, C y E del <a href="problem-set-3.html#problem-set-3">Problem Set 3: Multicolinealidad y heterocedasticidad</a>.</li>
+</ol>
+</div>
+</div>
+<div id="referencias-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.8">
+<h2><span class="header-section-number">19.8</span> Referencias<a href="heterocedasticidad-teoria.html#referencias-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>White, Halbert. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity”, <em>Econometrica</em>, 1980.</li>
+<li>Breusch, Trevor y Adrian Pagan. “A Simple Test for Heteroscedasticity and Random Coefficient Variation”, <em>Econometrica</em>, 1979.</li>
+<li>Wooldridge, Jeffrey. <em>Introductory Econometrics: A Modern Approach</em>, capítulo 8.</li>
+<li>Verbeek, Marno. <em>A Guide to Modern Econometrics</em>, capítulo 4.</li>
+</ul>
+<p><a href="heterocedasticidad-practica.html">Continúa en la práctica →</a></p>
 
 </div>
 </div>
@@ -286,8 +435,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="series.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="problem-set-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="multicolinealidad-practica.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="heterocedasticidad-practica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook/js/app.min.js"></script>
@@ -318,7 +467,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/16-ProblemSets.Rmd",
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/11-Heterocedasticidad-teoria.Rmd",
     "text": "Edit"
   },
   "history": {

@@ -2,9 +2,9 @@
 
 Este taller integra las fuentes de endogeneidad y el uso de variables instrumentales. Está pensado para resolverse después de estudiar los capítulos 12 y 13.
 
-::: {.box-intuicion}
+:::: {.box-intuicion}
 La pregunta central no es si una variable "explica" a otra, sino si la variación que estamos usando para estimar el efecto puede interpretarse como exógena. Las variables instrumentales buscan aislar una parte de la variación del regresor que no esté contaminada por el error.
-:::
+::::
 
 ## Objetivos del taller
 
@@ -22,13 +22,13 @@ Al finalizar este problem set podrás:
 - No basta con proponer un instrumento: debes discutir relevancia y exogeneidad.
 - Si una condición no se puede probar directamente, explica qué evidencia indirecta sería útil.
 
-::: {.box-cuidado}
+:::: {.box-cuidado}
 Un instrumento fuerte no necesariamente es válido. La relevancia se puede diagnosticar con la primera etapa; la exogeneidad requiere argumento económico, diseño institucional o pruebas indirectas cuando hay sobreidentificación.
-:::
+::::
 
 ## Parte A: Endogeneidad en salud y ejercicio
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 Considera el modelo:
 
 \[
@@ -42,11 +42,11 @@ La variable \(ejercicio_i\) mide horas de ejercicio a la semana.
 3. Si son instrumentos válidos, escribe la primera etapa para \(ejercicio_i\).
 4. Escribe la segunda etapa y explica qué parámetro identifica.
 5. ¿Cómo podrías evaluar empíricamente la relevancia de los instrumentos? ¿Qué parte de la validez no puedes probar directamente?
-:::
+::::
 
 ## Parte B: Educación y salarios
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Explica por qué al estimar el efecto de años de educación sobre salarios por MCO el coeficiente de educación puede estar sesgado. Discute al menos dos canales.
 
 2. Formaliza el sesgo por variable omitida en:
@@ -68,15 +68,15 @@ cuando \(u_i\) contiene habilidad no observada.
 \]
 
 5. ¿Qué argumentos podrían apoyar o debilitar la exogeneidad de la cercanía a una universidad?
-:::
+::::
 
 ## Parte C: Primera etapa e instrumentos débiles
 
-::: {.box-ejemplo}
+:::: {.box-ejemplo}
 Una primera etapa para educación produce un coeficiente de 0.3199 sobre distancia/cercanía a universidad, con error estándar 0.0879 y estadístico \(t=3.64\).
-:::
+::::
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Calcula el estadístico \(F\) del instrumento excluido cuando hay un solo instrumento excluido. Pista: en ese caso \(F=t^2\).
 
 2. Interpreta el valor obtenido. ¿Qué sugiere sobre relevancia?
@@ -86,11 +86,11 @@ Una primera etapa para educación produce un coeficiente de 0.3199 sobre distanc
 4. Si hubiera varios instrumentos excluidos, ¿qué prueba mirarías para evaluar relevancia conjunta?
 
 5. ¿Qué reportarías en una tabla empírica para que el lector evalúe la fuerza de los instrumentos?
-:::
+::::
 
 ## Parte D: IV y 2SLS
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Considera el modelo estructural:
 
 \[
@@ -112,11 +112,11 @@ Luego escribe la segunda etapa usando \(\hat{x}_i\).
 4. Explica por qué no se deben usar los errores estándar de una segunda etapa hecha "a mano" sin corrección.
 
 5. Compara conceptualmente MCO, IV y 2SLS: ¿qué variación de \(x\) usa cada método?
-:::
+::::
 
 ## Parte E: Error de medición
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 Sea:
 
 \[
@@ -135,16 +135,16 @@ Asume que \(v\), \(w\), \(x\) y \(u\) cumplen condiciones de covarianza cero sal
 2. Explica el efecto del error de medición en \(x\) sobre signo y magnitud del estimador.
 3. Explica el efecto del error de medición clásico en \(y\). ¿Sesga la pendiente? ¿Qué cambia?
 4. Propón un instrumento posible para \(x^*\). ¿Qué condiciones debería cumplir?
-:::
+::::
 
 ## Parte F: Simulación reproducible
 
-::: {.box-ejercicios}
+:::: {.box-ejercicios}
 1. Simula un modelo con una variable omitida \(a_i\) que afecta tanto educación como salarios.
 2. Estima por MCO y luego por IV usando un instrumento \(z_i\) que afecta educación pero no salarios directamente.
 3. Compara los coeficientes estimados.
 4. Repite el ejercicio haciendo que el instrumento sea débil. ¿Qué cambia?
-:::
+::::
 
 ### Código base en R
 
@@ -211,9 +211,9 @@ print(sm.OLS(lwage, X_second).fit().summary())
 
 ## Cierre
 
-::: {.box-resumen}
+:::: {.box-resumen}
 Este taller insiste en una idea: IV no corrige cualquier problema automáticamente. Funciona cuando el instrumento genera variación relevante en el regresor endógeno y esa variación puede defenderse como exógena respecto al resultado.
-:::
+::::
 
 [← Volver al índice de problem sets](#problem-sets)
 
