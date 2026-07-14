@@ -1,0 +1,315 @@
+# Problem Set 1: MCO y matrices {#problem-set-1}
+
+Este taller integra los primeros bloques del curso: notación de sumas, álgebra matricial, supuestos básicos, estimación de MCO e interpretación de coeficientes. Está pensado para resolverse después de estudiar los capítulos 02 a 05.
+
+::: {.box-intuicion}
+El objetivo no es hacer muchos ejercicios mecánicos, sino conectar tres formas de ver MCO: como una recta que minimiza residuos, como una proyección matricial y como una herramienta para interpretar diferencias entre grupos.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Usar el vector de unos para expresar medias y regresiones contra una constante.
+2. Calcular productos matriciales básicos que aparecen en la fórmula de MCO.
+3. Interpretar modelos con variables binarias e interacciones.
+4. Demostrar propiedades básicas de MCO usando sumas y matrices.
+5. Simular estimadores para estudiar insesgadez, varianza y consistencia.
+
+## Instrucciones
+
+- Resuelve los ejercicios de manera ordenada y justifica cada paso.
+- Cuando uses álgebra matricial, revisa dimensiones antes de multiplicar.
+- En los ejercicios computacionales, entrega código reproducible y una interpretación breve.
+- Si este taller se asigna como evaluable, la fecha y el formato de entrega se anunciarán por Teams.
+
+::: {.box-cuidado}
+No mezcles errores poblacionales con residuos estimados. Usa \(\epsilon_i\) para el error poblacional y \(\hat{\epsilon}_i\) para el residuo que se calcula después de estimar.
+:::
+
+## Parte A: Álgebra matricial
+
+::: {.box-ejercicios}
+1. Sea \(\iota=(1,1,\ldots,1)'\) un vector \(n\times 1\) de unos. Calcula \(\iota'\iota\). Explica la dimensión del resultado.
+
+2. Sea \(y=(y_1,\ldots,y_n)'\). Calcula \(\iota'y\) y muestra que:
+
+\[
+\bar{y}=\frac{\iota'y}{\iota'\iota}.
+\]
+
+3. Usa la fórmula de MCO para una regresión de \(y\) contra una constante:
+
+\[
+y=\iota\beta_0+\epsilon.
+\]
+
+Muestra que:
+
+\[
+\hat{\beta}_0=(\iota'\iota)^{-1}\iota'y=\bar{y}.
+\]
+
+4. Sean \(x=(x_1,\ldots,x_n)'\) y \(y=(y_1,\ldots,y_n)'\). Indica la dimensión y el significado de:
+
+   a. \(x'x\)  
+   b. \(xx'\)  
+   c. \(x'y\)
+
+5. Sea \(X\) una matriz \(n\times K\). Define:
+
+\[
+P=X(X'X)^{-1}X'.
+\]
+
+Demuestra que \(PX=X\). Luego demuestra que \(P\) es idempotente, es decir, \(P^2=P\).
+
+6. Sea \(a\) un vector \(n\times 1\) y \(x\) un vector \(n\times 1\). Encuentra:
+
+   a. \(\frac{\partial a'x}{\partial x}\)  
+   b. \(\frac{\partial x'x}{\partial x}\)  
+   c. \(\frac{\partial x'(aa')x}{\partial x}\)
+:::
+
+## Parte B: MCO en sumas y matrices
+
+::: {.box-ejercicios}
+1. En un estudio sobre estudiantes becados y no becados se estima:
+
+\[
+y_i=\alpha+\beta B_i+\epsilon_i,
+\]
+
+donde \(B_i=1\) si el estudiante es becado y \(B_i=0\) si no lo es. Sean \(\bar{y}_{B1}\) y \(\bar{y}_{B0}\) las medias del promedio acumulado para becados y no becados, respectivamente. Demuestra que:
+
+\[
+\hat{\alpha}=\bar{y}_{B0},\qquad
+\hat{\beta}=\bar{y}_{B1}-\bar{y}_{B0}.
+\]
+
+2. Para el modelo anterior, escribe la hipótesis nula y la hipótesis alternativa para evaluar la afirmación: "los estudiantes becados obtienen, en promedio, un promedio acumulado mayor que los no becados".
+
+3. Considera la regresión contra una constante:
+
+\[
+Y_i=\beta_0+\epsilon_i.
+\]
+
+Demuestra que el \(R^2\) centrado de esta regresión es igual a cero.
+
+4. Explica si un cambio en la unidad de medida de \(y\) modifica el \(R^2\). Luego explica si un cambio en la unidad de medida de un regresor modifica el \(R^2\).
+
+5. En regresión lineal simple,
+
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]
+
+demuestra que:
+
+\[
+\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x}.
+\]
+
+6. Para el modelo sin constante:
+
+\[
+Y_i=\beta X_i+\epsilon_i,
+\]
+
+encuentra el estimador de MCO de \(\beta\). ¿Qué cambia respecto al modelo con constante?
+
+7. Un estudiante estima:
+
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i
+\]
+
+y obtiene:
+
+\[
+\frac{1}{N}\sum_{i=1}^N x_iy_i=20,\quad
+\frac{1}{N}\sum_{i=1}^N x_i^2=10,\quad
+\bar{y}=8,\quad
+\bar{x}=3,\quad
+\hat{\beta}_0=1,\quad
+\hat{\beta}_1=-4.
+\]
+
+¿Son coherentes estos resultados con las ecuaciones normales de MCO? Justifica.
+:::
+
+## Parte C: Modelos lineales, dummies e interpretación
+
+::: {.box-ejercicios}
+1. Clasifica cada modelo como lineal o no lineal en parámetros. Justifica:
+
+   a. \(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i\)  
+   b. \(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i\)  
+   c. \(Y_i=\beta_1X_{2i}^{\beta_2}X_{3i}^{\beta_3}+\epsilon_i\)  
+   d. \(Y_i=\beta_1+\beta_2X_{2i}+\frac{1}{\beta_3}X_{2i}+\epsilon_i\)  
+   e. \(Y_i=\beta_1+\beta_2\cos(2\pi t/12)+\beta_3\sin(2\pi t/12)+\epsilon_i\)
+
+2. Interpreta los siguientes coeficientes. Supón que salario está medido como salario por hora y educación en años:
+
+   a. \(Salario_i=1250+66.31Edad_i+\epsilon_i\)  
+   b. \(Salario_i=-1086+533.51Educ_i+\epsilon_i\)  
+   c. \(\log(Salario_i)=6.54+0.1176Educ_i+\epsilon_i\)  
+   d. \(Salario_i=-3263+3440\log(Educ_i)+\epsilon_i\)  
+   e. \(\log(Salario_i)=5.98+0.804\log(Educ_i)+\epsilon_i\)  
+   f. \(\log(Salario_i)=6.43+0.12Educ_i+0.17Hombre_i-0.10(Educ_i\times Hombre_i)+\epsilon_i\)
+
+3. El número de horas de lectura al día \(y\) se estudia para tres grupos educativos. Se definen \(E_1\), \(E_2\) y \(E_3\) como dummies mutuamente excluyentes. Al estimar un modelo sin constante se obtiene:
+
+\[
+\hat{y}=10E_1+5E_2+2E_3.
+\]
+
+Muestra que esos coeficientes corresponden a las medias de cada grupo.
+
+4. Explica qué ocurre si en el modelo anterior se incluye una constante y también las tres dummies \(E_1\), \(E_2\) y \(E_3\). Propón una solución.
+
+5. Supón que se estima:
+
+\[
+y_i=\alpha+\beta E_{1i}+\delta Ingresos_i+\gamma(E_{1i}\times Ingresos_i)+\epsilon_i.
+\]
+
+Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué permite estudiar la interacción?
+:::
+
+## Parte D: Propiedades, supuestos y FWL
+
+::: {.box-ejercicios}
+1. Considera el modelo \(y=X\beta+u\). Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y "mejor" dentro de una clase de estimadores.
+
+2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
+
+   a. \(\mathbb{E}[(y_i-\bar{y})^2\mid X_i]=X_i^2\)  
+   b. \(X_i=[1,X_{1i},X_{2i},X_{1i}X_{2i}]\)  
+   c. \(X_i=[1,X_{1i},X_{2i},X_{1i}-X_{2i}]\)  
+   d. \(u_i\) se distribuye lognormal.  
+   e. \(u_i=Z_i+\kappa_i\), con \(\mathbb{E}[Z_i\mid X_i]=c\) y \(\mathbb{E}[\kappa_i\mid X_i]=0\).
+
+3. Considera una regresión de \(Y\) sobre \(X\). Si luego estimas una regresión de \(Y\) sobre una constante y \(\hat{Y}\), ¿cuál debe ser el intercepto? ¿Cuál debe ser la pendiente? ¿Cómo se relaciona el \(R^2\) de esta regresión con el \(R^2\) original?
+
+4. Si estimas una regresión de \(Y\) sobre una constante y \(\hat{\epsilon}\), ¿qué esperas para el intercepto, la pendiente y el \(R^2\)? Justifica usando las propiedades de los residuos de MCO.
+
+5. Considera:
+
+\[
+y=X_1\beta_1+X_2\beta_2+\epsilon,
+\]
+
+y define:
+
+\[
+M_2=I-X_2(X_2'X_2)^{-1}X_2'.
+\]
+
+Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coeficiente obtenido al regresar \(M_2y\) sobre \(M_2X_1\). Explica la intuición de este resultado.
+
+6. Supón que \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
+:::
+
+## Parte E: Simulación Monte Carlo
+
+Esta parte reproduce la idea computacional del taller histórico: estudiar insesgadez, varianza y consistencia simulando muchas muestras.
+
+::: {.box-ejemplo}
+El proceso generador de datos será:
+
+\[
+y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
+\]
+
+con \(x_i\) generado de una distribución uniforme entre 3 y 10.
+:::
+
+### Preguntas
+
+::: {.box-ejercicios}
+1. Genera 1000 muestras de tamaño \(n=150\). En cada muestra estima una regresión de \(y_i\) sobre \(x_i\) sin constante.
+2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}\). ¿Qué sugieren sobre insesgadez y varianza?
+3. Repite el ejercicio con \(n=1000\). ¿Qué cambia? ¿Qué sugiere sobre consistencia?
+4. Grafica la distribución de \(\hat{\beta}\) para \(n=150\) y \(n=1000\). Compara visualmente.
+:::
+
+### Código base en R
+
+```{r ps1-montecarlo-r, eval=FALSE}
+simular_beta <- function(n, reps = 1000) {
+  beta_hat <- numeric(reps)
+
+  for (r in seq_len(reps)) {
+    x <- runif(n, min = 3, max = 10)
+    epsilon <- rnorm(n, mean = 0, sd = 1)
+    y <- 2.5 * x + epsilon
+    beta_hat[r] <- coef(lm(y ~ x - 1))[["x"]]
+  }
+
+  beta_hat
+}
+
+set.seed(123)
+beta_150 <- simular_beta(n = 150)
+beta_1000 <- simular_beta(n = 1000)
+
+mean(beta_150)
+sd(beta_150)
+mean(beta_1000)
+sd(beta_1000)
+```
+
+### Código base en Stata
+
+```stata
+capture program drop sim_mco
+program define sim_mco, rclass
+    clear
+    set obs 150
+    gen x = runiform(3, 10)
+    gen epsilon = rnormal(0, 1)
+    gen y = 2.5*x + epsilon
+    regress y x, noconstant
+    return scalar beta = _b[x]
+end
+
+simulate beta = r(beta), reps(1000) seed(123): sim_mco
+summarize beta
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import statsmodels.api as sm
+
+def simular_beta(n, reps=1000, seed=123):
+    rng = np.random.default_rng(seed)
+    betas = []
+
+    for _ in range(reps):
+        x = rng.uniform(3, 10, n)
+        epsilon = rng.normal(0, 1, n)
+        y = 2.5 * x + epsilon
+        modelo = sm.OLS(y, x).fit()
+        betas.append(modelo.params[0])
+
+    return np.array(betas)
+
+beta_150 = simular_beta(150)
+beta_1000 = simular_beta(1000)
+
+print(beta_150.mean(), beta_150.std(ddof=1))
+print(beta_1000.mean(), beta_1000.std(ddof=1))
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller conecta la mecánica de MCO con su interpretación. Si puedes resolverlo con calma, ya tienes una base sólida para estudiar propiedades, FWL, pruebas de hipótesis y problemas como multicolinealidad o heterocedasticidad.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 27 Problem Set 3: Multicolinealidad y heterocedasticidad | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 27 Problem Set 3: Multicolinealidad y heterocedasticidad | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 27 Problem Set 3: Multicolinealidad y heterocedasticidad | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="problem-set-2.html"/>
+<link rel="next" href="problem-set-4.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad</a></li>
+<li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a></li>
+<li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a></li>
+<li class="chapter" data-level="22" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>22</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="23" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>23</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="24" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>24</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="25" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>25</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="26" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>26</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="27" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>27</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>28</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>29</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="30" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>30</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="problem-set-3" class="section level1 hasAnchor" number="27">
+<h1><span class="header-section-number">Capítulo 27</span> Problem Set 3: Multicolinealidad y heterocedasticidad<a href="problem-set-3.html#problem-set-3" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este taller integra dos problemas frecuentes en aplicaciones de MCO: regresores muy correlacionados y varianza no constante del error. Está pensado para resolverse después de estudiar los capítulos 10 y 11.</p>
+<div class="box-intuicion">
+<p>Multicolinealidad y heterocedasticidad no son el mismo problema. La primera afecta la precisión con la que separamos efectos entre regresores relacionados; la segunda afecta la forma correcta de medir la incertidumbre cuando la varianza del error cambia con las covariables.</p>
+</div>
+<div id="objetivos-del-taller-2" class="section level2 hasAnchor" number="27.1">
+<h2><span class="header-section-number">27.1</span> Objetivos del taller<a href="problem-set-3.html#objetivos-del-taller-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar este problem set podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Distinguir multicolinealidad perfecta de multicolinealidad aproximada.</li>
+<li>Explicar por qué la correlación alta entre regresores aumenta la varianza de algunos estimadores.</li>
+<li>Formular pruebas de heterocedasticidad como White y Breusch-Pagan.</li>
+<li>Comparar MCO, errores robustos, GLS y WLS.</li>
+<li>Simular datos para ver cómo cambian estimaciones y errores estándar.</li>
+</ol>
+</div>
+<div id="instrucciones-2" class="section level2 hasAnchor" number="27.2">
+<h2><span class="header-section-number">27.2</span> Instrucciones<a href="problem-set-3.html#instrucciones-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>En las preguntas de multicolinealidad, separa siempre identificación de precisión.</li>
+<li>En las preguntas de heterocedasticidad, distingue el estimador de los coeficientes de los errores estándar.</li>
+<li>En la parte computacional, entrega código reproducible y comenta la diferencia entre estimación e inferencia.</li>
+</ul>
+<div class="box-cuidado">
+<p>No digas que la multicolinealidad aproximada “sesga” MCO. Si los supuestos de exogeneidad se mantienen, el problema principal es de precisión: errores estándar grandes y coeficientes inestables.</p>
+</div>
+</div>
+<div id="parte-a-multicolinealidad" class="section level2 hasAnchor" number="27.3">
+<h2><span class="header-section-number">27.3</span> Parte A: Multicolinealidad<a href="problem-set-3.html#parte-a-multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Explica la diferencia entre multicolinealidad perfecta y multicolinealidad aproximada. ¿En cuál de los dos casos no existe <span class="math inline">\((X&#39;X)^{-1}\)</span>?</p></li>
+<li><p>Considera:</p></li>
+</ol>
+<p><span class="math display">\[
+Y_i=a+bx_i+cz_i+\mu_i,
+\]</span></p>
+<p>donde <span class="math inline">\(x_i=X_i-\bar{X}\)</span> y <span class="math inline">\(z_i=Z_i-\bar{Z}\)</span>. Usa las ecuaciones normales para explicar por qué los residuos estimados son ortogonales a <span class="math inline">\(x\)</span> y a <span class="math inline">\(z\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Deriva la intuición de <span class="math inline">\(\operatorname{Var}(\hat{b})\)</span> cuando <span class="math inline">\(x\)</span> y <span class="math inline">\(z\)</span> están altamente correlacionadas. ¿Qué ocurre cuando la correlación entre <span class="math inline">\(x\)</span> y <span class="math inline">\(z\)</span> se acerca a 1? ¿Qué ocurre cuando la correlación es 0?</p></li>
+<li><p>En una regresión con educación, experiencia y experiencia al cuadrado, ¿por qué puede aparecer multicolinealidad aproximada? ¿Qué harías para diagnosticarla?</p></li>
+<li><p>Explica por qué eliminar variables solo para reducir el VIF puede ser una mala decisión si esas variables son controles conceptualmente importantes.</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-b-heterocedasticidad" class="section level2 hasAnchor" number="27.4">
+<h2><span class="header-section-number">27.4</span> Parte B: Heterocedasticidad<a href="problem-set-3.html#parte-b-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Considera la regresión desde el origen:</li>
+</ol>
+<p><span class="math display">\[
+y_i=X_i\beta+\epsilon_i,\qquad \epsilon_i\sim N(0,\sigma_\epsilon^2 X_i).
+\]</span></p>
+<p>Supón que las primeras 15 observaciones de <span class="math inline">\(X\)</span> toman el valor 1 y las 45 siguientes toman el valor <span class="math inline">\(-1\)</span>. Plantea cómo calcularías el estimador de Mínimos Cuadrados Generalizados y su varianza. ¿Qué ocurre si se estima por MCO ignorando la heterocedasticidad?</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Supón que quieres evaluar heterocedasticidad con el test de White en:</li>
+</ol>
+<p><span class="math display">\[
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i.
+\]</span></p>
+<p>Escribe la regresión auxiliar. ¿Qué variable va al lado izquierdo? ¿Qué términos deben ir al lado derecho, teniendo en cuenta que una variable independiente es el cuadrado de otra?</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Si la muestra tiene 150 observaciones y el <span class="math inline">\(R^2\)</span> de la regresión auxiliar es 0.040, calcula el estadístico <span class="math inline">\(nR^2\)</span>. ¿Con qué distribución lo compararías? ¿Qué grados de libertad usarías?</p></li>
+<li><p>Explica la diferencia entre heterocedasticidad pura e impura. Da un ejemplo de cada una.</p></li>
+<li><p>Explica cuándo preferirías errores estándar robustos y cuándo tendría sentido estimar un modelo ponderado.</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-c-aplicación-conceptual" class="section level2 hasAnchor" number="27.5">
+<h2><span class="header-section-number">27.5</span> Parte C: Aplicación conceptual<a href="#parte-c-aplicaci%C3%B3n-conceptual" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>En el modelo:</li>
+</ol>
+<p><span class="math display">\[
+sueño_i=\beta_0+\beta_1MinTrabajo_i+\beta_2Educ_i+\beta_3Edad_i+\beta_4Edad_i^2+\beta_5Hijos_i+\beta_6Hombre_i+\mu_i,
+\]</span></p>
+<p>explica por qué podría existir heterocedasticidad en datos de corte transversal.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Supón que:</li>
+</ol>
+<p><span class="math display">\[
+\operatorname{Var}(\mu_i)=\sigma_1^2 Mujer_i+\sigma_2^2 Hombre_i,
+\]</span></p>
+<p>donde <span class="math inline">\(Mujer_i=1-Hombre_i\)</span>. Propón una forma de estimar <span class="math inline">\(\sigma_1^2\)</span> y <span class="math inline">\(\sigma_2^2\)</span> usando residuos de una regresión inicial.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Con esos estimadores de varianza, ¿cómo modificarías MCO para obtener una estimación ponderada?</p></li>
+<li><p>¿Qué parte de este ejercicio cambia los coeficientes y qué parte cambia solamente los errores estándar?</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-d-simulación-de-multicolinealidad" class="section level2 hasAnchor" number="27.6">
+<h2><span class="header-section-number">27.6</span> Parte D: Simulación de multicolinealidad<a href="#parte-d-simulaci%C3%B3n-de-multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejemplo">
+<p>Genera:</p>
+<p><span class="math display">\[
+y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
+\]</span></p>
+<p>con <span class="math inline">\(X_1\sim N(0,1)\)</span>, <span class="math inline">\(X_2\sim N(0,1)\)</span>, <span class="math inline">\(\epsilon_i\sim N(0,1)\)</span> y <span class="math inline">\(X_3=X_1+X_2+\eta_i\)</span>, donde <span class="math inline">\(\eta_i\)</span> tiene varianza pequeña.</p>
+</div>
+<div id="preguntas-2" class="section level3 hasAnchor" number="27.6.1">
+<h3><span class="header-section-number">27.6.1</span> Preguntas<a href="problem-set-3.html#preguntas-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Estima el modelo completo con <span class="math inline">\(n=100\)</span>. Repite la simulación varias veces. ¿Qué tan estables son los coeficientes?</li>
+<li>Aumenta la muestra a <span class="math inline">\(n=10000\)</span>. ¿Desaparece el problema? ¿Qué mejora y qué no?</li>
+<li>Calcula la matriz de correlaciones y el VIF. ¿Qué diagnóstico entregan?</li>
+<li>Repite el ejercicio aumentando la varianza de <span class="math inline">\(\eta_i\)</span>. ¿Qué ocurre con los errores estándar?</li>
+</ol>
+</div>
+</div>
+<div id="código-base-en-r-2" class="section level3 hasAnchor" number="27.6.2">
+<h3><span class="header-section-number">27.6.2</span> Código base en R<a href="#c%C3%B3digo-base-en-r-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="código-base-en-stata-2" class="section level3 hasAnchor" number="27.6.3">
+<h3><span class="header-section-number">27.6.3</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb74"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb74-1"><a href="problem-set-3.html#cb74-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb74-2"><a href="problem-set-3.html#cb74-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
+<span id="cb74-3"><a href="problem-set-3.html#cb74-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 100</span>
+<span id="cb74-4"><a href="problem-set-3.html#cb74-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb74-5"><a href="problem-set-3.html#cb74-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
+<span id="cb74-6"><a href="problem-set-3.html#cb74-6" tabindex="-1"></a><span class="kw">gen</span> x3 = x1 + <span class="kw">x2</span> + rnormal(0, 0.01)</span>
+<span id="cb74-7"><a href="problem-set-3.html#cb74-7" tabindex="-1"></a><span class="kw">gen</span> epsilon = rnormal()</span>
+<span id="cb74-8"><a href="problem-set-3.html#cb74-8" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 5 + 25*x1 - 5*<span class="kw">x2</span> + 15*x3 + epsilon</span>
+<span id="cb74-9"><a href="problem-set-3.html#cb74-9" tabindex="-1"></a></span>
+<span id="cb74-10"><a href="problem-set-3.html#cb74-10" tabindex="-1"></a><span class="kw">regress</span> <span class="fu">y</span> x1 <span class="kw">x2</span> x3</span>
+<span id="cb74-11"><a href="problem-set-3.html#cb74-11" tabindex="-1"></a>correlate x1 <span class="kw">x2</span> x3</span>
+<span id="cb74-12"><a href="problem-set-3.html#cb74-12" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vif</span></span></code></pre></div>
+</div>
+<div id="código-base-en-python-2" class="section level3 hasAnchor" number="27.6.4">
+<h3><span class="header-section-number">27.6.4</span> Código base en Python<a href="#c%C3%B3digo-base-en-python-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb75"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb75-1"><a href="problem-set-3.html#cb75-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb75-2"><a href="problem-set-3.html#cb75-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb75-3"><a href="problem-set-3.html#cb75-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb75-4"><a href="problem-set-3.html#cb75-4" tabindex="-1"></a></span>
+<span id="cb75-5"><a href="problem-set-3.html#cb75-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
+<span id="cb75-6"><a href="problem-set-3.html#cb75-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb75-7"><a href="problem-set-3.html#cb75-7" tabindex="-1"></a>x1 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb75-8"><a href="problem-set-3.html#cb75-8" tabindex="-1"></a>x2 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb75-9"><a href="problem-set-3.html#cb75-9" tabindex="-1"></a>x3 <span class="op">=</span> x1 <span class="op">+</span> x2 <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.01</span>, size<span class="op">=</span>n)</span>
+<span id="cb75-10"><a href="problem-set-3.html#cb75-10" tabindex="-1"></a>epsilon <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb75-11"><a href="problem-set-3.html#cb75-11" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">25</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">5</span><span class="op">*</span>x2 <span class="op">+</span> <span class="dv">15</span><span class="op">*</span>x3 <span class="op">+</span> epsilon</span>
+<span id="cb75-12"><a href="problem-set-3.html#cb75-12" tabindex="-1"></a></span>
+<span id="cb75-13"><a href="problem-set-3.html#cb75-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(pd.DataFrame({<span class="st">&quot;x1&quot;</span>: x1, <span class="st">&quot;x2&quot;</span>: x2, <span class="st">&quot;x3&quot;</span>: x3}))</span>
+<span id="cb75-14"><a href="problem-set-3.html#cb75-14" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb75-15"><a href="problem-set-3.html#cb75-15" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span></code></pre></div>
+</div>
+</div>
+<div id="parte-e-simulación-de-heterocedasticidad" class="section level2 hasAnchor" number="27.7">
+<h2><span class="header-section-number">27.7</span> Parte E: Simulación de heterocedasticidad<a href="#parte-e-simulaci%C3%B3n-de-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Genera <span class="math inline">\(x_i\sim U(1,10)\)</span>, <span class="math inline">\(\epsilon_i\sim N(0, \sigma_i^2)\)</span>, con <span class="math inline">\(\sigma_i=0.5+0.3x_i\)</span>, y <span class="math inline">\(y_i=1+2x_i+\epsilon_i\)</span>.</li>
+<li>Estima MCO con errores convencionales y con errores robustos.</li>
+<li>Haz un gráfico de residuos contra valores ajustados.</li>
+<li>Estima una versión ponderada usando pesos proporcionales a <span class="math inline">\(1/\sigma_i^2\)</span>. Compara.</li>
+</ol>
+</div>
+<div id="código-base-en-r-3" class="section level3 hasAnchor" number="27.7.1">
+<h3><span class="header-section-number">27.7.1</span> Código base en R<a href="#c%C3%B3digo-base-en-r-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="cierre-2" class="section level2 hasAnchor" number="27.8">
+<h2><span class="header-section-number">27.8</span> Cierre<a href="problem-set-3.html#cierre-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<p>Este taller separa dos diagnósticos distintos: multicolinealidad habla de la información disponible para separar regresores; heterocedasticidad habla de cómo se comporta la varianza del error. En ambos casos, la solución depende de entender primero cuál es el problema estadístico exacto.</p>
+</div>
+<p><a href="problem-sets.html#problem-sets">← Volver al índice de problem sets</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="problem-set-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="problem-set-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/19-ProblemSet3.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

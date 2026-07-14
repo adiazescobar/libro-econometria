@@ -160,6 +160,7 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 3. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
 4. Explica qué significa que MCO sea "lineal" como estimador.
 5. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
+6. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-propiedades-teoria}

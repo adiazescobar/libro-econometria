@@ -212,6 +212,7 @@ La inferencia robusta frente a heterocedasticidad se estudia en detalle más ade
 3. Escribe una hipótesis lineal \(R\beta=r\) con dos restricciones y define el estadístico de Wald.
 4. Explica el papel de Slutsky en la derivación de la normalidad asintótica de MCO.
 5. Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.
+6. Para ver convergencia e incertidumbre en simulaciones, resuelve la parte D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-normas-teoria}

@@ -39,32 +39,32 @@ donde \(y\) es un vector \(n \times 1\), \(X\) es una matriz \(n \times K\), \(\
 
 ## Desarrollo teórico {#desarrollo-teorico-estimacion}
 
-Para un vector candidato \(b\), el vector de residuos estimados es:
+Para un vector candidato \(\tilde{\beta}\), definimos el vector de residuos asociado a ese candidato como:
 
 \[
-\hat{\epsilon}(b) = y - Xb.
+r(\tilde{\beta}) = y - X\tilde{\beta}.
 \]
 
 El criterio de mínimos cuadrados es:
 
 \[
-\text{SRC}(b)
-= \hat{\epsilon}(b)'\hat{\epsilon}(b)
-= (y-Xb)'(y-Xb).
+\text{SRC}(\tilde{\beta})
+= r(\tilde{\beta})'r(\tilde{\beta})
+= (y-X\tilde{\beta})'(y-X\tilde{\beta}).
 \]
 
 Al expandir:
 
 \[
-\text{SRC}(b)
-= y'y - 2b'X'y + b'X'Xb.
+\text{SRC}(\tilde{\beta})
+= y'y - 2\tilde{\beta}'X'y + \tilde{\beta}'X'X\tilde{\beta}.
 \]
 
-Derivando con respecto a \(b\):
+Derivando con respecto a \(\tilde{\beta}\):
 
 \[
-\frac{\partial \text{SRC}}{\partial b}
-= -2X'y + 2X'Xb.
+\frac{\partial \text{SRC}}{\partial \tilde{\beta}}
+= -2X'y + 2X'X\tilde{\beta}.
 \]
 
 Las condiciones de primer orden igualan esta derivada a cero:
@@ -77,6 +77,12 @@ Estas son las ecuaciones normales. Si \(X'X\) es invertible, entonces:
 
 \[
 \hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Una vez encontrado el minimizador \(\hat{\beta}\), el residuo estimado es:
+
+\[
+\hat{\epsilon}=y-X\hat{\beta}.
 \]
 
 ::: {.box-ejemplo}
@@ -141,7 +147,7 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 ## Resumen {#resumen-estimacion-teoria}
 
 ::: {.box-resumen}
-- MCO minimiza \(\text{SRC}(b)=(y-Xb)'(y-Xb)\).
+- MCO minimiza \(\text{SRC}(\tilde{\beta})=(y-X\tilde{\beta})'(y-X\tilde{\beta})\).
 - Las ecuaciones normales son \(X'X\hat{\beta}=X'y\).
 - Si \(X'X\) es invertible, \(\hat{\beta}=(X'X)^{-1}X'y\).
 - Los residuos de MCO son ortogonales a los regresores: \(X'\hat{\epsilon}=0\).
@@ -156,6 +162,7 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 3. En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.
 4. Demuestra que \(X'\hat{\epsilon}=0\) usando la fórmula \(\hat{\beta}=(X'X)^{-1}X'y\).
 5. Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.
+6. Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-estimacion-teoria}

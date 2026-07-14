@@ -649,6 +649,8 @@ D. Se aproxima al valor verdadero con alta probabilidad.
 3. ¿En qué se diferencia el concepto de varianza del de eficiencia? ¿Pueden dos estimadores tener la misma varianza pero distinta eficiencia?**
 
 4. Supón que tienes dos estimadores:   - A es insesgado pero tiene alta varianza.   - B tiene un pequeño sesgo pero varianza muy baja.  ¿Cuál elegirías para un problema donde la prioridad es predecir bien el valor de \( y \)?  ¿Cambiaría tu respuesta si el objetivo fuera estimar un efecto causal? Justifica tu elección.
+
+5. Para practicar estos temas de forma integrada, resuelve las partes B y C del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-regresion-lineal-teoria}

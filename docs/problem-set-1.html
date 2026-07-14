@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 25 Problem Set 1: MCO y matrices | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 25 Problem Set 1: MCO y matrices | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 25 Problem Set 1: MCO y matrices | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="problem-sets.html"/>
+<link rel="next" href="problem-set-2.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad</a></li>
+<li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a></li>
+<li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a></li>
+<li class="chapter" data-level="22" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>22</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="23" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>23</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="24" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>24</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="25" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>25</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="26" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>26</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="27" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>27</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>28</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>29</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="30" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>30</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="problem-set-1" class="section level1 hasAnchor" number="25">
+<h1><span class="header-section-number">Capítulo 25</span> Problem Set 1: MCO y matrices<a href="problem-set-1.html#problem-set-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este taller integra los primeros bloques del curso: notación de sumas, álgebra matricial, supuestos básicos, estimación de MCO e interpretación de coeficientes. Está pensado para resolverse después de estudiar los capítulos 02 a 05.</p>
+<div class="box-intuicion">
+<p>El objetivo no es hacer muchos ejercicios mecánicos, sino conectar tres formas de ver MCO: como una recta que minimiza residuos, como una proyección matricial y como una herramienta para interpretar diferencias entre grupos.</p>
+</div>
+<div id="objetivos-del-taller" class="section level2 hasAnchor" number="25.1">
+<h2><span class="header-section-number">25.1</span> Objetivos del taller<a href="problem-set-1.html#objetivos-del-taller" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar este problem set podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Usar el vector de unos para expresar medias y regresiones contra una constante.</li>
+<li>Calcular productos matriciales básicos que aparecen en la fórmula de MCO.</li>
+<li>Interpretar modelos con variables binarias e interacciones.</li>
+<li>Demostrar propiedades básicas de MCO usando sumas y matrices.</li>
+<li>Simular estimadores para estudiar insesgadez, varianza y consistencia.</li>
+</ol>
+</div>
+<div id="instrucciones" class="section level2 hasAnchor" number="25.2">
+<h2><span class="header-section-number">25.2</span> Instrucciones<a href="problem-set-1.html#instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Resuelve los ejercicios de manera ordenada y justifica cada paso.</li>
+<li>Cuando uses álgebra matricial, revisa dimensiones antes de multiplicar.</li>
+<li>En los ejercicios computacionales, entrega código reproducible y una interpretación breve.</li>
+<li>Si este taller se asigna como evaluable, la fecha y el formato de entrega se anunciarán por Teams.</li>
+</ul>
+<div class="box-cuidado">
+<p>No mezcles errores poblacionales con residuos estimados. Usa <span class="math inline">\(\epsilon_i\)</span> para el error poblacional y <span class="math inline">\(\hat{\epsilon}_i\)</span> para el residuo que se calcula después de estimar.</p>
+</div>
+</div>
+<div id="parte-a-álgebra-matricial" class="section level2 hasAnchor" number="25.3">
+<h2><span class="header-section-number">25.3</span> Parte A: Álgebra matricial<a href="#parte-a-%C3%A1lgebra-matricial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Sea <span class="math inline">\(\iota=(1,1,\ldots,1)&#39;\)</span> un vector <span class="math inline">\(n\times 1\)</span> de unos. Calcula <span class="math inline">\(\iota&#39;\iota\)</span>. Explica la dimensión del resultado.</p></li>
+<li><p>Sea <span class="math inline">\(y=(y_1,\ldots,y_n)&#39;\)</span>. Calcula <span class="math inline">\(\iota&#39;y\)</span> y muestra que:</p></li>
+</ol>
+<p><span class="math display">\[
+\bar{y}=\frac{\iota&#39;y}{\iota&#39;\iota}.
+\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Usa la fórmula de MCO para una regresión de <span class="math inline">\(y\)</span> contra una constante:</li>
+</ol>
+<p><span class="math display">\[
+y=\iota\beta_0+\epsilon.
+\]</span></p>
+<p>Muestra que:</p>
+<p><span class="math display">\[
+\hat{\beta}_0=(\iota&#39;\iota)^{-1}\iota&#39;y=\bar{y}.
+\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Sean <span class="math inline">\(x=(x_1,\ldots,x_n)&#39;\)</span> y <span class="math inline">\(y=(y_1,\ldots,y_n)&#39;\)</span>. Indica la dimensión y el significado de:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(x&#39;x\)</span><br />
+</li>
+<li><span class="math inline">\(xx&#39;\)</span><br />
+</li>
+<li><span class="math inline">\(x&#39;y\)</span></li>
+</ol></li>
+<li><p>Sea <span class="math inline">\(X\)</span> una matriz <span class="math inline">\(n\times K\)</span>. Define:</p></li>
+</ol>
+<p><span class="math display">\[
+P=X(X&#39;X)^{-1}X&#39;.
+\]</span></p>
+<p>Demuestra que <span class="math inline">\(PX=X\)</span>. Luego demuestra que <span class="math inline">\(P\)</span> es idempotente, es decir, <span class="math inline">\(P^2=P\)</span>.</p>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Sea <span class="math inline">\(a\)</span> un vector <span class="math inline">\(n\times 1\)</span> y <span class="math inline">\(x\)</span> un vector <span class="math inline">\(n\times 1\)</span>. Encuentra:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\frac{\partial a&#39;x}{\partial x}\)</span><br />
+</li>
+<li><span class="math inline">\(\frac{\partial x&#39;x}{\partial x}\)</span><br />
+</li>
+<li><span class="math inline">\(\frac{\partial x&#39;(aa&#39;)x}{\partial x}\)</span></li>
+</ol></li>
+</ol>
+</div>
+</div>
+<div id="parte-b-mco-en-sumas-y-matrices" class="section level2 hasAnchor" number="25.4">
+<h2><span class="header-section-number">25.4</span> Parte B: MCO en sumas y matrices<a href="problem-set-1.html#parte-b-mco-en-sumas-y-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>En un estudio sobre estudiantes becados y no becados se estima:</li>
+</ol>
+<p><span class="math display">\[
+y_i=\alpha+\beta B_i+\epsilon_i,
+\]</span></p>
+<p>donde <span class="math inline">\(B_i=1\)</span> si el estudiante es becado y <span class="math inline">\(B_i=0\)</span> si no lo es. Sean <span class="math inline">\(\bar{y}_{B1}\)</span> y <span class="math inline">\(\bar{y}_{B0}\)</span> las medias del promedio acumulado para becados y no becados, respectivamente. Demuestra que:</p>
+<p><span class="math display">\[
+\hat{\alpha}=\bar{y}_{B0},\qquad
+\hat{\beta}=\bar{y}_{B1}-\bar{y}_{B0}.
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Para el modelo anterior, escribe la hipótesis nula y la hipótesis alternativa para evaluar la afirmación: “los estudiantes becados obtienen, en promedio, un promedio acumulado mayor que los no becados”.</p></li>
+<li><p>Considera la regresión contra una constante:</p></li>
+</ol>
+<p><span class="math display">\[
+Y_i=\beta_0+\epsilon_i.
+\]</span></p>
+<p>Demuestra que el <span class="math inline">\(R^2\)</span> centrado de esta regresión es igual a cero.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Explica si un cambio en la unidad de medida de <span class="math inline">\(y\)</span> modifica el <span class="math inline">\(R^2\)</span>. Luego explica si un cambio en la unidad de medida de un regresor modifica el <span class="math inline">\(R^2\)</span>.</p></li>
+<li><p>En regresión lineal simple,</p></li>
+</ol>
+<p><span class="math display">\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]</span></p>
+<p>demuestra que:</p>
+<p><span class="math display">\[
+\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x}.
+\]</span></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Para el modelo sin constante:</li>
+</ol>
+<p><span class="math display">\[
+Y_i=\beta X_i+\epsilon_i,
+\]</span></p>
+<p>encuentra el estimador de MCO de <span class="math inline">\(\beta\)</span>. ¿Qué cambia respecto al modelo con constante?</p>
+<ol start="7" style="list-style-type: decimal">
+<li>Un estudiante estima:</li>
+</ol>
+<p><span class="math display">\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i
+\]</span></p>
+<p>y obtiene:</p>
+<p><span class="math display">\[
+\frac{1}{N}\sum_{i=1}^N x_iy_i=20,\quad
+\frac{1}{N}\sum_{i=1}^N x_i^2=10,\quad
+\bar{y}=8,\quad
+\bar{x}=3,\quad
+\hat{\beta}_0=1,\quad
+\hat{\beta}_1=-4.
+\]</span></p>
+<p>¿Son coherentes estos resultados con las ecuaciones normales de MCO? Justifica.</p>
+</div>
+</div>
+<div id="parte-c-modelos-lineales-dummies-e-interpretación" class="section level2 hasAnchor" number="25.5">
+<h2><span class="header-section-number">25.5</span> Parte C: Modelos lineales, dummies e interpretación<a href="#parte-c-modelos-lineales-dummies-e-interpretaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Clasifica cada modelo como lineal o no lineal en parámetros. Justifica:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Y_i=\beta_1X_{2i}^{\beta_2}X_{3i}^{\beta_3}+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Y_i=\beta_1+\beta_2X_{2i}+\frac{1}{\beta_3}X_{2i}+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Y_i=\beta_1+\beta_2\cos(2\pi t/12)+\beta_3\sin(2\pi t/12)+\epsilon_i\)</span></li>
+</ol></li>
+<li><p>Interpreta los siguientes coeficientes. Supón que salario está medido como salario por hora y educación en años:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(Salario_i=1250+66.31Edad_i+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Salario_i=-1086+533.51Educ_i+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(Salario_i)=6.54+0.1176Educ_i+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(Salario_i=-3263+3440\log(Educ_i)+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(Salario_i)=5.98+0.804\log(Educ_i)+\epsilon_i\)</span><br />
+</li>
+<li><span class="math inline">\(\log(Salario_i)=6.43+0.12Educ_i+0.17Hombre_i-0.10(Educ_i\times Hombre_i)+\epsilon_i\)</span></li>
+</ol></li>
+<li><p>El número de horas de lectura al día <span class="math inline">\(y\)</span> se estudia para tres grupos educativos. Se definen <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> y <span class="math inline">\(E_3\)</span> como dummies mutuamente excluyentes. Al estimar un modelo sin constante se obtiene:</p></li>
+</ol>
+<p><span class="math display">\[
+\hat{y}=10E_1+5E_2+2E_3.
+\]</span></p>
+<p>Muestra que esos coeficientes corresponden a las medias de cada grupo.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Explica qué ocurre si en el modelo anterior se incluye una constante y también las tres dummies <span class="math inline">\(E_1\)</span>, <span class="math inline">\(E_2\)</span> y <span class="math inline">\(E_3\)</span>. Propón una solución.</p></li>
+<li><p>Supón que se estima:</p></li>
+</ol>
+<p><span class="math display">\[
+y_i=\alpha+\beta E_{1i}+\delta Ingresos_i+\gamma(E_{1i}\times Ingresos_i)+\epsilon_i.
+\]</span></p>
+<p>Interpreta <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\delta\)</span> y <span class="math inline">\(\gamma\)</span>. ¿Qué permite estudiar la interacción?</p>
+</div>
+</div>
+<div id="parte-d-propiedades-supuestos-y-fwl" class="section level2 hasAnchor" number="25.6">
+<h2><span class="header-section-number">25.6</span> Parte D: Propiedades, supuestos y FWL<a href="problem-set-1.html#parte-d-propiedades-supuestos-y-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Considera el modelo <span class="math inline">\(y=X\beta+u\)</span>. Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y “mejor” dentro de una clase de estimadores.</p></li>
+<li><p>Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:</p>
+<ol style="list-style-type: lower-alpha">
+<li><span class="math inline">\(\mathbb{E}[(y_i-\bar{y})^2\mid X_i]=X_i^2\)</span><br />
+</li>
+<li><span class="math inline">\(X_i=[1,X_{1i},X_{2i},X_{1i}X_{2i}]\)</span><br />
+</li>
+<li><span class="math inline">\(X_i=[1,X_{1i},X_{2i},X_{1i}-X_{2i}]\)</span><br />
+</li>
+<li><span class="math inline">\(u_i\)</span> se distribuye lognormal.<br />
+</li>
+<li><span class="math inline">\(u_i=Z_i+\kappa_i\)</span>, con <span class="math inline">\(\mathbb{E}[Z_i\mid X_i]=c\)</span> y <span class="math inline">\(\mathbb{E}[\kappa_i\mid X_i]=0\)</span>.</li>
+</ol></li>
+<li><p>Considera una regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span>. Si luego estimas una regresión de <span class="math inline">\(Y\)</span> sobre una constante y <span class="math inline">\(\hat{Y}\)</span>, ¿cuál debe ser el intercepto? ¿Cuál debe ser la pendiente? ¿Cómo se relaciona el <span class="math inline">\(R^2\)</span> de esta regresión con el <span class="math inline">\(R^2\)</span> original?</p></li>
+<li><p>Si estimas una regresión de <span class="math inline">\(Y\)</span> sobre una constante y <span class="math inline">\(\hat{\epsilon}\)</span>, ¿qué esperas para el intercepto, la pendiente y el <span class="math inline">\(R^2\)</span>? Justifica usando las propiedades de los residuos de MCO.</p></li>
+<li><p>Considera:</p></li>
+</ol>
+<p><span class="math display">\[
+y=X_1\beta_1+X_2\beta_2+\epsilon,
+\]</span></p>
+<p>y define:</p>
+<p><span class="math display">\[
+M_2=I-X_2(X_2&#39;X_2)^{-1}X_2&#39;.
+\]</span></p>
+<p>Muestra que el coeficiente de <span class="math inline">\(X_1\)</span> en el modelo completo coincide con el coeficiente obtenido al regresar <span class="math inline">\(M_2y\)</span> sobre <span class="math inline">\(M_2X_1\)</span>. Explica la intuición de este resultado.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Supón que <span class="math inline">\(Z=XW\)</span>, donde <span class="math inline">\(W\)</span> es una matriz no singular. Demuestra que los residuos de la regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(X\)</span> y los de la regresión de <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(Z\)</span> son iguales. ¿Qué implica esto para cambios de unidades en los regresores?</li>
+</ol>
+</div>
+</div>
+<div id="parte-e-simulación-monte-carlo" class="section level2 hasAnchor" number="25.7">
+<h2><span class="header-section-number">25.7</span> Parte E: Simulación Monte Carlo<a href="#parte-e-simulaci%C3%B3n-monte-carlo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Esta parte reproduce la idea computacional del taller histórico: estudiar insesgadez, varianza y consistencia simulando muchas muestras.</p>
+<div class="box-ejemplo">
+<p>El proceso generador de datos será:</p>
+<p><span class="math display">\[
+y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
+\]</span></p>
+<p>con <span class="math inline">\(x_i\)</span> generado de una distribución uniforme entre 3 y 10.</p>
+</div>
+<div id="preguntas" class="section level3 hasAnchor" number="25.7.1">
+<h3><span class="header-section-number">25.7.1</span> Preguntas<a href="problem-set-1.html#preguntas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Genera 1000 muestras de tamaño <span class="math inline">\(n=150\)</span>. En cada muestra estima una regresión de <span class="math inline">\(y_i\)</span> sobre <span class="math inline">\(x_i\)</span> sin constante.</li>
+<li>Calcula la media y la desviación estándar de las 1000 estimaciones de <span class="math inline">\(\hat{\beta}\)</span>. ¿Qué sugieren sobre insesgadez y varianza?</li>
+<li>Repite el ejercicio con <span class="math inline">\(n=1000\)</span>. ¿Qué cambia? ¿Qué sugiere sobre consistencia?</li>
+<li>Grafica la distribución de <span class="math inline">\(\hat{\beta}\)</span> para <span class="math inline">\(n=150\)</span> y <span class="math inline">\(n=1000\)</span>. Compara visualmente.</li>
+</ol>
+</div>
+</div>
+<div id="código-base-en-r" class="section level3 hasAnchor" number="25.7.2">
+<h3><span class="header-section-number">25.7.2</span> Código base en R<a href="#c%C3%B3digo-base-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="código-base-en-stata" class="section level3 hasAnchor" number="25.7.3">
+<h3><span class="header-section-number">25.7.3</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb70"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb70-1"><a href="problem-set-1.html#cb70-1" tabindex="-1"></a><span class="kw">capture</span> <span class="kw">program</span> <span class="kw">drop</span> sim_mco</span>
+<span id="cb70-2"><a href="problem-set-1.html#cb70-2" tabindex="-1"></a><span class="kw">program</span> <span class="kw">define</span> sim_mco, rclass</span>
+<span id="cb70-3"><a href="problem-set-1.html#cb70-3" tabindex="-1"></a>    <span class="kw">clear</span></span>
+<span id="cb70-4"><a href="problem-set-1.html#cb70-4" tabindex="-1"></a>    <span class="kw">set</span> <span class="kw">obs</span> 150</span>
+<span id="cb70-5"><a href="problem-set-1.html#cb70-5" tabindex="-1"></a>    <span class="kw">gen</span> x = runiform(3, 10)</span>
+<span id="cb70-6"><a href="problem-set-1.html#cb70-6" tabindex="-1"></a>    <span class="kw">gen</span> epsilon = rnormal(0, 1)</span>
+<span id="cb70-7"><a href="problem-set-1.html#cb70-7" tabindex="-1"></a>    <span class="kw">gen</span> <span class="fu">y</span> = 2.5*x + epsilon</span>
+<span id="cb70-8"><a href="problem-set-1.html#cb70-8" tabindex="-1"></a>    <span class="kw">regress</span> <span class="fu">y</span> x, <span class="kw">noconstant</span></span>
+<span id="cb70-9"><a href="problem-set-1.html#cb70-9" tabindex="-1"></a>    <span class="fu">return</span> <span class="fu">scalar</span> beta = _b[x]</span>
+<span id="cb70-10"><a href="problem-set-1.html#cb70-10" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb70-11"><a href="problem-set-1.html#cb70-11" tabindex="-1"></a></span>
+<span id="cb70-12"><a href="problem-set-1.html#cb70-12" tabindex="-1"></a><span class="kw">simulate</span> beta = <span class="fu">r</span>(beta), reps(1000) <span class="dv">seed</span>(123): sim_mco</span>
+<span id="cb70-13"><a href="problem-set-1.html#cb70-13" tabindex="-1"></a><span class="kw">summarize</span> beta</span></code></pre></div>
+</div>
+<div id="código-base-en-python" class="section level3 hasAnchor" number="25.7.4">
+<h3><span class="header-section-number">25.7.4</span> Código base en Python<a href="#c%C3%B3digo-base-en-python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="problem-set-1.html#cb71-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb71-2"><a href="problem-set-1.html#cb71-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb71-3"><a href="problem-set-1.html#cb71-3" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="problem-set-1.html#cb71-4" tabindex="-1"></a><span class="kw">def</span> simular_beta(n, reps<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span><span class="dv">123</span>):</span>
+<span id="cb71-5"><a href="problem-set-1.html#cb71-5" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb71-6"><a href="problem-set-1.html#cb71-6" tabindex="-1"></a>    betas <span class="op">=</span> []</span>
+<span id="cb71-7"><a href="problem-set-1.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="problem-set-1.html#cb71-8" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(reps):</span>
+<span id="cb71-9"><a href="problem-set-1.html#cb71-9" tabindex="-1"></a>        x <span class="op">=</span> rng.uniform(<span class="dv">3</span>, <span class="dv">10</span>, n)</span>
+<span id="cb71-10"><a href="problem-set-1.html#cb71-10" tabindex="-1"></a>        epsilon <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb71-11"><a href="problem-set-1.html#cb71-11" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">2.5</span> <span class="op">*</span> x <span class="op">+</span> epsilon</span>
+<span id="cb71-12"><a href="problem-set-1.html#cb71-12" tabindex="-1"></a>        modelo <span class="op">=</span> sm.OLS(y, x).fit()</span>
+<span id="cb71-13"><a href="problem-set-1.html#cb71-13" tabindex="-1"></a>        betas.append(modelo.params[<span class="dv">0</span>])</span>
+<span id="cb71-14"><a href="problem-set-1.html#cb71-14" tabindex="-1"></a></span>
+<span id="cb71-15"><a href="problem-set-1.html#cb71-15" tabindex="-1"></a>    <span class="cf">return</span> np.array(betas)</span>
+<span id="cb71-16"><a href="problem-set-1.html#cb71-16" tabindex="-1"></a></span>
+<span id="cb71-17"><a href="problem-set-1.html#cb71-17" tabindex="-1"></a>beta_150 <span class="op">=</span> simular_beta(<span class="dv">150</span>)</span>
+<span id="cb71-18"><a href="problem-set-1.html#cb71-18" tabindex="-1"></a>beta_1000 <span class="op">=</span> simular_beta(<span class="dv">1000</span>)</span>
+<span id="cb71-19"><a href="problem-set-1.html#cb71-19" tabindex="-1"></a></span>
+<span id="cb71-20"><a href="problem-set-1.html#cb71-20" tabindex="-1"></a><span class="bu">print</span>(beta_150.mean(), beta_150.std(ddof<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb71-21"><a href="problem-set-1.html#cb71-21" tabindex="-1"></a><span class="bu">print</span>(beta_1000.mean(), beta_1000.std(ddof<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="cierre" class="section level2 hasAnchor" number="25.8">
+<h2><span class="header-section-number">25.8</span> Cierre<a href="problem-set-1.html#cierre" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<p>Este taller conecta la mecánica de MCO con su interpretación. Si puedes resolverlo con calma, ya tienes una base sólida para estudiar propiedades, FWL, pruebas de hipótesis y problemas como multicolinealidad o heterocedasticidad.</p>
+</div>
+<p><a href="problem-sets.html#problem-sets">← Volver al índice de problem sets</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="problem-sets.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="problem-set-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/17-ProblemSet1.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

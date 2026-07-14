@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 29 Problem Set 5: Variable dependiente binaria y series de tiempo | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 29 Problem Set 5: Variable dependiente binaria y series de tiempo | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 29 Problem Set 5: Variable dependiente binaria y series de tiempo | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="problem-set-4.html"/>
+<link rel="next" href="parcial-1-2026-1.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad</a></li>
+<li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a></li>
+<li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a></li>
+<li class="chapter" data-level="22" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>22</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="23" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>23</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="24" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>24</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="25" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>25</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="26" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>26</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="27" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>27</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>28</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>29</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="30" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>30</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="problem-set-5" class="section level1 hasAnchor" number="29">
+<h1><span class="header-section-number">Capítulo 29</span> Problem Set 5: Variable dependiente binaria y series de tiempo<a href="problem-set-5.html#problem-set-5" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este taller integra los dos últimos bloques del curso: modelos con variable dependiente binaria y una introducción a series de tiempo. Respeta el orden del curso: primero variable dependiente binaria y después series.</p>
+<div class="box-intuicion">
+<p>En variable binaria, el resultado ya no es una cantidad continua sino una probabilidad. En series de tiempo, las observaciones ya no son intercambiables en el tiempo. En ambos casos, hay que ajustar la forma de pensar el modelo y la interpretación.</p>
+</div>
+<div id="objetivos-del-taller-4" class="section level2 hasAnchor" number="29.1">
+<h2><span class="header-section-number">29.1</span> Objetivos del taller<a href="problem-set-5.html#objetivos-del-taller-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar este problem set podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Comparar el modelo de probabilidad lineal con logit y probit.</li>
+<li>Escribir e interpretar funciones de verosimilitud para variables binarias.</li>
+<li>Calcular e interpretar efectos marginales.</li>
+<li>Reconocer estacionariedad débil, raíz unitaria, ACF y PACF.</li>
+<li>Usar modelos AR para interpretar persistencia y hacer predicciones simples.</li>
+</ol>
+</div>
+<div id="instrucciones-4" class="section level2 hasAnchor" number="29.2">
+<h2><span class="header-section-number">29.2</span> Instrucciones<a href="problem-set-5.html#instrucciones-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>En modelos binarios, interpreta cambios en probabilidades, no solo coeficientes.</li>
+<li>En series de tiempo, justifica siempre si estás hablando de estacionariedad, persistencia o predicción.</li>
+<li>Cuando una pregunta sea aplicada, acompaña la fórmula con una frase de interpretación.</li>
+</ul>
+<div class="box-cuidado">
+<p>En logit y probit, el signo del coeficiente sí indica la dirección del efecto sobre la probabilidad, pero su magnitud no es directamente un cambio en puntos porcentuales. Para eso necesitas efectos marginales o cambios discretos en probabilidad.</p>
+</div>
+</div>
+<div id="parte-a-probit-con-regresor-binario" class="section level2 hasAnchor" number="29.3">
+<h2><span class="header-section-number">29.3</span> Parte A: Probit con regresor binario<a href="problem-set-5.html#parte-a-probit-con-regresor-binario" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>Supón que quieres estimar un modelo probit donde la única variable explicativa <span class="math inline">\(X_i\)</span> es binaria:</p>
+<p><span class="math display">\[
+\Pr(Y_i=1\mid X_i)=\Phi(\beta_0+\beta_1X_i).
+\]</span></p>
+<p>Define:</p>
+<p><span class="math display">\[
+P_1=\Pr(Y_i=1\mid X_i=1),\qquad P_0=\Pr(Y_i=1\mid X_i=0).
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Escribe las cuatro probabilidades posibles: <span class="math inline">\(\Pr(Y=1\mid X=1)\)</span>, <span class="math inline">\(\Pr(Y=0\mid X=1)\)</span>, <span class="math inline">\(\Pr(Y=1\mid X=0)\)</span> y <span class="math inline">\(\Pr(Y=0\mid X=0)\)</span>.</p></li>
+<li><p>Supón que hay <span class="math inline">\(N_{11}\)</span>, <span class="math inline">\(N_{10}\)</span>, <span class="math inline">\(N_{01}\)</span> y <span class="math inline">\(N_{00}\)</span> observaciones en las cuatro celdas. Escribe la función de verosimilitud en términos de <span class="math inline">\(P_1\)</span>, <span class="math inline">\(P_0\)</span> y esos conteos.</p></li>
+<li><p>Deriva las condiciones de primer orden con respecto a <span class="math inline">\(P_1\)</span> y <span class="math inline">\(P_0\)</span>. ¿Qué probabilidades estiman?</p></li>
+<li><p>¿Cuál es el efecto marginal discreto de pasar de <span class="math inline">\(X=0\)</span> a <span class="math inline">\(X=1\)</span>?</p></li>
+<li><p>Compara este resultado con el estimador de <span class="math inline">\(\beta_1\)</span> en el modelo de probabilidad lineal:</p></li>
+</ol>
+<p><span class="math display">\[
+Y_i=\beta_0+\beta_1X_i+\epsilon_i.
+\]</span></p>
+</div>
+</div>
+<div id="parte-b-logit-odds-y-efectos-marginales" class="section level2 hasAnchor" number="29.4">
+<h2><span class="header-section-number">29.4</span> Parte B: Logit, odds y efectos marginales<a href="problem-set-5.html#parte-b-logit-odds-y-efectos-marginales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>Considera el modelo logit:</p>
+<p><span class="math display">\[
+\log\left(\frac{P(Y_i=1\mid X_i)}{1-P(Y_i=1\mid X_i)}\right)
+=\beta_0+\beta_1X_{1i}+\beta_2X_{2i}.
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>Escribe la probabilidad <span class="math inline">\(P(Y_i=1\mid X_i)\)</span> como función de <span class="math inline">\(X_i\beta\)</span>.</p></li>
+<li><p>Escribe la contribución individual a la verosimilitud para una observación con <span class="math inline">\(Y_i=1\)</span> y para una observación con <span class="math inline">\(Y_i=0\)</span>.</p></li>
+<li><p>Explica cómo interpretar <span class="math inline">\(\beta_1\)</span> en términos de log-odds.</p></li>
+<li><p>Explica por qué los efectos marginales son más útiles que los coeficientes brutos para comunicar resultados.</p></li>
+<li><p>Supón que una salida logit reporta <span class="math inline">\(\hat{\beta}_1=0.345\)</span> y <span class="math inline">\(\hat{\beta}_2=-0.276\)</span>. ¿Qué puedes decir sobre la dirección de los efectos? ¿Qué información adicional necesitas para calcular efectos marginales?</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-c-modelo-latente-e-interacciones" class="section level2 hasAnchor" number="29.5">
+<h2><span class="header-section-number">29.5</span> Parte C: Modelo latente e interacciones<a href="problem-set-5.html#parte-c-modelo-latente-e-interacciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>Considera el modelo latente:</p>
+<p><span class="math display">\[
+y_i^*=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i,
+\]</span></p>
+<p>con:</p>
+<p><span class="math display">\[
+y_i=1\quad \text{si }y_i^*&gt;0,
+\qquad
+y_i=0\quad \text{si }y_i^*\leq 0.
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li>Escribe <span class="math inline">\(\Pr(y_i=1\mid X_i)\)</span> para un modelo probit.</li>
+<li>Encuentra la expresión del efecto marginal de <span class="math inline">\(X_2\)</span> sobre la probabilidad.</li>
+<li>Discute por qué el efecto de la interacción no se interpreta solo mirando <span class="math inline">\(\beta_4\)</span>.</li>
+<li>Plantea cómo calcularías:</li>
+</ol>
+<p><span class="math display">\[
+\frac{\partial^2 \Pr(y=1\mid X)}{\partial X_2\partial X_3}.
+\]</span></p>
+</div>
+</div>
+<div id="parte-d-aplicación-a-deserción-escolar" class="section level2 hasAnchor" number="29.6">
+<h2><span class="header-section-number">29.6</span> Parte D: Aplicación a deserción escolar<a href="#parte-d-aplicaci%C3%B3n-a-deserci%C3%B3n-escolar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 años. La variable dependiente <span class="math inline">\(DESERTA\)</span> vale 1 si la persona no asiste a secundaria. Las covariables disponibles son edad, sexo, número de hermanos, logaritmo del ingreso per cápita familiar, jefatura femenina del hogar y educación máxima de los padres.</p>
+<ol style="list-style-type: decimal">
+<li>Escribe un modelo probit para la probabilidad de deserción.</li>
+<li>¿Qué signos esperarías para ingreso familiar y educación máxima de los padres? Justifica.</li>
+<li>Explica cómo calcularías efectos marginales en las medias y por qué también puede ser útil calcularlos para perfiles específicos.</li>
+<li>Repite conceptualmente el análisis con MPL y logit. ¿Qué similitudes y diferencias esperarías?</li>
+<li>Plantea una simulación de política: ¿cómo calcularías el cambio en probabilidad de deserción ante un subsidio que aumenta el ingreso familiar?</li>
+</ol>
+</div>
+</div>
+<div id="parte-e-series-de-tiempo-acf-y-pacf" class="section level2 hasAnchor" number="29.7">
+<h2><span class="header-section-number">29.7</span> Parte E: Series de tiempo, ACF y PACF<a href="problem-set-5.html#parte-e-series-de-tiempo-acf-y-pacf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Define estacionariedad débil. ¿Qué condiciones deben ser independientes del tiempo?</p></li>
+<li><p>¿Qué significa que una serie sea integrada de orden <span class="math inline">\(d\)</span>? Si una serie es <span class="math inline">\(I(3)\)</span>, ¿cuántas veces debe diferenciarse para volverla estacionaria?</p></li>
+<li><p>Explica qué es una raíz unitaria y por qué importa para inferencia y predicción.</p></li>
+<li><p>¿Qué son las pruebas Dickey-Fuller y Dickey-Fuller aumentada?</p></li>
+<li><p>Explica qué puede ocurrir si se aplican técnicas Box-Jenkins a series no estacionarias.</p></li>
+<li><p>¿En qué sentido un VAR puede considerarse ateórico? ¿Cuál es la conexión entre causalidad de Granger y modelos VAR?</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-f-modelos-autorregresivos-y-predicción" class="section level2 hasAnchor" number="29.8">
+<h2><span class="header-section-number">29.8</span> Parte F: Modelos autorregresivos y predicción<a href="#parte-f-modelos-autorregresivos-y-predicci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Considera:</li>
+</ol>
+<p><span class="math display">\[
+y_t=\epsilon_t+\theta_1y_{t-1}+\theta_2y_{t-2},
+\qquad \epsilon_t\sim iid(0,\sigma_\epsilon^2).
+\]</span></p>
+<p>Explica qué condiciones se requieren para que la media y la varianza de <span class="math inline">\(y_t\)</span> no dependan del tiempo.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Un investigador calcula la ACF de una serie de desempleo y obtiene:</li>
+</ol>
+<table style="width:100%;">
+<colgroup>
+<col width="6%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rezago</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ACF</td>
+<td align="right">0.83</td>
+<td align="right">0.71</td>
+<td align="right">0.60</td>
+<td align="right">0.45</td>
+<td align="right">0.44</td>
+<td align="right">0.35</td>
+<td align="right">0.29</td>
+<td align="right">0.20</td>
+<td align="right">0.11</td>
+<td align="right">-0.01</td>
+</tr>
+</tbody>
+</table>
+<p>Interpreta el patrón. ¿Sugiere un proceso autorregresivo o de promedio móvil?</p>
+<ol start="3" style="list-style-type: decimal">
+<li>La PACF correspondiente es:</li>
+</ol>
+<table style="width:100%;">
+<colgroup>
+<col width="6%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Rezago</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+<th align="right">5</th>
+<th align="right">6</th>
+<th align="right">7</th>
+<th align="right">8</th>
+<th align="right">9</th>
+<th align="right">10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PACF</td>
+<td align="right">0.83</td>
+<td align="right">0.16</td>
+<td align="right">-0.09</td>
+<td align="right">0.05</td>
+<td align="right">0.04</td>
+<td align="right">-0.05</td>
+<td align="right">0.01</td>
+<td align="right">0.10</td>
+<td align="right">-0.03</td>
+<td align="right">-0.01</td>
+</tr>
+</tbody>
+</table>
+<p>¿Cómo cambia tu diagnóstico?</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Se estima:</li>
+</ol>
+<p><span class="math display">\[
+Y_t=\delta+\theta Y_{t-1}+\epsilon_t,
+\]</span></p>
+<p>con <span class="math inline">\(\hat{\theta}=0.83\)</span> y error estándar 0.07. Formula la hipótesis de raíz unitaria y discute por qué no basta con aplicar mecánicamente una prueba <span class="math inline">\(t\)</span> convencional.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Ahora se estima:</li>
+</ol>
+<p><span class="math display">\[
+Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
+\]</span></p>
+<p>Calcula la media de largo plazo si el proceso es estacionario. Luego, usando <span class="math inline">\(Y_{1996-III}=550\)</span> y <span class="math inline">\(Y_{1996-IV}=600\)</span>, calcula las predicciones para 1997-I y 1997-II.</p>
+</div>
+</div>
+<div id="parte-g-código-base" class="section level2 hasAnchor" number="29.9">
+<h2><span class="header-section-number">29.9</span> Parte G: Código base<a href="#parte-g-c%C3%B3digo-base" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="variable-dependiente-binaria-en-r" class="section level3 hasAnchor" number="29.9.1">
+<h3><span class="header-section-number">29.9.1</span> Variable dependiente binaria en R<a href="problem-set-5.html#variable-dependiente-binaria-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="serie-ar1-en-r" class="section level3 hasAnchor" number="29.9.2">
+<h3><span class="header-section-number">29.9.2</span> Serie AR(1) en R<a href="problem-set-5.html#serie-ar1-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="cierre-4" class="section level2 hasAnchor" number="29.10">
+<h2><span class="header-section-number">29.10</span> Cierre<a href="problem-set-5.html#cierre-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<p>Este taller junta dos cambios de lenguaje. Con variable binaria hablamos en probabilidades y efectos marginales; con series hablamos en dependencia temporal, persistencia y estacionariedad. En ambos casos, la interpretación correcta depende de respetar la estructura de los datos.</p>
+</div>
+<p><a href="problem-sets.html#problem-sets">← Volver al índice de problem sets</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="problem-set-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="parcial-1-2026-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/21-ProblemSet5.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

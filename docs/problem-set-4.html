@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 28 Problem Set 4: Endogeneidad y variables instrumentales | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 28 Problem Set 4: Endogeneidad y variables instrumentales | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 28 Problem Set 4: Endogeneidad y variables instrumentales | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-07-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="problem-set-3.html"/>
+<link rel="next" href="problem-set-5.html"/>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad</a></li>
+<li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a></li>
+<li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a></li>
+<li class="chapter" data-level="22" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>22</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="23" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>23</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="24" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>24</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="25" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>25</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="26" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>26</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="27" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>27</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>28</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>29</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="30" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>30</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="problem-set-4" class="section level1 hasAnchor" number="28">
+<h1><span class="header-section-number">Capítulo 28</span> Problem Set 4: Endogeneidad y variables instrumentales<a href="problem-set-4.html#problem-set-4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este taller integra las fuentes de endogeneidad y el uso de variables instrumentales. Está pensado para resolverse después de estudiar los capítulos 12 y 13.</p>
+<div class="box-intuicion">
+<p>La pregunta central no es si una variable “explica” a otra, sino si la variación que estamos usando para estimar el efecto puede interpretarse como exógena. Las variables instrumentales buscan aislar una parte de la variación del regresor que no esté contaminada por el error.</p>
+</div>
+<div id="objetivos-del-taller-3" class="section level2 hasAnchor" number="28.1">
+<h2><span class="header-section-number">28.1</span> Objetivos del taller<a href="problem-set-4.html#objetivos-del-taller-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al finalizar este problem set podrás:</p>
+<ol style="list-style-type: decimal">
+<li>Identificar fuentes de endogeneidad en modelos aplicados.</li>
+<li>Formalizar sesgo por variables omitidas y error de medición.</li>
+<li>Evaluar relevancia y exogeneidad de un instrumento.</li>
+<li>Escribir primera etapa, forma reducida y segunda etapa.</li>
+<li>Demostrar la equivalencia entre IV y 2SLS en el caso exactamente identificado.</li>
+</ol>
+</div>
+<div id="instrucciones-3" class="section level2 hasAnchor" number="28.2">
+<h2><span class="header-section-number">28.2</span> Instrucciones<a href="problem-set-4.html#instrucciones-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>En cada ejercicio, identifica primero cuál es el parámetro causal de interés.</li>
+<li>No basta con proponer un instrumento: debes discutir relevancia y exogeneidad.</li>
+<li>Si una condición no se puede probar directamente, explica qué evidencia indirecta sería útil.</li>
+</ul>
+<div class="box-cuidado">
+<p>Un instrumento fuerte no necesariamente es válido. La relevancia se puede diagnosticar con la primera etapa; la exogeneidad requiere argumento económico, diseño institucional o pruebas indirectas cuando hay sobreidentificación.</p>
+</div>
+</div>
+<div id="parte-a-endogeneidad-en-salud-y-ejercicio" class="section level2 hasAnchor" number="28.3">
+<h2><span class="header-section-number">28.3</span> Parte A: Endogeneidad en salud y ejercicio<a href="problem-set-4.html#parte-a-endogeneidad-en-salud-y-ejercicio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>Considera el modelo:</p>
+<p><span class="math display">\[
+salud_i=\beta_0+\beta_1edad_i+\beta_2peso_i+\beta_3altura_i+\beta_4hombre_i+\beta_5trabajo_i+\beta_6ejercicio_i+\epsilon_i.
+\]</span></p>
+<p>La variable <span class="math inline">\(ejercicio_i\)</span> mide horas de ejercicio a la semana.</p>
+<ol style="list-style-type: decimal">
+<li>Explica por qué <span class="math inline">\(ejercicio_i\)</span> podría estar correlacionada con <span class="math inline">\(\epsilon_i\)</span>.</li>
+<li>Supón que tienes acceso a dos variables: distancia de la casa al gimnasio más cercano y distancia del trabajo al gimnasio más cercano. ¿Podrían ser buenos instrumentos? Discute relevancia y exogeneidad.</li>
+<li>Si son instrumentos válidos, escribe la primera etapa para <span class="math inline">\(ejercicio_i\)</span>.</li>
+<li>Escribe la segunda etapa y explica qué parámetro identifica.</li>
+<li>¿Cómo podrías evaluar empíricamente la relevancia de los instrumentos? ¿Qué parte de la validez no puedes probar directamente?</li>
+</ol>
+</div>
+</div>
+<div id="parte-b-educación-y-salarios" class="section level2 hasAnchor" number="28.4">
+<h2><span class="header-section-number">28.4</span> Parte B: Educación y salarios<a href="#parte-b-educaci%C3%B3n-y-salarios" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Explica por qué al estimar el efecto de años de educación sobre salarios por MCO el coeficiente de educación puede estar sesgado. Discute al menos dos canales.</p></li>
+<li><p>Formaliza el sesgo por variable omitida en:</p></li>
+</ol>
+<p><span class="math display">\[
+\log(wage_i)=\beta_0+\beta_1educ_i+u_i,
+\]</span></p>
+<p>cuando <span class="math inline">\(u_i\)</span> contiene habilidad no observada.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>¿Esperarías que el sesgo de <span class="math inline">\(\hat{\beta}_{educ}\)</span> sea positivo o negativo? Justifica con un argumento económico y con covarianzas.</p></li>
+<li><p>Supón que se propone como instrumento una variable <span class="math inline">\(Z_i\)</span> que indica cercanía a una universidad. Escribe las dos condiciones básicas que debe cumplir:</p></li>
+</ol>
+<p><span class="math display">\[
+\operatorname{Cov}(Z_i,educ_i)\neq 0,
+\qquad
+\operatorname{Cov}(Z_i,u_i)=0.
+\]</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li>¿Qué argumentos podrían apoyar o debilitar la exogeneidad de la cercanía a una universidad?</li>
+</ol>
+</div>
+</div>
+<div id="parte-c-primera-etapa-e-instrumentos-débiles" class="section level2 hasAnchor" number="28.5">
+<h2><span class="header-section-number">28.5</span> Parte C: Primera etapa e instrumentos débiles<a href="#parte-c-primera-etapa-e-instrumentos-d%C3%A9biles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejemplo">
+<p>Una primera etapa para educación produce un coeficiente de 0.3199 sobre distancia/cercanía a universidad, con error estándar 0.0879 y estadístico <span class="math inline">\(t=3.64\)</span>.</p>
+</div>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li><p>Calcula el estadístico <span class="math inline">\(F\)</span> del instrumento excluido cuando hay un solo instrumento excluido. Pista: en ese caso <span class="math inline">\(F=t^2\)</span>.</p></li>
+<li><p>Interpreta el valor obtenido. ¿Qué sugiere sobre relevancia?</p></li>
+<li><p>Explica por qué un instrumento débil puede producir inferencia engañosa incluso si el instrumento es exógeno.</p></li>
+<li><p>Si hubiera varios instrumentos excluidos, ¿qué prueba mirarías para evaluar relevancia conjunta?</p></li>
+<li><p>¿Qué reportarías en una tabla empírica para que el lector evalúe la fuerza de los instrumentos?</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-d-iv-y-2sls" class="section level2 hasAnchor" number="28.6">
+<h2><span class="header-section-number">28.6</span> Parte D: IV y 2SLS<a href="problem-set-4.html#parte-d-iv-y-2sls" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Considera el modelo estructural:</li>
+</ol>
+<p><span class="math display">\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]</span></p>
+<p>con <span class="math inline">\(x_i\)</span> endógeno y un instrumento <span class="math inline">\(z_i\)</span>. Escribe el estimador IV para el caso exactamente identificado.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Escribe la primera etapa:</li>
+</ol>
+<p><span class="math display">\[
+x_i=\pi_0+\pi_1z_i+v_i.
+\]</span></p>
+<p>Luego escribe la segunda etapa usando <span class="math inline">\(\hat{x}_i\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Demuestra que, en el caso exactamente identificado, el estimador de IV coincide con el estimador de MCO en dos etapas.</p></li>
+<li><p>Explica por qué no se deben usar los errores estándar de una segunda etapa hecha “a mano” sin corrección.</p></li>
+<li><p>Compara conceptualmente MCO, IV y 2SLS: ¿qué variación de <span class="math inline">\(x\)</span> usa cada método?</p></li>
+</ol>
+</div>
+</div>
+<div id="parte-e-error-de-medición" class="section level2 hasAnchor" number="28.7">
+<h2><span class="header-section-number">28.7</span> Parte E: Error de medición<a href="#parte-e-error-de-medici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<p>Sea:</p>
+<p><span class="math display">\[
+y=x\beta+u,
+\]</span></p>
+<p>pero observamos:</p>
+<p><span class="math display">\[
+y^*=y+w,\qquad x^*=x+v.
+\]</span></p>
+<p>Asume que <span class="math inline">\(v\)</span>, <span class="math inline">\(w\)</span>, <span class="math inline">\(x\)</span> y <span class="math inline">\(u\)</span> cumplen condiciones de covarianza cero salvo por la relación estructural entre <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Encuentra el límite en probabilidad del coeficiente de la regresión de <span class="math inline">\(y^*\)</span> sobre <span class="math inline">\(x^*\)</span>.</li>
+<li>Explica el efecto del error de medición en <span class="math inline">\(x\)</span> sobre signo y magnitud del estimador.</li>
+<li>Explica el efecto del error de medición clásico en <span class="math inline">\(y\)</span>. ¿Sesga la pendiente? ¿Qué cambia?</li>
+<li>Propón un instrumento posible para <span class="math inline">\(x^*\)</span>. ¿Qué condiciones debería cumplir?</li>
+</ol>
+</div>
+</div>
+<div id="parte-f-simulación-reproducible" class="section level2 hasAnchor" number="28.8">
+<h2><span class="header-section-number">28.8</span> Parte F: Simulación reproducible<a href="#parte-f-simulaci%C3%B3n-reproducible" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-ejercicios">
+<ol style="list-style-type: decimal">
+<li>Simula un modelo con una variable omitida <span class="math inline">\(a_i\)</span> que afecta tanto educación como salarios.</li>
+<li>Estima por MCO y luego por IV usando un instrumento <span class="math inline">\(z_i\)</span> que afecta educación pero no salarios directamente.</li>
+<li>Compara los coeficientes estimados.</li>
+<li>Repite el ejercicio haciendo que el instrumento sea débil. ¿Qué cambia?</li>
+</ol>
+</div>
+<div id="código-base-en-r-4" class="section level3 hasAnchor" number="28.8.1">
+<h3><span class="header-section-number">28.8.1</span> Código base en R<a href="#c%C3%B3digo-base-en-r-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="código-base-en-stata-3" class="section level3 hasAnchor" number="28.8.2">
+<h3><span class="header-section-number">28.8.2</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb76"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb76-1"><a href="problem-set-4.html#cb76-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb76-2"><a href="problem-set-4.html#cb76-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
+<span id="cb76-3"><a href="problem-set-4.html#cb76-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 1000</span>
+<span id="cb76-4"><a href="problem-set-4.html#cb76-4" tabindex="-1"></a><span class="kw">gen</span> z = rnormal()</span>
+<span id="cb76-5"><a href="problem-set-4.html#cb76-5" tabindex="-1"></a><span class="kw">gen</span> a = rnormal()</span>
+<span id="cb76-6"><a href="problem-set-4.html#cb76-6" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.8*z + 0.7*a + rnormal()</span>
+<span id="cb76-7"><a href="problem-set-4.html#cb76-7" tabindex="-1"></a><span class="kw">gen</span> lwage = 1 + 0.10*educ + 0.5*a + rnormal()</span>
+<span id="cb76-8"><a href="problem-set-4.html#cb76-8" tabindex="-1"></a></span>
+<span id="cb76-9"><a href="problem-set-4.html#cb76-9" tabindex="-1"></a><span class="kw">regress</span> lwage educ</span>
+<span id="cb76-10"><a href="problem-set-4.html#cb76-10" tabindex="-1"></a><span class="kw">regress</span> educ z</span>
+<span id="cb76-11"><a href="problem-set-4.html#cb76-11" tabindex="-1"></a>ivregress 2sls lwage (educ = z)</span>
+<span id="cb76-12"><a href="problem-set-4.html#cb76-12" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
+</div>
+<div id="código-base-en-python-3" class="section level3 hasAnchor" number="28.8.3">
+<h3><span class="header-section-number">28.8.3</span> Código base en Python<a href="#c%C3%B3digo-base-en-python-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb77"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb77-1"><a href="problem-set-4.html#cb77-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb77-2"><a href="problem-set-4.html#cb77-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb77-3"><a href="problem-set-4.html#cb77-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb77-4"><a href="problem-set-4.html#cb77-4" tabindex="-1"></a></span>
+<span id="cb77-5"><a href="problem-set-4.html#cb77-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
+<span id="cb77-6"><a href="problem-set-4.html#cb77-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb77-7"><a href="problem-set-4.html#cb77-7" tabindex="-1"></a>z <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb77-8"><a href="problem-set-4.html#cb77-8" tabindex="-1"></a>a <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb77-9"><a href="problem-set-4.html#cb77-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>z <span class="op">+</span> <span class="fl">0.7</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb77-10"><a href="problem-set-4.html#cb77-10" tabindex="-1"></a>lwage <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb77-11"><a href="problem-set-4.html#cb77-11" tabindex="-1"></a></span>
+<span id="cb77-12"><a href="problem-set-4.html#cb77-12" tabindex="-1"></a>X_mco <span class="op">=</span> sm.add_constant(educ)</span>
+<span id="cb77-13"><a href="problem-set-4.html#cb77-13" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_mco).fit().summary())</span>
+<span id="cb77-14"><a href="problem-set-4.html#cb77-14" tabindex="-1"></a></span>
+<span id="cb77-15"><a href="problem-set-4.html#cb77-15" tabindex="-1"></a>X_first <span class="op">=</span> sm.add_constant(z)</span>
+<span id="cb77-16"><a href="problem-set-4.html#cb77-16" tabindex="-1"></a>first <span class="op">=</span> sm.OLS(educ, X_first).fit()</span>
+<span id="cb77-17"><a href="problem-set-4.html#cb77-17" tabindex="-1"></a>educ_hat <span class="op">=</span> first.fittedvalues</span>
+<span id="cb77-18"><a href="problem-set-4.html#cb77-18" tabindex="-1"></a>X_second <span class="op">=</span> sm.add_constant(educ_hat)</span>
+<span id="cb77-19"><a href="problem-set-4.html#cb77-19" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_second).fit().summary())</span></code></pre></div>
+</div>
+</div>
+<div id="cierre-3" class="section level2 hasAnchor" number="28.9">
+<h2><span class="header-section-number">28.9</span> Cierre<a href="problem-set-4.html#cierre-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="box-resumen">
+<p>Este taller insiste en una idea: IV no corrige cualquier problema automáticamente. Funciona cuando el instrumento genera variación relevante en el regresor endógeno y esa variación puede defenderse como exógena respecto al resultado.</p>
+</div>
+<p><a href="problem-sets.html#problem-sets">← Volver al índice de problem sets</a></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="problem-set-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="problem-set-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/20-ProblemSet4.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

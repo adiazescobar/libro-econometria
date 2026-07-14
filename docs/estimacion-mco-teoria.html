@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-07-03" />
+<meta name="date" content="2026-07-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -167,9 +167,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="19" data-path="heterocedasticidad.html"><a href="heterocedasticidad.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad</a></li>
 <li class="chapter" data-level="20" data-path="endogeneidad.html"><a href="endogeneidad.html"><i class="fa fa-check"></i><b>20</b> Endogeneidad</a></li>
 <li class="chapter" data-level="21" data-path="iv.html"><a href="iv.html"><i class="fa fa-check"></i><b>21</b> Variables Instrumentales</a></li>
-<li class="chapter" data-level="22" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>22</b> Series de Tiempo</a></li>
-<li class="chapter" data-level="23" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>23</b> Modelos con variable dependiente binaria</a></li>
-<li class="chapter" data-level="24" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>24</b> Parcial 1 · 2026-1</a></li>
+<li class="chapter" data-level="22" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>22</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="23" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>23</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="24" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>24</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="25" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>25</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="26" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>26</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="27" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>27</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>28</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>29</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="30" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>30</b> Parcial 1 · 2026-1</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
 
@@ -216,25 +222,25 @@ y = X\beta + \epsilon,
 </div>
 <div id="desarrollo-teorico-estimacion" class="section level2 hasAnchor" number="7.3">
 <h2><span class="header-section-number">7.3</span> Desarrollo teórico<a href="estimacion-mco-teoria.html#desarrollo-teorico-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Para un vector candidato <span class="math inline">\(b\)</span>, el vector de residuos estimados es:</p>
+<p>Para un vector candidato <span class="math inline">\(\tilde{\beta}\)</span>, definimos el vector de residuos asociado a ese candidato como:</p>
 <p><span class="math display">\[
-\hat{\epsilon}(b) = y - Xb.
+r(\tilde{\beta}) = y - X\tilde{\beta}.
 \]</span></p>
 <p>El criterio de mínimos cuadrados es:</p>
 <p><span class="math display">\[
-\text{SRC}(b)
-= \hat{\epsilon}(b)&#39;\hat{\epsilon}(b)
-= (y-Xb)&#39;(y-Xb).
+\text{SRC}(\tilde{\beta})
+= r(\tilde{\beta})&#39;r(\tilde{\beta})
+= (y-X\tilde{\beta})&#39;(y-X\tilde{\beta}).
 \]</span></p>
 <p>Al expandir:</p>
 <p><span class="math display">\[
-\text{SRC}(b)
-= y&#39;y - 2b&#39;X&#39;y + b&#39;X&#39;Xb.
+\text{SRC}(\tilde{\beta})
+= y&#39;y - 2\tilde{\beta}&#39;X&#39;y + \tilde{\beta}&#39;X&#39;X\tilde{\beta}.
 \]</span></p>
-<p>Derivando con respecto a <span class="math inline">\(b\)</span>:</p>
+<p>Derivando con respecto a <span class="math inline">\(\tilde{\beta}\)</span>:</p>
 <p><span class="math display">\[
-\frac{\partial \text{SRC}}{\partial b}
-= -2X&#39;y + 2X&#39;Xb.
+\frac{\partial \text{SRC}}{\partial \tilde{\beta}}
+= -2X&#39;y + 2X&#39;X\tilde{\beta}.
 \]</span></p>
 <p>Las condiciones de primer orden igualan esta derivada a cero:</p>
 <p><span class="math display">\[
@@ -243,6 +249,10 @@ X&#39;X\hat{\beta}=X&#39;y.
 <p>Estas son las ecuaciones normales. Si <span class="math inline">\(X&#39;X\)</span> es invertible, entonces:</p>
 <p><span class="math display">\[
 \hat{\beta}=(X&#39;X)^{-1}X&#39;y.
+\]</span></p>
+<p>Una vez encontrado el minimizador <span class="math inline">\(\hat{\beta}\)</span>, el residuo estimado es:</p>
+<p><span class="math display">\[
+\hat{\epsilon}=y-X\hat{\beta}.
 \]</span></p>
 <div class="box-ejemplo">
 <p>Cuando el modelo solo contiene una constante, <span class="math inline">\(X\)</span> es una columna de unos. En ese caso, <span class="math inline">\(X&#39;X=n\)</span>, <span class="math inline">\(X&#39;y=\sum_i y_i\)</span> y <span class="math inline">\(\hat{\beta}_0=\bar{y}\)</span>. MCO reproduce la media muestral porque esa es la mejor predicción constante bajo pérdida cuadrática.</p>
@@ -319,7 +329,7 @@ X&#39;\hat{\epsilon}=0.
 <h2><span class="header-section-number">7.6</span> Resumen<a href="estimacion-mco-teoria.html#resumen-estimacion-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
-<li>MCO minimiza <span class="math inline">\(\text{SRC}(b)=(y-Xb)&#39;(y-Xb)\)</span>.</li>
+<li>MCO minimiza <span class="math inline">\(\text{SRC}(\tilde{\beta})=(y-X\tilde{\beta})&#39;(y-X\tilde{\beta})\)</span>.</li>
 <li>Las ecuaciones normales son <span class="math inline">\(X&#39;X\hat{\beta}=X&#39;y\)</span>.</li>
 <li>Si <span class="math inline">\(X&#39;X\)</span> es invertible, <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>.</li>
 <li>Los residuos de MCO son ortogonales a los regresores: <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span>.</li>
@@ -336,6 +346,7 @@ X&#39;\hat{\epsilon}=0.
 <li>En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.</li>
 <li>Demuestra que <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span> usando la fórmula <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>.</li>
 <li>Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.</li>
+<li>Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del <a href="problem-set-1.html#problem-set-1">Problem Set 1: MCO y matrices</a>.</li>
 </ol>
 </div>
 </div>

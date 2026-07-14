@@ -1,0 +1,219 @@
+# Problem Set 4: Endogeneidad y variables instrumentales {#problem-set-4}
+
+Este taller integra las fuentes de endogeneidad y el uso de variables instrumentales. Está pensado para resolverse después de estudiar los capítulos 12 y 13.
+
+::: {.box-intuicion}
+La pregunta central no es si una variable "explica" a otra, sino si la variación que estamos usando para estimar el efecto puede interpretarse como exógena. Las variables instrumentales buscan aislar una parte de la variación del regresor que no esté contaminada por el error.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Identificar fuentes de endogeneidad en modelos aplicados.
+2. Formalizar sesgo por variables omitidas y error de medición.
+3. Evaluar relevancia y exogeneidad de un instrumento.
+4. Escribir primera etapa, forma reducida y segunda etapa.
+5. Demostrar la equivalencia entre IV y 2SLS en el caso exactamente identificado.
+
+## Instrucciones
+
+- En cada ejercicio, identifica primero cuál es el parámetro causal de interés.
+- No basta con proponer un instrumento: debes discutir relevancia y exogeneidad.
+- Si una condición no se puede probar directamente, explica qué evidencia indirecta sería útil.
+
+::: {.box-cuidado}
+Un instrumento fuerte no necesariamente es válido. La relevancia se puede diagnosticar con la primera etapa; la exogeneidad requiere argumento económico, diseño institucional o pruebas indirectas cuando hay sobreidentificación.
+:::
+
+## Parte A: Endogeneidad en salud y ejercicio
+
+::: {.box-ejercicios}
+Considera el modelo:
+
+\[
+salud_i=\beta_0+\beta_1edad_i+\beta_2peso_i+\beta_3altura_i+\beta_4hombre_i+\beta_5trabajo_i+\beta_6ejercicio_i+\epsilon_i.
+\]
+
+La variable \(ejercicio_i\) mide horas de ejercicio a la semana.
+
+1. Explica por qué \(ejercicio_i\) podría estar correlacionada con \(\epsilon_i\).
+2. Supón que tienes acceso a dos variables: distancia de la casa al gimnasio más cercano y distancia del trabajo al gimnasio más cercano. ¿Podrían ser buenos instrumentos? Discute relevancia y exogeneidad.
+3. Si son instrumentos válidos, escribe la primera etapa para \(ejercicio_i\).
+4. Escribe la segunda etapa y explica qué parámetro identifica.
+5. ¿Cómo podrías evaluar empíricamente la relevancia de los instrumentos? ¿Qué parte de la validez no puedes probar directamente?
+:::
+
+## Parte B: Educación y salarios
+
+::: {.box-ejercicios}
+1. Explica por qué al estimar el efecto de años de educación sobre salarios por MCO el coeficiente de educación puede estar sesgado. Discute al menos dos canales.
+
+2. Formaliza el sesgo por variable omitida en:
+
+\[
+\log(wage_i)=\beta_0+\beta_1educ_i+u_i,
+\]
+
+cuando \(u_i\) contiene habilidad no observada.
+
+3. ¿Esperarías que el sesgo de \(\hat{\beta}_{educ}\) sea positivo o negativo? Justifica con un argumento económico y con covarianzas.
+
+4. Supón que se propone como instrumento una variable \(Z_i\) que indica cercanía a una universidad. Escribe las dos condiciones básicas que debe cumplir:
+
+\[
+\operatorname{Cov}(Z_i,educ_i)\neq 0,
+\qquad
+\operatorname{Cov}(Z_i,u_i)=0.
+\]
+
+5. ¿Qué argumentos podrían apoyar o debilitar la exogeneidad de la cercanía a una universidad?
+:::
+
+## Parte C: Primera etapa e instrumentos débiles
+
+::: {.box-ejemplo}
+Una primera etapa para educación produce un coeficiente de 0.3199 sobre distancia/cercanía a universidad, con error estándar 0.0879 y estadístico \(t=3.64\).
+:::
+
+::: {.box-ejercicios}
+1. Calcula el estadístico \(F\) del instrumento excluido cuando hay un solo instrumento excluido. Pista: en ese caso \(F=t^2\).
+
+2. Interpreta el valor obtenido. ¿Qué sugiere sobre relevancia?
+
+3. Explica por qué un instrumento débil puede producir inferencia engañosa incluso si el instrumento es exógeno.
+
+4. Si hubiera varios instrumentos excluidos, ¿qué prueba mirarías para evaluar relevancia conjunta?
+
+5. ¿Qué reportarías en una tabla empírica para que el lector evalúe la fuerza de los instrumentos?
+:::
+
+## Parte D: IV y 2SLS
+
+::: {.box-ejercicios}
+1. Considera el modelo estructural:
+
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]
+
+con \(x_i\) endógeno y un instrumento \(z_i\). Escribe el estimador IV para el caso exactamente identificado.
+
+2. Escribe la primera etapa:
+
+\[
+x_i=\pi_0+\pi_1z_i+v_i.
+\]
+
+Luego escribe la segunda etapa usando \(\hat{x}_i\).
+
+3. Demuestra que, en el caso exactamente identificado, el estimador de IV coincide con el estimador de MCO en dos etapas.
+
+4. Explica por qué no se deben usar los errores estándar de una segunda etapa hecha "a mano" sin corrección.
+
+5. Compara conceptualmente MCO, IV y 2SLS: ¿qué variación de \(x\) usa cada método?
+:::
+
+## Parte E: Error de medición
+
+::: {.box-ejercicios}
+Sea:
+
+\[
+y=x\beta+u,
+\]
+
+pero observamos:
+
+\[
+y^*=y+w,\qquad x^*=x+v.
+\]
+
+Asume que \(v\), \(w\), \(x\) y \(u\) cumplen condiciones de covarianza cero salvo por la relación estructural entre \(x\) y \(y\).
+
+1. Encuentra el límite en probabilidad del coeficiente de la regresión de \(y^*\) sobre \(x^*\).
+2. Explica el efecto del error de medición en \(x\) sobre signo y magnitud del estimador.
+3. Explica el efecto del error de medición clásico en \(y\). ¿Sesga la pendiente? ¿Qué cambia?
+4. Propón un instrumento posible para \(x^*\). ¿Qué condiciones debería cumplir?
+:::
+
+## Parte F: Simulación reproducible
+
+::: {.box-ejercicios}
+1. Simula un modelo con una variable omitida \(a_i\) que afecta tanto educación como salarios.
+2. Estima por MCO y luego por IV usando un instrumento \(z_i\) que afecta educación pero no salarios directamente.
+3. Compara los coeficientes estimados.
+4. Repite el ejercicio haciendo que el instrumento sea débil. ¿Qué cambia?
+:::
+
+### Código base en R
+
+```{r ps4-iv-r, eval=FALSE}
+set.seed(123)
+n <- 1000
+z <- rnorm(n)
+a <- rnorm(n)
+educ <- 12 + 0.8 * z + 0.7 * a + rnorm(n)
+epsilon <- rnorm(n)
+lwage <- 1 + 0.10 * educ + 0.5 * a + epsilon
+datos <- data.frame(lwage, educ, z, a)
+
+mco <- lm(lwage ~ educ, data = datos)
+primera <- lm(educ ~ z, data = datos)
+datos$educ_hat <- fitted(primera)
+iv_manual <- lm(lwage ~ educ_hat, data = datos)
+
+summary(mco)
+summary(primera)
+summary(iv_manual)
+```
+
+### Código base en Stata
+
+```stata
+clear
+set seed 123
+set obs 1000
+gen z = rnormal()
+gen a = rnormal()
+gen educ = 12 + 0.8*z + 0.7*a + rnormal()
+gen lwage = 1 + 0.10*educ + 0.5*a + rnormal()
+
+regress lwage educ
+regress educ z
+ivregress 2sls lwage (educ = z)
+estat firststage
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+rng = np.random.default_rng(123)
+n = 1000
+z = rng.normal(size=n)
+a = rng.normal(size=n)
+educ = 12 + 0.8*z + 0.7*a + rng.normal(size=n)
+lwage = 1 + 0.10*educ + 0.5*a + rng.normal(size=n)
+
+X_mco = sm.add_constant(educ)
+print(sm.OLS(lwage, X_mco).fit().summary())
+
+X_first = sm.add_constant(z)
+first = sm.OLS(educ, X_first).fit()
+educ_hat = first.fittedvalues
+X_second = sm.add_constant(educ_hat)
+print(sm.OLS(lwage, X_second).fit().summary())
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller insiste en una idea: IV no corrige cualquier problema automáticamente. Funciona cuando el instrumento genera variación relevante en el regresor endógeno y esa variación puede defenderse como exógena respecto al resultado.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+

@@ -1,0 +1,211 @@
+# Problem Set 2: FWL, propiedades e inferencia {#problem-set-2}
+
+Este taller cierra el bloque central de MCO. Integra el teorema de Frisch-Waugh-Lovell, las propiedades de los estimadores, las pruebas de hipótesis y la intuición asintótica. Está pensado para resolverse después de estudiar los capítulos 06 a 09.
+
+::: {.box-intuicion}
+La idea es pasar de "estimar una regresión" a entender qué está haciendo la regresión: qué variación usa, qué propiedades tiene el estimador y cómo convertimos una estimación en una afirmación estadística.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Usar FWL para interpretar coeficientes parciales.
+2. Relacionar residuos, valores ajustados y \(R^2\) con las propiedades de MCO.
+3. Enunciar Gauss-Markov y distinguir sus supuestos de la normalidad.
+4. Formular pruebas \(t\), intervalos de confianza y pruebas \(F\).
+5. Usar simulación para estudiar insesgadez, varianza y consistencia.
+
+## Instrucciones
+
+- Justifica cada respuesta con álgebra, intuición o ambas.
+- Cuando uses FWL, explica qué variable se está "limpiando" de qué controles.
+- En preguntas de inferencia, escribe siempre hipótesis nula, alternativa, estadístico y conclusión.
+- En la parte computacional, entrega código reproducible y una interpretación breve.
+
+::: {.box-cuidado}
+No confundas significancia estadística con importancia económica. Una prueba puede rechazar una hipótesis con un efecto pequeño si la muestra es grande, y puede no rechazar con un efecto relevante si la estimación es imprecisa.
+:::
+
+## Parte A: Frisch-Waugh-Lovell
+
+::: {.box-ejercicios}
+1. Considera:
+
+\[
+y=X_1\beta_1+X_2\beta_2+\epsilon,
+\]
+
+y define:
+
+\[
+M_2=I-X_2(X_2'X_2)^{-1}X_2'.
+\]
+
+Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coeficiente obtenido al regresar \(M_2y\) sobre \(M_2X_1\).
+
+2. Explica el resultado anterior a una persona que conoce regresión simple, pero no álgebra matricial. Usa un ejemplo concreto: salarios, educación y experiencia; salud, ejercicio y edad; o consumo, ingreso y tamaño del hogar.
+
+3. Sea:
+
+\[
+Y=X\beta+D\delta+\mu,
+\]
+
+donde \(D\) es una dummy que toma el valor de 1 para una sola observación y 0 para todas las demás. Usa FWL para explicar por qué incluir \(D\) equivale a estimar \(\beta\) sin esa observación.
+
+4. En una regresión múltiple:
+
+\[
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
+\]
+
+describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
+:::
+
+## Parte B: Propiedades de MCO
+
+::: {.box-ejercicios}
+1. Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y de varianza mínima dentro de una clase de estimadores.
+
+2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
+
+   a. \(\mathbb{E}[(y_i-\bar{y})^2\mid X_i]=X_i^2\)  
+   b. \(X_i=[1,X_{1i},X_{2i},X_{1i}X_{2i}]\)  
+   c. \(X_i=[1,X_{1i},X_{2i},X_{1i}-X_{2i}]\)  
+   d. \(u_i\) tiene distribución lognormal.  
+   e. \(u_i=Z_i+\kappa_i\), con \(\mathbb{E}[Z_i\mid X_i]=c\) y \(\mathbb{E}[\kappa_i\mid X_i]=0\).
+
+3. Considera una regresión de \(Y\) sobre \(X\). Si luego estimas una regresión de \(Y\) sobre una constante y \(\hat{Y}\), ¿cuál debe ser el intercepto? ¿Cuál debe ser la pendiente? ¿Cómo se relaciona el \(R^2\) de esta regresión con el \(R^2\) original?
+
+4. Si estimas una regresión de \(Y\) sobre una constante y \(\hat{\epsilon}\), ¿qué esperas para el intercepto, la pendiente y el \(R^2\)? Justifica usando las propiedades de los residuos de MCO.
+
+5. Considera una transformación \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
+:::
+
+## Parte C: Inferencia inicial
+
+::: {.box-ejercicios}
+1. En un estudio sobre estudiantes becados se estima:
+
+\[
+y_i=\alpha+\beta B_i+\epsilon_i,
+\]
+
+donde \(B_i=1\) si el estudiante es becado. Escribe la hipótesis nula y la alternativa para evaluar: "los becados obtienen, en promedio, un promedio acumulado mayor que los no becados".
+
+2. Supón que ahora se estima:
+
+\[
+y_i=\alpha+\beta B_i+\delta HE_i+\gamma(B_i\times HE_i)+\mu_i,
+\]
+
+donde \(HE_i\) son horas de estudio. Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué prueba usarías para evaluar si la brecha entre becados y no becados depende de las horas de estudio?
+
+3. Camilo está terminando el colegio y quiere saber si estudiar más aumenta los salarios. Una regresión de \(\log(salario)\) sobre educación, educación al cuadrado, edad y una dummy de hombre produce una tabla con coeficientes, errores estándar, \(p\)-valores e intervalos de confianza. Escribe una explicación para Camilo sin usar jerga técnica.
+
+4. Camilo pregunta: "¿cómo sé si la ganancia de un año más de educación es diferente de cero?". Responde usando hipótesis, estadístico \(t\), \(p\)-valor e intervalo de confianza.
+
+5. Camilo cree que un año más de educación aumenta más los salarios de las mujeres que los salarios de los hombres. Escribe el modelo que permitiría estudiar esa hipótesis y especifica qué coeficiente o prueba mirarías.
+:::
+
+## Parte D: Simulación de propiedades
+
+Esta parte retoma la idea de Monte Carlo: generar muchas muestras, estimar el mismo modelo y estudiar la distribución de \(\hat{\beta}\).
+
+::: {.box-ejemplo}
+Usa el proceso generador:
+
+\[
+y_i=2+1.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1).
+\]
+
+Compara muestras de tamaño \(n=50\), \(n=200\) y \(n=1000\).
+:::
+
+### Preguntas
+
+::: {.box-ejercicios}
+1. Para cada tamaño muestral, genera 1000 muestras y estima \(y_i\) sobre una constante y \(x_i\).
+2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}_1\).
+3. Explica qué parte de los resultados se relaciona con insesgadez y cuál con consistencia.
+4. Repite el ejercicio con errores cuya varianza crece con \(x_i\). ¿Qué cambia en la interpretación de los errores estándar convencionales?
+:::
+
+### Código base en R
+
+```{r ps2-montecarlo-r, eval=FALSE}
+simular_beta <- function(n, reps = 1000, hetero = FALSE) {
+  beta_hat <- numeric(reps)
+
+  for (r in seq_len(reps)) {
+    x <- runif(n, 0, 10)
+    sigma <- if (hetero) 0.3 + 0.15 * x else 1
+    epsilon <- rnorm(n, mean = 0, sd = sigma)
+    y <- 2 + 1.5 * x + epsilon
+    beta_hat[r] <- coef(lm(y ~ x))[["x"]]
+  }
+
+  beta_hat
+}
+
+set.seed(123)
+beta_50 <- simular_beta(50)
+beta_200 <- simular_beta(200)
+beta_1000 <- simular_beta(1000)
+
+c(media = mean(beta_50), sd = sd(beta_50))
+c(media = mean(beta_200), sd = sd(beta_200))
+c(media = mean(beta_1000), sd = sd(beta_1000))
+```
+
+### Código base en Stata
+
+```stata
+capture program drop sim_propiedades
+program define sim_propiedades, rclass
+    syntax, N(integer)
+    clear
+    set obs `n'
+    gen x = runiform(0, 10)
+    gen epsilon = rnormal(0, 1)
+    gen y = 2 + 1.5*x + epsilon
+    regress y x
+    return scalar beta = _b[x]
+end
+
+simulate beta = r(beta), reps(1000) seed(123): sim_propiedades, n(200)
+summarize beta
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import statsmodels.api as sm
+
+def simular_beta(n, reps=1000, seed=123):
+    rng = np.random.default_rng(seed)
+    betas = []
+    for _ in range(reps):
+        x = rng.uniform(0, 10, n)
+        epsilon = rng.normal(0, 1, n)
+        y = 2 + 1.5 * x + epsilon
+        X = sm.add_constant(x)
+        modelo = sm.OLS(y, X).fit()
+        betas.append(modelo.params[1])
+    return np.array(betas)
+
+for n in [50, 200, 1000]:
+    beta = simular_beta(n)
+    print(n, beta.mean(), beta.std(ddof=1))
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller une tres piezas que suelen estudiarse por separado: FWL muestra de dónde sale la variación útil, las propiedades explican qué podemos esperar del estimador y la inferencia traduce una estimación en una afirmación con incertidumbre.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+

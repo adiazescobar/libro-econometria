@@ -16,7 +16,7 @@ github-repo: adiazescobar/libro-econometria
 |-------|---------|
 | **Curso** | Econometría Avanzada (Cod 1420) |
 | **Docente** | Ana María Díaz |
-| **Oficina / Atención** | Séptimo piso Edificio 20 \| Lunes 9–11 a.m. (o por Teams) |
+| **Oficina / Atención** | Séptimo piso Edificio 20 \| Lunes 9–11 a.m. (o por Teams) \| [Programación en línea](https://outlook.office.com/book/HorariodeAtencion1@javeriana.edu.co/?ismsaljsauthenabled) |
 | **Sitio web** | <http://adiazescobar.com> |
 | **Correo** | <a.diaze@javeriana.edu.co> |
 | **Prerequisito** | Econometría I |
@@ -1966,6 +1966,8 @@ D. Se aproxima al valor verdadero con alta probabilidad.
 3. ¿En qué se diferencia el concepto de varianza del de eficiencia? ¿Pueden dos estimadores tener la misma varianza pero distinta eficiencia?**
 
 4. Supón que tienes dos estimadores:   - A es insesgado pero tiene alta varianza.   - B tiene un pequeño sesgo pero varianza muy baja.  ¿Cuál elegirías para un problema donde la prioridad es predecir bien el valor de \( y \)?  ¿Cambiaría tu respuesta si el objetivo fuera estimar un efecto causal? Justifica tu elección.
+
+5. Para practicar estos temas de forma integrada, resuelve las partes B y C del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-regresion-lineal-teoria}
@@ -2999,6 +3001,13 @@ La **matriz de segundas derivadas** (Hessiana) es:
 2. Sean \( \mathbf{i} = (1, \ldots, 1)' \) y \( \mathbf{y} = (y_1, \ldots, y_m)' \). Calcule \( \mathbf{i}'\mathbf{y} \).
 3. Demuestre que la **media** de las observaciones \( y_1, \ldots, y_m \) puede expresarse como:
 
+\[
+\bar{y}=\frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{i}}.
+\]
+
+::: {.box-ejercicios}
+Para practicar este repaso con ejercicios más largos, resuelve la parte A del [Problem Set 1: MCO y matrices](#problem-set-1).
+:::
 
 <!--chapter:end:03-Matrices.Rmd-->
 
@@ -3223,6 +3232,7 @@ La normalidad no es el supuesto que hace que MCO sea insesgado. La condición ce
 3. Da un ejemplo de multicolinealidad perfecta en un modelo con variables binarias.
 4. ¿Qué propiedad de MCO se pierde si las perturbaciones no son esféricas, manteniendo exogeneidad?
 5. ¿Por qué la normalidad es más importante en muestras pequeñas que en muestras grandes?
+6. Para practicar la relación entre supuestos, MCO y Gauss-Markov, resuelve la parte D del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-supuestos-teoria}
@@ -3633,32 +3643,32 @@ donde \(y\) es un vector \(n \times 1\), \(X\) es una matriz \(n \times K\), \(\
 
 ## Desarrollo teórico {#desarrollo-teorico-estimacion}
 
-Para un vector candidato \(b\), el vector de residuos estimados es:
+Para un vector candidato \(\tilde{\beta}\), definimos el vector de residuos asociado a ese candidato como:
 
 \[
-\hat{\epsilon}(b) = y - Xb.
+r(\tilde{\beta}) = y - X\tilde{\beta}.
 \]
 
 El criterio de mínimos cuadrados es:
 
 \[
-\text{SRC}(b)
-= \hat{\epsilon}(b)'\hat{\epsilon}(b)
-= (y-Xb)'(y-Xb).
+\text{SRC}(\tilde{\beta})
+= r(\tilde{\beta})'r(\tilde{\beta})
+= (y-X\tilde{\beta})'(y-X\tilde{\beta}).
 \]
 
 Al expandir:
 
 \[
-\text{SRC}(b)
-= y'y - 2b'X'y + b'X'Xb.
+\text{SRC}(\tilde{\beta})
+= y'y - 2\tilde{\beta}'X'y + \tilde{\beta}'X'X\tilde{\beta}.
 \]
 
-Derivando con respecto a \(b\):
+Derivando con respecto a \(\tilde{\beta}\):
 
 \[
-\frac{\partial \text{SRC}}{\partial b}
-= -2X'y + 2X'Xb.
+\frac{\partial \text{SRC}}{\partial \tilde{\beta}}
+= -2X'y + 2X'X\tilde{\beta}.
 \]
 
 Las condiciones de primer orden igualan esta derivada a cero:
@@ -3671,6 +3681,12 @@ Estas son las ecuaciones normales. Si \(X'X\) es invertible, entonces:
 
 \[
 \hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Una vez encontrado el minimizador \(\hat{\beta}\), el residuo estimado es:
+
+\[
+\hat{\epsilon}=y-X\hat{\beta}.
 \]
 
 ::: {.box-ejemplo}
@@ -3735,7 +3751,7 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 ## Resumen {#resumen-estimacion-teoria}
 
 ::: {.box-resumen}
-- MCO minimiza \(\text{SRC}(b)=(y-Xb)'(y-Xb)\).
+- MCO minimiza \(\text{SRC}(\tilde{\beta})=(y-X\tilde{\beta})'(y-X\tilde{\beta})\).
 - Las ecuaciones normales son \(X'X\hat{\beta}=X'y\).
 - Si \(X'X\) es invertible, \(\hat{\beta}=(X'X)^{-1}X'y\).
 - Los residuos de MCO son ortogonales a los regresores: \(X'\hat{\epsilon}=0\).
@@ -3750,6 +3766,7 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 3. En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.
 4. Demuestra que \(X'\hat{\epsilon}=0\) usando la fórmula \(\hat{\beta}=(X'X)^{-1}X'y\).
 5. Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.
+6. Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-estimacion-teoria}
@@ -4180,6 +4197,7 @@ FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilo
 3. ¿Por qué \(M_s\) se llama matriz de aniquilación?
 4. Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.
 5. Explica por qué FWL exige usar la misma muestra en todas las regresiones.
+6. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-fwl-teoria}
@@ -4619,6 +4637,7 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 3. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
 4. Explica qué significa que MCO sea "lineal" como estimador.
 5. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
+6. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-propiedades-teoria}
@@ -5084,6 +5103,7 @@ No confundas significancia estadística con importancia económica. Un coeficien
 3. Demuestra que, con una sola restricción, el estadístico \(F\) equivale al cuadrado del estadístico \(t\).
 4. Interpreta un valor \(p\) de 0.07 con \(\alpha=0.05\) y con \(\alpha=0.10\).
 5. En una función Cobb-Douglas, escribe \(R\beta=r\) para la hipótesis de rendimientos constantes a escala.
+6. Para practicar hipótesis, \(p\)-valores e intervalos en contexto aplicado, resuelve la parte C del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-pruebas-teoria}
@@ -5592,6 +5612,7 @@ La inferencia robusta frente a heterocedasticidad se estudia en detalle más ade
 3. Escribe una hipótesis lineal \(R\beta=r\) con dos restricciones y define el estadístico de Wald.
 4. Explica el papel de Slutsky en la derivación de la normalidad asintótica de MCO.
 5. Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.
+6. Para ver convergencia e incertidumbre en simulaciones, resuelve la parte D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-normas-teoria}
@@ -6039,6 +6060,7 @@ Centrar variables puede ayudar a interpretar polinomios o interacciones, pero no
 3. ¿Por qué multicolinealidad aproximada no implica sesgo si se mantiene exogeneidad?
 4. Discute cuándo sería razonable mantener una variable con VIF alto.
 5. Explica por qué las correlaciones bivariadas no bastan para diagnosticar multicolinealidad.
+6. Para practicar diagnóstico y simulación de colinealidad, resuelve las partes A y D del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
 :::
 
 ## Referencias {#referencias-multico-teoria}
@@ -6821,9 +6843,9 @@ sm.WLS(y, X, weights = w).fit()
 5. Explique diferencias prácticas entre **WLS**, **FGLS** y **HC (White)**. ¿Cuándo usaría cada uno?
 6. En datos per cápita, ¿por qué la heterocedasticidad aparece “por construcción”? Proponga un esquema de **WLS** apropiado.
 7. Simule un caso en el que \(\hat{\beta}\) sea similar entre MCO y WLS, pero los **EE** cambien de manera sustancial. Interprete.
+8. Para practicar estos diagnósticos junto con multicolinealidad, resuelva las partes B, C y E del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
 
 </div>
-
 
 
 
@@ -6980,6 +7002,10 @@ $$E(\hat{\alpha}_1) = \alpha_1 - \frac{Var(u_i)}{(\alpha_1 - \beta_1)Var(p_i)}$$
 | Simultaneidad | $X$ y $Y$ se determinan juntas | Sí | No |
 
 En todos los casos, la solución general son las **Variables Instrumentales** (Capítulo \@ref(iv)).
+
+::: {.box-ejercicios}
+Para practicar sesgo por variable omitida, error de medición y simultaneidad antes de pasar a IV, resuelva las partes A, B y E del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
 
 * * *
 
@@ -7272,6 +7298,12 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 
 * * *
 
+::: {.box-ejercicios}
+Para practicar relevancia, exogeneidad, primera etapa e IV/2SLS, resuelva las partes C, D y F del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+
+* * *
+
 ## Lecturas recomendadas {.unnumbered}
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5 — tratamiento completo de IV, MCO2E y GMM
 - **Angrist & Pischke (2009)** — *Mostly Harmless Econometrics*, Cap. 4 — enfoque de programa de evaluación
@@ -7280,6 +7312,246 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 - **Stock & Yogo (2005)** — "Testing for weak instruments in linear IV regression" — criterio de instrumentos débiles
 
 <!--chapter:end:13-VariablesInstrumentales.Rmd-->
+
+# Modelos con variable dependiente binaria {#binaria}
+
+En muchos problemas económicos la variable de interés no es continua sino binaria: el individuo habla inglés o no, está afiliado al sindicato o no, fue vacunado o no, sobrevivió al COVID o no. En estos casos $Y$ toma valor 1 si ocurre el evento y 0 en caso contrario, y la pregunta empírica natural es modelar la probabilidad de que ocurra el evento condicional a un vector de covariables $X$:
+
+$$P(Y_i = 1 \mid X_i) = E(Y_i \mid X_i)$$
+
+¿De dónde sale esta igualdad? Porque $Y_i$ es Bernoulli: $E(Y_i) = 1 \cdot p + 0 \cdot (1-p) = p$. La esperanza condicional **es** la probabilidad. Te lo advertí: la matemática no son números, son letras.
+
+Tres modelos compiten para estimar esa probabilidad: el **Modelo Lineal de Probabilidad (MPL)**, el **Probit** y el **Logit**.
+
+## La pregunta motivadora: quien habla ingles {.unnumbered}
+Imaginemos datos ficticios donde $Y = 1$ si el individuo habla inglés y $X$ = ingreso de los padres. La variable explicada es binaria: solo toma los valores 0 y 1. Si graficamos los puntos contra el ingreso, vemos lo siguiente:
+
+- En ingresos bajos, casi todos los puntos caen en $Y=0$.
+- En ingresos altos, casi todos caen en $Y=1$.
+- En ingresos medios, hay mezcla.
+
+Dos modelos compiten por ajustar estos datos:
+
+1. **Una recta** (MPL): $\widehat{P}(Y=1\mid X) = \widehat{\beta}_0 + \widehat{\beta}_1 X$.
+2. **Una curva sigmoidal** (Logit o Probit): acotada en el intervalo de 0 a 1, con forma de S.
+
+A primera vista la curva gana — parece ajustar mejor en los extremos. Pero como veremos, cuando la relación entre $X$ y $Y$ es difusa (situación común en ciencias sociales), la recta y la curva se parecen mucho en todo el rango, y la diferencia práctica entre los dos modelos se vuelve pequeña.
+
+## El Modelo Lineal de Probabilidad (MPL) {.unnumbered}
+El MPL aplica directamente MCO a una regresión donde la variable dependiente es binaria:
+
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
+
+Como $E(Y_i \mid X_i) = P(Y_i = 1 \mid X_i)$:
+
+$$P(Y_i = 1 \mid X_i) = X_i\beta$$
+
+**Interpretación directa de los coeficientes.** En el MPL cada $\beta_j$ es el efecto marginal sobre la probabilidad:
+
+$$\frac{\Delta P(Y_i = 1 \mid X_i)}{\Delta X_{ji}} = \beta_j$$
+
+Si $X_j$ aumenta en una unidad, la probabilidad de que $Y_i=1$ cambia en $\beta_j$. Multiplicando por 100 se expresa en puntos porcentuales.
+
+**Problema 1: predicciones fuera del intervalo admisible.** El lado derecho $X_i\beta$ es lineal e ilimitado. Para valores extremos de $X$, el modelo predice probabilidades negativas o mayores que uno. ¡Horror! ¡Horror! ¡Policía! Una probabilidad debe estar contenida entre 0 y 1.
+
+**Problema 2: heterocedasticidad por construcción.** Como $Y_i$ es Bernoulli con probabilidad $p_i = X_i\beta$:
+
+$$Var(\varepsilon_i \mid X_i) = p_i(1-p_i) = (X_i\beta)(1 - X_i\beta)$$
+
+La varianza del error depende de $X_i$ — el supuesto de homocedasticidad falla por construcción. Consecuencia: los errores estándar de MCO son inconsistentes. Solución obligatoria: errores estándar robustos.
+
+**Problema 3: errores no normales.** $\varepsilon_i$ solo toma dos valores: $1 - X_i\beta$ cuando $Y_i=1$ y $-X_i\beta$ cuando $Y_i=0$. La distribución es discreta, no normal.
+
+**Problema 4: efectos parciales constantes.** El MPL impone que llevar a alguien con probabilidad 0.05 a 0.15 es lo mismo que llevarlo de 0.50 a 0.60.
+
+**Defensa del MPL — Angrist y Pischke.** A pesar de estos problemas, Angrist y Pischke defienden el MPL enfáticamente: poco para perder, mucho para ganar. En la práctica, cuando la relación entre $Y$ y $X$ es difusa, la recta rara vez se va del intervalo observado, y su pendiente se parece mucho a la de la curva logit/probit en casi todo el soporte. Además, el MPL se estima por MCO y hereda toda la tecnología disponible: variables instrumentales, paneles, efectos fijos, diferencias en diferencias.
+
+## El enfoque de variable latente {.unnumbered}
+Pensar en una variable latente $Y_i^*$ no observada:
+
+$$Y_i^* = X_i\beta + u_i, \quad Y_i = 1 \text{ si } Y_i^* > 0, \quad Y_i = 0 \text{ si no.}$$
+
+Entonces:
+
+$$P(Y_i = 1 \mid X_i) = P(Y_i^* > 0 \mid X_i) = P(u_i > -X_i\beta \mid X_i)$$
+
+Si la distribución de $u_i$ es simétrica:
+
+$$P(Y_i = 1 \mid X_i) = G(X_i\beta)$$
+
+donde $G(\cdot)$ es la CDF de $u_i$. La elección de $G$ define el modelo: Probit usa $\Phi$ (CDF normal); Logit usa $\Lambda(e) = \exp(e)/(1+\exp(e))$.
+
+## El modelo Probit {.unnumbered}
+En Probit suponemos $u_i \sim N(0,1)$:
+
+$$g(X_i\beta) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}(X_i\beta)^2\right)$$
+
+$$G(X_i\beta) = \Phi(X_i\beta) = \int_{-\infty}^{X_i\beta} \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}t^2\right) dt$$
+
+## El modelo Logit {.unnumbered}
+En Logit suponemos que $u_i$ sigue una distribución logística estándar:
+
+$$g(X_i\beta) = \lambda(X_i\beta) = \frac{\exp(X_i\beta)}{(1+\exp(X_i\beta))^2}$$
+
+$$G(X_i\beta) = \Lambda(X_i\beta) = \frac{\exp(X_i\beta)}{1+\exp(X_i\beta)}$$
+
+**Interpretación por log-odds.** El Logit tiene una propiedad muy útil. Definamos los odds (razón de probabilidades):
+
+$$\frac{P(Y_i=1\mid X_i)}{P(Y_i=0\mid X_i)} = \exp(X_i\beta)$$
+
+Tomando logaritmos, el log-odds es lineal en $X_i\beta$. Un aumento de una unidad en $X_j$ multiplica los odds por $\exp(\beta_j)$ (el odds-ratio).
+
+## Estimación por máxima verosimilitud {.unnumbered}
+Para Probit y Logit no hay solución cerrada. Se estima por máxima verosimilitud. La log-verosimilitud:
+
+$$\ln L(\beta) = \sum_{i=1}^n \left\{ Y_i \ln G(X_i\beta) + (1-Y_i)\ln[1-G(X_i\beta)] \right\}$$
+
+Las condiciones de primer orden:
+
+$$\sum_{i=1}^n \frac{Y_i - G(X_i\beta)}{G(X_i\beta)\,[1-G(X_i\beta)]} \, g(X_i\beta) \, X_{ji} = 0$$
+
+Este sistema no tiene solución cerrada. Se resuelve numéricamente con Newton-Raphson. Bajo regularidad, $\hat{\beta}^{ML}$ es consistente, asintóticamente normal y eficiente.
+
+## Efectos marginales {.unnumbered}
+En Probit y Logit, $\beta_j$ no es el efecto marginal. Hay que aplicar la regla de la cadena.
+
+**Caso 1: variable continua.** Sea $P(Y_i=1\mid X_i) = G(\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i})$. El efecto marginal de $X_1$:
+
+$$\frac{\partial P(Y_i=1\mid X_i)}{\partial X_{1i}} = g(X_i\beta) \cdot \beta_1$$
+
+Como $g(\cdot) > 0$ siempre, el efecto marginal tiene el mismo signo que $\beta_1$. El promedio en la muestra (APE) en Stata se obtiene con `margins, dydx(x1)`.
+
+**Caso 2: variable binaria.** Para una variable binaria $X_1$, se calcula la diferencia:
+
+$$\frac{\Delta P(Y_i=1\mid X_i)}{\Delta X_{1i}} = G(\beta_0 + \beta_1 + \beta_2 X_{2i}) - G(\beta_0 + \beta_2 X_{2i})$$
+
+evaluada típicamente en $\bar{X}_2$.
+
+## Ejemplo aplicado: mortalidad por COVID-19 {.unnumbered}
+Sea $Y = 1$ si el paciente murió de COVID-19. Las covariables:
+
+- $X_1$ = Edad (continua), $\bar{X}_1 = 55$ años.
+- $X_2$ = Vacuna (binaria), $\bar{X}_2 = 0.41$ (41% vacunados).
+
+Estimaciones:
+
+- Probit: $\hat{\beta}_0 = -3.80$, $\hat{\beta}_1 = 0.06$, $\hat{\beta}_2 = 2.00$.
+- Logit: $\hat{\beta}_0 = -6.70$, $\hat{\beta}_1 = 0.11$, $\hat{\beta}_2 = 3.44$.
+
+**Efecto marginal de la edad (continua) en Probit:**
+
+$$X\hat{\beta} = -3.80 + 0.06 \cdot 55 + 2.00 \cdot 0.41 = 0.32$$
+
+$$\phi(0.32) \approx 0.379 \quad\Rightarrow\quad \text{Efecto marginal} = 0.379 \cdot 0.06 \approx 0.023 \approx 2.3 \text{ pp por año}$$
+
+**Efecto marginal de la edad en Logit:**
+
+$$X\hat{\beta} = -6.70 + 0.11 \cdot 55 + 3.44 \cdot 0.41 = 0.76$$
+
+$$\lambda(0.76) \approx 0.218 \quad\Rightarrow\quad \text{Efecto marginal} = 0.218 \cdot 0.11 \approx 0.024 \approx 2.4 \text{ pp por año}$$
+
+Los dos modelos dan efectos marginales muy parecidos (2.3 pp vs 2.4 pp) aunque los $\hat{\beta}$ son distintos.
+
+## Términos de interacción y cuadráticos {.unnumbered}
+**Interacción $X_1 \times X_2$.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2)$, el efecto marginal cruzado no es simplemente $\beta_3$: depende del nivel de las otras variables y de la densidad $g(\cdot)$ evaluada en el punto correspondiente.
+
+**Término cuadrático.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)$:
+
+$$\frac{\partial P(Y=1\mid X)}{\partial X_1} = g(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)(\beta_1 + 2\beta_2 X_1)$$
+
+## Comparación de los tres modelos {.unnumbered}
+Las magnitudes de los coeficientes no son comparables. Como referencia aproximada:
+
+$$\beta_{Logit} \approx 1.6 \cdot \beta_{Probit} \approx 4 \cdot \beta_{MPL}$$
+
+Pero los efectos parciales promedio suelen ser muy similares. La elección entre Probit y Logit rara vez cambia las conclusiones; la diferencia importante es entre MPL y los modelos no lineales.
+
+## Inferencia: prueba de razón de verosimilitudes (LR) {.unnumbered}
+El estadístico:
+
+$$LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$$
+
+donde $q$ es el número de restricciones bajo $H_0$.
+
+**Ejemplo en Stata: `probit union south grade`.** Estimamos un Probit para afiliación sindical (`union = 1` si afiliado) en función de región sur y años de educación, $N = 26.200$.
+
+Modelo no restringido: $\ln L_{ur} = -13580.409$, Pseudo $R^2 = 0.0205$, coeficientes south $= -0.383$ ($p<0.001$), grade $= 0.031$ ($p<0.001$).
+
+Modelo restringido (sin `grade`): $\ln L_{r} = -13616.76$.
+
+$$LR = 2(-13580.409 - (-13616.76)) = 2 \cdot 36.351 = 72.70$$
+
+Bajo $H_0: \beta_{grade} = 0$, $LR \sim \chi^2_1$ — el valor crítico al 5% es 3.84, así que rechazamos con holgura. El `test grade` de Stata (test de Wald) da 72.46, casi idéntico al LR a mano: en muestras grandes los dos tests convergen.
+
+## Bondad de ajuste {.unnumbered}
+El $R^2$ tradicional no aplica en Probit y Logit. Las alternativas estándar:
+
+**McFadden $R^2$ (Pseudo-$R^2$ de Stata):**
+
+$$R^2_{McF} = 1 - \frac{\ln L_{ur}}{\ln L_{0}}$$
+
+donde $\ln L_0$ es la log-verosimilitud del modelo solo con intercepto. En el ejemplo anterior, Stata reporta Pseudo $R^2 = 0.0205$ — el modelo explica apenas 2% de la verosimilitud frente al modelo nulo. Es bajo pero típico en datos micro.
+
+**Tabla de clasificación.** Clasificamos $\hat{Y}_i = 1$ si $\hat{P}(Y_i=1) > 0.5$ y comparamos con el $Y_i$ observado. La tasa de error con modelo se compara con la regla ingenua (predecir todo según la moda) para obtener un $R^2$ predictivo. En Stata se obtiene con `estat classification`.
+
+## Heterocedasticidad en modelos no lineales {.unnumbered}
+En MCO, la heterocedasticidad afecta la eficiencia del estimador pero no el sesgo. En Probit y Logit la cosa es muy distinta: la heterocedasticidad cambia la forma funcional del modelo.
+
+Considere el modelo de variable latente con error heterocedástico:
+
+$$y_i^* = \psi_0 + \psi_1 x_{i1} + u_i, \quad u_i \sim N(0, x_{i1}^2)$$
+
+Estandarizando $u_i = x_{i1} e_i$ con $e_i \sim N(0,1)$, después de algunos pasos:
+
+$$P(y_i=1\mid x_{i1}) = \Phi\left(\psi_0 \frac{1}{x_{i1}} + \psi_1\right)$$
+
+La forma funcional ha cambiado completamente. Si usted escribe $P(y_i=1\mid x_i) = \Phi(\psi_0 + \psi_1 x_{i1})$ ignorando la heterocedasticidad, estaría especificando mal el modelo. **Conclusión práctica:** en Probit y Logit, ignorar la heterocedasticidad no es solo un problema de errores estándar — produce estimadores inconsistentes. Si hay sospecha, hay que modelarla explícitamente con `hetprobit` en Stata.
+
+## Implementación en Stata {.unnumbered}
+```
+* Cargar datos
+use empleo.dta, clear
+
+* MPL con errores robustos OBLIGATORIOS
+reg trabaja edad educ hijos, robust
+
+* Probit
+probit trabaja edad educ hijos
+margins, dydx(*)            // efectos marginales promedio (APE)
+margins, dydx(*) atmeans    // efectos marginales en la media (PEA)
+estat classification        // tabla de clasificacion
+
+* Prueba LR
+probit trabaja edad educ hijos
+estimates store no_restringido
+probit trabaja edad
+estimates store restringido
+lrtest no_restringido restringido
+
+* Logit
+logit trabaja edad educ hijos
+margins, dydx(*)
+logit trabaja edad educ hijos, or   // odds ratios
+
+* Heteroskedasticity-Probit
+hetprobit trabaja edad educ hijos, het(edad)
+```
+
+## Resumen de la clase {.unnumbered}
+- El MPL es MCO sobre una $Y$ binaria. Simple e interpretable, pero predice fuera del rango admisible, genera heterocedasticidad por construcción e impone efectos parciales constantes. Use errores robustos siempre.
+- Probit y Logit modelan $P(Y=1\mid X) = G(X\beta)$ con $G$ una CDF acotada. Probit usa $\Phi$; Logit usa $\Lambda$. Estimación por máxima verosimilitud, resuelta por Newton-Raphson.
+- Los coeficientes $\beta_j$ no son los efectos marginales. Use `margins, dydx(*)`. El signo de $\beta_j$ sí corresponde al signo del efecto marginal.
+- Para variables continuas, el efecto marginal es $g(X\beta)\cdot\beta_j$. Para binarias, es la diferencia entre $G(\cdot)$ con $X_j=1$ y con $X_j=0$.
+- La prueba LR compara log-verosimilitudes: $LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$.
+- El pseudo-$R^2$ de McFadden reemplaza al $R^2$ tradicional.
+- En Probit y Logit, la heterocedasticidad cambia la forma funcional del modelo y genera inconsistencia.
+- Cuando la relación entre $Y$ y $X$ es difusa, MPL, Probit y Logit dan efectos marginales muy similares.
+
+::: {.box-ejercicios}
+Para practicar MPL, logit, probit, verosimilitud y efectos marginales, resuelva las partes A, B, C y D del [Problem Set 5: Variable dependiente binaria y series de tiempo](#problem-set-5).
+:::
+
+<!--chapter:end:15-VarDepBinaria.Rmd-->
 
 # Series de Tiempo {#series}
 
@@ -7907,250 +8179,1262 @@ predict yhat, y dynamic(tq(2014q1))
 
 * * *
 
+::: {.box-ejercicios}
+Para practicar estacionariedad, ACF, PACF, raíz unitaria y modelos AR, resuelva las partes E, F y G del [Problem Set 5: Variable dependiente binaria y series de tiempo](#problem-set-5).
+:::
+
+* * *
+
 ## Lecturas recomendadas {.unnumbered}
 - **Enders (2014)** — *Applied Econometric Time Series*, 4ª ed. — referencia estándar para el curso, cubre ARMA, raíz unitaria y Box-Jenkins.
 - **Hamilton (1994)** — *Time Series Analysis* — tratado de referencia avanzado.
 - **Box, Jenkins & Reinsel (2008)** — *Time Series Analysis: Forecasting and Control* — la metodología original.
 - **Dickey & Fuller (1979)** — "Distribution of the estimators for autoregressive time series with a unit root", *JASA*.
 
-
 <!--chapter:end:14-SeriesTiempo.Rmd-->
 
-# Modelos con variable dependiente binaria {#binaria}
+# Talleres y problem sets {#problem-sets}
 
-En muchos problemas económicos la variable de interés no es continua sino binaria: el individuo habla inglés o no, está afiliado al sindicato o no, fue vacunado o no, sobrevivió al COVID o no. En estos casos $Y$ toma valor 1 si ocurre el evento y 0 en caso contrario, y la pregunta empírica natural es modelar la probabilidad de que ocurra el evento condicional a un vector de covariables $X$:
+Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones computacionales. A diferencia de los ejercicios cortos al final de cada capítulo, estos problem sets integran varios temas y sirven para preparar parciales, discusiones en clase y trabajo autónomo.
 
-$$P(Y_i = 1 \mid X_i) = E(Y_i \mid X_i)$$
+::: {.box-intuicion}
+La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.
+:::
 
-¿De dónde sale esta igualdad? Porque $Y_i$ es Bernoulli: $E(Y_i) = 1 \cdot p + 0 \cdot (1-p) = p$. La esperanza condicional **es** la probabilidad. Te lo advertí: la matemática no son números, son letras.
+## Cómo usarlos
 
-Tres modelos compiten para estimar esa probabilidad: el **Modelo Lineal de Probabilidad (MPL)**, el **Probit** y el **Logit**.
+1. Lee primero los capítulos asociados al taller.
+2. Resuelve las partes conceptuales sin mirar apuntes durante el primer intento.
+3. En las partes computacionales, conserva el código y comenta cada resultado.
+4. Si el taller se asigna como evaluable, las fechas y el mecanismo de entrega se anunciarán por Teams y por correo.
 
-## La pregunta motivadora: quien habla ingles {.unnumbered}
-Imaginemos datos ficticios donde $Y = 1$ si el individuo habla inglés y $X$ = ingreso de los padres. La variable explicada es binaria: solo toma los valores 0 y 1. Si graficamos los puntos contra el ingreso, vemos lo siguiente:
+::: {.box-cuidado}
+Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.
+:::
 
-- En ingresos bajos, casi todos los puntos caen en $Y=0$.
-- En ingresos altos, casi todos caen en $Y=1$.
-- En ingresos medios, hay mezcla.
+## Mapa de talleres
 
-Dos modelos compiten por ajustar estos datos:
+| Taller | Tema integrador | Capítulos asociados | Estado |
+|---|---|---|---|
+| [Problem Set 1: MCO y matrices](#problem-set-1) | Álgebra matricial, MCO, dummies, interpretación y simulación | 02, 03, 04, 05 | Piloto disponible |
+| [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2) | FWL, Gauss-Markov, pruebas de hipótesis y simulación | 06, 07, 08, 09 | Disponible |
+| [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3) | Colinealidad, VIF, White, Breusch-Pagan, WLS y errores robustos | 10, 11 | Disponible |
+| [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4) | Sesgo, error de medición, relevancia, exogeneidad, IV y 2SLS | 12, 13 | Disponible |
+| [Problem Set 5: Variable dependiente binaria y series de tiempo](#problem-set-5) | MPL, logit, probit, efectos marginales, ACF, PACF y AR | 15, 14 | Disponible |
 
-1. **Una recta** (MPL): $\widehat{P}(Y=1\mid X) = \widehat{\beta}_0 + \widehat{\beta}_1 X$.
-2. **Una curva sigmoidal** (Logit o Probit): acotada en el intervalo de 0 a 1, con forma de S.
+## Recomendación de trabajo
 
-A primera vista la curva gana — parece ajustar mejor en los extremos. Pero como veremos, cuando la relación entre $X$ y $Y$ es difusa (situación común en ciencias sociales), la recta y la curva se parecen mucho en todo el rango, y la diferencia práctica entre los dos modelos se vuelve pequeña.
+::: {.box-resumen}
+- Los problem sets no reemplazan los capítulos: los integran.
+- Las preguntas de demostración preparan para parciales.
+- Las preguntas aplicadas preparan para leer resultados empíricos.
+- Las preguntas computacionales deben resolverse con código reproducible.
+:::
 
-## El Modelo Lineal de Probabilidad (MPL) {.unnumbered}
-El MPL aplica directamente MCO a una regresión donde la variable dependiente es binaria:
+<!--chapter:end:16-ProblemSets.Rmd-->
 
-$$Y_i = \beta_0 + \beta_1 X_{1i} + \cdots + \beta_k X_{ki} + \varepsilon_i$$
+# Problem Set 1: MCO y matrices {#problem-set-1}
 
-Como $E(Y_i \mid X_i) = P(Y_i = 1 \mid X_i)$:
+Este taller integra los primeros bloques del curso: notación de sumas, álgebra matricial, supuestos básicos, estimación de MCO e interpretación de coeficientes. Está pensado para resolverse después de estudiar los capítulos 02 a 05.
 
-$$P(Y_i = 1 \mid X_i) = X_i\beta$$
+::: {.box-intuicion}
+El objetivo no es hacer muchos ejercicios mecánicos, sino conectar tres formas de ver MCO: como una recta que minimiza residuos, como una proyección matricial y como una herramienta para interpretar diferencias entre grupos.
+:::
 
-**Interpretación directa de los coeficientes.** En el MPL cada $\beta_j$ es el efecto marginal sobre la probabilidad:
+## Objetivos del taller
 
-$$\frac{\Delta P(Y_i = 1 \mid X_i)}{\Delta X_{ji}} = \beta_j$$
+Al finalizar este problem set podrás:
 
-Si $X_j$ aumenta en una unidad, la probabilidad de que $Y_i=1$ cambia en $\beta_j$. Multiplicando por 100 se expresa en puntos porcentuales.
+1. Usar el vector de unos para expresar medias y regresiones contra una constante.
+2. Calcular productos matriciales básicos que aparecen en la fórmula de MCO.
+3. Interpretar modelos con variables binarias e interacciones.
+4. Demostrar propiedades básicas de MCO usando sumas y matrices.
+5. Simular estimadores para estudiar insesgadez, varianza y consistencia.
 
-**Problema 1: predicciones fuera del intervalo admisible.** El lado derecho $X_i\beta$ es lineal e ilimitado. Para valores extremos de $X$, el modelo predice probabilidades negativas o mayores que uno. ¡Horror! ¡Horror! ¡Policía! Una probabilidad debe estar contenida entre 0 y 1.
+## Instrucciones
 
-**Problema 2: heterocedasticidad por construcción.** Como $Y_i$ es Bernoulli con probabilidad $p_i = X_i\beta$:
+- Resuelve los ejercicios de manera ordenada y justifica cada paso.
+- Cuando uses álgebra matricial, revisa dimensiones antes de multiplicar.
+- En los ejercicios computacionales, entrega código reproducible y una interpretación breve.
+- Si este taller se asigna como evaluable, la fecha y el formato de entrega se anunciarán por Teams.
 
-$$Var(\varepsilon_i \mid X_i) = p_i(1-p_i) = (X_i\beta)(1 - X_i\beta)$$
+::: {.box-cuidado}
+No mezcles errores poblacionales con residuos estimados. Usa \(\epsilon_i\) para el error poblacional y \(\hat{\epsilon}_i\) para el residuo que se calcula después de estimar.
+:::
 
-La varianza del error depende de $X_i$ — el supuesto de homocedasticidad falla por construcción. Consecuencia: los errores estándar de MCO son inconsistentes. Solución obligatoria: errores estándar robustos.
+## Parte A: Álgebra matricial
 
-**Problema 3: errores no normales.** $\varepsilon_i$ solo toma dos valores: $1 - X_i\beta$ cuando $Y_i=1$ y $-X_i\beta$ cuando $Y_i=0$. La distribución es discreta, no normal.
+::: {.box-ejercicios}
+1. Sea \(\iota=(1,1,\ldots,1)'\) un vector \(n\times 1\) de unos. Calcula \(\iota'\iota\). Explica la dimensión del resultado.
 
-**Problema 4: efectos parciales constantes.** El MPL impone que llevar a alguien con probabilidad 0.05 a 0.15 es lo mismo que llevarlo de 0.50 a 0.60.
+2. Sea \(y=(y_1,\ldots,y_n)'\). Calcula \(\iota'y\) y muestra que:
 
-**Defensa del MPL — Angrist y Pischke.** A pesar de estos problemas, Angrist y Pischke defienden el MPL enfáticamente: poco para perder, mucho para ganar. En la práctica, cuando la relación entre $Y$ y $X$ es difusa, la recta rara vez se va del intervalo observado, y su pendiente se parece mucho a la de la curva logit/probit en casi todo el soporte. Además, el MPL se estima por MCO y hereda toda la tecnología disponible: variables instrumentales, paneles, efectos fijos, diferencias en diferencias.
+\[
+\bar{y}=\frac{\iota'y}{\iota'\iota}.
+\]
 
-## El enfoque de variable latente {.unnumbered}
-Pensar en una variable latente $Y_i^*$ no observada:
+3. Usa la fórmula de MCO para una regresión de \(y\) contra una constante:
 
-$$Y_i^* = X_i\beta + u_i, \quad Y_i = 1 \text{ si } Y_i^* > 0, \quad Y_i = 0 \text{ si no.}$$
+\[
+y=\iota\beta_0+\epsilon.
+\]
 
-Entonces:
+Muestra que:
 
-$$P(Y_i = 1 \mid X_i) = P(Y_i^* > 0 \mid X_i) = P(u_i > -X_i\beta \mid X_i)$$
+\[
+\hat{\beta}_0=(\iota'\iota)^{-1}\iota'y=\bar{y}.
+\]
 
-Si la distribución de $u_i$ es simétrica:
+4. Sean \(x=(x_1,\ldots,x_n)'\) y \(y=(y_1,\ldots,y_n)'\). Indica la dimensión y el significado de:
 
-$$P(Y_i = 1 \mid X_i) = G(X_i\beta)$$
+   a. \(x'x\)  
+   b. \(xx'\)  
+   c. \(x'y\)
 
-donde $G(\cdot)$ es la CDF de $u_i$. La elección de $G$ define el modelo: Probit usa $\Phi$ (CDF normal); Logit usa $\Lambda(e) = \exp(e)/(1+\exp(e))$.
+5. Sea \(X\) una matriz \(n\times K\). Define:
 
-## El modelo Probit {.unnumbered}
-En Probit suponemos $u_i \sim N(0,1)$:
+\[
+P=X(X'X)^{-1}X'.
+\]
 
-$$g(X_i\beta) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}(X_i\beta)^2\right)$$
+Demuestra que \(PX=X\). Luego demuestra que \(P\) es idempotente, es decir, \(P^2=P\).
 
-$$G(X_i\beta) = \Phi(X_i\beta) = \int_{-\infty}^{X_i\beta} \frac{1}{\sqrt{2\pi}} \exp\left(-\frac{1}{2}t^2\right) dt$$
+6. Sea \(a\) un vector \(n\times 1\) y \(x\) un vector \(n\times 1\). Encuentra:
 
-## El modelo Logit {.unnumbered}
-En Logit suponemos que $u_i$ sigue una distribución logística estándar:
+   a. \(\frac{\partial a'x}{\partial x}\)  
+   b. \(\frac{\partial x'x}{\partial x}\)  
+   c. \(\frac{\partial x'(aa')x}{\partial x}\)
+:::
 
-$$g(X_i\beta) = \lambda(X_i\beta) = \frac{\exp(X_i\beta)}{(1+\exp(X_i\beta))^2}$$
+## Parte B: MCO en sumas y matrices
 
-$$G(X_i\beta) = \Lambda(X_i\beta) = \frac{\exp(X_i\beta)}{1+\exp(X_i\beta)}$$
+::: {.box-ejercicios}
+1. En un estudio sobre estudiantes becados y no becados se estima:
 
-**Interpretación por log-odds.** El Logit tiene una propiedad muy útil. Definamos los odds (razón de probabilidades):
+\[
+y_i=\alpha+\beta B_i+\epsilon_i,
+\]
 
-$$\frac{P(Y_i=1\mid X_i)}{P(Y_i=0\mid X_i)} = \exp(X_i\beta)$$
+donde \(B_i=1\) si el estudiante es becado y \(B_i=0\) si no lo es. Sean \(\bar{y}_{B1}\) y \(\bar{y}_{B0}\) las medias del promedio acumulado para becados y no becados, respectivamente. Demuestra que:
 
-Tomando logaritmos, el log-odds es lineal en $X_i\beta$. Un aumento de una unidad en $X_j$ multiplica los odds por $\exp(\beta_j)$ (el odds-ratio).
+\[
+\hat{\alpha}=\bar{y}_{B0},\qquad
+\hat{\beta}=\bar{y}_{B1}-\bar{y}_{B0}.
+\]
 
-## Estimación por máxima verosimilitud {.unnumbered}
-Para Probit y Logit no hay solución cerrada. Se estima por máxima verosimilitud. La log-verosimilitud:
+2. Para el modelo anterior, escribe la hipótesis nula y la hipótesis alternativa para evaluar la afirmación: "los estudiantes becados obtienen, en promedio, un promedio acumulado mayor que los no becados".
 
-$$\ln L(\beta) = \sum_{i=1}^n \left\{ Y_i \ln G(X_i\beta) + (1-Y_i)\ln[1-G(X_i\beta)] \right\}$$
+3. Considera la regresión contra una constante:
 
-Las condiciones de primer orden:
+\[
+Y_i=\beta_0+\epsilon_i.
+\]
 
-$$\sum_{i=1}^n \frac{Y_i - G(X_i\beta)}{G(X_i\beta)\,[1-G(X_i\beta)]} \, g(X_i\beta) \, X_{ji} = 0$$
+Demuestra que el \(R^2\) centrado de esta regresión es igual a cero.
 
-Este sistema no tiene solución cerrada. Se resuelve numéricamente con Newton-Raphson. Bajo regularidad, $\hat{\beta}^{ML}$ es consistente, asintóticamente normal y eficiente.
+4. Explica si un cambio en la unidad de medida de \(y\) modifica el \(R^2\). Luego explica si un cambio en la unidad de medida de un regresor modifica el \(R^2\).
 
-## Efectos marginales {.unnumbered}
-En Probit y Logit, $\beta_j$ no es el efecto marginal. Hay que aplicar la regla de la cadena.
+5. En regresión lineal simple,
 
-**Caso 1: variable continua.** Sea $P(Y_i=1\mid X_i) = G(\beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i})$. El efecto marginal de $X_1$:
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]
 
-$$\frac{\partial P(Y_i=1\mid X_i)}{\partial X_{1i}} = g(X_i\beta) \cdot \beta_1$$
+demuestra que:
 
-Como $g(\cdot) > 0$ siempre, el efecto marginal tiene el mismo signo que $\beta_1$. El promedio en la muestra (APE) en Stata se obtiene con `margins, dydx(x1)`.
+\[
+\hat{\beta}_0=\bar{y}-\hat{\beta}_1\bar{x}.
+\]
 
-**Caso 2: variable binaria.** Para una variable binaria $X_1$, se calcula la diferencia:
+6. Para el modelo sin constante:
 
-$$\frac{\Delta P(Y_i=1\mid X_i)}{\Delta X_{1i}} = G(\beta_0 + \beta_1 + \beta_2 X_{2i}) - G(\beta_0 + \beta_2 X_{2i})$$
+\[
+Y_i=\beta X_i+\epsilon_i,
+\]
 
-evaluada típicamente en $\bar{X}_2$.
+encuentra el estimador de MCO de \(\beta\). ¿Qué cambia respecto al modelo con constante?
 
-## Ejemplo aplicado: mortalidad por COVID-19 {.unnumbered}
-Sea $Y = 1$ si el paciente murió de COVID-19. Las covariables:
+7. Un estudiante estima:
 
-- $X_1$ = Edad (continua), $\bar{X}_1 = 55$ años.
-- $X_2$ = Vacuna (binaria), $\bar{X}_2 = 0.41$ (41% vacunados).
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i
+\]
 
-Estimaciones:
+y obtiene:
 
-- Probit: $\hat{\beta}_0 = -3.80$, $\hat{\beta}_1 = 0.06$, $\hat{\beta}_2 = 2.00$.
-- Logit: $\hat{\beta}_0 = -6.70$, $\hat{\beta}_1 = 0.11$, $\hat{\beta}_2 = 3.44$.
+\[
+\frac{1}{N}\sum_{i=1}^N x_iy_i=20,\quad
+\frac{1}{N}\sum_{i=1}^N x_i^2=10,\quad
+\bar{y}=8,\quad
+\bar{x}=3,\quad
+\hat{\beta}_0=1,\quad
+\hat{\beta}_1=-4.
+\]
 
-**Efecto marginal de la edad (continua) en Probit:**
+¿Son coherentes estos resultados con las ecuaciones normales de MCO? Justifica.
+:::
 
-$$X\hat{\beta} = -3.80 + 0.06 \cdot 55 + 2.00 \cdot 0.41 = 0.32$$
+## Parte C: Modelos lineales, dummies e interpretación
 
-$$\phi(0.32) \approx 0.379 \quad\Rightarrow\quad \text{Efecto marginal} = 0.379 \cdot 0.06 \approx 0.023 \approx 2.3 \text{ pp por año}$$
+::: {.box-ejercicios}
+1. Clasifica cada modelo como lineal o no lineal en parámetros. Justifica:
 
-**Efecto marginal de la edad en Logit:**
+   a. \(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i\)  
+   b. \(Y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i\)  
+   c. \(Y_i=\beta_1X_{2i}^{\beta_2}X_{3i}^{\beta_3}+\epsilon_i\)  
+   d. \(Y_i=\beta_1+\beta_2X_{2i}+\frac{1}{\beta_3}X_{2i}+\epsilon_i\)  
+   e. \(Y_i=\beta_1+\beta_2\cos(2\pi t/12)+\beta_3\sin(2\pi t/12)+\epsilon_i\)
 
-$$X\hat{\beta} = -6.70 + 0.11 \cdot 55 + 3.44 \cdot 0.41 = 0.76$$
+2. Interpreta los siguientes coeficientes. Supón que salario está medido como salario por hora y educación en años:
 
-$$\lambda(0.76) \approx 0.218 \quad\Rightarrow\quad \text{Efecto marginal} = 0.218 \cdot 0.11 \approx 0.024 \approx 2.4 \text{ pp por año}$$
+   a. \(Salario_i=1250+66.31Edad_i+\epsilon_i\)  
+   b. \(Salario_i=-1086+533.51Educ_i+\epsilon_i\)  
+   c. \(\log(Salario_i)=6.54+0.1176Educ_i+\epsilon_i\)  
+   d. \(Salario_i=-3263+3440\log(Educ_i)+\epsilon_i\)  
+   e. \(\log(Salario_i)=5.98+0.804\log(Educ_i)+\epsilon_i\)  
+   f. \(\log(Salario_i)=6.43+0.12Educ_i+0.17Hombre_i-0.10(Educ_i\times Hombre_i)+\epsilon_i\)
 
-Los dos modelos dan efectos marginales muy parecidos (2.3 pp vs 2.4 pp) aunque los $\hat{\beta}$ son distintos.
+3. El número de horas de lectura al día \(y\) se estudia para tres grupos educativos. Se definen \(E_1\), \(E_2\) y \(E_3\) como dummies mutuamente excluyentes. Al estimar un modelo sin constante se obtiene:
 
-## Términos de interacción y cuadráticos {.unnumbered}
-**Interacción $X_1 \times X_2$.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2)$, el efecto marginal cruzado no es simplemente $\beta_3$: depende del nivel de las otras variables y de la densidad $g(\cdot)$ evaluada en el punto correspondiente.
+\[
+\hat{y}=10E_1+5E_2+2E_3.
+\]
 
-**Término cuadrático.** Si $P(Y=1\mid X) = G(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)$:
+Muestra que esos coeficientes corresponden a las medias de cada grupo.
 
-$$\frac{\partial P(Y=1\mid X)}{\partial X_1} = g(\beta_0 + \beta_1 X_1 + \beta_2 X_1^2)(\beta_1 + 2\beta_2 X_1)$$
+4. Explica qué ocurre si en el modelo anterior se incluye una constante y también las tres dummies \(E_1\), \(E_2\) y \(E_3\). Propón una solución.
 
-## Comparación de los tres modelos {.unnumbered}
-Las magnitudes de los coeficientes no son comparables. Como referencia aproximada:
+5. Supón que se estima:
 
-$$\beta_{Logit} \approx 1.6 \cdot \beta_{Probit} \approx 4 \cdot \beta_{MPL}$$
+\[
+y_i=\alpha+\beta E_{1i}+\delta Ingresos_i+\gamma(E_{1i}\times Ingresos_i)+\epsilon_i.
+\]
 
-Pero los efectos parciales promedio suelen ser muy similares. La elección entre Probit y Logit rara vez cambia las conclusiones; la diferencia importante es entre MPL y los modelos no lineales.
+Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué permite estudiar la interacción?
+:::
 
-## Inferencia: prueba de razón de verosimilitudes (LR) {.unnumbered}
-El estadístico:
+## Parte D: Propiedades, supuestos y FWL
 
-$$LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$$
+::: {.box-ejercicios}
+1. Considera el modelo \(y=X\beta+u\). Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y "mejor" dentro de una clase de estimadores.
 
-donde $q$ es el número de restricciones bajo $H_0$.
+2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
 
-**Ejemplo en Stata: `probit union south grade`.** Estimamos un Probit para afiliación sindical (`union = 1` si afiliado) en función de región sur y años de educación, $N = 26.200$.
+   a. \(\mathbb{E}[(y_i-\bar{y})^2\mid X_i]=X_i^2\)  
+   b. \(X_i=[1,X_{1i},X_{2i},X_{1i}X_{2i}]\)  
+   c. \(X_i=[1,X_{1i},X_{2i},X_{1i}-X_{2i}]\)  
+   d. \(u_i\) se distribuye lognormal.  
+   e. \(u_i=Z_i+\kappa_i\), con \(\mathbb{E}[Z_i\mid X_i]=c\) y \(\mathbb{E}[\kappa_i\mid X_i]=0\).
 
-Modelo no restringido: $\ln L_{ur} = -13580.409$, Pseudo $R^2 = 0.0205$, coeficientes south $= -0.383$ ($p<0.001$), grade $= 0.031$ ($p<0.001$).
+3. Considera una regresión de \(Y\) sobre \(X\). Si luego estimas una regresión de \(Y\) sobre una constante y \(\hat{Y}\), ¿cuál debe ser el intercepto? ¿Cuál debe ser la pendiente? ¿Cómo se relaciona el \(R^2\) de esta regresión con el \(R^2\) original?
 
-Modelo restringido (sin `grade`): $\ln L_{r} = -13616.76$.
+4. Si estimas una regresión de \(Y\) sobre una constante y \(\hat{\epsilon}\), ¿qué esperas para el intercepto, la pendiente y el \(R^2\)? Justifica usando las propiedades de los residuos de MCO.
 
-$$LR = 2(-13580.409 - (-13616.76)) = 2 \cdot 36.351 = 72.70$$
+5. Considera:
 
-Bajo $H_0: \beta_{grade} = 0$, $LR \sim \chi^2_1$ — el valor crítico al 5% es 3.84, así que rechazamos con holgura. El `test grade` de Stata (test de Wald) da 72.46, casi idéntico al LR a mano: en muestras grandes los dos tests convergen.
+\[
+y=X_1\beta_1+X_2\beta_2+\epsilon,
+\]
 
-## Bondad de ajuste {.unnumbered}
-El $R^2$ tradicional no aplica en Probit y Logit. Las alternativas estándar:
+y define:
 
-**McFadden $R^2$ (Pseudo-$R^2$ de Stata):**
+\[
+M_2=I-X_2(X_2'X_2)^{-1}X_2'.
+\]
 
-$$R^2_{McF} = 1 - \frac{\ln L_{ur}}{\ln L_{0}}$$
+Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coeficiente obtenido al regresar \(M_2y\) sobre \(M_2X_1\). Explica la intuición de este resultado.
 
-donde $\ln L_0$ es la log-verosimilitud del modelo solo con intercepto. En el ejemplo anterior, Stata reporta Pseudo $R^2 = 0.0205$ — el modelo explica apenas 2% de la verosimilitud frente al modelo nulo. Es bajo pero típico en datos micro.
+6. Supón que \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
+:::
 
-**Tabla de clasificación.** Clasificamos $\hat{Y}_i = 1$ si $\hat{P}(Y_i=1) > 0.5$ y comparamos con el $Y_i$ observado. La tasa de error con modelo se compara con la regla ingenua (predecir todo según la moda) para obtener un $R^2$ predictivo. En Stata se obtiene con `estat classification`.
+## Parte E: Simulación Monte Carlo
 
-## Heterocedasticidad en modelos no lineales {.unnumbered}
-En MCO, la heterocedasticidad afecta la eficiencia del estimador pero no el sesgo. En Probit y Logit la cosa es muy distinta: la heterocedasticidad cambia la forma funcional del modelo.
+Esta parte reproduce la idea computacional del taller histórico: estudiar insesgadez, varianza y consistencia simulando muchas muestras.
 
-Considere el modelo de variable latente con error heterocedástico:
+::: {.box-ejemplo}
+El proceso generador de datos será:
 
-$$y_i^* = \psi_0 + \psi_1 x_{i1} + u_i, \quad u_i \sim N(0, x_{i1}^2)$$
+\[
+y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
+\]
 
-Estandarizando $u_i = x_{i1} e_i$ con $e_i \sim N(0,1)$, después de algunos pasos:
+con \(x_i\) generado de una distribución uniforme entre 3 y 10.
+:::
 
-$$P(y_i=1\mid x_{i1}) = \Phi\left(\psi_0 \frac{1}{x_{i1}} + \psi_1\right)$$
+### Preguntas
 
-La forma funcional ha cambiado completamente. Si usted escribe $P(y_i=1\mid x_i) = \Phi(\psi_0 + \psi_1 x_{i1})$ ignorando la heterocedasticidad, estaría especificando mal el modelo. **Conclusión práctica:** en Probit y Logit, ignorar la heterocedasticidad no es solo un problema de errores estándar — produce estimadores inconsistentes. Si hay sospecha, hay que modelarla explícitamente con `hetprobit` en Stata.
+::: {.box-ejercicios}
+1. Genera 1000 muestras de tamaño \(n=150\). En cada muestra estima una regresión de \(y_i\) sobre \(x_i\) sin constante.
+2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}\). ¿Qué sugieren sobre insesgadez y varianza?
+3. Repite el ejercicio con \(n=1000\). ¿Qué cambia? ¿Qué sugiere sobre consistencia?
+4. Grafica la distribución de \(\hat{\beta}\) para \(n=150\) y \(n=1000\). Compara visualmente.
+:::
 
-## Implementación en Stata {.unnumbered}
+### Código base en R
+
+```{r ps1-montecarlo-r, eval=FALSE}
+simular_beta <- function(n, reps = 1000) {
+  beta_hat <- numeric(reps)
+
+  for (r in seq_len(reps)) {
+    x <- runif(n, min = 3, max = 10)
+    epsilon <- rnorm(n, mean = 0, sd = 1)
+    y <- 2.5 * x + epsilon
+    beta_hat[r] <- coef(lm(y ~ x - 1))[["x"]]
+  }
+
+  beta_hat
+}
+
+set.seed(123)
+beta_150 <- simular_beta(n = 150)
+beta_1000 <- simular_beta(n = 1000)
+
+mean(beta_150)
+sd(beta_150)
+mean(beta_1000)
+sd(beta_1000)
 ```
-* Cargar datos
-use empleo.dta, clear
 
-* MPL con errores robustos OBLIGATORIOS
-reg trabaja edad educ hijos, robust
+### Código base en Stata
 
-* Probit
-probit trabaja edad educ hijos
-margins, dydx(*)            // efectos marginales promedio (APE)
-margins, dydx(*) atmeans    // efectos marginales en la media (PEA)
-estat classification        // tabla de clasificacion
+```stata
+capture program drop sim_mco
+program define sim_mco, rclass
+    clear
+    set obs 150
+    gen x = runiform(3, 10)
+    gen epsilon = rnormal(0, 1)
+    gen y = 2.5*x + epsilon
+    regress y x, noconstant
+    return scalar beta = _b[x]
+end
 
-* Prueba LR
-probit trabaja edad educ hijos
-estimates store no_restringido
-probit trabaja edad
-estimates store restringido
-lrtest no_restringido restringido
-
-* Logit
-logit trabaja edad educ hijos
-margins, dydx(*)
-logit trabaja edad educ hijos, or   // odds ratios
-
-* Heteroskedasticity-Probit
-hetprobit trabaja edad educ hijos, het(edad)
+simulate beta = r(beta), reps(1000) seed(123): sim_mco
+summarize beta
 ```
 
-## Resumen de la clase {.unnumbered}
-- El MPL es MCO sobre una $Y$ binaria. Simple e interpretable, pero predice fuera del rango admisible, genera heterocedasticidad por construcción e impone efectos parciales constantes. Use errores robustos siempre.
-- Probit y Logit modelan $P(Y=1\mid X) = G(X\beta)$ con $G$ una CDF acotada. Probit usa $\Phi$; Logit usa $\Lambda$. Estimación por máxima verosimilitud, resuelta por Newton-Raphson.
-- Los coeficientes $\beta_j$ no son los efectos marginales. Use `margins, dydx(*)`. El signo de $\beta_j$ sí corresponde al signo del efecto marginal.
-- Para variables continuas, el efecto marginal es $g(X\beta)\cdot\beta_j$. Para binarias, es la diferencia entre $G(\cdot)$ con $X_j=1$ y con $X_j=0$.
-- La prueba LR compara log-verosimilitudes: $LR = 2(\ln L_{ur} - \ln L_r) \sim \chi^2_q$.
-- El pseudo-$R^2$ de McFadden reemplaza al $R^2$ tradicional.
-- En Probit y Logit, la heterocedasticidad cambia la forma funcional del modelo y genera inconsistencia.
-- Cuando la relación entre $Y$ y $X$ es difusa, MPL, Probit y Logit dan efectos marginales muy similares.
+### Código base en Python
 
-<!--chapter:end:15-VarDepBinaria.Rmd-->
+```python
+import numpy as np
+import statsmodels.api as sm
+
+def simular_beta(n, reps=1000, seed=123):
+    rng = np.random.default_rng(seed)
+    betas = []
+
+    for _ in range(reps):
+        x = rng.uniform(3, 10, n)
+        epsilon = rng.normal(0, 1, n)
+        y = 2.5 * x + epsilon
+        modelo = sm.OLS(y, x).fit()
+        betas.append(modelo.params[0])
+
+    return np.array(betas)
+
+beta_150 = simular_beta(150)
+beta_1000 = simular_beta(1000)
+
+print(beta_150.mean(), beta_150.std(ddof=1))
+print(beta_1000.mean(), beta_1000.std(ddof=1))
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller conecta la mecánica de MCO con su interpretación. Si puedes resolverlo con calma, ya tienes una base sólida para estudiar propiedades, FWL, pruebas de hipótesis y problemas como multicolinealidad o heterocedasticidad.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
+
+<!--chapter:end:17-ProblemSet1.Rmd-->
+
+# Problem Set 2: FWL, propiedades e inferencia {#problem-set-2}
+
+Este taller cierra el bloque central de MCO. Integra el teorema de Frisch-Waugh-Lovell, las propiedades de los estimadores, las pruebas de hipótesis y la intuición asintótica. Está pensado para resolverse después de estudiar los capítulos 06 a 09.
+
+::: {.box-intuicion}
+La idea es pasar de "estimar una regresión" a entender qué está haciendo la regresión: qué variación usa, qué propiedades tiene el estimador y cómo convertimos una estimación en una afirmación estadística.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Usar FWL para interpretar coeficientes parciales.
+2. Relacionar residuos, valores ajustados y \(R^2\) con las propiedades de MCO.
+3. Enunciar Gauss-Markov y distinguir sus supuestos de la normalidad.
+4. Formular pruebas \(t\), intervalos de confianza y pruebas \(F\).
+5. Usar simulación para estudiar insesgadez, varianza y consistencia.
+
+## Instrucciones
+
+- Justifica cada respuesta con álgebra, intuición o ambas.
+- Cuando uses FWL, explica qué variable se está "limpiando" de qué controles.
+- En preguntas de inferencia, escribe siempre hipótesis nula, alternativa, estadístico y conclusión.
+- En la parte computacional, entrega código reproducible y una interpretación breve.
+
+::: {.box-cuidado}
+No confundas significancia estadística con importancia económica. Una prueba puede rechazar una hipótesis con un efecto pequeño si la muestra es grande, y puede no rechazar con un efecto relevante si la estimación es imprecisa.
+:::
+
+## Parte A: Frisch-Waugh-Lovell
+
+::: {.box-ejercicios}
+1. Considera:
+
+\[
+y=X_1\beta_1+X_2\beta_2+\epsilon,
+\]
+
+y define:
+
+\[
+M_2=I-X_2(X_2'X_2)^{-1}X_2'.
+\]
+
+Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coeficiente obtenido al regresar \(M_2y\) sobre \(M_2X_1\).
+
+2. Explica el resultado anterior a una persona que conoce regresión simple, pero no álgebra matricial. Usa un ejemplo concreto: salarios, educación y experiencia; salud, ejercicio y edad; o consumo, ingreso y tamaño del hogar.
+
+3. Sea:
+
+\[
+Y=X\beta+D\delta+\mu,
+\]
+
+donde \(D\) es una dummy que toma el valor de 1 para una sola observación y 0 para todas las demás. Usa FWL para explicar por qué incluir \(D\) equivale a estimar \(\beta\) sin esa observación.
+
+4. En una regresión múltiple:
+
+\[
+Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
+\]
+
+describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
+:::
+
+## Parte B: Propiedades de MCO
+
+::: {.box-ejercicios}
+1. Enuncia las hipótesis y la conclusión del teorema de Gauss-Markov. Explica qué significa que un estimador sea lineal, insesgado y de varianza mínima dentro de una clase de estimadores.
+
+2. Para cada caso, identifica qué supuesto puede estar fallando y qué consecuencia tendría:
+
+   a. \(\mathbb{E}[(y_i-\bar{y})^2\mid X_i]=X_i^2\)  
+   b. \(X_i=[1,X_{1i},X_{2i},X_{1i}X_{2i}]\)  
+   c. \(X_i=[1,X_{1i},X_{2i},X_{1i}-X_{2i}]\)  
+   d. \(u_i\) tiene distribución lognormal.  
+   e. \(u_i=Z_i+\kappa_i\), con \(\mathbb{E}[Z_i\mid X_i]=c\) y \(\mathbb{E}[\kappa_i\mid X_i]=0\).
+
+3. Considera una regresión de \(Y\) sobre \(X\). Si luego estimas una regresión de \(Y\) sobre una constante y \(\hat{Y}\), ¿cuál debe ser el intercepto? ¿Cuál debe ser la pendiente? ¿Cómo se relaciona el \(R^2\) de esta regresión con el \(R^2\) original?
+
+4. Si estimas una regresión de \(Y\) sobre una constante y \(\hat{\epsilon}\), ¿qué esperas para el intercepto, la pendiente y el \(R^2\)? Justifica usando las propiedades de los residuos de MCO.
+
+5. Considera una transformación \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
+:::
+
+## Parte C: Inferencia inicial
+
+::: {.box-ejercicios}
+1. En un estudio sobre estudiantes becados se estima:
+
+\[
+y_i=\alpha+\beta B_i+\epsilon_i,
+\]
+
+donde \(B_i=1\) si el estudiante es becado. Escribe la hipótesis nula y la alternativa para evaluar: "los becados obtienen, en promedio, un promedio acumulado mayor que los no becados".
+
+2. Supón que ahora se estima:
+
+\[
+y_i=\alpha+\beta B_i+\delta HE_i+\gamma(B_i\times HE_i)+\mu_i,
+\]
+
+donde \(HE_i\) son horas de estudio. Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué prueba usarías para evaluar si la brecha entre becados y no becados depende de las horas de estudio?
+
+3. Camilo está terminando el colegio y quiere saber si estudiar más aumenta los salarios. Una regresión de \(\log(salario)\) sobre educación, educación al cuadrado, edad y una dummy de hombre produce una tabla con coeficientes, errores estándar, \(p\)-valores e intervalos de confianza. Escribe una explicación para Camilo sin usar jerga técnica.
+
+4. Camilo pregunta: "¿cómo sé si la ganancia de un año más de educación es diferente de cero?". Responde usando hipótesis, estadístico \(t\), \(p\)-valor e intervalo de confianza.
+
+5. Camilo cree que un año más de educación aumenta más los salarios de las mujeres que los salarios de los hombres. Escribe el modelo que permitiría estudiar esa hipótesis y especifica qué coeficiente o prueba mirarías.
+:::
+
+## Parte D: Simulación de propiedades
+
+Esta parte retoma la idea de Monte Carlo: generar muchas muestras, estimar el mismo modelo y estudiar la distribución de \(\hat{\beta}\).
+
+::: {.box-ejemplo}
+Usa el proceso generador:
+
+\[
+y_i=2+1.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1).
+\]
+
+Compara muestras de tamaño \(n=50\), \(n=200\) y \(n=1000\).
+:::
+
+### Preguntas
+
+::: {.box-ejercicios}
+1. Para cada tamaño muestral, genera 1000 muestras y estima \(y_i\) sobre una constante y \(x_i\).
+2. Calcula la media y la desviación estándar de las 1000 estimaciones de \(\hat{\beta}_1\).
+3. Explica qué parte de los resultados se relaciona con insesgadez y cuál con consistencia.
+4. Repite el ejercicio con errores cuya varianza crece con \(x_i\). ¿Qué cambia en la interpretación de los errores estándar convencionales?
+:::
+
+### Código base en R
+
+```{r ps2-montecarlo-r, eval=FALSE}
+simular_beta <- function(n, reps = 1000, hetero = FALSE) {
+  beta_hat <- numeric(reps)
+
+  for (r in seq_len(reps)) {
+    x <- runif(n, 0, 10)
+    sigma <- if (hetero) 0.3 + 0.15 * x else 1
+    epsilon <- rnorm(n, mean = 0, sd = sigma)
+    y <- 2 + 1.5 * x + epsilon
+    beta_hat[r] <- coef(lm(y ~ x))[["x"]]
+  }
+
+  beta_hat
+}
+
+set.seed(123)
+beta_50 <- simular_beta(50)
+beta_200 <- simular_beta(200)
+beta_1000 <- simular_beta(1000)
+
+c(media = mean(beta_50), sd = sd(beta_50))
+c(media = mean(beta_200), sd = sd(beta_200))
+c(media = mean(beta_1000), sd = sd(beta_1000))
+```
+
+### Código base en Stata
+
+```stata
+capture program drop sim_propiedades
+program define sim_propiedades, rclass
+    syntax, N(integer)
+    clear
+    set obs `n'
+    gen x = runiform(0, 10)
+    gen epsilon = rnormal(0, 1)
+    gen y = 2 + 1.5*x + epsilon
+    regress y x
+    return scalar beta = _b[x]
+end
+
+simulate beta = r(beta), reps(1000) seed(123): sim_propiedades, n(200)
+summarize beta
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import statsmodels.api as sm
+
+def simular_beta(n, reps=1000, seed=123):
+    rng = np.random.default_rng(seed)
+    betas = []
+    for _ in range(reps):
+        x = rng.uniform(0, 10, n)
+        epsilon = rng.normal(0, 1, n)
+        y = 2 + 1.5 * x + epsilon
+        X = sm.add_constant(x)
+        modelo = sm.OLS(y, X).fit()
+        betas.append(modelo.params[1])
+    return np.array(betas)
+
+for n in [50, 200, 1000]:
+    beta = simular_beta(n)
+    print(n, beta.mean(), beta.std(ddof=1))
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller une tres piezas que suelen estudiarse por separado: FWL muestra de dónde sale la variación útil, las propiedades explican qué podemos esperar del estimador y la inferencia traduce una estimación en una afirmación con incertidumbre.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
+
+<!--chapter:end:18-ProblemSet2.Rmd-->
+
+# Problem Set 3: Multicolinealidad y heterocedasticidad {#problem-set-3}
+
+Este taller integra dos problemas frecuentes en aplicaciones de MCO: regresores muy correlacionados y varianza no constante del error. Está pensado para resolverse después de estudiar los capítulos 10 y 11.
+
+::: {.box-intuicion}
+Multicolinealidad y heterocedasticidad no son el mismo problema. La primera afecta la precisión con la que separamos efectos entre regresores relacionados; la segunda afecta la forma correcta de medir la incertidumbre cuando la varianza del error cambia con las covariables.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Distinguir multicolinealidad perfecta de multicolinealidad aproximada.
+2. Explicar por qué la correlación alta entre regresores aumenta la varianza de algunos estimadores.
+3. Formular pruebas de heterocedasticidad como White y Breusch-Pagan.
+4. Comparar MCO, errores robustos, GLS y WLS.
+5. Simular datos para ver cómo cambian estimaciones y errores estándar.
+
+## Instrucciones
+
+- En las preguntas de multicolinealidad, separa siempre identificación de precisión.
+- En las preguntas de heterocedasticidad, distingue el estimador de los coeficientes de los errores estándar.
+- En la parte computacional, entrega código reproducible y comenta la diferencia entre estimación e inferencia.
+
+::: {.box-cuidado}
+No digas que la multicolinealidad aproximada "sesga" MCO. Si los supuestos de exogeneidad se mantienen, el problema principal es de precisión: errores estándar grandes y coeficientes inestables.
+:::
+
+## Parte A: Multicolinealidad
+
+::: {.box-ejercicios}
+1. Explica la diferencia entre multicolinealidad perfecta y multicolinealidad aproximada. ¿En cuál de los dos casos no existe \((X'X)^{-1}\)?
+
+2. Considera:
+
+\[
+Y_i=a+bx_i+cz_i+\mu_i,
+\]
+
+donde \(x_i=X_i-\bar{X}\) y \(z_i=Z_i-\bar{Z}\). Usa las ecuaciones normales para explicar por qué los residuos estimados son ortogonales a \(x\) y a \(z\).
+
+3. Deriva la intuición de \(\operatorname{Var}(\hat{b})\) cuando \(x\) y \(z\) están altamente correlacionadas. ¿Qué ocurre cuando la correlación entre \(x\) y \(z\) se acerca a 1? ¿Qué ocurre cuando la correlación es 0?
+
+4. En una regresión con educación, experiencia y experiencia al cuadrado, ¿por qué puede aparecer multicolinealidad aproximada? ¿Qué harías para diagnosticarla?
+
+5. Explica por qué eliminar variables solo para reducir el VIF puede ser una mala decisión si esas variables son controles conceptualmente importantes.
+:::
+
+## Parte B: Heterocedasticidad
+
+::: {.box-ejercicios}
+1. Considera la regresión desde el origen:
+
+\[
+y_i=X_i\beta+\epsilon_i,\qquad \epsilon_i\sim N(0,\sigma_\epsilon^2 X_i).
+\]
+
+Supón que las primeras 15 observaciones de \(X\) toman el valor 1 y las 45 siguientes toman el valor \(-1\). Plantea cómo calcularías el estimador de Mínimos Cuadrados Generalizados y su varianza. ¿Qué ocurre si se estima por MCO ignorando la heterocedasticidad?
+
+2. Supón que quieres evaluar heterocedasticidad con el test de White en:
+
+\[
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i.
+\]
+
+Escribe la regresión auxiliar. ¿Qué variable va al lado izquierdo? ¿Qué términos deben ir al lado derecho, teniendo en cuenta que una variable independiente es el cuadrado de otra?
+
+3. Si la muestra tiene 150 observaciones y el \(R^2\) de la regresión auxiliar es 0.040, calcula el estadístico \(nR^2\). ¿Con qué distribución lo compararías? ¿Qué grados de libertad usarías?
+
+4. Explica la diferencia entre heterocedasticidad pura e impura. Da un ejemplo de cada una.
+
+5. Explica cuándo preferirías errores estándar robustos y cuándo tendría sentido estimar un modelo ponderado.
+:::
+
+## Parte C: Aplicación conceptual
+
+::: {.box-ejercicios}
+1. En el modelo:
+
+\[
+sueño_i=\beta_0+\beta_1MinTrabajo_i+\beta_2Educ_i+\beta_3Edad_i+\beta_4Edad_i^2+\beta_5Hijos_i+\beta_6Hombre_i+\mu_i,
+\]
+
+explica por qué podría existir heterocedasticidad en datos de corte transversal.
+
+2. Supón que:
+
+\[
+\operatorname{Var}(\mu_i)=\sigma_1^2 Mujer_i+\sigma_2^2 Hombre_i,
+\]
+
+donde \(Mujer_i=1-Hombre_i\). Propón una forma de estimar \(\sigma_1^2\) y \(\sigma_2^2\) usando residuos de una regresión inicial.
+
+3. Con esos estimadores de varianza, ¿cómo modificarías MCO para obtener una estimación ponderada?
+
+4. ¿Qué parte de este ejercicio cambia los coeficientes y qué parte cambia solamente los errores estándar?
+:::
+
+## Parte D: Simulación de multicolinealidad
+
+::: {.box-ejemplo}
+Genera:
+
+\[
+y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
+\]
+
+con \(X_1\sim N(0,1)\), \(X_2\sim N(0,1)\), \(\epsilon_i\sim N(0,1)\) y \(X_3=X_1+X_2+\eta_i\), donde \(\eta_i\) tiene varianza pequeña.
+:::
+
+### Preguntas
+
+::: {.box-ejercicios}
+1. Estima el modelo completo con \(n=100\). Repite la simulación varias veces. ¿Qué tan estables son los coeficientes?
+2. Aumenta la muestra a \(n=10000\). ¿Desaparece el problema? ¿Qué mejora y qué no?
+3. Calcula la matriz de correlaciones y el VIF. ¿Qué diagnóstico entregan?
+4. Repite el ejercicio aumentando la varianza de \(\eta_i\). ¿Qué ocurre con los errores estándar?
+:::
+
+### Código base en R
+
+```{r ps3-multico-r, eval=FALSE}
+simular_multico <- function(n, ruido = 0.01) {
+  x1 <- rnorm(n)
+  x2 <- rnorm(n)
+  x3 <- x1 + x2 + rnorm(n, sd = ruido)
+  epsilon <- rnorm(n)
+  y <- 5 + 25 * x1 - 5 * x2 + 15 * x3 + epsilon
+  data.frame(y, x1, x2, x3)
+}
+
+set.seed(123)
+datos_100 <- simular_multico(100)
+modelo_100 <- lm(y ~ x1 + x2 + x3, data = datos_100)
+summary(modelo_100)
+cor(datos_100[c("x1", "x2", "x3")])
+
+datos_10000 <- simular_multico(10000)
+summary(lm(y ~ x1 + x2 + x3, data = datos_10000))
+```
+
+### Código base en Stata
+
+```stata
+clear
+set seed 123
+set obs 100
+gen x1 = rnormal()
+gen x2 = rnormal()
+gen x3 = x1 + x2 + rnormal(0, 0.01)
+gen epsilon = rnormal()
+gen y = 5 + 25*x1 - 5*x2 + 15*x3 + epsilon
+
+regress y x1 x2 x3
+correlate x1 x2 x3
+estat vif
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+rng = np.random.default_rng(123)
+n = 100
+x1 = rng.normal(size=n)
+x2 = rng.normal(size=n)
+x3 = x1 + x2 + rng.normal(scale=0.01, size=n)
+epsilon = rng.normal(size=n)
+y = 5 + 25*x1 - 5*x2 + 15*x3 + epsilon
+
+X = sm.add_constant(pd.DataFrame({"x1": x1, "x2": x2, "x3": x3}))
+modelo = sm.OLS(y, X).fit()
+print(modelo.summary())
+```
+
+## Parte E: Simulación de heterocedasticidad
+
+::: {.box-ejercicios}
+1. Genera \(x_i\sim U(1,10)\), \(\epsilon_i\sim N(0, \sigma_i^2)\), con \(\sigma_i=0.5+0.3x_i\), y \(y_i=1+2x_i+\epsilon_i\).
+2. Estima MCO con errores convencionales y con errores robustos.
+3. Haz un gráfico de residuos contra valores ajustados.
+4. Estima una versión ponderada usando pesos proporcionales a \(1/\sigma_i^2\). Compara.
+:::
+
+### Código base en R
+
+```{r ps3-hetero-r, eval=FALSE}
+set.seed(123)
+n <- 300
+x <- runif(n, 1, 10)
+sigma <- 0.5 + 0.3 * x
+epsilon <- rnorm(n, sd = sigma)
+y <- 1 + 2 * x + epsilon
+datos <- data.frame(y, x, sigma)
+
+mco <- lm(y ~ x, data = datos)
+wls <- lm(y ~ x, data = datos, weights = 1 / sigma^2)
+
+summary(mco)
+summary(wls)
+plot(fitted(mco), resid(mco),
+     xlab = "Valores ajustados", ylab = "Residuos")
+abline(h = 0, col = "#C0562F", lwd = 2)
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller separa dos diagnósticos distintos: multicolinealidad habla de la información disponible para separar regresores; heterocedasticidad habla de cómo se comporta la varianza del error. En ambos casos, la solución depende de entender primero cuál es el problema estadístico exacto.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
+
+<!--chapter:end:19-ProblemSet3.Rmd-->
+
+# Problem Set 4: Endogeneidad y variables instrumentales {#problem-set-4}
+
+Este taller integra las fuentes de endogeneidad y el uso de variables instrumentales. Está pensado para resolverse después de estudiar los capítulos 12 y 13.
+
+::: {.box-intuicion}
+La pregunta central no es si una variable "explica" a otra, sino si la variación que estamos usando para estimar el efecto puede interpretarse como exógena. Las variables instrumentales buscan aislar una parte de la variación del regresor que no esté contaminada por el error.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Identificar fuentes de endogeneidad en modelos aplicados.
+2. Formalizar sesgo por variables omitidas y error de medición.
+3. Evaluar relevancia y exogeneidad de un instrumento.
+4. Escribir primera etapa, forma reducida y segunda etapa.
+5. Demostrar la equivalencia entre IV y 2SLS en el caso exactamente identificado.
+
+## Instrucciones
+
+- En cada ejercicio, identifica primero cuál es el parámetro causal de interés.
+- No basta con proponer un instrumento: debes discutir relevancia y exogeneidad.
+- Si una condición no se puede probar directamente, explica qué evidencia indirecta sería útil.
+
+::: {.box-cuidado}
+Un instrumento fuerte no necesariamente es válido. La relevancia se puede diagnosticar con la primera etapa; la exogeneidad requiere argumento económico, diseño institucional o pruebas indirectas cuando hay sobreidentificación.
+:::
+
+## Parte A: Endogeneidad en salud y ejercicio
+
+::: {.box-ejercicios}
+Considera el modelo:
+
+\[
+salud_i=\beta_0+\beta_1edad_i+\beta_2peso_i+\beta_3altura_i+\beta_4hombre_i+\beta_5trabajo_i+\beta_6ejercicio_i+\epsilon_i.
+\]
+
+La variable \(ejercicio_i\) mide horas de ejercicio a la semana.
+
+1. Explica por qué \(ejercicio_i\) podría estar correlacionada con \(\epsilon_i\).
+2. Supón que tienes acceso a dos variables: distancia de la casa al gimnasio más cercano y distancia del trabajo al gimnasio más cercano. ¿Podrían ser buenos instrumentos? Discute relevancia y exogeneidad.
+3. Si son instrumentos válidos, escribe la primera etapa para \(ejercicio_i\).
+4. Escribe la segunda etapa y explica qué parámetro identifica.
+5. ¿Cómo podrías evaluar empíricamente la relevancia de los instrumentos? ¿Qué parte de la validez no puedes probar directamente?
+:::
+
+## Parte B: Educación y salarios
+
+::: {.box-ejercicios}
+1. Explica por qué al estimar el efecto de años de educación sobre salarios por MCO el coeficiente de educación puede estar sesgado. Discute al menos dos canales.
+
+2. Formaliza el sesgo por variable omitida en:
+
+\[
+\log(wage_i)=\beta_0+\beta_1educ_i+u_i,
+\]
+
+cuando \(u_i\) contiene habilidad no observada.
+
+3. ¿Esperarías que el sesgo de \(\hat{\beta}_{educ}\) sea positivo o negativo? Justifica con un argumento económico y con covarianzas.
+
+4. Supón que se propone como instrumento una variable \(Z_i\) que indica cercanía a una universidad. Escribe las dos condiciones básicas que debe cumplir:
+
+\[
+\operatorname{Cov}(Z_i,educ_i)\neq 0,
+\qquad
+\operatorname{Cov}(Z_i,u_i)=0.
+\]
+
+5. ¿Qué argumentos podrían apoyar o debilitar la exogeneidad de la cercanía a una universidad?
+:::
+
+## Parte C: Primera etapa e instrumentos débiles
+
+::: {.box-ejemplo}
+Una primera etapa para educación produce un coeficiente de 0.3199 sobre distancia/cercanía a universidad, con error estándar 0.0879 y estadístico \(t=3.64\).
+:::
+
+::: {.box-ejercicios}
+1. Calcula el estadístico \(F\) del instrumento excluido cuando hay un solo instrumento excluido. Pista: en ese caso \(F=t^2\).
+
+2. Interpreta el valor obtenido. ¿Qué sugiere sobre relevancia?
+
+3. Explica por qué un instrumento débil puede producir inferencia engañosa incluso si el instrumento es exógeno.
+
+4. Si hubiera varios instrumentos excluidos, ¿qué prueba mirarías para evaluar relevancia conjunta?
+
+5. ¿Qué reportarías en una tabla empírica para que el lector evalúe la fuerza de los instrumentos?
+:::
+
+## Parte D: IV y 2SLS
+
+::: {.box-ejercicios}
+1. Considera el modelo estructural:
+
+\[
+y_i=\beta_0+\beta_1x_i+\epsilon_i,
+\]
+
+con \(x_i\) endógeno y un instrumento \(z_i\). Escribe el estimador IV para el caso exactamente identificado.
+
+2. Escribe la primera etapa:
+
+\[
+x_i=\pi_0+\pi_1z_i+v_i.
+\]
+
+Luego escribe la segunda etapa usando \(\hat{x}_i\).
+
+3. Demuestra que, en el caso exactamente identificado, el estimador de IV coincide con el estimador de MCO en dos etapas.
+
+4. Explica por qué no se deben usar los errores estándar de una segunda etapa hecha "a mano" sin corrección.
+
+5. Compara conceptualmente MCO, IV y 2SLS: ¿qué variación de \(x\) usa cada método?
+:::
+
+## Parte E: Error de medición
+
+::: {.box-ejercicios}
+Sea:
+
+\[
+y=x\beta+u,
+\]
+
+pero observamos:
+
+\[
+y^*=y+w,\qquad x^*=x+v.
+\]
+
+Asume que \(v\), \(w\), \(x\) y \(u\) cumplen condiciones de covarianza cero salvo por la relación estructural entre \(x\) y \(y\).
+
+1. Encuentra el límite en probabilidad del coeficiente de la regresión de \(y^*\) sobre \(x^*\).
+2. Explica el efecto del error de medición en \(x\) sobre signo y magnitud del estimador.
+3. Explica el efecto del error de medición clásico en \(y\). ¿Sesga la pendiente? ¿Qué cambia?
+4. Propón un instrumento posible para \(x^*\). ¿Qué condiciones debería cumplir?
+:::
+
+## Parte F: Simulación reproducible
+
+::: {.box-ejercicios}
+1. Simula un modelo con una variable omitida \(a_i\) que afecta tanto educación como salarios.
+2. Estima por MCO y luego por IV usando un instrumento \(z_i\) que afecta educación pero no salarios directamente.
+3. Compara los coeficientes estimados.
+4. Repite el ejercicio haciendo que el instrumento sea débil. ¿Qué cambia?
+:::
+
+### Código base en R
+
+```{r ps4-iv-r, eval=FALSE}
+set.seed(123)
+n <- 1000
+z <- rnorm(n)
+a <- rnorm(n)
+educ <- 12 + 0.8 * z + 0.7 * a + rnorm(n)
+epsilon <- rnorm(n)
+lwage <- 1 + 0.10 * educ + 0.5 * a + epsilon
+datos <- data.frame(lwage, educ, z, a)
+
+mco <- lm(lwage ~ educ, data = datos)
+primera <- lm(educ ~ z, data = datos)
+datos$educ_hat <- fitted(primera)
+iv_manual <- lm(lwage ~ educ_hat, data = datos)
+
+summary(mco)
+summary(primera)
+summary(iv_manual)
+```
+
+### Código base en Stata
+
+```stata
+clear
+set seed 123
+set obs 1000
+gen z = rnormal()
+gen a = rnormal()
+gen educ = 12 + 0.8*z + 0.7*a + rnormal()
+gen lwage = 1 + 0.10*educ + 0.5*a + rnormal()
+
+regress lwage educ
+regress educ z
+ivregress 2sls lwage (educ = z)
+estat firststage
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+rng = np.random.default_rng(123)
+n = 1000
+z = rng.normal(size=n)
+a = rng.normal(size=n)
+educ = 12 + 0.8*z + 0.7*a + rng.normal(size=n)
+lwage = 1 + 0.10*educ + 0.5*a + rng.normal(size=n)
+
+X_mco = sm.add_constant(educ)
+print(sm.OLS(lwage, X_mco).fit().summary())
+
+X_first = sm.add_constant(z)
+first = sm.OLS(educ, X_first).fit()
+educ_hat = first.fittedvalues
+X_second = sm.add_constant(educ_hat)
+print(sm.OLS(lwage, X_second).fit().summary())
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller insiste en una idea: IV no corrige cualquier problema automáticamente. Funciona cuando el instrumento genera variación relevante en el regresor endógeno y esa variación puede defenderse como exógena respecto al resultado.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
+
+<!--chapter:end:20-ProblemSet4.Rmd-->
+
+# Problem Set 5: Variable dependiente binaria y series de tiempo {#problem-set-5}
+
+Este taller integra los dos últimos bloques del curso: modelos con variable dependiente binaria y una introducción a series de tiempo. Respeta el orden del curso: primero variable dependiente binaria y después series.
+
+::: {.box-intuicion}
+En variable binaria, el resultado ya no es una cantidad continua sino una probabilidad. En series de tiempo, las observaciones ya no son intercambiables en el tiempo. En ambos casos, hay que ajustar la forma de pensar el modelo y la interpretación.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Comparar el modelo de probabilidad lineal con logit y probit.
+2. Escribir e interpretar funciones de verosimilitud para variables binarias.
+3. Calcular e interpretar efectos marginales.
+4. Reconocer estacionariedad débil, raíz unitaria, ACF y PACF.
+5. Usar modelos AR para interpretar persistencia y hacer predicciones simples.
+
+## Instrucciones
+
+- En modelos binarios, interpreta cambios en probabilidades, no solo coeficientes.
+- En series de tiempo, justifica siempre si estás hablando de estacionariedad, persistencia o predicción.
+- Cuando una pregunta sea aplicada, acompaña la fórmula con una frase de interpretación.
+
+::: {.box-cuidado}
+En logit y probit, el signo del coeficiente sí indica la dirección del efecto sobre la probabilidad, pero su magnitud no es directamente un cambio en puntos porcentuales. Para eso necesitas efectos marginales o cambios discretos en probabilidad.
+:::
+
+## Parte A: Probit con regresor binario
+
+::: {.box-ejercicios}
+Supón que quieres estimar un modelo probit donde la única variable explicativa \(X_i\) es binaria:
+
+\[
+\Pr(Y_i=1\mid X_i)=\Phi(\beta_0+\beta_1X_i).
+\]
+
+Define:
+
+\[
+P_1=\Pr(Y_i=1\mid X_i=1),\qquad P_0=\Pr(Y_i=1\mid X_i=0).
+\]
+
+1. Escribe las cuatro probabilidades posibles: \(\Pr(Y=1\mid X=1)\), \(\Pr(Y=0\mid X=1)\), \(\Pr(Y=1\mid X=0)\) y \(\Pr(Y=0\mid X=0)\).
+
+2. Supón que hay \(N_{11}\), \(N_{10}\), \(N_{01}\) y \(N_{00}\) observaciones en las cuatro celdas. Escribe la función de verosimilitud en términos de \(P_1\), \(P_0\) y esos conteos.
+
+3. Deriva las condiciones de primer orden con respecto a \(P_1\) y \(P_0\). ¿Qué probabilidades estiman?
+
+4. ¿Cuál es el efecto marginal discreto de pasar de \(X=0\) a \(X=1\)?
+
+5. Compara este resultado con el estimador de \(\beta_1\) en el modelo de probabilidad lineal:
+
+\[
+Y_i=\beta_0+\beta_1X_i+\epsilon_i.
+\]
+:::
+
+## Parte B: Logit, odds y efectos marginales
+
+::: {.box-ejercicios}
+Considera el modelo logit:
+
+\[
+\log\left(\frac{P(Y_i=1\mid X_i)}{1-P(Y_i=1\mid X_i)}\right)
+=\beta_0+\beta_1X_{1i}+\beta_2X_{2i}.
+\]
+
+1. Escribe la probabilidad \(P(Y_i=1\mid X_i)\) como función de \(X_i\beta\).
+
+2. Escribe la contribución individual a la verosimilitud para una observación con \(Y_i=1\) y para una observación con \(Y_i=0\).
+
+3. Explica cómo interpretar \(\beta_1\) en términos de log-odds.
+
+4. Explica por qué los efectos marginales son más útiles que los coeficientes brutos para comunicar resultados.
+
+5. Supón que una salida logit reporta \(\hat{\beta}_1=0.345\) y \(\hat{\beta}_2=-0.276\). ¿Qué puedes decir sobre la dirección de los efectos? ¿Qué información adicional necesitas para calcular efectos marginales?
+:::
+
+## Parte C: Modelo latente e interacciones
+
+::: {.box-ejercicios}
+Considera el modelo latente:
+
+\[
+y_i^*=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i,
+\]
+
+con:
+
+\[
+y_i=1\quad \text{si }y_i^*>0,
+\qquad
+y_i=0\quad \text{si }y_i^*\leq 0.
+\]
+
+1. Escribe \(\Pr(y_i=1\mid X_i)\) para un modelo probit.
+2. Encuentra la expresión del efecto marginal de \(X_2\) sobre la probabilidad.
+3. Discute por qué el efecto de la interacción no se interpreta solo mirando \(\beta_4\).
+4. Plantea cómo calcularías:
+
+\[
+\frac{\partial^2 \Pr(y=1\mid X)}{\partial X_2\partial X_3}.
+\]
+:::
+
+## Parte D: Aplicación a deserción escolar
+
+::: {.box-ejercicios}
+El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 años. La variable dependiente \(DESERTA\) vale 1 si la persona no asiste a secundaria. Las covariables disponibles son edad, sexo, número de hermanos, logaritmo del ingreso per cápita familiar, jefatura femenina del hogar y educación máxima de los padres.
+
+1. Escribe un modelo probit para la probabilidad de deserción.
+2. ¿Qué signos esperarías para ingreso familiar y educación máxima de los padres? Justifica.
+3. Explica cómo calcularías efectos marginales en las medias y por qué también puede ser útil calcularlos para perfiles específicos.
+4. Repite conceptualmente el análisis con MPL y logit. ¿Qué similitudes y diferencias esperarías?
+5. Plantea una simulación de política: ¿cómo calcularías el cambio en probabilidad de deserción ante un subsidio que aumenta el ingreso familiar?
+:::
+
+## Parte E: Series de tiempo, ACF y PACF
+
+::: {.box-ejercicios}
+1. Define estacionariedad débil. ¿Qué condiciones deben ser independientes del tiempo?
+
+2. ¿Qué significa que una serie sea integrada de orden \(d\)? Si una serie es \(I(3)\), ¿cuántas veces debe diferenciarse para volverla estacionaria?
+
+3. Explica qué es una raíz unitaria y por qué importa para inferencia y predicción.
+
+4. ¿Qué son las pruebas Dickey-Fuller y Dickey-Fuller aumentada?
+
+5. Explica qué puede ocurrir si se aplican técnicas Box-Jenkins a series no estacionarias.
+
+6. ¿En qué sentido un VAR puede considerarse ateórico? ¿Cuál es la conexión entre causalidad de Granger y modelos VAR?
+:::
+
+## Parte F: Modelos autorregresivos y predicción
+
+::: {.box-ejercicios}
+1. Considera:
+
+\[
+y_t=\epsilon_t+\theta_1y_{t-1}+\theta_2y_{t-2},
+\qquad \epsilon_t\sim iid(0,\sigma_\epsilon^2).
+\]
+
+Explica qué condiciones se requieren para que la media y la varianza de \(y_t\) no dependan del tiempo.
+
+2. Un investigador calcula la ACF de una serie de desempleo y obtiene:
+
+| Rezago | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| ACF | 0.83 | 0.71 | 0.60 | 0.45 | 0.44 | 0.35 | 0.29 | 0.20 | 0.11 | -0.01 |
+
+Interpreta el patrón. ¿Sugiere un proceso autorregresivo o de promedio móvil?
+
+3. La PACF correspondiente es:
+
+| Rezago | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| PACF | 0.83 | 0.16 | -0.09 | 0.05 | 0.04 | -0.05 | 0.01 | 0.10 | -0.03 | -0.01 |
+
+¿Cómo cambia tu diagnóstico?
+
+4. Se estima:
+
+\[
+Y_t=\delta+\theta Y_{t-1}+\epsilon_t,
+\]
+
+con \(\hat{\theta}=0.83\) y error estándar 0.07. Formula la hipótesis de raíz unitaria y discute por qué no basta con aplicar mecánicamente una prueba \(t\) convencional.
+
+5. Ahora se estima:
+
+\[
+Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
+\]
+
+Calcula la media de largo plazo si el proceso es estacionario. Luego, usando \(Y_{1996-III}=550\) y \(Y_{1996-IV}=600\), calcula las predicciones para 1997-I y 1997-II.
+:::
+
+## Parte G: Código base
+
+### Variable dependiente binaria en R
+
+```{r ps5-binaria-r, eval=FALSE}
+set.seed(123)
+n <- 1000
+x1 <- rnorm(n)
+x2 <- rbinom(n, 1, 0.5)
+indice <- -0.5 + 0.8 * x1 - 0.6 * x2
+p <- plogis(indice)
+y <- rbinom(n, 1, p)
+datos <- data.frame(y, x1, x2)
+
+mpl <- lm(y ~ x1 + x2, data = datos)
+logit <- glm(y ~ x1 + x2, data = datos, family = binomial(link = "logit"))
+probit <- glm(y ~ x1 + x2, data = datos, family = binomial(link = "probit"))
+
+summary(mpl)
+summary(logit)
+summary(probit)
+```
+
+### Serie AR(1) en R
+
+```{r ps5-series-r, eval=FALSE}
+set.seed(123)
+n <- 200
+epsilon <- rnorm(n)
+y <- numeric(n)
+
+for (t in 2:n) {
+  y[t] <- 0.7 * y[t - 1] + epsilon[t]
+}
+
+plot.ts(y)
+acf(y)
+pacf(y)
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller junta dos cambios de lenguaje. Con variable binaria hablamos en probabilidades y efectos marginales; con series hablamos en dependencia temporal, persistencia y estacionariedad. En ambos casos, la interpretación correcta depende de respetar la estructura de los datos.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
+
+<!--chapter:end:21-ProblemSet5.Rmd-->
 
 # Parcial 1 · 2026-1 {#parcial-1-2026-1}
 

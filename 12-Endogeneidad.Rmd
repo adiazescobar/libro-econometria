@@ -150,6 +150,10 @@ $$E(\hat{\alpha}_1) = \alpha_1 - \frac{Var(u_i)}{(\alpha_1 - \beta_1)Var(p_i)}$$
 
 En todos los casos, la solución general son las **Variables Instrumentales** (Capítulo \@ref(iv)).
 
+::: {.box-ejercicios}
+Para practicar sesgo por variable omitida, error de medición y simultaneidad antes de pasar a IV, resuelva las partes A, B y E del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+
 * * *
 
 ## Lecturas recomendadas {.unnumbered}

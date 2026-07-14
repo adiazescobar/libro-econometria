@@ -1,0 +1,37 @@
+# Talleres y problem sets {#problem-sets}
+
+Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones computacionales. A diferencia de los ejercicios cortos al final de cada capítulo, estos problem sets integran varios temas y sirven para preparar parciales, discusiones en clase y trabajo autónomo.
+
+::: {.box-intuicion}
+La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.
+:::
+
+## Cómo usarlos
+
+1. Lee primero los capítulos asociados al taller.
+2. Resuelve las partes conceptuales sin mirar apuntes durante el primer intento.
+3. En las partes computacionales, conserva el código y comenta cada resultado.
+4. Si el taller se asigna como evaluable, las fechas y el mecanismo de entrega se anunciarán por Teams y por correo.
+
+::: {.box-cuidado}
+Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.
+:::
+
+## Mapa de talleres
+
+| Taller | Tema integrador | Capítulos asociados | Estado |
+|---|---|---|---|
+| [Problem Set 1: MCO y matrices](#problem-set-1) | Álgebra matricial, MCO, dummies, interpretación y simulación | 02, 03, 04, 05 | Piloto disponible |
+| [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2) | FWL, Gauss-Markov, pruebas de hipótesis y simulación | 06, 07, 08, 09 | Disponible |
+| [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3) | Colinealidad, VIF, White, Breusch-Pagan, WLS y errores robustos | 10, 11 | Disponible |
+| [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4) | Sesgo, error de medición, relevancia, exogeneidad, IV y 2SLS | 12, 13 | Disponible |
+| [Problem Set 5: Variable dependiente binaria y series de tiempo](#problem-set-5) | MPL, logit, probit, efectos marginales, ACF, PACF y AR | 15, 14 | Disponible |
+
+## Recomendación de trabajo
+
+::: {.box-resumen}
+- Los problem sets no reemplazan los capítulos: los integran.
+- Las preguntas de demostración preparan para parciales.
+- Las preguntas aplicadas preparan para leer resultados empíricos.
+- Las preguntas computacionales deben resolverse con código reproducible.
+:::

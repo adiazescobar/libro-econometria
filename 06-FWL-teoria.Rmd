@@ -152,6 +152,7 @@ FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilo
 3. ¿Por qué \(M_s\) se llama matriz de aniquilación?
 4. Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.
 5. Explica por qué FWL exige usar la misma muestra en todas las regresiones.
+6. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-fwl-teoria}

@@ -280,6 +280,12 @@ ivreg2 y controls (x1 = z1 z2), gmm2s robust
 
 * * *
 
+::: {.box-ejercicios}
+Para practicar relevancia, exogeneidad, primera etapa e IV/2SLS, resuelva las partes C, D y F del [Problem Set 4: Endogeneidad y variables instrumentales](#problem-set-4).
+:::
+
+* * *
+
 ## Lecturas recomendadas {.unnumbered}
 - **Verbeek (2017)** — *A Guide to Modern Econometrics*, Cap. 5 — tratamiento completo de IV, MCO2E y GMM
 - **Angrist & Pischke (2009)** — *Mostly Harmless Econometrics*, Cap. 4 — enfoque de programa de evaluación

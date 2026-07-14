@@ -759,3 +759,10 @@ La **matriz de segundas derivadas** (Hessiana) es:
 2. Sean \( \mathbf{i} = (1, \ldots, 1)' \) y \( \mathbf{y} = (y_1, \ldots, y_m)' \). Calcule \( \mathbf{i}'\mathbf{y} \).
 3. Demuestre que la **media** de las observaciones \( y_1, \ldots, y_m \) puede expresarse como:
 
+\[
+\bar{y}=\frac{\mathbf{i}'\mathbf{y}}{\mathbf{i}'\mathbf{i}}.
+\]
+
+::: {.box-ejercicios}
+Para practicar este repaso con ejercicios más largos, resuelve la parte A del [Problem Set 1: MCO y matrices](#problem-set-1).
+:::

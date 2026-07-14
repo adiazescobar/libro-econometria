@@ -219,6 +219,7 @@ La normalidad no es el supuesto que hace que MCO sea insesgado. La condición ce
 3. Da un ejemplo de multicolinealidad perfecta en un modelo con variables binarias.
 4. ¿Qué propiedad de MCO se pierde si las perturbaciones no son esféricas, manteniendo exogeneidad?
 5. ¿Por qué la normalidad es más importante en muestras pequeñas que en muestras grandes?
+6. Para practicar la relación entre supuestos, MCO y Gauss-Markov, resuelve la parte D del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-supuestos-teoria}

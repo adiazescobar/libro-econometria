@@ -231,3 +231,7 @@ hetprobit trabaja edad educ hijos, het(edad)
 - El pseudo-$R^2$ de McFadden reemplaza al $R^2$ tradicional.
 - En Probit y Logit, la heterocedasticidad cambia la forma funcional del modelo y genera inconsistencia.
 - Cuando la relación entre $Y$ y $X$ es difusa, MPL, Probit y Logit dan efectos marginales muy similares.
+
+::: {.box-ejercicios}
+Para practicar MPL, logit, probit, verosimilitud y efectos marginales, resuelva las partes A, B, C y D del [Problem Set 5: Variable dependiente binaria y series de tiempo](#problem-set-5).
+:::

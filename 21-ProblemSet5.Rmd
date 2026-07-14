@@ -1,0 +1,227 @@
+# Problem Set 5: Variable dependiente binaria y series de tiempo {#problem-set-5}
+
+Este taller integra los dos últimos bloques del curso: modelos con variable dependiente binaria y una introducción a series de tiempo. Respeta el orden del curso: primero variable dependiente binaria y después series.
+
+::: {.box-intuicion}
+En variable binaria, el resultado ya no es una cantidad continua sino una probabilidad. En series de tiempo, las observaciones ya no son intercambiables en el tiempo. En ambos casos, hay que ajustar la forma de pensar el modelo y la interpretación.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Comparar el modelo de probabilidad lineal con logit y probit.
+2. Escribir e interpretar funciones de verosimilitud para variables binarias.
+3. Calcular e interpretar efectos marginales.
+4. Reconocer estacionariedad débil, raíz unitaria, ACF y PACF.
+5. Usar modelos AR para interpretar persistencia y hacer predicciones simples.
+
+## Instrucciones
+
+- En modelos binarios, interpreta cambios en probabilidades, no solo coeficientes.
+- En series de tiempo, justifica siempre si estás hablando de estacionariedad, persistencia o predicción.
+- Cuando una pregunta sea aplicada, acompaña la fórmula con una frase de interpretación.
+
+::: {.box-cuidado}
+En logit y probit, el signo del coeficiente sí indica la dirección del efecto sobre la probabilidad, pero su magnitud no es directamente un cambio en puntos porcentuales. Para eso necesitas efectos marginales o cambios discretos en probabilidad.
+:::
+
+## Parte A: Probit con regresor binario
+
+::: {.box-ejercicios}
+Supón que quieres estimar un modelo probit donde la única variable explicativa \(X_i\) es binaria:
+
+\[
+\Pr(Y_i=1\mid X_i)=\Phi(\beta_0+\beta_1X_i).
+\]
+
+Define:
+
+\[
+P_1=\Pr(Y_i=1\mid X_i=1),\qquad P_0=\Pr(Y_i=1\mid X_i=0).
+\]
+
+1. Escribe las cuatro probabilidades posibles: \(\Pr(Y=1\mid X=1)\), \(\Pr(Y=0\mid X=1)\), \(\Pr(Y=1\mid X=0)\) y \(\Pr(Y=0\mid X=0)\).
+
+2. Supón que hay \(N_{11}\), \(N_{10}\), \(N_{01}\) y \(N_{00}\) observaciones en las cuatro celdas. Escribe la función de verosimilitud en términos de \(P_1\), \(P_0\) y esos conteos.
+
+3. Deriva las condiciones de primer orden con respecto a \(P_1\) y \(P_0\). ¿Qué probabilidades estiman?
+
+4. ¿Cuál es el efecto marginal discreto de pasar de \(X=0\) a \(X=1\)?
+
+5. Compara este resultado con el estimador de \(\beta_1\) en el modelo de probabilidad lineal:
+
+\[
+Y_i=\beta_0+\beta_1X_i+\epsilon_i.
+\]
+:::
+
+## Parte B: Logit, odds y efectos marginales
+
+::: {.box-ejercicios}
+Considera el modelo logit:
+
+\[
+\log\left(\frac{P(Y_i=1\mid X_i)}{1-P(Y_i=1\mid X_i)}\right)
+=\beta_0+\beta_1X_{1i}+\beta_2X_{2i}.
+\]
+
+1. Escribe la probabilidad \(P(Y_i=1\mid X_i)\) como función de \(X_i\beta\).
+
+2. Escribe la contribución individual a la verosimilitud para una observación con \(Y_i=1\) y para una observación con \(Y_i=0\).
+
+3. Explica cómo interpretar \(\beta_1\) en términos de log-odds.
+
+4. Explica por qué los efectos marginales son más útiles que los coeficientes brutos para comunicar resultados.
+
+5. Supón que una salida logit reporta \(\hat{\beta}_1=0.345\) y \(\hat{\beta}_2=-0.276\). ¿Qué puedes decir sobre la dirección de los efectos? ¿Qué información adicional necesitas para calcular efectos marginales?
+:::
+
+## Parte C: Modelo latente e interacciones
+
+::: {.box-ejercicios}
+Considera el modelo latente:
+
+\[
+y_i^*=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\beta_4X_{2i}X_{3i}+\epsilon_i,
+\]
+
+con:
+
+\[
+y_i=1\quad \text{si }y_i^*>0,
+\qquad
+y_i=0\quad \text{si }y_i^*\leq 0.
+\]
+
+1. Escribe \(\Pr(y_i=1\mid X_i)\) para un modelo probit.
+2. Encuentra la expresión del efecto marginal de \(X_2\) sobre la probabilidad.
+3. Discute por qué el efecto de la interacción no se interpreta solo mirando \(\beta_4\).
+4. Plantea cómo calcularías:
+
+\[
+\frac{\partial^2 \Pr(y=1\mid X)}{\partial X_2\partial X_3}.
+\]
+:::
+
+## Parte D: Aplicación a deserción escolar
+
+::: {.box-ejercicios}
+El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 años. La variable dependiente \(DESERTA\) vale 1 si la persona no asiste a secundaria. Las covariables disponibles son edad, sexo, número de hermanos, logaritmo del ingreso per cápita familiar, jefatura femenina del hogar y educación máxima de los padres.
+
+1. Escribe un modelo probit para la probabilidad de deserción.
+2. ¿Qué signos esperarías para ingreso familiar y educación máxima de los padres? Justifica.
+3. Explica cómo calcularías efectos marginales en las medias y por qué también puede ser útil calcularlos para perfiles específicos.
+4. Repite conceptualmente el análisis con MPL y logit. ¿Qué similitudes y diferencias esperarías?
+5. Plantea una simulación de política: ¿cómo calcularías el cambio en probabilidad de deserción ante un subsidio que aumenta el ingreso familiar?
+:::
+
+## Parte E: Series de tiempo, ACF y PACF
+
+::: {.box-ejercicios}
+1. Define estacionariedad débil. ¿Qué condiciones deben ser independientes del tiempo?
+
+2. ¿Qué significa que una serie sea integrada de orden \(d\)? Si una serie es \(I(3)\), ¿cuántas veces debe diferenciarse para volverla estacionaria?
+
+3. Explica qué es una raíz unitaria y por qué importa para inferencia y predicción.
+
+4. ¿Qué son las pruebas Dickey-Fuller y Dickey-Fuller aumentada?
+
+5. Explica qué puede ocurrir si se aplican técnicas Box-Jenkins a series no estacionarias.
+
+6. ¿En qué sentido un VAR puede considerarse ateórico? ¿Cuál es la conexión entre causalidad de Granger y modelos VAR?
+:::
+
+## Parte F: Modelos autorregresivos y predicción
+
+::: {.box-ejercicios}
+1. Considera:
+
+\[
+y_t=\epsilon_t+\theta_1y_{t-1}+\theta_2y_{t-2},
+\qquad \epsilon_t\sim iid(0,\sigma_\epsilon^2).
+\]
+
+Explica qué condiciones se requieren para que la media y la varianza de \(y_t\) no dependan del tiempo.
+
+2. Un investigador calcula la ACF de una serie de desempleo y obtiene:
+
+| Rezago | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| ACF | 0.83 | 0.71 | 0.60 | 0.45 | 0.44 | 0.35 | 0.29 | 0.20 | 0.11 | -0.01 |
+
+Interpreta el patrón. ¿Sugiere un proceso autorregresivo o de promedio móvil?
+
+3. La PACF correspondiente es:
+
+| Rezago | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| PACF | 0.83 | 0.16 | -0.09 | 0.05 | 0.04 | -0.05 | 0.01 | 0.10 | -0.03 | -0.01 |
+
+¿Cómo cambia tu diagnóstico?
+
+4. Se estima:
+
+\[
+Y_t=\delta+\theta Y_{t-1}+\epsilon_t,
+\]
+
+con \(\hat{\theta}=0.83\) y error estándar 0.07. Formula la hipótesis de raíz unitaria y discute por qué no basta con aplicar mecánicamente una prueba \(t\) convencional.
+
+5. Ahora se estima:
+
+\[
+Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
+\]
+
+Calcula la media de largo plazo si el proceso es estacionario. Luego, usando \(Y_{1996-III}=550\) y \(Y_{1996-IV}=600\), calcula las predicciones para 1997-I y 1997-II.
+:::
+
+## Parte G: Código base
+
+### Variable dependiente binaria en R
+
+```{r ps5-binaria-r, eval=FALSE}
+set.seed(123)
+n <- 1000
+x1 <- rnorm(n)
+x2 <- rbinom(n, 1, 0.5)
+indice <- -0.5 + 0.8 * x1 - 0.6 * x2
+p <- plogis(indice)
+y <- rbinom(n, 1, p)
+datos <- data.frame(y, x1, x2)
+
+mpl <- lm(y ~ x1 + x2, data = datos)
+logit <- glm(y ~ x1 + x2, data = datos, family = binomial(link = "logit"))
+probit <- glm(y ~ x1 + x2, data = datos, family = binomial(link = "probit"))
+
+summary(mpl)
+summary(logit)
+summary(probit)
+```
+
+### Serie AR(1) en R
+
+```{r ps5-series-r, eval=FALSE}
+set.seed(123)
+n <- 200
+epsilon <- rnorm(n)
+y <- numeric(n)
+
+for (t in 2:n) {
+  y[t] <- 0.7 * y[t - 1] + epsilon[t]
+}
+
+plot.ts(y)
+acf(y)
+pacf(y)
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller junta dos cambios de lenguaje. Con variable binaria hablamos en probabilidades y efectos marginales; con series hablamos en dependencia temporal, persistencia y estacionariedad. En ambos casos, la interpretación correcta depende de respetar la estructura de los datos.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+

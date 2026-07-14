@@ -162,6 +162,7 @@ Centrar variables puede ayudar a interpretar polinomios o interacciones, pero no
 3. ¿Por qué multicolinealidad aproximada no implica sesgo si se mantiene exogeneidad?
 4. Discute cuándo sería razonable mantener una variable con VIF alto.
 5. Explica por qué las correlaciones bivariadas no bastan para diagnosticar multicolinealidad.
+6. Para practicar diagnóstico y simulación de colinealidad, resuelve las partes A y D del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
 :::
 
 ## Referencias {#referencias-multico-teoria}

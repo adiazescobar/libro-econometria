@@ -469,8 +469,8 @@ sm.WLS(y, X, weights = w).fit()
 5. Explique diferencias prácticas entre **WLS**, **FGLS** y **HC (White)**. ¿Cuándo usaría cada uno?
 6. En datos per cápita, ¿por qué la heterocedasticidad aparece “por construcción”? Proponga un esquema de **WLS** apropiado.
 7. Simule un caso en el que \(\hat{\beta}\) sea similar entre MCO y WLS, pero los **EE** cambien de manera sustancial. Interprete.
+8. Para practicar estos diagnósticos junto con multicolinealidad, resuelva las partes B, C y E del [Problem Set 3: Multicolinealidad y heterocedasticidad](#problem-set-3).
 
 </div>
-
 
 

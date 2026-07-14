@@ -199,6 +199,7 @@ No confundas significancia estadística con importancia económica. Un coeficien
 3. Demuestra que, con una sola restricción, el estadístico \(F\) equivale al cuadrado del estadístico \(t\).
 4. Interpreta un valor \(p\) de 0.07 con \(\alpha=0.05\) y con \(\alpha=0.10\).
 5. En una función Cobb-Douglas, escribe \(R\beta=r\) para la hipótesis de rendimientos constantes a escala.
+6. Para practicar hipótesis, \(p\)-valores e intervalos en contexto aplicado, resuelve la parte C del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-pruebas-teoria}

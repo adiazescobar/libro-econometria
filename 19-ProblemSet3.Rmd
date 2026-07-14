@@ -1,0 +1,216 @@
+# Problem Set 3: Multicolinealidad y heterocedasticidad {#problem-set-3}
+
+Este taller integra dos problemas frecuentes en aplicaciones de MCO: regresores muy correlacionados y varianza no constante del error. Está pensado para resolverse después de estudiar los capítulos 10 y 11.
+
+::: {.box-intuicion}
+Multicolinealidad y heterocedasticidad no son el mismo problema. La primera afecta la precisión con la que separamos efectos entre regresores relacionados; la segunda afecta la forma correcta de medir la incertidumbre cuando la varianza del error cambia con las covariables.
+:::
+
+## Objetivos del taller
+
+Al finalizar este problem set podrás:
+
+1. Distinguir multicolinealidad perfecta de multicolinealidad aproximada.
+2. Explicar por qué la correlación alta entre regresores aumenta la varianza de algunos estimadores.
+3. Formular pruebas de heterocedasticidad como White y Breusch-Pagan.
+4. Comparar MCO, errores robustos, GLS y WLS.
+5. Simular datos para ver cómo cambian estimaciones y errores estándar.
+
+## Instrucciones
+
+- En las preguntas de multicolinealidad, separa siempre identificación de precisión.
+- En las preguntas de heterocedasticidad, distingue el estimador de los coeficientes de los errores estándar.
+- En la parte computacional, entrega código reproducible y comenta la diferencia entre estimación e inferencia.
+
+::: {.box-cuidado}
+No digas que la multicolinealidad aproximada "sesga" MCO. Si los supuestos de exogeneidad se mantienen, el problema principal es de precisión: errores estándar grandes y coeficientes inestables.
+:::
+
+## Parte A: Multicolinealidad
+
+::: {.box-ejercicios}
+1. Explica la diferencia entre multicolinealidad perfecta y multicolinealidad aproximada. ¿En cuál de los dos casos no existe \((X'X)^{-1}\)?
+
+2. Considera:
+
+\[
+Y_i=a+bx_i+cz_i+\mu_i,
+\]
+
+donde \(x_i=X_i-\bar{X}\) y \(z_i=Z_i-\bar{Z}\). Usa las ecuaciones normales para explicar por qué los residuos estimados son ortogonales a \(x\) y a \(z\).
+
+3. Deriva la intuición de \(\operatorname{Var}(\hat{b})\) cuando \(x\) y \(z\) están altamente correlacionadas. ¿Qué ocurre cuando la correlación entre \(x\) y \(z\) se acerca a 1? ¿Qué ocurre cuando la correlación es 0?
+
+4. En una regresión con educación, experiencia y experiencia al cuadrado, ¿por qué puede aparecer multicolinealidad aproximada? ¿Qué harías para diagnosticarla?
+
+5. Explica por qué eliminar variables solo para reducir el VIF puede ser una mala decisión si esas variables son controles conceptualmente importantes.
+:::
+
+## Parte B: Heterocedasticidad
+
+::: {.box-ejercicios}
+1. Considera la regresión desde el origen:
+
+\[
+y_i=X_i\beta+\epsilon_i,\qquad \epsilon_i\sim N(0,\sigma_\epsilon^2 X_i).
+\]
+
+Supón que las primeras 15 observaciones de \(X\) toman el valor 1 y las 45 siguientes toman el valor \(-1\). Plantea cómo calcularías el estimador de Mínimos Cuadrados Generalizados y su varianza. ¿Qué ocurre si se estima por MCO ignorando la heterocedasticidad?
+
+2. Supón que quieres evaluar heterocedasticidad con el test de White en:
+
+\[
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{2i}^2+\epsilon_i.
+\]
+
+Escribe la regresión auxiliar. ¿Qué variable va al lado izquierdo? ¿Qué términos deben ir al lado derecho, teniendo en cuenta que una variable independiente es el cuadrado de otra?
+
+3. Si la muestra tiene 150 observaciones y el \(R^2\) de la regresión auxiliar es 0.040, calcula el estadístico \(nR^2\). ¿Con qué distribución lo compararías? ¿Qué grados de libertad usarías?
+
+4. Explica la diferencia entre heterocedasticidad pura e impura. Da un ejemplo de cada una.
+
+5. Explica cuándo preferirías errores estándar robustos y cuándo tendría sentido estimar un modelo ponderado.
+:::
+
+## Parte C: Aplicación conceptual
+
+::: {.box-ejercicios}
+1. En el modelo:
+
+\[
+sueño_i=\beta_0+\beta_1MinTrabajo_i+\beta_2Educ_i+\beta_3Edad_i+\beta_4Edad_i^2+\beta_5Hijos_i+\beta_6Hombre_i+\mu_i,
+\]
+
+explica por qué podría existir heterocedasticidad en datos de corte transversal.
+
+2. Supón que:
+
+\[
+\operatorname{Var}(\mu_i)=\sigma_1^2 Mujer_i+\sigma_2^2 Hombre_i,
+\]
+
+donde \(Mujer_i=1-Hombre_i\). Propón una forma de estimar \(\sigma_1^2\) y \(\sigma_2^2\) usando residuos de una regresión inicial.
+
+3. Con esos estimadores de varianza, ¿cómo modificarías MCO para obtener una estimación ponderada?
+
+4. ¿Qué parte de este ejercicio cambia los coeficientes y qué parte cambia solamente los errores estándar?
+:::
+
+## Parte D: Simulación de multicolinealidad
+
+::: {.box-ejemplo}
+Genera:
+
+\[
+y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
+\]
+
+con \(X_1\sim N(0,1)\), \(X_2\sim N(0,1)\), \(\epsilon_i\sim N(0,1)\) y \(X_3=X_1+X_2+\eta_i\), donde \(\eta_i\) tiene varianza pequeña.
+:::
+
+### Preguntas
+
+::: {.box-ejercicios}
+1. Estima el modelo completo con \(n=100\). Repite la simulación varias veces. ¿Qué tan estables son los coeficientes?
+2. Aumenta la muestra a \(n=10000\). ¿Desaparece el problema? ¿Qué mejora y qué no?
+3. Calcula la matriz de correlaciones y el VIF. ¿Qué diagnóstico entregan?
+4. Repite el ejercicio aumentando la varianza de \(\eta_i\). ¿Qué ocurre con los errores estándar?
+:::
+
+### Código base en R
+
+```{r ps3-multico-r, eval=FALSE}
+simular_multico <- function(n, ruido = 0.01) {
+  x1 <- rnorm(n)
+  x2 <- rnorm(n)
+  x3 <- x1 + x2 + rnorm(n, sd = ruido)
+  epsilon <- rnorm(n)
+  y <- 5 + 25 * x1 - 5 * x2 + 15 * x3 + epsilon
+  data.frame(y, x1, x2, x3)
+}
+
+set.seed(123)
+datos_100 <- simular_multico(100)
+modelo_100 <- lm(y ~ x1 + x2 + x3, data = datos_100)
+summary(modelo_100)
+cor(datos_100[c("x1", "x2", "x3")])
+
+datos_10000 <- simular_multico(10000)
+summary(lm(y ~ x1 + x2 + x3, data = datos_10000))
+```
+
+### Código base en Stata
+
+```stata
+clear
+set seed 123
+set obs 100
+gen x1 = rnormal()
+gen x2 = rnormal()
+gen x3 = x1 + x2 + rnormal(0, 0.01)
+gen epsilon = rnormal()
+gen y = 5 + 25*x1 - 5*x2 + 15*x3 + epsilon
+
+regress y x1 x2 x3
+correlate x1 x2 x3
+estat vif
+```
+
+### Código base en Python
+
+```python
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+
+rng = np.random.default_rng(123)
+n = 100
+x1 = rng.normal(size=n)
+x2 = rng.normal(size=n)
+x3 = x1 + x2 + rng.normal(scale=0.01, size=n)
+epsilon = rng.normal(size=n)
+y = 5 + 25*x1 - 5*x2 + 15*x3 + epsilon
+
+X = sm.add_constant(pd.DataFrame({"x1": x1, "x2": x2, "x3": x3}))
+modelo = sm.OLS(y, X).fit()
+print(modelo.summary())
+```
+
+## Parte E: Simulación de heterocedasticidad
+
+::: {.box-ejercicios}
+1. Genera \(x_i\sim U(1,10)\), \(\epsilon_i\sim N(0, \sigma_i^2)\), con \(\sigma_i=0.5+0.3x_i\), y \(y_i=1+2x_i+\epsilon_i\).
+2. Estima MCO con errores convencionales y con errores robustos.
+3. Haz un gráfico de residuos contra valores ajustados.
+4. Estima una versión ponderada usando pesos proporcionales a \(1/\sigma_i^2\). Compara.
+:::
+
+### Código base en R
+
+```{r ps3-hetero-r, eval=FALSE}
+set.seed(123)
+n <- 300
+x <- runif(n, 1, 10)
+sigma <- 0.5 + 0.3 * x
+epsilon <- rnorm(n, sd = sigma)
+y <- 1 + 2 * x + epsilon
+datos <- data.frame(y, x, sigma)
+
+mco <- lm(y ~ x, data = datos)
+wls <- lm(y ~ x, data = datos, weights = 1 / sigma^2)
+
+summary(mco)
+summary(wls)
+plot(fitted(mco), resid(mco),
+     xlab = "Valores ajustados", ylab = "Residuos")
+abline(h = 0, col = "#C0562F", lwd = 2)
+```
+
+## Cierre
+
+::: {.box-resumen}
+Este taller separa dos diagnósticos distintos: multicolinealidad habla de la información disponible para separar regresores; heterocedasticidad habla de cómo se comporta la varianza del error. En ambos casos, la solución depende de entender primero cuál es el problema estadístico exacto.
+:::
+
+[← Volver al índice de problem sets](#problem-sets)
+
