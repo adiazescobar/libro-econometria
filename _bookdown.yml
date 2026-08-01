@@ -34,6 +34,7 @@ rmd_files:
   - 20-ProblemSet4.Rmd
   - 21-ProblemSet5.Rmd
   - P1-Parcial1_2026-1.Rmd
+  - P2-Parcial2_2026-1.Rmd
 output_dir: "docs"
 delete_merged_file: false
 language:

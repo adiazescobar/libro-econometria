@@ -5,6 +5,13 @@
 .Ruserdata
 *_files/
 *_cache/
+
+# EXCEPCION IMPORTANTE: docs/_main_files/ NO es temporal.
+# Ahi viven las figuras del libro publicado con GitHub Pages. Si se ignora,
+# el sitio queda con las imagenes rotas (paso en julio de 2026: 23 figuras
+# de los capitulos de practica nunca se subieron).
+!docs/_main_files/
+!docs/_main_files/**
 _book/
 gmail_creds.json
 .gstack/
