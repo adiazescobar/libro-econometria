@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 34 Parcial 2 · 2026-1 | Econometría II</title>
+  <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 34 Parcial 2 · 2026-1 | Econometría II" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  <meta name="github-repo" content="adiazescobar/libro-econometria" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 34 Parcial 2 · 2026-1 | Econometría II" />
+  
+  <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
+Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
+  
+
+<meta name="author" content="Ana María Díaz" />
+
+
+<meta name="date" content="2026-08-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="parcial-1-2026-1.html"/>
+
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">📘 Econometría II</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Información general</a></li>
+<li class="chapter" data-level="" data-path="prueba-de-entrada---econometria-ii.html"><a href="prueba-de-entrada---econometria-ii.html"><i class="fa fa-check"></i>Prueba de Entrada - Econometria II</a></li>
+<li class="chapter" data-level="1" data-path="repaso.html"><a href="repaso.html"><i class="fa fa-check"></i><b>1</b> Repaso</a></li>
+<li class="chapter" data-level="2" data-path="regresion-lineal-teoria.html"><a href="regresion-lineal-teoria.html"><i class="fa fa-check"></i><b>2</b> Regresión lineal: teoría</a></li>
+<li class="chapter" data-level="3" data-path="regresion-lineal-practica.html"><a href="regresion-lineal-practica.html"><i class="fa fa-check"></i><b>3</b> Regresión lineal: práctica</a></li>
+<li class="chapter" data-level="4" data-path="repaso-de-matrices.html"><a href="repaso-de-matrices.html"><i class="fa fa-check"></i><b>4</b> Repaso de matrices</a></li>
+<li class="chapter" data-level="5" data-path="supuestos-mco-teoria.html"><a href="supuestos-mco-teoria.html"><i class="fa fa-check"></i><b>5</b> Supuestos de MCO: teoría</a></li>
+<li class="chapter" data-level="6" data-path="supuestos-mco-practica.html"><a href="supuestos-mco-practica.html"><i class="fa fa-check"></i><b>6</b> Supuestos de MCO: práctica</a></li>
+<li class="chapter" data-level="7" data-path="estimacion-mco-teoria.html"><a href="estimacion-mco-teoria.html"><i class="fa fa-check"></i><b>7</b> Estimación de MCO: teoría</a></li>
+<li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
+<li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
+<li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
+<li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
+<li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
+<li class="chapter" data-level="15" data-path="normalidad-asintotica-teoria.html"><a href="normalidad-asintotica-teoria.html"><i class="fa fa-check"></i><b>15</b> Normalidad asintótica e inferencia: teoría</a></li>
+<li class="chapter" data-level="16" data-path="normalidad-asintotica-practica.html"><a href="normalidad-asintotica-practica.html"><i class="fa fa-check"></i><b>16</b> Normalidad asintótica e inferencia: práctica</a></li>
+<li class="chapter" data-level="17" data-path="multicolinealidad-teoria.html"><a href="multicolinealidad-teoria.html"><i class="fa fa-check"></i><b>17</b> Multicolinealidad: teoría</a></li>
+<li class="chapter" data-level="18" data-path="multicolinealidad-practica.html"><a href="multicolinealidad-practica.html"><i class="fa fa-check"></i><b>18</b> Multicolinealidad: práctica</a></li>
+<li class="chapter" data-level="19" data-path="heterocedasticidad-teoria.html"><a href="heterocedasticidad-teoria.html"><i class="fa fa-check"></i><b>19</b> Heterocedasticidad: teoría</a></li>
+<li class="chapter" data-level="20" data-path="heterocedasticidad-practica.html"><a href="heterocedasticidad-practica.html"><i class="fa fa-check"></i><b>20</b> Heterocedasticidad: práctica</a></li>
+<li class="chapter" data-level="21" data-path="endogeneidad-teoria.html"><a href="endogeneidad-teoria.html"><i class="fa fa-check"></i><b>21</b> Endogeneidad: teoría</a></li>
+<li class="chapter" data-level="22" data-path="endogeneidad-practica.html"><a href="endogeneidad-practica.html"><i class="fa fa-check"></i><b>22</b> Endogeneidad: práctica</a></li>
+<li class="chapter" data-level="23" data-path="iv-teoria.html"><a href="iv-teoria.html"><i class="fa fa-check"></i><b>23</b> Variables instrumentales: teoría</a></li>
+<li class="chapter" data-level="24" data-path="iv-practica.html"><a href="iv-practica.html"><i class="fa fa-check"></i><b>24</b> Variables instrumentales: práctica</a></li>
+<li class="chapter" data-level="25" data-path="binaria.html"><a href="binaria.html"><i class="fa fa-check"></i><b>25</b> Modelos con variable dependiente binaria</a></li>
+<li class="chapter" data-level="26" data-path="series.html"><a href="series.html"><i class="fa fa-check"></i><b>26</b> Series de Tiempo</a></li>
+<li class="chapter" data-level="27" data-path="problem-sets.html"><a href="problem-sets.html"><i class="fa fa-check"></i><b>27</b> Talleres y problem sets</a></li>
+<li class="chapter" data-level="28" data-path="problem-set-1.html"><a href="problem-set-1.html"><i class="fa fa-check"></i><b>28</b> Problem Set 1: MCO y matrices</a></li>
+<li class="chapter" data-level="29" data-path="problem-set-2.html"><a href="problem-set-2.html"><i class="fa fa-check"></i><b>29</b> Problem Set 2: FWL, propiedades e inferencia</a></li>
+<li class="chapter" data-level="30" data-path="problem-set-3.html"><a href="problem-set-3.html"><i class="fa fa-check"></i><b>30</b> Problem Set 3: Multicolinealidad y heterocedasticidad</a></li>
+<li class="chapter" data-level="31" data-path="problem-set-4.html"><a href="problem-set-4.html"><i class="fa fa-check"></i><b>31</b> Problem Set 4: Endogeneidad y variables instrumentales</a></li>
+<li class="chapter" data-level="32" data-path="problem-set-5.html"><a href="problem-set-5.html"><i class="fa fa-check"></i><b>32</b> Problem Set 5: Variable dependiente binaria y series de tiempo</a></li>
+<li class="chapter" data-level="33" data-path="parcial-1-2026-1.html"><a href="parcial-1-2026-1.html"><i class="fa fa-check"></i><b>33</b> Parcial 1 · 2026-1</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/adiazescobar/libro-econometria" target="_blank">📖 Ver en GitHub</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Econometría II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="parcial-2-2026-1" class="section level1 hasAnchor" number="34">
+<h1><span class="header-section-number">Capítulo 34</span> Parcial 2 · 2026-1<a href="parcial-2-2026-1.html#parcial-2-2026-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Pontificia Universidad Javeriana · Departamento de Economía</strong>
+<strong>Profesora:</strong> Ana María Díaz · <strong>Semestre:</strong> 2026-1
+<strong>Puntaje máximo:</strong> 5.0 pts</p>
+<div class="box-tarea">
+<p><strong>Cómo usar este capítulo</strong>
+Las preguntas están tal como aparecieron en el examen. Haz clic en <strong>🔑 Ver solución</strong> para revelar la respuesta y su explicación. Te recomendamos responder primero y consultar la solución después.</p>
+</div>
+<hr>
+<div id="parte-i-seleccion-multiple" class="section level2 unnumbered hasAnchor">
+<h2>Parte I: Selección Múltiple<a href="parcial-1-2026-1.html#parte-i-seleccion-multiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>20 preguntas · 2 puntos en total</strong></p>
+<p>La escala de calificación asigna 2.00 pts con 20 correctas, hasta 1.00 pts con 10 correctas; por debajo de 10, proporcional.</p>
+<hr>
+<p><strong>Clave de respuestas:</strong>
+B A C B A | B C C B C | B C B B B | B C B C C</p>
+<hr>
+<p><strong>P1.</strong> La matriz de varianza-covarianza del estimador MCO bajo heterocedasticidad satisface:</p>
+<ol style="list-style-type: upper-alpha">
+<li><span class="math inline">\(\operatorname{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}\)</span></li>
+<li><span class="math inline">\(\operatorname{Var}(\hat{\beta}\mid X)=(X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}\)</span></li>
+<li>Coincide con la fórmula clásica si <span class="math inline">\(\Omega=\sigma^2 I\)</span></li>
+<li>No puede estimarse sin suponer normalidad</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Bajo heterocedasticidad <span class="math inline">\(\Omega=\operatorname{Var}(\varepsilon\mid X)\)</span> es diagonal pero no es múltiplo de <span class="math inline">\(I_n\)</span>. La verdadera varianza es <span class="math inline">\(\operatorname{Var}(\hat{\beta}\mid X)=(X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}\)</span>. La fórmula clásica <span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span> es incorrecta.</p>
+</div>
+</details>
+<hr>
+<p><strong>P2.</strong> El estimador MCO en presencia de heterocedasticidad es:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Insesgado y consistente</li>
+<li>Sesgado e inconsistente</li>
+<li>Insesgado en muestras pequeñas pero consistente en grandes</li>
+<li>Consistente pero no eficiente</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: A.</strong> La heterocedasticidad viola el supuesto S4 (homocedasticidad) pero no afecta S1–S2. Luego, MCO sigue siendo insesgado y consistente; el problema es que deja de ser MELI y los errores estándar habituales son inválidos.</p>
+</div>
+</details>
+<hr>
+<p><strong>P3.</strong> Defina <span class="math inline">\(H_i = X_i(X&#39;X)^{-1}X_i&#39;\)</span> (apalancamiento de la observación <span class="math inline">\(i\)</span>). Si <span class="math inline">\(H_i\)</span> es muy grande:</p>
+<ol style="list-style-type: upper-alpha">
+<li>La observación <span class="math inline">\(i\)</span> tiene bajo impacto en <span class="math inline">\(\hat{\beta}\)</span></li>
+<li>La observación <span class="math inline">\(i\)</span> tiene alto impacto en <span class="math inline">\(\hat{\beta}\)</span> pero bajo residuo</li>
+<li>Los errores estándar disminuyen automáticamente</li>
+<li>El <span class="math inline">\(R^2\)</span> se incrementa</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: C.</strong> Un valor alto de <span class="math inline">\(H_i\)</span> indica que <span class="math inline">\(X_i\)</span> está alejado del centro de la distribución de <span class="math inline">\(X\)</span>. Eso puede causar alto residuo o bajo residuo (apalancamiento alto), pero <em>siempre</em> reduce la varianza del residuo estandarizado. Observaciones atípicas en <span class="math inline">\(X\)</span> tienen potencial para alterar <span class="math inline">\(\hat{\beta}\)</span>.</p>
+</div>
+</details>
+<hr>
+<p><strong>P4.</strong> En el modelo <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span> con heterocedasticidad, los errores robustos (HC) son preferibles a los errores estándar clásicos porque:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Producen estimadores insesgados</li>
+<li>Proporcionan inferencia válida bajo heterocedasticidad sin especificar su forma</li>
+<li>Mejoran la eficiencia de MCO</li>
+<li>Eliminan la heterocedasticidad del modelo</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Los errores HC estiman directamente <span class="math inline">\((X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}\)</span> sin asumir <span class="math inline">\(\Omega=\sigma^2 I\)</span>. Proporcionan intervalos y pruebas válidas bajo cualquier patrón de heterocedasticidad, sin conocer su forma exacta.</p>
+</div>
+</details>
+<hr>
+<p><strong>P5.</strong> La Ley de Grandes Números (LGN) y el Teorema Central del Límite (TCL) son herramientas para:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Justificar insesgamiento de MCO</li>
+<li>Garantizar que MCO es MELI</li>
+<li>Establecer propiedades asintóticas de estimadores (consistencia, normalidad asintótica)</li>
+<li>Eliminar la heterocedasticidad</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: C.</strong> LGN justifica consistencia (<span class="math inline">\(\hat{\beta}\xrightarrow{p}\beta\)</span>) bajo S1–S2 sin necesidad de S4 ni S6. TCL justifica normalidad asintótica (<span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)\)</span>) incluso sin normalidad de errores.</p>
+</div>
+</details>
+<hr>
+<p><strong>P6.</strong> Si la variable <span class="math inline">\(Z\)</span> está omitida del modelo verdadero <span class="math inline">\(Y=X_1\beta_1+Z\beta_2+\varepsilon\)</span> y se estima <span class="math inline">\(Y=X_1\alpha_1+v\)</span>, el sesgo en <span class="math inline">\(\hat{\alpha}_1\)</span> depende de:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Solo <span class="math inline">\(\beta_2\)</span></li>
+<li><span class="math inline">\(\beta_2\)</span> y <span class="math inline">\(\operatorname{Cov}(X_1,Z)\)</span></li>
+<li>Solo <span class="math inline">\(\operatorname{Cov}(X_1,Z)\)</span></li>
+<li>La varianza de <span class="math inline">\(X_1\)</span></li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Sesgo por variable omitida: <span class="math inline">\(E[\tilde{\alpha}_1]-\beta_1\approx\beta_2\cdot\frac{\operatorname{Cov}(X_1,Z)}{\operatorname{Var}(X_1)}\)</span>. Se requiere tanto que <span class="math inline">\(Z\)</span> sea relevante (<span class="math inline">\(\beta_2\neq 0\)</span>) como que esté correlacionada con <span class="math inline">\(X_1\)</span>.</p>
+</div>
+</details>
+<hr>
+<p><strong>P7.</strong> En el contexto de variables instrumentales, un instrumento <span class="math inline">\(Z\)</span> es válido si:</p>
+<ol style="list-style-type: upper-alpha">
+<li><span class="math inline">\(\operatorname{Cov}(Z,X)\neq 0\)</span> solamente</li>
+<li><span class="math inline">\(\operatorname{Cov}(Z,X)\neq 0\)</span> y <span class="math inline">\(\operatorname{Cov}(Z,\varepsilon)=0\)</span></li>
+<li><span class="math inline">\(\operatorname{Cov}(Z,\varepsilon)=0\)</span> y <span class="math inline">\(\operatorname{Var}(Z)\)</span> es grande</li>
+<li><span class="math inline">\(Z\)</span> está disponible en los datos</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Un instrumento válido requiere: (i) <strong>relevancia:</strong> <span class="math inline">\(\operatorname{Cov}(Z,X)\neq 0\)</span> (contribuye información sobre <span class="math inline">\(X\)</span>); (ii) <strong>exogeneidad:</strong> <span class="math inline">\(\operatorname{Cov}(Z,\varepsilon)=0\)</span> (no está correlacionado con perturbaciones no observadas). Ambas son necesarias.</p>
+</div>
+</details>
+<hr>
+<p><strong>P8.</strong> El estimador MCO2E (mínimos cuadrados en dos etapas) con instrumento <span class="math inline">\(Z\)</span>:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Es sesgado pero consistente si <span class="math inline">\(Z\)</span> satisface relevancia y exogeneidad</li>
+<li>Es insesgado incluso sin exogeneidad si <span class="math inline">\(n\)</span> es grande</li>
+<li>Converge a <span class="math inline">\(\beta_1\)</span> en probabilidad bajo relevancia y exogeneidad</li>
+<li>No requiere que <span class="math inline">\(Z\)</span> sea fuerte</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: C.</strong> MCO2E es <em>consistente</em> bajo relevancia y exogeneidad: <span class="math inline">\(\hat{\beta}_{IV}\xrightarrow{p}\beta_1\)</span>. No es insesgado en muestras finitas (es estimador de variable dependiente límite), pero sí consistente. Instrumentos débiles producen sesgo inicial (aun con <span class="math inline">\(n\)</span> grande).</p>
+</div>
+</details>
+<hr>
+<p><strong>P9.</strong> Si el instrumento <span class="math inline">\(Z\)</span> es débil (baja correlación con <span class="math inline">\(X\)</span>):</p>
+<ol style="list-style-type: upper-alpha">
+<li>MCO2E sigue siendo consistente aunque lentamente</li>
+<li>MCO2E puede estar muy sesgado incluso en muestras grandes</li>
+<li>Se incrementa automáticamente la eficiencia</li>
+<li>La endogeneidad se resuelve por sí sola</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Instrumentos débiles: <span class="math inline">\(\operatorname{Cov}(Z,X)\)</span> es pequeño. El estimador IV sufre <strong>sesgo inicial</strong> (asymptotic bias) que puede ser sustancial incluso con <span class="math inline">\(n\to\infty\)</span>. Una prueba de relevancia (test F &gt; 10) ayuda a detectar este problema.</p>
+</div>
+</details>
+<hr>
+<p><strong>P10.</strong> La condición de exclusión en IV requiere que:</p>
+<ol style="list-style-type: upper-alpha">
+<li><span class="math inline">\(Z\)</span> no tenga efecto directo en <span class="math inline">\(Y\)</span> (fuera de su efecto a través de <span class="math inline">\(X\)</span>)</li>
+<li><span class="math inline">\(Z\)</span> esté correlacionado con <span class="math inline">\(X\)</span></li>
+<li><span class="math inline">\(Y\)</span> se mida sin error</li>
+<li>La varianza de <span class="math inline">\(\varepsilon\)</span> sea constante</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: A.</strong> La condición de exclusión (exogeneidad del instrumento) requiere que <span class="math inline">\(Z\perp\varepsilon\)</span>: es decir, <span class="math inline">\(Z\)</span> afecta <span class="math inline">\(Y\)</span> <em>solo</em> a través de <span class="math inline">\(X\)</span>, sin canal directo. Formal: <span class="math inline">\(E[Y|Z] = E[E[Y|X,Z]|Z] = E[E[Y|X]|Z]\)</span>.</p>
+</div>
+</details>
+<hr>
+<p><strong>P11.</strong> En regresión múltiple con multicolinealidad imperfecta, la varianza del estimador <span class="math inline">\(\hat{\beta}_j\)</span> se infla por:</p>
+<ol style="list-style-type: upper-alpha">
+<li>El factor <span class="math inline">\((1-R_j^2)^{-1}\)</span> solamente</li>
+<li>VIF<span class="math inline">\(_j = (1-R_j^2)^{-1}\)</span>, donde <span class="math inline">\(R_j^2\)</span> es el <span class="math inline">\(R^2\)</span> de <span class="math inline">\(X_j\)</span> sobre las demás regresoras</li>
+<li>La correlación entre <span class="math inline">\(X_j\)</span> y <span class="math inline">\(Y\)</span></li>
+<li>El número de observaciones</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Variance Inflation Factor (VIF): <span class="math inline">\(\operatorname{Var}(\hat{\beta}_j\mid X)\approx\frac{\sigma^2}{(1-R_j^2)\sum(X_j-\bar{X}_j)^2}\)</span>. Un <span class="math inline">\(R_j^2\)</span> alto (multicolinealidad) incrementa VIF, inflando la varianza y ampliando intervalos de confianza.</p>
+</div>
+</details>
+<hr>
+<p><strong>P12.</strong> Bajo los supuestos clásicos S1–S5, se estima <span class="math inline">\(Y = X\beta + \varepsilon\)</span> con <span class="math inline">\(n=100\)</span> y <span class="math inline">\(k=3\)</span>. Un test <span class="math inline">\(t\)</span> es válido para hipótesis sobre <span class="math inline">\(\beta_1\)</span> porque:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Los datos son grandes (<span class="math inline">\(n=100\)</span>)</li>
+<li>El Teorema Central del Límite garantiza normalidad asintótica de <span class="math inline">\(\hat{\beta}\)</span></li>
+<li>La distribución <span class="math inline">\(t_{n-k}\)</span> aproxima bien <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)/\sigma\)</span></li>
+<li>Todas las anteriores</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: D.</strong> Con <span class="math inline">\(n=100\)</span> (muestra grande), el TCL garantiza <span class="math inline">\(\hat{\beta}\approx N(\beta,\sigma^2(X&#39;X)^{-1})\)</span> bajo S1–S5. El estadístico <span class="math inline">\(t = \frac{\hat{\beta}_1-\beta_{1,0}}{\operatorname{se}(\hat{\beta}_1)}\sim t_{97}\)</span> es válido (o aproximadamente <span class="math inline">\(N(0,1)\)</span>). Las tres afirmaciones son correctas.</p>
+</div>
+</details>
+<hr>
+<p><strong>P13.</strong> La normalidad asintótica de MCO requiere:</p>
+<ol style="list-style-type: upper-alpha">
+<li>S6: normalidad de los errores</li>
+<li>S1–S2 solamente, por el TCL</li>
+<li>Homocedasticidad (S4)</li>
+<li>Un instrumento válido</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> El TCL permite demostrar <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)\)</span> bajo S1–S2 únicamente, sin S6 (normalidad). Incluso con errores no normales, MCO es asintóticamente normal. S4 afecta la forma de <span class="math inline">\(\Sigma\)</span> pero no el resultado límite.</p>
+</div>
+</details>
+<hr>
+<p><strong>P14.</strong> Si se omite un regresor importante (variable relevante correlacionada con <span class="math inline">\(X\)</span>) del modelo:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Aumenta el R²</li>
+<li>Sesga a <span class="math inline">\(\hat{\beta}\)</span> en dirección determinada por <span class="math inline">\(\operatorname{Cov}(\text{regresor omitido, X})\)</span> y su efecto verdadero</li>
+<li>Reduce automáticamente la heterocedasticidad</li>
+<li>No afecta la eficiencia de MCO</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Sesgo por variable omitida: la dirección depende del signo de (efecto verdadero de la variable omitida) × (correlación con <span class="math inline">\(X\)</span>). Si la variable omitida está correlacionada con <span class="math inline">\(X\)</span>, su efecto se confunde en el coeficiente de <span class="math inline">\(X\)</span>.</p>
+</div>
+</details>
+<hr>
+<p><strong>P15.</strong> Un instrumento relevante <span class="math inline">\(Z\)</span> para la variable endógena <span class="math inline">\(X\)</span> debe satisfacer:</p>
+<ol style="list-style-type: upper-alpha">
+<li><span class="math inline">\(\operatorname{Cov}(Z,X) = 0\)</span></li>
+<li><span class="math inline">\(\operatorname{Cov}(Z,X) \neq 0\)</span> (correlación significativa)</li>
+<li><span class="math inline">\(Z\)</span> sea exógeno a toda la población</li>
+<li><span class="math inline">\(Z\)</span> tenga efecto directo máximo en <span class="math inline">\(Y\)</span></li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Relevancia del instrumento: se necesita <span class="math inline">\(\operatorname{Cov}(Z,X)\neq 0\)</span>, idealmente fuerte (<span class="math inline">\(|r_{Z,X}|\)</span> grande). Un test F de la primera etapa &gt; 10 indica relevancia aceptable.</p>
+</div>
+</details>
+<hr>
+<p><strong>P16.</strong> En el modelo <span class="math inline">\(Y = \beta_0 + \beta_1 X + \varepsilon\)</span> con <span class="math inline">\(X\)</span> endógena, si usa un instrumento <span class="math inline">\(Z\)</span> válido:</p>
+<ol style="list-style-type: upper-alpha">
+<li>El estimador MCO de <span class="math inline">\(\beta_1\)</span> sigue siendo consistente</li>
+<li>MCO2E es consistente pero MCO no lo es</li>
+<li>Ambos estimadores coinciden si la endogeneidad es leve</li>
+<li>La endogeneidad desaparece automáticamente</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Si <span class="math inline">\(\operatorname{Cov}(X,\varepsilon)\neq 0\)</span> (endogeneidad), MCO es inconsistente. MCO2E, basado en el instrumento válido <span class="math inline">\(Z\)</span>, es consistente. No coinciden a menos que la endogeneidad sea exactamente cero.</p>
+</div>
+</details>
+<hr>
+<p><strong>P17.</strong> La prueba de endogeneidad (Hausman test) compara:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Los residuos de MCO y MCO2E</li>
+<li>Las varianzas de <span class="math inline">\(\hat{\beta}_{MCO}\)</span> y <span class="math inline">\(\hat{\beta}_{IV}\)</span></li>
+<li><span class="math inline">\(\hat{\beta}_{MCO}\)</span> y <span class="math inline">\(\hat{\beta}_{IV}\)</span>: si difieren significativamente, hay evidencia de endogeneidad</li>
+<li>El <span class="math inline">\(R^2\)</span> de la primera etapa con el de la segunda</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: C.</strong> Test de Hausman: <span class="math inline">\(H = (\hat{\beta}_{IV}-\hat{\beta}_{MCO})&#39;\hat{V}^{-1}(\hat{\beta}_{IV}-\hat{\beta}_{MCO})\sim\chi^2_k\)</span>. Si <span class="math inline">\(H\)</span> es grande, MCO y IV difieren → evidencia de endogeneidad. Bajo <span class="math inline">\(H_0\)</span>: no hay endogeneidad, ambos son consistentes.</p>
+</div>
+</details>
+<hr>
+<p><strong>P18.</strong> El estimador de Mínimos Cuadrados Generalizados (MCG) es útil cuando:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Hay heterocedasticidad (conocida o estimada)</li>
+<li>La matriz de varianza-covarianza de <span class="math inline">\(\varepsilon\)</span> es no escalar</li>
+<li>Se quiere mejorar eficiencia más allá de MCO</li>
+<li>Todas las anteriores</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: D.</strong> MCG transforma <span class="math inline">\(Y = X\beta + \varepsilon\)</span> mediante <span class="math inline">\(\Omega = \operatorname{Var}(\varepsilon)\)</span>: si <span class="math inline">\(\Omega\)</span> es no escalar (heterocedasticidad, autocorrelación), MCG es más eficiente que MCO. Si <span class="math inline">\(\Omega = \sigma^2 I\)</span>, MCG coincide con MCO.</p>
+</div>
+</details>
+<hr>
+<p><strong>P19.</strong> Bajo heterocedasticidad, los errores estándar clásicos son:</p>
+<ol style="list-style-type: upper-alpha">
+<li>Insesgados e imparciales</li>
+<li>Sistemáticamente subestimados (errores HC generalmente más grandes)</li>
+<li>Sistemáticamente sobrestimados</li>
+<li>Válidos si <span class="math inline">\(n\)</span> es grande</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: B.</strong> Los errores estándar clásicos <span class="math inline">\(\sqrt{\sigma^2(X&#39;X)^{-1}}\)</span> suponen <span class="math inline">\(\Omega=\sigma^2 I\)</span>. Con heterocedasticidad, si los residuos grandes están en <span class="math inline">\(X\)</span> elevados, los errores clásicos subestiman la verdadera varianza de <span class="math inline">\(\hat{\beta}\)</span>. Los errores HC corrigen este sesgo.</p>
+</div>
+</details>
+<hr>
+<p><strong>P20.</strong> ¿Cuál de las siguientes propiedades de un buen estimador es la más crítica para causalidad en econometría?</p>
+<ol style="list-style-type: upper-alpha">
+<li>Eficiencia (varianza mínima)</li>
+<li>Insesgamiento exacto</li>
+<li>Consistencia bajo identificación válida</li>
+<li>Distribución normal</li>
+</ol>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Respuesta: C.</strong> Para causalidad, se necesita <strong>consistencia</strong> bajo supuestos de identificación válidos (exogeneidad estricta o IV válido). Insesgamiento exacto no es necesario si es sesgado pero consistente. Eficiencia es deseable pero no esencial. Normalidad es útil para inferencia pero no para consistencia.</p>
+</div>
+</details>
+<hr>
+</div>
+<div id="parte-ii-preguntas-abiertas-1" class="section level2 unnumbered hasAnchor">
+<h2>Parte II: Preguntas Abiertas<a href="parcial-2-2026-1.html#parte-ii-preguntas-abiertas-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Responda la pregunta <strong>obligatoria</strong> y <strong>una</strong> de las dos opcionales.</p>
+<hr>
+<div id="obligatoria-sesgo-por-variable-omitida-e-instrumentos-3-pts" class="section level3 unnumbered hasAnchor">
+<h3>Obligatoria — Sesgo por Variable Omitida e Instrumentos (3 pts)<a href="parcial-2-2026-1.html#obligatoria-sesgo-por-variable-omitida-e-instrumentos-3-pts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un municipio implementa un programa de capacitación laboral <span class="math inline">\((P)\)</span> que puede mejorar la empleabilidad de personas con discapacidad. Se recopilan datos de <span class="math inline">\(n\)</span> participantes durante un año y se estima el efecto del programa en horas de trabajo mensuales <span class="math inline">\((Y)\)</span>.</p>
+<p><strong>Contexto:</strong> El modelo verdadero es
+<span class="math display">\[Y_i = \beta_0 + \beta_1 P_i + \beta_2 C_i + \varepsilon_i,\]</span>
+donde <span class="math inline">\(C_i\)</span> es una variable que mide la <strong>capacidad gestional</strong> (o motivación) no observada del participante, y se supone <span class="math inline">\(E[\varepsilon_i | P_i, C_i] = 0\)</span>.</p>
+<p><strong>(1) — 1 pt. Variable omitida y sesgo.</strong></p>
+<p>El investigador no tiene medida de <span class="math inline">\(C\)</span> y estima
+<span class="math display">\[Y_i = \alpha_0 + \alpha_1 P_i + v_i.\]</span></p>
+<ul>
+<li><strong>(a)</strong> Identifique <strong>una variable plausible</strong> que podría actuar como <span class="math inline">\(C\)</span> (capacidad gestional).</li>
+<li><strong>(b)</strong> Escriba la <strong>fórmula del sesgo</strong> de <span class="math inline">\(\hat{\alpha}_1\)</span> como función de los parámetros verdaderos y la correlación entre <span class="math inline">\(P\)</span> y la variable omitida.</li>
+<li><strong>(c)</strong> <strong>Argumente el signo del sesgo:</strong> ¿esperaría que <span class="math inline">\(\hat{\alpha}_1 &gt; \beta_1\)</span> o <span class="math inline">\(\hat{\alpha}_1 &lt; \beta_1\)</span>? ¿Por qué?</li>
+</ul>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Variable plausible:</strong> Capacidad de liderazgo del participante, nivel educativo previo, autoestima, o disposición a trabajar (motivación).</p>
+<p><strong>(b) Fórmula del sesgo:</strong>
+<span class="math display">\[E[\hat{\alpha}_1] - \beta_1 \approx \beta_2 \cdot \frac{\operatorname{Cov}(P,C)}{\operatorname{Var}(P)}.\]</span></p>
+<p>El sesgo depende de (i) el efecto verdadero de <span class="math inline">\(C\)</span> en horas (<span class="math inline">\(\beta_2\)</span>) y (ii) la correlación entre participación y capacidad gestional.</p>
+<p><strong>(c) Signo del sesgo:</strong> Si participantes más capacitados gestionales son <em>más propensos</em> a inscribirse (<span class="math inline">\(\operatorname{Cov}(P,C) &gt; 0\)</span>) y tienen <em>mayor efecto</em> en horas (<span class="math inline">\(\beta_2 &gt; 0\)</span>), entonces sesgo positivo: <span class="math inline">\(\hat{\alpha}_1\)</span> sobrestima <span class="math inline">\(\beta_1\)</span>. El programa “parece” más efectivo porque confunde su efecto con el de capacidad previa.</p>
+</div>
+</details>
+<hr>
+<p><strong>(2) — 1 pt. Dos instrumentos razonables.</strong></p>
+<p>Para resolver el problema de endogeneidad, el investigador propone dos variables instrumentales <span class="math inline">\(Z_1\)</span> y <span class="math inline">\(Z_2\)</span>:</p>
+<ul>
+<li><strong><span class="math inline">\(Z_1 :=\)</span></strong> proximidad del domicilio del participante a la sede del programa (en km). Se supone que afecta a <span class="math inline">\(P\)</span> pero no directamente a <span class="math inline">\(Y\)</span>.</li>
+<li><strong><span class="math inline">\(Z_2 :=\)</span></strong> número de cupos disponibles ese mes en el programa (asignado aleatoriamente por la administración).</li>
+</ul>
+<p><strong>(a)</strong> Para cada instrumento, explique <strong>qué variación</strong> explota:
+- ¿Por qué <span class="math inline">\(Z_1\)</span> podría estar correlacionado con <span class="math inline">\(P\)</span>?
+- ¿Por qué <span class="math inline">\(Z_2\)</span> podría estar correlacionado con <span class="math inline">\(P\)</span>?</p>
+<p><strong>(b)</strong> Escriba las <strong>dos etapas</strong> de MCO2E usando <span class="math inline">\(Z_1\)</span> como instrumento.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Variación explotada:</strong></p>
+<ul>
+<li><p><strong><span class="math inline">\(Z_1\)</span> (proximidad):</strong> Aprovecha la variación <em>geográfica</em>. Participantes más cercanos tienen menores costos de transporte y tiempo, por lo que es más probable que se inscriban. Esperamos <span class="math inline">\(\operatorname{Cov}(P, Z_1) &gt; 0\)</span> (distancia menor → más inscripción).</p></li>
+<li><p><strong><span class="math inline">\(Z_2\)</span> (cupos):</strong> Aprovecha la variación <em>administrativa</em>. Meses con más cupos ofrecen menos restricción, aumentando la participación. Esperamos <span class="math inline">\(\operatorname{Cov}(P, Z_2) &gt; 0\)</span> (más cupos → más participantes).</p></li>
+</ul>
+<p><strong>(b) Dos etapas con <span class="math inline">\(Z_1\)</span>:</strong></p>
+<p><strong>Primera etapa:</strong> Regresar <span class="math inline">\(P\)</span> sobre <span class="math inline">\(Z_1\)</span> (y controles):
+<span class="math display">\[\hat{P}_i = \hat{\pi}_0 + \hat{\pi}_1 Z_{1,i}.\]</span></p>
+<p>Obtenga los valores ajustados <span class="math inline">\(\hat{P}_i\)</span>.</p>
+<p><strong>Segunda etapa:</strong> Regresar <span class="math inline">\(Y\)</span> sobre <span class="math inline">\(\hat{P}\)</span>:
+<span class="math display">\[Y_i = \hat{\beta}_0 + \hat{\beta}_1^{IV} \hat{P}_i + \hat{u}_i.\]</span></p>
+<p>El coeficiente <span class="math inline">\(\hat{\beta}_1^{IV}\)</span> es consistente si <span class="math inline">\(Z_1\)</span> es relevante (<span class="math inline">\(\operatorname{Cov}(P, Z_1) \neq 0\)</span>) y exógeno (<span class="math inline">\(\operatorname{Cov}(Z_1, \varepsilon) = 0\)</span>).</p>
+</div>
+</details>
+<hr>
+<p><strong>(3) — 1 pt. Instrumento más defendible e hipótesis formales.</strong></p>
+<p><strong>(a)</strong> Elija <strong>cuál de los dos instrumentos</strong> (<span class="math inline">\(Z_1\)</span> o <span class="math inline">\(Z_2\)</span>) le parece más defendible y <strong>justifique por qué.</strong></p>
+<p><strong>(b)</strong> Para el instrumento elegido, escriba <strong>formalmente</strong> las dos condiciones que debe satisfacer un instrumento válido:
+- <strong>Relevancia:</strong> <span class="math inline">\(\operatorname{Cov}(Z, P) \neq 0\)</span> (o especifique: cuál es el signo esperado y por qué).
+- <strong>Exogeneidad:</strong> <span class="math inline">\(\operatorname{Cov}(Z, \varepsilon) = 0\)</span> (o equivalentemente, <span class="math inline">\(E[\varepsilon | Z] = 0\)</span>).</p>
+<p><strong>(c)</strong> Escriba el <strong>estimador IV</strong> para <span class="math inline">\(\beta_1\)</span>.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Instrumento más defendible:</strong></p>
+<p><strong><span class="math inline">\(Z_2\)</span> (cupos)</strong> es probablemente más defendible porque:
+- La asignación es <em>administrativa y aleatoria</em> (no seleccionada por participantes).
+- Es más difícil que participantes con mayor capacidad gestional se autoselectionen según la cantidad de cupos ese mes.
+- <span class="math inline">\(Z_1\)</span> es vulnerable a un argumento de confusión: participantes en áreas con mejor acceso geográfico podrían tener también mayor empleabilidad por otras razones (mejor infraestructura, más oportunidades laborales en la zona).</p>
+<p><strong>(b) Condiciones formales:</strong></p>
+<p><strong>Relevancia:</strong>
+<span class="math display">\[\operatorname{Cov}(Z_2, P) \neq 0 \quad \Rightarrow \quad E[Z_2 P] \neq E[Z_2]E[P].\]</span></p>
+<p>Esperamos signo positivo: más cupos → mayor participación.</p>
+<p><strong>Exogeneidad (Condición de exclusión):</strong>
+<span class="math display">\[\operatorname{Cov}(Z_2, \varepsilon) = 0 \quad \Rightarrow \quad E[\varepsilon | Z_2] = 0.\]</span></p>
+<p>Interpretación: <span class="math inline">\(Z_2\)</span> afecta horas de trabajo <em>únicamente</em> a través de su efecto en participación (<span class="math inline">\(P\)</span>), sin canal directo. La disponibilidad de cupos no está correlacionada con la capacidad gestional no observada <span class="math inline">\(C\)</span>.</p>
+<p><strong>(c) Estimador IV:</strong></p>
+<p><span class="math display">\[\hat{\beta}_1^{IV} = \frac{\operatorname{Cov}(Z_2, Y)}{\operatorname{Cov}(Z_2, P)}.\]</span></p>
+<p>En forma computacional:
+<span class="math display">\[\hat{\beta}_1^{IV} = \frac{\sum_i (Z_{2,i} - \bar{Z}_2)(Y_i - \bar{Y})}{\sum_i (Z_{2,i} - \bar{Z}_2)(P_i - \bar{P})}.\]</span></p>
+</div>
+</details>
+<hr>
+</div>
+<div id="opcional-1-heterocedasticidad-y-multicolinealidad-3-pts" class="section level3 unnumbered hasAnchor">
+<h3>Opcional 1 — Heterocedasticidad y Multicolinealidad (3 pts)<a href="parcial-2-2026-1.html#opcional-1-heterocedasticidad-y-multicolinealidad-3-pts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Considere un modelo de regresión lineal múltiple que explica salarios en función de educación, experiencia y género. Se sospecha heterocedasticidad y multicolinealidad.</p>
+<p><strong>(1) — 1 pt. Heterocedasticidad.</strong></p>
+<p><strong>(a)</strong> Defina homocedasticidad y heterocedasticidad formalmente usando la varianza condicional.</p>
+<p><strong>(b)</strong> Si <span class="math inline">\(\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2\)</span> (heterocedasticidad):
+- ¿Se sesga el estimador MCO?
+- ¿Se invalida la matriz de varianza-covarianza clásica <span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span>?</p>
+<p><strong>(c)</strong> Proponga <strong>dos acciones</strong> para abordar heterocedasticidad en la inferencia.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Definiciones:</strong></p>
+<p><strong>Homocedasticidad (S4):</strong>
+<span class="math display">\[\operatorname{Var}(\varepsilon_i | X) = \sigma^2 \quad \forall i.\]</span>
+La varianza del error es constante e igual para todas las observaciones.</p>
+<p><strong>Heterocedasticidad:</strong>
+<span class="math display">\[\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2 \quad (\text{varía con } i).\]</span>
+La varianza depende de características observables o no observables.</p>
+<p><strong>(b) Impacto de heterocedasticidad:</strong></p>
+<ul>
+<li><p><strong>¿Se sesga MCO?</strong> No. Insesgamiento depende de S1 (linealidad) y S2 (exogeneidad <span class="math inline">\(E[\varepsilon|X]=0\)</span>). Heterocedasticidad viola S4 pero no S2 → MCO sigue siendo insesgado.</p></li>
+<li><p><strong>¿Se invalida la varianza clásica?</strong> Sí. La verdadera varianza es
+<span class="math display">\[\operatorname{Var}(\hat{\beta}|X) = (X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1},\]</span>
+donde <span class="math inline">\(\Omega = \operatorname{diag}(\sigma_1^2, \ldots, \sigma_n^2)\)</span>. La fórmula clásica <span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span> es incorrecta → errores estándar incorrectos → pruebas inválidas.</p></li>
+</ul>
+<p><strong>(c) Dos acciones:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Errores estándar robustos (HC):</strong> Estimar <span class="math inline">\(\Omega\)</span> directamente de los residuos sin asumir su forma. Los errores HC válidos proporcionan inferencia válida bajo cualquier patrón de heterocedasticidad.</p></li>
+<li><p><strong>Mínimos Cuadrados Generalizados (MCG):</strong> Si se conoce (o estima) la estructura de heterocedasticidad, transformar el modelo mediante <span class="math inline">\(\Omega^{-1/2}\)</span> para obtener un modelo homocedástico. MCG es más eficiente que MCO cuando <span class="math inline">\(\Omega\)</span> es conocida.</p></li>
+</ol>
+</div>
+</details>
+<hr>
+<p><strong>(2) — 1 pt. Multicolinealidad.</strong></p>
+<p><strong>(a)</strong> Defina multicolinealidad <em>imperfecta</em> usando la matriz <span class="math inline">\(X&#39;X\)</span> y su relación con la correlación entre regresores.</p>
+<p><strong>(b)</strong> ¿Sesga el estimador MCO si existe multicolinealidad imperfecta? Justifique.</p>
+<p><strong>(c)</strong> ¿Cómo afecta al estimador la correlación alta entre regresores? Use la fórmula del Variance Inflation Factor (VIF).</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Definición:</strong></p>
+<p><strong>Multicolinealidad imperfecta:</strong> Alta correlación lineal entre regresores. Formalmente, <span class="math inline">\(\operatorname{rank}(X) = k\)</span> (rango completo, MCO existe) pero ciertos menores de <span class="math inline">\(X&#39;X\)</span> son muy pequeños.</p>
+<p>Equivalentemente: un regresor <span class="math inline">\(X_j\)</span> tiene <span class="math inline">\(R_j^2\)</span> muy alto cuando se regresa sobre los demás, indicando que es <em>casi</em> una combinación lineal de otros regresores.</p>
+<p><strong>(b) ¿Sesga MCO?</strong></p>
+<p>No. Multicolinealidad imperfecta no viola S3 (rango completo), ni afecta S1–S2. Luego:
+<span class="math display">\[E[\hat{\beta}|X] = \beta \quad \text{(insesgado)}.\]</span></p>
+<p>También es consistente bajo S1–S2.</p>
+<p><strong>(c) Efecto en varianza (VIF):</strong></p>
+<p><span class="math display">\[\operatorname{Var}(\hat{\beta}_j | X) = \frac{\sigma^2}{(1-R_j^2) \sum_i(X_{j,i} - \bar{X}_j)^2},\]</span></p>
+<p>donde <span class="math inline">\(R_j^2\)</span> es el <span class="math inline">\(R^2\)</span> de regresionar <span class="math inline">\(X_j\)</span> sobre los demás regresores.</p>
+<p><strong>Variance Inflation Factor:</strong> <span class="math inline">\(\text{VIF}_j = (1-R_j^2)^{-1}\)</span>.</p>
+<p>Si <span class="math inline">\(R_j^2 \to 1\)</span> (alta multicolinealidad), <span class="math inline">\(\text{VIF}_j \to \infty\)</span> → varianza se infla → intervalos de confianza muy amplios → estadísticos <span class="math inline">\(t\)</span> pequeños → dificultad para detectar significancia, aunque MCO es insesgado.</p>
+</div>
+</details>
+<hr>
+<p><strong>(3) — 1 pt. Acciones para abordar ambos problemas.</strong></p>
+<p>Proponga <strong>dos acciones distintas:</strong>
+- Una para <strong>heterocedasticidad</strong> (distinta de errores HC).
+- Otra para <strong>multicolinealidad</strong> (distinta de recolectar más datos).</p>
+<p>Justifique brevemente por qué cada acción aborda el problema.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>Para heterocedasticidad:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Transformación logarítmica de <span class="math inline">\(Y\)</span>:</strong> Si <span class="math inline">\(\sigma_i \propto E[Y_i]\)</span> (heterocedasticidad proporcional al nivel), transformar <span class="math inline">\(\ln(Y)\)</span> homogeniza la varianza. El modelo transformado <span class="math inline">\(\ln(Y) = X\beta + \varepsilon&#39;\)</span> tiene <span class="math inline">\(\operatorname{Var}(\varepsilon&#39;|X)\)</span> más cercana a constante.</p></li>
+<li><p><strong>Mínimos Cuadrados Ponderados (WLS):</strong> Si se estima la estructura de heterocedasticidad (p.ej., <span class="math inline">\(\sigma_i^2 \propto X_{j,i}^2\)</span>), usar pesos <span class="math inline">\(w_i = 1/\sigma_i^2\)</span> para downweight observaciones con mayor varianza. Formalmente:
+<span class="math display">\[\hat{\beta}_{WLS} = (X&#39;WX)^{-1}X&#39;WY \quad \text{(más eficiente que MCO)}.\]</span></p></li>
+</ol>
+<p><strong>Para multicolinealidad:</strong></p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Selección de variables (eliminar regresores muy correlacionados):</strong> Usar criterios de información (AIC, BIC) o stepwise selection para remover regresores que añaden poco poder explicativo y están altamente correlacionados. Sacrificamos insesgamiento potencial de un regresor omitido a cambio de precisión en los coeficientes restantes.</p></li>
+<li><p><strong>Regresión ridge (estimador regularizado):</strong> Usar estimador regularizado <span class="math inline">\(\hat{\beta}_{\text{ridge}} = (X&#39;X + \lambda I)^{-1}X&#39;Y\)</span> (<span class="math inline">\(\lambda &gt; 0\)</span>). Acepta sesgo controlado a cambio de reducir varianza. Especialmente útil cuando el objetivo es predicción, no interpretación causal de coeficientes.</p></li>
+</ol>
+</div>
+</details>
+<hr>
+</div>
+<div id="opcional-2-normalidad-asintótica-y-pruebas-de-hipótesis-3-pts" class="section level3 unnumbered hasAnchor">
+<h3>Opcional 2 — Normalidad Asintótica y Pruebas de Hipótesis (3 pts)<a href="#opcional-2-normalidad-asint%C3%B3tica-y-pruebas-de-hip%C3%B3tesis-3-pts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>(1) — 1 pt. Normalidad asintótica formal.</strong></p>
+<p><strong>(a)</strong> Escriba la definición de normalidad asintótica del estimador MCO sin asumir que los errores son normales.</p>
+<p><strong>(b)</strong> ¿Qué teorema econométrico fundamental la justifica? Explique brevemente el rol del supuesto S2 en su derivación.</p>
+<p><strong>(c)</strong> ¿Es necesario el supuesto S6 (normalidad de <span class="math inline">\(\varepsilon\)</span>) para normalidad asintótica de <span class="math inline">\(\hat{\beta}\)</span>?</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Definición:</strong></p>
+<p>Bajo S1–S5 (sin S6), el estimador MCO satisface
+<span class="math display">\[\sqrt{n}(\hat{\beta} - \beta) \xrightarrow{d} \mathcal{N}(0, \sigma^2 Q^{-1}),\]</span>
+donde <span class="math inline">\(Q = \lim_{n\to\infty} \frac{1}{n}X&#39;X\)</span>.</p>
+<p>Equivalentemente: para grandes <span class="math inline">\(n\)</span>, <span class="math inline">\(\hat{\beta} \approx N(\beta, \sigma^2(X&#39;X)^{-1})\)</span> aproximadamente.</p>
+<p><strong>(b) Teorema fundamental:</strong></p>
+<p>El <strong>Teorema Central del Límite (TCL)</strong> para variables i.i.d. (o débilmente correlacionadas).</p>
+<p>Rol de S2: Bajo exogeneidad <span class="math inline">\(E[\varepsilon|X]=0\)</span>, los regresores no están correlacionados con las perturbaciones. Esto permite aplicar TCL a sumas como <span class="math inline">\(\frac{1}{n}X&#39;\varepsilon\)</span> sin sesgo inicial.</p>
+<p><strong>(c) ¿Necesario S6?</strong></p>
+<p>No. S6 (normalidad de <span class="math inline">\(\varepsilon\)</span>) es <em>suficiente</em> para normalidad exacta en muestras finitas, pero no <em>necesario</em> para normalidad asintótica. El TCL solo requiere que los errores sean i.i.d. (u obedezcan condiciones de Lindeberg) e independientes de <span class="math inline">\(X\)</span>, sin distribuirse normalmente.</p>
+</div>
+</details>
+<hr>
+<p><strong>(2) — 1 pt. Test <span class="math inline">\(t\)</span> con ejemplo numérico.</strong></p>
+<p>Se estima el modelo <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i\)</span> con <span class="math inline">\(n = 150\)</span> observaciones. Se obtiene:
+<span class="math display">\[\hat{\beta}_1 = 0.40, \quad \widehat{\operatorname{se}}(\hat{\beta}_1) = 0.20.\]</span></p>
+<p>Realice un test <span class="math inline">\(t\)</span> bilateral para <span class="math inline">\(H_0: \beta_1 = 0\)</span> vs. <span class="math inline">\(H_1: \beta_1 \neq 0\)</span> al nivel <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong>(a)</strong> Calcule el estadístico <span class="math inline">\(t\)</span>.</p>
+<p><strong>(b)</strong> Determine el valor crítico. ¿Rechaza o no rechaza <span class="math inline">\(H_0\)</span>?</p>
+<p><strong>(c)</strong> Interprete el resultado en términos del efecto causal de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Estadístico <span class="math inline">\(t\)</span>:</strong></p>
+<p><span class="math display">\[t = \frac{\hat{\beta}_1 - 0}{\widehat{\operatorname{se}}(\hat{\beta}_1)} = \frac{0.40}{0.20} = 2.0.\]</span></p>
+<p><strong>(b) Valor crítico y decisión:</strong></p>
+<p>Para <span class="math inline">\(n=150\)</span>, <span class="math inline">\(n-k = 150 - 2 = 148\)</span> grados de libertad. El valor crítico bilateral a <span class="math inline">\(\alpha=0.05\)</span> es aproximadamente <span class="math inline">\(t_{0.025, 148} \approx 1.96\)</span> (o más precisamente, <span class="math inline">\(1.975\)</span>).</p>
+<p>Como <span class="math inline">\(|t| = 2.0 &gt; 1.96\)</span>, <strong>rechazamos <span class="math inline">\(H_0\)</span> al 5%.</strong></p>
+<p><strong>(c) Interpretación:</strong></p>
+<p>Hay evidencia estadísticamente significativa (al 5%) de que <span class="math inline">\(\beta_1 \neq 0\)</span>. El coeficiente estimado de 0.40 es significativamente distinto de cero: un cambio unitario en <span class="math inline">\(X\)</span> está asociado con un cambio de 0.40 unidades en <span class="math inline">\(Y\)</span>, manteniendo lo demás constante.</p>
+<p>(Nota: significancia estadística no implica automáticamente importancia económica ni causalidad sin los supuestos de identificación.)</p>
+</div>
+</details>
+<hr>
+<p><strong>(3) — 1 pt. Errores robustos y supuestos de inferencia.</strong></p>
+<p><strong>(a)</strong> Bajo heterocedasticidad, explique por qué los errores estándar clásicos pueden ser <strong>muy sesgados</strong> pero los errores robustos (HC) siguen siendo válidos.</p>
+<p><strong>(b)</strong> ¿Qué supuesto <em>no</em> se necesita para inferencia asintótica válida?
+- S2 (exogeneidad)
+- S4 (homocedasticidad)
+- S6 (normalidad de <span class="math inline">\(\varepsilon\)</span>)</p>
+<p>Justifique.</p>
+<details>
+<summary>
+🔑 Ver solución
+</summary>
+<div class="sol-box">
+<p><strong>(a) Por qué errores clásicos fallan pero HC funciona:</strong></p>
+<p>Los errores estándar clásicos asuben <span class="math inline">\(\operatorname{Var}(\varepsilon|X) = \sigma^2 I\)</span>. Con heterocedasticidad <span class="math inline">\(\operatorname{Var}(\varepsilon|X) = \Omega \neq \sigma^2 I\)</span>, la fórmula clásica <span class="math inline">\(\sigma^2(X&#39;X)^{-1}\)</span> no es correcta.</p>
+<p>Los errores HC estiman directamente:
+<span class="math display">\[\widehat{\operatorname{Var}}_{HC}(\hat{\beta}) = (X&#39;X)^{-1} X&#39; \widehat{\Omega} X (X&#39;X)^{-1},\]</span>
+donde <span class="math inline">\(\widehat{\Omega} = \operatorname{diag}(\hat{u}_i^2)\)</span> (residuos al cuadrado en la diagonal). Esto no presupone ninguna forma de heterocedasticidad → válido bajo cualquier <span class="math inline">\(\Omega\)</span> diagonal.</p>
+<p><strong>(b) Supuesto no necesario:</strong></p>
+<p><strong>S6 (normalidad)</strong> no es necesario para inferencia asintótica válida.</p>
+<p>Bajo S1–S5 (incluyendo S2: exogeneidad), el TCL garantiza normalidad asintótica de <span class="math inline">\(\hat{\beta}\)</span> sin importar la distribución de <span class="math inline">\(\varepsilon\)</span>.</p>
+<ul>
+<li><strong>S2 (exogeneidad) sí es necesario</strong> para consistencia y para que la media asintótica sea correcta.</li>
+<li><strong>S4 (homocedasticidad)</strong> afecta la forma de la varianza asintótica, pero se puede reemplazar con varianza HC.</li>
+<li><strong>S6</strong> es innecesario asintóticamente.</li>
+</ul>
+</div>
+</details>
+<hr>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="parcial-1-2026-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/adiazescobar/libro-econometria/edit/main/P2-Parcial2_2026-1.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf", "_main.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

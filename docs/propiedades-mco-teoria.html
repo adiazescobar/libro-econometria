@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-07-14" />
+<meta name="date" content="2026-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -208,7 +208,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Derivar el error muestral de <span class="math inline">\(\hat{\beta}\)</span>.</li>
 <li>Demostrar el insesgamiento condicional de MCO bajo exogeneidad.</li>
 <li>Obtener la varianza clásica de <span class="math inline">\(\hat{\beta}\)</span>.</li>
-<li>Enunciar el teorema de Gauss-Markov y su interpretación como MELI.</li>
+<li>Demostrar el insesgamiento del estimador clásico de <span class="math inline">\(\sigma^2\)</span>.</li>
+<li>Definir con precisión la clase de estimadores lineales insesgados.</li>
+<li>Enunciar y demostrar el teorema de Gauss-Markov.</li>
 </ol>
 </div>
 <div id="intuicion-propiedades-teoria" class="section level2 hasAnchor" number="11.2">
@@ -240,6 +242,7 @@ y=X\beta+\epsilon.
 <p><span class="math display">\[
 \hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon.
 \]</span></p>
+<p>Esta identidad, derivada en el capítulo de estimación, permite estudiar la distribución muestral de <span class="math inline">\(\hat\beta\)</span> manteniendo fija la matriz observada <span class="math inline">\(X\)</span>. A diferencia de las propiedades algebraicas de los residuos, los resultados de este capítulo sí dependen de supuestos sobre el error poblacional <span class="math inline">\(\epsilon\)</span>.</p>
 <div id="insesgamiento" class="section level3 hasAnchor" number="11.3.1">
 <h3><span class="header-section-number">11.3.1</span> Insesgamiento<a href="propiedades-mco-teoria.html#insesgamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Si se cumple exogeneidad estricta:</p>
@@ -256,6 +259,20 @@ y=X\beta+\epsilon.
 \end{aligned}
 \]</span></p>
 <p>MCO es insesgado condicional a <span class="math inline">\(X\)</span>. Esto no significa que cada estimación sea igual a <span class="math inline">\(\beta\)</span>, sino que el promedio de las estimaciones en muestras repetidas se centra en <span class="math inline">\(\beta\)</span>.</p>
+<p>Por la ley de expectativas iteradas, el insesgamiento condicional implica también insesgamiento incondicional:</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta]
+=\mathbb{E}\!\left[\mathbb{E}[\hat\beta\mid X]\right]
+=\mathbb{E}[\beta]
+=\beta.
+\]</span></p>
+<p>En la presentación clásica con regresores no estocásticos, <span class="math inline">\(X\)</span> se trata como fija desde el principio. La misma demostración se escribe como:</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta]
+=\beta+(X&#39;X)^{-1}X&#39;\mathbb{E}[\epsilon]
+=\beta.
+\]</span></p>
+<p>La formulación condicional es más general y más natural cuando los regresores provienen de una muestra aleatoria.</p>
 </div>
 <div id="varianza" class="section level3 hasAnchor" number="11.3.2">
 <h3><span class="header-section-number">11.3.2</span> Varianza<a href="propiedades-mco-teoria.html#varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -279,11 +296,148 @@ y=X\beta+\epsilon.
 =\frac{\text{SRC}}{n-K}.
 \]</span></p>
 </div>
-<div id="gauss-markov" class="section level3 hasAnchor" number="11.3.3">
-<h3><span class="header-section-number">11.3.3</span> Gauss-Markov<a href="propiedades-mco-teoria.html#gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="insesgamiento-de-hatsigma2" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> Insesgamiento de <span class="math inline">\(\hat\sigma^2\)</span><a href="propiedades-mco-teoria.html#insesgamiento-de-hatsigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La división por <span class="math inline">\(n-K\)</span> no es una convención arbitraria. Corrige los <span class="math inline">\(K\)</span> grados de libertad utilizados al estimar <span class="math inline">\(\beta\)</span>.</p>
+<p>Definamos la matriz de proyección y la matriz de residuos asociadas a todos los regresores:</p>
+<p><span class="math display">\[
+P_X=X(X&#39;X)^{-1}X&#39;,
+\qquad
+M_X=I-P_X.
+\]</span></p>
+<p>Como <span class="math inline">\(M_XX=0\)</span>, los residuos estimados pueden escribirse como:</p>
+<p><span class="math display">\[
+\hat\epsilon
+=M_Xy
+=M_X(X\beta+\epsilon)
+=M_X\epsilon.
+\]</span></p>
+<p>Por simetría e idempotencia de <span class="math inline">\(M_X\)</span>:</p>
+<p><span class="math display">\[
+\hat\epsilon&#39;\hat\epsilon
+=\epsilon&#39;M_X&#39;M_X\epsilon
+=\epsilon&#39;M_X\epsilon.
+\]</span></p>
+<p>Usamos la identidad <span class="math inline">\(\mathbb{E}[z&#39;Az\mid X]=\operatorname{tr}\!\left(A\operatorname{Var}(z\mid X)\right)\)</span> cuando <span class="math inline">\(\mathbb{E}[z\mid X]=0\)</span>. Bajo perturbaciones esféricas:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[\hat\epsilon&#39;\hat\epsilon\mid X]
+&amp;=\mathbb{E}[\epsilon&#39;M_X\epsilon\mid X]\\
+&amp;=\operatorname{tr}\!\left(M_X\operatorname{Var}(\epsilon\mid X)\right)\\
+&amp;=\operatorname{tr}(M_X\sigma^2I)\\
+&amp;=\sigma^2\operatorname{tr}(M_X).
+\end{aligned}
+\]</span></p>
+<p>La matriz <span class="math inline">\(P_X\)</span> proyecta sobre un espacio de dimensión <span class="math inline">\(K\)</span>, de modo que <span class="math inline">\(\operatorname{tr}(P_X)=K\)</span>. Por tanto:</p>
+<p><span class="math display">\[
+\operatorname{tr}(M_X)
+=\operatorname{tr}(I-P_X)
+=n-K.
+\]</span></p>
+<p>En consecuencia:</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\epsilon&#39;\hat\epsilon\mid X]=(n-K)\sigma^2,
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+\boxed{
+\mathbb{E}[\hat\sigma^2\mid X]
+=\mathbb{E}\!\left[\frac{\hat\epsilon&#39;\hat\epsilon}{n-K}\middle|X\right]
+=\sigma^2.}
+\]</span></p>
+<div class="box-intuicion">
+<p>MCO utiliza <span class="math inline">\(K\)</span> direcciones de la muestra para ajustar los coeficientes. Los residuos solo conservan variación en las <span class="math inline">\(n-K\)</span> direcciones restantes; por eso la SRC debe dividirse por <span class="math inline">\(n-K\)</span>.</p>
+</div>
+</div>
+<div id="linealidad-insesgamiento-y-eficiencia" class="section level3 hasAnchor" number="11.3.4">
+<h3><span class="header-section-number">11.3.4</span> Linealidad, insesgamiento y eficiencia<a href="propiedades-mco-teoria.html#linealidad-insesgamiento-y-eficiencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Antes de enunciar Gauss-Markov, debemos precisar la clase de comparación. Un estimador <span class="math inline">\(\tilde\beta\)</span> es:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Lineal en <span class="math inline">\(y\)</span></strong> si puede escribirse como <span class="math inline">\(\tilde\beta=Cy\)</span>, donde <span class="math inline">\(C\)</span> puede depender de <span class="math inline">\(X\)</span>, pero no de <span class="math inline">\(y\)</span>.</li>
+<li><strong>Insesgado</strong> si <span class="math inline">\(\mathbb{E}[\tilde\beta\mid X]=\beta\)</span>.</li>
+<li><strong>Eficiente dentro de esa clase</strong> si ningún otro estimador lineal e insesgado tiene una matriz de varianza menor.</li>
+</ol>
+<p>“Menor” para matrices significa que la diferencia entre las matrices de varianza es semidefinida positiva. Equivale a decir que ninguna combinación lineal de los coeficientes tiene menor varianza con el estimador alternativo.</p>
+</div>
+<div id="teorema-de-gauss-markov" class="section level3 hasAnchor" number="11.3.5">
+<h3><span class="header-section-number">11.3.5</span> Teorema de Gauss-Markov<a href="propiedades-mco-teoria.html#teorema-de-gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El teorema de Gauss-Markov afirma que, bajo los supuestos clásicos, MCO es el mejor estimador lineal insesgado, o MELI. Es decir, entre todos los estimadores lineales e insesgados, <span class="math inline">\(\hat{\beta}\)</span> tiene la menor varianza.</p>
 <div class="box-ejemplo">
 <p>Si dos estimadores son insesgados, ambos aciertan en promedio. Gauss-Markov dice que MCO, además, es el que se dispersa menos dentro de la clase de estimadores lineales insesgados.</p>
+</div>
+<div id="demostración" class="section level4 hasAnchor" number="11.3.5.1">
+<h4><span class="header-section-number">11.3.5.1</span> Demostración<a href="#demostraci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sea un estimador lineal alternativo:</p>
+<p><span class="math display">\[
+\tilde\beta=Cy.
+\]</span></p>
+<p>El estimador de MCO también es lineal en <span class="math inline">\(y\)</span>. Definamos:</p>
+<p><span class="math display">\[
+A=(X&#39;X)^{-1}X&#39;,
+\qquad
+\hat\beta=Ay.
+\]</span></p>
+<p>Escribimos la matriz del estimador alternativo como:</p>
+<p><span class="math display">\[
+C=A+D,
+\]</span></p>
+<p>donde <span class="math inline">\(D=C-A\)</span>. Entonces:</p>
+<p><span class="math display">\[
+\tilde\beta
+=(A+D)y
+=\hat\beta+Dy.
+\]</span></p>
+<p>Para que <span class="math inline">\(\tilde\beta\)</span> sea insesgado para todo <span class="math inline">\(\beta\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E}[\tilde\beta\mid X]
+&amp;=C\mathbb{E}[y\mid X]\\
+&amp;=CX\beta\\
+&amp;=(A+D)X\beta\\
+&amp;=(I_K+DX)\beta.
+\end{aligned}
+\]</span></p>
+<p>Por tanto, la condición de insesgamiento es:</p>
+<p><span class="math display">\[
+\boxed{DX=0}.
+\]</span></p>
+<p>Bajo <span class="math inline">\(\operatorname{Var}(\epsilon\mid X)=\sigma^2I\)</span>, la varianza del estimador alternativo es:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\operatorname{Var}(\tilde\beta\mid X)
+&amp;=C\operatorname{Var}(y\mid X)C&#39;\\
+&amp;=\sigma^2(A+D)(A&#39;+D&#39;)\\
+&amp;=\sigma^2(AA&#39;+AD&#39;+DA&#39;+DD&#39;).
+\end{aligned}
+\]</span></p>
+<p>Los términos cruzados son cero. En efecto:</p>
+<p><span class="math display">\[
+DA&#39;
+=DX(X&#39;X)^{-1}
+=0,
+\]</span></p>
+<p>y, por transposición, <span class="math inline">\(AD&#39;=0\)</span>. Además:</p>
+<p><span class="math display">\[
+AA&#39;
+=(X&#39;X)^{-1}X&#39;X(X&#39;X)^{-1}
+=(X&#39;X)^{-1}.
+\]</span></p>
+<p>Así:</p>
+<p><span class="math display">\[
+\operatorname{Var}(\tilde\beta\mid X)
+=\sigma^2(X&#39;X)^{-1}+\sigma^2DD&#39;.
+\]</span></p>
+<p>Como <span class="math inline">\(DD&#39;\)</span> es semidefinida positiva:</p>
+<p><span class="math display">\[
+\boxed{
+\operatorname{Var}(\tilde\beta\mid X)
+-\operatorname{Var}(\hat\beta\mid X)
+=\sigma^2DD&#39;\succeq0.}
+\]</span></p>
+<p>Por tanto, ningún estimador lineal e insesgado tiene menor varianza que MCO. Esto demuestra que <span class="math inline">\(\hat\beta\)</span> es MELI.</p>
+<div class="box-cuidado">
+<p>Gauss-Markov no afirma que MCO sea mejor que cualquier estimador imaginable. La comparación se limita a estimadores <strong>lineales en <span class="math inline">\(y\)</span></strong> e <strong>insesgados</strong>. Tampoco requiere normalidad.</p>
+</div>
 </div>
 </div>
 </div>
@@ -314,11 +468,16 @@ y=X\beta+\epsilon.
 <td><span class="math inline">\(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}\)</span>.</td>
 </tr>
 <tr class="odd">
+<td>Varianza residual</td>
+<td>Exogeneidad y perturbaciones esféricas</td>
+<td><span class="math inline">\(\mathbb{E}[\hat\sigma^2\mid X]=\sigma^2\)</span>.</td>
+</tr>
+<tr class="even">
 <td>MELI</td>
 <td>Supuestos clásicos de Gauss-Markov</td>
 <td>MCO tiene mínima varianza entre estimadores lineales insesgados.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Inferencia exacta</td>
 <td>Normalidad adicional</td>
 <td>Se estudia al discutir pruebas de hipótesis.</td>
@@ -348,6 +507,7 @@ y=X\beta+\epsilon.
 <li>El error muestral de MCO es <span class="math inline">\(\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>.</li>
 <li>Bajo <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, MCO es insesgado.</li>
 <li>Bajo <span class="math inline">\(\text{Var}(\epsilon\mid X)=\sigma^2I\)</span>, <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}\)</span>.</li>
+<li>Bajo los mismos supuestos, <span class="math inline">\(\hat\sigma^2=\hat\epsilon&#39;\hat\epsilon/(n-K)\)</span> es insesgado.</li>
 <li>Gauss-Markov establece que MCO es MELI: el mejor estimador lineal insesgado.</li>
 <li>Las propiedades dependen de los supuestos; no se derivan solo de correr una regresión.</li>
 </ul>
@@ -360,7 +520,11 @@ y=X\beta+\epsilon.
 <li>Demuestra que <span class="math inline">\(\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>.</li>
 <li>Explica por qué <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span> implica insesgamiento condicional.</li>
 <li>Deriva <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)\)</span> bajo <span class="math inline">\(\sigma^2I\)</span>.</li>
+<li>Demuestra que <span class="math inline">\(\hat\epsilon=M_X\epsilon\)</span>.</li>
+<li>Usa trazas para demostrar que <span class="math inline">\(\mathbb{E}[\hat\epsilon&#39;\hat\epsilon\mid X]=(n-K)\sigma^2\)</span>.</li>
 <li>Explica qué significa que MCO sea “lineal” como estimador.</li>
+<li>En la demostración de Gauss-Markov, muestra por qué <span class="math inline">\(DX=0\)</span> implica <span class="math inline">\(DA&#39;=0\)</span>.</li>
+<li>Explica la diferencia entre una desigualdad escalar y la relación <span class="math inline">\(\succeq0\)</span> entre matrices.</li>
 <li>Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.</li>
 <li>Para conectar propiedades, residuos y simulación, resuelve las partes B y D del <a href="problem-set-2.html#problem-set-2">Problem Set 2: FWL, propiedades e inferencia</a>.</li>
 </ol>

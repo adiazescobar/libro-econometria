@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-07-14" />
+<meta name="date" content="2026-08-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -208,6 +208,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Escribir el modelo lineal en notación matricial.</li>
 <li>Derivar el estimador de MCO a partir de la minimización de la SRC.</li>
 <li>Interpretar las ecuaciones normales como condiciones de ortogonalidad.</li>
+<li>Derivar las principales propiedades algebraicas de residuos y valores ajustados.</li>
+<li>Distinguir las descomposiciones centrada y no centrada y construir el <span class="math inline">\(R^2\)</span>.</li>
+<li>Obtener el error muestral que conecta la estimación con las propiedades finitas.</li>
 <li>Reconocer cómo cambian los coeficientes cuando el modelo incluye variables binarias.</li>
 </ol>
 </div>
@@ -257,12 +260,140 @@ X&#39;X\hat{\beta}=X&#39;y.
 <p><span class="math display">\[
 \hat{\epsilon}=y-X\hat{\beta}.
 \]</span></p>
+</div>
+<div id="aspectos-algebraicos-mco" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Aspectos algebraicos de la solución de MCO<a href="estimacion-mco-teoria.html#aspectos-algebraicos-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los resultados de esta sección son <strong>propiedades algebraicas de la regresión estimada</strong>. Se cumplen por la forma en que MCO minimiza la SRC; todavía no requieren exogeneidad, homocedasticidad ni normalidad.</p>
+<div id="residuos-y-ecuaciones-normales" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Residuos y ecuaciones normales<a href="estimacion-mco-teoria.html#residuos-y-ecuaciones-normales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Partimos de las ecuaciones normales:</p>
+<p><span class="math display">\[
+X&#39;X\hat{\beta}=X&#39;y.
+\]</span></p>
+<p>Reorganizando:</p>
+<p><span class="math display">\[
+X&#39;(y-X\hat{\beta})=0.
+\]</span></p>
+<p>Como <span class="math inline">\(\hat{\epsilon}=y-X\hat{\beta}\)</span>, obtenemos:</p>
+<p><span class="math display">\[
+\boxed{X&#39;\hat{\epsilon}=0}.
+\]</span></p>
+<p>Cada columna de <span class="math inline">\(X\)</span> es ortogonal al vector de residuos. En notación de sumas, para cada regresor <span class="math inline">\(x_j\)</span>,</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}x_{ij}\hat{\epsilon}_i=0.
+\]</span></p>
+<p>Si <span class="math inline">\(X\)</span> contiene una constante, una de sus columnas es un vector de unos. En ese caso:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\hat{\epsilon}_i=0
+\quad\Longrightarrow\quad
+\bar{\hat{\epsilon}}=0.
+\]</span></p>
+<div class="box-cuidado">
+<p>La ortogonalidad <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span> es una propiedad de los <strong>residuos estimados</strong> y se cumple en la muestra. No es lo mismo que el supuesto poblacional <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, que se refiere al error no observado y sostiene el insesgamiento.</p>
+</div>
+</div>
+<div id="valores-ajustados-y-ortogonalidad" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Valores ajustados y ortogonalidad<a href="estimacion-mco-teoria.html#valores-ajustados-y-ortogonalidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El vector de valores ajustados es:</p>
+<p><span class="math display">\[
+\hat y=X\hat{\beta}.
+\]</span></p>
+<p>Por tanto:</p>
+<p><span class="math display">\[
+y=\hat y+\hat{\epsilon}.
+\]</span></p>
+<p>Como <span class="math inline">\(\hat y\)</span> es una combinación lineal de las columnas de <span class="math inline">\(X\)</span>, también es ortogonal a los residuos:</p>
+<p><span class="math display">\[
+\hat y&#39;\hat{\epsilon}
+=(X\hat{\beta})&#39;\hat{\epsilon}
+=\hat{\beta}&#39;X&#39;\hat{\epsilon}
+=0.
+\]</span></p>
+<p>Geométricamente, MCO descompone <span class="math inline">\(y\)</span> en dos vectores perpendiculares: la proyección <span class="math inline">\(\hat y\)</span>, que pertenece al espacio generado por <span class="math inline">\(X\)</span>, y el residuo <span class="math inline">\(\hat\epsilon\)</span>, que queda fuera de ese espacio.</p>
+</div>
+<div id="descomposición-no-centrada" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Descomposición no centrada<a href="#descomposici%C3%B3n-no-centrada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usando <span class="math inline">\(y=\hat y+\hat\epsilon\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y&#39;y
+&amp;=(\hat y+\hat\epsilon)&#39;(\hat y+\hat\epsilon)\\
+&amp;=\hat y&#39;\hat y+2\hat y&#39;\hat\epsilon+\hat\epsilon&#39;\hat\epsilon\\
+&amp;=\hat y&#39;\hat y+\hat\epsilon&#39;\hat\epsilon.
+\end{aligned}
+\]</span></p>
+<p>Así:</p>
+<p><span class="math display">\[
+\boxed{y&#39;y=\hat y&#39;\hat y+\hat\epsilon&#39;\hat\epsilon}.
+\]</span></p>
+<p>Esta identidad compara los vectores con respecto al origen y produce el coeficiente de determinación no centrado:</p>
+<p><span class="math display">\[
+R^2_{nc}
+=1-\frac{\hat\epsilon&#39;\hat\epsilon}{y&#39;y}
+=\frac{\hat y&#39;\hat y}{y&#39;y}.
+\]</span></p>
+</div>
+<div id="descomposición-centrada-y-r2" class="section level3 hasAnchor" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> Descomposición centrada y <span class="math inline">\(R^2\)</span><a href="#descomposici%C3%B3n-centrada-y-r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando el modelo incluye constante, <span class="math inline">\(\bar{\hat\epsilon}=0\)</span> y <span class="math inline">\(\bar{\hat y}=\bar y\)</span>. Entonces la variación total de <span class="math inline">\(y\)</span> alrededor de su media se descompone como:</p>
+<p><span class="math display">\[
+\underbrace{\sum_{i=1}^{n}(y_i-\bar y)^2}_{\text{STC}}
+=
+\underbrace{\sum_{i=1}^{n}(\hat y_i-\bar y)^2}_{\text{SEC}}
++
+\underbrace{\sum_{i=1}^{n}\hat\epsilon_i^2}_{\text{SRC}}.
+\]</span></p>
+<p>De aquí obtenemos el <span class="math inline">\(R^2\)</span> centrado:</p>
+<p><span class="math display">\[
+R^2
+=\frac{\text{SEC}}{\text{STC}}
+=1-\frac{\text{SRC}}{\text{STC}}.
+\]</span></p>
+<div class="box-intuicion">
+<p>El <span class="math inline">\(R^2\)</span> centrado pregunta qué proporción de la variación de <span class="math inline">\(y\)</span> <strong>alrededor de su media</strong> explica el modelo. Esta interpretación depende de que la regresión incluya constante.</p>
+</div>
+<p>En una regresión sin constante, la descomposición centrada puede fallar y la fórmula usual puede producir un <span class="math inline">\(R^2\)</span> negativo. En ese caso debe reportarse e interpretarse el <span class="math inline">\(R^2\)</span> no centrado.</p>
+</div>
+<div id="src-varianza-residual-y-error-estándar-de-la-regresión" class="section level3 hasAnchor" number="7.4.5">
+<h3><span class="header-section-number">7.4.5</span> SRC, varianza residual y error estándar de la regresión<a href="#src-varianza-residual-y-error-est%C3%A1ndar-de-la-regresi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La suma de residuos al cuadrado evaluada en la solución de MCO es:</p>
+<p><span class="math display">\[
+\text{SRC}=\hat\epsilon&#39;\hat\epsilon.
+\]</span></p>
+<p>Como se estiman <span class="math inline">\(K\)</span> parámetros, quedan <span class="math inline">\(n-K\)</span> grados de libertad para estimar la varianza del error:</p>
+<p><span class="math display">\[
+\hat\sigma^2
+=\frac{\text{SRC}}{n-K}
+=\frac{\hat\epsilon&#39;\hat\epsilon}{n-K}.
+\]</span></p>
+<p>El error estándar de la regresión es:</p>
+<p><span class="math display">\[
+\hat\sigma
+=\sqrt{\hat\sigma^2}
+=\sqrt{\frac{\hat\epsilon&#39;\hat\epsilon}{n-K}}.
+\]</span></p>
+<p>La división por <span class="math inline">\(n-K\)</span>, en lugar de <span class="math inline">\(n\)</span>, corrige los grados de libertad utilizados al estimar <span class="math inline">\(\beta\)</span>. En el capítulo de propiedades mostraremos que, bajo los supuestos clásicos, <span class="math inline">\(\hat\sigma^2\)</span> es insesgado para <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<div id="error-muestral-de-hatbeta" class="section level3 hasAnchor" number="7.4.6">
+<h3><span class="header-section-number">7.4.6</span> Error muestral de <span class="math inline">\(\hat\beta\)</span><a href="estimacion-mco-teoria.html#error-muestral-de-hatbeta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El puente entre el álgebra de la estimación y sus propiedades estadísticas es la diferencia entre el estimador y el parámetro poblacional. Sustituyendo <span class="math inline">\(y=X\beta+\epsilon\)</span> en la fórmula de MCO:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat\beta-\beta
+&amp;=(X&#39;X)^{-1}X&#39;y-\beta\\
+&amp;=(X&#39;X)^{-1}X&#39;(X\beta+\epsilon)-\beta\\
+&amp;=\beta+(X&#39;X)^{-1}X&#39;\epsilon-\beta\\
+&amp;=\boxed{(X&#39;X)^{-1}X&#39;\epsilon}.
+\end{aligned}
+\]</span></p>
+<p>Esta expresión muestra exactamente de dónde proviene la variación muestral de <span class="math inline">\(\hat\beta\)</span>: de la proyección del error poblacional sobre las columnas de <span class="math inline">\(X\)</span>. Más adelante la usaremos para estudiar insesgamiento y varianza.</p>
 <div class="box-ejemplo">
 <p>Cuando el modelo solo contiene una constante, <span class="math inline">\(X\)</span> es una columna de unos. En ese caso, <span class="math inline">\(X&#39;X=n\)</span>, <span class="math inline">\(X&#39;y=\sum_i y_i\)</span> y <span class="math inline">\(\hat{\beta}_0=\bar{y}\)</span>. MCO reproduce la media muestral porque esa es la mejor predicción constante bajo pérdida cuadrática.</p>
 </div>
 <p>La matriz <span class="math inline">\(X&#39;X\)</span> es simétrica y semidefinida positiva. Si las columnas de <span class="math inline">\(X\)</span> son linealmente independientes, <span class="math inline">\(X&#39;X\)</span> es definida positiva y el punto que resuelve las ecuaciones normales es un mínimo de la SRC.</p>
-<div id="variables-binarias-y-categorías-de-referencia" class="section level3 hasAnchor" number="7.3.1">
-<h3><span class="header-section-number">7.3.1</span> Variables binarias y categorías de referencia<a href="#variables-binarias-y-categor%C3%ADas-de-referencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="variables-binarias-y-categorías-de-referencia" class="section level3 hasAnchor" number="7.4.7">
+<h3><span class="header-section-number">7.4.7</span> Variables binarias y categorías de referencia<a href="#variables-binarias-y-categor%C3%ADas-de-referencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las variables binarias muestran que los coeficientes de MCO dependen de la codificación del modelo. Si estimamos un modelo sin constante con dos grupos mutuamente excluyentes:</p>
 <p><span class="math display">\[
 y_i=\beta_1D_{1i}+\beta_2D_{2i}+\epsilon_i,
@@ -277,8 +408,8 @@ y_i=\beta_0+\beta_1D_{1i}+\epsilon_i,
 </div>
 </div>
 </div>
-<div id="supuestos-propiedades-estimacion" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Supuestos y propiedades<a href="estimacion-mco-teoria.html#supuestos-propiedades-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-propiedades-estimacion" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Supuestos y propiedades<a href="estimacion-mco-teoria.html#supuestos-propiedades-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para que la fórmula <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span> exista y tenga interpretación econométrica necesitamos:</p>
 <table>
 <colgroup>
@@ -316,8 +447,8 @@ X&#39;\hat{\epsilon}=0.
 \]</span></p>
 <p>Esto significa que los residuos estimados son ortogonales a cada columna de <span class="math inline">\(X\)</span>. Si el modelo incluye constante, también se cumple que la suma de residuos es cero.</p>
 </div>
-<div id="errores-comunes-estimacion" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Errores comunes y cuidados<a href="estimacion-mco-teoria.html#errores-comunes-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="errores-comunes-estimacion" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Errores comunes y cuidados<a href="estimacion-mco-teoria.html#errores-comunes-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
 <p>No confundas el error poblacional <span class="math inline">\(\epsilon_i\)</span> con el residuo estimado <span class="math inline">\(\hat{\epsilon}_i\)</span>. El primero no se observa; el segundo se calcula después de estimar el modelo.</p>
 </div>
@@ -328,33 +459,40 @@ X&#39;\hat{\epsilon}=0.
 <p>Los coeficientes de variables binarias siempre se interpretan respecto a una categoría omitida cuando el modelo incluye constante. Cambiar la referencia cambia los coeficientes, aunque no cambia los valores ajustados.</p>
 </div>
 </div>
-<div id="resumen-estimacion-teoria" class="section level2 hasAnchor" number="7.6">
-<h2><span class="header-section-number">7.6</span> Resumen<a href="estimacion-mco-teoria.html#resumen-estimacion-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-estimacion-teoria" class="section level2 hasAnchor" number="7.7">
+<h2><span class="header-section-number">7.7</span> Resumen<a href="estimacion-mco-teoria.html#resumen-estimacion-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
 <li>MCO minimiza <span class="math inline">\(\text{SRC}(\tilde{\beta})=(y-X\tilde{\beta})&#39;(y-X\tilde{\beta})\)</span>.</li>
 <li>Las ecuaciones normales son <span class="math inline">\(X&#39;X\hat{\beta}=X&#39;y\)</span>.</li>
 <li>Si <span class="math inline">\(X&#39;X\)</span> es invertible, <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>.</li>
 <li>Los residuos de MCO son ortogonales a los regresores: <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span>.</li>
+<li>Los valores ajustados son ortogonales a los residuos: <span class="math inline">\(\hat y&#39;\hat\epsilon=0\)</span>.</li>
+<li>Con constante, <span class="math inline">\(\text{STC}=\text{SEC}+\text{SRC}\)</span> y <span class="math inline">\(R^2=1-\text{SRC}/\text{STC}\)</span>.</li>
+<li>La varianza residual se estima con <span class="math inline">\(\hat\sigma^2=\hat\epsilon&#39;\hat\epsilon/(n-K)\)</span>.</li>
+<li>El error muestral es <span class="math inline">\(\hat\beta-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>.</li>
 <li>Con variables binarias, el significado de los coeficientes depende de si el modelo incluye constante y de cuál categoría se omite.</li>
 </ul>
 </div>
 </div>
-<div id="ejercicios-conceptuales-estimacion" class="section level2 hasAnchor" number="7.7">
-<h2><span class="header-section-number">7.7</span> Ejercicios conceptuales<a href="estimacion-mco-teoria.html#ejercicios-conceptuales-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-conceptuales-estimacion" class="section level2 hasAnchor" number="7.8">
+<h2><span class="header-section-number">7.8</span> Ejercicios conceptuales<a href="estimacion-mco-teoria.html#ejercicios-conceptuales-estimacion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-ejercicios">
 <ol style="list-style-type: decimal">
 <li>Demuestra que, en un modelo con solo constante, <span class="math inline">\(\hat{\beta}_0=\bar{y}\)</span>.</li>
 <li>Explica por qué <span class="math inline">\(X&#39;X\)</span> no es invertible si dos columnas de <span class="math inline">\(X\)</span> son idénticas.</li>
 <li>En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.</li>
 <li>Demuestra que <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span> usando la fórmula <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>.</li>
+<li>Demuestra que <span class="math inline">\(\hat y&#39;\hat\epsilon=0\)</span> y úsalo para obtener la descomposición no centrada.</li>
+<li>Explica por qué la descomposición centrada del <span class="math inline">\(R^2\)</span> requiere una constante.</li>
+<li>Deriva <span class="math inline">\(\hat\beta-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span> e interpreta cada factor.</li>
 <li>Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.</li>
 <li>Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del <a href="problem-set-1.html#problem-set-1">Problem Set 1: MCO y matrices</a>.</li>
 </ol>
 </div>
 </div>
-<div id="referencias-estimacion-teoria" class="section level2 hasAnchor" number="7.8">
-<h2><span class="header-section-number">7.8</span> Referencias<a href="estimacion-mco-teoria.html#referencias-estimacion-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias-estimacion-teoria" class="section level2 hasAnchor" number="7.9">
+<h2><span class="header-section-number">7.9</span> Referencias<a href="estimacion-mco-teoria.html#referencias-estimacion-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Verbeek, Marno. <em>A Guide to Modern Econometrics</em>, capítulos 1 y 2.</li>
 <li>Wooldridge, Jeffrey. <em>Introductory Econometrics: A Modern Approach</em>, capítulos 2 y 3.</li>
