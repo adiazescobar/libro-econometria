@@ -1,4 +1,4 @@
-# Propiedades de MCO: teoría {#propiedades-mco-teoria}
+# Aspectos algebraicos y propiedades de MCO: teoría {#propiedades-mco-teoria}
 
 ```{r setup-propiedades-teoria, include=FALSE}
 knitr::opts_chunk$set(
@@ -16,22 +16,185 @@ knitr::opts_chunk$set(
 
 Al finalizar esta página podrás:
 
-1. Derivar el error muestral de \(\hat{\beta}\).
-2. Demostrar el insesgamiento condicional de MCO bajo exogeneidad.
-3. Obtener la varianza clásica de \(\hat{\beta}\).
-4. Demostrar el insesgamiento del estimador clásico de \(\sigma^2\).
-5. Definir con precisión la clase de estimadores lineales insesgados.
-6. Enunciar y demostrar el teorema de Gauss-Markov.
+1. Derivar las propiedades algebraicas de residuos y valores ajustados.
+2. Distinguir las descomposiciones centrada y no centrada y construir el \(R^2\).
+3. Obtener el error muestral de \(\hat\beta\).
+4. Demostrar el insesgamiento condicional de MCO bajo exogeneidad.
+5. Obtener la varianza clásica de \(\hat\beta\).
+6. Demostrar el insesgamiento del estimador clásico de \(\sigma^2\).
+7. Definir la clase de estimadores lineales insesgados y demostrar Gauss-Markov.
 
 ## Intuición y motivación {#intuicion-propiedades-teoria}
 
-Después de aprender a calcular \(\hat{\beta}\), la pregunta central es qué tan bueno es ese estimador. Las propiedades de muestras finitas analizan el comportamiento de \(\hat{\beta}\) en muestras repetidas, manteniendo fijo el tamaño muestral.
+Después de estimar una regresión múltiple y entender con FWL de dónde proviene la variación que identifica cada coeficiente, podemos estudiar ordenadamente dos grupos de resultados. Primero, las identidades algebraicas que MCO cumple en la muestra. Segundo, las propiedades estadísticas de \(\hat\beta\) en muestras repetidas, manteniendo fijo el tamaño muestral.
 
 ::: {.box-intuicion}
 Un estimador puede cambiar de una muestra a otra. Las propiedades de MCO responden tres preguntas: si acierta en promedio, qué tanto varía y si usa la información de manera eficiente dentro de la clase de estimadores lineales insesgados.
 :::
 
-## Desarrollo teórico {#desarrollo-teorico-propiedades}
+## Parte I: Aspectos algebraicos de la solución de MCO {#aspectos-algebraicos-mco}
+
+Los resultados de esta sección son **propiedades algebraicas de la regresión estimada**. Se cumplen por la forma en que MCO minimiza la SRC; todavía no requieren exogeneidad, homocedasticidad ni normalidad.
+
+### Residuos y ecuaciones normales
+
+Partimos de las ecuaciones normales:
+
+\[
+X'X\hat{\beta}=X'y.
+\]
+
+Reorganizando:
+
+\[
+X'(y-X\hat{\beta})=0.
+\]
+
+Como \(\hat{\epsilon}=y-X\hat{\beta}\), obtenemos:
+
+\[
+\boxed{X'\hat{\epsilon}=0}.
+\]
+
+Cada columna de \(X\) es ortogonal al vector de residuos. En notación de sumas, para cada regresor \(x_j\),
+
+\[
+\sum_{i=1}^{n}x_{ij}\hat{\epsilon}_i=0.
+\]
+
+Si \(X\) contiene una constante, una de sus columnas es un vector de unos. En ese caso:
+
+\[
+\sum_{i=1}^{n}\hat{\epsilon}_i=0
+\quad\Longrightarrow\quad
+\bar{\hat{\epsilon}}=0.
+\]
+
+::: {.box-cuidado}
+La ortogonalidad \(X'\hat{\epsilon}=0\) es una propiedad de los **residuos estimados** y se cumple en la muestra. No es lo mismo que el supuesto poblacional \(\mathbb{E}[\epsilon\mid X]=0\), que se refiere al error no observado y sostiene el insesgamiento.
+:::
+
+### Valores ajustados y ortogonalidad
+
+El vector de valores ajustados es:
+
+\[
+\hat y=X\hat{\beta}.
+\]
+
+Por tanto:
+
+\[
+y=\hat y+\hat{\epsilon}.
+\]
+
+Como \(\hat y\) es una combinación lineal de las columnas de \(X\), también es ortogonal a los residuos:
+
+\[
+\hat y'\hat{\epsilon}
+=(X\hat{\beta})'\hat{\epsilon}
+=\hat{\beta}'X'\hat{\epsilon}
+=0.
+\]
+
+Geométricamente, MCO descompone \(y\) en dos vectores perpendiculares: la proyección \(\hat y\), que pertenece al espacio generado por \(X\), y el residuo \(\hat\epsilon\), que queda fuera de ese espacio.
+
+### Descomposición no centrada
+
+Usando \(y=\hat y+\hat\epsilon\):
+
+\[
+\begin{aligned}
+y'y
+&=(\hat y+\hat\epsilon)'(\hat y+\hat\epsilon)\
+&=\hat y'\hat y+2\hat y'\hat\epsilon+\hat\epsilon'\hat\epsilon\
+&=\hat y'\hat y+\hat\epsilon'\hat\epsilon.
+\end{aligned}
+\]
+
+Así:
+
+\[
+\boxed{y'y=\hat y'\hat y+\hat\epsilon'\hat\epsilon}.
+\]
+
+Esta identidad compara los vectores con respecto al origen y produce el coeficiente de determinación no centrado:
+
+\[
+R^2_{nc}
+=1-\frac{\hat\epsilon'\hat\epsilon}{y'y}
+=\frac{\hat y'\hat y}{y'y}.
+\]
+
+### Descomposición centrada y \(R^2\)
+
+Cuando el modelo incluye constante, \(\bar{\hat\epsilon}=0\) y \(\bar{\hat y}=\bar y\). Entonces la variación total de \(y\) alrededor de su media se descompone como:
+
+\[
+\underbrace{\sum_{i=1}^{n}(y_i-\bar y)^2}_{\text{STC}}
+=
+\underbrace{\sum_{i=1}^{n}(\hat y_i-\bar y)^2}_{\text{SEC}}
++
+\underbrace{\sum_{i=1}^{n}\hat\epsilon_i^2}_{\text{SRC}}.
+\]
+
+De aquí obtenemos el \(R^2\) centrado:
+
+\[
+R^2
+=\frac{\text{SEC}}{\text{STC}}
+=1-\frac{\text{SRC}}{\text{STC}}.
+\]
+
+::: {.box-intuicion}
+El \(R^2\) centrado pregunta qué proporción de la variación de \(y\) **alrededor de su media** explica el modelo. Esta interpretación depende de que la regresión incluya constante.
+:::
+
+En una regresión sin constante, la descomposición centrada puede fallar y la fórmula usual puede producir un \(R^2\) negativo. En ese caso debe reportarse e interpretarse el \(R^2\) no centrado.
+
+### SRC, varianza residual y error estándar de la regresión
+
+La suma de residuos al cuadrado evaluada en la solución de MCO es:
+
+\[
+\text{SRC}=\hat\epsilon'\hat\epsilon.
+\]
+
+Como se estiman \(K\) parámetros, quedan \(n-K\) grados de libertad para estimar la varianza del error:
+
+\[
+\hat\sigma^2
+=\frac{\text{SRC}}{n-K}
+=\frac{\hat\epsilon'\hat\epsilon}{n-K}.
+\]
+
+El error estándar de la regresión es:
+
+\[
+\hat\sigma
+=\sqrt{\hat\sigma^2}
+=\sqrt{\frac{\hat\epsilon'\hat\epsilon}{n-K}}.
+\]
+
+La división por \(n-K\), en lugar de \(n\), corrige los grados de libertad utilizados al estimar \(\beta\). En el capítulo de propiedades mostraremos que, bajo los supuestos clásicos, \(\hat\sigma^2\) es insesgado para \(\sigma^2\).
+
+### Error muestral de \(\hat\beta\)
+
+El puente entre el álgebra de la estimación y sus propiedades estadísticas es la diferencia entre el estimador y el parámetro poblacional. Sustituyendo \(y=X\beta+\epsilon\) en la fórmula de MCO:
+
+\[
+\begin{aligned}
+\hat\beta-\beta
+&=(X'X)^{-1}X'y-\beta\
+&=(X'X)^{-1}X'(X\beta+\epsilon)-\beta\
+&=\beta+(X'X)^{-1}X'\epsilon-\beta\
+&=\boxed{(X'X)^{-1}X'\epsilon}.
+\end{aligned}
+\]
+
+Esta expresión muestra exactamente de dónde proviene la variación muestral de \(\hat\beta\): de la proyección del error poblacional sobre las columnas de \(X\). Más adelante la usaremos para estudiar insesgamiento y varianza.
+
+## Parte II: Propiedades del estimador de MCO en muestras finitas {#desarrollo-teorico-propiedades}
 
 Partimos del modelo:
 
@@ -344,6 +507,8 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 ## Resumen {#resumen-propiedades-teoria}
 
 ::: {.box-resumen}
+- Por construcción, \(X'\hat\epsilon=0\), \(\hat y'\hat\epsilon=0\) y \(y=\hat y+\hat\epsilon\).
+- Con constante, \(\text{STC}=\text{SEC}+\text{SRC}\) y \(R^2=1-\text{SRC}/\text{STC}\).
 - El error muestral de MCO es \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
 - Bajo \(\mathbb{E}[\epsilon\mid X]=0\), MCO es insesgado.
 - Bajo \(\text{Var}(\epsilon\mid X)=\sigma^2I\), \(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}\).
@@ -355,16 +520,18 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 ## Ejercicios conceptuales {#ejercicios-conceptuales-propiedades}
 
 ::: {.box-ejercicios}
-1. Demuestra que \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
-2. Explica por qué \(\mathbb{E}[\epsilon\mid X]=0\) implica insesgamiento condicional.
-3. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
-4. Demuestra que \(\hat\epsilon=M_X\epsilon\).
-5. Usa trazas para demostrar que \(\mathbb{E}[\hat\epsilon'\hat\epsilon\mid X]=(n-K)\sigma^2\).
-6. Explica qué significa que MCO sea "lineal" como estimador.
-7. En la demostración de Gauss-Markov, muestra por qué \(DX=0\) implica \(DA'=0\).
-8. Explica la diferencia entre una desigualdad escalar y la relación \(\succeq0\) entre matrices.
-9. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
-10. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
+1. Demuestra que \(\hat y'\hat\epsilon=0\) y obtén la descomposición no centrada.
+2. Explica por qué la descomposición centrada del \(R^2\) requiere una constante.
+3. Demuestra que \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
+4. Explica por qué \(\mathbb{E}[\epsilon\mid X]=0\) implica insesgamiento condicional.
+5. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
+6. Demuestra que \(\hat\epsilon=M_X\epsilon\).
+7. Usa trazas para demostrar que \(\mathbb{E}[\hat\epsilon'\hat\epsilon\mid X]=(n-K)\sigma^2\).
+8. Explica qué significa que MCO sea "lineal" como estimador.
+9. En la demostración de Gauss-Markov, muestra por qué \(DX=0\) implica \(DA'=0\).
+10. Explica la diferencia entre una desigualdad escalar y la relación \(\succeq0\) entre matrices.
+11. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
+12. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-propiedades-teoria}

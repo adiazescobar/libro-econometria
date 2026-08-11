@@ -4,12 +4,12 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 11 Propiedades de MCO: teoría | Econometría II</title>
+  <title>Capítulo 11 Aspectos algebraicos y propiedades de MCO: teoría | Econometría II</title>
   <meta name="description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 11 Propiedades de MCO: teoría | Econometría II" />
+  <meta property="og:title" content="Capítulo 11 Aspectos algebraicos y propiedades de MCO: teoría | Econometría II" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
@@ -17,7 +17,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
   <meta name="github-repo" content="adiazescobar/libro-econometria" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 11 Propiedades de MCO: teoría | Econometría II" />
+  <meta name="twitter:title" content="Capítulo 11 Aspectos algebraicos y propiedades de MCO: teoría | Econometría II" />
   
   <meta name="twitter:description" content="<p>Notas de clase para el curso de Econometría II de la Pontificia Universidad Javeriana.
 Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y extensiones.</p>" />
@@ -156,7 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8" data-path="estimacion-mco-practica.html"><a href="estimacion-mco-practica.html"><i class="fa fa-check"></i><b>8</b> Estimación de MCO: práctica</a></li>
 <li class="chapter" data-level="9" data-path="fwl-teoria.html"><a href="fwl-teoria.html"><i class="fa fa-check"></i><b>9</b> Frisch-Waugh-Lovell: teoría</a></li>
 <li class="chapter" data-level="10" data-path="fwl-practica.html"><a href="fwl-practica.html"><i class="fa fa-check"></i><b>10</b> Frisch-Waugh-Lovell: práctica</a></li>
-<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Propiedades de MCO: teoría</a></li>
+<li class="chapter" data-level="11" data-path="propiedades-mco-teoria.html"><a href="propiedades-mco-teoria.html"><i class="fa fa-check"></i><b>11</b> Aspectos algebraicos y propiedades de MCO: teoría</a></li>
 <li class="chapter" data-level="12" data-path="propiedades-mco-practica.html"><a href="propiedades-mco-practica.html"><i class="fa fa-check"></i><b>12</b> Propiedades de MCO: práctica</a></li>
 <li class="chapter" data-level="13" data-path="pruebas-hipotesis-teoria.html"><a href="pruebas-hipotesis-teoria.html"><i class="fa fa-check"></i><b>13</b> Pruebas de hipótesis: teoría</a></li>
 <li class="chapter" data-level="14" data-path="pruebas-hipotesis-practica.html"><a href="pruebas-hipotesis-practica.html"><i class="fa fa-check"></i><b>14</b> Pruebas de hipótesis: práctica</a></li>
@@ -200,28 +200,157 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="propiedades-mco-teoria" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Capítulo 11</span> Propiedades de MCO: teoría<a href="propiedades-mco-teoria.html#propiedades-mco-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<h1><span class="header-section-number">Capítulo 11</span> Aspectos algebraicos y propiedades de MCO: teoría<a href="propiedades-mco-teoria.html#propiedades-mco-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="objetivos-propiedades-teoria" class="section level2 hasAnchor" number="11.1">
 <h2><span class="header-section-number">11.1</span> Objetivos de aprendizaje<a href="propiedades-mco-teoria.html#objetivos-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Al finalizar esta página podrás:</p>
 <ol style="list-style-type: decimal">
-<li>Derivar el error muestral de <span class="math inline">\(\hat{\beta}\)</span>.</li>
+<li>Derivar las propiedades algebraicas de residuos y valores ajustados.</li>
+<li>Distinguir las descomposiciones centrada y no centrada y construir el <span class="math inline">\(R^2\)</span>.</li>
+<li>Obtener el error muestral de <span class="math inline">\(\hat\beta\)</span>.</li>
 <li>Demostrar el insesgamiento condicional de MCO bajo exogeneidad.</li>
-<li>Obtener la varianza clásica de <span class="math inline">\(\hat{\beta}\)</span>.</li>
+<li>Obtener la varianza clásica de <span class="math inline">\(\hat\beta\)</span>.</li>
 <li>Demostrar el insesgamiento del estimador clásico de <span class="math inline">\(\sigma^2\)</span>.</li>
-<li>Definir con precisión la clase de estimadores lineales insesgados.</li>
-<li>Enunciar y demostrar el teorema de Gauss-Markov.</li>
+<li>Definir la clase de estimadores lineales insesgados y demostrar Gauss-Markov.</li>
 </ol>
 </div>
 <div id="intuicion-propiedades-teoria" class="section level2 hasAnchor" number="11.2">
 <h2><span class="header-section-number">11.2</span> Intuición y motivación<a href="propiedades-mco-teoria.html#intuicion-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Después de aprender a calcular <span class="math inline">\(\hat{\beta}\)</span>, la pregunta central es qué tan bueno es ese estimador. Las propiedades de muestras finitas analizan el comportamiento de <span class="math inline">\(\hat{\beta}\)</span> en muestras repetidas, manteniendo fijo el tamaño muestral.</p>
+<p>Después de estimar una regresión múltiple y entender con FWL de dónde proviene la variación que identifica cada coeficiente, podemos estudiar ordenadamente dos grupos de resultados. Primero, las identidades algebraicas que MCO cumple en la muestra. Segundo, las propiedades estadísticas de <span class="math inline">\(\hat\beta\)</span> en muestras repetidas, manteniendo fijo el tamaño muestral.</p>
 <div class="box-intuicion">
 <p>Un estimador puede cambiar de una muestra a otra. Las propiedades de MCO responden tres preguntas: si acierta en promedio, qué tanto varía y si usa la información de manera eficiente dentro de la clase de estimadores lineales insesgados.</p>
 </div>
 </div>
-<div id="desarrollo-teorico-propiedades" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Desarrollo teórico<a href="propiedades-mco-teoria.html#desarrollo-teorico-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="aspectos-algebraicos-mco" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> Parte I: Aspectos algebraicos de la solución de MCO<a href="propiedades-mco-teoria.html#aspectos-algebraicos-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Los resultados de esta sección son <strong>propiedades algebraicas de la regresión estimada</strong>. Se cumplen por la forma en que MCO minimiza la SRC; todavía no requieren exogeneidad, homocedasticidad ni normalidad.</p>
+<div id="residuos-y-ecuaciones-normales" class="section level3 hasAnchor" number="11.3.1">
+<h3><span class="header-section-number">11.3.1</span> Residuos y ecuaciones normales<a href="propiedades-mco-teoria.html#residuos-y-ecuaciones-normales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Partimos de las ecuaciones normales:</p>
+<p><span class="math display">\[
+X&#39;X\hat{\beta}=X&#39;y.
+\]</span></p>
+<p>Reorganizando:</p>
+<p><span class="math display">\[
+X&#39;(y-X\hat{\beta})=0.
+\]</span></p>
+<p>Como <span class="math inline">\(\hat{\epsilon}=y-X\hat{\beta}\)</span>, obtenemos:</p>
+<p><span class="math display">\[
+\boxed{X&#39;\hat{\epsilon}=0}.
+\]</span></p>
+<p>Cada columna de <span class="math inline">\(X\)</span> es ortogonal al vector de residuos. En notación de sumas, para cada regresor <span class="math inline">\(x_j\)</span>,</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}x_{ij}\hat{\epsilon}_i=0.
+\]</span></p>
+<p>Si <span class="math inline">\(X\)</span> contiene una constante, una de sus columnas es un vector de unos. En ese caso:</p>
+<p><span class="math display">\[
+\sum_{i=1}^{n}\hat{\epsilon}_i=0
+\quad\Longrightarrow\quad
+\bar{\hat{\epsilon}}=0.
+\]</span></p>
+<div class="box-cuidado">
+<p>La ortogonalidad <span class="math inline">\(X&#39;\hat{\epsilon}=0\)</span> es una propiedad de los <strong>residuos estimados</strong> y se cumple en la muestra. No es lo mismo que el supuesto poblacional <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, que se refiere al error no observado y sostiene el insesgamiento.</p>
+</div>
+</div>
+<div id="valores-ajustados-y-ortogonalidad" class="section level3 hasAnchor" number="11.3.2">
+<h3><span class="header-section-number">11.3.2</span> Valores ajustados y ortogonalidad<a href="propiedades-mco-teoria.html#valores-ajustados-y-ortogonalidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El vector de valores ajustados es:</p>
+<p><span class="math display">\[
+\hat y=X\hat{\beta}.
+\]</span></p>
+<p>Por tanto:</p>
+<p><span class="math display">\[
+y=\hat y+\hat{\epsilon}.
+\]</span></p>
+<p>Como <span class="math inline">\(\hat y\)</span> es una combinación lineal de las columnas de <span class="math inline">\(X\)</span>, también es ortogonal a los residuos:</p>
+<p><span class="math display">\[
+\hat y&#39;\hat{\epsilon}
+=(X\hat{\beta})&#39;\hat{\epsilon}
+=\hat{\beta}&#39;X&#39;\hat{\epsilon}
+=0.
+\]</span></p>
+<p>Geométricamente, MCO descompone <span class="math inline">\(y\)</span> en dos vectores perpendiculares: la proyección <span class="math inline">\(\hat y\)</span>, que pertenece al espacio generado por <span class="math inline">\(X\)</span>, y el residuo <span class="math inline">\(\hat\epsilon\)</span>, que queda fuera de ese espacio.</p>
+</div>
+<div id="descomposición-no-centrada" class="section level3 hasAnchor" number="11.3.3">
+<h3><span class="header-section-number">11.3.3</span> Descomposición no centrada<a href="#descomposici%C3%B3n-no-centrada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Usando <span class="math inline">\(y=\hat y+\hat\epsilon\)</span>:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y&#39;y
+&amp;=(\hat y+\hat\epsilon)&#39;(\hat y+\hat\epsilon)\
+&amp;=\hat y&#39;\hat y+2\hat y&#39;\hat\epsilon+\hat\epsilon&#39;\hat\epsilon\
+&amp;=\hat y&#39;\hat y+\hat\epsilon&#39;\hat\epsilon.
+\end{aligned}
+\]</span></p>
+<p>Así:</p>
+<p><span class="math display">\[
+\boxed{y&#39;y=\hat y&#39;\hat y+\hat\epsilon&#39;\hat\epsilon}.
+\]</span></p>
+<p>Esta identidad compara los vectores con respecto al origen y produce el coeficiente de determinación no centrado:</p>
+<p><span class="math display">\[
+R^2_{nc}
+=1-\frac{\hat\epsilon&#39;\hat\epsilon}{y&#39;y}
+=\frac{\hat y&#39;\hat y}{y&#39;y}.
+\]</span></p>
+</div>
+<div id="descomposición-centrada-y-r2" class="section level3 hasAnchor" number="11.3.4">
+<h3><span class="header-section-number">11.3.4</span> Descomposición centrada y <span class="math inline">\(R^2\)</span><a href="#descomposici%C3%B3n-centrada-y-r2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Cuando el modelo incluye constante, <span class="math inline">\(\bar{\hat\epsilon}=0\)</span> y <span class="math inline">\(\bar{\hat y}=\bar y\)</span>. Entonces la variación total de <span class="math inline">\(y\)</span> alrededor de su media se descompone como:</p>
+<p><span class="math display">\[
+\underbrace{\sum_{i=1}^{n}(y_i-\bar y)^2}_{\text{STC}}
+=
+\underbrace{\sum_{i=1}^{n}(\hat y_i-\bar y)^2}_{\text{SEC}}
++
+\underbrace{\sum_{i=1}^{n}\hat\epsilon_i^2}_{\text{SRC}}.
+\]</span></p>
+<p>De aquí obtenemos el <span class="math inline">\(R^2\)</span> centrado:</p>
+<p><span class="math display">\[
+R^2
+=\frac{\text{SEC}}{\text{STC}}
+=1-\frac{\text{SRC}}{\text{STC}}.
+\]</span></p>
+<div class="box-intuicion">
+<p>El <span class="math inline">\(R^2\)</span> centrado pregunta qué proporción de la variación de <span class="math inline">\(y\)</span> <strong>alrededor de su media</strong> explica el modelo. Esta interpretación depende de que la regresión incluya constante.</p>
+</div>
+<p>En una regresión sin constante, la descomposición centrada puede fallar y la fórmula usual puede producir un <span class="math inline">\(R^2\)</span> negativo. En ese caso debe reportarse e interpretarse el <span class="math inline">\(R^2\)</span> no centrado.</p>
+</div>
+<div id="src-varianza-residual-y-error-estándar-de-la-regresión" class="section level3 hasAnchor" number="11.3.5">
+<h3><span class="header-section-number">11.3.5</span> SRC, varianza residual y error estándar de la regresión<a href="#src-varianza-residual-y-error-est%C3%A1ndar-de-la-regresi%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La suma de residuos al cuadrado evaluada en la solución de MCO es:</p>
+<p><span class="math display">\[
+\text{SRC}=\hat\epsilon&#39;\hat\epsilon.
+\]</span></p>
+<p>Como se estiman <span class="math inline">\(K\)</span> parámetros, quedan <span class="math inline">\(n-K\)</span> grados de libertad para estimar la varianza del error:</p>
+<p><span class="math display">\[
+\hat\sigma^2
+=\frac{\text{SRC}}{n-K}
+=\frac{\hat\epsilon&#39;\hat\epsilon}{n-K}.
+\]</span></p>
+<p>El error estándar de la regresión es:</p>
+<p><span class="math display">\[
+\hat\sigma
+=\sqrt{\hat\sigma^2}
+=\sqrt{\frac{\hat\epsilon&#39;\hat\epsilon}{n-K}}.
+\]</span></p>
+<p>La división por <span class="math inline">\(n-K\)</span>, en lugar de <span class="math inline">\(n\)</span>, corrige los grados de libertad utilizados al estimar <span class="math inline">\(\beta\)</span>. En el capítulo de propiedades mostraremos que, bajo los supuestos clásicos, <span class="math inline">\(\hat\sigma^2\)</span> es insesgado para <span class="math inline">\(\sigma^2\)</span>.</p>
+</div>
+<div id="error-muestral-de-hatbeta" class="section level3 hasAnchor" number="11.3.6">
+<h3><span class="header-section-number">11.3.6</span> Error muestral de <span class="math inline">\(\hat\beta\)</span><a href="propiedades-mco-teoria.html#error-muestral-de-hatbeta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El puente entre el álgebra de la estimación y sus propiedades estadísticas es la diferencia entre el estimador y el parámetro poblacional. Sustituyendo <span class="math inline">\(y=X\beta+\epsilon\)</span> en la fórmula de MCO:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat\beta-\beta
+&amp;=(X&#39;X)^{-1}X&#39;y-\beta\
+&amp;=(X&#39;X)^{-1}X&#39;(X\beta+\epsilon)-\beta\
+&amp;=\beta+(X&#39;X)^{-1}X&#39;\epsilon-\beta\
+&amp;=\boxed{(X&#39;X)^{-1}X&#39;\epsilon}.
+\end{aligned}
+\]</span></p>
+<p>Esta expresión muestra exactamente de dónde proviene la variación muestral de <span class="math inline">\(\hat\beta\)</span>: de la proyección del error poblacional sobre las columnas de <span class="math inline">\(X\)</span>. Más adelante la usaremos para estudiar insesgamiento y varianza.</p>
+</div>
+</div>
+<div id="desarrollo-teorico-propiedades" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> Parte II: Propiedades del estimador de MCO en muestras finitas<a href="propiedades-mco-teoria.html#desarrollo-teorico-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Partimos del modelo:</p>
 <p><span class="math display">\[
 y=X\beta+\epsilon.
@@ -243,8 +372,8 @@ y=X\beta+\epsilon.
 \hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon.
 \]</span></p>
 <p>Esta identidad, derivada en el capítulo de estimación, permite estudiar la distribución muestral de <span class="math inline">\(\hat\beta\)</span> manteniendo fija la matriz observada <span class="math inline">\(X\)</span>. A diferencia de las propiedades algebraicas de los residuos, los resultados de este capítulo sí dependen de supuestos sobre el error poblacional <span class="math inline">\(\epsilon\)</span>.</p>
-<div id="insesgamiento" class="section level3 hasAnchor" number="11.3.1">
-<h3><span class="header-section-number">11.3.1</span> Insesgamiento<a href="propiedades-mco-teoria.html#insesgamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="insesgamiento" class="section level3 hasAnchor" number="11.4.1">
+<h3><span class="header-section-number">11.4.1</span> Insesgamiento<a href="propiedades-mco-teoria.html#insesgamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Si se cumple exogeneidad estricta:</p>
 <p><span class="math display">\[
 \mathbb{E}[\epsilon\mid X]=0,
@@ -274,8 +403,8 @@ y=X\beta+\epsilon.
 \]</span></p>
 <p>La formulación condicional es más general y más natural cuando los regresores provienen de una muestra aleatoria.</p>
 </div>
-<div id="varianza" class="section level3 hasAnchor" number="11.3.2">
-<h3><span class="header-section-number">11.3.2</span> Varianza<a href="propiedades-mco-teoria.html#varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="varianza" class="section level3 hasAnchor" number="11.4.2">
+<h3><span class="header-section-number">11.4.2</span> Varianza<a href="propiedades-mco-teoria.html#varianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Bajo perturbaciones esféricas:</p>
 <p><span class="math display">\[
 \text{Var}(\epsilon\mid X)=\sigma^2I,
@@ -296,8 +425,8 @@ y=X\beta+\epsilon.
 =\frac{\text{SRC}}{n-K}.
 \]</span></p>
 </div>
-<div id="insesgamiento-de-hatsigma2" class="section level3 hasAnchor" number="11.3.3">
-<h3><span class="header-section-number">11.3.3</span> Insesgamiento de <span class="math inline">\(\hat\sigma^2\)</span><a href="propiedades-mco-teoria.html#insesgamiento-de-hatsigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="insesgamiento-de-hatsigma2" class="section level3 hasAnchor" number="11.4.3">
+<h3><span class="header-section-number">11.4.3</span> Insesgamiento de <span class="math inline">\(\hat\sigma^2\)</span><a href="propiedades-mco-teoria.html#insesgamiento-de-hatsigma2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La división por <span class="math inline">\(n-K\)</span> no es una convención arbitraria. Corrige los <span class="math inline">\(K\)</span> grados de libertad utilizados al estimar <span class="math inline">\(\beta\)</span>.</p>
 <p>Definamos la matriz de proyección y la matriz de residuos asociadas a todos los regresores:</p>
 <p><span class="math display">\[
@@ -349,8 +478,8 @@ M_X=I-P_X.
 <p>MCO utiliza <span class="math inline">\(K\)</span> direcciones de la muestra para ajustar los coeficientes. Los residuos solo conservan variación en las <span class="math inline">\(n-K\)</span> direcciones restantes; por eso la SRC debe dividirse por <span class="math inline">\(n-K\)</span>.</p>
 </div>
 </div>
-<div id="linealidad-insesgamiento-y-eficiencia" class="section level3 hasAnchor" number="11.3.4">
-<h3><span class="header-section-number">11.3.4</span> Linealidad, insesgamiento y eficiencia<a href="propiedades-mco-teoria.html#linealidad-insesgamiento-y-eficiencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="linealidad-insesgamiento-y-eficiencia" class="section level3 hasAnchor" number="11.4.4">
+<h3><span class="header-section-number">11.4.4</span> Linealidad, insesgamiento y eficiencia<a href="propiedades-mco-teoria.html#linealidad-insesgamiento-y-eficiencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Antes de enunciar Gauss-Markov, debemos precisar la clase de comparación. Un estimador <span class="math inline">\(\tilde\beta\)</span> es:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Lineal en <span class="math inline">\(y\)</span></strong> si puede escribirse como <span class="math inline">\(\tilde\beta=Cy\)</span>, donde <span class="math inline">\(C\)</span> puede depender de <span class="math inline">\(X\)</span>, pero no de <span class="math inline">\(y\)</span>.</li>
@@ -359,14 +488,14 @@ M_X=I-P_X.
 </ol>
 <p>“Menor” para matrices significa que la diferencia entre las matrices de varianza es semidefinida positiva. Equivale a decir que ninguna combinación lineal de los coeficientes tiene menor varianza con el estimador alternativo.</p>
 </div>
-<div id="teorema-de-gauss-markov" class="section level3 hasAnchor" number="11.3.5">
-<h3><span class="header-section-number">11.3.5</span> Teorema de Gauss-Markov<a href="propiedades-mco-teoria.html#teorema-de-gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="teorema-de-gauss-markov" class="section level3 hasAnchor" number="11.4.5">
+<h3><span class="header-section-number">11.4.5</span> Teorema de Gauss-Markov<a href="propiedades-mco-teoria.html#teorema-de-gauss-markov" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El teorema de Gauss-Markov afirma que, bajo los supuestos clásicos, MCO es el mejor estimador lineal insesgado, o MELI. Es decir, entre todos los estimadores lineales e insesgados, <span class="math inline">\(\hat{\beta}\)</span> tiene la menor varianza.</p>
 <div class="box-ejemplo">
 <p>Si dos estimadores son insesgados, ambos aciertan en promedio. Gauss-Markov dice que MCO, además, es el que se dispersa menos dentro de la clase de estimadores lineales insesgados.</p>
 </div>
-<div id="demostración" class="section level4 hasAnchor" number="11.3.5.1">
-<h4><span class="header-section-number">11.3.5.1</span> Demostración<a href="#demostraci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="demostración" class="section level4 hasAnchor" number="11.4.5.1">
+<h4><span class="header-section-number">11.4.5.1</span> Demostración<a href="#demostraci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Sea un estimador lineal alternativo:</p>
 <p><span class="math display">\[
 \tilde\beta=Cy.
@@ -441,8 +570,8 @@ AA&#39;
 </div>
 </div>
 </div>
-<div id="supuestos-propiedades-propiedades" class="section level2 hasAnchor" number="11.4">
-<h2><span class="header-section-number">11.4</span> Supuestos y propiedades<a href="propiedades-mco-teoria.html#supuestos-propiedades-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-propiedades-propiedades" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> Supuestos y propiedades<a href="propiedades-mco-teoria.html#supuestos-propiedades-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
 <col width="33%" />
@@ -488,8 +617,8 @@ AA&#39;
 <p>La normalidad no es necesaria para Gauss-Markov. Es útil para inferencia exacta en muestras pequeñas, tema que se trabaja con más detalle en capítulos posteriores.</p>
 </div>
 </div>
-<div id="errores-comunes-propiedades" class="section level2 hasAnchor" number="11.5">
-<h2><span class="header-section-number">11.5</span> Errores comunes y cuidados<a href="propiedades-mco-teoria.html#errores-comunes-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="errores-comunes-propiedades" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Errores comunes y cuidados<a href="propiedades-mco-teoria.html#errores-comunes-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
 <p>Insesgado no significa correcto en cada muestra. Significa correcto en promedio, bajo el proceso de muestreo y los supuestos del modelo.</p>
 </div>
@@ -500,10 +629,12 @@ AA&#39;
 <p>Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo exogeneidad, pero la fórmula clásica de varianza deja de ser adecuada. Ese tema se estudia en detalle más adelante.</p>
 </div>
 </div>
-<div id="resumen-propiedades-teoria" class="section level2 hasAnchor" number="11.6">
-<h2><span class="header-section-number">11.6</span> Resumen<a href="propiedades-mco-teoria.html#resumen-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-propiedades-teoria" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> Resumen<a href="propiedades-mco-teoria.html#resumen-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
+<li>Por construcción, <span class="math inline">\(X&#39;\hat\epsilon=0\)</span>, <span class="math inline">\(\hat y&#39;\hat\epsilon=0\)</span> y <span class="math inline">\(y=\hat y+\hat\epsilon\)</span>.</li>
+<li>Con constante, <span class="math inline">\(\text{STC}=\text{SEC}+\text{SRC}\)</span> y <span class="math inline">\(R^2=1-\text{SRC}/\text{STC}\)</span>.</li>
 <li>El error muestral de MCO es <span class="math inline">\(\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>.</li>
 <li>Bajo <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, MCO es insesgado.</li>
 <li>Bajo <span class="math inline">\(\text{Var}(\epsilon\mid X)=\sigma^2I\)</span>, <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}\)</span>.</li>
@@ -513,10 +644,12 @@ AA&#39;
 </ul>
 </div>
 </div>
-<div id="ejercicios-conceptuales-propiedades" class="section level2 hasAnchor" number="11.7">
-<h2><span class="header-section-number">11.7</span> Ejercicios conceptuales<a href="propiedades-mco-teoria.html#ejercicios-conceptuales-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-conceptuales-propiedades" class="section level2 hasAnchor" number="11.8">
+<h2><span class="header-section-number">11.8</span> Ejercicios conceptuales<a href="propiedades-mco-teoria.html#ejercicios-conceptuales-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-ejercicios">
 <ol style="list-style-type: decimal">
+<li>Demuestra que <span class="math inline">\(\hat y&#39;\hat\epsilon=0\)</span> y obtén la descomposición no centrada.</li>
+<li>Explica por qué la descomposición centrada del <span class="math inline">\(R^2\)</span> requiere una constante.</li>
 <li>Demuestra que <span class="math inline">\(\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>.</li>
 <li>Explica por qué <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span> implica insesgamiento condicional.</li>
 <li>Deriva <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)\)</span> bajo <span class="math inline">\(\sigma^2I\)</span>.</li>
@@ -530,8 +663,8 @@ AA&#39;
 </ol>
 </div>
 </div>
-<div id="referencias-propiedades-teoria" class="section level2 hasAnchor" number="11.8">
-<h2><span class="header-section-number">11.8</span> Referencias<a href="propiedades-mco-teoria.html#referencias-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias-propiedades-teoria" class="section level2 hasAnchor" number="11.9">
+<h2><span class="header-section-number">11.9</span> Referencias<a href="propiedades-mco-teoria.html#referencias-propiedades-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Greene, William. <em>Econometric Analysis</em>, capítulo 4.</li>
 <li>Verbeek, Marno. <em>A Guide to Modern Econometrics</em>, capítulo 2.</li>
