@@ -19,7 +19,10 @@ Al finalizar esta página podrás:
 1. Escribir el modelo lineal en notación matricial.
 2. Derivar el estimador de MCO a partir de la minimización de la SRC.
 3. Interpretar las ecuaciones normales como condiciones de ortogonalidad.
-4. Reconocer cómo cambian los coeficientes cuando el modelo incluye variables binarias.
+4. Derivar las principales propiedades algebraicas de residuos y valores ajustados.
+5. Distinguir las descomposiciones centrada y no centrada y construir el \(R^2\).
+6. Obtener el error muestral que conecta la estimación con las propiedades finitas.
+7. Reconocer cómo cambian los coeficientes cuando el modelo incluye variables binarias.
 
 ## Intuición y motivación {#intuicion-estimacion-teoria}
 
@@ -84,6 +87,168 @@ Una vez encontrado el minimizador \(\hat{\beta}\), el residuo estimado es:
 \[
 \hat{\epsilon}=y-X\hat{\beta}.
 \]
+
+## Aspectos algebraicos de la solución de MCO {#aspectos-algebraicos-mco}
+
+Los resultados de esta sección son **propiedades algebraicas de la regresión estimada**. Se cumplen por la forma en que MCO minimiza la SRC; todavía no requieren exogeneidad, homocedasticidad ni normalidad.
+
+### Residuos y ecuaciones normales
+
+Partimos de las ecuaciones normales:
+
+\[
+X'X\hat{\beta}=X'y.
+\]
+
+Reorganizando:
+
+\[
+X'(y-X\hat{\beta})=0.
+\]
+
+Como \(\hat{\epsilon}=y-X\hat{\beta}\), obtenemos:
+
+\[
+\boxed{X'\hat{\epsilon}=0}.
+\]
+
+Cada columna de \(X\) es ortogonal al vector de residuos. En notación de sumas, para cada regresor \(x_j\),
+
+\[
+\sum_{i=1}^{n}x_{ij}\hat{\epsilon}_i=0.
+\]
+
+Si \(X\) contiene una constante, una de sus columnas es un vector de unos. En ese caso:
+
+\[
+\sum_{i=1}^{n}\hat{\epsilon}_i=0
+\quad\Longrightarrow\quad
+\bar{\hat{\epsilon}}=0.
+\]
+
+::: {.box-cuidado}
+La ortogonalidad \(X'\hat{\epsilon}=0\) es una propiedad de los **residuos estimados** y se cumple en la muestra. No es lo mismo que el supuesto poblacional \(\mathbb{E}[\epsilon\mid X]=0\), que se refiere al error no observado y sostiene el insesgamiento.
+:::
+
+### Valores ajustados y ortogonalidad
+
+El vector de valores ajustados es:
+
+\[
+\hat y=X\hat{\beta}.
+\]
+
+Por tanto:
+
+\[
+y=\hat y+\hat{\epsilon}.
+\]
+
+Como \(\hat y\) es una combinación lineal de las columnas de \(X\), también es ortogonal a los residuos:
+
+\[
+\hat y'\hat{\epsilon}
+=(X\hat{\beta})'\hat{\epsilon}
+=\hat{\beta}'X'\hat{\epsilon}
+=0.
+\]
+
+Geométricamente, MCO descompone \(y\) en dos vectores perpendiculares: la proyección \(\hat y\), que pertenece al espacio generado por \(X\), y el residuo \(\hat\epsilon\), que queda fuera de ese espacio.
+
+### Descomposición no centrada
+
+Usando \(y=\hat y+\hat\epsilon\):
+
+\[
+\begin{aligned}
+y'y
+&=(\hat y+\hat\epsilon)'(\hat y+\hat\epsilon)\\
+&=\hat y'\hat y+2\hat y'\hat\epsilon+\hat\epsilon'\hat\epsilon\\
+&=\hat y'\hat y+\hat\epsilon'\hat\epsilon.
+\end{aligned}
+\]
+
+Así:
+
+\[
+\boxed{y'y=\hat y'\hat y+\hat\epsilon'\hat\epsilon}.
+\]
+
+Esta identidad compara los vectores con respecto al origen y produce el coeficiente de determinación no centrado:
+
+\[
+R^2_{nc}
+=1-\frac{\hat\epsilon'\hat\epsilon}{y'y}
+=\frac{\hat y'\hat y}{y'y}.
+\]
+
+### Descomposición centrada y \(R^2\)
+
+Cuando el modelo incluye constante, \(\bar{\hat\epsilon}=0\) y \(\bar{\hat y}=\bar y\). Entonces la variación total de \(y\) alrededor de su media se descompone como:
+
+\[
+\underbrace{\sum_{i=1}^{n}(y_i-\bar y)^2}_{\text{STC}}
+=
+\underbrace{\sum_{i=1}^{n}(\hat y_i-\bar y)^2}_{\text{SEC}}
++
+\underbrace{\sum_{i=1}^{n}\hat\epsilon_i^2}_{\text{SRC}}.
+\]
+
+De aquí obtenemos el \(R^2\) centrado:
+
+\[
+R^2
+=\frac{\text{SEC}}{\text{STC}}
+=1-\frac{\text{SRC}}{\text{STC}}.
+\]
+
+::: {.box-intuicion}
+El \(R^2\) centrado pregunta qué proporción de la variación de \(y\) **alrededor de su media** explica el modelo. Esta interpretación depende de que la regresión incluya constante.
+:::
+
+En una regresión sin constante, la descomposición centrada puede fallar y la fórmula usual puede producir un \(R^2\) negativo. En ese caso debe reportarse e interpretarse el \(R^2\) no centrado.
+
+### SRC, varianza residual y error estándar de la regresión
+
+La suma de residuos al cuadrado evaluada en la solución de MCO es:
+
+\[
+\text{SRC}=\hat\epsilon'\hat\epsilon.
+\]
+
+Como se estiman \(K\) parámetros, quedan \(n-K\) grados de libertad para estimar la varianza del error:
+
+\[
+\hat\sigma^2
+=\frac{\text{SRC}}{n-K}
+=\frac{\hat\epsilon'\hat\epsilon}{n-K}.
+\]
+
+El error estándar de la regresión es:
+
+\[
+\hat\sigma
+=\sqrt{\hat\sigma^2}
+=\sqrt{\frac{\hat\epsilon'\hat\epsilon}{n-K}}.
+\]
+
+La división por \(n-K\), en lugar de \(n\), corrige los grados de libertad utilizados al estimar \(\beta\). En el capítulo de propiedades mostraremos que, bajo los supuestos clásicos, \(\hat\sigma^2\) es insesgado para \(\sigma^2\).
+
+### Error muestral de \(\hat\beta\)
+
+El puente entre el álgebra de la estimación y sus propiedades estadísticas es la diferencia entre el estimador y el parámetro poblacional. Sustituyendo \(y=X\beta+\epsilon\) en la fórmula de MCO:
+
+\[
+\begin{aligned}
+\hat\beta-\beta
+&=(X'X)^{-1}X'y-\beta\\
+&=(X'X)^{-1}X'(X\beta+\epsilon)-\beta\\
+&=\beta+(X'X)^{-1}X'\epsilon-\beta\\
+&=\boxed{(X'X)^{-1}X'\epsilon}.
+\end{aligned}
+\]
+
+Esta expresión muestra exactamente de dónde proviene la variación muestral de \(\hat\beta\): de la proyección del error poblacional sobre las columnas de \(X\). Más adelante la usaremos para estudiar insesgamiento y varianza.
 
 ::: {.box-ejemplo}
 Cuando el modelo solo contiene una constante, \(X\) es una columna de unos. En ese caso, \(X'X=n\), \(X'y=\sum_i y_i\) y \(\hat{\beta}_0=\bar{y}\). MCO reproduce la media muestral porque esa es la mejor predicción constante bajo pérdida cuadrática.
@@ -151,6 +316,10 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 - Las ecuaciones normales son \(X'X\hat{\beta}=X'y\).
 - Si \(X'X\) es invertible, \(\hat{\beta}=(X'X)^{-1}X'y\).
 - Los residuos de MCO son ortogonales a los regresores: \(X'\hat{\epsilon}=0\).
+- Los valores ajustados son ortogonales a los residuos: \(\hat y'\hat\epsilon=0\).
+- Con constante, \(\text{STC}=\text{SEC}+\text{SRC}\) y \(R^2=1-\text{SRC}/\text{STC}\).
+- La varianza residual se estima con \(\hat\sigma^2=\hat\epsilon'\hat\epsilon/(n-K)\).
+- El error muestral es \(\hat\beta-\beta=(X'X)^{-1}X'\epsilon\).
 - Con variables binarias, el significado de los coeficientes depende de si el modelo incluye constante y de cuál categoría se omite.
 :::
 
@@ -161,8 +330,11 @@ Los coeficientes de variables binarias siempre se interpretan respecto a una cat
 2. Explica por qué \(X'X\) no es invertible si dos columnas de \(X\) son idénticas.
 3. En un modelo con constante y una dummy de tratamiento, interpreta el intercepto y el coeficiente de la dummy.
 4. Demuestra que \(X'\hat{\epsilon}=0\) usando la fórmula \(\hat{\beta}=(X'X)^{-1}X'y\).
-5. Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.
-6. Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del [Problem Set 1: MCO y matrices](#problem-set-1).
+5. Demuestra que \(\hat y'\hat\epsilon=0\) y úsalo para obtener la descomposición no centrada.
+6. Explica por qué la descomposición centrada del \(R^2\) requiere una constante.
+7. Deriva \(\hat\beta-\beta=(X'X)^{-1}X'\epsilon\) e interpreta cada factor.
+8. Explica por qué cambiar la categoría de referencia modifica los coeficientes pero no los valores ajustados.
+9. Para consolidar la estimación matricial de MCO, resuelve las partes A, B y E del [Problem Set 1: MCO y matrices](#problem-set-1).
 :::
 
 ## Referencias {#referencias-estimacion-teoria}
