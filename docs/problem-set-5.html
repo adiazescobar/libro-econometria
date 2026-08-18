@@ -446,37 +446,37 @@ Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
 <h2><span class="header-section-number">32.9</span> Parte G: Código base<a href="#parte-g-c%C3%B3digo-base" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="variable-dependiente-binaria-en-r" class="section level3 hasAnchor" number="32.9.1">
 <h3><span class="header-section-number">32.9.1</span> Variable dependiente binaria en R<a href="problem-set-5.html#variable-dependiente-binaria-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="problem-set-5.html#cb136-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb136-2"><a href="problem-set-5.html#cb136-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
-<span id="cb136-3"><a href="problem-set-5.html#cb136-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb136-4"><a href="problem-set-5.html#cb136-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
-<span id="cb136-5"><a href="problem-set-5.html#cb136-5" tabindex="-1"></a>indice <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="fl">0.6</span> <span class="sc">*</span> x2</span>
-<span id="cb136-6"><a href="problem-set-5.html#cb136-6" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plogis</span>(indice)</span>
-<span id="cb136-7"><a href="problem-set-5.html#cb136-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, p)</span>
-<span id="cb136-8"><a href="problem-set-5.html#cb136-8" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
-<span id="cb136-9"><a href="problem-set-5.html#cb136-9" tabindex="-1"></a></span>
-<span id="cb136-10"><a href="problem-set-5.html#cb136-10" tabindex="-1"></a>mpl <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
-<span id="cb136-11"><a href="problem-set-5.html#cb136-11" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
-<span id="cb136-12"><a href="problem-set-5.html#cb136-12" tabindex="-1"></a>probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
-<span id="cb136-13"><a href="problem-set-5.html#cb136-13" tabindex="-1"></a></span>
-<span id="cb136-14"><a href="problem-set-5.html#cb136-14" tabindex="-1"></a><span class="fu">summary</span>(mpl)</span>
-<span id="cb136-15"><a href="problem-set-5.html#cb136-15" tabindex="-1"></a><span class="fu">summary</span>(logit)</span>
-<span id="cb136-16"><a href="problem-set-5.html#cb136-16" tabindex="-1"></a><span class="fu">summary</span>(probit)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="problem-set-5.html#cb114-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb114-2"><a href="problem-set-5.html#cb114-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb114-3"><a href="problem-set-5.html#cb114-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb114-4"><a href="problem-set-5.html#cb114-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb114-5"><a href="problem-set-5.html#cb114-5" tabindex="-1"></a>indice <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="fl">0.6</span> <span class="sc">*</span> x2</span>
+<span id="cb114-6"><a href="problem-set-5.html#cb114-6" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plogis</span>(indice)</span>
+<span id="cb114-7"><a href="problem-set-5.html#cb114-7" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, p)</span>
+<span id="cb114-8"><a href="problem-set-5.html#cb114-8" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x1, x2)</span>
+<span id="cb114-9"><a href="problem-set-5.html#cb114-9" tabindex="-1"></a></span>
+<span id="cb114-10"><a href="problem-set-5.html#cb114-10" tabindex="-1"></a>mpl <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos)</span>
+<span id="cb114-11"><a href="problem-set-5.html#cb114-11" tabindex="-1"></a>logit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb114-12"><a href="problem-set-5.html#cb114-12" tabindex="-1"></a>probit <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2, <span class="at">data =</span> datos, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">&quot;probit&quot;</span>))</span>
+<span id="cb114-13"><a href="problem-set-5.html#cb114-13" tabindex="-1"></a></span>
+<span id="cb114-14"><a href="problem-set-5.html#cb114-14" tabindex="-1"></a><span class="fu">summary</span>(mpl)</span>
+<span id="cb114-15"><a href="problem-set-5.html#cb114-15" tabindex="-1"></a><span class="fu">summary</span>(logit)</span>
+<span id="cb114-16"><a href="problem-set-5.html#cb114-16" tabindex="-1"></a><span class="fu">summary</span>(probit)</span></code></pre></div>
 </div>
 <div id="serie-ar1-en-r" class="section level3 hasAnchor" number="32.9.2">
 <h3><span class="header-section-number">32.9.2</span> Serie AR(1) en R<a href="problem-set-5.html#serie-ar1-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="problem-set-5.html#cb137-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb137-2"><a href="problem-set-5.html#cb137-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb137-3"><a href="problem-set-5.html#cb137-3" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb137-4"><a href="problem-set-5.html#cb137-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
-<span id="cb137-5"><a href="problem-set-5.html#cb137-5" tabindex="-1"></a></span>
-<span id="cb137-6"><a href="problem-set-5.html#cb137-6" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
-<span id="cb137-7"><a href="problem-set-5.html#cb137-7" tabindex="-1"></a>  y[t] <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="sc">*</span> y[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> epsilon[t]</span>
-<span id="cb137-8"><a href="problem-set-5.html#cb137-8" tabindex="-1"></a>}</span>
-<span id="cb137-9"><a href="problem-set-5.html#cb137-9" tabindex="-1"></a></span>
-<span id="cb137-10"><a href="problem-set-5.html#cb137-10" tabindex="-1"></a><span class="fu">plot.ts</span>(y)</span>
-<span id="cb137-11"><a href="problem-set-5.html#cb137-11" tabindex="-1"></a><span class="fu">acf</span>(y)</span>
-<span id="cb137-12"><a href="problem-set-5.html#cb137-12" tabindex="-1"></a><span class="fu">pacf</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="problem-set-5.html#cb115-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb115-2"><a href="problem-set-5.html#cb115-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb115-3"><a href="problem-set-5.html#cb115-3" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb115-4"><a href="problem-set-5.html#cb115-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n)</span>
+<span id="cb115-5"><a href="problem-set-5.html#cb115-5" tabindex="-1"></a></span>
+<span id="cb115-6"><a href="problem-set-5.html#cb115-6" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) {</span>
+<span id="cb115-7"><a href="problem-set-5.html#cb115-7" tabindex="-1"></a>  y[t] <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="sc">*</span> y[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">+</span> epsilon[t]</span>
+<span id="cb115-8"><a href="problem-set-5.html#cb115-8" tabindex="-1"></a>}</span>
+<span id="cb115-9"><a href="problem-set-5.html#cb115-9" tabindex="-1"></a></span>
+<span id="cb115-10"><a href="problem-set-5.html#cb115-10" tabindex="-1"></a><span class="fu">plot.ts</span>(y)</span>
+<span id="cb115-11"><a href="problem-set-5.html#cb115-11" tabindex="-1"></a><span class="fu">acf</span>(y)</span>
+<span id="cb115-12"><a href="problem-set-5.html#cb115-12" tabindex="-1"></a><span class="fu">pacf</span>(y)</span></code></pre></div>
 </div>
 </div>
 <div id="cierre-4" class="section level2 hasAnchor" number="32.10">

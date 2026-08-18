@@ -222,16 +222,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos-propiedades-practica" class="section level2 hasAnchor" number="12.3">
 <h2><span class="header-section-number">12.3</span> Datos<a href="propiedades-mco-practica.html#datos-propiedades-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Usaremos una base determinística generada por una relación lineal con pequeñas desviaciones.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="propiedades-mco-practica.html#cb63-1" tabindex="-1"></a>datos_prop <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb63-2"><a href="propiedades-mco-practica.html#cb63-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.4</span>, <span class="fl">1.9</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.7</span>, <span class="fl">4.1</span>, <span class="fl">4.6</span>, <span class="fl">5.0</span>,</span>
-<span id="cb63-3"><a href="propiedades-mco-practica.html#cb63-3" tabindex="-1"></a>        <span class="fl">5.5</span>, <span class="fl">5.9</span>, <span class="fl">6.4</span>, <span class="fl">6.8</span>, <span class="fl">7.3</span>, <span class="fl">7.7</span>, <span class="fl">8.2</span>, <span class="fl">8.6</span>, <span class="fl">9.1</span>, <span class="fl">9.5</span>),</span>
-<span id="cb63-4"><a href="propiedades-mco-practica.html#cb63-4" tabindex="-1"></a>  <span class="at">ajuste =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.4</span>,</span>
-<span id="cb63-5"><a href="propiedades-mco-practica.html#cb63-5" tabindex="-1"></a>             <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.2</span>)</span>
-<span id="cb63-6"><a href="propiedades-mco-practica.html#cb63-6" tabindex="-1"></a>)</span>
-<span id="cb63-7"><a href="propiedades-mco-practica.html#cb63-7" tabindex="-1"></a></span>
-<span id="cb63-8"><a href="propiedades-mco-practica.html#cb63-8" tabindex="-1"></a>datos_prop<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> datos_prop<span class="sc">$</span>x <span class="sc">+</span> datos_prop<span class="sc">$</span>ajuste</span>
-<span id="cb63-9"><a href="propiedades-mco-practica.html#cb63-9" tabindex="-1"></a></span>
-<span id="cb63-10"><a href="propiedades-mco-practica.html#cb63-10" tabindex="-1"></a><span class="fu">kable</span>(datos_prop, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">&quot;Datos de práctica para comparar MCO y un estimador de Wald&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="propiedades-mco-practica.html#cb41-1" tabindex="-1"></a>datos_prop <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb41-2"><a href="propiedades-mco-practica.html#cb41-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">1.0</span>, <span class="fl">1.4</span>, <span class="fl">1.9</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.7</span>, <span class="fl">4.1</span>, <span class="fl">4.6</span>, <span class="fl">5.0</span>,</span>
+<span id="cb41-3"><a href="propiedades-mco-practica.html#cb41-3" tabindex="-1"></a>        <span class="fl">5.5</span>, <span class="fl">5.9</span>, <span class="fl">6.4</span>, <span class="fl">6.8</span>, <span class="fl">7.3</span>, <span class="fl">7.7</span>, <span class="fl">8.2</span>, <span class="fl">8.6</span>, <span class="fl">9.1</span>, <span class="fl">9.5</span>),</span>
+<span id="cb41-4"><a href="propiedades-mco-practica.html#cb41-4" tabindex="-1"></a>  <span class="at">ajuste =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.4</span>,</span>
+<span id="cb41-5"><a href="propiedades-mco-practica.html#cb41-5" tabindex="-1"></a>             <span class="fl">0.2</span>, <span class="sc">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="sc">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.2</span>)</span>
+<span id="cb41-6"><a href="propiedades-mco-practica.html#cb41-6" tabindex="-1"></a>)</span>
+<span id="cb41-7"><a href="propiedades-mco-practica.html#cb41-7" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="propiedades-mco-practica.html#cb41-8" tabindex="-1"></a>datos_prop<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> datos_prop<span class="sc">$</span>x <span class="sc">+</span> datos_prop<span class="sc">$</span>ajuste</span>
+<span id="cb41-9"><a href="propiedades-mco-practica.html#cb41-9" tabindex="-1"></a></span>
+<span id="cb41-10"><a href="propiedades-mco-practica.html#cb41-10" tabindex="-1"></a><span class="fu">kable</span>(datos_prop, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">caption =</span> <span class="st">&quot;Datos de práctica para comparar MCO y un estimador de Wald&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:datos-propiedades-practica">Tabla 12.1: </span>Datos de práctica para comparar MCO y un estimador de Wald</caption>
 <thead>
@@ -344,11 +344,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="propiedades-mco-practica.html#cb64-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_prop, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb64-2"><a href="propiedades-mco-practica.html#cb64-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.7</span>) <span class="sc">+</span></span>
-<span id="cb64-3"><a href="propiedades-mco-practica.html#cb64-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb64-4"><a href="propiedades-mco-practica.html#cb64-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
-<span id="cb64-5"><a href="propiedades-mco-practica.html#cb64-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="propiedades-mco-practica.html#cb42-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_prop, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="propiedades-mco-practica.html#cb42-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.7</span>) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="propiedades-mco-practica.html#cb42-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="propiedades-mco-practica.html#cb42-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb42-5"><a href="propiedades-mco-practica.html#cb42-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-datos-propiedades"></span>
 <img src="_main_files/figure-html/grafico-datos-propiedades-1.png" alt="Relación entre x e y en la práctica de propiedades de MCO" width="80%" />
 <p class="caption">
@@ -359,43 +359,43 @@ Figura 12.1: Relación entre x e y en la práctica de propiedades de MCO
 <div id="estimacion-r-propiedades" class="section level2 hasAnchor" number="12.4">
 <h2><span class="header-section-number">12.4</span> Estimación en R<a href="propiedades-mco-practica.html#estimacion-r-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Estimamos MCO y calculamos un estimador de Wald basado en dos grupos.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="propiedades-mco-practica.html#cb65-1" tabindex="-1"></a>modelo_prop <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos_prop)</span>
-<span id="cb65-2"><a href="propiedades-mco-practica.html#cb65-2" tabindex="-1"></a>tabla_prop <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_prop))</span>
-<span id="cb65-3"><a href="propiedades-mco-practica.html#cb65-3" tabindex="-1"></a></span>
-<span id="cb65-4"><a href="propiedades-mco-practica.html#cb65-4" tabindex="-1"></a>mediana_x <span class="ot">&lt;-</span> <span class="fu">median</span>(datos_prop<span class="sc">$</span>x)</span>
-<span id="cb65-5"><a href="propiedades-mco-practica.html#cb65-5" tabindex="-1"></a>grupo_alto <span class="ot">&lt;-</span> datos_prop<span class="sc">$</span>x <span class="sc">&gt;</span> mediana_x</span>
-<span id="cb65-6"><a href="propiedades-mco-practica.html#cb65-6" tabindex="-1"></a></span>
-<span id="cb65-7"><a href="propiedades-mco-practica.html#cb65-7" tabindex="-1"></a>beta_wald_prop <span class="ot">&lt;-</span> (</span>
-<span id="cb65-8"><a href="propiedades-mco-practica.html#cb65-8" tabindex="-1"></a>  <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y[grupo_alto]) <span class="sc">-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y[<span class="sc">!</span>grupo_alto])</span>
-<span id="cb65-9"><a href="propiedades-mco-practica.html#cb65-9" tabindex="-1"></a>) <span class="sc">/</span> (</span>
-<span id="cb65-10"><a href="propiedades-mco-practica.html#cb65-10" tabindex="-1"></a>  <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x[grupo_alto]) <span class="sc">-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x[<span class="sc">!</span>grupo_alto])</span>
-<span id="cb65-11"><a href="propiedades-mco-practica.html#cb65-11" tabindex="-1"></a>)</span>
-<span id="cb65-12"><a href="propiedades-mco-practica.html#cb65-12" tabindex="-1"></a></span>
-<span id="cb65-13"><a href="propiedades-mco-practica.html#cb65-13" tabindex="-1"></a>beta0_wald_prop <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y) <span class="sc">-</span> beta_wald_prop <span class="sc">*</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x)</span>
-<span id="cb65-14"><a href="propiedades-mco-practica.html#cb65-14" tabindex="-1"></a></span>
-<span id="cb65-15"><a href="propiedades-mco-practica.html#cb65-15" tabindex="-1"></a>datos_prop<span class="sc">$</span>yhat_mco <span class="ot">&lt;-</span> <span class="fu">fitted</span>(modelo_prop)</span>
-<span id="cb65-16"><a href="propiedades-mco-practica.html#cb65-16" tabindex="-1"></a>datos_prop<span class="sc">$</span>yhat_wald <span class="ot">&lt;-</span> beta0_wald_prop <span class="sc">+</span> beta_wald_prop <span class="sc">*</span> datos_prop<span class="sc">$</span>x</span>
-<span id="cb65-17"><a href="propiedades-mco-practica.html#cb65-17" tabindex="-1"></a>datos_prop<span class="sc">$</span>resid_mco <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_prop)</span>
-<span id="cb65-18"><a href="propiedades-mco-practica.html#cb65-18" tabindex="-1"></a>datos_prop<span class="sc">$</span>resid_wald <span class="ot">&lt;-</span> datos_prop<span class="sc">$</span>y <span class="sc">-</span> datos_prop<span class="sc">$</span>yhat_wald</span>
-<span id="cb65-19"><a href="propiedades-mco-practica.html#cb65-19" tabindex="-1"></a></span>
-<span id="cb65-20"><a href="propiedades-mco-practica.html#cb65-20" tabindex="-1"></a>beta0_prop <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_prop)[[<span class="st">&quot;(Intercept)&quot;</span>]])</span>
-<span id="cb65-21"><a href="propiedades-mco-practica.html#cb65-21" tabindex="-1"></a>beta1_prop <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_prop)[[<span class="st">&quot;x&quot;</span>]])</span>
-<span id="cb65-22"><a href="propiedades-mco-practica.html#cb65-22" tabindex="-1"></a>se0_prop <span class="ot">&lt;-</span> tabla_prop[<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb65-23"><a href="propiedades-mco-practica.html#cb65-23" tabindex="-1"></a>se1_prop <span class="ot">&lt;-</span> tabla_prop[<span class="st">&quot;x&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb65-24"><a href="propiedades-mco-practica.html#cb65-24" tabindex="-1"></a>r2_prop <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo_prop)<span class="sc">$</span>r.squared</span>
-<span id="cb65-25"><a href="propiedades-mco-practica.html#cb65-25" tabindex="-1"></a>src_mco_prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos_prop<span class="sc">$</span>resid_mco<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb65-26"><a href="propiedades-mco-practica.html#cb65-26" tabindex="-1"></a>src_wald_prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos_prop<span class="sc">$</span>resid_wald<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb65-27"><a href="propiedades-mco-practica.html#cb65-27" tabindex="-1"></a></span>
-<span id="cb65-28"><a href="propiedades-mco-practica.html#cb65-28" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb65-29"><a href="propiedades-mco-practica.html#cb65-29" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb65-30"><a href="propiedades-mco-practica.html#cb65-30" tabindex="-1"></a>    <span class="at">estimador =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span>, <span class="st">&quot;Wald por grupos&quot;</span>),</span>
-<span id="cb65-31"><a href="propiedades-mco-practica.html#cb65-31" tabindex="-1"></a>    <span class="at">intercepto =</span> <span class="fu">c</span>(beta0_prop, beta0_wald_prop),</span>
-<span id="cb65-32"><a href="propiedades-mco-practica.html#cb65-32" tabindex="-1"></a>    <span class="at">pendiente =</span> <span class="fu">c</span>(beta1_prop, beta_wald_prop),</span>
-<span id="cb65-33"><a href="propiedades-mco-practica.html#cb65-33" tabindex="-1"></a>    <span class="at">SRC =</span> <span class="fu">c</span>(src_mco_prop, src_wald_prop)</span>
-<span id="cb65-34"><a href="propiedades-mco-practica.html#cb65-34" tabindex="-1"></a>  ),</span>
-<span id="cb65-35"><a href="propiedades-mco-practica.html#cb65-35" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb65-36"><a href="propiedades-mco-practica.html#cb65-36" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación entre MCO y un estimador de Wald&quot;</span></span>
-<span id="cb65-37"><a href="propiedades-mco-practica.html#cb65-37" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="propiedades-mco-practica.html#cb43-1" tabindex="-1"></a>modelo_prop <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos_prop)</span>
+<span id="cb43-2"><a href="propiedades-mco-practica.html#cb43-2" tabindex="-1"></a>tabla_prop <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_prop))</span>
+<span id="cb43-3"><a href="propiedades-mco-practica.html#cb43-3" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="propiedades-mco-practica.html#cb43-4" tabindex="-1"></a>mediana_x <span class="ot">&lt;-</span> <span class="fu">median</span>(datos_prop<span class="sc">$</span>x)</span>
+<span id="cb43-5"><a href="propiedades-mco-practica.html#cb43-5" tabindex="-1"></a>grupo_alto <span class="ot">&lt;-</span> datos_prop<span class="sc">$</span>x <span class="sc">&gt;</span> mediana_x</span>
+<span id="cb43-6"><a href="propiedades-mco-practica.html#cb43-6" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="propiedades-mco-practica.html#cb43-7" tabindex="-1"></a>beta_wald_prop <span class="ot">&lt;-</span> (</span>
+<span id="cb43-8"><a href="propiedades-mco-practica.html#cb43-8" tabindex="-1"></a>  <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y[grupo_alto]) <span class="sc">-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y[<span class="sc">!</span>grupo_alto])</span>
+<span id="cb43-9"><a href="propiedades-mco-practica.html#cb43-9" tabindex="-1"></a>) <span class="sc">/</span> (</span>
+<span id="cb43-10"><a href="propiedades-mco-practica.html#cb43-10" tabindex="-1"></a>  <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x[grupo_alto]) <span class="sc">-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x[<span class="sc">!</span>grupo_alto])</span>
+<span id="cb43-11"><a href="propiedades-mco-practica.html#cb43-11" tabindex="-1"></a>)</span>
+<span id="cb43-12"><a href="propiedades-mco-practica.html#cb43-12" tabindex="-1"></a></span>
+<span id="cb43-13"><a href="propiedades-mco-practica.html#cb43-13" tabindex="-1"></a>beta0_wald_prop <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>y) <span class="sc">-</span> beta_wald_prop <span class="sc">*</span> <span class="fu">mean</span>(datos_prop<span class="sc">$</span>x)</span>
+<span id="cb43-14"><a href="propiedades-mco-practica.html#cb43-14" tabindex="-1"></a></span>
+<span id="cb43-15"><a href="propiedades-mco-practica.html#cb43-15" tabindex="-1"></a>datos_prop<span class="sc">$</span>yhat_mco <span class="ot">&lt;-</span> <span class="fu">fitted</span>(modelo_prop)</span>
+<span id="cb43-16"><a href="propiedades-mco-practica.html#cb43-16" tabindex="-1"></a>datos_prop<span class="sc">$</span>yhat_wald <span class="ot">&lt;-</span> beta0_wald_prop <span class="sc">+</span> beta_wald_prop <span class="sc">*</span> datos_prop<span class="sc">$</span>x</span>
+<span id="cb43-17"><a href="propiedades-mco-practica.html#cb43-17" tabindex="-1"></a>datos_prop<span class="sc">$</span>resid_mco <span class="ot">&lt;-</span> <span class="fu">resid</span>(modelo_prop)</span>
+<span id="cb43-18"><a href="propiedades-mco-practica.html#cb43-18" tabindex="-1"></a>datos_prop<span class="sc">$</span>resid_wald <span class="ot">&lt;-</span> datos_prop<span class="sc">$</span>y <span class="sc">-</span> datos_prop<span class="sc">$</span>yhat_wald</span>
+<span id="cb43-19"><a href="propiedades-mco-practica.html#cb43-19" tabindex="-1"></a></span>
+<span id="cb43-20"><a href="propiedades-mco-practica.html#cb43-20" tabindex="-1"></a>beta0_prop <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_prop)[[<span class="st">&quot;(Intercept)&quot;</span>]])</span>
+<span id="cb43-21"><a href="propiedades-mco-practica.html#cb43-21" tabindex="-1"></a>beta1_prop <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_prop)[[<span class="st">&quot;x&quot;</span>]])</span>
+<span id="cb43-22"><a href="propiedades-mco-practica.html#cb43-22" tabindex="-1"></a>se0_prop <span class="ot">&lt;-</span> tabla_prop[<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb43-23"><a href="propiedades-mco-practica.html#cb43-23" tabindex="-1"></a>se1_prop <span class="ot">&lt;-</span> tabla_prop[<span class="st">&quot;x&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb43-24"><a href="propiedades-mco-practica.html#cb43-24" tabindex="-1"></a>r2_prop <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo_prop)<span class="sc">$</span>r.squared</span>
+<span id="cb43-25"><a href="propiedades-mco-practica.html#cb43-25" tabindex="-1"></a>src_mco_prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos_prop<span class="sc">$</span>resid_mco<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb43-26"><a href="propiedades-mco-practica.html#cb43-26" tabindex="-1"></a>src_wald_prop <span class="ot">&lt;-</span> <span class="fu">sum</span>(datos_prop<span class="sc">$</span>resid_wald<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb43-27"><a href="propiedades-mco-practica.html#cb43-27" tabindex="-1"></a></span>
+<span id="cb43-28"><a href="propiedades-mco-practica.html#cb43-28" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb43-29"><a href="propiedades-mco-practica.html#cb43-29" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb43-30"><a href="propiedades-mco-practica.html#cb43-30" tabindex="-1"></a>    <span class="at">estimador =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span>, <span class="st">&quot;Wald por grupos&quot;</span>),</span>
+<span id="cb43-31"><a href="propiedades-mco-practica.html#cb43-31" tabindex="-1"></a>    <span class="at">intercepto =</span> <span class="fu">c</span>(beta0_prop, beta0_wald_prop),</span>
+<span id="cb43-32"><a href="propiedades-mco-practica.html#cb43-32" tabindex="-1"></a>    <span class="at">pendiente =</span> <span class="fu">c</span>(beta1_prop, beta_wald_prop),</span>
+<span id="cb43-33"><a href="propiedades-mco-practica.html#cb43-33" tabindex="-1"></a>    <span class="at">SRC =</span> <span class="fu">c</span>(src_mco_prop, src_wald_prop)</span>
+<span id="cb43-34"><a href="propiedades-mco-practica.html#cb43-34" tabindex="-1"></a>  ),</span>
+<span id="cb43-35"><a href="propiedades-mco-practica.html#cb43-35" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb43-36"><a href="propiedades-mco-practica.html#cb43-36" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación entre MCO y un estimador de Wald&quot;</span></span>
+<span id="cb43-37"><a href="propiedades-mco-practica.html#cb43-37" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:estimacion-r-propiedades">Tabla 12.2: </span>Comparación entre MCO y un estimador de Wald</caption>
 <thead>
@@ -421,13 +421,13 @@ Figura 12.1: Relación entre x e y en la práctica de propiedades de MCO
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="propiedades-mco-practica.html#cb66-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_prop, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
-<span id="cb66-2"><a href="propiedades-mco-practica.html#cb66-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.7</span>) <span class="sc">+</span></span>
-<span id="cb66-3"><a href="propiedades-mco-practica.html#cb66-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> yhat_mco, <span class="at">color =</span> <span class="st">&quot;MCO&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-4"><a href="propiedades-mco-practica.html#cb66-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> yhat_wald, <span class="at">color =</span> <span class="st">&quot;Wald&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
-<span id="cb66-5"><a href="propiedades-mco-practica.html#cb66-5" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span> <span class="ot">=</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkslategray&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb66-6"><a href="propiedades-mco-practica.html#cb66-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Estimador&quot;</span>) <span class="sc">+</span></span>
-<span id="cb66-7"><a href="propiedades-mco-practica.html#cb66-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="propiedades-mco-practica.html#cb44-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_prop, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y)) <span class="sc">+</span></span>
+<span id="cb44-2"><a href="propiedades-mco-practica.html#cb44-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.7</span>) <span class="sc">+</span></span>
+<span id="cb44-3"><a href="propiedades-mco-practica.html#cb44-3" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> yhat_mco, <span class="at">color =</span> <span class="st">&quot;MCO&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb44-4"><a href="propiedades-mco-practica.html#cb44-4" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> yhat_wald, <span class="at">color =</span> <span class="st">&quot;Wald&quot;</span>), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-5"><a href="propiedades-mco-practica.html#cb44-5" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span> <span class="ot">=</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="st">&quot;Wald&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkslategray&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-6"><a href="propiedades-mco-practica.html#cb44-6" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;x&quot;</span>, <span class="at">y =</span> <span class="st">&quot;y&quot;</span>, <span class="at">color =</span> <span class="st">&quot;Estimador&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-7"><a href="propiedades-mco-practica.html#cb44-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-comparacion-propiedades"></span>
 <img src="_main_files/figure-html/grafico-comparacion-propiedades-1.png" alt="Rectas estimadas por MCO y por el estimador de Wald" width="80%" />
 <p class="caption">
@@ -448,36 +448,36 @@ Figura 12.2: Rectas estimadas por MCO y por el estimador de Wald
 <div id="estimacion-stata-propiedades" class="section level2 hasAnchor" number="12.6">
 <h2><span class="header-section-number">12.6</span> Estimación en Stata<a href="propiedades-mco-practica.html#estimacion-stata-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb67-1"><a href="propiedades-mco-practica.html#cb67-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb67-2"><a href="propiedades-mco-practica.html#cb67-2" tabindex="-1"></a>input x ajuste</span>
-<span id="cb67-3"><a href="propiedades-mco-practica.html#cb67-3" tabindex="-1"></a>1.0 -0.6</span>
-<span id="cb67-4"><a href="propiedades-mco-practica.html#cb67-4" tabindex="-1"></a>1.4  0.2</span>
-<span id="cb67-5"><a href="propiedades-mco-practica.html#cb67-5" tabindex="-1"></a>1.9 -0.1</span>
-<span id="cb67-6"><a href="propiedades-mco-practica.html#cb67-6" tabindex="-1"></a>2.3  0.5</span>
-<span id="cb67-7"><a href="propiedades-mco-practica.html#cb67-7" tabindex="-1"></a>2.8 -0.3</span>
-<span id="cb67-8"><a href="propiedades-mco-practica.html#cb67-8" tabindex="-1"></a>3.2  0.1</span>
-<span id="cb67-9"><a href="propiedades-mco-practica.html#cb67-9" tabindex="-1"></a>3.7  0.4</span>
-<span id="cb67-10"><a href="propiedades-mco-practica.html#cb67-10" tabindex="-1"></a>4.1 -0.2</span>
-<span id="cb67-11"><a href="propiedades-mco-practica.html#cb67-11" tabindex="-1"></a>4.6  0.3</span>
-<span id="cb67-12"><a href="propiedades-mco-practica.html#cb67-12" tabindex="-1"></a>5.0 -0.4</span>
-<span id="cb67-13"><a href="propiedades-mco-practica.html#cb67-13" tabindex="-1"></a>5.5  0.2</span>
-<span id="cb67-14"><a href="propiedades-mco-practica.html#cb67-14" tabindex="-1"></a>5.9 -0.1</span>
-<span id="cb67-15"><a href="propiedades-mco-practica.html#cb67-15" tabindex="-1"></a>6.4  0.5</span>
-<span id="cb67-16"><a href="propiedades-mco-practica.html#cb67-16" tabindex="-1"></a>6.8 -0.3</span>
-<span id="cb67-17"><a href="propiedades-mco-practica.html#cb67-17" tabindex="-1"></a>7.3  0.1</span>
-<span id="cb67-18"><a href="propiedades-mco-practica.html#cb67-18" tabindex="-1"></a>7.7  0.4</span>
-<span id="cb67-19"><a href="propiedades-mco-practica.html#cb67-19" tabindex="-1"></a>8.2 -0.2</span>
-<span id="cb67-20"><a href="propiedades-mco-practica.html#cb67-20" tabindex="-1"></a>8.6  0.3</span>
-<span id="cb67-21"><a href="propiedades-mco-practica.html#cb67-21" tabindex="-1"></a>9.1 -0.5</span>
-<span id="cb67-22"><a href="propiedades-mco-practica.html#cb67-22" tabindex="-1"></a>9.5  0.2</span>
-<span id="cb67-23"><a href="propiedades-mco-practica.html#cb67-23" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb67-24"><a href="propiedades-mco-practica.html#cb67-24" tabindex="-1"></a></span>
-<span id="cb67-25"><a href="propiedades-mco-practica.html#cb67-25" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 2 * x + ajuste</span>
-<span id="cb67-26"><a href="propiedades-mco-practica.html#cb67-26" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x</span>
-<span id="cb67-27"><a href="propiedades-mco-practica.html#cb67-27" tabindex="-1"></a><span class="kw">predict</span> yhat_mco, <span class="kw">xb</span></span>
-<span id="cb67-28"><a href="propiedades-mco-practica.html#cb67-28" tabindex="-1"></a><span class="kw">predict</span> resid_mco, <span class="kw">resid</span></span>
-<span id="cb67-29"><a href="propiedades-mco-practica.html#cb67-29" tabindex="-1"></a><span class="kw">gen</span> src_mco_piece = resid_mco^2</span>
-<span id="cb67-30"><a href="propiedades-mco-practica.html#cb67-30" tabindex="-1"></a>summ src_mco_piece</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb45-1"><a href="propiedades-mco-practica.html#cb45-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb45-2"><a href="propiedades-mco-practica.html#cb45-2" tabindex="-1"></a>input x ajuste</span>
+<span id="cb45-3"><a href="propiedades-mco-practica.html#cb45-3" tabindex="-1"></a>1.0 -0.6</span>
+<span id="cb45-4"><a href="propiedades-mco-practica.html#cb45-4" tabindex="-1"></a>1.4  0.2</span>
+<span id="cb45-5"><a href="propiedades-mco-practica.html#cb45-5" tabindex="-1"></a>1.9 -0.1</span>
+<span id="cb45-6"><a href="propiedades-mco-practica.html#cb45-6" tabindex="-1"></a>2.3  0.5</span>
+<span id="cb45-7"><a href="propiedades-mco-practica.html#cb45-7" tabindex="-1"></a>2.8 -0.3</span>
+<span id="cb45-8"><a href="propiedades-mco-practica.html#cb45-8" tabindex="-1"></a>3.2  0.1</span>
+<span id="cb45-9"><a href="propiedades-mco-practica.html#cb45-9" tabindex="-1"></a>3.7  0.4</span>
+<span id="cb45-10"><a href="propiedades-mco-practica.html#cb45-10" tabindex="-1"></a>4.1 -0.2</span>
+<span id="cb45-11"><a href="propiedades-mco-practica.html#cb45-11" tabindex="-1"></a>4.6  0.3</span>
+<span id="cb45-12"><a href="propiedades-mco-practica.html#cb45-12" tabindex="-1"></a>5.0 -0.4</span>
+<span id="cb45-13"><a href="propiedades-mco-practica.html#cb45-13" tabindex="-1"></a>5.5  0.2</span>
+<span id="cb45-14"><a href="propiedades-mco-practica.html#cb45-14" tabindex="-1"></a>5.9 -0.1</span>
+<span id="cb45-15"><a href="propiedades-mco-practica.html#cb45-15" tabindex="-1"></a>6.4  0.5</span>
+<span id="cb45-16"><a href="propiedades-mco-practica.html#cb45-16" tabindex="-1"></a>6.8 -0.3</span>
+<span id="cb45-17"><a href="propiedades-mco-practica.html#cb45-17" tabindex="-1"></a>7.3  0.1</span>
+<span id="cb45-18"><a href="propiedades-mco-practica.html#cb45-18" tabindex="-1"></a>7.7  0.4</span>
+<span id="cb45-19"><a href="propiedades-mco-practica.html#cb45-19" tabindex="-1"></a>8.2 -0.2</span>
+<span id="cb45-20"><a href="propiedades-mco-practica.html#cb45-20" tabindex="-1"></a>8.6  0.3</span>
+<span id="cb45-21"><a href="propiedades-mco-practica.html#cb45-21" tabindex="-1"></a>9.1 -0.5</span>
+<span id="cb45-22"><a href="propiedades-mco-practica.html#cb45-22" tabindex="-1"></a>9.5  0.2</span>
+<span id="cb45-23"><a href="propiedades-mco-practica.html#cb45-23" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb45-24"><a href="propiedades-mco-practica.html#cb45-24" tabindex="-1"></a></span>
+<span id="cb45-25"><a href="propiedades-mco-practica.html#cb45-25" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 2 * x + ajuste</span>
+<span id="cb45-26"><a href="propiedades-mco-practica.html#cb45-26" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x</span>
+<span id="cb45-27"><a href="propiedades-mco-practica.html#cb45-27" tabindex="-1"></a><span class="kw">predict</span> yhat_mco, <span class="kw">xb</span></span>
+<span id="cb45-28"><a href="propiedades-mco-practica.html#cb45-28" tabindex="-1"></a><span class="kw">predict</span> resid_mco, <span class="kw">resid</span></span>
+<span id="cb45-29"><a href="propiedades-mco-practica.html#cb45-29" tabindex="-1"></a><span class="kw">gen</span> src_mco_piece = resid_mco^2</span>
+<span id="cb45-30"><a href="propiedades-mco-practica.html#cb45-30" tabindex="-1"></a>summ src_mco_piece</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -514,31 +514,31 @@ Figura 12.2: Rectas estimadas por MCO y por el estimador de Wald
 <div id="estimacion-python-colab-propiedades" class="section level2 hasAnchor" number="12.7">
 <h2><span class="header-section-number">12.7</span> Estimación en Python y Google Colab<a href="propiedades-mco-practica.html#estimacion-python-colab-propiedades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb68-1"><a href="propiedades-mco-practica.html#cb68-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="propiedades-mco-practica.html#cb46-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego estima:</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb69-1"><a href="propiedades-mco-practica.html#cb69-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb69-2"><a href="propiedades-mco-practica.html#cb69-2" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb69-3"><a href="propiedades-mco-practica.html#cb69-3" tabindex="-1"></a></span>
-<span id="cb69-4"><a href="propiedades-mco-practica.html#cb69-4" tabindex="-1"></a>datos_prop <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb69-5"><a href="propiedades-mco-practica.html#cb69-5" tabindex="-1"></a>    <span class="st">&quot;x&quot;</span>: [<span class="fl">1.0</span>, <span class="fl">1.4</span>, <span class="fl">1.9</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.7</span>, <span class="fl">4.1</span>, <span class="fl">4.6</span>, <span class="fl">5.0</span>,</span>
-<span id="cb69-6"><a href="propiedades-mco-practica.html#cb69-6" tabindex="-1"></a>          <span class="fl">5.5</span>, <span class="fl">5.9</span>, <span class="fl">6.4</span>, <span class="fl">6.8</span>, <span class="fl">7.3</span>, <span class="fl">7.7</span>, <span class="fl">8.2</span>, <span class="fl">8.6</span>, <span class="fl">9.1</span>, <span class="fl">9.5</span>],</span>
-<span id="cb69-7"><a href="propiedades-mco-practica.html#cb69-7" tabindex="-1"></a>    <span class="st">&quot;ajuste&quot;</span>: [<span class="op">-</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.4</span>,</span>
-<span id="cb69-8"><a href="propiedades-mco-practica.html#cb69-8" tabindex="-1"></a>               <span class="fl">0.2</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.2</span>]</span>
-<span id="cb69-9"><a href="propiedades-mco-practica.html#cb69-9" tabindex="-1"></a>})</span>
-<span id="cb69-10"><a href="propiedades-mco-practica.html#cb69-10" tabindex="-1"></a></span>
-<span id="cb69-11"><a href="propiedades-mco-practica.html#cb69-11" tabindex="-1"></a>datos_prop[<span class="st">&quot;y&quot;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> datos_prop[<span class="st">&quot;x&quot;</span>] <span class="op">+</span> datos_prop[<span class="st">&quot;ajuste&quot;</span>]</span>
-<span id="cb69-12"><a href="propiedades-mco-practica.html#cb69-12" tabindex="-1"></a></span>
-<span id="cb69-13"><a href="propiedades-mco-practica.html#cb69-13" tabindex="-1"></a>modelo <span class="op">=</span> smf.ols(<span class="st">&quot;y ~ x&quot;</span>, data<span class="op">=</span>datos_prop).fit()</span>
-<span id="cb69-14"><a href="propiedades-mco-practica.html#cb69-14" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
-<span id="cb69-15"><a href="propiedades-mco-practica.html#cb69-15" tabindex="-1"></a></span>
-<span id="cb69-16"><a href="propiedades-mco-practica.html#cb69-16" tabindex="-1"></a>mediana_x <span class="op">=</span> datos_prop[<span class="st">&quot;x&quot;</span>].median()</span>
-<span id="cb69-17"><a href="propiedades-mco-practica.html#cb69-17" tabindex="-1"></a>alto <span class="op">=</span> datos_prop[<span class="st">&quot;x&quot;</span>] <span class="op">&gt;</span> mediana_x</span>
-<span id="cb69-18"><a href="propiedades-mco-practica.html#cb69-18" tabindex="-1"></a>beta_wald <span class="op">=</span> (</span>
-<span id="cb69-19"><a href="propiedades-mco-practica.html#cb69-19" tabindex="-1"></a>    datos_prop.loc[alto, <span class="st">&quot;y&quot;</span>].mean() <span class="op">-</span> datos_prop.loc[<span class="op">~</span>alto, <span class="st">&quot;y&quot;</span>].mean()</span>
-<span id="cb69-20"><a href="propiedades-mco-practica.html#cb69-20" tabindex="-1"></a>) <span class="op">/</span> (</span>
-<span id="cb69-21"><a href="propiedades-mco-practica.html#cb69-21" tabindex="-1"></a>    datos_prop.loc[alto, <span class="st">&quot;x&quot;</span>].mean() <span class="op">-</span> datos_prop.loc[<span class="op">~</span>alto, <span class="st">&quot;x&quot;</span>].mean()</span>
-<span id="cb69-22"><a href="propiedades-mco-practica.html#cb69-22" tabindex="-1"></a>)</span>
-<span id="cb69-23"><a href="propiedades-mco-practica.html#cb69-23" tabindex="-1"></a><span class="bu">print</span>(beta_wald)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="propiedades-mco-practica.html#cb47-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb47-2"><a href="propiedades-mco-practica.html#cb47-2" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb47-3"><a href="propiedades-mco-practica.html#cb47-3" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="propiedades-mco-practica.html#cb47-4" tabindex="-1"></a>datos_prop <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb47-5"><a href="propiedades-mco-practica.html#cb47-5" tabindex="-1"></a>    <span class="st">&quot;x&quot;</span>: [<span class="fl">1.0</span>, <span class="fl">1.4</span>, <span class="fl">1.9</span>, <span class="fl">2.3</span>, <span class="fl">2.8</span>, <span class="fl">3.2</span>, <span class="fl">3.7</span>, <span class="fl">4.1</span>, <span class="fl">4.6</span>, <span class="fl">5.0</span>,</span>
+<span id="cb47-6"><a href="propiedades-mco-practica.html#cb47-6" tabindex="-1"></a>          <span class="fl">5.5</span>, <span class="fl">5.9</span>, <span class="fl">6.4</span>, <span class="fl">6.8</span>, <span class="fl">7.3</span>, <span class="fl">7.7</span>, <span class="fl">8.2</span>, <span class="fl">8.6</span>, <span class="fl">9.1</span>, <span class="fl">9.5</span>],</span>
+<span id="cb47-7"><a href="propiedades-mco-practica.html#cb47-7" tabindex="-1"></a>    <span class="st">&quot;ajuste&quot;</span>: [<span class="op">-</span><span class="fl">0.6</span>, <span class="fl">0.2</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.4</span>,</span>
+<span id="cb47-8"><a href="propiedades-mco-practica.html#cb47-8" tabindex="-1"></a>               <span class="fl">0.2</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.2</span>]</span>
+<span id="cb47-9"><a href="propiedades-mco-practica.html#cb47-9" tabindex="-1"></a>})</span>
+<span id="cb47-10"><a href="propiedades-mco-practica.html#cb47-10" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="propiedades-mco-practica.html#cb47-11" tabindex="-1"></a>datos_prop[<span class="st">&quot;y&quot;</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> datos_prop[<span class="st">&quot;x&quot;</span>] <span class="op">+</span> datos_prop[<span class="st">&quot;ajuste&quot;</span>]</span>
+<span id="cb47-12"><a href="propiedades-mco-practica.html#cb47-12" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="propiedades-mco-practica.html#cb47-13" tabindex="-1"></a>modelo <span class="op">=</span> smf.ols(<span class="st">&quot;y ~ x&quot;</span>, data<span class="op">=</span>datos_prop).fit()</span>
+<span id="cb47-14"><a href="propiedades-mco-practica.html#cb47-14" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
+<span id="cb47-15"><a href="propiedades-mco-practica.html#cb47-15" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="propiedades-mco-practica.html#cb47-16" tabindex="-1"></a>mediana_x <span class="op">=</span> datos_prop[<span class="st">&quot;x&quot;</span>].median()</span>
+<span id="cb47-17"><a href="propiedades-mco-practica.html#cb47-17" tabindex="-1"></a>alto <span class="op">=</span> datos_prop[<span class="st">&quot;x&quot;</span>] <span class="op">&gt;</span> mediana_x</span>
+<span id="cb47-18"><a href="propiedades-mco-practica.html#cb47-18" tabindex="-1"></a>beta_wald <span class="op">=</span> (</span>
+<span id="cb47-19"><a href="propiedades-mco-practica.html#cb47-19" tabindex="-1"></a>    datos_prop.loc[alto, <span class="st">&quot;y&quot;</span>].mean() <span class="op">-</span> datos_prop.loc[<span class="op">~</span>alto, <span class="st">&quot;y&quot;</span>].mean()</span>
+<span id="cb47-20"><a href="propiedades-mco-practica.html#cb47-20" tabindex="-1"></a>) <span class="op">/</span> (</span>
+<span id="cb47-21"><a href="propiedades-mco-practica.html#cb47-21" tabindex="-1"></a>    datos_prop.loc[alto, <span class="st">&quot;x&quot;</span>].mean() <span class="op">-</span> datos_prop.loc[<span class="op">~</span>alto, <span class="st">&quot;x&quot;</span>].mean()</span>
+<span id="cb47-22"><a href="propiedades-mco-practica.html#cb47-22" tabindex="-1"></a>)</span>
+<span id="cb47-23"><a href="propiedades-mco-practica.html#cb47-23" tabindex="-1"></a><span class="bu">print</span>(beta_wald)</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>

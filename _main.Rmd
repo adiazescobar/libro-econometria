@@ -4264,7 +4264,7 @@ M_s'=M_s, \quad M_s^2=M_s.
 
 ### Con números: seis personas
 
-Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo, de modo que \(X_s=[\iota \; d]\) con \(\iota\) la constante y \(d\) la indicadora de hombre.
+Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo.
 
 ```{r datos-seis-fwl}
 y <- c(1.8, 2.0, 2.2, 2.9, 3.1, 3.3)   # salario, en millones
@@ -4273,71 +4273,77 @@ d <- c(0, 0, 0, 1, 1, 1)               # 1 = hombre
 Xs <- cbind(constante = 1, hombre = d)
 ```
 
-Calculamos el vector de coeficientes pieza por pieza:
+```{r helpers-fwl, echo=FALSE}
+# Convierte matrices de R a LaTeX, para no mostrar salida de consola.
+frac_tex <- function(v) {
+  s <- as.character(MASS::fractions(v))
+  vapply(s, function(z) {
+    if (!grepl("/", z, fixed = TRUE)) return(z)
+    q <- strsplit(z, "/", fixed = TRUE)[[1]]
+    paste0(if (startsWith(q[1], "-")) "-" else "",
+           "\\tfrac{", sub("^-", "", q[1]), "}{", q[2], "}")
+  }, character(1), USE.NAMES = FALSE)
+}
+bmat <- function(M, dig = 2, frac = FALSE) {
+  if (is.null(dim(M))) M <- matrix(M, ncol = 1)
+  f <- if (frac) frac_tex else function(v) formatC(v, format = "f", digits = dig)
+  filas <- apply(M, 1, function(r) paste(f(r), collapse = " & "))
+  paste0("\\begin{bmatrix}", paste(filas, collapse = " \\\\ "), "\\end{bmatrix}")
+}
+mates <- function(...) cat("\\[", paste0(...), "\\]\n")
 
-```{r betas-seis-fwl}
-XtX  <- t(Xs) %*% Xs
-XtXi <- solve(XtX)
-Xty  <- t(Xs) %*% y
-beta <- XtXi %*% Xty
-
-XtX
-MASS::fractions(XtXi)
-Xty
-beta
+XtX <- t(Xs) %*% Xs; XtXi <- solve(XtX); Xty <- t(Xs) %*% y
+beta_y <- XtXi %*% Xty
+beta_x <- XtXi %*% t(Xs) %*% x
+P <- Xs %*% XtXi %*% t(Xs); M <- diag(6) - P
+y_lim <- as.vector(M %*% y); x_lim <- as.vector(M %*% x)
 ```
 
-El resultado tiene una lectura directa: \(\hat{\beta}_0=2.0\) es el salario promedio de las mujeres, y \(\hat{\beta}_1=1.1\) es cuánto más ganan los hombres en promedio. **Regresar contra un juego completo de indicadoras es sacar promedios de grupo**, nada más.
+Los datos y la matriz de controles \(X_s=[\iota \; d]\):
 
-Y esa cuenta a mano no es una analogía de una regresión: **es** la regresión. Corrámosla:
-
-```{r lm-seis-fwl}
-reg_y <- lm(y ~ d)      # la regresión que está adentro de M
-coef(reg_y)
+```{r vectores-fwl, echo=FALSE, results='asis'}
+mates("y = ", bmat(y, 1), "\\qquad x = ", bmat(x, 0),
+      "\\qquad X_s = ", bmat(Xs, 0))
 ```
 
-Los mismos dos números. Entonces los valores ajustados de esa regresión son \(P y\), y sus residuos son \(M y\).
+#### El vector de coeficientes
 
-Ahora las dos matrices:
+Las tres piezas de \(\hat{\beta}=(X_s'X_s)^{-1}X_s'y\):
 
-```{r matrices-seis-fwl}
-P <- Xs %*% XtXi %*% t(Xs)
-M <- diag(6) - P
-
-MASS::fractions(P)
-MASS::fractions(M)
+```{r piezas-fwl, echo=FALSE, results='asis'}
+mates("X_s'X_s = ", bmat(XtX, 0),
+      "\\qquad (X_s'X_s)^{-1} = ", bmat(XtXi, frac = TRUE),
+      "\\qquad X_s'y = ", bmat(Xty, 1))
+mates("\\hat{\\beta} = ",
+      "\\underset{(X_s'X_s)^{-1}}{", bmat(XtXi, frac = TRUE), "}",
+      "\\underset{X_s'y}{", bmat(Xty, 1), "} = ", bmat(beta_y))
 ```
 
-Mírenlas antes de seguir. Las dos están hechas de **bloques**: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de \(P\) son puros \(1/3\), que es la receta de un promedio; por eso \(P y\) devuelve la media del grupo repetida. Y cada fila de \(M\) suma cero:
+Los dos números tienen nombre: \(\hat{\beta}_0=2.0\) es el salario promedio de las mujeres y \(\hat{\beta}_1=1.1\) es cuánto más ganan los hombres. **Regresar contra un juego completo de indicadoras es sacar promedios de grupo**, nada más.
 
-```{r filas-m-fwl}
-rowSums(M)
+#### Las dos matrices
+
+```{r matrices-fwl, echo=FALSE, results='asis'}
+mates("P_s = ", bmat(P, frac = TRUE))
+mates("M_s = I - P_s = ", bmat(M, frac = TRUE))
 ```
 
-Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.
+Mírenlas antes de seguir. Las dos están hechas de **bloques**: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de \(P_s\) son puros \(\tfrac{1}{3}\), que es la receta de un promedio. Y cada fila de \(M_s\) suma cero, así que no puede detectar niveles, solo desviaciones.
 
-Con esto ya se puede comprobar la igualdad que motiva todo el capítulo: **\(M y\) es exactamente \(y-\hat{y}\) de la regresión de \(y\) contra la constante y el sexo**.
+#### La descomposición
 
-```{r residuos-seis-fwl}
-# round() solo para leer la tabla: sin él aparece la basura de punto flotante
-# (4.44e-16 en vez de 0) y la igualdad se ve rota cuando no lo está.
-round(data.frame(
-  y         = y,
-  y_hat     = unname(fitted(reg_y)),      # de la regresión
-  P_por_y   = as.vector(P %*% y),         # de la matriz
-  y_menos_y_hat = unname(resid(reg_y)),   # de la regresión
-  M_por_y   = as.vector(M %*% y)          # de la matriz
-), 4)
+Aquí está la igualdad que motiva el capítulo: \(M_s y\) es \(y-\hat{y}\) de la regresión de \(y\) contra la constante y el sexo.
+
+```{r descomp-fwl, echo=FALSE, results='asis'}
+mates("\\underset{y}{", bmat(y, 1), "} = ",
+      "\\underset{\\hat{y}\\,=\\,P_s y}{", bmat(as.vector(P %*% y), 1), "} + ",
+      "\\underset{\\hat{e}\\,=\\,M_s y}{", bmat(y_lim), "}")
 ```
 
-Las columnas coinciden de a pares. Multiplicar por \(M\) y correr la regresión guardando los residuos son la misma operación.
-
-```{r verificacion-seis-fwl}
-all.equal(as.vector(M %*% y), unname(resid(reg_y)))
-```
+Los ajustados solo toman dos valores —uno por grupo— porque es todo lo que el sexo puede predecir.
 
 ::: {.box-ejemplo}
-Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
+Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M_s\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
 :::
 
 ::: {.box-cuidado}
@@ -4348,37 +4354,37 @@ De hecho, los residuos **tienen que** ser negativos la mitad del tiempo: por con
 
 ### Los mismos seis, hasta el final
 
-Hasta aquí solo limpiamos el salario. Falta la otra mitad: la altura se limpia con la **misma** matriz, porque los controles son los mismos.
+Falta la otra mitad: la altura se limpia con la **misma** matriz, porque los controles son los mismos.
 
-```{r altura-seis-fwl}
-reg_x <- lm(x ~ d)      # la altura contra la constante y el sexo
-coef(reg_x)
+```{r altura-fwl, echo=FALSE, results='asis'}
+mates("\\hat{\\beta}_{\\text{altura}} = (X_s'X_s)^{-1}X_s'x = ", bmat(beta_x, 0))
+mates("\\underset{x}{", bmat(x, 0), "} = ",
+      "\\underset{P_s x}{", bmat(as.vector(P %*% x), 0), "} + ",
+      "\\underset{\\tilde{x}\\,=\\,M_s x}{", bmat(x_lim, 0), "}")
 ```
 
-La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Sus residuos son \(M x\):
+La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Y fíjense en el vector limpio: dentro de cada grupo las alturas quedan en \(-4,\,0,\,4\), y los salarios en \(-0.2,\,0,\,0.2\). Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.
 
-```{r residuos-x-seis-fwl}
-y_limpio <- as.vector(M %*% y)
-x_limpio <- as.vector(M %*% x)
+Y ahora el teorema, que con dos vectores centrados es una división:
 
-round(data.frame(hombre = d, y_limpio, x_limpio), 4)
+```{r fwl-final-fwl, echo=FALSE, results='asis'}
+mates("\\hat{\\beta}_{FWL} = \\frac{\\tilde{x}'\\tilde{y}}{\\tilde{x}'\\tilde{x}} = ",
+      "\\frac{", formatC(sum(x_lim * y_lim), format = "f", digits = 1), "}{",
+      formatC(sum(x_lim^2), format = "f", digits = 0), "} = ",
+      formatC(sum(x_lim * y_lim) / sum(x_lim^2), format = "f", digits = 2))
 ```
 
-Se ve a simple vista lo que hace \(M\): dentro de cada grupo las alturas quedan en \(-4, 0, 4\) y los salarios en \(-0.2,\, 0,\, 0.2\). Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.
+Cada centímetro extra son cincuenta mil pesos. Solo falta comprobar que ese número es el de la regresión múltiple, y que la cruda dice otra cosa:
 
-Y ahora sí, el teorema, con una regresión simple sin constante:
-
-```{r fwl-seis-final}
-beta_fwl <- sum(x_limpio * y_limpio) / sum(x_limpio^2)
-
-c(
-  fwl      = beta_fwl,
+```{r verificacion-fwl}
+c(fwl      = sum(x_lim * y_lim) / sum(x_lim^2),
   multiple = unname(coef(lm(y ~ x + d))["x"]),
-  cruda    = unname(coef(lm(y ~ x))["x"])
-)
+  cruda    = unname(coef(lm(y ~ x))["x"]))
+
+all.equal(as.vector(M %*% y), unname(resid(lm(y ~ d))))
 ```
 
-El numerador es \(3.2\) y el denominador \(64\), así que \(\hat{\beta}=0.05\): cada centímetro extra son cincuenta mil pesos. La regresión múltiple da el mismo número, y la cruda da casi el doble porque le está cobrando a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.
+La cruda da casi el doble porque le cobra a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.
 
 ### La misma cuenta en las 90 personas
 

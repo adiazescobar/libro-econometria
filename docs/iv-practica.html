@@ -223,22 +223,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos-iv-practica" class="section level2 hasAnchor" number="24.3">
 <h2><span class="header-section-number">24.3</span> Datos<a href="iv-practica.html#datos-iv-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Creamos una base reproducible. La variable <code>cercania</code> actúa como instrumento: afecta educación, pero en la simulación no entra directamente en salarios.</p>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="iv-practica.html#cb111-1" tabindex="-1"></a>n_iv <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb111-2"><a href="iv-practica.html#cb111-2" tabindex="-1"></a>i_iv <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n_iv</span>
-<span id="cb111-3"><a href="iv-practica.html#cb111-3" tabindex="-1"></a>habilidad_iv <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">9</span>) <span class="sc">+</span> <span class="fu">cos</span>(i_iv <span class="sc">/</span> <span class="dv">13</span>))[, <span class="dv">1</span>]</span>
-<span id="cb111-4"><a href="iv-practica.html#cb111-4" tabindex="-1"></a>cercania <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">cos</span>(i_iv <span class="sc">/</span> <span class="dv">17</span>) <span class="sc">+</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">6</span>))[, <span class="dv">1</span>]</span>
-<span id="cb111-5"><a href="iv-practica.html#cb111-5" tabindex="-1"></a>educ_iv <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">+</span> <span class="fl">0.9</span> <span class="sc">*</span> cercania <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> habilidad_iv <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">5</span>)</span>
-<span id="cb111-6"><a href="iv-practica.html#cb111-6" tabindex="-1"></a>epsilon_iv <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">4</span>)</span>
-<span id="cb111-7"><a href="iv-practica.html#cb111-7" tabindex="-1"></a>lwage_iv <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">+</span> <span class="fl">0.10</span> <span class="sc">*</span> educ_iv <span class="sc">+</span> <span class="fl">0.45</span> <span class="sc">*</span> habilidad_iv <span class="sc">+</span> epsilon_iv</span>
-<span id="cb111-8"><a href="iv-practica.html#cb111-8" tabindex="-1"></a></span>
-<span id="cb111-9"><a href="iv-practica.html#cb111-9" tabindex="-1"></a>datos_iv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb111-10"><a href="iv-practica.html#cb111-10" tabindex="-1"></a>  <span class="at">lwage =</span> lwage_iv,</span>
-<span id="cb111-11"><a href="iv-practica.html#cb111-11" tabindex="-1"></a>  <span class="at">educ =</span> educ_iv,</span>
-<span id="cb111-12"><a href="iv-practica.html#cb111-12" tabindex="-1"></a>  <span class="at">cercania =</span> cercania,</span>
-<span id="cb111-13"><a href="iv-practica.html#cb111-13" tabindex="-1"></a>  <span class="at">habilidad =</span> habilidad_iv</span>
-<span id="cb111-14"><a href="iv-practica.html#cb111-14" tabindex="-1"></a>)</span>
-<span id="cb111-15"><a href="iv-practica.html#cb111-15" tabindex="-1"></a></span>
-<span id="cb111-16"><a href="iv-practica.html#cb111-16" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_iv, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base de variables instrumentales&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="iv-practica.html#cb89-1" tabindex="-1"></a>n_iv <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb89-2"><a href="iv-practica.html#cb89-2" tabindex="-1"></a>i_iv <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n_iv</span>
+<span id="cb89-3"><a href="iv-practica.html#cb89-3" tabindex="-1"></a>habilidad_iv <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">9</span>) <span class="sc">+</span> <span class="fu">cos</span>(i_iv <span class="sc">/</span> <span class="dv">13</span>))[, <span class="dv">1</span>]</span>
+<span id="cb89-4"><a href="iv-practica.html#cb89-4" tabindex="-1"></a>cercania <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">cos</span>(i_iv <span class="sc">/</span> <span class="dv">17</span>) <span class="sc">+</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">6</span>))[, <span class="dv">1</span>]</span>
+<span id="cb89-5"><a href="iv-practica.html#cb89-5" tabindex="-1"></a>educ_iv <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">+</span> <span class="fl">0.9</span> <span class="sc">*</span> cercania <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> habilidad_iv <span class="sc">+</span> <span class="fl">0.4</span> <span class="sc">*</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">5</span>)</span>
+<span id="cb89-6"><a href="iv-practica.html#cb89-6" tabindex="-1"></a>epsilon_iv <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">sin</span>(i_iv <span class="sc">/</span> <span class="dv">4</span>)</span>
+<span id="cb89-7"><a href="iv-practica.html#cb89-7" tabindex="-1"></a>lwage_iv <span class="ot">&lt;-</span> <span class="fl">1.2</span> <span class="sc">+</span> <span class="fl">0.10</span> <span class="sc">*</span> educ_iv <span class="sc">+</span> <span class="fl">0.45</span> <span class="sc">*</span> habilidad_iv <span class="sc">+</span> epsilon_iv</span>
+<span id="cb89-8"><a href="iv-practica.html#cb89-8" tabindex="-1"></a></span>
+<span id="cb89-9"><a href="iv-practica.html#cb89-9" tabindex="-1"></a>datos_iv <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb89-10"><a href="iv-practica.html#cb89-10" tabindex="-1"></a>  <span class="at">lwage =</span> lwage_iv,</span>
+<span id="cb89-11"><a href="iv-practica.html#cb89-11" tabindex="-1"></a>  <span class="at">educ =</span> educ_iv,</span>
+<span id="cb89-12"><a href="iv-practica.html#cb89-12" tabindex="-1"></a>  <span class="at">cercania =</span> cercania,</span>
+<span id="cb89-13"><a href="iv-practica.html#cb89-13" tabindex="-1"></a>  <span class="at">habilidad =</span> habilidad_iv</span>
+<span id="cb89-14"><a href="iv-practica.html#cb89-14" tabindex="-1"></a>)</span>
+<span id="cb89-15"><a href="iv-practica.html#cb89-15" tabindex="-1"></a></span>
+<span id="cb89-16"><a href="iv-practica.html#cb89-16" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_iv, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base de variables instrumentales&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:datos-iv-practica">Tabla 24.1: </span>Primeras observaciones de la base de variables instrumentales</caption>
 <thead>
@@ -324,11 +324,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="iv-practica.html#cb112-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_iv, <span class="fu">aes</span>(<span class="at">x =</span> cercania, <span class="at">y =</span> educ)) <span class="sc">+</span></span>
-<span id="cb112-2"><a href="iv-practica.html#cb112-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.3</span>) <span class="sc">+</span></span>
-<span id="cb112-3"><a href="iv-practica.html#cb112-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb112-4"><a href="iv-practica.html#cb112-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cercanía a universidad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Educación&quot;</span>) <span class="sc">+</span></span>
-<span id="cb112-5"><a href="iv-practica.html#cb112-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="iv-practica.html#cb90-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_iv, <span class="fu">aes</span>(<span class="at">x =</span> cercania, <span class="at">y =</span> educ)) <span class="sc">+</span></span>
+<span id="cb90-2"><a href="iv-practica.html#cb90-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.3</span>) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="iv-practica.html#cb90-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="iv-practica.html#cb90-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Cercanía a universidad&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Educación&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-5"><a href="iv-practica.html#cb90-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-primera-etapa-iv"></span>
 <img src="_main_files/figure-html/grafico-primera-etapa-iv-1.png" alt="Primera etapa: cercanía a universidad y educación" width="80%" />
 <p class="caption">
@@ -339,34 +339,34 @@ Figura 24.1: Primera etapa: cercanía a universidad y educación
 <div id="estimacion-r-iv" class="section level2 hasAnchor" number="24.4">
 <h2><span class="header-section-number">24.4</span> Estimación en R<a href="iv-practica.html#estimacion-r-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Estimamos MCO, primera etapa y 2SLS manual.</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="iv-practica.html#cb113-1" tabindex="-1"></a>mco_iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ, <span class="at">data =</span> datos_iv)</span>
-<span id="cb113-2"><a href="iv-practica.html#cb113-2" tabindex="-1"></a>primera_iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(educ <span class="sc">~</span> cercania, <span class="at">data =</span> datos_iv)</span>
-<span id="cb113-3"><a href="iv-practica.html#cb113-3" tabindex="-1"></a>datos_iv<span class="sc">$</span>educ_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(primera_iv)</span>
-<span id="cb113-4"><a href="iv-practica.html#cb113-4" tabindex="-1"></a>iv_manual <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ_hat, <span class="at">data =</span> datos_iv)</span>
-<span id="cb113-5"><a href="iv-practica.html#cb113-5" tabindex="-1"></a></span>
-<span id="cb113-6"><a href="iv-practica.html#cb113-6" tabindex="-1"></a>tabla_mco_iv <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(mco_iv))</span>
-<span id="cb113-7"><a href="iv-practica.html#cb113-7" tabindex="-1"></a>tabla_primera_iv <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(primera_iv))</span>
-<span id="cb113-8"><a href="iv-practica.html#cb113-8" tabindex="-1"></a>tabla_iv_manual <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(iv_manual))</span>
-<span id="cb113-9"><a href="iv-practica.html#cb113-9" tabindex="-1"></a></span>
-<span id="cb113-10"><a href="iv-practica.html#cb113-10" tabindex="-1"></a>beta_mco_iv <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(mco_iv)[[<span class="st">&quot;educ&quot;</span>]])</span>
-<span id="cb113-11"><a href="iv-practica.html#cb113-11" tabindex="-1"></a>se_mco_iv <span class="ot">&lt;-</span> tabla_mco_iv[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb113-12"><a href="iv-practica.html#cb113-12" tabindex="-1"></a>pi_cercania_iv <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(primera_iv)[[<span class="st">&quot;cercania&quot;</span>]])</span>
-<span id="cb113-13"><a href="iv-practica.html#cb113-13" tabindex="-1"></a>se_pi_cercania_iv <span class="ot">&lt;-</span> tabla_primera_iv[<span class="st">&quot;cercania&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb113-14"><a href="iv-practica.html#cb113-14" tabindex="-1"></a>t_primera_iv <span class="ot">&lt;-</span> pi_cercania_iv <span class="sc">/</span> se_pi_cercania_iv</span>
-<span id="cb113-15"><a href="iv-practica.html#cb113-15" tabindex="-1"></a>f_primera_iv <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(t_primera_iv<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb113-16"><a href="iv-practica.html#cb113-16" tabindex="-1"></a>r2_primera_iv <span class="ot">&lt;-</span> <span class="fu">summary</span>(primera_iv)<span class="sc">$</span>r.squared</span>
-<span id="cb113-17"><a href="iv-practica.html#cb113-17" tabindex="-1"></a>beta_iv_manual <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(iv_manual)[[<span class="st">&quot;educ_hat&quot;</span>]])</span>
-<span id="cb113-18"><a href="iv-practica.html#cb113-18" tabindex="-1"></a>se_iv_manual <span class="ot">&lt;-</span> tabla_iv_manual[<span class="st">&quot;educ_hat&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb113-19"><a href="iv-practica.html#cb113-19" tabindex="-1"></a></span>
-<span id="cb113-20"><a href="iv-practica.html#cb113-20" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb113-21"><a href="iv-practica.html#cb113-21" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb113-22"><a href="iv-practica.html#cb113-22" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span>, <span class="st">&quot;Primera etapa&quot;</span>, <span class="st">&quot;2SLS manual&quot;</span>),</span>
-<span id="cb113-23"><a href="iv-practica.html#cb113-23" tabindex="-1"></a>    <span class="at">coeficiente_clave =</span> <span class="fu">c</span>(beta_mco_iv, pi_cercania_iv, beta_iv_manual),</span>
-<span id="cb113-24"><a href="iv-practica.html#cb113-24" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_mco_iv, se_pi_cercania_iv, se_iv_manual)</span>
-<span id="cb113-25"><a href="iv-practica.html#cb113-25" tabindex="-1"></a>  ),</span>
-<span id="cb113-26"><a href="iv-practica.html#cb113-26" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb113-27"><a href="iv-practica.html#cb113-27" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;MCO, primera etapa y 2SLS manual en R&quot;</span></span>
-<span id="cb113-28"><a href="iv-practica.html#cb113-28" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="iv-practica.html#cb91-1" tabindex="-1"></a>mco_iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ, <span class="at">data =</span> datos_iv)</span>
+<span id="cb91-2"><a href="iv-practica.html#cb91-2" tabindex="-1"></a>primera_iv <span class="ot">&lt;-</span> <span class="fu">lm</span>(educ <span class="sc">~</span> cercania, <span class="at">data =</span> datos_iv)</span>
+<span id="cb91-3"><a href="iv-practica.html#cb91-3" tabindex="-1"></a>datos_iv<span class="sc">$</span>educ_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(primera_iv)</span>
+<span id="cb91-4"><a href="iv-practica.html#cb91-4" tabindex="-1"></a>iv_manual <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ_hat, <span class="at">data =</span> datos_iv)</span>
+<span id="cb91-5"><a href="iv-practica.html#cb91-5" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="iv-practica.html#cb91-6" tabindex="-1"></a>tabla_mco_iv <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(mco_iv))</span>
+<span id="cb91-7"><a href="iv-practica.html#cb91-7" tabindex="-1"></a>tabla_primera_iv <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(primera_iv))</span>
+<span id="cb91-8"><a href="iv-practica.html#cb91-8" tabindex="-1"></a>tabla_iv_manual <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(iv_manual))</span>
+<span id="cb91-9"><a href="iv-practica.html#cb91-9" tabindex="-1"></a></span>
+<span id="cb91-10"><a href="iv-practica.html#cb91-10" tabindex="-1"></a>beta_mco_iv <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(mco_iv)[[<span class="st">&quot;educ&quot;</span>]])</span>
+<span id="cb91-11"><a href="iv-practica.html#cb91-11" tabindex="-1"></a>se_mco_iv <span class="ot">&lt;-</span> tabla_mco_iv[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb91-12"><a href="iv-practica.html#cb91-12" tabindex="-1"></a>pi_cercania_iv <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(primera_iv)[[<span class="st">&quot;cercania&quot;</span>]])</span>
+<span id="cb91-13"><a href="iv-practica.html#cb91-13" tabindex="-1"></a>se_pi_cercania_iv <span class="ot">&lt;-</span> tabla_primera_iv[<span class="st">&quot;cercania&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb91-14"><a href="iv-practica.html#cb91-14" tabindex="-1"></a>t_primera_iv <span class="ot">&lt;-</span> pi_cercania_iv <span class="sc">/</span> se_pi_cercania_iv</span>
+<span id="cb91-15"><a href="iv-practica.html#cb91-15" tabindex="-1"></a>f_primera_iv <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(t_primera_iv<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb91-16"><a href="iv-practica.html#cb91-16" tabindex="-1"></a>r2_primera_iv <span class="ot">&lt;-</span> <span class="fu">summary</span>(primera_iv)<span class="sc">$</span>r.squared</span>
+<span id="cb91-17"><a href="iv-practica.html#cb91-17" tabindex="-1"></a>beta_iv_manual <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(iv_manual)[[<span class="st">&quot;educ_hat&quot;</span>]])</span>
+<span id="cb91-18"><a href="iv-practica.html#cb91-18" tabindex="-1"></a>se_iv_manual <span class="ot">&lt;-</span> tabla_iv_manual[<span class="st">&quot;educ_hat&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb91-19"><a href="iv-practica.html#cb91-19" tabindex="-1"></a></span>
+<span id="cb91-20"><a href="iv-practica.html#cb91-20" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb91-21"><a href="iv-practica.html#cb91-21" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb91-22"><a href="iv-practica.html#cb91-22" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;MCO&quot;</span>, <span class="st">&quot;Primera etapa&quot;</span>, <span class="st">&quot;2SLS manual&quot;</span>),</span>
+<span id="cb91-23"><a href="iv-practica.html#cb91-23" tabindex="-1"></a>    <span class="at">coeficiente_clave =</span> <span class="fu">c</span>(beta_mco_iv, pi_cercania_iv, beta_iv_manual),</span>
+<span id="cb91-24"><a href="iv-practica.html#cb91-24" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_mco_iv, se_pi_cercania_iv, se_iv_manual)</span>
+<span id="cb91-25"><a href="iv-practica.html#cb91-25" tabindex="-1"></a>  ),</span>
+<span id="cb91-26"><a href="iv-practica.html#cb91-26" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb91-27"><a href="iv-practica.html#cb91-27" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;MCO, primera etapa y 2SLS manual en R&quot;</span></span>
+<span id="cb91-28"><a href="iv-practica.html#cb91-28" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:estimacion-r-iv">Tabla 24.2: </span>MCO, primera etapa y 2SLS manual en R</caption>
 <thead>
@@ -395,17 +395,17 @@ Figura 24.1: Primera etapa: cercanía a universidad y educación
 </tbody>
 </table>
 <p>También podemos escribir 2SLS con matrices. Usamos <span class="math inline">\(Z=[1,cercania]\)</span> y <span class="math inline">\(X=[1,educ]\)</span>.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="iv-practica.html#cb114-1" tabindex="-1"></a>y_iv <span class="ot">&lt;-</span> <span class="fu">matrix</span>(datos_iv<span class="sc">$</span>lwage, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
-<span id="cb114-2"><a href="iv-practica.html#cb114-2" tabindex="-1"></a>X_iv <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, datos_iv<span class="sc">$</span>educ)</span>
-<span id="cb114-3"><a href="iv-practica.html#cb114-3" tabindex="-1"></a>Z_iv <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, datos_iv<span class="sc">$</span>cercania)</span>
-<span id="cb114-4"><a href="iv-practica.html#cb114-4" tabindex="-1"></a>Pz_iv <span class="ot">&lt;-</span> Z_iv <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(Z_iv) <span class="sc">%*%</span> Z_iv) <span class="sc">%*%</span> <span class="fu">t</span>(Z_iv)</span>
-<span id="cb114-5"><a href="iv-practica.html#cb114-5" tabindex="-1"></a>beta_2sls_mat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X_iv) <span class="sc">%*%</span> Pz_iv <span class="sc">%*%</span> X_iv) <span class="sc">%*%</span> <span class="fu">t</span>(X_iv) <span class="sc">%*%</span> Pz_iv <span class="sc">%*%</span> y_iv</span>
-<span id="cb114-6"><a href="iv-practica.html#cb114-6" tabindex="-1"></a>beta_2sls_matriz_iv <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(beta_2sls_mat[<span class="dv">2</span>, <span class="dv">1</span>])</span></code></pre></div>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="iv-practica.html#cb115-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_iv, <span class="fu">aes</span>(<span class="at">x =</span> educ_hat, <span class="at">y =</span> lwage)) <span class="sc">+</span></span>
-<span id="cb115-2"><a href="iv-practica.html#cb115-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.3</span>) <span class="sc">+</span></span>
-<span id="cb115-3"><a href="iv-practica.html#cb115-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb115-4"><a href="iv-practica.html#cb115-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación predicha por el instrumento&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Log salario&quot;</span>) <span class="sc">+</span></span>
-<span id="cb115-5"><a href="iv-practica.html#cb115-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="iv-practica.html#cb92-1" tabindex="-1"></a>y_iv <span class="ot">&lt;-</span> <span class="fu">matrix</span>(datos_iv<span class="sc">$</span>lwage, <span class="at">ncol =</span> <span class="dv">1</span>)</span>
+<span id="cb92-2"><a href="iv-practica.html#cb92-2" tabindex="-1"></a>X_iv <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, datos_iv<span class="sc">$</span>educ)</span>
+<span id="cb92-3"><a href="iv-practica.html#cb92-3" tabindex="-1"></a>Z_iv <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, datos_iv<span class="sc">$</span>cercania)</span>
+<span id="cb92-4"><a href="iv-practica.html#cb92-4" tabindex="-1"></a>Pz_iv <span class="ot">&lt;-</span> Z_iv <span class="sc">%*%</span> <span class="fu">solve</span>(<span class="fu">t</span>(Z_iv) <span class="sc">%*%</span> Z_iv) <span class="sc">%*%</span> <span class="fu">t</span>(Z_iv)</span>
+<span id="cb92-5"><a href="iv-practica.html#cb92-5" tabindex="-1"></a>beta_2sls_mat <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X_iv) <span class="sc">%*%</span> Pz_iv <span class="sc">%*%</span> X_iv) <span class="sc">%*%</span> <span class="fu">t</span>(X_iv) <span class="sc">%*%</span> Pz_iv <span class="sc">%*%</span> y_iv</span>
+<span id="cb92-6"><a href="iv-practica.html#cb92-6" tabindex="-1"></a>beta_2sls_matriz_iv <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(beta_2sls_mat[<span class="dv">2</span>, <span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="iv-practica.html#cb93-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_iv, <span class="fu">aes</span>(<span class="at">x =</span> educ_hat, <span class="at">y =</span> lwage)) <span class="sc">+</span></span>
+<span id="cb93-2"><a href="iv-practica.html#cb93-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.3</span>) <span class="sc">+</span></span>
+<span id="cb93-3"><a href="iv-practica.html#cb93-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb93-4"><a href="iv-practica.html#cb93-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación predicha por el instrumento&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Log salario&quot;</span>) <span class="sc">+</span></span>
+<span id="cb93-5"><a href="iv-practica.html#cb93-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-iv-ajustado"></span>
 <img src="_main_files/figure-html/grafico-iv-ajustado-1.png" alt="Educación predicha por el instrumento y log salario" width="80%" />
 <p class="caption">
@@ -426,23 +426,23 @@ Figura 24.2: Educación predicha por el instrumento y log salario
 <div id="estimacion-stata-iv" class="section level2 hasAnchor" number="24.6">
 <h2><span class="header-section-number">24.6</span> Estimación en Stata<a href="iv-practica.html#estimacion-stata-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb116-1"><a href="iv-practica.html#cb116-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb116-2"><a href="iv-practica.html#cb116-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 300</span>
-<span id="cb116-3"><a href="iv-practica.html#cb116-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb116-4"><a href="iv-practica.html#cb116-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/9) + <span class="fu">cos</span>(i/13)</span>
-<span id="cb116-5"><a href="iv-practica.html#cb116-5" tabindex="-1"></a>summ habilidad</span>
-<span id="cb116-6"><a href="iv-practica.html#cb116-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb116-7"><a href="iv-practica.html#cb116-7" tabindex="-1"></a><span class="kw">gen</span> cercania = <span class="fu">cos</span>(i/17) + <span class="fu">sin</span>(i/6)</span>
-<span id="cb116-8"><a href="iv-practica.html#cb116-8" tabindex="-1"></a>summ cercania</span>
-<span id="cb116-9"><a href="iv-practica.html#cb116-9" tabindex="-1"></a><span class="kw">replace</span> cercania = (cercania - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb116-10"><a href="iv-practica.html#cb116-10" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*<span class="fu">sin</span>(i/5)</span>
-<span id="cb116-11"><a href="iv-practica.html#cb116-11" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25*<span class="fu">sin</span>(i/4)</span>
-<span id="cb116-12"><a href="iv-practica.html#cb116-12" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon</span>
-<span id="cb116-13"><a href="iv-practica.html#cb116-13" tabindex="-1"></a></span>
-<span id="cb116-14"><a href="iv-practica.html#cb116-14" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
-<span id="cb116-15"><a href="iv-practica.html#cb116-15" tabindex="-1"></a><span class="kw">reg</span> educ cercania</span>
-<span id="cb116-16"><a href="iv-practica.html#cb116-16" tabindex="-1"></a>ivregress 2sls lwage (educ = cercania), first</span>
-<span id="cb116-17"><a href="iv-practica.html#cb116-17" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb94-1"><a href="iv-practica.html#cb94-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb94-2"><a href="iv-practica.html#cb94-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 300</span>
+<span id="cb94-3"><a href="iv-practica.html#cb94-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb94-4"><a href="iv-practica.html#cb94-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/9) + <span class="fu">cos</span>(i/13)</span>
+<span id="cb94-5"><a href="iv-practica.html#cb94-5" tabindex="-1"></a>summ habilidad</span>
+<span id="cb94-6"><a href="iv-practica.html#cb94-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb94-7"><a href="iv-practica.html#cb94-7" tabindex="-1"></a><span class="kw">gen</span> cercania = <span class="fu">cos</span>(i/17) + <span class="fu">sin</span>(i/6)</span>
+<span id="cb94-8"><a href="iv-practica.html#cb94-8" tabindex="-1"></a>summ cercania</span>
+<span id="cb94-9"><a href="iv-practica.html#cb94-9" tabindex="-1"></a><span class="kw">replace</span> cercania = (cercania - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb94-10"><a href="iv-practica.html#cb94-10" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*<span class="fu">sin</span>(i/5)</span>
+<span id="cb94-11"><a href="iv-practica.html#cb94-11" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25*<span class="fu">sin</span>(i/4)</span>
+<span id="cb94-12"><a href="iv-practica.html#cb94-12" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon</span>
+<span id="cb94-13"><a href="iv-practica.html#cb94-13" tabindex="-1"></a></span>
+<span id="cb94-14"><a href="iv-practica.html#cb94-14" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
+<span id="cb94-15"><a href="iv-practica.html#cb94-15" tabindex="-1"></a><span class="kw">reg</span> educ cercania</span>
+<span id="cb94-16"><a href="iv-practica.html#cb94-16" tabindex="-1"></a>ivregress 2sls lwage (educ = cercania), first</span>
+<span id="cb94-17"><a href="iv-practica.html#cb94-17" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -479,32 +479,32 @@ Figura 24.2: Educación predicha por el instrumento y log salario
 <div id="estimacion-python-colab-iv" class="section level2 hasAnchor" number="24.7">
 <h2><span class="header-section-number">24.7</span> Estimación en Python y Google Colab<a href="iv-practica.html#estimacion-python-colab-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb117-1"><a href="iv-practica.html#cb117-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb95-1"><a href="iv-practica.html#cb95-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego ejecuta:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb118-1"><a href="iv-practica.html#cb118-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb118-2"><a href="iv-practica.html#cb118-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb118-3"><a href="iv-practica.html#cb118-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb118-4"><a href="iv-practica.html#cb118-4" tabindex="-1"></a></span>
-<span id="cb118-5"><a href="iv-practica.html#cb118-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
-<span id="cb118-6"><a href="iv-practica.html#cb118-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb118-7"><a href="iv-practica.html#cb118-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">9</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">13</span>)</span>
-<span id="cb118-8"><a href="iv-practica.html#cb118-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb118-9"><a href="iv-practica.html#cb118-9" tabindex="-1"></a>cercania <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">17</span>) <span class="op">+</span> np.sin(i <span class="op">/</span> <span class="dv">6</span>)</span>
-<span id="cb118-10"><a href="iv-practica.html#cb118-10" tabindex="-1"></a>cercania <span class="op">=</span> (cercania <span class="op">-</span> cercania.mean()) <span class="op">/</span> cercania.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb118-11"><a href="iv-practica.html#cb118-11" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span>cercania <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>habilidad <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
-<span id="cb118-12"><a href="iv-practica.html#cb118-12" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
-<span id="cb118-13"><a href="iv-practica.html#cb118-13" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.2</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.45</span><span class="op">*</span>habilidad <span class="op">+</span> epsilon</span>
-<span id="cb118-14"><a href="iv-practica.html#cb118-14" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;cercania&quot;</span>: cercania})</span>
-<span id="cb118-15"><a href="iv-practica.html#cb118-15" tabindex="-1"></a></span>
-<span id="cb118-16"><a href="iv-practica.html#cb118-16" tabindex="-1"></a>mco <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
-<span id="cb118-17"><a href="iv-practica.html#cb118-17" tabindex="-1"></a>primera <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;educ&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;cercania&quot;</span>]])).fit()</span>
-<span id="cb118-18"><a href="iv-practica.html#cb118-18" tabindex="-1"></a>datos[<span class="st">&quot;educ_hat&quot;</span>] <span class="op">=</span> primera.fittedvalues</span>
-<span id="cb118-19"><a href="iv-practica.html#cb118-19" tabindex="-1"></a>iv_manual <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_hat&quot;</span>]])).fit()</span>
-<span id="cb118-20"><a href="iv-practica.html#cb118-20" tabindex="-1"></a></span>
-<span id="cb118-21"><a href="iv-practica.html#cb118-21" tabindex="-1"></a><span class="bu">print</span>(mco.summary())</span>
-<span id="cb118-22"><a href="iv-practica.html#cb118-22" tabindex="-1"></a><span class="bu">print</span>(primera.summary())</span>
-<span id="cb118-23"><a href="iv-practica.html#cb118-23" tabindex="-1"></a><span class="bu">print</span>(iv_manual.summary())</span>
-<span id="cb118-24"><a href="iv-practica.html#cb118-24" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;F primera etapa:&quot;</span>, <span class="bu">float</span>(primera.tvalues[<span class="st">&quot;cercania&quot;</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb96-1"><a href="iv-practica.html#cb96-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb96-2"><a href="iv-practica.html#cb96-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb96-3"><a href="iv-practica.html#cb96-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb96-4"><a href="iv-practica.html#cb96-4" tabindex="-1"></a></span>
+<span id="cb96-5"><a href="iv-practica.html#cb96-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb96-6"><a href="iv-practica.html#cb96-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb96-7"><a href="iv-practica.html#cb96-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">9</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">13</span>)</span>
+<span id="cb96-8"><a href="iv-practica.html#cb96-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb96-9"><a href="iv-practica.html#cb96-9" tabindex="-1"></a>cercania <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">17</span>) <span class="op">+</span> np.sin(i <span class="op">/</span> <span class="dv">6</span>)</span>
+<span id="cb96-10"><a href="iv-practica.html#cb96-10" tabindex="-1"></a>cercania <span class="op">=</span> (cercania <span class="op">-</span> cercania.mean()) <span class="op">/</span> cercania.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb96-11"><a href="iv-practica.html#cb96-11" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span>cercania <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>habilidad <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb96-12"><a href="iv-practica.html#cb96-12" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb96-13"><a href="iv-practica.html#cb96-13" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.2</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.45</span><span class="op">*</span>habilidad <span class="op">+</span> epsilon</span>
+<span id="cb96-14"><a href="iv-practica.html#cb96-14" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;cercania&quot;</span>: cercania})</span>
+<span id="cb96-15"><a href="iv-practica.html#cb96-15" tabindex="-1"></a></span>
+<span id="cb96-16"><a href="iv-practica.html#cb96-16" tabindex="-1"></a>mco <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
+<span id="cb96-17"><a href="iv-practica.html#cb96-17" tabindex="-1"></a>primera <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;educ&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;cercania&quot;</span>]])).fit()</span>
+<span id="cb96-18"><a href="iv-practica.html#cb96-18" tabindex="-1"></a>datos[<span class="st">&quot;educ_hat&quot;</span>] <span class="op">=</span> primera.fittedvalues</span>
+<span id="cb96-19"><a href="iv-practica.html#cb96-19" tabindex="-1"></a>iv_manual <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_hat&quot;</span>]])).fit()</span>
+<span id="cb96-20"><a href="iv-practica.html#cb96-20" tabindex="-1"></a></span>
+<span id="cb96-21"><a href="iv-practica.html#cb96-21" tabindex="-1"></a><span class="bu">print</span>(mco.summary())</span>
+<span id="cb96-22"><a href="iv-practica.html#cb96-22" tabindex="-1"></a><span class="bu">print</span>(primera.summary())</span>
+<span id="cb96-23"><a href="iv-practica.html#cb96-23" tabindex="-1"></a><span class="bu">print</span>(iv_manual.summary())</span>
+<span id="cb96-24"><a href="iv-practica.html#cb96-24" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;F primera etapa:&quot;</span>, <span class="bu">float</span>(primera.tvalues[<span class="st">&quot;cercania&quot;</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.</p>
 </div>
 <div id="comparacion-software-iv" class="section level2 hasAnchor" number="24.8">

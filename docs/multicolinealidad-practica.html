@@ -227,25 +227,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos-multico-practica" class="section level2 hasAnchor" number="18.3">
 <h2><span class="header-section-number">18.3</span> Datos<a href="multicolinealidad-practica.html#datos-multico-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La base se crea con una regla determinística. El índice educativo de los padres está construido para estar muy relacionado con educación, pero no de manera exacta.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="multicolinealidad-practica.html#cb86-1" tabindex="-1"></a>i_multico <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span></span>
-<span id="cb86-2"><a href="multicolinealidad-practica.html#cb86-2" tabindex="-1"></a>datos_multi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb86-3"><a href="multicolinealidad-practica.html#cb86-3" tabindex="-1"></a>  <span class="at">i =</span> i_multico,</span>
-<span id="cb86-4"><a href="multicolinealidad-practica.html#cb86-4" tabindex="-1"></a>  <span class="at">educacion =</span> <span class="dv">9</span> <span class="sc">+</span> (i_multico <span class="sc">%%</span> <span class="dv">10</span>) <span class="sc">+</span> <span class="fl">0.03</span> <span class="sc">*</span> i_multico,</span>
-<span id="cb86-5"><a href="multicolinealidad-practica.html#cb86-5" tabindex="-1"></a>  <span class="at">horas_estudio =</span> <span class="dv">2</span> <span class="sc">+</span> (i_multico <span class="sc">%%</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">sin</span>(i_multico <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb86-6"><a href="multicolinealidad-practica.html#cb86-6" tabindex="-1"></a>)</span>
-<span id="cb86-7"><a href="multicolinealidad-practica.html#cb86-7" tabindex="-1"></a></span>
-<span id="cb86-8"><a href="multicolinealidad-practica.html#cb86-8" tabindex="-1"></a>datos_multi<span class="sc">$</span>indice_padres <span class="ot">&lt;-</span> <span class="fl">0.92</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>educacion <span class="sc">+</span></span>
-<span id="cb86-9"><a href="multicolinealidad-practica.html#cb86-9" tabindex="-1"></a>  <span class="fl">0.35</span> <span class="sc">*</span> <span class="fu">sin</span>(i_multico <span class="sc">/</span> <span class="dv">3</span>)</span>
-<span id="cb86-10"><a href="multicolinealidad-practica.html#cb86-10" tabindex="-1"></a></span>
-<span id="cb86-11"><a href="multicolinealidad-practica.html#cb86-11" tabindex="-1"></a>datos_multi<span class="sc">$</span>ajuste <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">sin</span>(<span class="fl">1.1</span> <span class="sc">*</span> i_multico) <span class="sc">-</span></span>
-<span id="cb86-12"><a href="multicolinealidad-practica.html#cb86-12" tabindex="-1"></a>  <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">cos</span>(i_multico <span class="sc">/</span> <span class="dv">4</span>)</span>
-<span id="cb86-13"><a href="multicolinealidad-practica.html#cb86-13" tabindex="-1"></a></span>
-<span id="cb86-14"><a href="multicolinealidad-practica.html#cb86-14" tabindex="-1"></a>datos_multi<span class="sc">$</span>puntaje <span class="ot">&lt;-</span> <span class="dv">38</span> <span class="sc">+</span></span>
-<span id="cb86-15"><a href="multicolinealidad-practica.html#cb86-15" tabindex="-1"></a>  <span class="fl">1.15</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>educacion <span class="sc">+</span></span>
-<span id="cb86-16"><a href="multicolinealidad-practica.html#cb86-16" tabindex="-1"></a>  <span class="fl">0.55</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>horas_estudio <span class="sc">+</span></span>
-<span id="cb86-17"><a href="multicolinealidad-practica.html#cb86-17" tabindex="-1"></a>  datos_multi<span class="sc">$</span>ajuste</span>
-<span id="cb86-18"><a href="multicolinealidad-practica.html#cb86-18" tabindex="-1"></a></span>
-<span id="cb86-19"><a href="multicolinealidad-practica.html#cb86-19" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_multi, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base para diagnosticar multicolinealidad&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="multicolinealidad-practica.html#cb64-1" tabindex="-1"></a>i_multico <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">60</span></span>
+<span id="cb64-2"><a href="multicolinealidad-practica.html#cb64-2" tabindex="-1"></a>datos_multi <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb64-3"><a href="multicolinealidad-practica.html#cb64-3" tabindex="-1"></a>  <span class="at">i =</span> i_multico,</span>
+<span id="cb64-4"><a href="multicolinealidad-practica.html#cb64-4" tabindex="-1"></a>  <span class="at">educacion =</span> <span class="dv">9</span> <span class="sc">+</span> (i_multico <span class="sc">%%</span> <span class="dv">10</span>) <span class="sc">+</span> <span class="fl">0.03</span> <span class="sc">*</span> i_multico,</span>
+<span id="cb64-5"><a href="multicolinealidad-practica.html#cb64-5" tabindex="-1"></a>  <span class="at">horas_estudio =</span> <span class="dv">2</span> <span class="sc">+</span> (i_multico <span class="sc">%%</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fl">0.2</span> <span class="sc">*</span> <span class="fu">sin</span>(i_multico <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb64-6"><a href="multicolinealidad-practica.html#cb64-6" tabindex="-1"></a>)</span>
+<span id="cb64-7"><a href="multicolinealidad-practica.html#cb64-7" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="multicolinealidad-practica.html#cb64-8" tabindex="-1"></a>datos_multi<span class="sc">$</span>indice_padres <span class="ot">&lt;-</span> <span class="fl">0.92</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>educacion <span class="sc">+</span></span>
+<span id="cb64-9"><a href="multicolinealidad-practica.html#cb64-9" tabindex="-1"></a>  <span class="fl">0.35</span> <span class="sc">*</span> <span class="fu">sin</span>(i_multico <span class="sc">/</span> <span class="dv">3</span>)</span>
+<span id="cb64-10"><a href="multicolinealidad-practica.html#cb64-10" tabindex="-1"></a></span>
+<span id="cb64-11"><a href="multicolinealidad-practica.html#cb64-11" tabindex="-1"></a>datos_multi<span class="sc">$</span>ajuste <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">sin</span>(<span class="fl">1.1</span> <span class="sc">*</span> i_multico) <span class="sc">-</span></span>
+<span id="cb64-12"><a href="multicolinealidad-practica.html#cb64-12" tabindex="-1"></a>  <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">cos</span>(i_multico <span class="sc">/</span> <span class="dv">4</span>)</span>
+<span id="cb64-13"><a href="multicolinealidad-practica.html#cb64-13" tabindex="-1"></a></span>
+<span id="cb64-14"><a href="multicolinealidad-practica.html#cb64-14" tabindex="-1"></a>datos_multi<span class="sc">$</span>puntaje <span class="ot">&lt;-</span> <span class="dv">38</span> <span class="sc">+</span></span>
+<span id="cb64-15"><a href="multicolinealidad-practica.html#cb64-15" tabindex="-1"></a>  <span class="fl">1.15</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>educacion <span class="sc">+</span></span>
+<span id="cb64-16"><a href="multicolinealidad-practica.html#cb64-16" tabindex="-1"></a>  <span class="fl">0.55</span> <span class="sc">*</span> datos_multi<span class="sc">$</span>horas_estudio <span class="sc">+</span></span>
+<span id="cb64-17"><a href="multicolinealidad-practica.html#cb64-17" tabindex="-1"></a>  datos_multi<span class="sc">$</span>ajuste</span>
+<span id="cb64-18"><a href="multicolinealidad-practica.html#cb64-18" tabindex="-1"></a></span>
+<span id="cb64-19"><a href="multicolinealidad-practica.html#cb64-19" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_multi, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base para diagnosticar multicolinealidad&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:datos-multico-practica">Tabla 18.1: </span>Primeras observaciones de la base para diagnosticar multicolinealidad</caption>
 <thead>
@@ -357,11 +357,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="multicolinealidad-practica.html#cb87-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_multi, <span class="fu">aes</span>(<span class="at">x =</span> educacion, <span class="at">y =</span> indice_padres)) <span class="sc">+</span></span>
-<span id="cb87-2"><a href="multicolinealidad-practica.html#cb87-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
-<span id="cb87-3"><a href="multicolinealidad-practica.html#cb87-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb87-4"><a href="multicolinealidad-practica.html#cb87-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Índice educativo de los padres&quot;</span>) <span class="sc">+</span></span>
-<span id="cb87-5"><a href="multicolinealidad-practica.html#cb87-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="multicolinealidad-practica.html#cb65-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_multi, <span class="fu">aes</span>(<span class="at">x =</span> educacion, <span class="at">y =</span> indice_padres)) <span class="sc">+</span></span>
+<span id="cb65-2"><a href="multicolinealidad-practica.html#cb65-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb65-3"><a href="multicolinealidad-practica.html#cb65-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb65-4"><a href="multicolinealidad-practica.html#cb65-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Índice educativo de los padres&quot;</span>) <span class="sc">+</span></span>
+<span id="cb65-5"><a href="multicolinealidad-practica.html#cb65-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-colinealidad-multico"></span>
 <img src="_main_files/figure-html/grafico-colinealidad-multico-1.png" alt="Relación entre educación e índice educativo de los padres" width="80%" />
 <p class="caption">
@@ -372,51 +372,51 @@ Figura 18.1: Relación entre educación e índice educativo de los padres
 <div id="estimacion-r-multico" class="section level2 hasAnchor" number="18.4">
 <h2><span class="header-section-number">18.4</span> Estimación en R<a href="multicolinealidad-practica.html#estimacion-r-multico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Estimamos un modelo con los regresores colineales y calculamos diagnósticos.</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="multicolinealidad-practica.html#cb88-1" tabindex="-1"></a>modelo_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntaje <span class="sc">~</span> educacion <span class="sc">+</span> indice_padres <span class="sc">+</span> horas_estudio, <span class="at">data =</span> datos_multi)</span>
-<span id="cb88-2"><a href="multicolinealidad-practica.html#cb88-2" tabindex="-1"></a>modelo_multi_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntaje <span class="sc">~</span> educacion <span class="sc">+</span> horas_estudio, <span class="at">data =</span> datos_multi)</span>
-<span id="cb88-3"><a href="multicolinealidad-practica.html#cb88-3" tabindex="-1"></a></span>
-<span id="cb88-4"><a href="multicolinealidad-practica.html#cb88-4" tabindex="-1"></a>tabla_multi <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_multi))</span>
-<span id="cb88-5"><a href="multicolinealidad-practica.html#cb88-5" tabindex="-1"></a>tabla_simple_multi <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_multi_simple))</span>
-<span id="cb88-6"><a href="multicolinealidad-practica.html#cb88-6" tabindex="-1"></a></span>
-<span id="cb88-7"><a href="multicolinealidad-practica.html#cb88-7" tabindex="-1"></a>beta0_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;(Intercept)&quot;</span>]])</span>
-<span id="cb88-8"><a href="multicolinealidad-practica.html#cb88-8" tabindex="-1"></a>beta_educ_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;educacion&quot;</span>]])</span>
-<span id="cb88-9"><a href="multicolinealidad-practica.html#cb88-9" tabindex="-1"></a>beta_padres_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;indice_padres&quot;</span>]])</span>
-<span id="cb88-10"><a href="multicolinealidad-practica.html#cb88-10" tabindex="-1"></a>beta_horas_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;horas_estudio&quot;</span>]])</span>
-<span id="cb88-11"><a href="multicolinealidad-practica.html#cb88-11" tabindex="-1"></a>se0_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb88-12"><a href="multicolinealidad-practica.html#cb88-12" tabindex="-1"></a>se_educ_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb88-13"><a href="multicolinealidad-practica.html#cb88-13" tabindex="-1"></a>se_padres_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb88-14"><a href="multicolinealidad-practica.html#cb88-14" tabindex="-1"></a>se_horas_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;horas_estudio&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb88-15"><a href="multicolinealidad-practica.html#cb88-15" tabindex="-1"></a>r2_multi <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo_multi)<span class="sc">$</span>r.squared</span>
-<span id="cb88-16"><a href="multicolinealidad-practica.html#cb88-16" tabindex="-1"></a></span>
-<span id="cb88-17"><a href="multicolinealidad-practica.html#cb88-17" tabindex="-1"></a>se_educ_simple_multi <span class="ot">&lt;-</span> tabla_simple_multi[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb88-18"><a href="multicolinealidad-practica.html#cb88-18" tabindex="-1"></a>cor_educ_padres <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_multi<span class="sc">$</span>educacion, datos_multi<span class="sc">$</span>indice_padres)</span>
-<span id="cb88-19"><a href="multicolinealidad-practica.html#cb88-19" tabindex="-1"></a></span>
-<span id="cb88-20"><a href="multicolinealidad-practica.html#cb88-20" tabindex="-1"></a>calcular_vif <span class="ot">&lt;-</span> <span class="cf">function</span>(modelo) {</span>
-<span id="cb88-21"><a href="multicolinealidad-practica.html#cb88-21" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(modelo)[, <span class="sc">-</span><span class="dv">1</span>, <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
-<span id="cb88-22"><a href="multicolinealidad-practica.html#cb88-22" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="fu">names</span>(X), <span class="cf">function</span>(nombre) {</span>
-<span id="cb88-23"><a href="multicolinealidad-practica.html#cb88-23" tabindex="-1"></a>    otros <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(X), nombre)</span>
-<span id="cb88-24"><a href="multicolinealidad-practica.html#cb88-24" tabindex="-1"></a>    r2_aux <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(X[[nombre]] <span class="sc">~</span> ., <span class="at">data =</span> X[otros]))<span class="sc">$</span>r.squared</span>
-<span id="cb88-25"><a href="multicolinealidad-practica.html#cb88-25" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> r2_aux)</span>
-<span id="cb88-26"><a href="multicolinealidad-practica.html#cb88-26" tabindex="-1"></a>  })</span>
-<span id="cb88-27"><a href="multicolinealidad-practica.html#cb88-27" tabindex="-1"></a>}</span>
-<span id="cb88-28"><a href="multicolinealidad-practica.html#cb88-28" tabindex="-1"></a></span>
-<span id="cb88-29"><a href="multicolinealidad-practica.html#cb88-29" tabindex="-1"></a>vif_multi <span class="ot">&lt;-</span> <span class="fu">calcular_vif</span>(modelo_multi)</span>
-<span id="cb88-30"><a href="multicolinealidad-practica.html#cb88-30" tabindex="-1"></a>vif_educ_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;educacion&quot;</span>])</span>
-<span id="cb88-31"><a href="multicolinealidad-practica.html#cb88-31" tabindex="-1"></a>vif_padres_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;indice_padres&quot;</span>])</span>
-<span id="cb88-32"><a href="multicolinealidad-practica.html#cb88-32" tabindex="-1"></a>vif_horas_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;horas_estudio&quot;</span>])</span>
-<span id="cb88-33"><a href="multicolinealidad-practica.html#cb88-33" tabindex="-1"></a></span>
-<span id="cb88-34"><a href="multicolinealidad-practica.html#cb88-34" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb88-35"><a href="multicolinealidad-practica.html#cb88-35" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb88-36"><a href="multicolinealidad-practica.html#cb88-36" tabindex="-1"></a>    <span class="at">termino =</span> <span class="fu">rownames</span>(tabla_multi),</span>
-<span id="cb88-37"><a href="multicolinealidad-practica.html#cb88-37" tabindex="-1"></a>    <span class="at">estimacion =</span> tabla_multi[, <span class="st">&quot;Estimate&quot;</span>],</span>
-<span id="cb88-38"><a href="multicolinealidad-practica.html#cb88-38" tabindex="-1"></a>    <span class="at">error_estandar =</span> tabla_multi[, <span class="st">&quot;Std. Error&quot;</span>],</span>
-<span id="cb88-39"><a href="multicolinealidad-practica.html#cb88-39" tabindex="-1"></a>    <span class="at">t =</span> tabla_multi[, <span class="st">&quot;t value&quot;</span>],</span>
-<span id="cb88-40"><a href="multicolinealidad-practica.html#cb88-40" tabindex="-1"></a>    <span class="at">p_valor =</span> tabla_multi[, <span class="st">&quot;Pr(&gt;|t|)&quot;</span>],</span>
-<span id="cb88-41"><a href="multicolinealidad-practica.html#cb88-41" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb88-42"><a href="multicolinealidad-practica.html#cb88-42" tabindex="-1"></a>  ),</span>
-<span id="cb88-43"><a href="multicolinealidad-practica.html#cb88-43" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb88-44"><a href="multicolinealidad-practica.html#cb88-44" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Modelo con regresores colineales en R&quot;</span></span>
-<span id="cb88-45"><a href="multicolinealidad-practica.html#cb88-45" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="multicolinealidad-practica.html#cb66-1" tabindex="-1"></a>modelo_multi <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntaje <span class="sc">~</span> educacion <span class="sc">+</span> indice_padres <span class="sc">+</span> horas_estudio, <span class="at">data =</span> datos_multi)</span>
+<span id="cb66-2"><a href="multicolinealidad-practica.html#cb66-2" tabindex="-1"></a>modelo_multi_simple <span class="ot">&lt;-</span> <span class="fu">lm</span>(puntaje <span class="sc">~</span> educacion <span class="sc">+</span> horas_estudio, <span class="at">data =</span> datos_multi)</span>
+<span id="cb66-3"><a href="multicolinealidad-practica.html#cb66-3" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="multicolinealidad-practica.html#cb66-4" tabindex="-1"></a>tabla_multi <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_multi))</span>
+<span id="cb66-5"><a href="multicolinealidad-practica.html#cb66-5" tabindex="-1"></a>tabla_simple_multi <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_multi_simple))</span>
+<span id="cb66-6"><a href="multicolinealidad-practica.html#cb66-6" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="multicolinealidad-practica.html#cb66-7" tabindex="-1"></a>beta0_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;(Intercept)&quot;</span>]])</span>
+<span id="cb66-8"><a href="multicolinealidad-practica.html#cb66-8" tabindex="-1"></a>beta_educ_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;educacion&quot;</span>]])</span>
+<span id="cb66-9"><a href="multicolinealidad-practica.html#cb66-9" tabindex="-1"></a>beta_padres_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;indice_padres&quot;</span>]])</span>
+<span id="cb66-10"><a href="multicolinealidad-practica.html#cb66-10" tabindex="-1"></a>beta_horas_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi)[[<span class="st">&quot;horas_estudio&quot;</span>]])</span>
+<span id="cb66-11"><a href="multicolinealidad-practica.html#cb66-11" tabindex="-1"></a>se0_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;(Intercept)&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb66-12"><a href="multicolinealidad-practica.html#cb66-12" tabindex="-1"></a>se_educ_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb66-13"><a href="multicolinealidad-practica.html#cb66-13" tabindex="-1"></a>se_padres_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb66-14"><a href="multicolinealidad-practica.html#cb66-14" tabindex="-1"></a>se_horas_multi <span class="ot">&lt;-</span> tabla_multi[<span class="st">&quot;horas_estudio&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb66-15"><a href="multicolinealidad-practica.html#cb66-15" tabindex="-1"></a>r2_multi <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo_multi)<span class="sc">$</span>r.squared</span>
+<span id="cb66-16"><a href="multicolinealidad-practica.html#cb66-16" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="multicolinealidad-practica.html#cb66-17" tabindex="-1"></a>se_educ_simple_multi <span class="ot">&lt;-</span> tabla_simple_multi[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb66-18"><a href="multicolinealidad-practica.html#cb66-18" tabindex="-1"></a>cor_educ_padres <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_multi<span class="sc">$</span>educacion, datos_multi<span class="sc">$</span>indice_padres)</span>
+<span id="cb66-19"><a href="multicolinealidad-practica.html#cb66-19" tabindex="-1"></a></span>
+<span id="cb66-20"><a href="multicolinealidad-practica.html#cb66-20" tabindex="-1"></a>calcular_vif <span class="ot">&lt;-</span> <span class="cf">function</span>(modelo) {</span>
+<span id="cb66-21"><a href="multicolinealidad-practica.html#cb66-21" tabindex="-1"></a>  X <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">model.matrix</span>(modelo)[, <span class="sc">-</span><span class="dv">1</span>, <span class="at">drop =</span> <span class="cn">FALSE</span>])</span>
+<span id="cb66-22"><a href="multicolinealidad-practica.html#cb66-22" tabindex="-1"></a>  <span class="fu">sapply</span>(<span class="fu">names</span>(X), <span class="cf">function</span>(nombre) {</span>
+<span id="cb66-23"><a href="multicolinealidad-practica.html#cb66-23" tabindex="-1"></a>    otros <span class="ot">&lt;-</span> <span class="fu">setdiff</span>(<span class="fu">names</span>(X), nombre)</span>
+<span id="cb66-24"><a href="multicolinealidad-practica.html#cb66-24" tabindex="-1"></a>    r2_aux <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(X[[nombre]] <span class="sc">~</span> ., <span class="at">data =</span> X[otros]))<span class="sc">$</span>r.squared</span>
+<span id="cb66-25"><a href="multicolinealidad-practica.html#cb66-25" tabindex="-1"></a>    <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> r2_aux)</span>
+<span id="cb66-26"><a href="multicolinealidad-practica.html#cb66-26" tabindex="-1"></a>  })</span>
+<span id="cb66-27"><a href="multicolinealidad-practica.html#cb66-27" tabindex="-1"></a>}</span>
+<span id="cb66-28"><a href="multicolinealidad-practica.html#cb66-28" tabindex="-1"></a></span>
+<span id="cb66-29"><a href="multicolinealidad-practica.html#cb66-29" tabindex="-1"></a>vif_multi <span class="ot">&lt;-</span> <span class="fu">calcular_vif</span>(modelo_multi)</span>
+<span id="cb66-30"><a href="multicolinealidad-practica.html#cb66-30" tabindex="-1"></a>vif_educ_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;educacion&quot;</span>])</span>
+<span id="cb66-31"><a href="multicolinealidad-practica.html#cb66-31" tabindex="-1"></a>vif_padres_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;indice_padres&quot;</span>])</span>
+<span id="cb66-32"><a href="multicolinealidad-practica.html#cb66-32" tabindex="-1"></a>vif_horas_multi <span class="ot">&lt;-</span> <span class="fu">unname</span>(vif_multi[<span class="st">&quot;horas_estudio&quot;</span>])</span>
+<span id="cb66-33"><a href="multicolinealidad-practica.html#cb66-33" tabindex="-1"></a></span>
+<span id="cb66-34"><a href="multicolinealidad-practica.html#cb66-34" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb66-35"><a href="multicolinealidad-practica.html#cb66-35" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb66-36"><a href="multicolinealidad-practica.html#cb66-36" tabindex="-1"></a>    <span class="at">termino =</span> <span class="fu">rownames</span>(tabla_multi),</span>
+<span id="cb66-37"><a href="multicolinealidad-practica.html#cb66-37" tabindex="-1"></a>    <span class="at">estimacion =</span> tabla_multi[, <span class="st">&quot;Estimate&quot;</span>],</span>
+<span id="cb66-38"><a href="multicolinealidad-practica.html#cb66-38" tabindex="-1"></a>    <span class="at">error_estandar =</span> tabla_multi[, <span class="st">&quot;Std. Error&quot;</span>],</span>
+<span id="cb66-39"><a href="multicolinealidad-practica.html#cb66-39" tabindex="-1"></a>    <span class="at">t =</span> tabla_multi[, <span class="st">&quot;t value&quot;</span>],</span>
+<span id="cb66-40"><a href="multicolinealidad-practica.html#cb66-40" tabindex="-1"></a>    <span class="at">p_valor =</span> tabla_multi[, <span class="st">&quot;Pr(&gt;|t|)&quot;</span>],</span>
+<span id="cb66-41"><a href="multicolinealidad-practica.html#cb66-41" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb66-42"><a href="multicolinealidad-practica.html#cb66-42" tabindex="-1"></a>  ),</span>
+<span id="cb66-43"><a href="multicolinealidad-practica.html#cb66-43" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb66-44"><a href="multicolinealidad-practica.html#cb66-44" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Modelo con regresores colineales en R&quot;</span></span>
+<span id="cb66-45"><a href="multicolinealidad-practica.html#cb66-45" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:estimacion-r-multico">Tabla 18.2: </span>Modelo con regresores colineales en R</caption>
 <thead>
@@ -459,15 +459,15 @@ Figura 18.1: Relación entre educación e índice educativo de los padres
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="multicolinealidad-practica.html#cb89-1" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb89-2"><a href="multicolinealidad-practica.html#cb89-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb89-3"><a href="multicolinealidad-practica.html#cb89-3" tabindex="-1"></a>    <span class="at">regresor =</span> <span class="fu">names</span>(vif_multi),</span>
-<span id="cb89-4"><a href="multicolinealidad-practica.html#cb89-4" tabindex="-1"></a>    <span class="at">VIF =</span> <span class="fu">as.numeric</span>(vif_multi),</span>
-<span id="cb89-5"><a href="multicolinealidad-practica.html#cb89-5" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">NULL</span></span>
-<span id="cb89-6"><a href="multicolinealidad-practica.html#cb89-6" tabindex="-1"></a>  ),</span>
-<span id="cb89-7"><a href="multicolinealidad-practica.html#cb89-7" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span>,</span>
-<span id="cb89-8"><a href="multicolinealidad-practica.html#cb89-8" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Factores de inflación de varianza calculados en R&quot;</span></span>
-<span id="cb89-9"><a href="multicolinealidad-practica.html#cb89-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="multicolinealidad-practica.html#cb67-1" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb67-2"><a href="multicolinealidad-practica.html#cb67-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb67-3"><a href="multicolinealidad-practica.html#cb67-3" tabindex="-1"></a>    <span class="at">regresor =</span> <span class="fu">names</span>(vif_multi),</span>
+<span id="cb67-4"><a href="multicolinealidad-practica.html#cb67-4" tabindex="-1"></a>    <span class="at">VIF =</span> <span class="fu">as.numeric</span>(vif_multi),</span>
+<span id="cb67-5"><a href="multicolinealidad-practica.html#cb67-5" tabindex="-1"></a>    <span class="at">row.names =</span> <span class="cn">NULL</span></span>
+<span id="cb67-6"><a href="multicolinealidad-practica.html#cb67-6" tabindex="-1"></a>  ),</span>
+<span id="cb67-7"><a href="multicolinealidad-practica.html#cb67-7" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span>,</span>
+<span id="cb67-8"><a href="multicolinealidad-practica.html#cb67-8" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Factores de inflación de varianza calculados en R&quot;</span></span>
+<span id="cb67-9"><a href="multicolinealidad-practica.html#cb67-9" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:diagnosticos-vif-multico">Tabla 18.3: </span>Factores de inflación de varianza calculados en R</caption>
 <thead>
@@ -491,16 +491,16 @@ Figura 18.1: Relación entre educación e índice educativo de los padres
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="multicolinealidad-practica.html#cb90-1" tabindex="-1"></a>datos_vif <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb90-2"><a href="multicolinealidad-practica.html#cb90-2" tabindex="-1"></a>  <span class="at">regresor =</span> <span class="fu">names</span>(vif_multi),</span>
-<span id="cb90-3"><a href="multicolinealidad-practica.html#cb90-3" tabindex="-1"></a>  <span class="at">VIF =</span> <span class="fu">as.numeric</span>(vif_multi)</span>
-<span id="cb90-4"><a href="multicolinealidad-practica.html#cb90-4" tabindex="-1"></a>)</span>
-<span id="cb90-5"><a href="multicolinealidad-practica.html#cb90-5" tabindex="-1"></a></span>
-<span id="cb90-6"><a href="multicolinealidad-practica.html#cb90-6" tabindex="-1"></a><span class="fu">ggplot</span>(datos_vif, <span class="fu">aes</span>(<span class="at">x =</span> regresor, <span class="at">y =</span> VIF)) <span class="sc">+</span></span>
-<span id="cb90-7"><a href="multicolinealidad-practica.html#cb90-7" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">width =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
-<span id="cb90-8"><a href="multicolinealidad-practica.html#cb90-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb90-9"><a href="multicolinealidad-practica.html#cb90-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;VIF&quot;</span>) <span class="sc">+</span></span>
-<span id="cb90-10"><a href="multicolinealidad-practica.html#cb90-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="multicolinealidad-practica.html#cb68-1" tabindex="-1"></a>datos_vif <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb68-2"><a href="multicolinealidad-practica.html#cb68-2" tabindex="-1"></a>  <span class="at">regresor =</span> <span class="fu">names</span>(vif_multi),</span>
+<span id="cb68-3"><a href="multicolinealidad-practica.html#cb68-3" tabindex="-1"></a>  <span class="at">VIF =</span> <span class="fu">as.numeric</span>(vif_multi)</span>
+<span id="cb68-4"><a href="multicolinealidad-practica.html#cb68-4" tabindex="-1"></a>)</span>
+<span id="cb68-5"><a href="multicolinealidad-practica.html#cb68-5" tabindex="-1"></a></span>
+<span id="cb68-6"><a href="multicolinealidad-practica.html#cb68-6" tabindex="-1"></a><span class="fu">ggplot</span>(datos_vif, <span class="fu">aes</span>(<span class="at">x =</span> regresor, <span class="at">y =</span> VIF)) <span class="sc">+</span></span>
+<span id="cb68-7"><a href="multicolinealidad-practica.html#cb68-7" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">width =</span> <span class="fl">0.55</span>) <span class="sc">+</span></span>
+<span id="cb68-8"><a href="multicolinealidad-practica.html#cb68-8" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">&quot;grey50&quot;</span>, <span class="at">linewidth =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb68-9"><a href="multicolinealidad-practica.html#cb68-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;VIF&quot;</span>) <span class="sc">+</span></span>
+<span id="cb68-10"><a href="multicolinealidad-practica.html#cb68-10" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-vif-multico"></span>
 <img src="_main_files/figure-html/grafico-vif-multico-1.png" alt="Factores de inflación de varianza por regresor" width="80%" />
 <p class="caption">
@@ -508,15 +508,15 @@ Figura 18.2: Factores de inflación de varianza por regresor
 </p>
 </div>
 <p>Comparamos el error estándar de educación cuando incluimos y cuando excluimos el índice educativo de los padres.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="multicolinealidad-practica.html#cb91-1" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb91-2"><a href="multicolinealidad-practica.html#cb91-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb91-3"><a href="multicolinealidad-practica.html#cb91-3" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Con índice de padres&quot;</span>, <span class="st">&quot;Sin índice de padres&quot;</span>),</span>
-<span id="cb91-4"><a href="multicolinealidad-practica.html#cb91-4" tabindex="-1"></a>    <span class="at">coeficiente_educacion =</span> <span class="fu">c</span>(beta_educ_multi, <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi_simple)[[<span class="st">&quot;educacion&quot;</span>]])),</span>
-<span id="cb91-5"><a href="multicolinealidad-practica.html#cb91-5" tabindex="-1"></a>    <span class="at">error_estandar_educacion =</span> <span class="fu">c</span>(se_educ_multi, se_educ_simple_multi)</span>
-<span id="cb91-6"><a href="multicolinealidad-practica.html#cb91-6" tabindex="-1"></a>  ),</span>
-<span id="cb91-7"><a href="multicolinealidad-practica.html#cb91-7" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb91-8"><a href="multicolinealidad-practica.html#cb91-8" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación del coeficiente de educación entre especificaciones&quot;</span></span>
-<span id="cb91-9"><a href="multicolinealidad-practica.html#cb91-9" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="multicolinealidad-practica.html#cb69-1" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb69-2"><a href="multicolinealidad-practica.html#cb69-2" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb69-3"><a href="multicolinealidad-practica.html#cb69-3" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Con índice de padres&quot;</span>, <span class="st">&quot;Sin índice de padres&quot;</span>),</span>
+<span id="cb69-4"><a href="multicolinealidad-practica.html#cb69-4" tabindex="-1"></a>    <span class="at">coeficiente_educacion =</span> <span class="fu">c</span>(beta_educ_multi, <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_multi_simple)[[<span class="st">&quot;educacion&quot;</span>]])),</span>
+<span id="cb69-5"><a href="multicolinealidad-practica.html#cb69-5" tabindex="-1"></a>    <span class="at">error_estandar_educacion =</span> <span class="fu">c</span>(se_educ_multi, se_educ_simple_multi)</span>
+<span id="cb69-6"><a href="multicolinealidad-practica.html#cb69-6" tabindex="-1"></a>  ),</span>
+<span id="cb69-7"><a href="multicolinealidad-practica.html#cb69-7" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb69-8"><a href="multicolinealidad-practica.html#cb69-8" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación del coeficiente de educación entre especificaciones&quot;</span></span>
+<span id="cb69-9"><a href="multicolinealidad-practica.html#cb69-9" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:comparacion-se-multico">Tabla 18.4: </span>Comparación del coeficiente de educación entre especificaciones</caption>
 <thead>
@@ -553,20 +553,20 @@ Figura 18.2: Factores de inflación de varianza por regresor
 <div id="estimacion-stata-multico" class="section level2 hasAnchor" number="18.6">
 <h2><span class="header-section-number">18.6</span> Estimación en Stata<a href="multicolinealidad-practica.html#estimacion-stata-multico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo diagnóstico puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb92-1"><a href="multicolinealidad-practica.html#cb92-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb92-2"><a href="multicolinealidad-practica.html#cb92-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 60</span>
-<span id="cb92-3"><a href="multicolinealidad-practica.html#cb92-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb92-4"><a href="multicolinealidad-practica.html#cb92-4" tabindex="-1"></a><span class="kw">gen</span> educacion = 9 + <span class="fu">mod</span>(i, 10) + 0.03 * i</span>
-<span id="cb92-5"><a href="multicolinealidad-practica.html#cb92-5" tabindex="-1"></a><span class="kw">gen</span> horas_estudio = 2 + <span class="fu">mod</span>(i, 7) + 0.2 * <span class="fu">sin</span>(i / 2)</span>
-<span id="cb92-6"><a href="multicolinealidad-practica.html#cb92-6" tabindex="-1"></a><span class="kw">gen</span> indice_padres = 0.92 * educacion + 0.35 * <span class="fu">sin</span>(i / 3)</span>
-<span id="cb92-7"><a href="multicolinealidad-practica.html#cb92-7" tabindex="-1"></a><span class="kw">gen</span> ajuste = 0.8 * <span class="fu">sin</span>(1.1 * i) - 0.25 * <span class="fu">cos</span>(i / 4)</span>
-<span id="cb92-8"><a href="multicolinealidad-practica.html#cb92-8" tabindex="-1"></a><span class="kw">gen</span> puntaje = 38 + 1.15 * educacion + 0.55 * horas_estudio + ajuste</span>
-<span id="cb92-9"><a href="multicolinealidad-practica.html#cb92-9" tabindex="-1"></a></span>
-<span id="cb92-10"><a href="multicolinealidad-practica.html#cb92-10" tabindex="-1"></a><span class="kw">reg</span> puntaje educacion indice_padres horas_estudio</span>
-<span id="cb92-11"><a href="multicolinealidad-practica.html#cb92-11" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vif</span></span>
-<span id="cb92-12"><a href="multicolinealidad-practica.html#cb92-12" tabindex="-1"></a><span class="fu">corr</span> educacion indice_padres horas_estudio</span>
-<span id="cb92-13"><a href="multicolinealidad-practica.html#cb92-13" tabindex="-1"></a></span>
-<span id="cb92-14"><a href="multicolinealidad-practica.html#cb92-14" tabindex="-1"></a><span class="kw">reg</span> puntaje educacion horas_estudio</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb70-1"><a href="multicolinealidad-practica.html#cb70-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb70-2"><a href="multicolinealidad-practica.html#cb70-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 60</span>
+<span id="cb70-3"><a href="multicolinealidad-practica.html#cb70-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb70-4"><a href="multicolinealidad-practica.html#cb70-4" tabindex="-1"></a><span class="kw">gen</span> educacion = 9 + <span class="fu">mod</span>(i, 10) + 0.03 * i</span>
+<span id="cb70-5"><a href="multicolinealidad-practica.html#cb70-5" tabindex="-1"></a><span class="kw">gen</span> horas_estudio = 2 + <span class="fu">mod</span>(i, 7) + 0.2 * <span class="fu">sin</span>(i / 2)</span>
+<span id="cb70-6"><a href="multicolinealidad-practica.html#cb70-6" tabindex="-1"></a><span class="kw">gen</span> indice_padres = 0.92 * educacion + 0.35 * <span class="fu">sin</span>(i / 3)</span>
+<span id="cb70-7"><a href="multicolinealidad-practica.html#cb70-7" tabindex="-1"></a><span class="kw">gen</span> ajuste = 0.8 * <span class="fu">sin</span>(1.1 * i) - 0.25 * <span class="fu">cos</span>(i / 4)</span>
+<span id="cb70-8"><a href="multicolinealidad-practica.html#cb70-8" tabindex="-1"></a><span class="kw">gen</span> puntaje = 38 + 1.15 * educacion + 0.55 * horas_estudio + ajuste</span>
+<span id="cb70-9"><a href="multicolinealidad-practica.html#cb70-9" tabindex="-1"></a></span>
+<span id="cb70-10"><a href="multicolinealidad-practica.html#cb70-10" tabindex="-1"></a><span class="kw">reg</span> puntaje educacion indice_padres horas_estudio</span>
+<span id="cb70-11"><a href="multicolinealidad-practica.html#cb70-11" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vif</span></span>
+<span id="cb70-12"><a href="multicolinealidad-practica.html#cb70-12" tabindex="-1"></a><span class="fu">corr</span> educacion indice_padres horas_estudio</span>
+<span id="cb70-13"><a href="multicolinealidad-practica.html#cb70-13" tabindex="-1"></a></span>
+<span id="cb70-14"><a href="multicolinealidad-practica.html#cb70-14" tabindex="-1"></a><span class="kw">reg</span> puntaje educacion horas_estudio</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -608,39 +608,39 @@ Figura 18.2: Factores de inflación de varianza por regresor
 <div id="estimacion-python-colab-multico" class="section level2 hasAnchor" number="18.7">
 <h2><span class="header-section-number">18.7</span> Estimación en Python y Google Colab<a href="multicolinealidad-practica.html#estimacion-python-colab-multico" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb93-1"><a href="multicolinealidad-practica.html#cb93-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb71-1"><a href="multicolinealidad-practica.html#cb71-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego reproduce la base, el modelo y los VIF:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb94-1"><a href="multicolinealidad-practica.html#cb94-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb94-2"><a href="multicolinealidad-practica.html#cb94-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb94-3"><a href="multicolinealidad-practica.html#cb94-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb94-4"><a href="multicolinealidad-practica.html#cb94-4" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
-<span id="cb94-5"><a href="multicolinealidad-practica.html#cb94-5" tabindex="-1"></a></span>
-<span id="cb94-6"><a href="multicolinealidad-practica.html#cb94-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">61</span>)</span>
-<span id="cb94-7"><a href="multicolinealidad-practica.html#cb94-7" tabindex="-1"></a>datos_multi <span class="op">=</span> pd.DataFrame({<span class="st">&quot;i&quot;</span>: i})</span>
-<span id="cb94-8"><a href="multicolinealidad-practica.html#cb94-8" tabindex="-1"></a>datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">=</span> <span class="dv">9</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">10</span>) <span class="op">+</span> <span class="fl">0.03</span> <span class="op">*</span> i</span>
-<span id="cb94-9"><a href="multicolinealidad-practica.html#cb94-9" tabindex="-1"></a>datos_multi[<span class="st">&quot;horas_estudio&quot;</span>] <span class="op">=</span> <span class="dv">2</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">2</span>)</span>
-<span id="cb94-10"><a href="multicolinealidad-practica.html#cb94-10" tabindex="-1"></a>datos_multi[<span class="st">&quot;indice_padres&quot;</span>] <span class="op">=</span> <span class="fl">0.92</span> <span class="op">*</span> datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
-<span id="cb94-11"><a href="multicolinealidad-practica.html#cb94-11" tabindex="-1"></a>datos_multi[<span class="st">&quot;ajuste&quot;</span>] <span class="op">=</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(<span class="fl">1.1</span> <span class="op">*</span> i) <span class="op">-</span> <span class="fl">0.25</span> <span class="op">*</span> np.cos(i <span class="op">/</span> <span class="dv">4</span>)</span>
-<span id="cb94-12"><a href="multicolinealidad-practica.html#cb94-12" tabindex="-1"></a>datos_multi[<span class="st">&quot;puntaje&quot;</span>] <span class="op">=</span> (</span>
-<span id="cb94-13"><a href="multicolinealidad-practica.html#cb94-13" tabindex="-1"></a>    <span class="dv">38</span> <span class="op">+</span> <span class="fl">1.15</span> <span class="op">*</span> datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span></span>
-<span id="cb94-14"><a href="multicolinealidad-practica.html#cb94-14" tabindex="-1"></a>    <span class="fl">0.55</span> <span class="op">*</span> datos_multi[<span class="st">&quot;horas_estudio&quot;</span>] <span class="op">+</span></span>
-<span id="cb94-15"><a href="multicolinealidad-practica.html#cb94-15" tabindex="-1"></a>    datos_multi[<span class="st">&quot;ajuste&quot;</span>]</span>
-<span id="cb94-16"><a href="multicolinealidad-practica.html#cb94-16" tabindex="-1"></a>)</span>
-<span id="cb94-17"><a href="multicolinealidad-practica.html#cb94-17" tabindex="-1"></a></span>
-<span id="cb94-18"><a href="multicolinealidad-practica.html#cb94-18" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]])</span>
-<span id="cb94-19"><a href="multicolinealidad-practica.html#cb94-19" tabindex="-1"></a>y <span class="op">=</span> datos_multi[<span class="st">&quot;puntaje&quot;</span>]</span>
-<span id="cb94-20"><a href="multicolinealidad-practica.html#cb94-20" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb94-21"><a href="multicolinealidad-practica.html#cb94-21" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
-<span id="cb94-22"><a href="multicolinealidad-practica.html#cb94-22" tabindex="-1"></a></span>
-<span id="cb94-23"><a href="multicolinealidad-practica.html#cb94-23" tabindex="-1"></a>X_sin_constante <span class="op">=</span> datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]]</span>
-<span id="cb94-24"><a href="multicolinealidad-practica.html#cb94-24" tabindex="-1"></a>X_vif <span class="op">=</span> sm.add_constant(X_sin_constante)</span>
-<span id="cb94-25"><a href="multicolinealidad-practica.html#cb94-25" tabindex="-1"></a>vif <span class="op">=</span> pd.Series(</span>
-<span id="cb94-26"><a href="multicolinealidad-practica.html#cb94-26" tabindex="-1"></a>    [variance_inflation_factor(X_vif.values, j)</span>
-<span id="cb94-27"><a href="multicolinealidad-practica.html#cb94-27" tabindex="-1"></a>     <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, X_vif.shape[<span class="dv">1</span>])],</span>
-<span id="cb94-28"><a href="multicolinealidad-practica.html#cb94-28" tabindex="-1"></a>    index<span class="op">=</span>X_sin_constante.columns</span>
-<span id="cb94-29"><a href="multicolinealidad-practica.html#cb94-29" tabindex="-1"></a>)</span>
-<span id="cb94-30"><a href="multicolinealidad-practica.html#cb94-30" tabindex="-1"></a><span class="bu">print</span>(vif)</span>
-<span id="cb94-31"><a href="multicolinealidad-practica.html#cb94-31" tabindex="-1"></a><span class="bu">print</span>(datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]].corr())</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="multicolinealidad-practica.html#cb72-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb72-2"><a href="multicolinealidad-practica.html#cb72-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb72-3"><a href="multicolinealidad-practica.html#cb72-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb72-4"><a href="multicolinealidad-practica.html#cb72-4" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.outliers_influence <span class="im">import</span> variance_inflation_factor</span>
+<span id="cb72-5"><a href="multicolinealidad-practica.html#cb72-5" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="multicolinealidad-practica.html#cb72-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">61</span>)</span>
+<span id="cb72-7"><a href="multicolinealidad-practica.html#cb72-7" tabindex="-1"></a>datos_multi <span class="op">=</span> pd.DataFrame({<span class="st">&quot;i&quot;</span>: i})</span>
+<span id="cb72-8"><a href="multicolinealidad-practica.html#cb72-8" tabindex="-1"></a>datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">=</span> <span class="dv">9</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">10</span>) <span class="op">+</span> <span class="fl">0.03</span> <span class="op">*</span> i</span>
+<span id="cb72-9"><a href="multicolinealidad-practica.html#cb72-9" tabindex="-1"></a>datos_multi[<span class="st">&quot;horas_estudio&quot;</span>] <span class="op">=</span> <span class="dv">2</span> <span class="op">+</span> (i <span class="op">%</span> <span class="dv">7</span>) <span class="op">+</span> <span class="fl">0.2</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">2</span>)</span>
+<span id="cb72-10"><a href="multicolinealidad-practica.html#cb72-10" tabindex="-1"></a>datos_multi[<span class="st">&quot;indice_padres&quot;</span>] <span class="op">=</span> <span class="fl">0.92</span> <span class="op">*</span> datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
+<span id="cb72-11"><a href="multicolinealidad-practica.html#cb72-11" tabindex="-1"></a>datos_multi[<span class="st">&quot;ajuste&quot;</span>] <span class="op">=</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(<span class="fl">1.1</span> <span class="op">*</span> i) <span class="op">-</span> <span class="fl">0.25</span> <span class="op">*</span> np.cos(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb72-12"><a href="multicolinealidad-practica.html#cb72-12" tabindex="-1"></a>datos_multi[<span class="st">&quot;puntaje&quot;</span>] <span class="op">=</span> (</span>
+<span id="cb72-13"><a href="multicolinealidad-practica.html#cb72-13" tabindex="-1"></a>    <span class="dv">38</span> <span class="op">+</span> <span class="fl">1.15</span> <span class="op">*</span> datos_multi[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span></span>
+<span id="cb72-14"><a href="multicolinealidad-practica.html#cb72-14" tabindex="-1"></a>    <span class="fl">0.55</span> <span class="op">*</span> datos_multi[<span class="st">&quot;horas_estudio&quot;</span>] <span class="op">+</span></span>
+<span id="cb72-15"><a href="multicolinealidad-practica.html#cb72-15" tabindex="-1"></a>    datos_multi[<span class="st">&quot;ajuste&quot;</span>]</span>
+<span id="cb72-16"><a href="multicolinealidad-practica.html#cb72-16" tabindex="-1"></a>)</span>
+<span id="cb72-17"><a href="multicolinealidad-practica.html#cb72-17" tabindex="-1"></a></span>
+<span id="cb72-18"><a href="multicolinealidad-practica.html#cb72-18" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]])</span>
+<span id="cb72-19"><a href="multicolinealidad-practica.html#cb72-19" tabindex="-1"></a>y <span class="op">=</span> datos_multi[<span class="st">&quot;puntaje&quot;</span>]</span>
+<span id="cb72-20"><a href="multicolinealidad-practica.html#cb72-20" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb72-21"><a href="multicolinealidad-practica.html#cb72-21" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
+<span id="cb72-22"><a href="multicolinealidad-practica.html#cb72-22" tabindex="-1"></a></span>
+<span id="cb72-23"><a href="multicolinealidad-practica.html#cb72-23" tabindex="-1"></a>X_sin_constante <span class="op">=</span> datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]]</span>
+<span id="cb72-24"><a href="multicolinealidad-practica.html#cb72-24" tabindex="-1"></a>X_vif <span class="op">=</span> sm.add_constant(X_sin_constante)</span>
+<span id="cb72-25"><a href="multicolinealidad-practica.html#cb72-25" tabindex="-1"></a>vif <span class="op">=</span> pd.Series(</span>
+<span id="cb72-26"><a href="multicolinealidad-practica.html#cb72-26" tabindex="-1"></a>    [variance_inflation_factor(X_vif.values, j)</span>
+<span id="cb72-27"><a href="multicolinealidad-practica.html#cb72-27" tabindex="-1"></a>     <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, X_vif.shape[<span class="dv">1</span>])],</span>
+<span id="cb72-28"><a href="multicolinealidad-practica.html#cb72-28" tabindex="-1"></a>    index<span class="op">=</span>X_sin_constante.columns</span>
+<span id="cb72-29"><a href="multicolinealidad-practica.html#cb72-29" tabindex="-1"></a>)</span>
+<span id="cb72-30"><a href="multicolinealidad-practica.html#cb72-30" tabindex="-1"></a><span class="bu">print</span>(vif)</span>
+<span id="cb72-31"><a href="multicolinealidad-practica.html#cb72-31" tabindex="-1"></a><span class="bu">print</span>(datos_multi[[<span class="st">&quot;educacion&quot;</span>, <span class="st">&quot;indice_padres&quot;</span>, <span class="st">&quot;horas_estudio&quot;</span>]].corr())</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>

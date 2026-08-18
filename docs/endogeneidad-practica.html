@@ -227,20 +227,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="datos-endogeneidad-practica" class="section level2 hasAnchor" number="22.3">
 <h2><span class="header-section-number">22.3</span> Datos<a href="endogeneidad-practica.html#datos-endogeneidad-practica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Creamos datos reproducibles. La habilidad afecta salarios y también está relacionada con educación.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="endogeneidad-practica.html#cb104-1" tabindex="-1"></a>n_end <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb104-2"><a href="endogeneidad-practica.html#cb104-2" tabindex="-1"></a>i_end <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n_end</span>
-<span id="cb104-3"><a href="endogeneidad-practica.html#cb104-3" tabindex="-1"></a>habilidad <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">cos</span>(i_end <span class="sc">/</span> <span class="dv">11</span>))[, <span class="dv">1</span>]</span>
-<span id="cb104-4"><a href="endogeneidad-practica.html#cb104-4" tabindex="-1"></a>educ <span class="ot">&lt;-</span> <span class="dv">11</span> <span class="sc">+</span> <span class="fl">1.2</span> <span class="sc">*</span> habilidad <span class="sc">+</span> <span class="fl">0.6</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">5</span>)</span>
-<span id="cb104-5"><a href="endogeneidad-practica.html#cb104-5" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">3</span>)</span>
-<span id="cb104-6"><a href="endogeneidad-practica.html#cb104-6" tabindex="-1"></a>lwage <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="sc">+</span> <span class="fl">0.08</span> <span class="sc">*</span> educ <span class="sc">+</span> <span class="fl">0.35</span> <span class="sc">*</span> habilidad <span class="sc">+</span> epsilon</span>
-<span id="cb104-7"><a href="endogeneidad-practica.html#cb104-7" tabindex="-1"></a></span>
-<span id="cb104-8"><a href="endogeneidad-practica.html#cb104-8" tabindex="-1"></a>datos_end <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb104-9"><a href="endogeneidad-practica.html#cb104-9" tabindex="-1"></a>  <span class="at">lwage =</span> lwage,</span>
-<span id="cb104-10"><a href="endogeneidad-practica.html#cb104-10" tabindex="-1"></a>  <span class="at">educ =</span> educ,</span>
-<span id="cb104-11"><a href="endogeneidad-practica.html#cb104-11" tabindex="-1"></a>  <span class="at">habilidad =</span> habilidad</span>
-<span id="cb104-12"><a href="endogeneidad-practica.html#cb104-12" tabindex="-1"></a>)</span>
-<span id="cb104-13"><a href="endogeneidad-practica.html#cb104-13" tabindex="-1"></a></span>
-<span id="cb104-14"><a href="endogeneidad-practica.html#cb104-14" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_end, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base de endogeneidad&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="endogeneidad-practica.html#cb82-1" tabindex="-1"></a>n_end <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb82-2"><a href="endogeneidad-practica.html#cb82-2" tabindex="-1"></a>i_end <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span>n_end</span>
+<span id="cb82-3"><a href="endogeneidad-practica.html#cb82-3" tabindex="-1"></a>habilidad <span class="ot">&lt;-</span> <span class="fu">scale</span>(<span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">7</span>) <span class="sc">+</span> <span class="fu">cos</span>(i_end <span class="sc">/</span> <span class="dv">11</span>))[, <span class="dv">1</span>]</span>
+<span id="cb82-4"><a href="endogeneidad-practica.html#cb82-4" tabindex="-1"></a>educ <span class="ot">&lt;-</span> <span class="dv">11</span> <span class="sc">+</span> <span class="fl">1.2</span> <span class="sc">*</span> habilidad <span class="sc">+</span> <span class="fl">0.6</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">5</span>)</span>
+<span id="cb82-5"><a href="endogeneidad-practica.html#cb82-5" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fl">0.25</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">3</span>)</span>
+<span id="cb82-6"><a href="endogeneidad-practica.html#cb82-6" tabindex="-1"></a>lwage <span class="ot">&lt;-</span> <span class="fl">1.5</span> <span class="sc">+</span> <span class="fl">0.08</span> <span class="sc">*</span> educ <span class="sc">+</span> <span class="fl">0.35</span> <span class="sc">*</span> habilidad <span class="sc">+</span> epsilon</span>
+<span id="cb82-7"><a href="endogeneidad-practica.html#cb82-7" tabindex="-1"></a></span>
+<span id="cb82-8"><a href="endogeneidad-practica.html#cb82-8" tabindex="-1"></a>datos_end <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb82-9"><a href="endogeneidad-practica.html#cb82-9" tabindex="-1"></a>  <span class="at">lwage =</span> lwage,</span>
+<span id="cb82-10"><a href="endogeneidad-practica.html#cb82-10" tabindex="-1"></a>  <span class="at">educ =</span> educ,</span>
+<span id="cb82-11"><a href="endogeneidad-practica.html#cb82-11" tabindex="-1"></a>  <span class="at">habilidad =</span> habilidad</span>
+<span id="cb82-12"><a href="endogeneidad-practica.html#cb82-12" tabindex="-1"></a>)</span>
+<span id="cb82-13"><a href="endogeneidad-practica.html#cb82-13" tabindex="-1"></a></span>
+<span id="cb82-14"><a href="endogeneidad-practica.html#cb82-14" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(datos_end, <span class="dv">12</span>), <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Primeras observaciones de la base de endogeneidad&quot;</span>)</span></code></pre></div>
 <table>
 <caption><span id="tab:datos-endogeneidad-practica">Tabla 22.1: </span>Primeras observaciones de la base de endogeneidad</caption>
 <thead>
@@ -313,11 +313,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="endogeneidad-practica.html#cb105-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_end, <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> habilidad)) <span class="sc">+</span></span>
-<span id="cb105-2"><a href="endogeneidad-practica.html#cb105-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.4</span>) <span class="sc">+</span></span>
-<span id="cb105-3"><a href="endogeneidad-practica.html#cb105-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb105-4"><a href="endogeneidad-practica.html#cb105-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Habilidad no observada&quot;</span>) <span class="sc">+</span></span>
-<span id="cb105-5"><a href="endogeneidad-practica.html#cb105-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="endogeneidad-practica.html#cb83-1" tabindex="-1"></a><span class="fu">ggplot</span>(datos_end, <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> habilidad)) <span class="sc">+</span></span>
+<span id="cb83-2"><a href="endogeneidad-practica.html#cb83-2" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;#2f4858&quot;</span>, <span class="at">size =</span> <span class="fl">2.4</span>) <span class="sc">+</span></span>
+<span id="cb83-3"><a href="endogeneidad-practica.html#cb83-3" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb83-4"><a href="endogeneidad-practica.html#cb83-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Educación&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Habilidad no observada&quot;</span>) <span class="sc">+</span></span>
+<span id="cb83-5"><a href="endogeneidad-practica.html#cb83-5" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-endogeneidad-datos"></span>
 <img src="_main_files/figure-html/grafico-endogeneidad-datos-1.png" alt="Relación entre educación y habilidad en la simulación" width="80%" />
 <p class="caption">
@@ -328,29 +328,29 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 <div id="estimacion-r-endogeneidad" class="section level2 hasAnchor" number="22.4">
 <h2><span class="header-section-number">22.4</span> Estimación en R<a href="endogeneidad-practica.html#estimacion-r-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Estimamos primero un modelo corto que omite habilidad y luego el modelo largo que sí la incluye.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="endogeneidad-practica.html#cb106-1" tabindex="-1"></a>modelo_corto_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ, <span class="at">data =</span> datos_end)</span>
-<span id="cb106-2"><a href="endogeneidad-practica.html#cb106-2" tabindex="-1"></a>modelo_largo_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ <span class="sc">+</span> habilidad, <span class="at">data =</span> datos_end)</span>
-<span id="cb106-3"><a href="endogeneidad-practica.html#cb106-3" tabindex="-1"></a></span>
-<span id="cb106-4"><a href="endogeneidad-practica.html#cb106-4" tabindex="-1"></a>tabla_corto_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_corto_end))</span>
-<span id="cb106-5"><a href="endogeneidad-practica.html#cb106-5" tabindex="-1"></a>tabla_largo_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_largo_end))</span>
-<span id="cb106-6"><a href="endogeneidad-practica.html#cb106-6" tabindex="-1"></a></span>
-<span id="cb106-7"><a href="endogeneidad-practica.html#cb106-7" tabindex="-1"></a>beta_educ_corto_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_corto_end)[[<span class="st">&quot;educ&quot;</span>]])</span>
-<span id="cb106-8"><a href="endogeneidad-practica.html#cb106-8" tabindex="-1"></a>beta_educ_largo_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_largo_end)[[<span class="st">&quot;educ&quot;</span>]])</span>
-<span id="cb106-9"><a href="endogeneidad-practica.html#cb106-9" tabindex="-1"></a>se_educ_corto_end <span class="ot">&lt;-</span> tabla_corto_end[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb106-10"><a href="endogeneidad-practica.html#cb106-10" tabindex="-1"></a>se_educ_largo_end <span class="ot">&lt;-</span> tabla_largo_end[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb106-11"><a href="endogeneidad-practica.html#cb106-11" tabindex="-1"></a>beta_hab_largo_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_largo_end)[[<span class="st">&quot;habilidad&quot;</span>]])</span>
-<span id="cb106-12"><a href="endogeneidad-practica.html#cb106-12" tabindex="-1"></a>cor_educ_hab_end <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_end<span class="sc">$</span>educ, datos_end<span class="sc">$</span>habilidad)</span>
-<span id="cb106-13"><a href="endogeneidad-practica.html#cb106-13" tabindex="-1"></a>sesgo_observado_end <span class="ot">&lt;-</span> beta_educ_corto_end <span class="sc">-</span> beta_educ_largo_end</span>
-<span id="cb106-14"><a href="endogeneidad-practica.html#cb106-14" tabindex="-1"></a></span>
-<span id="cb106-15"><a href="endogeneidad-practica.html#cb106-15" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb106-16"><a href="endogeneidad-practica.html#cb106-16" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb106-17"><a href="endogeneidad-practica.html#cb106-17" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Corto: omite habilidad&quot;</span>, <span class="st">&quot;Largo: incluye habilidad&quot;</span>),</span>
-<span id="cb106-18"><a href="endogeneidad-practica.html#cb106-18" tabindex="-1"></a>    <span class="at">beta_educacion =</span> <span class="fu">c</span>(beta_educ_corto_end, beta_educ_largo_end),</span>
-<span id="cb106-19"><a href="endogeneidad-practica.html#cb106-19" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_educ_corto_end, se_educ_largo_end)</span>
-<span id="cb106-20"><a href="endogeneidad-practica.html#cb106-20" tabindex="-1"></a>  ),</span>
-<span id="cb106-21"><a href="endogeneidad-practica.html#cb106-21" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb106-22"><a href="endogeneidad-practica.html#cb106-22" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación entre modelo corto y modelo largo&quot;</span></span>
-<span id="cb106-23"><a href="endogeneidad-practica.html#cb106-23" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="endogeneidad-practica.html#cb84-1" tabindex="-1"></a>modelo_corto_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ, <span class="at">data =</span> datos_end)</span>
+<span id="cb84-2"><a href="endogeneidad-practica.html#cb84-2" tabindex="-1"></a>modelo_largo_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ <span class="sc">+</span> habilidad, <span class="at">data =</span> datos_end)</span>
+<span id="cb84-3"><a href="endogeneidad-practica.html#cb84-3" tabindex="-1"></a></span>
+<span id="cb84-4"><a href="endogeneidad-practica.html#cb84-4" tabindex="-1"></a>tabla_corto_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_corto_end))</span>
+<span id="cb84-5"><a href="endogeneidad-practica.html#cb84-5" tabindex="-1"></a>tabla_largo_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_largo_end))</span>
+<span id="cb84-6"><a href="endogeneidad-practica.html#cb84-6" tabindex="-1"></a></span>
+<span id="cb84-7"><a href="endogeneidad-practica.html#cb84-7" tabindex="-1"></a>beta_educ_corto_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_corto_end)[[<span class="st">&quot;educ&quot;</span>]])</span>
+<span id="cb84-8"><a href="endogeneidad-practica.html#cb84-8" tabindex="-1"></a>beta_educ_largo_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_largo_end)[[<span class="st">&quot;educ&quot;</span>]])</span>
+<span id="cb84-9"><a href="endogeneidad-practica.html#cb84-9" tabindex="-1"></a>se_educ_corto_end <span class="ot">&lt;-</span> tabla_corto_end[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb84-10"><a href="endogeneidad-practica.html#cb84-10" tabindex="-1"></a>se_educ_largo_end <span class="ot">&lt;-</span> tabla_largo_end[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb84-11"><a href="endogeneidad-practica.html#cb84-11" tabindex="-1"></a>beta_hab_largo_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_largo_end)[[<span class="st">&quot;habilidad&quot;</span>]])</span>
+<span id="cb84-12"><a href="endogeneidad-practica.html#cb84-12" tabindex="-1"></a>cor_educ_hab_end <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_end<span class="sc">$</span>educ, datos_end<span class="sc">$</span>habilidad)</span>
+<span id="cb84-13"><a href="endogeneidad-practica.html#cb84-13" tabindex="-1"></a>sesgo_observado_end <span class="ot">&lt;-</span> beta_educ_corto_end <span class="sc">-</span> beta_educ_largo_end</span>
+<span id="cb84-14"><a href="endogeneidad-practica.html#cb84-14" tabindex="-1"></a></span>
+<span id="cb84-15"><a href="endogeneidad-practica.html#cb84-15" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb84-16"><a href="endogeneidad-practica.html#cb84-16" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb84-17"><a href="endogeneidad-practica.html#cb84-17" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Corto: omite habilidad&quot;</span>, <span class="st">&quot;Largo: incluye habilidad&quot;</span>),</span>
+<span id="cb84-18"><a href="endogeneidad-practica.html#cb84-18" tabindex="-1"></a>    <span class="at">beta_educacion =</span> <span class="fu">c</span>(beta_educ_corto_end, beta_educ_largo_end),</span>
+<span id="cb84-19"><a href="endogeneidad-practica.html#cb84-19" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_educ_corto_end, se_educ_largo_end)</span>
+<span id="cb84-20"><a href="endogeneidad-practica.html#cb84-20" tabindex="-1"></a>  ),</span>
+<span id="cb84-21"><a href="endogeneidad-practica.html#cb84-21" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb84-22"><a href="endogeneidad-practica.html#cb84-22" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Comparación entre modelo corto y modelo largo&quot;</span></span>
+<span id="cb84-23"><a href="endogeneidad-practica.html#cb84-23" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:estimacion-r-endogeneidad">Tabla 22.2: </span>Comparación entre modelo corto y modelo largo</caption>
 <thead>
@@ -374,23 +374,23 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 </tbody>
 </table>
 <p>Ahora simulamos error de medición clásico en educación.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="endogeneidad-practica.html#cb107-1" tabindex="-1"></a>error_medicion <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">4</span>)</span>
-<span id="cb107-2"><a href="endogeneidad-practica.html#cb107-2" tabindex="-1"></a>datos_end<span class="sc">$</span>educ_medida <span class="ot">&lt;-</span> datos_end<span class="sc">$</span>educ <span class="sc">+</span> error_medicion</span>
-<span id="cb107-3"><a href="endogeneidad-practica.html#cb107-3" tabindex="-1"></a></span>
-<span id="cb107-4"><a href="endogeneidad-practica.html#cb107-4" tabindex="-1"></a>modelo_medicion_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ_medida <span class="sc">+</span> habilidad, <span class="at">data =</span> datos_end)</span>
-<span id="cb107-5"><a href="endogeneidad-practica.html#cb107-5" tabindex="-1"></a>tabla_medicion_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_medicion_end))</span>
-<span id="cb107-6"><a href="endogeneidad-practica.html#cb107-6" tabindex="-1"></a>beta_educ_medida_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_medicion_end)[[<span class="st">&quot;educ_medida&quot;</span>]])</span>
-<span id="cb107-7"><a href="endogeneidad-practica.html#cb107-7" tabindex="-1"></a>se_educ_medida_end <span class="ot">&lt;-</span> tabla_medicion_end[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
-<span id="cb107-8"><a href="endogeneidad-practica.html#cb107-8" tabindex="-1"></a></span>
-<span id="cb107-9"><a href="endogeneidad-practica.html#cb107-9" tabindex="-1"></a><span class="fu">kable</span>(</span>
-<span id="cb107-10"><a href="endogeneidad-practica.html#cb107-10" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
-<span id="cb107-11"><a href="endogeneidad-practica.html#cb107-11" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Educación verdadera&quot;</span>, <span class="st">&quot;Educación medida con error&quot;</span>),</span>
-<span id="cb107-12"><a href="endogeneidad-practica.html#cb107-12" tabindex="-1"></a>    <span class="at">beta_educacion =</span> <span class="fu">c</span>(beta_educ_largo_end, beta_educ_medida_end),</span>
-<span id="cb107-13"><a href="endogeneidad-practica.html#cb107-13" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_educ_largo_end, se_educ_medida_end)</span>
-<span id="cb107-14"><a href="endogeneidad-practica.html#cb107-14" tabindex="-1"></a>  ),</span>
-<span id="cb107-15"><a href="endogeneidad-practica.html#cb107-15" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
-<span id="cb107-16"><a href="endogeneidad-practica.html#cb107-16" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Sesgo de atenuación por error de medición en educación&quot;</span></span>
-<span id="cb107-17"><a href="endogeneidad-practica.html#cb107-17" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="endogeneidad-practica.html#cb85-1" tabindex="-1"></a>error_medicion <span class="ot">&lt;-</span> <span class="fl">0.8</span> <span class="sc">*</span> <span class="fu">sin</span>(i_end <span class="sc">/</span> <span class="dv">4</span>)</span>
+<span id="cb85-2"><a href="endogeneidad-practica.html#cb85-2" tabindex="-1"></a>datos_end<span class="sc">$</span>educ_medida <span class="ot">&lt;-</span> datos_end<span class="sc">$</span>educ <span class="sc">+</span> error_medicion</span>
+<span id="cb85-3"><a href="endogeneidad-practica.html#cb85-3" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="endogeneidad-practica.html#cb85-4" tabindex="-1"></a>modelo_medicion_end <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ_medida <span class="sc">+</span> habilidad, <span class="at">data =</span> datos_end)</span>
+<span id="cb85-5"><a href="endogeneidad-practica.html#cb85-5" tabindex="-1"></a>tabla_medicion_end <span class="ot">&lt;-</span> <span class="fu">coef</span>(<span class="fu">summary</span>(modelo_medicion_end))</span>
+<span id="cb85-6"><a href="endogeneidad-practica.html#cb85-6" tabindex="-1"></a>beta_educ_medida_end <span class="ot">&lt;-</span> <span class="fu">unname</span>(<span class="fu">coef</span>(modelo_medicion_end)[[<span class="st">&quot;educ_medida&quot;</span>]])</span>
+<span id="cb85-7"><a href="endogeneidad-practica.html#cb85-7" tabindex="-1"></a>se_educ_medida_end <span class="ot">&lt;-</span> tabla_medicion_end[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;Std. Error&quot;</span>]</span>
+<span id="cb85-8"><a href="endogeneidad-practica.html#cb85-8" tabindex="-1"></a></span>
+<span id="cb85-9"><a href="endogeneidad-practica.html#cb85-9" tabindex="-1"></a><span class="fu">kable</span>(</span>
+<span id="cb85-10"><a href="endogeneidad-practica.html#cb85-10" tabindex="-1"></a>  <span class="fu">data.frame</span>(</span>
+<span id="cb85-11"><a href="endogeneidad-practica.html#cb85-11" tabindex="-1"></a>    <span class="at">modelo =</span> <span class="fu">c</span>(<span class="st">&quot;Educación verdadera&quot;</span>, <span class="st">&quot;Educación medida con error&quot;</span>),</span>
+<span id="cb85-12"><a href="endogeneidad-practica.html#cb85-12" tabindex="-1"></a>    <span class="at">beta_educacion =</span> <span class="fu">c</span>(beta_educ_largo_end, beta_educ_medida_end),</span>
+<span id="cb85-13"><a href="endogeneidad-practica.html#cb85-13" tabindex="-1"></a>    <span class="at">error_estandar =</span> <span class="fu">c</span>(se_educ_largo_end, se_educ_medida_end)</span>
+<span id="cb85-14"><a href="endogeneidad-practica.html#cb85-14" tabindex="-1"></a>  ),</span>
+<span id="cb85-15"><a href="endogeneidad-practica.html#cb85-15" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">4</span>,</span>
+<span id="cb85-16"><a href="endogeneidad-practica.html#cb85-16" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;Sesgo de atenuación por error de medición en educación&quot;</span></span>
+<span id="cb85-17"><a href="endogeneidad-practica.html#cb85-17" tabindex="-1"></a>)</span></code></pre></div>
 <table>
 <caption><span id="tab:error-medicion-r">Tabla 22.3: </span>Sesgo de atenuación por error de medición en educación</caption>
 <thead>
@@ -427,21 +427,21 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 <div id="estimacion-stata-endogeneidad" class="section level2 hasAnchor" number="22.6">
 <h2><span class="header-section-number">22.6</span> Estimación en Stata<a href="endogeneidad-practica.html#estimacion-stata-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb108-1"><a href="endogeneidad-practica.html#cb108-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb108-2"><a href="endogeneidad-practica.html#cb108-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
-<span id="cb108-3"><a href="endogeneidad-practica.html#cb108-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb108-4"><a href="endogeneidad-practica.html#cb108-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/7) + <span class="fu">cos</span>(i/11)</span>
-<span id="cb108-5"><a href="endogeneidad-practica.html#cb108-5" tabindex="-1"></a>summ habilidad</span>
-<span id="cb108-6"><a href="endogeneidad-practica.html#cb108-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb108-7"><a href="endogeneidad-practica.html#cb108-7" tabindex="-1"></a><span class="kw">gen</span> educ = 11 + 1.2 * habilidad + 0.6 * <span class="fu">sin</span>(i/5)</span>
-<span id="cb108-8"><a href="endogeneidad-practica.html#cb108-8" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25 * <span class="fu">sin</span>(i/3)</span>
-<span id="cb108-9"><a href="endogeneidad-practica.html#cb108-9" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon</span>
-<span id="cb108-10"><a href="endogeneidad-practica.html#cb108-10" tabindex="-1"></a></span>
-<span id="cb108-11"><a href="endogeneidad-practica.html#cb108-11" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
-<span id="cb108-12"><a href="endogeneidad-practica.html#cb108-12" tabindex="-1"></a><span class="kw">reg</span> lwage educ habilidad</span>
-<span id="cb108-13"><a href="endogeneidad-practica.html#cb108-13" tabindex="-1"></a></span>
-<span id="cb108-14"><a href="endogeneidad-practica.html#cb108-14" tabindex="-1"></a><span class="kw">gen</span> educ_medida = educ + 0.8 * <span class="fu">sin</span>(i/4)</span>
-<span id="cb108-15"><a href="endogeneidad-practica.html#cb108-15" tabindex="-1"></a><span class="kw">reg</span> lwage educ_medida habilidad</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb86-1"><a href="endogeneidad-practica.html#cb86-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb86-2"><a href="endogeneidad-practica.html#cb86-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
+<span id="cb86-3"><a href="endogeneidad-practica.html#cb86-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb86-4"><a href="endogeneidad-practica.html#cb86-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/7) + <span class="fu">cos</span>(i/11)</span>
+<span id="cb86-5"><a href="endogeneidad-practica.html#cb86-5" tabindex="-1"></a>summ habilidad</span>
+<span id="cb86-6"><a href="endogeneidad-practica.html#cb86-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb86-7"><a href="endogeneidad-practica.html#cb86-7" tabindex="-1"></a><span class="kw">gen</span> educ = 11 + 1.2 * habilidad + 0.6 * <span class="fu">sin</span>(i/5)</span>
+<span id="cb86-8"><a href="endogeneidad-practica.html#cb86-8" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25 * <span class="fu">sin</span>(i/3)</span>
+<span id="cb86-9"><a href="endogeneidad-practica.html#cb86-9" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon</span>
+<span id="cb86-10"><a href="endogeneidad-practica.html#cb86-10" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="endogeneidad-practica.html#cb86-11" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
+<span id="cb86-12"><a href="endogeneidad-practica.html#cb86-12" tabindex="-1"></a><span class="kw">reg</span> lwage educ habilidad</span>
+<span id="cb86-13"><a href="endogeneidad-practica.html#cb86-13" tabindex="-1"></a></span>
+<span id="cb86-14"><a href="endogeneidad-practica.html#cb86-14" tabindex="-1"></a><span class="kw">gen</span> educ_medida = educ + 0.8 * <span class="fu">sin</span>(i/4)</span>
+<span id="cb86-15"><a href="endogeneidad-practica.html#cb86-15" tabindex="-1"></a><span class="kw">reg</span> lwage educ_medida habilidad</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -473,30 +473,30 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 <div id="estimacion-python-colab-endogeneidad" class="section level2 hasAnchor" number="22.7">
 <h2><span class="header-section-number">22.7</span> Estimación en Python y Google Colab<a href="endogeneidad-practica.html#estimacion-python-colab-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="endogeneidad-practica.html#cb109-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb87-1"><a href="endogeneidad-practica.html#cb87-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego ejecuta:</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb110-1"><a href="endogeneidad-practica.html#cb110-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb110-2"><a href="endogeneidad-practica.html#cb110-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb110-3"><a href="endogeneidad-practica.html#cb110-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb110-4"><a href="endogeneidad-practica.html#cb110-4" tabindex="-1"></a></span>
-<span id="cb110-5"><a href="endogeneidad-practica.html#cb110-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb110-6"><a href="endogeneidad-practica.html#cb110-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb110-7"><a href="endogeneidad-practica.html#cb110-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">7</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">11</span>)</span>
-<span id="cb110-8"><a href="endogeneidad-practica.html#cb110-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb110-9"><a href="endogeneidad-practica.html#cb110-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">11</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> habilidad <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
-<span id="cb110-10"><a href="endogeneidad-practica.html#cb110-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
-<span id="cb110-11"><a href="endogeneidad-practica.html#cb110-11" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.08</span> <span class="op">*</span> educ <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> habilidad <span class="op">+</span> epsilon</span>
-<span id="cb110-12"><a href="endogeneidad-practica.html#cb110-12" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;habilidad&quot;</span>: habilidad})</span>
-<span id="cb110-13"><a href="endogeneidad-practica.html#cb110-13" tabindex="-1"></a></span>
-<span id="cb110-14"><a href="endogeneidad-practica.html#cb110-14" tabindex="-1"></a>corto <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
-<span id="cb110-15"><a href="endogeneidad-practica.html#cb110-15" tabindex="-1"></a>largo <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
-<span id="cb110-16"><a href="endogeneidad-practica.html#cb110-16" tabindex="-1"></a></span>
-<span id="cb110-17"><a href="endogeneidad-practica.html#cb110-17" tabindex="-1"></a>datos[<span class="st">&quot;educ_medida&quot;</span>] <span class="op">=</span> datos[<span class="st">&quot;educ&quot;</span>] <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
-<span id="cb110-18"><a href="endogeneidad-practica.html#cb110-18" tabindex="-1"></a>medicion <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
-<span id="cb110-19"><a href="endogeneidad-practica.html#cb110-19" tabindex="-1"></a></span>
-<span id="cb110-20"><a href="endogeneidad-practica.html#cb110-20" tabindex="-1"></a><span class="bu">print</span>(corto.summary())</span>
-<span id="cb110-21"><a href="endogeneidad-practica.html#cb110-21" tabindex="-1"></a><span class="bu">print</span>(largo.summary())</span>
-<span id="cb110-22"><a href="endogeneidad-practica.html#cb110-22" tabindex="-1"></a><span class="bu">print</span>(medicion.summary())</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb88-1"><a href="endogeneidad-practica.html#cb88-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb88-2"><a href="endogeneidad-practica.html#cb88-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb88-3"><a href="endogeneidad-practica.html#cb88-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb88-4"><a href="endogeneidad-practica.html#cb88-4" tabindex="-1"></a></span>
+<span id="cb88-5"><a href="endogeneidad-practica.html#cb88-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb88-6"><a href="endogeneidad-practica.html#cb88-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb88-7"><a href="endogeneidad-practica.html#cb88-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">7</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">11</span>)</span>
+<span id="cb88-8"><a href="endogeneidad-practica.html#cb88-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb88-9"><a href="endogeneidad-practica.html#cb88-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">11</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> habilidad <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb88-10"><a href="endogeneidad-practica.html#cb88-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
+<span id="cb88-11"><a href="endogeneidad-practica.html#cb88-11" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.08</span> <span class="op">*</span> educ <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> habilidad <span class="op">+</span> epsilon</span>
+<span id="cb88-12"><a href="endogeneidad-practica.html#cb88-12" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;habilidad&quot;</span>: habilidad})</span>
+<span id="cb88-13"><a href="endogeneidad-practica.html#cb88-13" tabindex="-1"></a></span>
+<span id="cb88-14"><a href="endogeneidad-practica.html#cb88-14" tabindex="-1"></a>corto <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
+<span id="cb88-15"><a href="endogeneidad-practica.html#cb88-15" tabindex="-1"></a>largo <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb88-16"><a href="endogeneidad-practica.html#cb88-16" tabindex="-1"></a></span>
+<span id="cb88-17"><a href="endogeneidad-practica.html#cb88-17" tabindex="-1"></a>datos[<span class="st">&quot;educ_medida&quot;</span>] <span class="op">=</span> datos[<span class="st">&quot;educ&quot;</span>] <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb88-18"><a href="endogeneidad-practica.html#cb88-18" tabindex="-1"></a>medicion <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb88-19"><a href="endogeneidad-practica.html#cb88-19" tabindex="-1"></a></span>
+<span id="cb88-20"><a href="endogeneidad-practica.html#cb88-20" tabindex="-1"></a><span class="bu">print</span>(corto.summary())</span>
+<span id="cb88-21"><a href="endogeneidad-practica.html#cb88-21" tabindex="-1"></a><span class="bu">print</span>(largo.summary())</span>
+<span id="cb88-22"><a href="endogeneidad-practica.html#cb88-22" tabindex="-1"></a><span class="bu">print</span>(medicion.summary())</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.</p>
 </div>
 <div id="comparacion-software-endogeneidad" class="section level2 hasAnchor" number="22.8">

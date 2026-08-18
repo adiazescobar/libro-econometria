@@ -438,9 +438,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p><span class="math display">\[\hat{r}(\tau) - 1.96 \cdot \frac{1}{\sqrt{n}} \leq r(\tau) \leq \hat{r}(\tau) + 1.96 \cdot \frac{1}{\sqrt{n}}\]</span></p>
 <p>Si la ACF cae rápidamente a cero, la serie es estacionaria. Si decae muy lentamente, hay tendencia o raíz unitaria.</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb120-1"><a href="series.html#cb120-1" tabindex="-1"></a>* Correlograma en Stata</span>
-<span id="cb120-2"><a href="series.html#cb120-2" tabindex="-1"></a><span class="kw">corrgram</span> <span class="kw">var</span>, lags(#)</span>
-<span id="cb120-3"><a href="series.html#cb120-3" tabindex="-1"></a><span class="kw">ac</span> <span class="kw">var</span>, lags(#)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb98-1"><a href="series.html#cb98-1" tabindex="-1"></a>* Correlograma en Stata</span>
+<span id="cb98-2"><a href="series.html#cb98-2" tabindex="-1"></a><span class="kw">corrgram</span> <span class="kw">var</span>, lags(#)</span>
+<span id="cb98-3"><a href="series.html#cb98-3" tabindex="-1"></a><span class="kw">ac</span> <span class="kw">var</span>, lags(#)</span></code></pre></div>
 <p><strong>Correlograma típico:</strong></p>
 <p><img src="images/series/g13.png" /></p>
 <p><strong>Ejemplo — ACF del Baloto (ruido):</strong></p>
@@ -538,17 +538,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Prueba y error: incluir rezagos hasta eliminar la autocorrelación serial (Durbin-Watson)</li>
 <li>Usar <strong>Dickey-Fuller GLS</strong> (<code>dfgls</code> en Stata), que selecciona automáticamente el número óptimo de rezagos — suele ser la mejor opción</li>
 </ul>
-<div class="sourceCode" id="cb121"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb121-1"><a href="series.html#cb121-1" tabindex="-1"></a>* Dickey-Fuller con intercepto</span>
-<span id="cb121-2"><a href="series.html#cb121-2" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span></span>
-<span id="cb121-3"><a href="series.html#cb121-3" tabindex="-1"></a></span>
-<span id="cb121-4"><a href="series.html#cb121-4" tabindex="-1"></a>* Dickey-Fuller con intercepto <span class="fu">y</span> tendencia</span>
-<span id="cb121-5"><a href="series.html#cb121-5" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span>, trend</span>
-<span id="cb121-6"><a href="series.html#cb121-6" tabindex="-1"></a></span>
-<span id="cb121-7"><a href="series.html#cb121-7" tabindex="-1"></a>* Dickey-Fuller aumentada con <span class="kw">k</span> rezagos</span>
-<span id="cb121-8"><a href="series.html#cb121-8" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span>, lags(<span class="kw">k</span>) trend</span>
-<span id="cb121-9"><a href="series.html#cb121-9" tabindex="-1"></a></span>
-<span id="cb121-10"><a href="series.html#cb121-10" tabindex="-1"></a>* Dickey-Fuller GLS (selección automática <span class="kw">de</span> rezagos)</span>
-<span id="cb121-11"><a href="series.html#cb121-11" tabindex="-1"></a><span class="kw">dfgls</span> <span class="kw">var</span></span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb99-1"><a href="series.html#cb99-1" tabindex="-1"></a>* Dickey-Fuller con intercepto</span>
+<span id="cb99-2"><a href="series.html#cb99-2" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span></span>
+<span id="cb99-3"><a href="series.html#cb99-3" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="series.html#cb99-4" tabindex="-1"></a>* Dickey-Fuller con intercepto <span class="fu">y</span> tendencia</span>
+<span id="cb99-5"><a href="series.html#cb99-5" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span>, trend</span>
+<span id="cb99-6"><a href="series.html#cb99-6" tabindex="-1"></a></span>
+<span id="cb99-7"><a href="series.html#cb99-7" tabindex="-1"></a>* Dickey-Fuller aumentada con <span class="kw">k</span> rezagos</span>
+<span id="cb99-8"><a href="series.html#cb99-8" tabindex="-1"></a><span class="kw">dfuller</span> <span class="kw">var</span>, lags(<span class="kw">k</span>) trend</span>
+<span id="cb99-9"><a href="series.html#cb99-9" tabindex="-1"></a></span>
+<span id="cb99-10"><a href="series.html#cb99-10" tabindex="-1"></a>* Dickey-Fuller GLS (selección automática <span class="kw">de</span> rezagos)</span>
+<span id="cb99-11"><a href="series.html#cb99-11" tabindex="-1"></a><span class="kw">dfgls</span> <span class="kw">var</span></span></code></pre></div>
 <p><strong>Ejemplo en Stata — ADF aplicada al PIB:</strong></p>
 <p><img src="images/series/gdpus7.png" /></p>
 <p><img src="images/series/gdpus8.png" /></p>
@@ -726,23 +726,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Requieren muestras grandes — se recomiendan al menos 30 observaciones (idealmente más).</li>
 <li>No tienen un mecanismo sencillo para incorporar nuevos datos: hay que reestimar.</li>
 </ul>
-<div class="sourceCode" id="cb122"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb122-1"><a href="series.html#cb122-1" tabindex="-1"></a>* Identificación: ACF <span class="fu">y</span> PACF</span>
-<span id="cb122-2"><a href="series.html#cb122-2" tabindex="-1"></a><span class="kw">ac</span> <span class="fu">y</span>, lags(20)</span>
-<span id="cb122-3"><a href="series.html#cb122-3" tabindex="-1"></a><span class="kw">pac</span> <span class="fu">y</span>, lags(20)</span>
-<span id="cb122-4"><a href="series.html#cb122-4" tabindex="-1"></a></span>
-<span id="cb122-5"><a href="series.html#cb122-5" tabindex="-1"></a>* Estimar un ARMA(1,1)</span>
-<span id="cb122-6"><a href="series.html#cb122-6" tabindex="-1"></a><span class="kw">arima</span> <span class="fu">y</span>, <span class="kw">arima</span>(1,0,1)</span>
-<span id="cb122-7"><a href="series.html#cb122-7" tabindex="-1"></a></span>
-<span id="cb122-8"><a href="series.html#cb122-8" tabindex="-1"></a>* Estimar un ARIMA(1,1,1) sobre la serie en niveles</span>
-<span id="cb122-9"><a href="series.html#cb122-9" tabindex="-1"></a><span class="kw">arima</span> <span class="fu">y</span>, <span class="kw">arima</span>(1,1,1)</span>
-<span id="cb122-10"><a href="series.html#cb122-10" tabindex="-1"></a></span>
-<span id="cb122-11"><a href="series.html#cb122-11" tabindex="-1"></a>* Diagnóstico <span class="kw">de</span> residuos</span>
-<span id="cb122-12"><a href="series.html#cb122-12" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">r</span>, residuals</span>
-<span id="cb122-13"><a href="series.html#cb122-13" tabindex="-1"></a><span class="kw">corrgram</span> <span class="fu">r</span>, lags(20)</span>
-<span id="cb122-14"><a href="series.html#cb122-14" tabindex="-1"></a><span class="kw">wntestq</span> <span class="fu">r</span></span>
-<span id="cb122-15"><a href="series.html#cb122-15" tabindex="-1"></a></span>
-<span id="cb122-16"><a href="series.html#cb122-16" tabindex="-1"></a>* Pronóstico fuera <span class="kw">de</span> muestra</span>
-<span id="cb122-17"><a href="series.html#cb122-17" tabindex="-1"></a><span class="kw">predict</span> yhat, <span class="fu">y</span> dynamic(tq(2014q1))</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb100-1"><a href="series.html#cb100-1" tabindex="-1"></a>* Identificación: ACF <span class="fu">y</span> PACF</span>
+<span id="cb100-2"><a href="series.html#cb100-2" tabindex="-1"></a><span class="kw">ac</span> <span class="fu">y</span>, lags(20)</span>
+<span id="cb100-3"><a href="series.html#cb100-3" tabindex="-1"></a><span class="kw">pac</span> <span class="fu">y</span>, lags(20)</span>
+<span id="cb100-4"><a href="series.html#cb100-4" tabindex="-1"></a></span>
+<span id="cb100-5"><a href="series.html#cb100-5" tabindex="-1"></a>* Estimar un ARMA(1,1)</span>
+<span id="cb100-6"><a href="series.html#cb100-6" tabindex="-1"></a><span class="kw">arima</span> <span class="fu">y</span>, <span class="kw">arima</span>(1,0,1)</span>
+<span id="cb100-7"><a href="series.html#cb100-7" tabindex="-1"></a></span>
+<span id="cb100-8"><a href="series.html#cb100-8" tabindex="-1"></a>* Estimar un ARIMA(1,1,1) sobre la serie en niveles</span>
+<span id="cb100-9"><a href="series.html#cb100-9" tabindex="-1"></a><span class="kw">arima</span> <span class="fu">y</span>, <span class="kw">arima</span>(1,1,1)</span>
+<span id="cb100-10"><a href="series.html#cb100-10" tabindex="-1"></a></span>
+<span id="cb100-11"><a href="series.html#cb100-11" tabindex="-1"></a>* Diagnóstico <span class="kw">de</span> residuos</span>
+<span id="cb100-12"><a href="series.html#cb100-12" tabindex="-1"></a><span class="kw">predict</span> <span class="fu">r</span>, residuals</span>
+<span id="cb100-13"><a href="series.html#cb100-13" tabindex="-1"></a><span class="kw">corrgram</span> <span class="fu">r</span>, lags(20)</span>
+<span id="cb100-14"><a href="series.html#cb100-14" tabindex="-1"></a><span class="kw">wntestq</span> <span class="fu">r</span></span>
+<span id="cb100-15"><a href="series.html#cb100-15" tabindex="-1"></a></span>
+<span id="cb100-16"><a href="series.html#cb100-16" tabindex="-1"></a>* Pronóstico fuera <span class="kw">de</span> muestra</span>
+<span id="cb100-17"><a href="series.html#cb100-17" tabindex="-1"></a><span class="kw">predict</span> yhat, <span class="fu">y</span> dynamic(tq(2014q1))</span></code></pre></div>
 <p><strong>Ejemplo en Stata — estimación ARMA y pronóstico del PIB:</strong></p>
 <p><img src="images/series/gdpus9.png" /></p>
 <p><img src="images/series/gdpus10.png" /></p>

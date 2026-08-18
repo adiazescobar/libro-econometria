@@ -547,154 +547,87 @@ M_s&#39;=M_s, \quad M_s^2=M_s.
 </div>
 <div id="con-números-seis-personas" class="section level3 hasAnchor" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> Con números: seis personas<a href="#con-n%C3%BAmeros-seis-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo, de modo que <span class="math inline">\(X_s=[\iota \; d]\)</span> con <span class="math inline">\(\iota\)</span> la constante y <span class="math inline">\(d\)</span> la indicadora de hombre.</p>
+<p>Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="fwl-teoria.html#cb21-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.8</span>, <span class="fl">2.0</span>, <span class="fl">2.2</span>, <span class="fl">2.9</span>, <span class="fl">3.1</span>, <span class="fl">3.3</span>)   <span class="co"># salario, en millones</span></span>
 <span id="cb21-2"><a href="fwl-teoria.html#cb21-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">158</span>, <span class="dv">162</span>, <span class="dv">166</span>, <span class="dv">170</span>, <span class="dv">174</span>, <span class="dv">178</span>)   <span class="co"># altura, en cm</span></span>
 <span id="cb21-3"><a href="fwl-teoria.html#cb21-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)               <span class="co"># 1 = hombre</span></span>
 <span id="cb21-4"><a href="fwl-teoria.html#cb21-4" tabindex="-1"></a>Xs <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">constante =</span> <span class="dv">1</span>, <span class="at">hombre =</span> d)</span></code></pre></div>
-<p>Calculamos el vector de coeficientes pieza por pieza:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fwl-teoria.html#cb22-1" tabindex="-1"></a>XtX  <span class="ot">&lt;-</span> <span class="fu">t</span>(Xs) <span class="sc">%*%</span> Xs</span>
-<span id="cb22-2"><a href="fwl-teoria.html#cb22-2" tabindex="-1"></a>XtXi <span class="ot">&lt;-</span> <span class="fu">solve</span>(XtX)</span>
-<span id="cb22-3"><a href="fwl-teoria.html#cb22-3" tabindex="-1"></a>Xty  <span class="ot">&lt;-</span> <span class="fu">t</span>(Xs) <span class="sc">%*%</span> y</span>
-<span id="cb22-4"><a href="fwl-teoria.html#cb22-4" tabindex="-1"></a>beta <span class="ot">&lt;-</span> XtXi <span class="sc">%*%</span> Xty</span>
-<span id="cb22-5"><a href="fwl-teoria.html#cb22-5" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="fwl-teoria.html#cb22-6" tabindex="-1"></a>XtX</span></code></pre></div>
-<pre><code>#&gt;           constante hombre
-#&gt; constante         6      3
-#&gt; hombre            3      3</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fwl-teoria.html#cb24-1" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">fractions</span>(XtXi)</span></code></pre></div>
-<pre><code>#&gt;           constante hombre
-#&gt; constante  1/3      -1/3  
-#&gt; hombre    -1/3       2/3</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fwl-teoria.html#cb26-1" tabindex="-1"></a>Xty</span></code></pre></div>
-<pre><code>#&gt;           [,1]
-#&gt; constante 15.3
-#&gt; hombre     9.3</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fwl-teoria.html#cb28-1" tabindex="-1"></a>beta</span></code></pre></div>
-<pre><code>#&gt;           [,1]
-#&gt; constante  2.0
-#&gt; hombre     1.1</code></pre>
-<p>El resultado tiene una lectura directa: <span class="math inline">\(\hat{\beta}_0=2.0\)</span> es el salario promedio de las mujeres, y <span class="math inline">\(\hat{\beta}_1=1.1\)</span> es cuánto más ganan los hombres en promedio. <strong>Regresar contra un juego completo de indicadoras es sacar promedios de grupo</strong>, nada más.</p>
-<p>Y esa cuenta a mano no es una analogía de una regresión: <strong>es</strong> la regresión. Corrámosla:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="fwl-teoria.html#cb30-1" tabindex="-1"></a>reg_y <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> d)      <span class="co"># la regresión que está adentro de M</span></span>
-<span id="cb30-2"><a href="fwl-teoria.html#cb30-2" tabindex="-1"></a><span class="fu">coef</span>(reg_y)</span></code></pre></div>
-<pre><code>#&gt; (Intercept)           d 
-#&gt;         2.0         1.1</code></pre>
-<p>Los mismos dos números. Entonces los valores ajustados de esa regresión son <span class="math inline">\(P y\)</span>, y sus residuos son <span class="math inline">\(M y\)</span>.</p>
-<p>Ahora las dos matrices:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="fwl-teoria.html#cb32-1" tabindex="-1"></a>P <span class="ot">&lt;-</span> Xs <span class="sc">%*%</span> XtXi <span class="sc">%*%</span> <span class="fu">t</span>(Xs)</span>
-<span id="cb32-2"><a href="fwl-teoria.html#cb32-2" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">6</span>) <span class="sc">-</span> P</span>
-<span id="cb32-3"><a href="fwl-teoria.html#cb32-3" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="fwl-teoria.html#cb32-4" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">fractions</span>(P)</span></code></pre></div>
-<pre><code>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
-#&gt; [1,] 1/3  1/3  1/3    0    0    0 
-#&gt; [2,] 1/3  1/3  1/3    0    0    0 
-#&gt; [3,] 1/3  1/3  1/3    0    0    0 
-#&gt; [4,]   0    0    0  1/3  1/3  1/3 
-#&gt; [5,]   0    0    0  1/3  1/3  1/3 
-#&gt; [6,]   0    0    0  1/3  1/3  1/3</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="fwl-teoria.html#cb34-1" tabindex="-1"></a>MASS<span class="sc">::</span><span class="fu">fractions</span>(M)</span></code></pre></div>
-<pre><code>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
-#&gt; [1,]  2/3 -1/3 -1/3    0    0    0
-#&gt; [2,] -1/3  2/3 -1/3    0    0    0
-#&gt; [3,] -1/3 -1/3  2/3    0    0    0
-#&gt; [4,]    0    0    0  2/3 -1/3 -1/3
-#&gt; [5,]    0    0    0 -1/3  2/3 -1/3
-#&gt; [6,]    0    0    0 -1/3 -1/3  2/3</code></pre>
-<p>Mírenlas antes de seguir. Las dos están hechas de <strong>bloques</strong>: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de <span class="math inline">\(P\)</span> son puros <span class="math inline">\(1/3\)</span>, que es la receta de un promedio; por eso <span class="math inline">\(P y\)</span> devuelve la media del grupo repetida. Y cada fila de <span class="math inline">\(M\)</span> suma cero:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="fwl-teoria.html#cb36-1" tabindex="-1"></a><span class="fu">rowSums</span>(M)</span></code></pre></div>
-<pre><code>#&gt; [1] 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16
-#&gt; [6] 1.110223e-16</code></pre>
-<p>Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.</p>
-<p>Con esto ya se puede comprobar la igualdad que motiva todo el capítulo: <strong><span class="math inline">\(M y\)</span> es exactamente <span class="math inline">\(y-\hat{y}\)</span> de la regresión de <span class="math inline">\(y\)</span> contra la constante y el sexo</strong>.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="fwl-teoria.html#cb38-1" tabindex="-1"></a><span class="co"># round() solo para leer la tabla: sin él aparece la basura de punto flotante</span></span>
-<span id="cb38-2"><a href="fwl-teoria.html#cb38-2" tabindex="-1"></a><span class="co"># (4.44e-16 en vez de 0) y la igualdad se ve rota cuando no lo está.</span></span>
-<span id="cb38-3"><a href="fwl-teoria.html#cb38-3" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">data.frame</span>(</span>
-<span id="cb38-4"><a href="fwl-teoria.html#cb38-4" tabindex="-1"></a>  <span class="at">y         =</span> y,</span>
-<span id="cb38-5"><a href="fwl-teoria.html#cb38-5" tabindex="-1"></a>  <span class="at">y_hat     =</span> <span class="fu">unname</span>(<span class="fu">fitted</span>(reg_y)),      <span class="co"># de la regresión</span></span>
-<span id="cb38-6"><a href="fwl-teoria.html#cb38-6" tabindex="-1"></a>  <span class="at">P_por_y   =</span> <span class="fu">as.vector</span>(P <span class="sc">%*%</span> y),         <span class="co"># de la matriz</span></span>
-<span id="cb38-7"><a href="fwl-teoria.html#cb38-7" tabindex="-1"></a>  <span class="at">y_menos_y_hat =</span> <span class="fu">unname</span>(<span class="fu">resid</span>(reg_y)),   <span class="co"># de la regresión</span></span>
-<span id="cb38-8"><a href="fwl-teoria.html#cb38-8" tabindex="-1"></a>  <span class="at">M_por_y   =</span> <span class="fu">as.vector</span>(M <span class="sc">%*%</span> y)          <span class="co"># de la matriz</span></span>
-<span id="cb38-9"><a href="fwl-teoria.html#cb38-9" tabindex="-1"></a>), <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>#&gt;     y y_hat P_por_y y_menos_y_hat M_por_y
-#&gt; 1 1.8   2.0     2.0          -0.2    -0.2
-#&gt; 2 2.0   2.0     2.0           0.0     0.0
-#&gt; 3 2.2   2.0     2.0           0.2     0.2
-#&gt; 4 2.9   3.1     3.1          -0.2    -0.2
-#&gt; 5 3.1   3.1     3.1           0.0     0.0
-#&gt; 6 3.3   3.1     3.1           0.2     0.2</code></pre>
-<p>Las columnas coinciden de a pares. Multiplicar por <span class="math inline">\(M\)</span> y correr la regresión guardando los residuos son la misma operación.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="fwl-teoria.html#cb40-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">as.vector</span>(M <span class="sc">%*%</span> y), <span class="fu">unname</span>(<span class="fu">resid</span>(reg_y)))</span></code></pre></div>
-<pre><code>#&gt; [1] TRUE</code></pre>
+<p>Los datos y la matriz de controles <span class="math inline">\(X_s=[\iota \; d]\)</span>:</p>
+<p><span class="math display">\[ y = \begin{bmatrix}1.8 \\ 2.0 \\ 2.2 \\ 2.9 \\ 3.1 \\ 3.3\end{bmatrix}\qquad x = \begin{bmatrix}158 \\ 162 \\ 166 \\ 170 \\ 174 \\ 178\end{bmatrix}\qquad X_s = \begin{bmatrix}1 &amp; 0 \\ 1 &amp; 0 \\ 1 &amp; 0 \\ 1 &amp; 1 \\ 1 &amp; 1 \\ 1 &amp; 1\end{bmatrix} \]</span></p>
+<div id="el-vector-de-coeficientes" class="section level4 hasAnchor" number="9.4.2.1">
+<h4><span class="header-section-number">9.4.2.1</span> El vector de coeficientes<a href="fwl-teoria.html#el-vector-de-coeficientes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Las tres piezas de <span class="math inline">\(\hat{\beta}=(X_s&#39;X_s)^{-1}X_s&#39;y\)</span>:</p>
+<p><span class="math display">\[ X_s&#39;X_s = \begin{bmatrix}6 &amp; 3 \\ 3 &amp; 3\end{bmatrix}\qquad (X_s&#39;X_s)^{-1} = \begin{bmatrix}\tfrac{1}{3} &amp; -\tfrac{1}{3} \\ -\tfrac{1}{3} &amp; \tfrac{2}{3}\end{bmatrix}\qquad X_s&#39;y = \begin{bmatrix}15.3 \\ 9.3\end{bmatrix} \]</span>
+<span class="math display">\[ \hat{\beta} = \underset{(X_s&#39;X_s)^{-1}}{\begin{bmatrix}\tfrac{1}{3} &amp; -\tfrac{1}{3} \\ -\tfrac{1}{3} &amp; \tfrac{2}{3}\end{bmatrix}}\underset{X_s&#39;y}{\begin{bmatrix}15.3 \\ 9.3\end{bmatrix}} = \begin{bmatrix}2.00 \\ 1.10\end{bmatrix} \]</span></p>
+<p>Los dos números tienen nombre: <span class="math inline">\(\hat{\beta}_0=2.0\)</span> es el salario promedio de las mujeres y <span class="math inline">\(\hat{\beta}_1=1.1\)</span> es cuánto más ganan los hombres. <strong>Regresar contra un juego completo de indicadoras es sacar promedios de grupo</strong>, nada más.</p>
+</div>
+<div id="las-dos-matrices" class="section level4 hasAnchor" number="9.4.2.2">
+<h4><span class="header-section-number">9.4.2.2</span> Las dos matrices<a href="fwl-teoria.html#las-dos-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math display">\[ P_s = \begin{bmatrix}\tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} \\ 0 &amp; 0 &amp; 0 &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} \\ 0 &amp; 0 &amp; 0 &amp; \tfrac{1}{3} &amp; \tfrac{1}{3} &amp; \tfrac{1}{3}\end{bmatrix} \]</span>
+<span class="math display">\[ M_s = I - P_s = \begin{bmatrix}\tfrac{2}{3} &amp; -\tfrac{1}{3} &amp; -\tfrac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ -\tfrac{1}{3} &amp; \tfrac{2}{3} &amp; -\tfrac{1}{3} &amp; 0 &amp; 0 &amp; 0 \\ -\tfrac{1}{3} &amp; -\tfrac{1}{3} &amp; \tfrac{2}{3} &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; \tfrac{2}{3} &amp; -\tfrac{1}{3} &amp; -\tfrac{1}{3} \\ 0 &amp; 0 &amp; 0 &amp; -\tfrac{1}{3} &amp; \tfrac{2}{3} &amp; -\tfrac{1}{3} \\ 0 &amp; 0 &amp; 0 &amp; -\tfrac{1}{3} &amp; -\tfrac{1}{3} &amp; \tfrac{2}{3}\end{bmatrix} \]</span></p>
+<p>Mírenlas antes de seguir. Las dos están hechas de <strong>bloques</strong>: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de <span class="math inline">\(P_s\)</span> son puros <span class="math inline">\(\tfrac{1}{3}\)</span>, que es la receta de un promedio. Y cada fila de <span class="math inline">\(M_s\)</span> suma cero, así que no puede detectar niveles, solo desviaciones.</p>
+</div>
+<div id="la-descomposición" class="section level4 hasAnchor" number="9.4.2.3">
+<h4><span class="header-section-number">9.4.2.3</span> La descomposición<a href="#la-descomposici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Aquí está la igualdad que motiva el capítulo: <span class="math inline">\(M_s y\)</span> es <span class="math inline">\(y-\hat{y}\)</span> de la regresión de <span class="math inline">\(y\)</span> contra la constante y el sexo.</p>
+<p><span class="math display">\[ \underset{y}{\begin{bmatrix}1.8 \\ 2.0 \\ 2.2 \\ 2.9 \\ 3.1 \\ 3.3\end{bmatrix}} = \underset{\hat{y}\,=\,P_s y}{\begin{bmatrix}2.0 \\ 2.0 \\ 2.0 \\ 3.1 \\ 3.1 \\ 3.1\end{bmatrix}} + \underset{\hat{e}\,=\,M_s y}{\begin{bmatrix}-0.20 \\ 0.00 \\ 0.20 \\ -0.20 \\ 0.00 \\ 0.20\end{bmatrix}} \]</span></p>
+<p>Los ajustados solo toman dos valores —uno por grupo— porque es todo lo que el sexo puede predecir.</p>
 <div class="box-ejemplo">
-<p>Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es <span class="math inline">\(-0.2\)</span>. Léanlo en la fila 1 de <span class="math inline">\(M\)</span>: <span class="math inline">\(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\)</span>. La matriz no está haciendo magia: está restando el promedio del grupo.</p>
+<p>Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es <span class="math inline">\(-0.2\)</span>. Léanlo en la fila 1 de <span class="math inline">\(M_s\)</span>: <span class="math inline">\(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\)</span>. La matriz no está haciendo magia: está restando el promedio del grupo.</p>
 </div>
 <div class="box-cuidado">
 <p>Ese <span class="math inline">\(-0.2\)</span> <strong>no es un salario de menos doscientos mil pesos</strong>. Un residuo no es un salario: es la <em>distancia</em> entre el salario de alguien y el promedio de su grupo, y por eso se lee “Ana gana 200 mil menos que el promedio de las mujeres”. El signo dice de qué lado del promedio está, nada más.</p>
 <p>De hecho, los residuos <strong>tienen que</strong> ser negativos la mitad del tiempo: por construcción suman cero dentro de cada grupo. Si todos fueran positivos, no serían desviaciones respecto a un promedio. Lo mismo vale para la altura residual: <span class="math inline">\(-4\)</span> cm significa “cuatro centímetros más bajo que el promedio de su grupo”, no que alguien mida menos que nada.</p>
 </div>
 </div>
+</div>
 <div id="los-mismos-seis-hasta-el-final" class="section level3 hasAnchor" number="9.4.3">
 <h3><span class="header-section-number">9.4.3</span> Los mismos seis, hasta el final<a href="fwl-teoria.html#los-mismos-seis-hasta-el-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Hasta aquí solo limpiamos el salario. Falta la otra mitad: la altura se limpia con la <strong>misma</strong> matriz, porque los controles son los mismos.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="fwl-teoria.html#cb42-1" tabindex="-1"></a>reg_x <span class="ot">&lt;-</span> <span class="fu">lm</span>(x <span class="sc">~</span> d)      <span class="co"># la altura contra la constante y el sexo</span></span>
-<span id="cb42-2"><a href="fwl-teoria.html#cb42-2" tabindex="-1"></a><span class="fu">coef</span>(reg_x)</span></code></pre></div>
-<pre><code>#&gt; (Intercept)           d 
-#&gt;         162          12</code></pre>
-<p>La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Sus residuos son <span class="math inline">\(M x\)</span>:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="fwl-teoria.html#cb44-1" tabindex="-1"></a>y_limpio <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M <span class="sc">%*%</span> y)</span>
-<span id="cb44-2"><a href="fwl-teoria.html#cb44-2" tabindex="-1"></a>x_limpio <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M <span class="sc">%*%</span> x)</span>
-<span id="cb44-3"><a href="fwl-teoria.html#cb44-3" tabindex="-1"></a></span>
-<span id="cb44-4"><a href="fwl-teoria.html#cb44-4" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">data.frame</span>(<span class="at">hombre =</span> d, y_limpio, x_limpio), <span class="dv">4</span>)</span></code></pre></div>
-<pre><code>#&gt;   hombre y_limpio x_limpio
-#&gt; 1      0     -0.2       -4
-#&gt; 2      0      0.0        0
-#&gt; 3      0      0.2        4
-#&gt; 4      1     -0.2       -4
-#&gt; 5      1      0.0        0
-#&gt; 6      1      0.2        4</code></pre>
-<p>Se ve a simple vista lo que hace <span class="math inline">\(M\)</span>: dentro de cada grupo las alturas quedan en <span class="math inline">\(-4, 0, 4\)</span> y los salarios en <span class="math inline">\(-0.2,\, 0,\, 0.2\)</span>. Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.</p>
-<p>Y ahora sí, el teorema, con una regresión simple sin constante:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="fwl-teoria.html#cb46-1" tabindex="-1"></a>beta_fwl <span class="ot">&lt;-</span> <span class="fu">sum</span>(x_limpio <span class="sc">*</span> y_limpio) <span class="sc">/</span> <span class="fu">sum</span>(x_limpio<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb46-2"><a href="fwl-teoria.html#cb46-2" tabindex="-1"></a></span>
-<span id="cb46-3"><a href="fwl-teoria.html#cb46-3" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb46-4"><a href="fwl-teoria.html#cb46-4" tabindex="-1"></a>  <span class="at">fwl      =</span> beta_fwl,</span>
-<span id="cb46-5"><a href="fwl-teoria.html#cb46-5" tabindex="-1"></a>  <span class="at">multiple =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> d))[<span class="st">&quot;x&quot;</span>]),</span>
-<span id="cb46-6"><a href="fwl-teoria.html#cb46-6" tabindex="-1"></a>  <span class="at">cruda    =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))[<span class="st">&quot;x&quot;</span>])</span>
-<span id="cb46-7"><a href="fwl-teoria.html#cb46-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Falta la otra mitad: la altura se limpia con la <strong>misma</strong> matriz, porque los controles son los mismos.</p>
+<p><span class="math display">\[ \hat{\beta}_{\text{altura}} = (X_s&#39;X_s)^{-1}X_s&#39;x = \begin{bmatrix}162 \\ 12\end{bmatrix} \]</span>
+<span class="math display">\[ \underset{x}{\begin{bmatrix}158 \\ 162 \\ 166 \\ 170 \\ 174 \\ 178\end{bmatrix}} = \underset{P_s x}{\begin{bmatrix}162 \\ 162 \\ 162 \\ 174 \\ 174 \\ 174\end{bmatrix}} + \underset{\tilde{x}\,=\,M_s x}{\begin{bmatrix}-4 \\ 0 \\ 4 \\ -4 \\ 0 \\ 4\end{bmatrix}} \]</span></p>
+<p>La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Y fíjense en el vector limpio: dentro de cada grupo las alturas quedan en <span class="math inline">\(-4,\,0,\,4\)</span>, y los salarios en <span class="math inline">\(-0.2,\,0,\,0.2\)</span>. Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.</p>
+<p>Y ahora el teorema, que con dos vectores centrados es una división:</p>
+<p><span class="math display">\[ \hat{\beta}_{FWL} = \frac{\tilde{x}&#39;\tilde{y}}{\tilde{x}&#39;\tilde{x}} = \frac{3.2}{64} = 0.05 \]</span></p>
+<p>Cada centímetro extra son cincuenta mil pesos. Solo falta comprobar que ese número es el de la regresión múltiple, y que la cruda dice otra cosa:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="fwl-teoria.html#cb22-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">fwl      =</span> <span class="fu">sum</span>(x_lim <span class="sc">*</span> y_lim) <span class="sc">/</span> <span class="fu">sum</span>(x_lim<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb22-2"><a href="fwl-teoria.html#cb22-2" tabindex="-1"></a>  <span class="at">multiple =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> d))[<span class="st">&quot;x&quot;</span>]),</span>
+<span id="cb22-3"><a href="fwl-teoria.html#cb22-3" tabindex="-1"></a>  <span class="at">cruda    =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x))[<span class="st">&quot;x&quot;</span>]))</span></code></pre></div>
 <pre><code>#&gt;        fwl   multiple      cruda 
 #&gt; 0.05000000 0.05000000 0.08214286</code></pre>
-<p>El numerador es <span class="math inline">\(3.2\)</span> y el denominador <span class="math inline">\(64\)</span>, así que <span class="math inline">\(\hat{\beta}=0.05\)</span>: cada centímetro extra son cincuenta mil pesos. La regresión múltiple da el mismo número, y la cruda da casi el doble porque le está cobrando a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="fwl-teoria.html#cb24-1" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">as.vector</span>(M <span class="sc">%*%</span> y), <span class="fu">unname</span>(<span class="fu">resid</span>(<span class="fu">lm</span>(y <span class="sc">~</span> d))))</span></code></pre></div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+<p>La cruda da casi el doble porque le cobra a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.</p>
 </div>
 <div id="la-misma-cuenta-en-las-90-personas" class="section level3 hasAnchor" number="9.4.4">
 <h3><span class="header-section-number">9.4.4</span> La misma cuenta en las 90 personas<a href="fwl-teoria.html#la-misma-cuenta-en-las-90-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Con seis observaciones se puede imprimir <span class="math inline">\(M\)</span> completa. Con noventa no, pero nada cambia: son las mismas líneas sobre los datos de la figura del comienzo.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="fwl-teoria.html#cb48-1" tabindex="-1"></a>X90    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">constante =</span> <span class="dv">1</span>, <span class="at">hombre =</span> nubes<span class="sc">$</span>hombre)</span>
-<span id="cb48-2"><a href="fwl-teoria.html#cb48-2" tabindex="-1"></a>XtXi90 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X90) <span class="sc">%*%</span> X90)</span>
-<span id="cb48-3"><a href="fwl-teoria.html#cb48-3" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="fwl-teoria.html#cb48-4" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">cbind</span>(XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90) <span class="sc">%*%</span> nubes<span class="sc">$</span>salario,</span>
-<span id="cb48-5"><a href="fwl-teoria.html#cb48-5" tabindex="-1"></a>               XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90) <span class="sc">%*%</span> nubes<span class="sc">$</span>altura)</span>
-<span id="cb48-6"><a href="fwl-teoria.html#cb48-6" tabindex="-1"></a><span class="fu">colnames</span>(betas) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;salario&quot;</span>, <span class="st">&quot;altura&quot;</span>)   <span class="co"># cbind no pisa los dimnames del vector</span></span>
-<span id="cb48-7"><a href="fwl-teoria.html#cb48-7" tabindex="-1"></a><span class="fu">round</span>(betas, <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="fwl-teoria.html#cb26-1" tabindex="-1"></a>X90    <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">constante =</span> <span class="dv">1</span>, <span class="at">hombre =</span> nubes<span class="sc">$</span>hombre)</span>
+<span id="cb26-2"><a href="fwl-teoria.html#cb26-2" tabindex="-1"></a>XtXi90 <span class="ot">&lt;-</span> <span class="fu">solve</span>(<span class="fu">t</span>(X90) <span class="sc">%*%</span> X90)</span>
+<span id="cb26-3"><a href="fwl-teoria.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="fwl-teoria.html#cb26-4" tabindex="-1"></a>betas <span class="ot">&lt;-</span> <span class="fu">cbind</span>(XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90) <span class="sc">%*%</span> nubes<span class="sc">$</span>salario,</span>
+<span id="cb26-5"><a href="fwl-teoria.html#cb26-5" tabindex="-1"></a>               XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90) <span class="sc">%*%</span> nubes<span class="sc">$</span>altura)</span>
+<span id="cb26-6"><a href="fwl-teoria.html#cb26-6" tabindex="-1"></a><span class="fu">colnames</span>(betas) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;salario&quot;</span>, <span class="st">&quot;altura&quot;</span>)   <span class="co"># cbind no pisa los dimnames del vector</span></span>
+<span id="cb26-7"><a href="fwl-teoria.html#cb26-7" tabindex="-1"></a><span class="fu">round</span>(betas, <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>#&gt;           salario   altura
 #&gt; constante  1.9405 160.7049
 #&gt; hombre     1.1660  12.4413</code></pre>
 <p>Otra vez cuatro promedios: el salario y la estatura media de las mujeres, y las dos brechas. Construimos <span class="math inline">\(M\)</span> y comprobamos la igualdad en las dos variables:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="fwl-teoria.html#cb50-1" tabindex="-1"></a>M90 <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">90</span>) <span class="sc">-</span> X90 <span class="sc">%*%</span> XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90)</span>
-<span id="cb50-2"><a href="fwl-teoria.html#cb50-2" tabindex="-1"></a></span>
-<span id="cb50-3"><a href="fwl-teoria.html#cb50-3" tabindex="-1"></a>y_limpio90 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M90 <span class="sc">%*%</span> nubes<span class="sc">$</span>salario)</span>
-<span id="cb50-4"><a href="fwl-teoria.html#cb50-4" tabindex="-1"></a>x_limpio90 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M90 <span class="sc">%*%</span> nubes<span class="sc">$</span>altura)</span>
-<span id="cb50-5"><a href="fwl-teoria.html#cb50-5" tabindex="-1"></a></span>
-<span id="cb50-6"><a href="fwl-teoria.html#cb50-6" tabindex="-1"></a><span class="fu">all.equal</span>(y_limpio90, <span class="fu">unname</span>(<span class="fu">resid</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> hombre, <span class="at">data =</span> nubes))))</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="fwl-teoria.html#cb28-1" tabindex="-1"></a>M90 <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="dv">90</span>) <span class="sc">-</span> X90 <span class="sc">%*%</span> XtXi90 <span class="sc">%*%</span> <span class="fu">t</span>(X90)</span>
+<span id="cb28-2"><a href="fwl-teoria.html#cb28-2" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="fwl-teoria.html#cb28-3" tabindex="-1"></a>y_limpio90 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M90 <span class="sc">%*%</span> nubes<span class="sc">$</span>salario)</span>
+<span id="cb28-4"><a href="fwl-teoria.html#cb28-4" tabindex="-1"></a>x_limpio90 <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(M90 <span class="sc">%*%</span> nubes<span class="sc">$</span>altura)</span>
+<span id="cb28-5"><a href="fwl-teoria.html#cb28-5" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="fwl-teoria.html#cb28-6" tabindex="-1"></a><span class="fu">all.equal</span>(y_limpio90, <span class="fu">unname</span>(<span class="fu">resid</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> hombre, <span class="at">data =</span> nubes))))</span></code></pre></div>
 <pre><code>#&gt; [1] TRUE</code></pre>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="fwl-teoria.html#cb52-1" tabindex="-1"></a><span class="fu">all.equal</span>(x_limpio90, <span class="fu">unname</span>(<span class="fu">resid</span>(<span class="fu">lm</span>(altura  <span class="sc">~</span> hombre, <span class="at">data =</span> nubes))))</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="fwl-teoria.html#cb30-1" tabindex="-1"></a><span class="fu">all.equal</span>(x_limpio90, <span class="fu">unname</span>(<span class="fu">resid</span>(<span class="fu">lm</span>(altura  <span class="sc">~</span> hombre, <span class="at">data =</span> nubes))))</span></code></pre></div>
 <pre><code>#&gt; [1] TRUE</code></pre>
 <p>Y el mismo último paso:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="fwl-teoria.html#cb54-1" tabindex="-1"></a><span class="fu">c</span>(</span>
-<span id="cb54-2"><a href="fwl-teoria.html#cb54-2" tabindex="-1"></a>  <span class="at">fwl      =</span> <span class="fu">sum</span>(x_limpio90 <span class="sc">*</span> y_limpio90) <span class="sc">/</span> <span class="fu">sum</span>(x_limpio90<span class="sc">^</span><span class="dv">2</span>),</span>
-<span id="cb54-3"><a href="fwl-teoria.html#cb54-3" tabindex="-1"></a>  <span class="at">multiple =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> hombre, <span class="at">data =</span> nubes))[<span class="st">&quot;altura&quot;</span>]),</span>
-<span id="cb54-4"><a href="fwl-teoria.html#cb54-4" tabindex="-1"></a>  <span class="at">cruda    =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura, <span class="at">data =</span> nubes))[<span class="st">&quot;altura&quot;</span>])</span>
-<span id="cb54-5"><a href="fwl-teoria.html#cb54-5" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="fwl-teoria.html#cb32-1" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb32-2"><a href="fwl-teoria.html#cb32-2" tabindex="-1"></a>  <span class="at">fwl      =</span> <span class="fu">sum</span>(x_limpio90 <span class="sc">*</span> y_limpio90) <span class="sc">/</span> <span class="fu">sum</span>(x_limpio90<span class="sc">^</span><span class="dv">2</span>),</span>
+<span id="cb32-3"><a href="fwl-teoria.html#cb32-3" tabindex="-1"></a>  <span class="at">multiple =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura <span class="sc">+</span> hombre, <span class="at">data =</span> nubes))[<span class="st">&quot;altura&quot;</span>]),</span>
+<span id="cb32-4"><a href="fwl-teoria.html#cb32-4" tabindex="-1"></a>  <span class="at">cruda    =</span> <span class="fu">unname</span>(<span class="fu">coef</span>(<span class="fu">lm</span>(salario <span class="sc">~</span> altura, <span class="at">data =</span> nubes))[<span class="st">&quot;altura&quot;</span>])</span>
+<span id="cb32-5"><a href="fwl-teoria.html#cb32-5" tabindex="-1"></a>)</span></code></pre></div>
 <pre><code>#&gt;        fwl   multiple      cruda 
 #&gt; 0.02532153 0.02532153 0.06228507</code></pre>
 <div class="box-resumen">

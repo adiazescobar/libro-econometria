@@ -137,6 +137,9 @@ dos-nubes-fwl
 desarrollo-teorico-fwl
 el-vector-de-coeficientes-y-de-dónde-sale-m
 con-números-seis-personas
+el-vector-de-coeficientes
+las-dos-matrices
+la-descomposición
 los-mismos-seis-hasta-el-final
 la-misma-cuenta-en-las-90-personas
 paso-1-limpiar-y
