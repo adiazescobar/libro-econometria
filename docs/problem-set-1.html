@@ -439,43 +439,43 @@ y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
 </div>
 <div id="código-base-en-stata" class="section level3 hasAnchor" number="28.7.3">
 <h3><span class="header-section-number">28.7.3</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb63"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb63-1"><a href="problem-set-1.html#cb63-1" tabindex="-1"></a><span class="kw">capture</span> <span class="kw">program</span> <span class="kw">drop</span> sim_mco</span>
-<span id="cb63-2"><a href="problem-set-1.html#cb63-2" tabindex="-1"></a><span class="kw">program</span> <span class="kw">define</span> sim_mco, rclass</span>
-<span id="cb63-3"><a href="problem-set-1.html#cb63-3" tabindex="-1"></a>    <span class="kw">clear</span></span>
-<span id="cb63-4"><a href="problem-set-1.html#cb63-4" tabindex="-1"></a>    <span class="kw">set</span> <span class="kw">obs</span> 150</span>
-<span id="cb63-5"><a href="problem-set-1.html#cb63-5" tabindex="-1"></a>    <span class="kw">gen</span> x = runiform(3, 10)</span>
-<span id="cb63-6"><a href="problem-set-1.html#cb63-6" tabindex="-1"></a>    <span class="kw">gen</span> epsilon = rnormal(0, 1)</span>
-<span id="cb63-7"><a href="problem-set-1.html#cb63-7" tabindex="-1"></a>    <span class="kw">gen</span> <span class="fu">y</span> = 2.5*x + epsilon</span>
-<span id="cb63-8"><a href="problem-set-1.html#cb63-8" tabindex="-1"></a>    <span class="kw">regress</span> <span class="fu">y</span> x, <span class="kw">noconstant</span></span>
-<span id="cb63-9"><a href="problem-set-1.html#cb63-9" tabindex="-1"></a>    <span class="fu">return</span> <span class="fu">scalar</span> beta = _b[x]</span>
-<span id="cb63-10"><a href="problem-set-1.html#cb63-10" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb63-11"><a href="problem-set-1.html#cb63-11" tabindex="-1"></a></span>
-<span id="cb63-12"><a href="problem-set-1.html#cb63-12" tabindex="-1"></a><span class="kw">simulate</span> beta = <span class="fu">r</span>(beta), reps(1000) <span class="dv">seed</span>(123): sim_mco</span>
-<span id="cb63-13"><a href="problem-set-1.html#cb63-13" tabindex="-1"></a><span class="kw">summarize</span> beta</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb65-1"><a href="problem-set-1.html#cb65-1" tabindex="-1"></a><span class="kw">capture</span> <span class="kw">program</span> <span class="kw">drop</span> sim_mco</span>
+<span id="cb65-2"><a href="problem-set-1.html#cb65-2" tabindex="-1"></a><span class="kw">program</span> <span class="kw">define</span> sim_mco, rclass</span>
+<span id="cb65-3"><a href="problem-set-1.html#cb65-3" tabindex="-1"></a>    <span class="kw">clear</span></span>
+<span id="cb65-4"><a href="problem-set-1.html#cb65-4" tabindex="-1"></a>    <span class="kw">set</span> <span class="kw">obs</span> 150</span>
+<span id="cb65-5"><a href="problem-set-1.html#cb65-5" tabindex="-1"></a>    <span class="kw">gen</span> x = runiform(3, 10)</span>
+<span id="cb65-6"><a href="problem-set-1.html#cb65-6" tabindex="-1"></a>    <span class="kw">gen</span> epsilon = rnormal(0, 1)</span>
+<span id="cb65-7"><a href="problem-set-1.html#cb65-7" tabindex="-1"></a>    <span class="kw">gen</span> <span class="fu">y</span> = 2.5*x + epsilon</span>
+<span id="cb65-8"><a href="problem-set-1.html#cb65-8" tabindex="-1"></a>    <span class="kw">regress</span> <span class="fu">y</span> x, <span class="kw">noconstant</span></span>
+<span id="cb65-9"><a href="problem-set-1.html#cb65-9" tabindex="-1"></a>    <span class="fu">return</span> <span class="fu">scalar</span> beta = _b[x]</span>
+<span id="cb65-10"><a href="problem-set-1.html#cb65-10" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb65-11"><a href="problem-set-1.html#cb65-11" tabindex="-1"></a></span>
+<span id="cb65-12"><a href="problem-set-1.html#cb65-12" tabindex="-1"></a><span class="kw">simulate</span> beta = <span class="fu">r</span>(beta), reps(1000) <span class="dv">seed</span>(123): sim_mco</span>
+<span id="cb65-13"><a href="problem-set-1.html#cb65-13" tabindex="-1"></a><span class="kw">summarize</span> beta</span></code></pre></div>
 </div>
 <div id="código-base-en-python" class="section level3 hasAnchor" number="28.7.4">
 <h3><span class="header-section-number">28.7.4</span> Código base en Python<a href="#c%C3%B3digo-base-en-python" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb64"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb64-1"><a href="problem-set-1.html#cb64-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb64-2"><a href="problem-set-1.html#cb64-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb64-3"><a href="problem-set-1.html#cb64-3" tabindex="-1"></a></span>
-<span id="cb64-4"><a href="problem-set-1.html#cb64-4" tabindex="-1"></a><span class="kw">def</span> simular_beta(n, reps<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span><span class="dv">123</span>):</span>
-<span id="cb64-5"><a href="problem-set-1.html#cb64-5" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
-<span id="cb64-6"><a href="problem-set-1.html#cb64-6" tabindex="-1"></a>    betas <span class="op">=</span> []</span>
-<span id="cb64-7"><a href="problem-set-1.html#cb64-7" tabindex="-1"></a></span>
-<span id="cb64-8"><a href="problem-set-1.html#cb64-8" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(reps):</span>
-<span id="cb64-9"><a href="problem-set-1.html#cb64-9" tabindex="-1"></a>        x <span class="op">=</span> rng.uniform(<span class="dv">3</span>, <span class="dv">10</span>, n)</span>
-<span id="cb64-10"><a href="problem-set-1.html#cb64-10" tabindex="-1"></a>        epsilon <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
-<span id="cb64-11"><a href="problem-set-1.html#cb64-11" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">2.5</span> <span class="op">*</span> x <span class="op">+</span> epsilon</span>
-<span id="cb64-12"><a href="problem-set-1.html#cb64-12" tabindex="-1"></a>        modelo <span class="op">=</span> sm.OLS(y, x).fit()</span>
-<span id="cb64-13"><a href="problem-set-1.html#cb64-13" tabindex="-1"></a>        betas.append(modelo.params[<span class="dv">0</span>])</span>
-<span id="cb64-14"><a href="problem-set-1.html#cb64-14" tabindex="-1"></a></span>
-<span id="cb64-15"><a href="problem-set-1.html#cb64-15" tabindex="-1"></a>    <span class="cf">return</span> np.array(betas)</span>
-<span id="cb64-16"><a href="problem-set-1.html#cb64-16" tabindex="-1"></a></span>
-<span id="cb64-17"><a href="problem-set-1.html#cb64-17" tabindex="-1"></a>beta_150 <span class="op">=</span> simular_beta(<span class="dv">150</span>)</span>
-<span id="cb64-18"><a href="problem-set-1.html#cb64-18" tabindex="-1"></a>beta_1000 <span class="op">=</span> simular_beta(<span class="dv">1000</span>)</span>
-<span id="cb64-19"><a href="problem-set-1.html#cb64-19" tabindex="-1"></a></span>
-<span id="cb64-20"><a href="problem-set-1.html#cb64-20" tabindex="-1"></a><span class="bu">print</span>(beta_150.mean(), beta_150.std(ddof<span class="op">=</span><span class="dv">1</span>))</span>
-<span id="cb64-21"><a href="problem-set-1.html#cb64-21" tabindex="-1"></a><span class="bu">print</span>(beta_1000.mean(), beta_1000.std(ddof<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb66-1"><a href="problem-set-1.html#cb66-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb66-2"><a href="problem-set-1.html#cb66-2" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb66-3"><a href="problem-set-1.html#cb66-3" tabindex="-1"></a></span>
+<span id="cb66-4"><a href="problem-set-1.html#cb66-4" tabindex="-1"></a><span class="kw">def</span> simular_beta(n, reps<span class="op">=</span><span class="dv">1000</span>, seed<span class="op">=</span><span class="dv">123</span>):</span>
+<span id="cb66-5"><a href="problem-set-1.html#cb66-5" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb66-6"><a href="problem-set-1.html#cb66-6" tabindex="-1"></a>    betas <span class="op">=</span> []</span>
+<span id="cb66-7"><a href="problem-set-1.html#cb66-7" tabindex="-1"></a></span>
+<span id="cb66-8"><a href="problem-set-1.html#cb66-8" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(reps):</span>
+<span id="cb66-9"><a href="problem-set-1.html#cb66-9" tabindex="-1"></a>        x <span class="op">=</span> rng.uniform(<span class="dv">3</span>, <span class="dv">10</span>, n)</span>
+<span id="cb66-10"><a href="problem-set-1.html#cb66-10" tabindex="-1"></a>        epsilon <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb66-11"><a href="problem-set-1.html#cb66-11" tabindex="-1"></a>        y <span class="op">=</span> <span class="fl">2.5</span> <span class="op">*</span> x <span class="op">+</span> epsilon</span>
+<span id="cb66-12"><a href="problem-set-1.html#cb66-12" tabindex="-1"></a>        modelo <span class="op">=</span> sm.OLS(y, x).fit()</span>
+<span id="cb66-13"><a href="problem-set-1.html#cb66-13" tabindex="-1"></a>        betas.append(modelo.params[<span class="dv">0</span>])</span>
+<span id="cb66-14"><a href="problem-set-1.html#cb66-14" tabindex="-1"></a></span>
+<span id="cb66-15"><a href="problem-set-1.html#cb66-15" tabindex="-1"></a>    <span class="cf">return</span> np.array(betas)</span>
+<span id="cb66-16"><a href="problem-set-1.html#cb66-16" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="problem-set-1.html#cb66-17" tabindex="-1"></a>beta_150 <span class="op">=</span> simular_beta(<span class="dv">150</span>)</span>
+<span id="cb66-18"><a href="problem-set-1.html#cb66-18" tabindex="-1"></a>beta_1000 <span class="op">=</span> simular_beta(<span class="dv">1000</span>)</span>
+<span id="cb66-19"><a href="problem-set-1.html#cb66-19" tabindex="-1"></a></span>
+<span id="cb66-20"><a href="problem-set-1.html#cb66-20" tabindex="-1"></a><span class="bu">print</span>(beta_150.mean(), beta_150.std(ddof<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb66-21"><a href="problem-set-1.html#cb66-21" tabindex="-1"></a><span class="bu">print</span>(beta_1000.mean(), beta_1000.std(ddof<span class="op">=</span><span class="dv">1</span>))</span></code></pre></div>
 </div>
 </div>
 <div id="cierre" class="section level2 hasAnchor" number="28.8">

@@ -215,10 +215,11 @@ M_s'=M_s, \quad M_s^2=M_s.
 
 ### Con números: seis personas
 
-Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— y usemos como único control el sexo, de modo que \(X_s=[\iota \; d]\) con \(\iota\) la constante y \(d\) la indicadora de hombre.
+Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo, de modo que \(X_s=[\iota \; d]\) con \(\iota\) la constante y \(d\) la indicadora de hombre.
 
 ```{r datos-seis-fwl}
 y <- c(1.8, 2.0, 2.2, 2.9, 3.1, 3.3)   # salario, en millones
+x <- c(158, 162, 166, 170, 174, 178)   # altura, en cm
 d <- c(0, 0, 0, 1, 1, 1)               # 1 = hombre
 Xs <- cbind(constante = 1, hombre = d)
 ```
@@ -239,6 +240,15 @@ beta
 
 El resultado tiene una lectura directa: \(\hat{\beta}_0=2.0\) es el salario promedio de las mujeres, y \(\hat{\beta}_1=1.1\) es cuánto más ganan los hombres en promedio. **Regresar contra un juego completo de indicadoras es sacar promedios de grupo**, nada más.
 
+Y esa cuenta a mano no es una analogía de una regresión: **es** la regresión. Corrámosla:
+
+```{r lm-seis-fwl}
+reg_y <- lm(y ~ d)      # la regresión que está adentro de M
+coef(reg_y)
+```
+
+Los mismos dos números. Entonces los valores ajustados de esa regresión son \(P y\), y sus residuos son \(M y\).
+
 Ahora las dos matrices:
 
 ```{r matrices-seis-fwl}
@@ -257,28 +267,24 @@ rowSums(M)
 
 Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.
 
-Finalmente, la igualdad que motiva todo el capítulo: \(M y\) **es** el vector de residuos.
+Con esto ya se puede comprobar la igualdad que motiva todo el capítulo: **\(M y\) es exactamente \(y-\hat{y}\) de la regresión de \(y\) contra la constante y el sexo**.
 
 ```{r residuos-seis-fwl}
-ajustados <- Xs %*% beta          # y sombrero
-residuos  <- y - ajustados        # e sombrero
-
 # round() solo para leer la tabla: sin él aparece la basura de punto flotante
 # (4.44e-16 en vez de 0) y la igualdad se ve rota cuando no lo está.
 round(data.frame(
-  y          = y,
-  y_ajustado = as.vector(ajustados),
-  P_por_y    = as.vector(P %*% y),
-  residuo    = as.vector(residuos),
-  M_por_y    = as.vector(M %*% y),
-  resid_lm   = unname(resid(lm(y ~ d)))
+  y         = y,
+  y_hat     = unname(fitted(reg_y)),      # de la regresión
+  P_por_y   = as.vector(P %*% y),         # de la matriz
+  y_menos_y_hat = unname(resid(reg_y)),   # de la regresión
+  M_por_y   = as.vector(M %*% y)          # de la matriz
 ), 4)
 ```
 
-Las columnas coinciden de a pares: los ajustados son \(Py\) —el promedio del grupo de cada quien— y los residuos son \(My\), idénticos a los que devuelve `lm()`.
+Las columnas coinciden de a pares. Multiplicar por \(M\) y correr la regresión guardando los residuos son la misma operación.
 
 ```{r verificacion-seis-fwl}
-all.equal(as.vector(M %*% y), unname(resid(lm(y ~ d))))
+all.equal(as.vector(M %*% y), unname(resid(reg_y)))
 ```
 
 ::: {.box-ejemplo}
@@ -291,67 +297,71 @@ Ese \(-0.2\) **no es un salario de menos doscientos mil pesos**. Un residuo no e
 De hecho, los residuos **tienen que** ser negativos la mitad del tiempo: por construcción suman cero dentro de cada grupo. Si todos fueran positivos, no serían desviaciones respecto a un promedio. Lo mismo vale para la altura residual: \(-4\) cm significa "cuatro centímetros más bajo que el promedio de su grupo", no que alguien mida menos que nada.
 :::
 
-### Y ahora con las 90 personas
+### Los mismos seis, hasta el final
 
-Con seis observaciones se puede imprimir \(M\) completa. Con noventa no, pero la operación es exactamente la misma, y los coeficientes se calculan igual. Volvamos a los datos de la altura, con \(X_s=[\iota \; \text{hombre}]\).
+Hasta aquí solo limpiamos el salario. Falta la otra mitad: la altura se limpia con la **misma** matriz, porque los controles son los mismos.
+
+```{r altura-seis-fwl}
+reg_x <- lm(x ~ d)      # la altura contra la constante y el sexo
+coef(reg_x)
+```
+
+La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Sus residuos son \(M x\):
+
+```{r residuos-x-seis-fwl}
+y_limpio <- as.vector(M %*% y)
+x_limpio <- as.vector(M %*% x)
+
+round(data.frame(hombre = d, y_limpio, x_limpio), 4)
+```
+
+Se ve a simple vista lo que hace \(M\): dentro de cada grupo las alturas quedan en \(-4, 0, 4\) y los salarios en \(-0.2,\, 0,\, 0.2\). Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.
+
+Y ahora sí, el teorema, con una regresión simple sin constante:
+
+```{r fwl-seis-final}
+beta_fwl <- sum(x_limpio * y_limpio) / sum(x_limpio^2)
+
+c(
+  fwl      = beta_fwl,
+  multiple = unname(coef(lm(y ~ x + d))["x"]),
+  cruda    = unname(coef(lm(y ~ x))["x"])
+)
+```
+
+El numerador es \(3.2\) y el denominador \(64\), así que \(\hat{\beta}=0.05\): cada centímetro extra son cincuenta mil pesos. La regresión múltiple da el mismo número, y la cruda da casi el doble porque le está cobrando a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.
+
+### La misma cuenta en las 90 personas
+
+Con seis observaciones se puede imprimir \(M\) completa. Con noventa no, pero nada cambia: son las mismas líneas sobre los datos de la figura del comienzo.
 
 ```{r betas-90-fwl}
-X90  <- cbind(constante = 1, hombre = nubes$hombre)
+X90    <- cbind(constante = 1, hombre = nubes$hombre)
 XtXi90 <- solve(t(X90) %*% X90)
 
-beta_salario <- XtXi90 %*% t(X90) %*% nubes$salario
-beta_altura  <- XtXi90 %*% t(X90) %*% nubes$altura
-
-betas <- cbind(beta_salario, beta_altura)
+betas <- cbind(XtXi90 %*% t(X90) %*% nubes$salario,
+               XtXi90 %*% t(X90) %*% nubes$altura)
 colnames(betas) <- c("salario", "altura")   # cbind no pisa los dimnames del vector
 round(betas, 4)
 ```
 
-Los cuatro números tienen nombre. En la columna del salario, la constante es el salario promedio de las mujeres y el segundo coeficiente es cuánto más ganan los hombres. En la columna de la altura, la constante es la estatura promedio de las mujeres y el segundo coeficiente es cuánto más miden los hombres:
-
-```{r medias-90-fwl}
-round(c(
-  salario_mujeres = mean(nubes$salario[nubes$hombre == 0]),
-  brecha_salario  = mean(nubes$salario[nubes$hombre == 1]) - mean(nubes$salario[nubes$hombre == 0]),
-  altura_mujeres  = mean(nubes$altura[nubes$hombre == 0]),
-  brecha_altura   = mean(nubes$altura[nubes$hombre == 1]) - mean(nubes$altura[nubes$hombre == 0])
-), 4)
-```
-
-Ahora construimos \(M\) y comprobamos lo que anunciamos al principio: **\(M y\) es el vector de residuos de la regresión de \(y\) contra lo que está dentro de \(M\)**.
+Otra vez cuatro promedios: el salario y la estatura media de las mujeres, y las dos brechas. Construimos \(M\) y comprobamos la igualdad en las dos variables:
 
 ```{r m90-fwl}
 M90 <- diag(90) - X90 %*% XtXi90 %*% t(X90)
 
-r_salario_M <- as.vector(M90 %*% nubes$salario)
-r_altura_M  <- as.vector(M90 %*% nubes$altura)
+y_limpio90 <- as.vector(M90 %*% nubes$salario)
+x_limpio90 <- as.vector(M90 %*% nubes$altura)
 
-all.equal(r_salario_M, unname(resid(lm(salario ~ hombre, data = nubes))))
-all.equal(r_altura_M,  unname(resid(lm(altura  ~ hombre, data = nubes))))
+all.equal(y_limpio90, unname(resid(lm(salario ~ hombre, data = nubes))))
+all.equal(x_limpio90, unname(resid(lm(altura  ~ hombre, data = nubes))))
 ```
 
-Las dos comprobaciones dan `TRUE`. Multiplicar por \(M\) y correr la regresión guardando los residuos son la misma operación, y lo único que hay adentro de \(M\) es la constante y el sexo. Vale la pena mirar las primeras filas para ver de dónde sale cada número:
-
-```{r tabla-90-fwl}
-ajustado_salario <- as.vector(X90 %*% beta_salario)
-
-round(head(data.frame(
-  hombre        = nubes$hombre,
-  salario       = nubes$salario,
-  ajustado      = ajustado_salario,     # = P y, el promedio de su grupo
-  residuo       = r_salario_M           # = M y, la sorpresa salarial
-), 4), 3)
-```
-
-Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor: se mide en millones de pesos, pero es una **diferencia**, no un salario, y por eso puede salir negativo sin que nadie le pague a la empresa por trabajar.
-
-Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:
+Y el mismo último paso:
 
 ```{r fwl-90-final}
-beta_fwl <- sum(r_altura_M * r_salario_M) / sum(r_altura_M^2)
-
 c(
-  fwl      = beta_fwl,
+  fwl      = sum(x_limpio90 * y_limpio90) / sum(x_limpio90^2),
   multiple = unname(coef(lm(salario ~ altura + hombre, data = nubes))["altura"]),
   cruda    = unname(coef(lm(salario ~ altura, data = nubes))["altura"])
 )

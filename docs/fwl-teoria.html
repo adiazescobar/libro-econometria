@@ -541,7 +541,7 @@ M_s&#39;=M_s, \quad M_s^2=M_s.
 </div>
 <div id="con-números-seis-personas" class="section level3 hasAnchor" number="9.4.2">
 <h3><span class="header-section-number">9.4.2</span> Con números: seis personas<a href="#con-n%C3%BAmeros-seis-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— y usemos como único control el sexo, de modo que <span class="math inline">\(X_s=[\iota \; d]\)</span> con <span class="math inline">\(\iota\)</span> la constante y <span class="math inline">\(d\)</span> la indicadora de hombre.</p>
+<p>Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— con su salario y su altura, y usemos como único control el sexo, de modo que <span class="math inline">\(X_s=[\iota \; d]\)</span> con <span class="math inline">\(\iota\)</span> la constante y <span class="math inline">\(d\)</span> la indicadora de hombre.</p>
 <p>Calculamos el vector de coeficientes pieza por pieza:</p>
 <pre><code>#&gt;           constante hombre
 #&gt; constante         6      3
@@ -556,6 +556,10 @@ M_s&#39;=M_s, \quad M_s^2=M_s.
 #&gt; constante  2.0
 #&gt; hombre     1.1</code></pre>
 <p>El resultado tiene una lectura directa: <span class="math inline">\(\hat{\beta}_0=2.0\)</span> es el salario promedio de las mujeres, y <span class="math inline">\(\hat{\beta}_1=1.1\)</span> es cuánto más ganan los hombres en promedio. <strong>Regresar contra un juego completo de indicadoras es sacar promedios de grupo</strong>, nada más.</p>
+<p>Y esa cuenta a mano no es una analogía de una regresión: <strong>es</strong> la regresión. Corrámosla:</p>
+<pre><code>#&gt; (Intercept)           d 
+#&gt;         2.0         1.1</code></pre>
+<p>Los mismos dos números. Entonces los valores ajustados de esa regresión son <span class="math inline">\(P y\)</span>, y sus residuos son <span class="math inline">\(M y\)</span>.</p>
 <p>Ahora las dos matrices:</p>
 <pre><code>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
 #&gt; [1,] 1/3  1/3  1/3    0    0    0 
@@ -575,15 +579,15 @@ M_s&#39;=M_s, \quad M_s^2=M_s.
 <pre><code>#&gt; [1] 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16
 #&gt; [6] 1.110223e-16</code></pre>
 <p>Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.</p>
-<p>Finalmente, la igualdad que motiva todo el capítulo: <span class="math inline">\(M y\)</span> <strong>es</strong> el vector de residuos.</p>
-<pre><code>#&gt;     y y_ajustado P_por_y residuo M_por_y resid_lm
-#&gt; 1 1.8        2.0     2.0    -0.2    -0.2     -0.2
-#&gt; 2 2.0        2.0     2.0     0.0     0.0      0.0
-#&gt; 3 2.2        2.0     2.0     0.2     0.2      0.2
-#&gt; 4 2.9        3.1     3.1    -0.2    -0.2     -0.2
-#&gt; 5 3.1        3.1     3.1     0.0     0.0      0.0
-#&gt; 6 3.3        3.1     3.1     0.2     0.2      0.2</code></pre>
-<p>Las columnas coinciden de a pares: los ajustados son <span class="math inline">\(Py\)</span> —el promedio del grupo de cada quien— y los residuos son <span class="math inline">\(My\)</span>, idénticos a los que devuelve <code>lm()</code>.</p>
+<p>Con esto ya se puede comprobar la igualdad que motiva todo el capítulo: <strong><span class="math inline">\(M y\)</span> es exactamente <span class="math inline">\(y-\hat{y}\)</span> de la regresión de <span class="math inline">\(y\)</span> contra la constante y el sexo</strong>.</p>
+<pre><code>#&gt;     y y_hat P_por_y y_menos_y_hat M_por_y
+#&gt; 1 1.8   2.0     2.0          -0.2    -0.2
+#&gt; 2 2.0   2.0     2.0           0.0     0.0
+#&gt; 3 2.2   2.0     2.0           0.2     0.2
+#&gt; 4 2.9   3.1     3.1          -0.2    -0.2
+#&gt; 5 3.1   3.1     3.1           0.0     0.0
+#&gt; 6 3.3   3.1     3.1           0.2     0.2</code></pre>
+<p>Las columnas coinciden de a pares. Multiplicar por <span class="math inline">\(M\)</span> y correr la regresión guardando los residuos son la misma operación.</p>
 <pre><code>#&gt; [1] TRUE</code></pre>
 <div class="box-ejemplo">
 <p>Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es <span class="math inline">\(-0.2\)</span>. Léanlo en la fila 1 de <span class="math inline">\(M\)</span>: <span class="math inline">\(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\)</span>. La matriz no está haciendo magia: está restando el promedio del grupo.</p>
@@ -593,48 +597,57 @@ M_s&#39;=M_s, \quad M_s^2=M_s.
 <p>De hecho, los residuos <strong>tienen que</strong> ser negativos la mitad del tiempo: por construcción suman cero dentro de cada grupo. Si todos fueran positivos, no serían desviaciones respecto a un promedio. Lo mismo vale para la altura residual: <span class="math inline">\(-4\)</span> cm significa “cuatro centímetros más bajo que el promedio de su grupo”, no que alguien mida menos que nada.</p>
 </div>
 </div>
-<div id="y-ahora-con-las-90-personas" class="section level3 hasAnchor" number="9.4.3">
-<h3><span class="header-section-number">9.4.3</span> Y ahora con las 90 personas<a href="fwl-teoria.html#y-ahora-con-las-90-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Con seis observaciones se puede imprimir <span class="math inline">\(M\)</span> completa. Con noventa no, pero la operación es exactamente la misma, y los coeficientes se calculan igual. Volvamos a los datos de la altura, con <span class="math inline">\(X_s=[\iota \; \text{hombre}]\)</span>.</p>
+<div id="los-mismos-seis-hasta-el-final" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Los mismos seis, hasta el final<a href="fwl-teoria.html#los-mismos-seis-hasta-el-final" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Hasta aquí solo limpiamos el salario. Falta la otra mitad: la altura se limpia con la <strong>misma</strong> matriz, porque los controles son los mismos.</p>
+<pre><code>#&gt; (Intercept)           d 
+#&gt;         162          12</code></pre>
+<p>La constante es la altura promedio de las mujeres (162 cm) y el coeficiente es cuánto más miden los hombres (12 cm). Sus residuos son <span class="math inline">\(M x\)</span>:</p>
+<pre><code>#&gt;   hombre y_limpio x_limpio
+#&gt; 1      0     -0.2       -4
+#&gt; 2      0      0.0        0
+#&gt; 3      0      0.2        4
+#&gt; 4      1     -0.2       -4
+#&gt; 5      1      0.0        0
+#&gt; 6      1      0.2        4</code></pre>
+<p>Se ve a simple vista lo que hace <span class="math inline">\(M\)</span>: dentro de cada grupo las alturas quedan en <span class="math inline">\(-4, 0, 4\)</span> y los salarios en <span class="math inline">\(-0.2,\, 0,\, 0.2\)</span>. Los dos grupos quedaron superpuestos, que es exactamente el deslizamiento de la figura.</p>
+<p>Y ahora sí, el teorema, con una regresión simple sin constante:</p>
+<pre><code>#&gt;        fwl   multiple      cruda 
+#&gt; 0.05000000 0.05000000 0.08214286</code></pre>
+<p>El numerador es <span class="math inline">\(3.2\)</span> y el denominador <span class="math inline">\(64\)</span>, así que <span class="math inline">\(\hat{\beta}=0.05\)</span>: cada centímetro extra son cincuenta mil pesos. La regresión múltiple da el mismo número, y la cruda da casi el doble porque le está cobrando a la altura una parte de la diferencia entre hombres y mujeres. Todo con seis datos que caben en el tablero.</p>
+</div>
+<div id="la-misma-cuenta-en-las-90-personas" class="section level3 hasAnchor" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> La misma cuenta en las 90 personas<a href="fwl-teoria.html#la-misma-cuenta-en-las-90-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Con seis observaciones se puede imprimir <span class="math inline">\(M\)</span> completa. Con noventa no, pero nada cambia: son las mismas líneas sobre los datos de la figura del comienzo.</p>
 <pre><code>#&gt;           salario   altura
 #&gt; constante  1.9405 160.7049
 #&gt; hombre     1.1660  12.4413</code></pre>
-<p>Los cuatro números tienen nombre. En la columna del salario, la constante es el salario promedio de las mujeres y el segundo coeficiente es cuánto más ganan los hombres. En la columna de la altura, la constante es la estatura promedio de las mujeres y el segundo coeficiente es cuánto más miden los hombres:</p>
-<pre><code>#&gt; salario_mujeres  brecha_salario  altura_mujeres   brecha_altura 
-#&gt;          1.9405          1.1660        160.7049         12.4413</code></pre>
-<p>Ahora construimos <span class="math inline">\(M\)</span> y comprobamos lo que anunciamos al principio: <strong><span class="math inline">\(M y\)</span> es el vector de residuos de la regresión de <span class="math inline">\(y\)</span> contra lo que está dentro de <span class="math inline">\(M\)</span></strong>.</p>
+<p>Otra vez cuatro promedios: el salario y la estatura media de las mujeres, y las dos brechas. Construimos <span class="math inline">\(M\)</span> y comprobamos la igualdad en las dos variables:</p>
 <pre><code>#&gt; [1] TRUE</code></pre>
 <pre><code>#&gt; [1] TRUE</code></pre>
-<p>Las dos comprobaciones dan <code>TRUE</code>. Multiplicar por <span class="math inline">\(M\)</span> y correr la regresión guardando los residuos son la misma operación, y lo único que hay adentro de <span class="math inline">\(M\)</span> es la constante y el sexo. Vale la pena mirar las primeras filas para ver de dónde sale cada número:</p>
-<pre><code>#&gt;   hombre salario ajustado residuo
-#&gt; 1      0   1.961     1.94   0.021
-#&gt; 2      0   2.282     1.94   0.342
-#&gt; 3      0   1.967     1.94   0.027
-#&gt; 4      0   1.972     1.94   0.032</code></pre>
-<p>Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor: se mide en millones de pesos, pero es una <strong>diferencia</strong>, no un salario, y por eso puede salir negativo sin que nadie le pague a la empresa por trabajar.</p>
-<p>Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:</p>
+<p>Y el mismo último paso:</p>
 <pre><code>#&gt;        fwl   multiple      cruda 
 #&gt; 0.02532153 0.02532153 0.06228507</code></pre>
 <div class="box-resumen">
 <p>El coeficiente de FWL y el de la regresión múltiple coinciden hasta el último decimal, y los dos son una fracción del coeficiente crudo. La diferencia entre el crudo y el parcial es el sesgo por variable omitida: lo que la regresión simple le atribuía a la altura y en realidad era diferencia entre hombres y mujeres.</p>
 </div>
 </div>
-<div id="paso-1-limpiar-y" class="section level3 hasAnchor" number="9.4.4">
-<h3><span class="header-section-number">9.4.4</span> Paso 1: limpiar <span class="math inline">\(y\)</span><a href="fwl-teoria.html#paso-1-limpiar-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="paso-1-limpiar-y" class="section level3 hasAnchor" number="9.4.5">
+<h3><span class="header-section-number">9.4.5</span> Paso 1: limpiar <span class="math inline">\(y\)</span><a href="fwl-teoria.html#paso-1-limpiar-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Regresamos <span class="math inline">\(y\)</span> sobre los controles <span class="math inline">\(X_s\)</span> y guardamos los residuos:</p>
 <p><span class="math display">\[
 y^\perp=M_s y.
 \]</span></p>
 </div>
-<div id="paso-2-limpiar-x_r" class="section level3 hasAnchor" number="9.4.5">
-<h3><span class="header-section-number">9.4.5</span> Paso 2: limpiar <span class="math inline">\(X_r\)</span><a href="fwl-teoria.html#paso-2-limpiar-x_r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="paso-2-limpiar-x_r" class="section level3 hasAnchor" number="9.4.6">
+<h3><span class="header-section-number">9.4.6</span> Paso 2: limpiar <span class="math inline">\(X_r\)</span><a href="fwl-teoria.html#paso-2-limpiar-x_r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Regresamos <span class="math inline">\(X_r\)</span> sobre los mismos controles y guardamos los residuos:</p>
 <p><span class="math display">\[
 X_r^\perp=M_s X_r.
 \]</span></p>
 </div>
-<div id="paso-3-regresar-residuos-contra-residuos" class="section level3 hasAnchor" number="9.4.6">
-<h3><span class="header-section-number">9.4.6</span> Paso 3: regresar residuos contra residuos<a href="fwl-teoria.html#paso-3-regresar-residuos-contra-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="paso-3-regresar-residuos-contra-residuos" class="section level3 hasAnchor" number="9.4.7">
+<h3><span class="header-section-number">9.4.7</span> Paso 3: regresar residuos contra residuos<a href="fwl-teoria.html#paso-3-regresar-residuos-contra-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Estimamos:</p>
 <p><span class="math display">\[
 y^\perp=X_r^\perp\gamma+u.

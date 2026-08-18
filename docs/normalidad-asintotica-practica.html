@@ -406,21 +406,21 @@ Figura 16.2: Coeficiente de x1 e intervalos aproximados al aumentar el tamaño m
 <div id="estimacion-stata-normas" class="section level2 hasAnchor" number="16.6">
 <h2><span class="header-section-number">16.6</span> Estimación en Stata<a href="normalidad-asintotica-practica.html#estimacion-stata-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb44-1"><a href="normalidad-asintotica-practica.html#cb44-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb44-2"><a href="normalidad-asintotica-practica.html#cb44-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 160</span>
-<span id="cb44-3"><a href="normalidad-asintotica-practica.html#cb44-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb44-4"><a href="normalidad-asintotica-practica.html#cb44-4" tabindex="-1"></a>summ i</span>
-<span id="cb44-5"><a href="normalidad-asintotica-practica.html#cb44-5" tabindex="-1"></a><span class="kw">local</span> media_i = <span class="fu">r</span>(<span class="kw">mean</span>)</span>
-<span id="cb44-6"><a href="normalidad-asintotica-practica.html#cb44-6" tabindex="-1"></a><span class="kw">local</span> sd_i = <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb44-7"><a href="normalidad-asintotica-practica.html#cb44-7" tabindex="-1"></a><span class="kw">gen</span> x1 = (i - <span class="ot">`media_i&#39;</span>) / <span class="ot">`sd_i&#39;</span></span>
-<span id="cb44-8"><a href="normalidad-asintotica-practica.html#cb44-8" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = <span class="fu">cos</span>(i / 9)</span>
-<span id="cb44-9"><a href="normalidad-asintotica-practica.html#cb44-9" tabindex="-1"></a><span class="kw">gen</span> error_base = 0.7 * <span class="fu">sin</span>(1.7 * i) + 0.25 * ((<span class="fu">mod</span>(i, 4) - 1.5)^2)</span>
-<span id="cb44-10"><a href="normalidad-asintotica-practica.html#cb44-10" tabindex="-1"></a>summ error_base, <span class="kw">meanonly</span></span>
-<span id="cb44-11"><a href="normalidad-asintotica-practica.html#cb44-11" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">error</span> = error_base - <span class="fu">r</span>(<span class="kw">mean</span>)</span>
-<span id="cb44-12"><a href="normalidad-asintotica-practica.html#cb44-12" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 0.50 * x1 - 0.70 * <span class="kw">x2</span> + <span class="kw">error</span></span>
-<span id="cb44-13"><a href="normalidad-asintotica-practica.html#cb44-13" tabindex="-1"></a></span>
-<span id="cb44-14"><a href="normalidad-asintotica-practica.html#cb44-14" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
-<span id="cb44-15"><a href="normalidad-asintotica-practica.html#cb44-15" tabindex="-1"></a><span class="kw">test</span> (x1 = 0.50) (<span class="kw">x2</span> = -0.70)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb46-1"><a href="normalidad-asintotica-practica.html#cb46-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb46-2"><a href="normalidad-asintotica-practica.html#cb46-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 160</span>
+<span id="cb46-3"><a href="normalidad-asintotica-practica.html#cb46-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb46-4"><a href="normalidad-asintotica-practica.html#cb46-4" tabindex="-1"></a>summ i</span>
+<span id="cb46-5"><a href="normalidad-asintotica-practica.html#cb46-5" tabindex="-1"></a><span class="kw">local</span> media_i = <span class="fu">r</span>(<span class="kw">mean</span>)</span>
+<span id="cb46-6"><a href="normalidad-asintotica-practica.html#cb46-6" tabindex="-1"></a><span class="kw">local</span> sd_i = <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb46-7"><a href="normalidad-asintotica-practica.html#cb46-7" tabindex="-1"></a><span class="kw">gen</span> x1 = (i - <span class="ot">`media_i&#39;</span>) / <span class="ot">`sd_i&#39;</span></span>
+<span id="cb46-8"><a href="normalidad-asintotica-practica.html#cb46-8" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = <span class="fu">cos</span>(i / 9)</span>
+<span id="cb46-9"><a href="normalidad-asintotica-practica.html#cb46-9" tabindex="-1"></a><span class="kw">gen</span> error_base = 0.7 * <span class="fu">sin</span>(1.7 * i) + 0.25 * ((<span class="fu">mod</span>(i, 4) - 1.5)^2)</span>
+<span id="cb46-10"><a href="normalidad-asintotica-practica.html#cb46-10" tabindex="-1"></a>summ error_base, <span class="kw">meanonly</span></span>
+<span id="cb46-11"><a href="normalidad-asintotica-practica.html#cb46-11" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">error</span> = error_base - <span class="fu">r</span>(<span class="kw">mean</span>)</span>
+<span id="cb46-12"><a href="normalidad-asintotica-practica.html#cb46-12" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 1 + 0.50 * x1 - 0.70 * <span class="kw">x2</span> + <span class="kw">error</span></span>
+<span id="cb46-13"><a href="normalidad-asintotica-practica.html#cb46-13" tabindex="-1"></a></span>
+<span id="cb46-14"><a href="normalidad-asintotica-practica.html#cb46-14" tabindex="-1"></a><span class="kw">reg</span> <span class="fu">y</span> x1 <span class="kw">x2</span></span>
+<span id="cb46-15"><a href="normalidad-asintotica-practica.html#cb46-15" tabindex="-1"></a><span class="kw">test</span> (x1 = 0.50) (<span class="kw">x2</span> = -0.70)</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -457,36 +457,36 @@ Figura 16.2: Coeficiente de x1 e intervalos aproximados al aumentar el tamaño m
 <div id="estimacion-python-colab-normas" class="section level2 hasAnchor" number="16.7">
 <h2><span class="header-section-number">16.7</span> Estimación en Python y Google Colab<a href="normalidad-asintotica-practica.html#estimacion-python-colab-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb45-1"><a href="normalidad-asintotica-practica.html#cb45-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb47-1"><a href="normalidad-asintotica-practica.html#cb47-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib</span></code></pre></div>
 <p>Luego reproduce la base y el modelo:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb46-1"><a href="normalidad-asintotica-practica.html#cb46-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb46-2"><a href="normalidad-asintotica-practica.html#cb46-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb46-3"><a href="normalidad-asintotica-practica.html#cb46-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb46-4"><a href="normalidad-asintotica-practica.html#cb46-4" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2, norm</span>
-<span id="cb46-5"><a href="normalidad-asintotica-practica.html#cb46-5" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="normalidad-asintotica-practica.html#cb46-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">160</span></span>
-<span id="cb46-7"><a href="normalidad-asintotica-practica.html#cb46-7" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb46-8"><a href="normalidad-asintotica-practica.html#cb46-8" tabindex="-1"></a>x1 <span class="op">=</span> (i <span class="op">-</span> i.mean()) <span class="op">/</span> i.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb46-9"><a href="normalidad-asintotica-practica.html#cb46-9" tabindex="-1"></a>x2 <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">9</span>)</span>
-<span id="cb46-10"><a href="normalidad-asintotica-practica.html#cb46-10" tabindex="-1"></a>error_base <span class="op">=</span> <span class="fl">0.7</span> <span class="op">*</span> np.sin(<span class="fl">1.7</span> <span class="op">*</span> i) <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> ((i <span class="op">%</span> <span class="dv">4</span>) <span class="op">-</span> <span class="fl">1.5</span>) <span class="op">**</span> <span class="dv">2</span></span>
-<span id="cb46-11"><a href="normalidad-asintotica-practica.html#cb46-11" tabindex="-1"></a>error <span class="op">=</span> error_base <span class="op">-</span> error_base.mean()</span>
-<span id="cb46-12"><a href="normalidad-asintotica-practica.html#cb46-12" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.50</span> <span class="op">*</span> x1 <span class="op">-</span> <span class="fl">0.70</span> <span class="op">*</span> x2 <span class="op">+</span> error</span>
-<span id="cb46-13"><a href="normalidad-asintotica-practica.html#cb46-13" tabindex="-1"></a></span>
-<span id="cb46-14"><a href="normalidad-asintotica-practica.html#cb46-14" tabindex="-1"></a>datos_asint <span class="op">=</span> pd.DataFrame({<span class="st">&quot;i&quot;</span>: i, <span class="st">&quot;x1&quot;</span>: x1, <span class="st">&quot;x2&quot;</span>: x2, <span class="st">&quot;y&quot;</span>: y})</span>
-<span id="cb46-15"><a href="normalidad-asintotica-practica.html#cb46-15" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos_asint[[<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>]])</span>
-<span id="cb46-16"><a href="normalidad-asintotica-practica.html#cb46-16" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(datos_asint[<span class="st">&quot;y&quot;</span>], X).fit()</span>
-<span id="cb46-17"><a href="normalidad-asintotica-practica.html#cb46-17" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
-<span id="cb46-18"><a href="normalidad-asintotica-practica.html#cb46-18" tabindex="-1"></a></span>
-<span id="cb46-19"><a href="normalidad-asintotica-practica.html#cb46-19" tabindex="-1"></a>t_x1 <span class="op">=</span> (modelo.params[<span class="st">&quot;x1&quot;</span>] <span class="op">-</span> <span class="fl">0.50</span>) <span class="op">/</span> modelo.bse[<span class="st">&quot;x1&quot;</span>]</span>
-<span id="cb46-20"><a href="normalidad-asintotica-practica.html#cb46-20" tabindex="-1"></a>p_norm_x1 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> norm.cdf(<span class="bu">abs</span>(t_x1)))</span>
-<span id="cb46-21"><a href="normalidad-asintotica-practica.html#cb46-21" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;t_x1&quot;</span>: t_x1, <span class="st">&quot;p_normal&quot;</span>: p_norm_x1})</span>
-<span id="cb46-22"><a href="normalidad-asintotica-practica.html#cb46-22" tabindex="-1"></a></span>
-<span id="cb46-23"><a href="normalidad-asintotica-practica.html#cb46-23" tabindex="-1"></a>R <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]])</span>
-<span id="cb46-24"><a href="normalidad-asintotica-practica.html#cb46-24" tabindex="-1"></a>r <span class="op">=</span> np.array([<span class="fl">0.50</span>, <span class="op">-</span><span class="fl">0.70</span>])</span>
-<span id="cb46-25"><a href="normalidad-asintotica-practica.html#cb46-25" tabindex="-1"></a>b <span class="op">=</span> modelo.params.to_numpy()</span>
-<span id="cb46-26"><a href="normalidad-asintotica-practica.html#cb46-26" tabindex="-1"></a>V <span class="op">=</span> modelo.cov_params().to_numpy()</span>
-<span id="cb46-27"><a href="normalidad-asintotica-practica.html#cb46-27" tabindex="-1"></a>W <span class="op">=</span> (R <span class="op">@</span> b <span class="op">-</span> r).T <span class="op">@</span> np.linalg.inv(R <span class="op">@</span> V <span class="op">@</span> R.T) <span class="op">@</span> (R <span class="op">@</span> b <span class="op">-</span> r)</span>
-<span id="cb46-28"><a href="normalidad-asintotica-practica.html#cb46-28" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;Wald&quot;</span>: W, <span class="st">&quot;p_chi2&quot;</span>: <span class="dv">1</span> <span class="op">-</span> chi2.cdf(W, df<span class="op">=</span><span class="dv">2</span>)})</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb48-1"><a href="normalidad-asintotica-practica.html#cb48-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb48-2"><a href="normalidad-asintotica-practica.html#cb48-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb48-3"><a href="normalidad-asintotica-practica.html#cb48-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb48-4"><a href="normalidad-asintotica-practica.html#cb48-4" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> chi2, norm</span>
+<span id="cb48-5"><a href="normalidad-asintotica-practica.html#cb48-5" tabindex="-1"></a></span>
+<span id="cb48-6"><a href="normalidad-asintotica-practica.html#cb48-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">160</span></span>
+<span id="cb48-7"><a href="normalidad-asintotica-practica.html#cb48-7" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb48-8"><a href="normalidad-asintotica-practica.html#cb48-8" tabindex="-1"></a>x1 <span class="op">=</span> (i <span class="op">-</span> i.mean()) <span class="op">/</span> i.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb48-9"><a href="normalidad-asintotica-practica.html#cb48-9" tabindex="-1"></a>x2 <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">9</span>)</span>
+<span id="cb48-10"><a href="normalidad-asintotica-practica.html#cb48-10" tabindex="-1"></a>error_base <span class="op">=</span> <span class="fl">0.7</span> <span class="op">*</span> np.sin(<span class="fl">1.7</span> <span class="op">*</span> i) <span class="op">+</span> <span class="fl">0.25</span> <span class="op">*</span> ((i <span class="op">%</span> <span class="dv">4</span>) <span class="op">-</span> <span class="fl">1.5</span>) <span class="op">**</span> <span class="dv">2</span></span>
+<span id="cb48-11"><a href="normalidad-asintotica-practica.html#cb48-11" tabindex="-1"></a>error <span class="op">=</span> error_base <span class="op">-</span> error_base.mean()</span>
+<span id="cb48-12"><a href="normalidad-asintotica-practica.html#cb48-12" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.50</span> <span class="op">*</span> x1 <span class="op">-</span> <span class="fl">0.70</span> <span class="op">*</span> x2 <span class="op">+</span> error</span>
+<span id="cb48-13"><a href="normalidad-asintotica-practica.html#cb48-13" tabindex="-1"></a></span>
+<span id="cb48-14"><a href="normalidad-asintotica-practica.html#cb48-14" tabindex="-1"></a>datos_asint <span class="op">=</span> pd.DataFrame({<span class="st">&quot;i&quot;</span>: i, <span class="st">&quot;x1&quot;</span>: x1, <span class="st">&quot;x2&quot;</span>: x2, <span class="st">&quot;y&quot;</span>: y})</span>
+<span id="cb48-15"><a href="normalidad-asintotica-practica.html#cb48-15" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos_asint[[<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>]])</span>
+<span id="cb48-16"><a href="normalidad-asintotica-practica.html#cb48-16" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(datos_asint[<span class="st">&quot;y&quot;</span>], X).fit()</span>
+<span id="cb48-17"><a href="normalidad-asintotica-practica.html#cb48-17" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span>
+<span id="cb48-18"><a href="normalidad-asintotica-practica.html#cb48-18" tabindex="-1"></a></span>
+<span id="cb48-19"><a href="normalidad-asintotica-practica.html#cb48-19" tabindex="-1"></a>t_x1 <span class="op">=</span> (modelo.params[<span class="st">&quot;x1&quot;</span>] <span class="op">-</span> <span class="fl">0.50</span>) <span class="op">/</span> modelo.bse[<span class="st">&quot;x1&quot;</span>]</span>
+<span id="cb48-20"><a href="normalidad-asintotica-practica.html#cb48-20" tabindex="-1"></a>p_norm_x1 <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">-</span> norm.cdf(<span class="bu">abs</span>(t_x1)))</span>
+<span id="cb48-21"><a href="normalidad-asintotica-practica.html#cb48-21" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;t_x1&quot;</span>: t_x1, <span class="st">&quot;p_normal&quot;</span>: p_norm_x1})</span>
+<span id="cb48-22"><a href="normalidad-asintotica-practica.html#cb48-22" tabindex="-1"></a></span>
+<span id="cb48-23"><a href="normalidad-asintotica-practica.html#cb48-23" tabindex="-1"></a>R <span class="op">=</span> np.array([[<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb48-24"><a href="normalidad-asintotica-practica.html#cb48-24" tabindex="-1"></a>r <span class="op">=</span> np.array([<span class="fl">0.50</span>, <span class="op">-</span><span class="fl">0.70</span>])</span>
+<span id="cb48-25"><a href="normalidad-asintotica-practica.html#cb48-25" tabindex="-1"></a>b <span class="op">=</span> modelo.params.to_numpy()</span>
+<span id="cb48-26"><a href="normalidad-asintotica-practica.html#cb48-26" tabindex="-1"></a>V <span class="op">=</span> modelo.cov_params().to_numpy()</span>
+<span id="cb48-27"><a href="normalidad-asintotica-practica.html#cb48-27" tabindex="-1"></a>W <span class="op">=</span> (R <span class="op">@</span> b <span class="op">-</span> r).T <span class="op">@</span> np.linalg.inv(R <span class="op">@</span> V <span class="op">@</span> R.T) <span class="op">@</span> (R <span class="op">@</span> b <span class="op">-</span> r)</span>
+<span id="cb48-28"><a href="normalidad-asintotica-practica.html#cb48-28" tabindex="-1"></a><span class="bu">print</span>({<span class="st">&quot;Wald&quot;</span>: W, <span class="st">&quot;p_chi2&quot;</span>: <span class="dv">1</span> <span class="op">-</span> chi2.cdf(W, df<span class="op">=</span><span class="dv">2</span>)})</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
