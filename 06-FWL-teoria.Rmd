@@ -5,6 +5,10 @@ library(ggplot2)
 library(knitr)
 
 knitr::opts_chunk$set(
+  # 00-PruebaEntrada.Rmd fija echo = FALSE globalmente y en bookdown eso persiste
+  # por el resto del libro. Los demas capitulos de teoria no tienen codigo, asi
+  # que nunca se noto; este si, y sin esta linea sale sin mostrar el codigo.
+  echo = TRUE,
   comment = "#>",
   fig.align = "center",
   fig.width = 7,

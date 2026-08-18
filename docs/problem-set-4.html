@@ -340,43 +340,60 @@ y^*=y+w,\qquad x^*=x+v.
 </div>
 <div id="código-base-en-r-4" class="section level3 hasAnchor" number="31.8.1">
 <h3><span class="header-section-number">31.8.1</span> Código base en R<a href="#c%C3%B3digo-base-en-r-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="problem-set-4.html#cb133-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb133-2"><a href="problem-set-4.html#cb133-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb133-3"><a href="problem-set-4.html#cb133-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb133-4"><a href="problem-set-4.html#cb133-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb133-5"><a href="problem-set-4.html#cb133-5" tabindex="-1"></a>educ <span class="ot">&lt;-</span> <span class="dv">12</span> <span class="sc">+</span> <span class="fl">0.8</span> <span class="sc">*</span> z <span class="sc">+</span> <span class="fl">0.7</span> <span class="sc">*</span> a <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb133-6"><a href="problem-set-4.html#cb133-6" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb133-7"><a href="problem-set-4.html#cb133-7" tabindex="-1"></a>lwage <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.10</span> <span class="sc">*</span> educ <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> a <span class="sc">+</span> epsilon</span>
+<span id="cb133-8"><a href="problem-set-4.html#cb133-8" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(lwage, educ, z, a)</span>
+<span id="cb133-9"><a href="problem-set-4.html#cb133-9" tabindex="-1"></a></span>
+<span id="cb133-10"><a href="problem-set-4.html#cb133-10" tabindex="-1"></a>mco <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ, <span class="at">data =</span> datos)</span>
+<span id="cb133-11"><a href="problem-set-4.html#cb133-11" tabindex="-1"></a>primera <span class="ot">&lt;-</span> <span class="fu">lm</span>(educ <span class="sc">~</span> z, <span class="at">data =</span> datos)</span>
+<span id="cb133-12"><a href="problem-set-4.html#cb133-12" tabindex="-1"></a>datos<span class="sc">$</span>educ_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(primera)</span>
+<span id="cb133-13"><a href="problem-set-4.html#cb133-13" tabindex="-1"></a>iv_manual <span class="ot">&lt;-</span> <span class="fu">lm</span>(lwage <span class="sc">~</span> educ_hat, <span class="at">data =</span> datos)</span>
+<span id="cb133-14"><a href="problem-set-4.html#cb133-14" tabindex="-1"></a></span>
+<span id="cb133-15"><a href="problem-set-4.html#cb133-15" tabindex="-1"></a><span class="fu">summary</span>(mco)</span>
+<span id="cb133-16"><a href="problem-set-4.html#cb133-16" tabindex="-1"></a><span class="fu">summary</span>(primera)</span>
+<span id="cb133-17"><a href="problem-set-4.html#cb133-17" tabindex="-1"></a><span class="fu">summary</span>(iv_manual)</span></code></pre></div>
 </div>
 <div id="código-base-en-stata-3" class="section level3 hasAnchor" number="31.8.2">
 <h3><span class="header-section-number">31.8.2</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb71"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb71-1"><a href="problem-set-4.html#cb71-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb71-2"><a href="problem-set-4.html#cb71-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
-<span id="cb71-3"><a href="problem-set-4.html#cb71-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 1000</span>
-<span id="cb71-4"><a href="problem-set-4.html#cb71-4" tabindex="-1"></a><span class="kw">gen</span> z = rnormal()</span>
-<span id="cb71-5"><a href="problem-set-4.html#cb71-5" tabindex="-1"></a><span class="kw">gen</span> a = rnormal()</span>
-<span id="cb71-6"><a href="problem-set-4.html#cb71-6" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.8*z + 0.7*a + rnormal()</span>
-<span id="cb71-7"><a href="problem-set-4.html#cb71-7" tabindex="-1"></a><span class="kw">gen</span> lwage = 1 + 0.10*educ + 0.5*a + rnormal()</span>
-<span id="cb71-8"><a href="problem-set-4.html#cb71-8" tabindex="-1"></a></span>
-<span id="cb71-9"><a href="problem-set-4.html#cb71-9" tabindex="-1"></a><span class="kw">regress</span> lwage educ</span>
-<span id="cb71-10"><a href="problem-set-4.html#cb71-10" tabindex="-1"></a><span class="kw">regress</span> educ z</span>
-<span id="cb71-11"><a href="problem-set-4.html#cb71-11" tabindex="-1"></a>ivregress 2sls lwage (educ = z)</span>
-<span id="cb71-12"><a href="problem-set-4.html#cb71-12" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb134-1"><a href="problem-set-4.html#cb134-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb134-2"><a href="problem-set-4.html#cb134-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
+<span id="cb134-3"><a href="problem-set-4.html#cb134-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 1000</span>
+<span id="cb134-4"><a href="problem-set-4.html#cb134-4" tabindex="-1"></a><span class="kw">gen</span> z = rnormal()</span>
+<span id="cb134-5"><a href="problem-set-4.html#cb134-5" tabindex="-1"></a><span class="kw">gen</span> a = rnormal()</span>
+<span id="cb134-6"><a href="problem-set-4.html#cb134-6" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.8*z + 0.7*a + rnormal()</span>
+<span id="cb134-7"><a href="problem-set-4.html#cb134-7" tabindex="-1"></a><span class="kw">gen</span> lwage = 1 + 0.10*educ + 0.5*a + rnormal()</span>
+<span id="cb134-8"><a href="problem-set-4.html#cb134-8" tabindex="-1"></a></span>
+<span id="cb134-9"><a href="problem-set-4.html#cb134-9" tabindex="-1"></a><span class="kw">regress</span> lwage educ</span>
+<span id="cb134-10"><a href="problem-set-4.html#cb134-10" tabindex="-1"></a><span class="kw">regress</span> educ z</span>
+<span id="cb134-11"><a href="problem-set-4.html#cb134-11" tabindex="-1"></a>ivregress 2sls lwage (educ = z)</span>
+<span id="cb134-12"><a href="problem-set-4.html#cb134-12" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
 </div>
 <div id="código-base-en-python-3" class="section level3 hasAnchor" number="31.8.3">
 <h3><span class="header-section-number">31.8.3</span> Código base en Python<a href="#c%C3%B3digo-base-en-python-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb72"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb72-1"><a href="problem-set-4.html#cb72-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb72-2"><a href="problem-set-4.html#cb72-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb72-3"><a href="problem-set-4.html#cb72-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb72-4"><a href="problem-set-4.html#cb72-4" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="problem-set-4.html#cb72-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
-<span id="cb72-6"><a href="problem-set-4.html#cb72-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb72-7"><a href="problem-set-4.html#cb72-7" tabindex="-1"></a>z <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb72-8"><a href="problem-set-4.html#cb72-8" tabindex="-1"></a>a <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb72-9"><a href="problem-set-4.html#cb72-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>z <span class="op">+</span> <span class="fl">0.7</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb72-10"><a href="problem-set-4.html#cb72-10" tabindex="-1"></a>lwage <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb72-11"><a href="problem-set-4.html#cb72-11" tabindex="-1"></a></span>
-<span id="cb72-12"><a href="problem-set-4.html#cb72-12" tabindex="-1"></a>X_mco <span class="op">=</span> sm.add_constant(educ)</span>
-<span id="cb72-13"><a href="problem-set-4.html#cb72-13" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_mco).fit().summary())</span>
-<span id="cb72-14"><a href="problem-set-4.html#cb72-14" tabindex="-1"></a></span>
-<span id="cb72-15"><a href="problem-set-4.html#cb72-15" tabindex="-1"></a>X_first <span class="op">=</span> sm.add_constant(z)</span>
-<span id="cb72-16"><a href="problem-set-4.html#cb72-16" tabindex="-1"></a>first <span class="op">=</span> sm.OLS(educ, X_first).fit()</span>
-<span id="cb72-17"><a href="problem-set-4.html#cb72-17" tabindex="-1"></a>educ_hat <span class="op">=</span> first.fittedvalues</span>
-<span id="cb72-18"><a href="problem-set-4.html#cb72-18" tabindex="-1"></a>X_second <span class="op">=</span> sm.add_constant(educ_hat)</span>
-<span id="cb72-19"><a href="problem-set-4.html#cb72-19" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_second).fit().summary())</span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb135-1"><a href="problem-set-4.html#cb135-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb135-2"><a href="problem-set-4.html#cb135-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb135-3"><a href="problem-set-4.html#cb135-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb135-4"><a href="problem-set-4.html#cb135-4" tabindex="-1"></a></span>
+<span id="cb135-5"><a href="problem-set-4.html#cb135-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
+<span id="cb135-6"><a href="problem-set-4.html#cb135-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb135-7"><a href="problem-set-4.html#cb135-7" tabindex="-1"></a>z <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb135-8"><a href="problem-set-4.html#cb135-8" tabindex="-1"></a>a <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb135-9"><a href="problem-set-4.html#cb135-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>z <span class="op">+</span> <span class="fl">0.7</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb135-10"><a href="problem-set-4.html#cb135-10" tabindex="-1"></a>lwage <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>a <span class="op">+</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb135-11"><a href="problem-set-4.html#cb135-11" tabindex="-1"></a></span>
+<span id="cb135-12"><a href="problem-set-4.html#cb135-12" tabindex="-1"></a>X_mco <span class="op">=</span> sm.add_constant(educ)</span>
+<span id="cb135-13"><a href="problem-set-4.html#cb135-13" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_mco).fit().summary())</span>
+<span id="cb135-14"><a href="problem-set-4.html#cb135-14" tabindex="-1"></a></span>
+<span id="cb135-15"><a href="problem-set-4.html#cb135-15" tabindex="-1"></a>X_first <span class="op">=</span> sm.add_constant(z)</span>
+<span id="cb135-16"><a href="problem-set-4.html#cb135-16" tabindex="-1"></a>first <span class="op">=</span> sm.OLS(educ, X_first).fit()</span>
+<span id="cb135-17"><a href="problem-set-4.html#cb135-17" tabindex="-1"></a>educ_hat <span class="op">=</span> first.fittedvalues</span>
+<span id="cb135-18"><a href="problem-set-4.html#cb135-18" tabindex="-1"></a>X_second <span class="op">=</span> sm.add_constant(educ_hat)</span>
+<span id="cb135-19"><a href="problem-set-4.html#cb135-19" tabindex="-1"></a><span class="bu">print</span>(sm.OLS(lwage, X_second).fit().summary())</span></code></pre></div>
 </div>
 </div>
 <div id="cierre-3" class="section level2 hasAnchor" number="31.9">
