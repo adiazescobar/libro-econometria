@@ -368,21 +368,21 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 <div id="estimacion-stata-endogeneidad" class="section level2 hasAnchor" number="22.6">
 <h2><span class="header-section-number">22.6</span> Estimación en Stata<a href="endogeneidad-practica.html#estimacion-stata-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="endogeneidad-practica.html#cb56-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb56-2"><a href="endogeneidad-practica.html#cb56-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
-<span id="cb56-3"><a href="endogeneidad-practica.html#cb56-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb56-4"><a href="endogeneidad-practica.html#cb56-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/7) + <span class="fu">cos</span>(i/11)</span>
-<span id="cb56-5"><a href="endogeneidad-practica.html#cb56-5" tabindex="-1"></a>summ habilidad</span>
-<span id="cb56-6"><a href="endogeneidad-practica.html#cb56-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb56-7"><a href="endogeneidad-practica.html#cb56-7" tabindex="-1"></a><span class="kw">gen</span> educ = 11 + 1.2 * habilidad + 0.6 * <span class="fu">sin</span>(i/5)</span>
-<span id="cb56-8"><a href="endogeneidad-practica.html#cb56-8" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25 * <span class="fu">sin</span>(i/3)</span>
-<span id="cb56-9"><a href="endogeneidad-practica.html#cb56-9" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon</span>
-<span id="cb56-10"><a href="endogeneidad-practica.html#cb56-10" tabindex="-1"></a></span>
-<span id="cb56-11"><a href="endogeneidad-practica.html#cb56-11" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
-<span id="cb56-12"><a href="endogeneidad-practica.html#cb56-12" tabindex="-1"></a><span class="kw">reg</span> lwage educ habilidad</span>
-<span id="cb56-13"><a href="endogeneidad-practica.html#cb56-13" tabindex="-1"></a></span>
-<span id="cb56-14"><a href="endogeneidad-practica.html#cb56-14" tabindex="-1"></a><span class="kw">gen</span> educ_medida = educ + 0.8 * <span class="fu">sin</span>(i/4)</span>
-<span id="cb56-15"><a href="endogeneidad-practica.html#cb56-15" tabindex="-1"></a><span class="kw">reg</span> lwage educ_medida habilidad</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb53-1"><a href="endogeneidad-practica.html#cb53-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb53-2"><a href="endogeneidad-practica.html#cb53-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 200</span>
+<span id="cb53-3"><a href="endogeneidad-practica.html#cb53-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb53-4"><a href="endogeneidad-practica.html#cb53-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/7) + <span class="fu">cos</span>(i/11)</span>
+<span id="cb53-5"><a href="endogeneidad-practica.html#cb53-5" tabindex="-1"></a>summ habilidad</span>
+<span id="cb53-6"><a href="endogeneidad-practica.html#cb53-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb53-7"><a href="endogeneidad-practica.html#cb53-7" tabindex="-1"></a><span class="kw">gen</span> educ = 11 + 1.2 * habilidad + 0.6 * <span class="fu">sin</span>(i/5)</span>
+<span id="cb53-8"><a href="endogeneidad-practica.html#cb53-8" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25 * <span class="fu">sin</span>(i/3)</span>
+<span id="cb53-9"><a href="endogeneidad-practica.html#cb53-9" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.5 + 0.08 * educ + 0.35 * habilidad + epsilon</span>
+<span id="cb53-10"><a href="endogeneidad-practica.html#cb53-10" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="endogeneidad-practica.html#cb53-11" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
+<span id="cb53-12"><a href="endogeneidad-practica.html#cb53-12" tabindex="-1"></a><span class="kw">reg</span> lwage educ habilidad</span>
+<span id="cb53-13"><a href="endogeneidad-practica.html#cb53-13" tabindex="-1"></a></span>
+<span id="cb53-14"><a href="endogeneidad-practica.html#cb53-14" tabindex="-1"></a><span class="kw">gen</span> educ_medida = educ + 0.8 * <span class="fu">sin</span>(i/4)</span>
+<span id="cb53-15"><a href="endogeneidad-practica.html#cb53-15" tabindex="-1"></a><span class="kw">reg</span> lwage educ_medida habilidad</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -414,30 +414,30 @@ Figura 22.1: Relación entre educación y habilidad en la simulación
 <div id="estimacion-python-colab-endogeneidad" class="section level2 hasAnchor" number="22.7">
 <h2><span class="header-section-number">22.7</span> Estimación en Python y Google Colab<a href="endogeneidad-practica.html#estimacion-python-colab-endogeneidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab:</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="endogeneidad-practica.html#cb57-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="endogeneidad-practica.html#cb54-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego ejecuta:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="endogeneidad-practica.html#cb58-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb58-2"><a href="endogeneidad-practica.html#cb58-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb58-3"><a href="endogeneidad-practica.html#cb58-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb58-4"><a href="endogeneidad-practica.html#cb58-4" tabindex="-1"></a></span>
-<span id="cb58-5"><a href="endogeneidad-practica.html#cb58-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
-<span id="cb58-6"><a href="endogeneidad-practica.html#cb58-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb58-7"><a href="endogeneidad-practica.html#cb58-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">7</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">11</span>)</span>
-<span id="cb58-8"><a href="endogeneidad-practica.html#cb58-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb58-9"><a href="endogeneidad-practica.html#cb58-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">11</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> habilidad <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
-<span id="cb58-10"><a href="endogeneidad-practica.html#cb58-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
-<span id="cb58-11"><a href="endogeneidad-practica.html#cb58-11" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.08</span> <span class="op">*</span> educ <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> habilidad <span class="op">+</span> epsilon</span>
-<span id="cb58-12"><a href="endogeneidad-practica.html#cb58-12" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;habilidad&quot;</span>: habilidad})</span>
-<span id="cb58-13"><a href="endogeneidad-practica.html#cb58-13" tabindex="-1"></a></span>
-<span id="cb58-14"><a href="endogeneidad-practica.html#cb58-14" tabindex="-1"></a>corto <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
-<span id="cb58-15"><a href="endogeneidad-practica.html#cb58-15" tabindex="-1"></a>largo <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
-<span id="cb58-16"><a href="endogeneidad-practica.html#cb58-16" tabindex="-1"></a></span>
-<span id="cb58-17"><a href="endogeneidad-practica.html#cb58-17" tabindex="-1"></a>datos[<span class="st">&quot;educ_medida&quot;</span>] <span class="op">=</span> datos[<span class="st">&quot;educ&quot;</span>] <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
-<span id="cb58-18"><a href="endogeneidad-practica.html#cb58-18" tabindex="-1"></a>medicion <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
-<span id="cb58-19"><a href="endogeneidad-practica.html#cb58-19" tabindex="-1"></a></span>
-<span id="cb58-20"><a href="endogeneidad-practica.html#cb58-20" tabindex="-1"></a><span class="bu">print</span>(corto.summary())</span>
-<span id="cb58-21"><a href="endogeneidad-practica.html#cb58-21" tabindex="-1"></a><span class="bu">print</span>(largo.summary())</span>
-<span id="cb58-22"><a href="endogeneidad-practica.html#cb58-22" tabindex="-1"></a><span class="bu">print</span>(medicion.summary())</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="endogeneidad-practica.html#cb55-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb55-2"><a href="endogeneidad-practica.html#cb55-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb55-3"><a href="endogeneidad-practica.html#cb55-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb55-4"><a href="endogeneidad-practica.html#cb55-4" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="endogeneidad-practica.html#cb55-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">200</span></span>
+<span id="cb55-6"><a href="endogeneidad-practica.html#cb55-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb55-7"><a href="endogeneidad-practica.html#cb55-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">7</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">11</span>)</span>
+<span id="cb55-8"><a href="endogeneidad-practica.html#cb55-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb55-9"><a href="endogeneidad-practica.html#cb55-9" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">11</span> <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> habilidad <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb55-10"><a href="endogeneidad-practica.html#cb55-10" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">3</span>)</span>
+<span id="cb55-11"><a href="endogeneidad-practica.html#cb55-11" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.08</span> <span class="op">*</span> educ <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> habilidad <span class="op">+</span> epsilon</span>
+<span id="cb55-12"><a href="endogeneidad-practica.html#cb55-12" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;habilidad&quot;</span>: habilidad})</span>
+<span id="cb55-13"><a href="endogeneidad-practica.html#cb55-13" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="endogeneidad-practica.html#cb55-14" tabindex="-1"></a>corto <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
+<span id="cb55-15"><a href="endogeneidad-practica.html#cb55-15" tabindex="-1"></a>largo <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb55-16"><a href="endogeneidad-practica.html#cb55-16" tabindex="-1"></a></span>
+<span id="cb55-17"><a href="endogeneidad-practica.html#cb55-17" tabindex="-1"></a>datos[<span class="st">&quot;educ_medida&quot;</span>] <span class="op">=</span> datos[<span class="st">&quot;educ&quot;</span>] <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb55-18"><a href="endogeneidad-practica.html#cb55-18" tabindex="-1"></a>medicion <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_medida&quot;</span>, <span class="st">&quot;habilidad&quot;</span>]])).fit()</span>
+<span id="cb55-19"><a href="endogeneidad-practica.html#cb55-19" tabindex="-1"></a></span>
+<span id="cb55-20"><a href="endogeneidad-practica.html#cb55-20" tabindex="-1"></a><span class="bu">print</span>(corto.summary())</span>
+<span id="cb55-21"><a href="endogeneidad-practica.html#cb55-21" tabindex="-1"></a><span class="bu">print</span>(largo.summary())</span>
+<span id="cb55-22"><a href="endogeneidad-practica.html#cb55-22" tabindex="-1"></a><span class="bu">print</span>(medicion.summary())</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.</p>
 </div>
 <div id="comparacion-software-endogeneidad" class="section level2 hasAnchor" number="22.8">

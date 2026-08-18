@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Estimamos tres cosas: la regresión cruda, la múltiple, y la regresión entre residuos.</p>
 <!-- Demo interactiva de FWL. Todo el CSS va prefijado con .fwl-w para no tocar
      el estilo del libro; el bloque es autocontenido (sin dependencias). -->
-<div id="fwlDemo" class="fwl-w">
+<div class="fwl-w" id="fwlDemo">
 <style>
 .fwl-w{--fw-ink:#17181A;--fw-muted:#6A6C70;--fw-line:#E7E7E3;--fw-soft:#F4F3EF;
   --fw-a:#2f4858;--fw-b:#C0562F;--fw-naive:#9A9C9F;--fw-fit:#17181A;
@@ -283,52 +283,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 .fwl-w .fw-work .g{color:var(--fw-muted);line-height:1.55}
 .fwl-w .fw-work .g b{color:var(--fw-ink)}
 </style>
+
 <div class="fw-top">
-<div class="fw-plot">
-<svg id="fwViz" viewBox="0 0 700 440" role="img" aria-label="Salario contra altura, transformado en residuales">
-</svg>
-</div>
-<div class="fw-side">
-<pre><code>&lt;p class=&quot;fw-no&quot; id=&quot;fwNo&quot;&gt;&lt;/p&gt;
-&lt;p class=&quot;fw-ti&quot; id=&quot;fwTi&quot;&gt;&lt;/p&gt;
-&lt;p class=&quot;fw-bo&quot; id=&quot;fwBo&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;fw-ask&quot;&gt;&lt;em&gt;Pregunta&lt;/em&gt;&lt;span id=&quot;fwAsk&quot;&gt;&lt;/span&gt;&lt;/div&gt;</code></pre>
-</div>
+  <div class="fw-plot"><svg id="fwViz" viewBox="0 0 700 440" role="img" aria-label="Salario contra altura, transformado en residuales"></svg></div>
+  <div class="fw-side">
+    <p class="fw-no" id="fwNo"></p>
+    <p class="fw-ti" id="fwTi"></p>
+    <p class="fw-bo" id="fwBo"></p>
+    <div class="fw-ask"><em>Pregunta</em><span id="fwAsk"></span></div>
+  </div>
 </div>
 <div class="fw-ctl">
-<button id="fwPrev">← Atrás</button>
-<button id="fwNext" class="fw-pri">Siguiente →</button>
-<button id="fwReset">Reiniciar</button>
-<div id="fwDots" class="fw-dots">
+  <button id="fwPrev">&larr; Atrás</button>
+  <button id="fwNext" class="fw-pri">Siguiente &rarr;</button>
+  <button id="fwReset">Reiniciar</button>
+  <div class="fw-dots" id="fwDots"></div>
+</div>
 
-</div>
-</div>
 <div class="fw-mat">
-<p class="fw-mh">
-La misma limpieza, escrita como matriz
-</p>
-<p class="fw-mp">
-Seis personas ordenadas por grupo: tres mujeres y tres hombres. Haz clic en una fila para ver qué hace con los datos.
-</p>
-<div class="fw-tog">
-<pre><code>&lt;button id=&quot;fwBtnM&quot; aria-pressed=&quot;true&quot;&gt;M &amp;mdash; lo que queda&lt;/button&gt;
-&lt;button id=&quot;fwBtnP&quot; aria-pressed=&quot;false&quot;&gt;P &amp;mdash; lo que el sexo predice&lt;/button&gt;
-&lt;span class=&quot;fw-hint&quot;&gt;Clic en una fila&lt;/span&gt;</code></pre>
-</div>
-<div class="fw-box">
-<div class="fw-row">
-<pre><code>&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwMat&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot; id=&quot;fwMatLb&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;span class=&quot;fw-op&quot;&gt;&amp;middot;&lt;/span&gt;
-&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwVecY&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot;&gt;y&lt;/div&gt;&lt;/div&gt;
-&lt;span class=&quot;fw-op&quot;&gt;=&lt;/span&gt;
-&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwVecR&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot; id=&quot;fwResLb&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+  <p class="fw-mh">La misma limpieza, escrita como matriz</p>
+  <p class="fw-mp">Seis personas ordenadas por grupo: tres mujeres y tres hombres. Haz clic en una fila para ver qué hace con los datos.</p>
+  <div class="fw-tog">
+    <button id="fwBtnM" aria-pressed="true">M &mdash; lo que queda</button>
+    <button id="fwBtnP" aria-pressed="false">P &mdash; lo que el sexo predice</button>
+    <span class="fw-hint">Clic en una fila</span>
+  </div>
+  <div class="fw-box"><div class="fw-row">
+    <div><div class="fw-br"><div id="fwMat"></div></div><div class="fw-lb" id="fwMatLb"></div></div>
+    <span class="fw-op">&middot;</span>
+    <div><div class="fw-br"><div id="fwVecY"></div></div><div class="fw-lb">y</div></div>
+    <span class="fw-op">=</span>
+    <div><div class="fw-br"><div id="fwVecR"></div></div><div class="fw-lb" id="fwResLb"></div></div>
+  </div></div>
+  <div class="fw-work" id="fwWork"></div>
 </div>
 </div>
-<div id="fwWork" class="fw-work">
 
-</div>
-</div>
-</div>
 <script>
 (function(){
   var R=document.getElementById("fwlDemo"); if(!R) return;

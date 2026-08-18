@@ -87,7 +87,12 @@ m_fwl <- lm(r_salario ~ r_altura, data = nubes)
 # En HTML se muestra la demostracion interactiva; en PDF y epub, las dos
 # figuras estaticas de abajo, que cuentan lo mismo sin animacion.
 if (knitr::is_html_output()) {
-  cat(readLines("widgets/fwl-demo.html", warn = FALSE), sep = "\n")
+  # Va dentro de un bloque raw de pandoc. Sin esto, pandoc corta el HTML en cada
+  # linea en blanco y convierte las lineas indentadas en bloques de codigo.
+  cerca <- strrep("`", 3)
+  cat(paste0(cerca, "{=html}"),
+      readLines("widgets/fwl-demo.html", warn = FALSE),
+      cerca, sep = "\n")
 }
 ```
 

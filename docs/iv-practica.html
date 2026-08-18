@@ -366,23 +366,23 @@ Figura 24.2: Educación predicha por el instrumento y log salario
 <div id="estimacion-stata-iv" class="section level2 hasAnchor" number="24.6">
 <h2><span class="header-section-number">24.6</span> Estimación en Stata<a href="iv-practica.html#estimacion-stata-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb59-1"><a href="iv-practica.html#cb59-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb59-2"><a href="iv-practica.html#cb59-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 300</span>
-<span id="cb59-3"><a href="iv-practica.html#cb59-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb59-4"><a href="iv-practica.html#cb59-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/9) + <span class="fu">cos</span>(i/13)</span>
-<span id="cb59-5"><a href="iv-practica.html#cb59-5" tabindex="-1"></a>summ habilidad</span>
-<span id="cb59-6"><a href="iv-practica.html#cb59-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb59-7"><a href="iv-practica.html#cb59-7" tabindex="-1"></a><span class="kw">gen</span> cercania = <span class="fu">cos</span>(i/17) + <span class="fu">sin</span>(i/6)</span>
-<span id="cb59-8"><a href="iv-practica.html#cb59-8" tabindex="-1"></a>summ cercania</span>
-<span id="cb59-9"><a href="iv-practica.html#cb59-9" tabindex="-1"></a><span class="kw">replace</span> cercania = (cercania - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
-<span id="cb59-10"><a href="iv-practica.html#cb59-10" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*<span class="fu">sin</span>(i/5)</span>
-<span id="cb59-11"><a href="iv-practica.html#cb59-11" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25*<span class="fu">sin</span>(i/4)</span>
-<span id="cb59-12"><a href="iv-practica.html#cb59-12" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon</span>
-<span id="cb59-13"><a href="iv-practica.html#cb59-13" tabindex="-1"></a></span>
-<span id="cb59-14"><a href="iv-practica.html#cb59-14" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
-<span id="cb59-15"><a href="iv-practica.html#cb59-15" tabindex="-1"></a><span class="kw">reg</span> educ cercania</span>
-<span id="cb59-16"><a href="iv-practica.html#cb59-16" tabindex="-1"></a>ivregress 2sls lwage (educ = cercania), first</span>
-<span id="cb59-17"><a href="iv-practica.html#cb59-17" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb56-1"><a href="iv-practica.html#cb56-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb56-2"><a href="iv-practica.html#cb56-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 300</span>
+<span id="cb56-3"><a href="iv-practica.html#cb56-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb56-4"><a href="iv-practica.html#cb56-4" tabindex="-1"></a><span class="kw">gen</span> habilidad = <span class="fu">sin</span>(i/9) + <span class="fu">cos</span>(i/13)</span>
+<span id="cb56-5"><a href="iv-practica.html#cb56-5" tabindex="-1"></a>summ habilidad</span>
+<span id="cb56-6"><a href="iv-practica.html#cb56-6" tabindex="-1"></a><span class="kw">replace</span> habilidad = (habilidad - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb56-7"><a href="iv-practica.html#cb56-7" tabindex="-1"></a><span class="kw">gen</span> cercania = <span class="fu">cos</span>(i/17) + <span class="fu">sin</span>(i/6)</span>
+<span id="cb56-8"><a href="iv-practica.html#cb56-8" tabindex="-1"></a>summ cercania</span>
+<span id="cb56-9"><a href="iv-practica.html#cb56-9" tabindex="-1"></a><span class="kw">replace</span> cercania = (cercania - <span class="fu">r</span>(<span class="kw">mean</span>)) / <span class="fu">r</span>(<span class="fu">sd</span>)</span>
+<span id="cb56-10"><a href="iv-practica.html#cb56-10" tabindex="-1"></a><span class="kw">gen</span> educ = 12 + 0.9*cercania + 0.8*habilidad + 0.4*<span class="fu">sin</span>(i/5)</span>
+<span id="cb56-11"><a href="iv-practica.html#cb56-11" tabindex="-1"></a><span class="kw">gen</span> epsilon = 0.25*<span class="fu">sin</span>(i/4)</span>
+<span id="cb56-12"><a href="iv-practica.html#cb56-12" tabindex="-1"></a><span class="kw">gen</span> lwage = 1.2 + 0.10*educ + 0.45*habilidad + epsilon</span>
+<span id="cb56-13"><a href="iv-practica.html#cb56-13" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="iv-practica.html#cb56-14" tabindex="-1"></a><span class="kw">reg</span> lwage educ</span>
+<span id="cb56-15"><a href="iv-practica.html#cb56-15" tabindex="-1"></a><span class="kw">reg</span> educ cercania</span>
+<span id="cb56-16"><a href="iv-practica.html#cb56-16" tabindex="-1"></a>ivregress 2sls lwage (educ = cercania), first</span>
+<span id="cb56-17"><a href="iv-practica.html#cb56-17" tabindex="-1"></a><span class="kw">estat</span> firststage</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -419,32 +419,32 @@ Figura 24.2: Educación predicha por el instrumento y log salario
 <div id="estimacion-python-colab-iv" class="section level2 hasAnchor" number="24.7">
 <h2><span class="header-section-number">24.7</span> Estimación en Python y Google Colab<a href="iv-practica.html#estimacion-python-colab-iv" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab:</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb60-1"><a href="iv-practica.html#cb60-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb57-1"><a href="iv-practica.html#cb57-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego ejecuta:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb61-1"><a href="iv-practica.html#cb61-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb61-2"><a href="iv-practica.html#cb61-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb61-3"><a href="iv-practica.html#cb61-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb61-4"><a href="iv-practica.html#cb61-4" tabindex="-1"></a></span>
-<span id="cb61-5"><a href="iv-practica.html#cb61-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
-<span id="cb61-6"><a href="iv-practica.html#cb61-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb61-7"><a href="iv-practica.html#cb61-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">9</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">13</span>)</span>
-<span id="cb61-8"><a href="iv-practica.html#cb61-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb61-9"><a href="iv-practica.html#cb61-9" tabindex="-1"></a>cercania <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">17</span>) <span class="op">+</span> np.sin(i <span class="op">/</span> <span class="dv">6</span>)</span>
-<span id="cb61-10"><a href="iv-practica.html#cb61-10" tabindex="-1"></a>cercania <span class="op">=</span> (cercania <span class="op">-</span> cercania.mean()) <span class="op">/</span> cercania.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb61-11"><a href="iv-practica.html#cb61-11" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span>cercania <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>habilidad <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
-<span id="cb61-12"><a href="iv-practica.html#cb61-12" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
-<span id="cb61-13"><a href="iv-practica.html#cb61-13" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.2</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.45</span><span class="op">*</span>habilidad <span class="op">+</span> epsilon</span>
-<span id="cb61-14"><a href="iv-practica.html#cb61-14" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;cercania&quot;</span>: cercania})</span>
-<span id="cb61-15"><a href="iv-practica.html#cb61-15" tabindex="-1"></a></span>
-<span id="cb61-16"><a href="iv-practica.html#cb61-16" tabindex="-1"></a>mco <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
-<span id="cb61-17"><a href="iv-practica.html#cb61-17" tabindex="-1"></a>primera <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;educ&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;cercania&quot;</span>]])).fit()</span>
-<span id="cb61-18"><a href="iv-practica.html#cb61-18" tabindex="-1"></a>datos[<span class="st">&quot;educ_hat&quot;</span>] <span class="op">=</span> primera.fittedvalues</span>
-<span id="cb61-19"><a href="iv-practica.html#cb61-19" tabindex="-1"></a>iv_manual <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_hat&quot;</span>]])).fit()</span>
-<span id="cb61-20"><a href="iv-practica.html#cb61-20" tabindex="-1"></a></span>
-<span id="cb61-21"><a href="iv-practica.html#cb61-21" tabindex="-1"></a><span class="bu">print</span>(mco.summary())</span>
-<span id="cb61-22"><a href="iv-practica.html#cb61-22" tabindex="-1"></a><span class="bu">print</span>(primera.summary())</span>
-<span id="cb61-23"><a href="iv-practica.html#cb61-23" tabindex="-1"></a><span class="bu">print</span>(iv_manual.summary())</span>
-<span id="cb61-24"><a href="iv-practica.html#cb61-24" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;F primera etapa:&quot;</span>, <span class="bu">float</span>(primera.tvalues[<span class="st">&quot;cercania&quot;</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb58-1"><a href="iv-practica.html#cb58-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb58-2"><a href="iv-practica.html#cb58-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb58-3"><a href="iv-practica.html#cb58-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb58-4"><a href="iv-practica.html#cb58-4" tabindex="-1"></a></span>
+<span id="cb58-5"><a href="iv-practica.html#cb58-5" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">300</span></span>
+<span id="cb58-6"><a href="iv-practica.html#cb58-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, n <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb58-7"><a href="iv-practica.html#cb58-7" tabindex="-1"></a>habilidad <span class="op">=</span> np.sin(i <span class="op">/</span> <span class="dv">9</span>) <span class="op">+</span> np.cos(i <span class="op">/</span> <span class="dv">13</span>)</span>
+<span id="cb58-8"><a href="iv-practica.html#cb58-8" tabindex="-1"></a>habilidad <span class="op">=</span> (habilidad <span class="op">-</span> habilidad.mean()) <span class="op">/</span> habilidad.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb58-9"><a href="iv-practica.html#cb58-9" tabindex="-1"></a>cercania <span class="op">=</span> np.cos(i <span class="op">/</span> <span class="dv">17</span>) <span class="op">+</span> np.sin(i <span class="op">/</span> <span class="dv">6</span>)</span>
+<span id="cb58-10"><a href="iv-practica.html#cb58-10" tabindex="-1"></a>cercania <span class="op">=</span> (cercania <span class="op">-</span> cercania.mean()) <span class="op">/</span> cercania.std(ddof<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb58-11"><a href="iv-practica.html#cb58-11" tabindex="-1"></a>educ <span class="op">=</span> <span class="dv">12</span> <span class="op">+</span> <span class="fl">0.9</span><span class="op">*</span>cercania <span class="op">+</span> <span class="fl">0.8</span><span class="op">*</span>habilidad <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">5</span>)</span>
+<span id="cb58-12"><a href="iv-practica.html#cb58-12" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.25</span><span class="op">*</span>np.sin(i <span class="op">/</span> <span class="dv">4</span>)</span>
+<span id="cb58-13"><a href="iv-practica.html#cb58-13" tabindex="-1"></a>lwage <span class="op">=</span> <span class="fl">1.2</span> <span class="op">+</span> <span class="fl">0.10</span><span class="op">*</span>educ <span class="op">+</span> <span class="fl">0.45</span><span class="op">*</span>habilidad <span class="op">+</span> epsilon</span>
+<span id="cb58-14"><a href="iv-practica.html#cb58-14" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;lwage&quot;</span>: lwage, <span class="st">&quot;educ&quot;</span>: educ, <span class="st">&quot;cercania&quot;</span>: cercania})</span>
+<span id="cb58-15"><a href="iv-practica.html#cb58-15" tabindex="-1"></a></span>
+<span id="cb58-16"><a href="iv-practica.html#cb58-16" tabindex="-1"></a>mco <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ&quot;</span>]])).fit()</span>
+<span id="cb58-17"><a href="iv-practica.html#cb58-17" tabindex="-1"></a>primera <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;educ&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;cercania&quot;</span>]])).fit()</span>
+<span id="cb58-18"><a href="iv-practica.html#cb58-18" tabindex="-1"></a>datos[<span class="st">&quot;educ_hat&quot;</span>] <span class="op">=</span> primera.fittedvalues</span>
+<span id="cb58-19"><a href="iv-practica.html#cb58-19" tabindex="-1"></a>iv_manual <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;lwage&quot;</span>], sm.add_constant(datos[[<span class="st">&quot;educ_hat&quot;</span>]])).fit()</span>
+<span id="cb58-20"><a href="iv-practica.html#cb58-20" tabindex="-1"></a></span>
+<span id="cb58-21"><a href="iv-practica.html#cb58-21" tabindex="-1"></a><span class="bu">print</span>(mco.summary())</span>
+<span id="cb58-22"><a href="iv-practica.html#cb58-22" tabindex="-1"></a><span class="bu">print</span>(primera.summary())</span>
+<span id="cb58-23"><a href="iv-practica.html#cb58-23" tabindex="-1"></a><span class="bu">print</span>(iv_manual.summary())</span>
+<span id="cb58-24"><a href="iv-practica.html#cb58-24" tabindex="-1"></a><span class="bu">print</span>(<span class="st">&quot;F primera etapa:&quot;</span>, <span class="bu">float</span>(primera.tvalues[<span class="st">&quot;cercania&quot;</span>]<span class="op">**</span><span class="dv">2</span>))</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación.</p>
 </div>
 <div id="comparacion-software-iv" class="section level2 hasAnchor" number="24.8">
