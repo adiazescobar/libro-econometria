@@ -223,8 +223,10 @@
       var sg=(tm.length===0)?(c<0?"−":""):(c<0?" − ":" + ");
       tm.push(sg+(mode==="P"?"1/3":(i===j?"2/3":"1/3"))+"("+Y[j].toFixed(2)+")");}
     var g;
-    if(mode==="M"){g="= "+Y[i].toFixed(2)+" − "+MU[G[i]].toFixed(2)+"  →  el salario de <b>"+NM[i]+
-      "</b> menos el promedio de "+GN[G[i]]+". Los tres ceros dicen que "+(G[i]?"ninguna mujer":"ningún hombre")+" entra en su cálculo.";}
+    if(mode==="M"){var d=Y[i]-MU[G[i]],ad=Math.abs(d);
+      g="= "+Y[i].toFixed(2)+" − "+MU[G[i]].toFixed(2)+"  →  <b>"+NM[i]+"</b> gana "+ad.toFixed(2)+
+        " millones "+(d<0?"<b>menos</b>":(d>0?"<b>más</b>":"igual"))+" que el promedio de "+GN[G[i]]+
+        ". No es un salario: es la distancia al promedio, y por eso puede ser negativa.";}
     else{g="= "+MU[G[i]].toFixed(2)+"  →  el promedio de "+GN[G[i]]+
       ". Es <b>todo lo que el sexo sabe</b> de "+NM[i]+".";}
     wk.innerHTML='<div class="l">'+tm.join("")+" = <b>"+fm(ap(mode,i))+"</b></div><p class=\"g\">"+g+"</p>";

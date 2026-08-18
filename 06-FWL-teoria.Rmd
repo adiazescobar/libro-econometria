@@ -282,7 +282,13 @@ all.equal(as.vector(M %*% y), unname(resid(lm(y ~ d))))
 ```
 
 ::: {.box-ejemplo}
-La primera persona gana 1.8 y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
+Ana gana 1.8 millones y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
+:::
+
+::: {.box-cuidado}
+Ese \(-0.2\) **no es un salario de menos doscientos mil pesos**. Un residuo no es un salario: es la *distancia* entre el salario de alguien y el promedio de su grupo, y por eso se lee "Ana gana 200 mil menos que el promedio de las mujeres". El signo dice de qué lado del promedio está, nada más.
+
+De hecho, los residuos **tienen que** ser negativos la mitad del tiempo: por construcción suman cero dentro de cada grupo. Si todos fueran positivos, no serían desviaciones respecto a un promedio. Lo mismo vale para la altura residual: \(-4\) cm significa "cuatro centímetros más bajo que el promedio de su grupo", no que alguien mida menos que nada.
 :::
 
 ### Y ahora con las 90 personas
@@ -337,7 +343,7 @@ round(head(data.frame(
 ), 4), 3)
 ```
 
-Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor.
+Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor: se mide en millones de pesos, pero es una **diferencia**, no un salario, y por eso puede salir negativo sin que nadie le pague a la empresa por trabajar.
 
 Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:
 
