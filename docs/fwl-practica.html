@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-08-11" />
+<meta name="date" content="2026-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -372,36 +372,36 @@ Figura 10.2: Regresión parcial de salario residualizado sobre educación residu
 <div id="estimacion-stata-fwl" class="section level2 hasAnchor" number="10.6">
 <h2><span class="header-section-number">10.6</span> Estimación en Stata<a href="fwl-practica.html#estimacion-stata-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede correrse en Stata:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb20-1"><a href="fwl-practica.html#cb20-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb20-2"><a href="fwl-practica.html#cb20-2" tabindex="-1"></a>input educacion experiencia ajuste</span>
-<span id="cb20-3"><a href="fwl-practica.html#cb20-3" tabindex="-1"></a>10 2  -0.4</span>
-<span id="cb20-4"><a href="fwl-practica.html#cb20-4" tabindex="-1"></a>10 4   0.3</span>
-<span id="cb20-5"><a href="fwl-practica.html#cb20-5" tabindex="-1"></a>11 3  -0.2</span>
-<span id="cb20-6"><a href="fwl-practica.html#cb20-6" tabindex="-1"></a>11 6   0.4</span>
-<span id="cb20-7"><a href="fwl-practica.html#cb20-7" tabindex="-1"></a>12 5  -0.1</span>
-<span id="cb20-8"><a href="fwl-practica.html#cb20-8" tabindex="-1"></a>12 7   0.2</span>
-<span id="cb20-9"><a href="fwl-practica.html#cb20-9" tabindex="-1"></a>13 6   0.1</span>
-<span id="cb20-10"><a href="fwl-practica.html#cb20-10" tabindex="-1"></a>13 9  -0.3</span>
-<span id="cb20-11"><a href="fwl-practica.html#cb20-11" tabindex="-1"></a>14 8   0.2</span>
-<span id="cb20-12"><a href="fwl-practica.html#cb20-12" tabindex="-1"></a>14 10  0.4</span>
-<span id="cb20-13"><a href="fwl-practica.html#cb20-13" tabindex="-1"></a>15 9  -0.2</span>
-<span id="cb20-14"><a href="fwl-practica.html#cb20-14" tabindex="-1"></a>15 12  0.3</span>
-<span id="cb20-15"><a href="fwl-practica.html#cb20-15" tabindex="-1"></a>16 11 -0.1</span>
-<span id="cb20-16"><a href="fwl-practica.html#cb20-16" tabindex="-1"></a>16 13  0.2</span>
-<span id="cb20-17"><a href="fwl-practica.html#cb20-17" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb20-18"><a href="fwl-practica.html#cb20-18" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="fwl-practica.html#cb20-19" tabindex="-1"></a><span class="kw">gen</span> salario_hora = 4 + 0.65 * educacion + 0.40 * experiencia + ajuste</span>
-<span id="cb20-20"><a href="fwl-practica.html#cb20-20" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="fwl-practica.html#cb20-21" tabindex="-1"></a><span class="kw">reg</span> salario_hora educacion</span>
-<span id="cb20-22"><a href="fwl-practica.html#cb20-22" tabindex="-1"></a><span class="kw">reg</span> salario_hora educacion experiencia</span>
-<span id="cb20-23"><a href="fwl-practica.html#cb20-23" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="fwl-practica.html#cb20-24" tabindex="-1"></a><span class="kw">reg</span> salario_hora experiencia</span>
-<span id="cb20-25"><a href="fwl-practica.html#cb20-25" tabindex="-1"></a><span class="kw">predict</span> resid_y, <span class="kw">resid</span></span>
-<span id="cb20-26"><a href="fwl-practica.html#cb20-26" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="fwl-practica.html#cb20-27" tabindex="-1"></a><span class="kw">reg</span> educacion experiencia</span>
-<span id="cb20-28"><a href="fwl-practica.html#cb20-28" tabindex="-1"></a><span class="kw">predict</span> resid_x, <span class="kw">resid</span></span>
-<span id="cb20-29"><a href="fwl-practica.html#cb20-29" tabindex="-1"></a></span>
-<span id="cb20-30"><a href="fwl-practica.html#cb20-30" tabindex="-1"></a><span class="kw">reg</span> resid_y resid_x</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb38-1"><a href="fwl-practica.html#cb38-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb38-2"><a href="fwl-practica.html#cb38-2" tabindex="-1"></a>input educacion experiencia ajuste</span>
+<span id="cb38-3"><a href="fwl-practica.html#cb38-3" tabindex="-1"></a>10 2  -0.4</span>
+<span id="cb38-4"><a href="fwl-practica.html#cb38-4" tabindex="-1"></a>10 4   0.3</span>
+<span id="cb38-5"><a href="fwl-practica.html#cb38-5" tabindex="-1"></a>11 3  -0.2</span>
+<span id="cb38-6"><a href="fwl-practica.html#cb38-6" tabindex="-1"></a>11 6   0.4</span>
+<span id="cb38-7"><a href="fwl-practica.html#cb38-7" tabindex="-1"></a>12 5  -0.1</span>
+<span id="cb38-8"><a href="fwl-practica.html#cb38-8" tabindex="-1"></a>12 7   0.2</span>
+<span id="cb38-9"><a href="fwl-practica.html#cb38-9" tabindex="-1"></a>13 6   0.1</span>
+<span id="cb38-10"><a href="fwl-practica.html#cb38-10" tabindex="-1"></a>13 9  -0.3</span>
+<span id="cb38-11"><a href="fwl-practica.html#cb38-11" tabindex="-1"></a>14 8   0.2</span>
+<span id="cb38-12"><a href="fwl-practica.html#cb38-12" tabindex="-1"></a>14 10  0.4</span>
+<span id="cb38-13"><a href="fwl-practica.html#cb38-13" tabindex="-1"></a>15 9  -0.2</span>
+<span id="cb38-14"><a href="fwl-practica.html#cb38-14" tabindex="-1"></a>15 12  0.3</span>
+<span id="cb38-15"><a href="fwl-practica.html#cb38-15" tabindex="-1"></a>16 11 -0.1</span>
+<span id="cb38-16"><a href="fwl-practica.html#cb38-16" tabindex="-1"></a>16 13  0.2</span>
+<span id="cb38-17"><a href="fwl-practica.html#cb38-17" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb38-18"><a href="fwl-practica.html#cb38-18" tabindex="-1"></a></span>
+<span id="cb38-19"><a href="fwl-practica.html#cb38-19" tabindex="-1"></a><span class="kw">gen</span> salario_hora = 4 + 0.65 * educacion + 0.40 * experiencia + ajuste</span>
+<span id="cb38-20"><a href="fwl-practica.html#cb38-20" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="fwl-practica.html#cb38-21" tabindex="-1"></a><span class="kw">reg</span> salario_hora educacion</span>
+<span id="cb38-22"><a href="fwl-practica.html#cb38-22" tabindex="-1"></a><span class="kw">reg</span> salario_hora educacion experiencia</span>
+<span id="cb38-23"><a href="fwl-practica.html#cb38-23" tabindex="-1"></a></span>
+<span id="cb38-24"><a href="fwl-practica.html#cb38-24" tabindex="-1"></a><span class="kw">reg</span> salario_hora experiencia</span>
+<span id="cb38-25"><a href="fwl-practica.html#cb38-25" tabindex="-1"></a><span class="kw">predict</span> resid_y, <span class="kw">resid</span></span>
+<span id="cb38-26"><a href="fwl-practica.html#cb38-26" tabindex="-1"></a></span>
+<span id="cb38-27"><a href="fwl-practica.html#cb38-27" tabindex="-1"></a><span class="kw">reg</span> educacion experiencia</span>
+<span id="cb38-28"><a href="fwl-practica.html#cb38-28" tabindex="-1"></a><span class="kw">predict</span> resid_x, <span class="kw">resid</span></span>
+<span id="cb38-29"><a href="fwl-practica.html#cb38-29" tabindex="-1"></a></span>
+<span id="cb38-30"><a href="fwl-practica.html#cb38-30" tabindex="-1"></a><span class="kw">reg</span> resid_y resid_x</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>
@@ -433,47 +433,47 @@ Figura 10.2: Regresión parcial de salario residualizado sobre educación residu
 <div id="estimacion-python-colab-fwl" class="section level2 hasAnchor" number="10.7">
 <h2><span class="header-section-number">10.7</span> Estimación en Python y Google Colab<a href="fwl-practica.html#estimacion-python-colab-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab, abre un cuaderno y ejecuta:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb21-1"><a href="fwl-practica.html#cb21-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb39-1"><a href="fwl-practica.html#cb39-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego estima:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb22-1"><a href="fwl-practica.html#cb22-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb22-2"><a href="fwl-practica.html#cb22-2" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
-<span id="cb22-3"><a href="fwl-practica.html#cb22-3" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb22-4"><a href="fwl-practica.html#cb22-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb22-5"><a href="fwl-practica.html#cb22-5" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="fwl-practica.html#cb22-6" tabindex="-1"></a>datos_fwl <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb22-7"><a href="fwl-practica.html#cb22-7" tabindex="-1"></a>    <span class="st">&quot;educacion&quot;</span>: [<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">16</span>],</span>
-<span id="cb22-8"><a href="fwl-practica.html#cb22-8" tabindex="-1"></a>    <span class="st">&quot;experiencia&quot;</span>: [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>],</span>
-<span id="cb22-9"><a href="fwl-practica.html#cb22-9" tabindex="-1"></a>    <span class="st">&quot;ajuste&quot;</span>: [<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.2</span>]</span>
-<span id="cb22-10"><a href="fwl-practica.html#cb22-10" tabindex="-1"></a>})</span>
-<span id="cb22-11"><a href="fwl-practica.html#cb22-11" tabindex="-1"></a></span>
-<span id="cb22-12"><a href="fwl-practica.html#cb22-12" tabindex="-1"></a>datos_fwl[<span class="st">&quot;salario_hora&quot;</span>] <span class="op">=</span> (</span>
-<span id="cb22-13"><a href="fwl-practica.html#cb22-13" tabindex="-1"></a>    <span class="dv">4</span> <span class="op">+</span> <span class="fl">0.65</span> <span class="op">*</span> datos_fwl[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span></span>
-<span id="cb22-14"><a href="fwl-practica.html#cb22-14" tabindex="-1"></a>    <span class="fl">0.40</span> <span class="op">*</span> datos_fwl[<span class="st">&quot;experiencia&quot;</span>] <span class="op">+</span></span>
-<span id="cb22-15"><a href="fwl-practica.html#cb22-15" tabindex="-1"></a>    datos_fwl[<span class="st">&quot;ajuste&quot;</span>]</span>
-<span id="cb22-16"><a href="fwl-practica.html#cb22-16" tabindex="-1"></a>)</span>
-<span id="cb22-17"><a href="fwl-practica.html#cb22-17" tabindex="-1"></a></span>
-<span id="cb22-18"><a href="fwl-practica.html#cb22-18" tabindex="-1"></a>simple <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ educacion&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
-<span id="cb22-19"><a href="fwl-practica.html#cb22-19" tabindex="-1"></a>completo <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ educacion + experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
-<span id="cb22-20"><a href="fwl-practica.html#cb22-20" tabindex="-1"></a></span>
-<span id="cb22-21"><a href="fwl-practica.html#cb22-21" tabindex="-1"></a>datos_fwl[<span class="st">&quot;resid_y&quot;</span>] <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit().resid</span>
-<span id="cb22-22"><a href="fwl-practica.html#cb22-22" tabindex="-1"></a>datos_fwl[<span class="st">&quot;resid_x&quot;</span>] <span class="op">=</span> smf.ols(<span class="st">&quot;educacion ~ experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit().resid</span>
-<span id="cb22-23"><a href="fwl-practica.html#cb22-23" tabindex="-1"></a>fwl <span class="op">=</span> smf.ols(<span class="st">&quot;resid_y ~ resid_x&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
-<span id="cb22-24"><a href="fwl-practica.html#cb22-24" tabindex="-1"></a></span>
-<span id="cb22-25"><a href="fwl-practica.html#cb22-25" tabindex="-1"></a><span class="bu">print</span>(simple.summary())</span>
-<span id="cb22-26"><a href="fwl-practica.html#cb22-26" tabindex="-1"></a><span class="bu">print</span>(completo.summary())</span>
-<span id="cb22-27"><a href="fwl-practica.html#cb22-27" tabindex="-1"></a><span class="bu">print</span>(fwl.summary())</span>
-<span id="cb22-28"><a href="fwl-practica.html#cb22-28" tabindex="-1"></a></span>
-<span id="cb22-29"><a href="fwl-practica.html#cb22-29" tabindex="-1"></a>sns.regplot(</span>
-<span id="cb22-30"><a href="fwl-practica.html#cb22-30" tabindex="-1"></a>    data<span class="op">=</span>datos_fwl,</span>
-<span id="cb22-31"><a href="fwl-practica.html#cb22-31" tabindex="-1"></a>    x<span class="op">=</span><span class="st">&quot;resid_x&quot;</span>,</span>
-<span id="cb22-32"><a href="fwl-practica.html#cb22-32" tabindex="-1"></a>    y<span class="op">=</span><span class="st">&quot;resid_y&quot;</span>,</span>
-<span id="cb22-33"><a href="fwl-practica.html#cb22-33" tabindex="-1"></a>    ci<span class="op">=</span><span class="va">None</span>,</span>
-<span id="cb22-34"><a href="fwl-practica.html#cb22-34" tabindex="-1"></a>    scatter_kws<span class="op">=</span>{<span class="st">&quot;color&quot;</span>: <span class="st">&quot;#2f4858&quot;</span>},</span>
-<span id="cb22-35"><a href="fwl-practica.html#cb22-35" tabindex="-1"></a>    line_kws<span class="op">=</span>{<span class="st">&quot;color&quot;</span>: <span class="st">&quot;#C0562F&quot;</span>}</span>
-<span id="cb22-36"><a href="fwl-practica.html#cb22-36" tabindex="-1"></a>)</span>
-<span id="cb22-37"><a href="fwl-practica.html#cb22-37" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Educación residualizada&quot;</span>)</span>
-<span id="cb22-38"><a href="fwl-practica.html#cb22-38" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Salario residualizado&quot;</span>)</span>
-<span id="cb22-39"><a href="fwl-practica.html#cb22-39" tabindex="-1"></a>plt.show()</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb40-1"><a href="fwl-practica.html#cb40-1" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb40-2"><a href="fwl-practica.html#cb40-2" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb40-3"><a href="fwl-practica.html#cb40-3" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb40-4"><a href="fwl-practica.html#cb40-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb40-5"><a href="fwl-practica.html#cb40-5" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="fwl-practica.html#cb40-6" tabindex="-1"></a>datos_fwl <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb40-7"><a href="fwl-practica.html#cb40-7" tabindex="-1"></a>    <span class="st">&quot;educacion&quot;</span>: [<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">11</span>, <span class="dv">12</span>, <span class="dv">12</span>, <span class="dv">13</span>, <span class="dv">13</span>, <span class="dv">14</span>, <span class="dv">14</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">16</span>],</span>
+<span id="cb40-8"><a href="fwl-practica.html#cb40-8" tabindex="-1"></a>    <span class="st">&quot;experiencia&quot;</span>: [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>],</span>
+<span id="cb40-9"><a href="fwl-practica.html#cb40-9" tabindex="-1"></a>    <span class="st">&quot;ajuste&quot;</span>: [<span class="op">-</span><span class="fl">0.4</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.4</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.2</span>]</span>
+<span id="cb40-10"><a href="fwl-practica.html#cb40-10" tabindex="-1"></a>})</span>
+<span id="cb40-11"><a href="fwl-practica.html#cb40-11" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="fwl-practica.html#cb40-12" tabindex="-1"></a>datos_fwl[<span class="st">&quot;salario_hora&quot;</span>] <span class="op">=</span> (</span>
+<span id="cb40-13"><a href="fwl-practica.html#cb40-13" tabindex="-1"></a>    <span class="dv">4</span> <span class="op">+</span> <span class="fl">0.65</span> <span class="op">*</span> datos_fwl[<span class="st">&quot;educacion&quot;</span>] <span class="op">+</span></span>
+<span id="cb40-14"><a href="fwl-practica.html#cb40-14" tabindex="-1"></a>    <span class="fl">0.40</span> <span class="op">*</span> datos_fwl[<span class="st">&quot;experiencia&quot;</span>] <span class="op">+</span></span>
+<span id="cb40-15"><a href="fwl-practica.html#cb40-15" tabindex="-1"></a>    datos_fwl[<span class="st">&quot;ajuste&quot;</span>]</span>
+<span id="cb40-16"><a href="fwl-practica.html#cb40-16" tabindex="-1"></a>)</span>
+<span id="cb40-17"><a href="fwl-practica.html#cb40-17" tabindex="-1"></a></span>
+<span id="cb40-18"><a href="fwl-practica.html#cb40-18" tabindex="-1"></a>simple <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ educacion&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
+<span id="cb40-19"><a href="fwl-practica.html#cb40-19" tabindex="-1"></a>completo <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ educacion + experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
+<span id="cb40-20"><a href="fwl-practica.html#cb40-20" tabindex="-1"></a></span>
+<span id="cb40-21"><a href="fwl-practica.html#cb40-21" tabindex="-1"></a>datos_fwl[<span class="st">&quot;resid_y&quot;</span>] <span class="op">=</span> smf.ols(<span class="st">&quot;salario_hora ~ experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit().resid</span>
+<span id="cb40-22"><a href="fwl-practica.html#cb40-22" tabindex="-1"></a>datos_fwl[<span class="st">&quot;resid_x&quot;</span>] <span class="op">=</span> smf.ols(<span class="st">&quot;educacion ~ experiencia&quot;</span>, data<span class="op">=</span>datos_fwl).fit().resid</span>
+<span id="cb40-23"><a href="fwl-practica.html#cb40-23" tabindex="-1"></a>fwl <span class="op">=</span> smf.ols(<span class="st">&quot;resid_y ~ resid_x&quot;</span>, data<span class="op">=</span>datos_fwl).fit()</span>
+<span id="cb40-24"><a href="fwl-practica.html#cb40-24" tabindex="-1"></a></span>
+<span id="cb40-25"><a href="fwl-practica.html#cb40-25" tabindex="-1"></a><span class="bu">print</span>(simple.summary())</span>
+<span id="cb40-26"><a href="fwl-practica.html#cb40-26" tabindex="-1"></a><span class="bu">print</span>(completo.summary())</span>
+<span id="cb40-27"><a href="fwl-practica.html#cb40-27" tabindex="-1"></a><span class="bu">print</span>(fwl.summary())</span>
+<span id="cb40-28"><a href="fwl-practica.html#cb40-28" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="fwl-practica.html#cb40-29" tabindex="-1"></a>sns.regplot(</span>
+<span id="cb40-30"><a href="fwl-practica.html#cb40-30" tabindex="-1"></a>    data<span class="op">=</span>datos_fwl,</span>
+<span id="cb40-31"><a href="fwl-practica.html#cb40-31" tabindex="-1"></a>    x<span class="op">=</span><span class="st">&quot;resid_x&quot;</span>,</span>
+<span id="cb40-32"><a href="fwl-practica.html#cb40-32" tabindex="-1"></a>    y<span class="op">=</span><span class="st">&quot;resid_y&quot;</span>,</span>
+<span id="cb40-33"><a href="fwl-practica.html#cb40-33" tabindex="-1"></a>    ci<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb40-34"><a href="fwl-practica.html#cb40-34" tabindex="-1"></a>    scatter_kws<span class="op">=</span>{<span class="st">&quot;color&quot;</span>: <span class="st">&quot;#2f4858&quot;</span>},</span>
+<span id="cb40-35"><a href="fwl-practica.html#cb40-35" tabindex="-1"></a>    line_kws<span class="op">=</span>{<span class="st">&quot;color&quot;</span>: <span class="st">&quot;#C0562F&quot;</span>}</span>
+<span id="cb40-36"><a href="fwl-practica.html#cb40-36" tabindex="-1"></a>)</span>
+<span id="cb40-37"><a href="fwl-practica.html#cb40-37" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Educación residualizada&quot;</span>)</span>
+<span id="cb40-38"><a href="fwl-practica.html#cb40-38" tabindex="-1"></a>plt.ylabel(<span class="st">&quot;Salario residualizado&quot;</span>)</span>
+<span id="cb40-39"><a href="fwl-practica.html#cb40-39" tabindex="-1"></a>plt.show()</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:</p>
 <table>
 <thead>

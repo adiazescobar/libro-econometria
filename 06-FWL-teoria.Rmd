@@ -1,6 +1,9 @@
 # Frisch-Waugh-Lovell: teoría {#fwl-teoria}
 
 ```{r setup-fwl-teoria, include=FALSE}
+library(ggplot2)
+library(knitr)
+
 knitr::opts_chunk$set(
   comment = "#>",
   fig.align = "center",
@@ -20,6 +23,8 @@ Al finalizar esta página podrás:
 2. Explicar la intuición geométrica de una regresión múltiple.
 3. Enunciar y derivar el teorema de Frisch-Waugh-Lovell.
 4. Interpretar un coeficiente parcial como una relación entre residuos.
+5. Calcular el vector \(\hat{\beta}\) y reconocer que \(My\) es el vector de residuos de una regresión.
+6. Escribir \(P\) y \(M\) con números cuando los controles son variables indicadoras.
 
 ## Intuición y motivación {#intuicion-fwl-teoria}
 
@@ -27,6 +32,114 @@ En una regresión múltiple, el coeficiente de una variable no compara observaci
 
 ::: {.box-intuicion}
 El teorema de Frisch-Waugh-Lovell dice que controlar por variables equivale a limpiar tanto \(y\) como la variable de interés \(X_r\), y luego estimar una regresión entre esas dos partes limpias.
+:::
+
+## Las dos nubes {#dos-nubes-fwl}
+
+Antes de la primera matriz conviene ver qué es lo que se va a limpiar. La pregunta: **¿ganan más las personas altas?**
+
+```{r datos-nubes-fwl, echo=FALSE}
+# 90 trabajadores simulados. Son los mismos datos de la demostración animada
+# que se usa en clase, por eso los valores vienen fijos y no de rnorm().
+altura_v <- c(
+  159.10, 156.61, 160.47, 162.54, 154.74, 167.84, 161.46, 164.98, 160.00, 161.41,
+  155.95, 163.03, 155.29, 151.29, 155.05, 156.28, 166.99, 163.45, 171.93, 171.63,
+  167.44, 161.66, 159.98, 162.10, 156.10, 163.18, 160.85, 160.47, 168.37, 161.49,
+  152.49, 156.37, 161.56, 152.58, 158.79, 162.58, 157.45, 158.11, 166.89, 150.42,
+  171.98, 143.91, 162.12, 170.00, 164.79, 172.73, 162.15, 179.63, 167.61, 172.34,
+  168.87, 182.54, 173.87, 176.95, 169.51, 169.75, 177.61, 169.27, 162.91, 168.67,
+  171.44, 174.60, 164.95, 175.24, 166.48, 166.26, 182.57, 170.44, 167.84, 172.71,
+  175.50, 178.03, 168.18, 170.01, 180.54, 179.80, 175.32, 168.30, 181.15, 171.49,
+  175.81, 181.34, 174.46, 170.45, 176.20, 187.25, 170.17, 174.46, 170.07, 176.11)
+
+salario_v <- c(
+  1.961, 2.282, 1.967, 1.972, 1.420, 2.156, 1.756, 1.684, 1.998,
+  2.193, 2.169, 1.984, 1.810, 2.167, 1.577, 2.562, 2.404, 1.812,
+  2.089, 2.572, 1.971, 2.072, 2.624, 2.000, 2.044, 2.559, 1.522,
+  2.642, 2.473, 1.861, 1.895, 1.544, 1.895, 1.341, 1.382, 1.488,
+  1.251, 1.777, 1.687, 1.794, 1.879, 1.019, 2.190, 2.551, 1.326,
+  3.443, 3.024, 3.191, 2.628, 3.514, 2.439, 2.807, 2.577, 2.915,
+  2.635, 2.639, 3.422, 2.860, 2.882, 2.808, 3.308, 2.695, 3.467,
+  3.367, 2.744, 2.804, 2.834, 2.365, 3.042, 3.076, 3.640, 3.396,
+  2.947, 3.049, 3.122, 2.997, 3.360, 3.647, 3.920, 3.025, 3.359,
+  4.010, 3.669, 3.345, 3.146, 3.340, 2.677, 3.087, 3.490, 3.081)
+nubes <- data.frame(
+  altura  = altura_v,
+  salario = salario_v,
+  hombre  = rep(c(0, 1), each = 45)
+)
+nubes$sexo <- factor(ifelse(nubes$hombre == 1, "Hombres", "Mujeres"),
+                     levels = c("Mujeres", "Hombres"))
+```
+
+Estimamos tres cosas: la regresión cruda, la múltiple, y la regresión entre residuos.
+
+```{r modelos-nubes-fwl}
+m_simple <- lm(salario ~ altura, data = nubes)
+m_mult   <- lm(salario ~ altura + hombre, data = nubes)
+
+nubes$r_altura  <- resid(lm(altura ~ hombre, data = nubes))
+nubes$r_salario <- resid(lm(salario ~ hombre, data = nubes))
+m_fwl <- lm(r_salario ~ r_altura, data = nubes)
+```
+
+```{r demo-fwl-interactiva, echo=FALSE, results='asis'}
+# En HTML se muestra la demostracion interactiva; en PDF y epub, las dos
+# figuras estaticas de abajo, que cuentan lo mismo sin animacion.
+if (knitr::is_html_output()) {
+  cat(readLines("widgets/fwl-demo.html", warn = FALSE), sep = "\n")
+}
+```
+
+
+```{r grafico-nubes-crudo-fwl, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="Salario y altura. La línea punteada es la regresión cruda; las dos líneas paralelas son el ajuste de la regresión múltiple, y cada una pasa por el promedio de su grupo."}
+ggplot(nubes, aes(x = altura, y = salario)) +
+  geom_abline(intercept = coef(m_simple)[[1]], slope = coef(m_simple)[[2]],
+              color = "grey55", linetype = "dashed", linewidth = 0.9) +
+  geom_point(aes(color = sexo), size = 2.2, alpha = 0.75) +
+  geom_abline(intercept = coef(m_mult)[[1]], slope = coef(m_mult)[[2]],
+              color = "#2f4858", linewidth = 0.9) +
+  geom_abline(intercept = coef(m_mult)[[1]] + coef(m_mult)[[3]],
+              slope = coef(m_mult)[[2]], color = "#C0562F", linewidth = 0.9) +
+  scale_color_manual(values = c(Mujeres = "#2f4858", Hombres = "#C0562F")) +
+  labs(x = "Altura (cm)", y = "Salario mensual (millones $)", color = NULL) +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+Los hombres están a la derecha (más altos) **y** arriba (mejor pagados). La línea punteada atraviesa dos grupos distintos: su pendiente no mide altura, mide una mezcla de altura y sexo. Al restarle a cada persona el promedio de su propio sexo —en las dos variables— cada nube se desliza hasta el origen.
+
+```{r grafico-nubes-residual-fwl, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="Las mismas 90 personas después de restarle a cada una el promedio de su grupo. Las dos rectas paralelas quedaron una encima de la otra; la punteada es la pendiente cruda, para comparar."}
+ggplot(nubes, aes(x = r_altura, y = r_salario)) +
+  geom_hline(yintercept = 0, color = "grey80", linewidth = 0.5) +
+  geom_vline(xintercept = 0, color = "grey80", linewidth = 0.5) +
+  geom_abline(intercept = 0, slope = coef(m_simple)[[2]],
+              color = "grey55", linetype = "dashed", linewidth = 0.9) +
+  geom_point(aes(color = sexo), size = 2.2, alpha = 0.75) +
+  geom_abline(intercept = 0, slope = coef(m_fwl)[[2]],
+              color = "#2f4858", linewidth = 1.1) +
+  scale_color_manual(values = c(Mujeres = "#2f4858", Hombres = "#C0562F")) +
+  labs(x = "Altura residual (cm)", y = "Salario residual (millones $)", color = NULL) +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+Cada nube se deslizó hasta que su centro cayó en el origen, pero **su forma interna no cambió**: restar una constante mueve la nube, no la deforma. Las dos rectas paralelas terminaron encima una de la otra, y esa recta única es el coeficiente que buscábamos.
+
+```{r tabla-nubes-fwl, echo=FALSE}
+kable(
+  data.frame(
+    estimacion = c("Regresión cruda", "Regresión múltiple", "FWL: residuo contra residuo"),
+    pendiente_altura = c(coef(m_simple)[[2]], coef(m_mult)[[2]], coef(m_fwl)[[2]])
+  ),
+  digits = 6,
+  col.names = c("Estimación", "Pendiente sobre altura"),
+  caption = "El coeficiente crudo es varias veces el parcial. Los dos últimos coinciden hasta el último decimal."
+)
+```
+
+::: {.box-intuicion}
+Cuando el único control es una variable indicadora, "limpiar" es literalmente **restarle a cada observación el promedio de su grupo**. Todo el resto del capítulo es escribir esa frase con matrices, para que funcione con cualquier conjunto de controles.
 :::
 
 ## Desarrollo teórico {#desarrollo-teorico-fwl}
@@ -39,7 +152,41 @@ y=X_r\beta_r+X_s\beta_s+\epsilon,
 
 donde \(X_r\) es la variable de interés y \(X_s\) contiene los controles. La matriz de regresores completa es \(X=[X_r \; X_s]\).
 
-La matriz de proyección sobre el espacio columna de \(X_s\) es:
+### El vector de coeficientes, y de dónde sale \(M\)
+
+Antes de proyectar sobre los controles, conviene ver de dónde sale cualquier matriz de proyección. Estimamos por MCO la regresión de \(y\) sobre toda la matriz de regresores \(X\):
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Los valores ajustados se obtienen multiplicando esos coeficientes por los datos:
+
+\[
+\hat{y}=X\hat{\beta}=X(X'X)^{-1}X'y=P_X\,y,
+\qquad
+P_X=X(X'X)^{-1}X'.
+\]
+
+Y el vector de residuos es lo que sobra:
+
+\[
+\hat{e}=y-\hat{y}=(I-P_X)\,y=M_X\,y,
+\qquad
+M_X=I-P_X.
+\]
+
+::: {.box-intuicion}
+Esta es la bisagra de todo el capítulo: **\(M_X y\) no es notación nueva, es el vector de residuos de la regresión de \(y\) sobre \(X\)**. Decir "corro la regresión y guardo los residuos" y escribir \(M_X y\) son la misma operación. \(P_X\) se queda con la parte explicada, \(M_X\) con lo que sobra, y entre las dos reconstruyen el dato:
+
+\[
+y=P_X\,y+M_X\,y=\hat{y}+\hat{e}.
+\]
+
+Las dos son ortogonales, y por eso "limpiar" mueve la nube sin deformarla.
+:::
+
+Todo lo anterior vale para cualquier matriz de regresores. En FWL lo aplicamos a un subconjunto: solo los controles \(X_s\). La matriz de proyección sobre el espacio columna de \(X_s\) es:
 
 \[
 P_s=X_s(X_s'X_s)^{-1}X_s'.
@@ -60,6 +207,148 @@ P_s'=P_s, \quad P_s^2=P_s,
 \[
 M_s'=M_s, \quad M_s^2=M_s.
 \]
+
+### Con números: seis personas
+
+Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— y usemos como único control el sexo, de modo que \(X_s=[\iota \; d]\) con \(\iota\) la constante y \(d\) la indicadora de hombre.
+
+```{r datos-seis-fwl}
+y <- c(1.8, 2.0, 2.2, 2.9, 3.1, 3.3)   # salario, en millones
+d <- c(0, 0, 0, 1, 1, 1)               # 1 = hombre
+Xs <- cbind(constante = 1, hombre = d)
+```
+
+Calculamos el vector de coeficientes pieza por pieza:
+
+```{r betas-seis-fwl}
+XtX  <- t(Xs) %*% Xs
+XtXi <- solve(XtX)
+Xty  <- t(Xs) %*% y
+beta <- XtXi %*% Xty
+
+XtX
+MASS::fractions(XtXi)
+Xty
+beta
+```
+
+El resultado tiene una lectura directa: \(\hat{\beta}_0=2.0\) es el salario promedio de las mujeres, y \(\hat{\beta}_1=1.1\) es cuánto más ganan los hombres en promedio. **Regresar contra un juego completo de indicadoras es sacar promedios de grupo**, nada más.
+
+Ahora las dos matrices:
+
+```{r matrices-seis-fwl}
+P <- Xs %*% XtXi %*% t(Xs)
+M <- diag(6) - P
+
+MASS::fractions(P)
+MASS::fractions(M)
+```
+
+Mírenlas antes de seguir. Las dos están hechas de **bloques**: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de \(P\) son puros \(1/3\), que es la receta de un promedio; por eso \(P y\) devuelve la media del grupo repetida. Y cada fila de \(M\) suma cero:
+
+```{r filas-m-fwl}
+rowSums(M)
+```
+
+Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.
+
+Finalmente, la igualdad que motiva todo el capítulo: \(M y\) **es** el vector de residuos.
+
+```{r residuos-seis-fwl}
+ajustados <- Xs %*% beta          # y sombrero
+residuos  <- y - ajustados        # e sombrero
+
+# round() solo para leer la tabla: sin él aparece la basura de punto flotante
+# (4.44e-16 en vez de 0) y la igualdad se ve rota cuando no lo está.
+round(data.frame(
+  y          = y,
+  y_ajustado = as.vector(ajustados),
+  P_por_y    = as.vector(P %*% y),
+  residuo    = as.vector(residuos),
+  M_por_y    = as.vector(M %*% y),
+  resid_lm   = unname(resid(lm(y ~ d)))
+), 4)
+```
+
+Las columnas coinciden de a pares: los ajustados son \(Py\) —el promedio del grupo de cada quien— y los residuos son \(My\), idénticos a los que devuelve `lm()`.
+
+```{r verificacion-seis-fwl}
+all.equal(as.vector(M %*% y), unname(resid(lm(y ~ d))))
+```
+
+::: {.box-ejemplo}
+La primera persona gana 1.8 y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
+:::
+
+### Y ahora con las 90 personas
+
+Con seis observaciones se puede imprimir \(M\) completa. Con noventa no, pero la operación es exactamente la misma, y los coeficientes se calculan igual. Volvamos a los datos de la altura, con \(X_s=[\iota \; \text{hombre}]\).
+
+```{r betas-90-fwl}
+X90  <- cbind(constante = 1, hombre = nubes$hombre)
+XtXi90 <- solve(t(X90) %*% X90)
+
+beta_salario <- XtXi90 %*% t(X90) %*% nubes$salario
+beta_altura  <- XtXi90 %*% t(X90) %*% nubes$altura
+
+betas <- cbind(beta_salario, beta_altura)
+colnames(betas) <- c("salario", "altura")   # cbind no pisa los dimnames del vector
+round(betas, 4)
+```
+
+Los cuatro números tienen nombre. En la columna del salario, la constante es el salario promedio de las mujeres y el segundo coeficiente es cuánto más ganan los hombres. En la columna de la altura, la constante es la estatura promedio de las mujeres y el segundo coeficiente es cuánto más miden los hombres:
+
+```{r medias-90-fwl}
+round(c(
+  salario_mujeres = mean(nubes$salario[nubes$hombre == 0]),
+  brecha_salario  = mean(nubes$salario[nubes$hombre == 1]) - mean(nubes$salario[nubes$hombre == 0]),
+  altura_mujeres  = mean(nubes$altura[nubes$hombre == 0]),
+  brecha_altura   = mean(nubes$altura[nubes$hombre == 1]) - mean(nubes$altura[nubes$hombre == 0])
+), 4)
+```
+
+Ahora construimos \(M\) y comprobamos lo que anunciamos al principio: **\(M y\) es el vector de residuos de la regresión de \(y\) contra lo que está dentro de \(M\)**.
+
+```{r m90-fwl}
+M90 <- diag(90) - X90 %*% XtXi90 %*% t(X90)
+
+r_salario_M <- as.vector(M90 %*% nubes$salario)
+r_altura_M  <- as.vector(M90 %*% nubes$altura)
+
+all.equal(r_salario_M, unname(resid(lm(salario ~ hombre, data = nubes))))
+all.equal(r_altura_M,  unname(resid(lm(altura  ~ hombre, data = nubes))))
+```
+
+Las dos comprobaciones dan `TRUE`. Multiplicar por \(M\) y correr la regresión guardando los residuos son la misma operación, y lo único que hay adentro de \(M\) es la constante y el sexo. Vale la pena mirar las primeras filas para ver de dónde sale cada número:
+
+```{r tabla-90-fwl}
+ajustado_salario <- as.vector(X90 %*% beta_salario)
+
+round(head(data.frame(
+  hombre        = nubes$hombre,
+  salario       = nubes$salario,
+  ajustado      = ajustado_salario,     # = P y, el promedio de su grupo
+  residuo       = r_salario_M           # = M y, la sorpresa salarial
+), 4), 3)
+```
+
+Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor.
+
+Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:
+
+```{r fwl-90-final}
+beta_fwl <- sum(r_altura_M * r_salario_M) / sum(r_altura_M^2)
+
+c(
+  fwl      = beta_fwl,
+  multiple = unname(coef(lm(salario ~ altura + hombre, data = nubes))["altura"]),
+  cruda    = unname(coef(lm(salario ~ altura, data = nubes))["altura"])
+)
+```
+
+::: {.box-resumen}
+El coeficiente de FWL y el de la regresión múltiple coinciden hasta el último decimal, y los dos son una fracción del coeficiente crudo. La diferencia entre el crudo y el parcial es el sesgo por variable omitida: lo que la regresión simple le atribuía a la altura y en realidad era diferencia entre hombres y mujeres.
+:::
 
 ### Paso 1: limpiar \(y\)
 
@@ -131,17 +420,31 @@ El intercepto debe tratarse de manera consistente. Si la regresión completa inc
 :::
 
 ::: {.box-cuidado}
+Lo que no puede quedar sin limpiar es \(X_r\). De las tres regresiones posibles, dos devuelven el coeficiente correcto y una no:
+
+| Regresión | ¿Da \(\hat{\beta}_r\)? | Por qué |
+|---|---|---|
+| \(y^\perp\) sobre \(X_r^\perp\) | Sí | el enunciado del teorema |
+| \(y\) sobre \(X_r^\perp\) | Sí | \((X_r^\perp)'y^\perp=X_r'M_s'M_sy=X_r'M_sy=(X_r^\perp)'y\) |
+| \(y^\perp\) sobre \(X_r\) | **No** | el denominador \((X_r'X_r)^{-1}\) quedó sin limpiar |
+
+El error típico es residualizar solo \(y\) y regresarlo contra la variable de interés en bruto. Que las dos primeras coincidan se debe a que \(M_s\) es simétrica e idempotente.
+:::
+
+::: {.box-cuidado}
 FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilon\mid X]\neq 0\), residualizar controles no convierte automáticamente el coeficiente en causal.
 :::
 
 ## Resumen {#resumen-fwl-teoria}
 
 ::: {.box-resumen}
+- \(\hat{\beta}=(X'X)^{-1}X'y\), \(\hat{y}=P_Xy\) y \(\hat{e}=M_Xy\): multiplicar por \(M\) es guardar los residuos de una regresión.
 - \(P_s\) proyecta sobre el espacio generado por los controles.
 - \(M_s=I-P_s\) remueve la parte explicada por los controles.
 - FWL estima el coeficiente parcial regresando \(y^\perp=M_sy\) sobre \(X_r^\perp=M_sX_r\).
 - El coeficiente obtenido es igual al coeficiente de \(X_r\) en la regresión múltiple completa.
 - La igualdad es algebraica, pero la interpretación depende de los supuestos econométricos.
+- Si los controles son indicadoras, \(P_s\) saca el promedio de cada grupo y \(M_s\) se lo resta: FWL solo usa la variación **dentro** del grupo.
 :::
 
 ## Ejercicios conceptuales {#ejercicios-conceptuales-fwl}
@@ -152,7 +455,10 @@ FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilo
 3. ¿Por qué \(M_s\) se llama matriz de aniquilación?
 4. Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.
 5. Explica por qué FWL exige usar la misma muestra en todas las regresiones.
-6. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
+6. Con los seis datos de la sección numérica, calcula \(\hat{\beta}\) a mano y verifica que \(\hat{\beta}_0\) y \(\hat{\beta}_0+\hat{\beta}_1\) son los dos promedios de grupo.
+7. Escribe la fila de \(M_s\) que le corresponde a una persona de un grupo con \(n_g\) observaciones. ¿Cuánto suma esa fila y por qué?
+8. Suponga que en un grupo todas las observaciones tienen el mismo valor de \(X_r\). ¿Cuánto aportan al numerador y al denominador de \(\hat{\beta}_r\)?
+9. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-fwl-teoria}

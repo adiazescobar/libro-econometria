@@ -4046,6 +4046,9 @@ R, Stata/Mata y Python/NumPy aplican la misma fórmula matricial. Si \(X\), \(y\
 # Frisch-Waugh-Lovell: teoría {#fwl-teoria}
 
 ```{r setup-fwl-teoria, include=FALSE}
+library(ggplot2)
+library(knitr)
+
 knitr::opts_chunk$set(
   comment = "#>",
   fig.align = "center",
@@ -4065,6 +4068,8 @@ Al finalizar esta página podrás:
 2. Explicar la intuición geométrica de una regresión múltiple.
 3. Enunciar y derivar el teorema de Frisch-Waugh-Lovell.
 4. Interpretar un coeficiente parcial como una relación entre residuos.
+5. Calcular el vector \(\hat{\beta}\) y reconocer que \(My\) es el vector de residuos de una regresión.
+6. Escribir \(P\) y \(M\) con números cuando los controles son variables indicadoras.
 
 ## Intuición y motivación {#intuicion-fwl-teoria}
 
@@ -4072,6 +4077,114 @@ En una regresión múltiple, el coeficiente de una variable no compara observaci
 
 ::: {.box-intuicion}
 El teorema de Frisch-Waugh-Lovell dice que controlar por variables equivale a limpiar tanto \(y\) como la variable de interés \(X_r\), y luego estimar una regresión entre esas dos partes limpias.
+:::
+
+## Las dos nubes {#dos-nubes-fwl}
+
+Antes de la primera matriz conviene ver qué es lo que se va a limpiar. La pregunta: **¿ganan más las personas altas?**
+
+```{r datos-nubes-fwl, echo=FALSE}
+# 90 trabajadores simulados. Son los mismos datos de la demostración animada
+# que se usa en clase, por eso los valores vienen fijos y no de rnorm().
+altura_v <- c(
+  159.10, 156.61, 160.47, 162.54, 154.74, 167.84, 161.46, 164.98, 160.00, 161.41,
+  155.95, 163.03, 155.29, 151.29, 155.05, 156.28, 166.99, 163.45, 171.93, 171.63,
+  167.44, 161.66, 159.98, 162.10, 156.10, 163.18, 160.85, 160.47, 168.37, 161.49,
+  152.49, 156.37, 161.56, 152.58, 158.79, 162.58, 157.45, 158.11, 166.89, 150.42,
+  171.98, 143.91, 162.12, 170.00, 164.79, 172.73, 162.15, 179.63, 167.61, 172.34,
+  168.87, 182.54, 173.87, 176.95, 169.51, 169.75, 177.61, 169.27, 162.91, 168.67,
+  171.44, 174.60, 164.95, 175.24, 166.48, 166.26, 182.57, 170.44, 167.84, 172.71,
+  175.50, 178.03, 168.18, 170.01, 180.54, 179.80, 175.32, 168.30, 181.15, 171.49,
+  175.81, 181.34, 174.46, 170.45, 176.20, 187.25, 170.17, 174.46, 170.07, 176.11)
+
+salario_v <- c(
+  1.961, 2.282, 1.967, 1.972, 1.420, 2.156, 1.756, 1.684, 1.998,
+  2.193, 2.169, 1.984, 1.810, 2.167, 1.577, 2.562, 2.404, 1.812,
+  2.089, 2.572, 1.971, 2.072, 2.624, 2.000, 2.044, 2.559, 1.522,
+  2.642, 2.473, 1.861, 1.895, 1.544, 1.895, 1.341, 1.382, 1.488,
+  1.251, 1.777, 1.687, 1.794, 1.879, 1.019, 2.190, 2.551, 1.326,
+  3.443, 3.024, 3.191, 2.628, 3.514, 2.439, 2.807, 2.577, 2.915,
+  2.635, 2.639, 3.422, 2.860, 2.882, 2.808, 3.308, 2.695, 3.467,
+  3.367, 2.744, 2.804, 2.834, 2.365, 3.042, 3.076, 3.640, 3.396,
+  2.947, 3.049, 3.122, 2.997, 3.360, 3.647, 3.920, 3.025, 3.359,
+  4.010, 3.669, 3.345, 3.146, 3.340, 2.677, 3.087, 3.490, 3.081)
+nubes <- data.frame(
+  altura  = altura_v,
+  salario = salario_v,
+  hombre  = rep(c(0, 1), each = 45)
+)
+nubes$sexo <- factor(ifelse(nubes$hombre == 1, "Hombres", "Mujeres"),
+                     levels = c("Mujeres", "Hombres"))
+```
+
+Estimamos tres cosas: la regresión cruda, la múltiple, y la regresión entre residuos.
+
+```{r modelos-nubes-fwl}
+m_simple <- lm(salario ~ altura, data = nubes)
+m_mult   <- lm(salario ~ altura + hombre, data = nubes)
+
+nubes$r_altura  <- resid(lm(altura ~ hombre, data = nubes))
+nubes$r_salario <- resid(lm(salario ~ hombre, data = nubes))
+m_fwl <- lm(r_salario ~ r_altura, data = nubes)
+```
+
+```{r demo-fwl-interactiva, echo=FALSE, results='asis'}
+# En HTML se muestra la demostracion interactiva; en PDF y epub, las dos
+# figuras estaticas de abajo, que cuentan lo mismo sin animacion.
+if (knitr::is_html_output()) {
+  cat(readLines("widgets/fwl-demo.html", warn = FALSE), sep = "\n")
+}
+```
+
+
+```{r grafico-nubes-crudo-fwl, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="Salario y altura. La línea punteada es la regresión cruda; las dos líneas paralelas son el ajuste de la regresión múltiple, y cada una pasa por el promedio de su grupo."}
+ggplot(nubes, aes(x = altura, y = salario)) +
+  geom_abline(intercept = coef(m_simple)[[1]], slope = coef(m_simple)[[2]],
+              color = "grey55", linetype = "dashed", linewidth = 0.9) +
+  geom_point(aes(color = sexo), size = 2.2, alpha = 0.75) +
+  geom_abline(intercept = coef(m_mult)[[1]], slope = coef(m_mult)[[2]],
+              color = "#2f4858", linewidth = 0.9) +
+  geom_abline(intercept = coef(m_mult)[[1]] + coef(m_mult)[[3]],
+              slope = coef(m_mult)[[2]], color = "#C0562F", linewidth = 0.9) +
+  scale_color_manual(values = c(Mujeres = "#2f4858", Hombres = "#C0562F")) +
+  labs(x = "Altura (cm)", y = "Salario mensual (millones $)", color = NULL) +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+Los hombres están a la derecha (más altos) **y** arriba (mejor pagados). La línea punteada atraviesa dos grupos distintos: su pendiente no mide altura, mide una mezcla de altura y sexo. Al restarle a cada persona el promedio de su propio sexo —en las dos variables— cada nube se desliza hasta el origen.
+
+```{r grafico-nubes-residual-fwl, echo=FALSE, eval=!knitr::is_html_output(), fig.cap="Las mismas 90 personas después de restarle a cada una el promedio de su grupo. Las dos rectas paralelas quedaron una encima de la otra; la punteada es la pendiente cruda, para comparar."}
+ggplot(nubes, aes(x = r_altura, y = r_salario)) +
+  geom_hline(yintercept = 0, color = "grey80", linewidth = 0.5) +
+  geom_vline(xintercept = 0, color = "grey80", linewidth = 0.5) +
+  geom_abline(intercept = 0, slope = coef(m_simple)[[2]],
+              color = "grey55", linetype = "dashed", linewidth = 0.9) +
+  geom_point(aes(color = sexo), size = 2.2, alpha = 0.75) +
+  geom_abline(intercept = 0, slope = coef(m_fwl)[[2]],
+              color = "#2f4858", linewidth = 1.1) +
+  scale_color_manual(values = c(Mujeres = "#2f4858", Hombres = "#C0562F")) +
+  labs(x = "Altura residual (cm)", y = "Salario residual (millones $)", color = NULL) +
+  theme_minimal() +
+  theme(legend.position = "top")
+```
+
+Cada nube se deslizó hasta que su centro cayó en el origen, pero **su forma interna no cambió**: restar una constante mueve la nube, no la deforma. Las dos rectas paralelas terminaron encima una de la otra, y esa recta única es el coeficiente que buscábamos.
+
+```{r tabla-nubes-fwl, echo=FALSE}
+kable(
+  data.frame(
+    estimacion = c("Regresión cruda", "Regresión múltiple", "FWL: residuo contra residuo"),
+    pendiente_altura = c(coef(m_simple)[[2]], coef(m_mult)[[2]], coef(m_fwl)[[2]])
+  ),
+  digits = 6,
+  col.names = c("Estimación", "Pendiente sobre altura"),
+  caption = "El coeficiente crudo es varias veces el parcial. Los dos últimos coinciden hasta el último decimal."
+)
+```
+
+::: {.box-intuicion}
+Cuando el único control es una variable indicadora, "limpiar" es literalmente **restarle a cada observación el promedio de su grupo**. Todo el resto del capítulo es escribir esa frase con matrices, para que funcione con cualquier conjunto de controles.
 :::
 
 ## Desarrollo teórico {#desarrollo-teorico-fwl}
@@ -4084,7 +4197,41 @@ y=X_r\beta_r+X_s\beta_s+\epsilon,
 
 donde \(X_r\) es la variable de interés y \(X_s\) contiene los controles. La matriz de regresores completa es \(X=[X_r \; X_s]\).
 
-La matriz de proyección sobre el espacio columna de \(X_s\) es:
+### El vector de coeficientes, y de dónde sale \(M\)
+
+Antes de proyectar sobre los controles, conviene ver de dónde sale cualquier matriz de proyección. Estimamos por MCO la regresión de \(y\) sobre toda la matriz de regresores \(X\):
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y.
+\]
+
+Los valores ajustados se obtienen multiplicando esos coeficientes por los datos:
+
+\[
+\hat{y}=X\hat{\beta}=X(X'X)^{-1}X'y=P_X\,y,
+\qquad
+P_X=X(X'X)^{-1}X'.
+\]
+
+Y el vector de residuos es lo que sobra:
+
+\[
+\hat{e}=y-\hat{y}=(I-P_X)\,y=M_X\,y,
+\qquad
+M_X=I-P_X.
+\]
+
+::: {.box-intuicion}
+Esta es la bisagra de todo el capítulo: **\(M_X y\) no es notación nueva, es el vector de residuos de la regresión de \(y\) sobre \(X\)**. Decir "corro la regresión y guardo los residuos" y escribir \(M_X y\) son la misma operación. \(P_X\) se queda con la parte explicada, \(M_X\) con lo que sobra, y entre las dos reconstruyen el dato:
+
+\[
+y=P_X\,y+M_X\,y=\hat{y}+\hat{e}.
+\]
+
+Las dos son ortogonales, y por eso "limpiar" mueve la nube sin deformarla.
+:::
+
+Todo lo anterior vale para cualquier matriz de regresores. En FWL lo aplicamos a un subconjunto: solo los controles \(X_s\). La matriz de proyección sobre el espacio columna de \(X_s\) es:
 
 \[
 P_s=X_s(X_s'X_s)^{-1}X_s'.
@@ -4105,6 +4252,148 @@ P_s'=P_s, \quad P_s^2=P_s,
 \[
 M_s'=M_s, \quad M_s^2=M_s.
 \]
+
+### Con números: seis personas
+
+Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— y usemos como único control el sexo, de modo que \(X_s=[\iota \; d]\) con \(\iota\) la constante y \(d\) la indicadora de hombre.
+
+```{r datos-seis-fwl}
+y <- c(1.8, 2.0, 2.2, 2.9, 3.1, 3.3)   # salario, en millones
+d <- c(0, 0, 0, 1, 1, 1)               # 1 = hombre
+Xs <- cbind(constante = 1, hombre = d)
+```
+
+Calculamos el vector de coeficientes pieza por pieza:
+
+```{r betas-seis-fwl}
+XtX  <- t(Xs) %*% Xs
+XtXi <- solve(XtX)
+Xty  <- t(Xs) %*% y
+beta <- XtXi %*% Xty
+
+XtX
+MASS::fractions(XtXi)
+Xty
+beta
+```
+
+El resultado tiene una lectura directa: \(\hat{\beta}_0=2.0\) es el salario promedio de las mujeres, y \(\hat{\beta}_1=1.1\) es cuánto más ganan los hombres en promedio. **Regresar contra un juego completo de indicadoras es sacar promedios de grupo**, nada más.
+
+Ahora las dos matrices:
+
+```{r matrices-seis-fwl}
+P <- Xs %*% XtXi %*% t(Xs)
+M <- diag(6) - P
+
+MASS::fractions(P)
+MASS::fractions(M)
+```
+
+Mírenlas antes de seguir. Las dos están hechas de **bloques**: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de \(P\) son puros \(1/3\), que es la receta de un promedio; por eso \(P y\) devuelve la media del grupo repetida. Y cada fila de \(M\) suma cero:
+
+```{r filas-m-fwl}
+rowSums(M)
+```
+
+Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.
+
+Finalmente, la igualdad que motiva todo el capítulo: \(M y\) **es** el vector de residuos.
+
+```{r residuos-seis-fwl}
+ajustados <- Xs %*% beta          # y sombrero
+residuos  <- y - ajustados        # e sombrero
+
+# round() solo para leer la tabla: sin él aparece la basura de punto flotante
+# (4.44e-16 en vez de 0) y la igualdad se ve rota cuando no lo está.
+round(data.frame(
+  y          = y,
+  y_ajustado = as.vector(ajustados),
+  P_por_y    = as.vector(P %*% y),
+  residuo    = as.vector(residuos),
+  M_por_y    = as.vector(M %*% y),
+  resid_lm   = unname(resid(lm(y ~ d)))
+), 4)
+```
+
+Las columnas coinciden de a pares: los ajustados son \(Py\) —el promedio del grupo de cada quien— y los residuos son \(My\), idénticos a los que devuelve `lm()`.
+
+```{r verificacion-seis-fwl}
+all.equal(as.vector(M %*% y), unname(resid(lm(y ~ d))))
+```
+
+::: {.box-ejemplo}
+La primera persona gana 1.8 y sus compañeras ganan 2.0 en promedio, así que su residuo es \(-0.2\). Léanlo en la fila 1 de \(M\): \(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\). La matriz no está haciendo magia: está restando el promedio del grupo.
+:::
+
+### Y ahora con las 90 personas
+
+Con seis observaciones se puede imprimir \(M\) completa. Con noventa no, pero la operación es exactamente la misma, y los coeficientes se calculan igual. Volvamos a los datos de la altura, con \(X_s=[\iota \; \text{hombre}]\).
+
+```{r betas-90-fwl}
+X90  <- cbind(constante = 1, hombre = nubes$hombre)
+XtXi90 <- solve(t(X90) %*% X90)
+
+beta_salario <- XtXi90 %*% t(X90) %*% nubes$salario
+beta_altura  <- XtXi90 %*% t(X90) %*% nubes$altura
+
+betas <- cbind(beta_salario, beta_altura)
+colnames(betas) <- c("salario", "altura")   # cbind no pisa los dimnames del vector
+round(betas, 4)
+```
+
+Los cuatro números tienen nombre. En la columna del salario, la constante es el salario promedio de las mujeres y el segundo coeficiente es cuánto más ganan los hombres. En la columna de la altura, la constante es la estatura promedio de las mujeres y el segundo coeficiente es cuánto más miden los hombres:
+
+```{r medias-90-fwl}
+round(c(
+  salario_mujeres = mean(nubes$salario[nubes$hombre == 0]),
+  brecha_salario  = mean(nubes$salario[nubes$hombre == 1]) - mean(nubes$salario[nubes$hombre == 0]),
+  altura_mujeres  = mean(nubes$altura[nubes$hombre == 0]),
+  brecha_altura   = mean(nubes$altura[nubes$hombre == 1]) - mean(nubes$altura[nubes$hombre == 0])
+), 4)
+```
+
+Ahora construimos \(M\) y comprobamos lo que anunciamos al principio: **\(M y\) es el vector de residuos de la regresión de \(y\) contra lo que está dentro de \(M\)**.
+
+```{r m90-fwl}
+M90 <- diag(90) - X90 %*% XtXi90 %*% t(X90)
+
+r_salario_M <- as.vector(M90 %*% nubes$salario)
+r_altura_M  <- as.vector(M90 %*% nubes$altura)
+
+all.equal(r_salario_M, unname(resid(lm(salario ~ hombre, data = nubes))))
+all.equal(r_altura_M,  unname(resid(lm(altura  ~ hombre, data = nubes))))
+```
+
+Las dos comprobaciones dan `TRUE`. Multiplicar por \(M\) y correr la regresión guardando los residuos son la misma operación, y lo único que hay adentro de \(M\) es la constante y el sexo. Vale la pena mirar las primeras filas para ver de dónde sale cada número:
+
+```{r tabla-90-fwl}
+ajustado_salario <- as.vector(X90 %*% beta_salario)
+
+round(head(data.frame(
+  hombre        = nubes$hombre,
+  salario       = nubes$salario,
+  ajustado      = ajustado_salario,     # = P y, el promedio de su grupo
+  residuo       = r_salario_M           # = M y, la sorpresa salarial
+), 4), 3)
+```
+
+Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor.
+
+Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:
+
+```{r fwl-90-final}
+beta_fwl <- sum(r_altura_M * r_salario_M) / sum(r_altura_M^2)
+
+c(
+  fwl      = beta_fwl,
+  multiple = unname(coef(lm(salario ~ altura + hombre, data = nubes))["altura"]),
+  cruda    = unname(coef(lm(salario ~ altura, data = nubes))["altura"])
+)
+```
+
+::: {.box-resumen}
+El coeficiente de FWL y el de la regresión múltiple coinciden hasta el último decimal, y los dos son una fracción del coeficiente crudo. La diferencia entre el crudo y el parcial es el sesgo por variable omitida: lo que la regresión simple le atribuía a la altura y en realidad era diferencia entre hombres y mujeres.
+:::
 
 ### Paso 1: limpiar \(y\)
 
@@ -4176,17 +4465,31 @@ El intercepto debe tratarse de manera consistente. Si la regresión completa inc
 :::
 
 ::: {.box-cuidado}
+Lo que no puede quedar sin limpiar es \(X_r\). De las tres regresiones posibles, dos devuelven el coeficiente correcto y una no:
+
+| Regresión | ¿Da \(\hat{\beta}_r\)? | Por qué |
+|---|---|---|
+| \(y^\perp\) sobre \(X_r^\perp\) | Sí | el enunciado del teorema |
+| \(y\) sobre \(X_r^\perp\) | Sí | \((X_r^\perp)'y^\perp=X_r'M_s'M_sy=X_r'M_sy=(X_r^\perp)'y\) |
+| \(y^\perp\) sobre \(X_r\) | **No** | el denominador \((X_r'X_r)^{-1}\) quedó sin limpiar |
+
+El error típico es residualizar solo \(y\) y regresarlo contra la variable de interés en bruto. Que las dos primeras coincidan se debe a que \(M_s\) es simétrica e idempotente.
+:::
+
+::: {.box-cuidado}
 FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilon\mid X]\neq 0\), residualizar controles no convierte automáticamente el coeficiente en causal.
 :::
 
 ## Resumen {#resumen-fwl-teoria}
 
 ::: {.box-resumen}
+- \(\hat{\beta}=(X'X)^{-1}X'y\), \(\hat{y}=P_Xy\) y \(\hat{e}=M_Xy\): multiplicar por \(M\) es guardar los residuos de una regresión.
 - \(P_s\) proyecta sobre el espacio generado por los controles.
 - \(M_s=I-P_s\) remueve la parte explicada por los controles.
 - FWL estima el coeficiente parcial regresando \(y^\perp=M_sy\) sobre \(X_r^\perp=M_sX_r\).
 - El coeficiente obtenido es igual al coeficiente de \(X_r\) en la regresión múltiple completa.
 - La igualdad es algebraica, pero la interpretación depende de los supuestos econométricos.
+- Si los controles son indicadoras, \(P_s\) saca el promedio de cada grupo y \(M_s\) se lo resta: FWL solo usa la variación **dentro** del grupo.
 :::
 
 ## Ejercicios conceptuales {#ejercicios-conceptuales-fwl}
@@ -4197,7 +4500,10 @@ FWL no resuelve por sí mismo problemas de endogeneidad. Si \(\mathbb{E}[\epsilo
 3. ¿Por qué \(M_s\) se llama matriz de aniquilación?
 4. Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.
 5. Explica por qué FWL exige usar la misma muestra en todas las regresiones.
-6. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
+6. Con los seis datos de la sección numérica, calcula \(\hat{\beta}\) a mano y verifica que \(\hat{\beta}_0\) y \(\hat{\beta}_0+\hat{\beta}_1\) son los dos promedios de grupo.
+7. Escribe la fila de \(M_s\) que le corresponde a una persona de un grupo con \(n_g\) observaciones. ¿Cuánto suma esa fila y por qué?
+8. Suponga que en un grupo todas las observaciones tienen el mismo valor de \(X_r\). ¿Cuánto aportan al numerador y al denominador de \(\hat{\beta}_r\)?
+9. Para practicar FWL en un taller integrador, resuelve la parte A del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-fwl-teoria}
@@ -4475,7 +4781,7 @@ La receta FWL es idéntica en los tres programas: estimar el modelo completo, re
 
 <!--chapter:end:06-FWL-practica.Rmd-->
 
-# Propiedades de MCO: teoría {#propiedades-mco-teoria}
+# Aspectos algebraicos y propiedades de MCO: teoría {#propiedades-mco-teoria}
 
 ```{r setup-propiedades-teoria, include=FALSE}
 knitr::opts_chunk$set(
@@ -4493,20 +4799,185 @@ knitr::opts_chunk$set(
 
 Al finalizar esta página podrás:
 
-1. Derivar el error muestral de \(\hat{\beta}\).
-2. Demostrar el insesgamiento condicional de MCO bajo exogeneidad.
-3. Obtener la varianza clásica de \(\hat{\beta}\).
-4. Enunciar el teorema de Gauss-Markov y su interpretación como MELI.
+1. Derivar las propiedades algebraicas de residuos y valores ajustados.
+2. Distinguir las descomposiciones centrada y no centrada y construir el \(R^2\).
+3. Obtener el error muestral de \(\hat\beta\).
+4. Demostrar el insesgamiento condicional de MCO bajo exogeneidad.
+5. Obtener la varianza clásica de \(\hat\beta\).
+6. Demostrar el insesgamiento del estimador clásico de \(\sigma^2\).
+7. Definir la clase de estimadores lineales insesgados y demostrar Gauss-Markov.
 
 ## Intuición y motivación {#intuicion-propiedades-teoria}
 
-Después de aprender a calcular \(\hat{\beta}\), la pregunta central es qué tan bueno es ese estimador. Las propiedades de muestras finitas analizan el comportamiento de \(\hat{\beta}\) en muestras repetidas, manteniendo fijo el tamaño muestral.
+Después de estimar una regresión múltiple y entender con FWL de dónde proviene la variación que identifica cada coeficiente, podemos estudiar ordenadamente dos grupos de resultados. Primero, las identidades algebraicas que MCO cumple en la muestra. Segundo, las propiedades estadísticas de \(\hat\beta\) en muestras repetidas, manteniendo fijo el tamaño muestral.
 
 ::: {.box-intuicion}
 Un estimador puede cambiar de una muestra a otra. Las propiedades de MCO responden tres preguntas: si acierta en promedio, qué tanto varía y si usa la información de manera eficiente dentro de la clase de estimadores lineales insesgados.
 :::
 
-## Desarrollo teórico {#desarrollo-teorico-propiedades}
+## Parte I: Aspectos algebraicos de la solución de MCO {#aspectos-algebraicos-mco}
+
+Los resultados de esta sección son **propiedades algebraicas de la regresión estimada**. Se cumplen por la forma en que MCO minimiza la SRC; todavía no requieren exogeneidad, homocedasticidad ni normalidad.
+
+### Residuos y ecuaciones normales
+
+Partimos de las ecuaciones normales:
+
+\[
+X'X\hat{\beta}=X'y.
+\]
+
+Reorganizando:
+
+\[
+X'(y-X\hat{\beta})=0.
+\]
+
+Como \(\hat{\epsilon}=y-X\hat{\beta}\), obtenemos:
+
+\[
+\boxed{X'\hat{\epsilon}=0}.
+\]
+
+Cada columna de \(X\) es ortogonal al vector de residuos. En notación de sumas, para cada regresor \(x_j\),
+
+\[
+\sum_{i=1}^{n}x_{ij}\hat{\epsilon}_i=0.
+\]
+
+Si \(X\) contiene una constante, una de sus columnas es un vector de unos. En ese caso:
+
+\[
+\sum_{i=1}^{n}\hat{\epsilon}_i=0
+\quad\Longrightarrow\quad
+\bar{\hat{\epsilon}}=0.
+\]
+
+::: {.box-cuidado}
+La ortogonalidad \(X'\hat{\epsilon}=0\) es una propiedad de los **residuos estimados** y se cumple en la muestra. No es lo mismo que el supuesto poblacional \(\mathbb{E}[\epsilon\mid X]=0\), que se refiere al error no observado y sostiene el insesgamiento.
+:::
+
+### Valores ajustados y ortogonalidad
+
+El vector de valores ajustados es:
+
+\[
+\hat y=X\hat{\beta}.
+\]
+
+Por tanto:
+
+\[
+y=\hat y+\hat{\epsilon}.
+\]
+
+Como \(\hat y\) es una combinación lineal de las columnas de \(X\), también es ortogonal a los residuos:
+
+\[
+\hat y'\hat{\epsilon}
+=(X\hat{\beta})'\hat{\epsilon}
+=\hat{\beta}'X'\hat{\epsilon}
+=0.
+\]
+
+Geométricamente, MCO descompone \(y\) en dos vectores perpendiculares: la proyección \(\hat y\), que pertenece al espacio generado por \(X\), y el residuo \(\hat\epsilon\), que queda fuera de ese espacio.
+
+### Descomposición no centrada
+
+Usando \(y=\hat y+\hat\epsilon\):
+
+\[
+\begin{aligned}
+y'y
+&=(\hat y+\hat\epsilon)'(\hat y+\hat\epsilon)\
+&=\hat y'\hat y+2\hat y'\hat\epsilon+\hat\epsilon'\hat\epsilon\
+&=\hat y'\hat y+\hat\epsilon'\hat\epsilon.
+\end{aligned}
+\]
+
+Así:
+
+\[
+\boxed{y'y=\hat y'\hat y+\hat\epsilon'\hat\epsilon}.
+\]
+
+Esta identidad compara los vectores con respecto al origen y produce el coeficiente de determinación no centrado:
+
+\[
+R^2_{nc}
+=1-\frac{\hat\epsilon'\hat\epsilon}{y'y}
+=\frac{\hat y'\hat y}{y'y}.
+\]
+
+### Descomposición centrada y \(R^2\)
+
+Cuando el modelo incluye constante, \(\bar{\hat\epsilon}=0\) y \(\bar{\hat y}=\bar y\). Entonces la variación total de \(y\) alrededor de su media se descompone como:
+
+\[
+\underbrace{\sum_{i=1}^{n}(y_i-\bar y)^2}_{\text{STC}}
+=
+\underbrace{\sum_{i=1}^{n}(\hat y_i-\bar y)^2}_{\text{SEC}}
++
+\underbrace{\sum_{i=1}^{n}\hat\epsilon_i^2}_{\text{SRC}}.
+\]
+
+De aquí obtenemos el \(R^2\) centrado:
+
+\[
+R^2
+=\frac{\text{SEC}}{\text{STC}}
+=1-\frac{\text{SRC}}{\text{STC}}.
+\]
+
+::: {.box-intuicion}
+El \(R^2\) centrado pregunta qué proporción de la variación de \(y\) **alrededor de su media** explica el modelo. Esta interpretación depende de que la regresión incluya constante.
+:::
+
+En una regresión sin constante, la descomposición centrada puede fallar y la fórmula usual puede producir un \(R^2\) negativo. En ese caso debe reportarse e interpretarse el \(R^2\) no centrado.
+
+### SRC, varianza residual y error estándar de la regresión
+
+La suma de residuos al cuadrado evaluada en la solución de MCO es:
+
+\[
+\text{SRC}=\hat\epsilon'\hat\epsilon.
+\]
+
+Como se estiman \(K\) parámetros, quedan \(n-K\) grados de libertad para estimar la varianza del error:
+
+\[
+\hat\sigma^2
+=\frac{\text{SRC}}{n-K}
+=\frac{\hat\epsilon'\hat\epsilon}{n-K}.
+\]
+
+El error estándar de la regresión es:
+
+\[
+\hat\sigma
+=\sqrt{\hat\sigma^2}
+=\sqrt{\frac{\hat\epsilon'\hat\epsilon}{n-K}}.
+\]
+
+La división por \(n-K\), en lugar de \(n\), corrige los grados de libertad utilizados al estimar \(\beta\). En el capítulo de propiedades mostraremos que, bajo los supuestos clásicos, \(\hat\sigma^2\) es insesgado para \(\sigma^2\).
+
+### Error muestral de \(\hat\beta\)
+
+El puente entre el álgebra de la estimación y sus propiedades estadísticas es la diferencia entre el estimador y el parámetro poblacional. Sustituyendo \(y=X\beta+\epsilon\) en la fórmula de MCO:
+
+\[
+\begin{aligned}
+\hat\beta-\beta
+&=(X'X)^{-1}X'y-\beta\
+&=(X'X)^{-1}X'(X\beta+\epsilon)-\beta\
+&=\beta+(X'X)^{-1}X'\epsilon-\beta\
+&=\boxed{(X'X)^{-1}X'\epsilon}.
+\end{aligned}
+\]
+
+Esta expresión muestra exactamente de dónde proviene la variación muestral de \(\hat\beta\): de la proyección del error poblacional sobre las columnas de \(X\). Más adelante la usaremos para estudiar insesgamiento y varianza.
+
+## Parte II: Propiedades del estimador de MCO en muestras finitas {#desarrollo-teorico-propiedades}
 
 Partimos del modelo:
 
@@ -4536,6 +5007,8 @@ Por tanto, el error muestral es:
 \hat{\beta}-\beta=(X'X)^{-1}X'\epsilon.
 \]
 
+Esta identidad, derivada en el capítulo de estimación, permite estudiar la distribución muestral de \(\hat\beta\) manteniendo fija la matriz observada \(X\). A diferencia de las propiedades algebraicas de los residuos, los resultados de este capítulo sí dependen de supuestos sobre el error poblacional \(\epsilon\).
+
 ### Insesgamiento
 
 Si se cumple exogeneidad estricta:
@@ -4556,6 +5029,25 @@ entonces:
 \]
 
 MCO es insesgado condicional a \(X\). Esto no significa que cada estimación sea igual a \(\beta\), sino que el promedio de las estimaciones en muestras repetidas se centra en \(\beta\).
+
+Por la ley de expectativas iteradas, el insesgamiento condicional implica también insesgamiento incondicional:
+
+\[
+\mathbb{E}[\hat\beta]
+=\mathbb{E}\!\left[\mathbb{E}[\hat\beta\mid X]\right]
+=\mathbb{E}[\beta]
+=\beta.
+\]
+
+En la presentación clásica con regresores no estocásticos, \(X\) se trata como fija desde el principio. La misma demostración se escribe como:
+
+\[
+\mathbb{E}[\hat\beta]
+=\beta+(X'X)^{-1}X'\mathbb{E}[\epsilon]
+=\beta.
+\]
+
+La formulación condicional es más general y más natural cuando los regresores provienen de una muestra aleatoria.
 
 ### Varianza
 
@@ -4584,12 +5076,187 @@ En la práctica reemplazamos \(\sigma^2\) por:
 =\frac{\text{SRC}}{n-K}.
 \]
 
-### Gauss-Markov
+### Insesgamiento de \(\hat\sigma^2\)
+
+La división por \(n-K\) no es una convención arbitraria. Corrige los \(K\) grados de libertad utilizados al estimar \(\beta\).
+
+Definamos la matriz de proyección y la matriz de residuos asociadas a todos los regresores:
+
+\[
+P_X=X(X'X)^{-1}X',
+\qquad
+M_X=I-P_X.
+\]
+
+Como \(M_XX=0\), los residuos estimados pueden escribirse como:
+
+\[
+\hat\epsilon
+=M_Xy
+=M_X(X\beta+\epsilon)
+=M_X\epsilon.
+\]
+
+Por simetría e idempotencia de \(M_X\):
+
+\[
+\hat\epsilon'\hat\epsilon
+=\epsilon'M_X'M_X\epsilon
+=\epsilon'M_X\epsilon.
+\]
+
+Usamos la identidad \(\mathbb{E}[z'Az\mid X]=\operatorname{tr}\!\left(A\operatorname{Var}(z\mid X)\right)\) cuando \(\mathbb{E}[z\mid X]=0\). Bajo perturbaciones esféricas:
+
+\[
+\begin{aligned}
+\mathbb{E}[\hat\epsilon'\hat\epsilon\mid X]
+&=\mathbb{E}[\epsilon'M_X\epsilon\mid X]\\
+&=\operatorname{tr}\!\left(M_X\operatorname{Var}(\epsilon\mid X)\right)\\
+&=\operatorname{tr}(M_X\sigma^2I)\\
+&=\sigma^2\operatorname{tr}(M_X).
+\end{aligned}
+\]
+
+La matriz \(P_X\) proyecta sobre un espacio de dimensión \(K\), de modo que \(\operatorname{tr}(P_X)=K\). Por tanto:
+
+\[
+\operatorname{tr}(M_X)
+=\operatorname{tr}(I-P_X)
+=n-K.
+\]
+
+En consecuencia:
+
+\[
+\mathbb{E}[\hat\epsilon'\hat\epsilon\mid X]=(n-K)\sigma^2,
+\]
+
+y
+
+\[
+\boxed{
+\mathbb{E}[\hat\sigma^2\mid X]
+=\mathbb{E}\!\left[\frac{\hat\epsilon'\hat\epsilon}{n-K}\middle|X\right]
+=\sigma^2.}
+\]
+
+::: {.box-intuicion}
+MCO utiliza \(K\) direcciones de la muestra para ajustar los coeficientes. Los residuos solo conservan variación en las \(n-K\) direcciones restantes; por eso la SRC debe dividirse por \(n-K\).
+:::
+
+### Linealidad, insesgamiento y eficiencia
+
+Antes de enunciar Gauss-Markov, debemos precisar la clase de comparación. Un estimador \(\tilde\beta\) es:
+
+1. **Lineal en \(y\)** si puede escribirse como \(\tilde\beta=Cy\), donde \(C\) puede depender de \(X\), pero no de \(y\).
+2. **Insesgado** si \(\mathbb{E}[\tilde\beta\mid X]=\beta\).
+3. **Eficiente dentro de esa clase** si ningún otro estimador lineal e insesgado tiene una matriz de varianza menor.
+
+“Menor” para matrices significa que la diferencia entre las matrices de varianza es semidefinida positiva. Equivale a decir que ninguna combinación lineal de los coeficientes tiene menor varianza con el estimador alternativo.
+
+### Teorema de Gauss-Markov
 
 El teorema de Gauss-Markov afirma que, bajo los supuestos clásicos, MCO es el mejor estimador lineal insesgado, o MELI. Es decir, entre todos los estimadores lineales e insesgados, \(\hat{\beta}\) tiene la menor varianza.
 
 ::: {.box-ejemplo}
 Si dos estimadores son insesgados, ambos aciertan en promedio. Gauss-Markov dice que MCO, además, es el que se dispersa menos dentro de la clase de estimadores lineales insesgados.
+:::
+
+#### Demostración
+
+Sea un estimador lineal alternativo:
+
+\[
+\tilde\beta=Cy.
+\]
+
+El estimador de MCO también es lineal en \(y\). Definamos:
+
+\[
+A=(X'X)^{-1}X',
+\qquad
+\hat\beta=Ay.
+\]
+
+Escribimos la matriz del estimador alternativo como:
+
+\[
+C=A+D,
+\]
+
+donde \(D=C-A\). Entonces:
+
+\[
+\tilde\beta
+=(A+D)y
+=\hat\beta+Dy.
+\]
+
+Para que \(\tilde\beta\) sea insesgado para todo \(\beta\):
+
+\[
+\begin{aligned}
+\mathbb{E}[\tilde\beta\mid X]
+&=C\mathbb{E}[y\mid X]\\
+&=CX\beta\\
+&=(A+D)X\beta\\
+&=(I_K+DX)\beta.
+\end{aligned}
+\]
+
+Por tanto, la condición de insesgamiento es:
+
+\[
+\boxed{DX=0}.
+\]
+
+Bajo \(\operatorname{Var}(\epsilon\mid X)=\sigma^2I\), la varianza del estimador alternativo es:
+
+\[
+\begin{aligned}
+\operatorname{Var}(\tilde\beta\mid X)
+&=C\operatorname{Var}(y\mid X)C'\\
+&=\sigma^2(A+D)(A'+D')\\
+&=\sigma^2(AA'+AD'+DA'+DD').
+\end{aligned}
+\]
+
+Los términos cruzados son cero. En efecto:
+
+\[
+DA'
+=DX(X'X)^{-1}
+=0,
+\]
+
+y, por transposición, \(AD'=0\). Además:
+
+\[
+AA'
+=(X'X)^{-1}X'X(X'X)^{-1}
+=(X'X)^{-1}.
+\]
+
+Así:
+
+\[
+\operatorname{Var}(\tilde\beta\mid X)
+=\sigma^2(X'X)^{-1}+\sigma^2DD'.
+\]
+
+Como \(DD'\) es semidefinida positiva:
+
+\[
+\boxed{
+\operatorname{Var}(\tilde\beta\mid X)
+-\operatorname{Var}(\hat\beta\mid X)
+=\sigma^2DD'\succeq0.}
+\]
+
+Por tanto, ningún estimador lineal e insesgado tiene menor varianza que MCO. Esto demuestra que \(\hat\beta\) es MELI.
+
+::: {.box-cuidado}
+Gauss-Markov no afirma que MCO sea mejor que cualquier estimador imaginable. La comparación se limita a estimadores **lineales en \(y\)** e **insesgados**. Tampoco requiere normalidad.
 :::
 
 ## Supuestos y propiedades {#supuestos-propiedades-propiedades}
@@ -4598,6 +5265,7 @@ Si dos estimadores son insesgados, ambos aciertan en promedio. Gauss-Markov dice
 |---|---|---|
 | Insesgamiento | \(\mathbb{E}[\epsilon\mid X]=0\) | \(\mathbb{E}[\hat{\beta}\mid X]=\beta\). |
 | Varianza clásica | \(\text{Var}(\epsilon\mid X)=\sigma^2I\) | \(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}\). |
+| Varianza residual | Exogeneidad y perturbaciones esféricas | \(\mathbb{E}[\hat\sigma^2\mid X]=\sigma^2\). |
 | MELI | Supuestos clásicos de Gauss-Markov | MCO tiene mínima varianza entre estimadores lineales insesgados. |
 | Inferencia exacta | Normalidad adicional | Se estudia al discutir pruebas de hipótesis. |
 
@@ -4622,9 +5290,12 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 ## Resumen {#resumen-propiedades-teoria}
 
 ::: {.box-resumen}
+- Por construcción, \(X'\hat\epsilon=0\), \(\hat y'\hat\epsilon=0\) y \(y=\hat y+\hat\epsilon\).
+- Con constante, \(\text{STC}=\text{SEC}+\text{SRC}\) y \(R^2=1-\text{SRC}/\text{STC}\).
 - El error muestral de MCO es \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
 - Bajo \(\mathbb{E}[\epsilon\mid X]=0\), MCO es insesgado.
 - Bajo \(\text{Var}(\epsilon\mid X)=\sigma^2I\), \(\text{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}\).
+- Bajo los mismos supuestos, \(\hat\sigma^2=\hat\epsilon'\hat\epsilon/(n-K)\) es insesgado.
 - Gauss-Markov establece que MCO es MELI: el mejor estimador lineal insesgado.
 - Las propiedades dependen de los supuestos; no se derivan solo de correr una regresión.
 :::
@@ -4632,12 +5303,18 @@ Si fallan las perturbaciones esféricas, MCO puede seguir siendo insesgado bajo 
 ## Ejercicios conceptuales {#ejercicios-conceptuales-propiedades}
 
 ::: {.box-ejercicios}
-1. Demuestra que \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
-2. Explica por qué \(\mathbb{E}[\epsilon\mid X]=0\) implica insesgamiento condicional.
-3. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
-4. Explica qué significa que MCO sea "lineal" como estimador.
-5. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
-6. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
+1. Demuestra que \(\hat y'\hat\epsilon=0\) y obtén la descomposición no centrada.
+2. Explica por qué la descomposición centrada del \(R^2\) requiere una constante.
+3. Demuestra que \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\).
+4. Explica por qué \(\mathbb{E}[\epsilon\mid X]=0\) implica insesgamiento condicional.
+5. Deriva \(\text{Var}(\hat{\beta}\mid X)\) bajo \(\sigma^2I\).
+6. Demuestra que \(\hat\epsilon=M_X\epsilon\).
+7. Usa trazas para demostrar que \(\mathbb{E}[\hat\epsilon'\hat\epsilon\mid X]=(n-K)\sigma^2\).
+8. Explica qué significa que MCO sea "lineal" como estimador.
+9. En la demostración de Gauss-Markov, muestra por qué \(DX=0\) implica \(DA'=0\).
+10. Explica la diferencia entre una desigualdad escalar y la relación \(\succeq0\) entre matrices.
+11. Da un ejemplo de un estimador insesgado que podría tener mayor varianza que MCO.
+12. Para conectar propiedades, residuos y simulación, resuelve las partes B y D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-propiedades-teoria}
@@ -8719,6 +9396,7 @@ Los talleres reúnen ejercicios conceptuales, demostraciones y aplicaciones comp
 :::: {.box-intuicion}
 La idea es estudiar por bloques. Primero se repasan los conceptos en el capítulo correspondiente; después se resuelven ejercicios integradores que obligan a conectar álgebra, interpretación y práctica computacional.
 ::::
+
 ## Cómo usarlos
 
 1. Lee primero los capítulos asociados al taller.
@@ -8729,6 +9407,7 @@ La idea es estudiar por bloques. Primero se repasan los conceptos en el capítul
 :::: {.box-cuidado}
 Los enunciados están diseñados para que practiques razonamiento econométrico. No basta con entregar una fórmula o una salida de software: cada respuesta debe explicar qué se está estimando, bajo qué supuestos y cómo se interpreta.
 ::::
+
 ## Mapa de talleres
 
 | Taller | Tema integrador | Capítulos asociados | Estado |
@@ -8757,6 +9436,7 @@ Este taller integra los primeros bloques del curso: notación de sumas, álgebra
 :::: {.box-intuicion}
 El objetivo no es hacer muchos ejercicios mecánicos, sino conectar tres formas de ver MCO: como una recta que minimiza residuos, como una proyección matricial y como una herramienta para interpretar diferencias entre grupos.
 ::::
+
 ## Objetivos del taller
 
 Al finalizar este problem set podrás:
@@ -8777,6 +9457,7 @@ Al finalizar este problem set podrás:
 :::: {.box-cuidado}
 No mezcles errores poblacionales con residuos estimados. Usa \(\epsilon_i\) para el error poblacional y \(\hat{\epsilon}_i\) para el residuo que se calcula después de estimar.
 ::::
+
 ## Parte A: Álgebra matricial
 
 :::: {.box-ejercicios}
@@ -8820,6 +9501,7 @@ Demuestra que \(PX=X\). Luego demuestra que \(P\) es idempotente, es decir, \(P^
    b. \(\frac{\partial x'x}{\partial x}\)  
    c. \(\frac{\partial x'(aa')x}{\partial x}\)
 ::::
+
 ## Parte B: MCO en sumas y matrices
 
 :::: {.box-ejercicios}
@@ -8887,6 +9569,7 @@ y obtiene:
 
 ¿Son coherentes estos resultados con las ecuaciones normales de MCO? Justifica.
 ::::
+
 ## Parte C: Modelos lineales, dummies e interpretación
 
 :::: {.box-ejercicios}
@@ -8925,6 +9608,7 @@ y_i=\alpha+\beta E_{1i}+\delta Ingresos_i+\gamma(E_{1i}\times Ingresos_i)+\epsil
 
 Interpreta \(\alpha\), \(\beta\), \(\delta\) y \(\gamma\). ¿Qué permite estudiar la interacción?
 ::::
+
 ## Parte D: Propiedades, supuestos y FWL
 
 :::: {.box-ejercicios}
@@ -8958,6 +9642,7 @@ Muestra que el coeficiente de \(X_1\) en el modelo completo coincide con el coef
 
 6. Supón que \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
 ::::
+
 ## Parte E: Simulación Monte Carlo
 
 Esta parte reproduce la idea computacional del taller histórico: estudiar insesgadez, varianza y consistencia simulando muchas muestras.
@@ -8971,6 +9656,7 @@ y_i=2.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1),
 
 con \(x_i\) generado de una distribución uniforme entre 3 y 10.
 ::::
+
 ### Preguntas
 
 :::: {.box-ejercicios}
@@ -8979,6 +9665,7 @@ con \(x_i\) generado de una distribución uniforme entre 3 y 10.
 3. Repite el ejercicio con \(n=1000\). ¿Qué cambia? ¿Qué sugiere sobre consistencia?
 4. Grafica la distribución de \(\hat{\beta}\) para \(n=150\) y \(n=1000\). Compara visualmente.
 ::::
+
 ### Código base en R
 
 ```{r ps1-montecarlo-r, eval=FALSE}
@@ -9054,6 +9741,7 @@ print(beta_1000.mean(), beta_1000.std(ddof=1))
 :::: {.box-resumen}
 Este taller conecta la mecánica de MCO con su interpretación. Si puedes resolverlo con calma, ya tienes una base sólida para estudiar propiedades, FWL, pruebas de hipótesis y problemas como multicolinealidad o heterocedasticidad.
 ::::
+
 [← Volver al índice de problem sets](#problem-sets)
 
 
@@ -9066,6 +9754,7 @@ Este taller cierra el bloque central de MCO. Integra el teorema de Frisch-Waugh-
 :::: {.box-intuicion}
 La idea es pasar de "estimar una regresión" a entender qué está haciendo la regresión: qué variación usa, qué propiedades tiene el estimador y cómo convertimos una estimación en una afirmación estadística.
 ::::
+
 ## Objetivos del taller
 
 Al finalizar este problem set podrás:
@@ -9086,6 +9775,7 @@ Al finalizar este problem set podrás:
 :::: {.box-cuidado}
 No confundas significancia estadística con importancia económica. Una prueba puede rechazar una hipótesis con un efecto pequeño si la muestra es grande, y puede no rechazar con un efecto relevante si la estimación es imprecisa.
 ::::
+
 ## Parte A: Frisch-Waugh-Lovell
 
 :::: {.box-ejercicios}
@@ -9121,6 +9811,7 @@ Y=\beta_0+\beta_1X_1+\beta_2X_2+\epsilon,
 
 describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
 ::::
+
 ## Parte B: Propiedades de MCO
 
 :::: {.box-ejercicios}
@@ -9140,6 +9831,7 @@ describe verbalmente qué parte de \(X_1\) usa MCO para estimar \(\beta_1\).
 
 5. Considera una transformación \(Z=XW\), donde \(W\) es una matriz no singular. Demuestra que los residuos de la regresión de \(Y\) sobre \(X\) y los de la regresión de \(Y\) sobre \(Z\) son iguales. ¿Qué implica esto para cambios de unidades en los regresores?
 ::::
+
 ## Parte C: Inferencia inicial
 
 :::: {.box-ejercicios}
@@ -9165,6 +9857,7 @@ donde \(HE_i\) son horas de estudio. Interpreta \(\alpha\), \(\beta\), \(\delta\
 
 5. Camilo cree que un año más de educación aumenta más los salarios de las mujeres que los salarios de los hombres. Escribe el modelo que permitiría estudiar esa hipótesis y especifica qué coeficiente o prueba mirarías.
 ::::
+
 ## Parte D: Simulación de propiedades
 
 Esta parte retoma la idea de Monte Carlo: generar muchas muestras, estimar el mismo modelo y estudiar la distribución de \(\hat{\beta}\).
@@ -9178,6 +9871,7 @@ y_i=2+1.5x_i+\epsilon_i,\qquad \epsilon_i\sim N(0,1).
 
 Compara muestras de tamaño \(n=50\), \(n=200\) y \(n=1000\).
 ::::
+
 ### Preguntas
 
 :::: {.box-ejercicios}
@@ -9186,6 +9880,7 @@ Compara muestras de tamaño \(n=50\), \(n=200\) y \(n=1000\).
 3. Explica qué parte de los resultados se relaciona con insesgadez y cuál con consistencia.
 4. Repite el ejercicio con errores cuya varianza crece con \(x_i\). ¿Qué cambia en la interpretación de los errores estándar convencionales?
 ::::
+
 ### Código base en R
 
 ```{r ps2-montecarlo-r, eval=FALSE}
@@ -9260,6 +9955,7 @@ for n in [50, 200, 1000]:
 :::: {.box-resumen}
 Este taller une tres piezas que suelen estudiarse por separado: FWL muestra de dónde sale la variación útil, las propiedades explican qué podemos esperar del estimador y la inferencia traduce una estimación en una afirmación con incertidumbre.
 ::::
+
 [← Volver al índice de problem sets](#problem-sets)
 
 
@@ -9272,6 +9968,7 @@ Este taller integra dos problemas frecuentes en aplicaciones de MCO: regresores 
 :::: {.box-intuicion}
 Multicolinealidad y heterocedasticidad no son el mismo problema. La primera afecta la precisión con la que separamos efectos entre regresores relacionados; la segunda afecta la forma correcta de medir la incertidumbre cuando la varianza del error cambia con las covariables.
 ::::
+
 ## Objetivos del taller
 
 Al finalizar este problem set podrás:
@@ -9291,6 +9988,7 @@ Al finalizar este problem set podrás:
 :::: {.box-cuidado}
 No digas que la multicolinealidad aproximada "sesga" MCO. Si los supuestos de exogeneidad se mantienen, el problema principal es de precisión: errores estándar grandes y coeficientes inestables.
 ::::
+
 ## Parte A: Multicolinealidad
 
 :::: {.box-ejercicios}
@@ -9310,6 +10008,7 @@ donde \(x_i=X_i-\bar{X}\) y \(z_i=Z_i-\bar{Z}\). Usa las ecuaciones normales par
 
 5. Explica por qué eliminar variables solo para reducir el VIF puede ser una mala decisión si esas variables son controles conceptualmente importantes.
 ::::
+
 ## Parte B: Heterocedasticidad
 
 :::: {.box-ejercicios}
@@ -9335,6 +10034,7 @@ Escribe la regresión auxiliar. ¿Qué variable va al lado izquierdo? ¿Qué té
 
 5. Explica cuándo preferirías errores estándar robustos y cuándo tendría sentido estimar un modelo ponderado.
 ::::
+
 ## Parte C: Aplicación conceptual
 
 :::: {.box-ejercicios}
@@ -9358,6 +10058,7 @@ donde \(Mujer_i=1-Hombre_i\). Propón una forma de estimar \(\sigma_1^2\) y \(\s
 
 4. ¿Qué parte de este ejercicio cambia los coeficientes y qué parte cambia solamente los errores estándar?
 ::::
+
 ## Parte D: Simulación de multicolinealidad
 
 :::: {.box-ejemplo}
@@ -9369,6 +10070,7 @@ y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
 
 con \(X_1\sim N(0,1)\), \(X_2\sim N(0,1)\), \(\epsilon_i\sim N(0,1)\) y \(X_3=X_1+X_2+\eta_i\), donde \(\eta_i\) tiene varianza pequeña.
 ::::
+
 ### Preguntas
 
 :::: {.box-ejercicios}
@@ -9377,6 +10079,7 @@ con \(X_1\sim N(0,1)\), \(X_2\sim N(0,1)\), \(\epsilon_i\sim N(0,1)\) y \(X_3=X_
 3. Calcula la matriz de correlaciones y el VIF. ¿Qué diagnóstico entregan?
 4. Repite el ejercicio aumentando la varianza de \(\eta_i\). ¿Qué ocurre con los errores estándar?
 ::::
+
 ### Código base en R
 
 ```{r ps3-multico-r, eval=FALSE}
@@ -9444,6 +10147,7 @@ print(modelo.summary())
 3. Haz un gráfico de residuos contra valores ajustados.
 4. Estima una versión ponderada usando pesos proporcionales a \(1/\sigma_i^2\). Compara.
 ::::
+
 ### Código base en R
 
 ```{r ps3-hetero-r, eval=FALSE}
@@ -9470,6 +10174,7 @@ abline(h = 0, col = "#C0562F", lwd = 2)
 :::: {.box-resumen}
 Este taller separa dos diagnósticos distintos: multicolinealidad habla de la información disponible para separar regresores; heterocedasticidad habla de cómo se comporta la varianza del error. En ambos casos, la solución depende de entender primero cuál es el problema estadístico exacto.
 ::::
+
 [← Volver al índice de problem sets](#problem-sets)
 
 
@@ -9482,6 +10187,7 @@ Este taller integra las fuentes de endogeneidad y el uso de variables instrument
 :::: {.box-intuicion}
 La pregunta central no es si una variable "explica" a otra, sino si la variación que estamos usando para estimar el efecto puede interpretarse como exógena. Las variables instrumentales buscan aislar una parte de la variación del regresor que no esté contaminada por el error.
 ::::
+
 ## Objetivos del taller
 
 Al finalizar este problem set podrás:
@@ -9501,6 +10207,7 @@ Al finalizar este problem set podrás:
 :::: {.box-cuidado}
 Un instrumento fuerte no necesariamente es válido. La relevancia se puede diagnosticar con la primera etapa; la exogeneidad requiere argumento económico, diseño institucional o pruebas indirectas cuando hay sobreidentificación.
 ::::
+
 ## Parte A: Endogeneidad en salud y ejercicio
 
 :::: {.box-ejercicios}
@@ -9518,6 +10225,7 @@ La variable \(ejercicio_i\) mide horas de ejercicio a la semana.
 4. Escribe la segunda etapa y explica qué parámetro identifica.
 5. ¿Cómo podrías evaluar empíricamente la relevancia de los instrumentos? ¿Qué parte de la validez no puedes probar directamente?
 ::::
+
 ## Parte B: Educación y salarios
 
 :::: {.box-ejercicios}
@@ -9543,11 +10251,13 @@ cuando \(u_i\) contiene habilidad no observada.
 
 5. ¿Qué argumentos podrían apoyar o debilitar la exogeneidad de la cercanía a una universidad?
 ::::
+
 ## Parte C: Primera etapa e instrumentos débiles
 
 :::: {.box-ejemplo}
 Una primera etapa para educación produce un coeficiente de 0.3199 sobre distancia/cercanía a universidad, con error estándar 0.0879 y estadístico \(t=3.64\).
 ::::
+
 :::: {.box-ejercicios}
 1. Calcula el estadístico \(F\) del instrumento excluido cuando hay un solo instrumento excluido. Pista: en ese caso \(F=t^2\).
 
@@ -9559,6 +10269,7 @@ Una primera etapa para educación produce un coeficiente de 0.3199 sobre distanc
 
 5. ¿Qué reportarías en una tabla empírica para que el lector evalúe la fuerza de los instrumentos?
 ::::
+
 ## Parte D: IV y 2SLS
 
 :::: {.box-ejercicios}
@@ -9584,6 +10295,7 @@ Luego escribe la segunda etapa usando \(\hat{x}_i\).
 
 5. Compara conceptualmente MCO, IV y 2SLS: ¿qué variación de \(x\) usa cada método?
 ::::
+
 ## Parte E: Error de medición
 
 :::: {.box-ejercicios}
@@ -9606,6 +10318,7 @@ Asume que \(v\), \(w\), \(x\) y \(u\) cumplen condiciones de covarianza cero sal
 3. Explica el efecto del error de medición clásico en \(y\). ¿Sesga la pendiente? ¿Qué cambia?
 4. Propón un instrumento posible para \(x^*\). ¿Qué condiciones debería cumplir?
 ::::
+
 ## Parte F: Simulación reproducible
 
 :::: {.box-ejercicios}
@@ -9614,6 +10327,7 @@ Asume que \(v\), \(w\), \(x\) y \(u\) cumplen condiciones de covarianza cero sal
 3. Compara los coeficientes estimados.
 4. Repite el ejercicio haciendo que el instrumento sea débil. ¿Qué cambia?
 ::::
+
 ### Código base en R
 
 ```{r ps4-iv-r, eval=FALSE}
@@ -9682,6 +10396,7 @@ print(sm.OLS(lwage, X_second).fit().summary())
 :::: {.box-resumen}
 Este taller insiste en una idea: IV no corrige cualquier problema automáticamente. Funciona cuando el instrumento genera variación relevante en el regresor endógeno y esa variación puede defenderse como exógena respecto al resultado.
 ::::
+
 [← Volver al índice de problem sets](#problem-sets)
 
 
@@ -9694,6 +10409,7 @@ Este taller integra los dos últimos bloques del curso: modelos con variable dep
 :::: {.box-intuicion}
 En variable binaria, el resultado ya no es una cantidad continua sino una probabilidad. En series de tiempo, las observaciones ya no son intercambiables en el tiempo. En ambos casos, hay que ajustar la forma de pensar el modelo y la interpretación.
 ::::
+
 ## Objetivos del taller
 
 Al finalizar este problem set podrás:
@@ -9713,6 +10429,7 @@ Al finalizar este problem set podrás:
 :::: {.box-cuidado}
 En logit y probit, el signo del coeficiente sí indica la dirección del efecto sobre la probabilidad, pero su magnitud no es directamente un cambio en puntos porcentuales. Para eso necesitas efectos marginales o cambios discretos en probabilidad.
 ::::
+
 ## Parte A: Probit con regresor binario
 
 :::: {.box-ejercicios}
@@ -9742,6 +10459,7 @@ P_1=\Pr(Y_i=1\mid X_i=1),\qquad P_0=\Pr(Y_i=1\mid X_i=0).
 Y_i=\beta_0+\beta_1X_i+\epsilon_i.
 \]
 ::::
+
 ## Parte B: Logit, odds y efectos marginales
 
 :::: {.box-ejercicios}
@@ -9762,6 +10480,7 @@ Considera el modelo logit:
 
 5. Supón que una salida logit reporta \(\hat{\beta}_1=0.345\) y \(\hat{\beta}_2=-0.276\). ¿Qué puedes decir sobre la dirección de los efectos? ¿Qué información adicional necesitas para calcular efectos marginales?
 ::::
+
 ## Parte C: Modelo latente e interacciones
 
 :::: {.box-ejercicios}
@@ -9788,6 +10507,7 @@ y_i=0\quad \text{si }y_i^*\leq 0.
 \frac{\partial^2 \Pr(y=1\mid X)}{\partial X_2\partial X_3}.
 \]
 ::::
+
 ## Parte D: Aplicación a deserción escolar
 
 :::: {.box-ejercicios}
@@ -9799,6 +10519,7 @@ El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 año
 4. Repite conceptualmente el análisis con MPL y logit. ¿Qué similitudes y diferencias esperarías?
 5. Plantea una simulación de política: ¿cómo calcularías el cambio en probabilidad de deserción ante un subsidio que aumenta el ingreso familiar?
 ::::
+
 ## Parte E: Series de tiempo, ACF y PACF
 
 :::: {.box-ejercicios}
@@ -9814,6 +10535,7 @@ El objetivo es analizar la deserción escolar de adolescentes entre 13 y 19 año
 
 6. ¿En qué sentido un VAR puede considerarse ateórico? ¿Cuál es la conexión entre causalidad de Granger y modelos VAR?
 ::::
+
 ## Parte F: Modelos autorregresivos y predicción
 
 :::: {.box-ejercicios}
@@ -9858,6 +10580,7 @@ Y_t=50+0.74Y_{t-1}+0.16Y_{t-2}.
 
 Calcula la media de largo plazo si el proceso es estacionario. Luego, usando \(Y_{1996-III}=550\) y \(Y_{1996-IV}=600\), calcula las predicciones para 1997-I y 1997-II.
 ::::
+
 ## Parte G: Código base
 
 ### Variable dependiente binaria en R
@@ -9903,6 +10626,7 @@ pacf(y)
 :::: {.box-resumen}
 Este taller junta dos cambios de lenguaje. Con variable binaria hablamos en probabilidades y efectos marginales; con series hablamos en dependencia temporal, persistencia y estacionariedad. En ambos casos, la interpretación correcta depende de respetar la estructura de los datos.
 ::::
+
 [← Volver al índice de problem sets](#problem-sets)
 
 
@@ -10428,4 +11152,616 @@ Describa brevemente (5–7 líneas) un video relacionado con econometría o econ
 </div></details>
 
 <!--chapter:end:P1-Parcial1_2026-1.Rmd-->
+
+# Parcial 2 · 2026-1 {#parcial-2-2026-1}
+
+**Pontificia Universidad Javeriana · Departamento de Economía**
+**Profesora:** Ana María Díaz · **Semestre:** 2026-1
+**Puntaje máximo:** 5.0 pts
+
+::: {.box-tarea}
+**Cómo usar este capítulo**
+Las preguntas están tal como aparecieron en el examen. Haz clic en **🔑 Ver solución** para revelar la respuesta y su explicación. Te recomendamos responder primero y consultar la solución después.
+:::
+
+<hr>
+
+## Parte I: Selección Múltiple {#parte-i-seleccion-multiple .unnumbered}
+**20 preguntas · 2 puntos en total**
+
+La escala de calificación asigna 2.00 pts con 20 correctas, hasta 1.00 pts con 10 correctas; por debajo de 10, proporcional.
+
+<hr>
+
+**Clave de respuestas:**
+B A C B A | B C C B C | B C B B B | B C B C C
+
+<hr>
+
+**P1.** La matriz de varianza-covarianza del estimador MCO bajo heterocedasticidad satisface:
+
+(A) $\operatorname{Var}(\hat{\beta}\mid X)=\sigma^2(X'X)^{-1}$
+(B) $\operatorname{Var}(\hat{\beta}\mid X)=(X'X)^{-1}X'\Omega X(X'X)^{-1}$
+(C) Coincide con la fórmula clásica si $\Omega=\sigma^2 I$
+(D) No puede estimarse sin suponer normalidad
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Bajo heterocedasticidad $\Omega=\operatorname{Var}(\varepsilon\mid X)$ es diagonal pero no es múltiplo de $I_n$. La verdadera varianza es $\operatorname{Var}(\hat{\beta}\mid X)=(X'X)^{-1}X'\Omega X(X'X)^{-1}$. La fórmula clásica $\sigma^2(X'X)^{-1}$ es incorrecta.
+</div></details>
+
+<hr>
+
+**P2.** El estimador MCO en presencia de heterocedasticidad es:
+
+(A) Insesgado y consistente
+(B) Sesgado e inconsistente
+(C) Insesgado en muestras pequeñas pero consistente en grandes
+(D) Consistente pero no eficiente
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: A.** La heterocedasticidad viola el supuesto S4 (homocedasticidad) pero no afecta S1–S2. Luego, MCO sigue siendo insesgado y consistente; el problema es que deja de ser MELI y los errores estándar habituales son inválidos.
+</div></details>
+
+<hr>
+
+**P3.** Defina $H_i = X_i(X'X)^{-1}X_i'$ (apalancamiento de la observación $i$). Si $H_i$ es muy grande:
+
+(A) La observación $i$ tiene bajo impacto en $\hat{\beta}$
+(B) La observación $i$ tiene alto impacto en $\hat{\beta}$ pero bajo residuo
+(C) Los errores estándar disminuyen automáticamente
+(D) El $R^2$ se incrementa
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Un valor alto de $H_i$ indica que $X_i$ está alejado del centro de la distribución de $X$. Eso puede causar alto residuo o bajo residuo (apalancamiento alto), pero *siempre* reduce la varianza del residuo estandarizado. Observaciones atípicas en $X$ tienen potencial para alterar $\hat{\beta}$.
+</div></details>
+
+<hr>
+
+**P4.** En el modelo $Y_i = \beta_0 + \beta_1 X_i + u_i$ con heterocedasticidad, los errores robustos (HC) son preferibles a los errores estándar clásicos porque:
+
+(A) Producen estimadores insesgados
+(B) Proporcionan inferencia válida bajo heterocedasticidad sin especificar su forma
+(C) Mejoran la eficiencia de MCO
+(D) Eliminan la heterocedasticidad del modelo
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Los errores HC estiman directamente $(X'X)^{-1}X'\Omega X(X'X)^{-1}$ sin asumir $\Omega=\sigma^2 I$. Proporcionan intervalos y pruebas válidas bajo cualquier patrón de heterocedasticidad, sin conocer su forma exacta.
+</div></details>
+
+<hr>
+
+**P5.** La Ley de Grandes Números (LGN) y el Teorema Central del Límite (TCL) son herramientas para:
+
+(A) Justificar insesgamiento de MCO
+(B) Garantizar que MCO es MELI
+(C) Establecer propiedades asintóticas de estimadores (consistencia, normalidad asintótica)
+(D) Eliminar la heterocedasticidad
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** LGN justifica consistencia ($\hat{\beta}\xrightarrow{p}\beta$) bajo S1–S2 sin necesidad de S4 ni S6. TCL justifica normalidad asintótica ($\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)$) incluso sin normalidad de errores.
+</div></details>
+
+<hr>
+
+**P6.** Si la variable $Z$ está omitida del modelo verdadero $Y=X_1\beta_1+Z\beta_2+\varepsilon$ y se estima $Y=X_1\alpha_1+v$, el sesgo en $\hat{\alpha}_1$ depende de:
+
+(A) Solo $\beta_2$
+(B) $\beta_2$ y $\operatorname{Cov}(X_1,Z)$
+(C) Solo $\operatorname{Cov}(X_1,Z)$
+(D) La varianza de $X_1$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Sesgo por variable omitida: $E[\tilde{\alpha}_1]-\beta_1\approx\beta_2\cdot\frac{\operatorname{Cov}(X_1,Z)}{\operatorname{Var}(X_1)}$. Se requiere tanto que $Z$ sea relevante ($\beta_2\neq 0$) como que esté correlacionada con $X_1$.
+</div></details>
+
+<hr>
+
+**P7.** En el contexto de variables instrumentales, un instrumento $Z$ es válido si:
+
+(A) $\operatorname{Cov}(Z,X)\neq 0$ solamente
+(B) $\operatorname{Cov}(Z,X)\neq 0$ y $\operatorname{Cov}(Z,\varepsilon)=0$
+(C) $\operatorname{Cov}(Z,\varepsilon)=0$ y $\operatorname{Var}(Z)$ es grande
+(D) $Z$ está disponible en los datos
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Un instrumento válido requiere: (i) **relevancia:** $\operatorname{Cov}(Z,X)\neq 0$ (contribuye información sobre $X$); (ii) **exogeneidad:** $\operatorname{Cov}(Z,\varepsilon)=0$ (no está correlacionado con perturbaciones no observadas). Ambas son necesarias.
+</div></details>
+
+<hr>
+
+**P8.** El estimador MCO2E (mínimos cuadrados en dos etapas) con instrumento $Z$:
+
+(A) Es sesgado pero consistente si $Z$ satisface relevancia y exogeneidad
+(B) Es insesgado incluso sin exogeneidad si $n$ es grande
+(C) Converge a $\beta_1$ en probabilidad bajo relevancia y exogeneidad
+(D) No requiere que $Z$ sea fuerte
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** MCO2E es *consistente* bajo relevancia y exogeneidad: $\hat{\beta}_{IV}\xrightarrow{p}\beta_1$. No es insesgado en muestras finitas (es estimador de variable dependiente límite), pero sí consistente. Instrumentos débiles producen sesgo inicial (aun con $n$ grande).
+</div></details>
+
+<hr>
+
+**P9.** Si el instrumento $Z$ es débil (baja correlación con $X$):
+
+(A) MCO2E sigue siendo consistente aunque lentamente
+(B) MCO2E puede estar muy sesgado incluso en muestras grandes
+(C) Se incrementa automáticamente la eficiencia
+(D) La endogeneidad se resuelve por sí sola
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Instrumentos débiles: $\operatorname{Cov}(Z,X)$ es pequeño. El estimador IV sufre **sesgo inicial** (asymptotic bias) que puede ser sustancial incluso con $n\to\infty$. Una prueba de relevancia (test F > 10) ayuda a detectar este problema.
+</div></details>
+
+<hr>
+
+**P10.** La condición de exclusión en IV requiere que:
+
+(A) $Z$ no tenga efecto directo en $Y$ (fuera de su efecto a través de $X$)
+(B) $Z$ esté correlacionado con $X$
+(C) $Y$ se mida sin error
+(D) La varianza de $\varepsilon$ sea constante
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: A.** La condición de exclusión (exogeneidad del instrumento) requiere que $Z\perp\varepsilon$: es decir, $Z$ afecta $Y$ *solo* a través de $X$, sin canal directo. Formal: $E[Y|Z] = E[E[Y|X,Z]|Z] = E[E[Y|X]|Z]$.
+</div></details>
+
+<hr>
+
+**P11.** En regresión múltiple con multicolinealidad imperfecta, la varianza del estimador $\hat{\beta}_j$ se infla por:
+
+(A) El factor $(1-R_j^2)^{-1}$ solamente
+(B) VIF$_j = (1-R_j^2)^{-1}$, donde $R_j^2$ es el $R^2$ de $X_j$ sobre las demás regresoras
+(C) La correlación entre $X_j$ y $Y$
+(D) El número de observaciones
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Variance Inflation Factor (VIF): $\operatorname{Var}(\hat{\beta}_j\mid X)\approx\frac{\sigma^2}{(1-R_j^2)\sum(X_j-\bar{X}_j)^2}$. Un $R_j^2$ alto (multicolinealidad) incrementa VIF, inflando la varianza y ampliando intervalos de confianza.
+</div></details>
+
+<hr>
+
+**P12.** Bajo los supuestos clásicos S1–S5, se estima $Y = X\beta + \varepsilon$ con $n=100$ y $k=3$. Un test $t$ es válido para hipótesis sobre $\beta_1$ porque:
+
+(A) Los datos son grandes ($n=100$)
+(B) El Teorema Central del Límite garantiza normalidad asintótica de $\hat{\beta}$
+(C) La distribución $t_{n-k}$ aproxima bien $\sqrt{n}(\hat{\beta}-\beta)/\sigma$
+(D) Todas las anteriores
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** Con $n=100$ (muestra grande), el TCL garantiza $\hat{\beta}\approx N(\beta,\sigma^2(X'X)^{-1})$ bajo S1–S5. El estadístico $t = \frac{\hat{\beta}_1-\beta_{1,0}}{\operatorname{se}(\hat{\beta}_1)}\sim t_{97}$ es válido (o aproximadamente $N(0,1)$). Las tres afirmaciones son correctas.
+</div></details>
+
+<hr>
+
+**P13.** La normalidad asintótica de MCO requiere:
+
+(A) S6: normalidad de los errores
+(B) S1–S2 solamente, por el TCL
+(C) Homocedasticidad (S4)
+(D) Un instrumento válido
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** El TCL permite demostrar $\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}N(0,\Sigma)$ bajo S1–S2 únicamente, sin S6 (normalidad). Incluso con errores no normales, MCO es asintóticamente normal. S4 afecta la forma de $\Sigma$ pero no el resultado límite.
+</div></details>
+
+<hr>
+
+**P14.** Si se omite un regresor importante (variable relevante correlacionada con $X$) del modelo:
+
+(A) Aumenta el R²
+(B) Sesga a $\hat{\beta}$ en dirección determinada por $\operatorname{Cov}(\text{regresor omitido, X})$ y su efecto verdadero
+(C) Reduce automáticamente la heterocedasticidad
+(D) No afecta la eficiencia de MCO
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Sesgo por variable omitida: la dirección depende del signo de (efecto verdadero de la variable omitida) × (correlación con $X$). Si la variable omitida está correlacionada con $X$, su efecto se confunde en el coeficiente de $X$.
+</div></details>
+
+<hr>
+
+**P15.** Un instrumento relevante $Z$ para la variable endógena $X$ debe satisfacer:
+
+(A) $\operatorname{Cov}(Z,X) = 0$
+(B) $\operatorname{Cov}(Z,X) \neq 0$ (correlación significativa)
+(C) $Z$ sea exógeno a toda la población
+(D) $Z$ tenga efecto directo máximo en $Y$
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Relevancia del instrumento: se necesita $\operatorname{Cov}(Z,X)\neq 0$, idealmente fuerte ($|r_{Z,X}|$ grande). Un test F de la primera etapa > 10 indica relevancia aceptable.
+</div></details>
+
+<hr>
+
+**P16.** En el modelo $Y = \beta_0 + \beta_1 X + \varepsilon$ con $X$ endógena, si usa un instrumento $Z$ válido:
+
+(A) El estimador MCO de $\beta_1$ sigue siendo consistente
+(B) MCO2E es consistente pero MCO no lo es
+(C) Ambos estimadores coinciden si la endogeneidad es leve
+(D) La endogeneidad desaparece automáticamente
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Si $\operatorname{Cov}(X,\varepsilon)\neq 0$ (endogeneidad), MCO es inconsistente. MCO2E, basado en el instrumento válido $Z$, es consistente. No coinciden a menos que la endogeneidad sea exactamente cero.
+</div></details>
+
+<hr>
+
+**P17.** La prueba de endogeneidad (Hausman test) compara:
+
+(A) Los residuos de MCO y MCO2E
+(B) Las varianzas de $\hat{\beta}_{MCO}$ y $\hat{\beta}_{IV}$
+(C) $\hat{\beta}_{MCO}$ y $\hat{\beta}_{IV}$: si difieren significativamente, hay evidencia de endogeneidad
+(D) El $R^2$ de la primera etapa con el de la segunda
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Test de Hausman: $H = (\hat{\beta}_{IV}-\hat{\beta}_{MCO})'\hat{V}^{-1}(\hat{\beta}_{IV}-\hat{\beta}_{MCO})\sim\chi^2_k$. Si $H$ es grande, MCO y IV difieren → evidencia de endogeneidad. Bajo $H_0$: no hay endogeneidad, ambos son consistentes.
+</div></details>
+
+<hr>
+
+**P18.** El estimador de Mínimos Cuadrados Generalizados (MCG) es útil cuando:
+
+(A) Hay heterocedasticidad (conocida o estimada)
+(B) La matriz de varianza-covarianza de $\varepsilon$ es no escalar
+(C) Se quiere mejorar eficiencia más allá de MCO
+(D) Todas las anteriores
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: D.** MCG transforma $Y = X\beta + \varepsilon$ mediante $\Omega = \operatorname{Var}(\varepsilon)$: si $\Omega$ es no escalar (heterocedasticidad, autocorrelación), MCG es más eficiente que MCO. Si $\Omega = \sigma^2 I$, MCG coincide con MCO.
+</div></details>
+
+<hr>
+
+**P19.** Bajo heterocedasticidad, los errores estándar clásicos son:
+
+(A) Insesgados e imparciales
+(B) Sistemáticamente subestimados (errores HC generalmente más grandes)
+(C) Sistemáticamente sobrestimados
+(D) Válidos si $n$ es grande
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: B.** Los errores estándar clásicos $\sqrt{\sigma^2(X'X)^{-1}}$ suponen $\Omega=\sigma^2 I$. Con heterocedasticidad, si los residuos grandes están en $X$ elevados, los errores clásicos subestiman la verdadera varianza de $\hat{\beta}$. Los errores HC corrigen este sesgo.
+</div></details>
+
+<hr>
+
+**P20.** ¿Cuál de las siguientes propiedades de un buen estimador es la más crítica para causalidad en econometría?
+
+(A) Eficiencia (varianza mínima)
+(B) Insesgamiento exacto
+(C) Consistencia bajo identificación válida
+(D) Distribución normal
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+**Respuesta: C.** Para causalidad, se necesita **consistencia** bajo supuestos de identificación válidos (exogeneidad estricta o IV válido). Insesgamiento exacto no es necesario si es sesgado pero consistente. Eficiencia es deseable pero no esencial. Normalidad es útil para inferencia pero no para consistencia.
+</div></details>
+
+<hr>
+
+## Parte II: Preguntas Abiertas {.unnumbered}
+Responda la pregunta **obligatoria** y **una** de las dos opcionales.
+
+<hr>
+
+### Obligatoria — Sesgo por Variable Omitida e Instrumentos (3 pts) {.unnumbered}
+Un municipio implementa un programa de capacitación laboral $(P)$ que puede mejorar la empleabilidad de personas con discapacidad. Se recopilan datos de $n$ participantes durante un año y se estima el efecto del programa en horas de trabajo mensuales $(Y)$.
+
+**Contexto:** El modelo verdadero es
+$$Y_i = \beta_0 + \beta_1 P_i + \beta_2 C_i + \varepsilon_i,$$
+donde $C_i$ es una variable que mide la **capacidad gestional** (o motivación) no observada del participante, y se supone $E[\varepsilon_i | P_i, C_i] = 0$.
+
+**(1) — 1 pt. Variable omitida y sesgo.**
+
+El investigador no tiene medida de $C$ y estima
+$$Y_i = \alpha_0 + \alpha_1 P_i + v_i.$$
+
+- **(a)** Identifique **una variable plausible** que podría actuar como $C$ (capacidad gestional).
+- **(b)** Escriba la **fórmula del sesgo** de $\hat{\alpha}_1$ como función de los parámetros verdaderos y la correlación entre $P$ y la variable omitida.
+- **(c)** **Argumente el signo del sesgo:** ¿esperaría que $\hat{\alpha}_1 > \beta_1$ o $\hat{\alpha}_1 < \beta_1$? ¿Por qué?
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Variable plausible:** Capacidad de liderazgo del participante, nivel educativo previo, autoestima, o disposición a trabajar (motivación).
+
+**(b) Fórmula del sesgo:**
+$$E[\hat{\alpha}_1] - \beta_1 \approx \beta_2 \cdot \frac{\operatorname{Cov}(P,C)}{\operatorname{Var}(P)}.$$
+
+El sesgo depende de (i) el efecto verdadero de $C$ en horas ($\beta_2$) y (ii) la correlación entre participación y capacidad gestional.
+
+**(c) Signo del sesgo:** Si participantes más capacitados gestionales son *más propensos* a inscribirse ($\operatorname{Cov}(P,C) > 0$) y tienen *mayor efecto* en horas ($\beta_2 > 0$), entonces sesgo positivo: $\hat{\alpha}_1$ sobrestima $\beta_1$. El programa "parece" más efectivo porque confunde su efecto con el de capacidad previa.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Dos instrumentos razonables.**
+
+Para resolver el problema de endogeneidad, el investigador propone dos variables instrumentales $Z_1$ y $Z_2$:
+
+- **$Z_1 :=$** proximidad del domicilio del participante a la sede del programa (en km). Se supone que afecta a $P$ pero no directamente a $Y$.
+- **$Z_2 :=$** número de cupos disponibles ese mes en el programa (asignado aleatoriamente por la administración).
+
+**(a)** Para cada instrumento, explique **qué variación** explota:
+  - ¿Por qué $Z_1$ podría estar correlacionado con $P$?
+  - ¿Por qué $Z_2$ podría estar correlacionado con $P$?
+
+**(b)** Escriba las **dos etapas** de MCO2E usando $Z_1$ como instrumento.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Variación explotada:**
+
+- **$Z_1$ (proximidad):** Aprovecha la variación *geográfica*. Participantes más cercanos tienen menores costos de transporte y tiempo, por lo que es más probable que se inscriban. Esperamos $\operatorname{Cov}(P, Z_1) > 0$ (distancia menor → más inscripción).
+
+- **$Z_2$ (cupos):** Aprovecha la variación *administrativa*. Meses con más cupos ofrecen menos restricción, aumentando la participación. Esperamos $\operatorname{Cov}(P, Z_2) > 0$ (más cupos → más participantes).
+
+**(b) Dos etapas con $Z_1$:**
+
+**Primera etapa:** Regresar $P$ sobre $Z_1$ (y controles):
+$$\hat{P}_i = \hat{\pi}_0 + \hat{\pi}_1 Z_{1,i}.$$
+
+Obtenga los valores ajustados $\hat{P}_i$.
+
+**Segunda etapa:** Regresar $Y$ sobre $\hat{P}$:
+$$Y_i = \hat{\beta}_0 + \hat{\beta}_1^{IV} \hat{P}_i + \hat{u}_i.$$
+
+El coeficiente $\hat{\beta}_1^{IV}$ es consistente si $Z_1$ es relevante ($\operatorname{Cov}(P, Z_1) \neq 0$) y exógeno ($\operatorname{Cov}(Z_1, \varepsilon) = 0$).
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Instrumento más defendible e hipótesis formales.**
+
+**(a)** Elija **cuál de los dos instrumentos** ($Z_1$ o $Z_2$) le parece más defendible y **justifique por qué.**
+
+**(b)** Para el instrumento elegido, escriba **formalmente** las dos condiciones que debe satisfacer un instrumento válido:
+  - **Relevancia:** $\operatorname{Cov}(Z, P) \neq 0$ (o especifique: cuál es el signo esperado y por qué).
+  - **Exogeneidad:** $\operatorname{Cov}(Z, \varepsilon) = 0$ (o equivalentemente, $E[\varepsilon | Z] = 0$).
+
+**(c)** Escriba el **estimador IV** para $\beta_1$.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Instrumento más defendible:**
+
+**$Z_2$ (cupos)** es probablemente más defendible porque:
+- La asignación es *administrativa y aleatoria* (no seleccionada por participantes).
+- Es más difícil que participantes con mayor capacidad gestional se autoselectionen según la cantidad de cupos ese mes.
+- $Z_1$ es vulnerable a un argumento de confusión: participantes en áreas con mejor acceso geográfico podrían tener también mayor empleabilidad por otras razones (mejor infraestructura, más oportunidades laborales en la zona).
+
+**(b) Condiciones formales:**
+
+**Relevancia:**
+$$\operatorname{Cov}(Z_2, P) \neq 0 \quad \Rightarrow \quad E[Z_2 P] \neq E[Z_2]E[P].$$
+
+Esperamos signo positivo: más cupos → mayor participación.
+
+**Exogeneidad (Condición de exclusión):**
+$$\operatorname{Cov}(Z_2, \varepsilon) = 0 \quad \Rightarrow \quad E[\varepsilon | Z_2] = 0.$$
+
+Interpretación: $Z_2$ afecta horas de trabajo *únicamente* a través de su efecto en participación ($P$), sin canal directo. La disponibilidad de cupos no está correlacionada con la capacidad gestional no observada $C$.
+
+**(c) Estimador IV:**
+
+$$\hat{\beta}_1^{IV} = \frac{\operatorname{Cov}(Z_2, Y)}{\operatorname{Cov}(Z_2, P)}.$$
+
+En forma computacional:
+$$\hat{\beta}_1^{IV} = \frac{\sum_i (Z_{2,i} - \bar{Z}_2)(Y_i - \bar{Y})}{\sum_i (Z_{2,i} - \bar{Z}_2)(P_i - \bar{P})}.$$
+
+</div></details>
+
+<hr>
+
+### Opcional 1 — Heterocedasticidad y Multicolinealidad (3 pts) {.unnumbered}
+Considere un modelo de regresión lineal múltiple que explica salarios en función de educación, experiencia y género. Se sospecha heterocedasticidad y multicolinealidad.
+
+**(1) — 1 pt. Heterocedasticidad.**
+
+**(a)** Defina homocedasticidad y heterocedasticidad formalmente usando la varianza condicional.
+
+**(b)** Si $\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2$ (heterocedasticidad):
+- ¿Se sesga el estimador MCO?
+- ¿Se invalida la matriz de varianza-covarianza clásica $\sigma^2(X'X)^{-1}$?
+
+**(c)** Proponga **dos acciones** para abordar heterocedasticidad en la inferencia.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definiciones:**
+
+**Homocedasticidad (S4):**
+$$\operatorname{Var}(\varepsilon_i | X) = \sigma^2 \quad \forall i.$$
+La varianza del error es constante e igual para todas las observaciones.
+
+**Heterocedasticidad:**
+$$\operatorname{Var}(\varepsilon_i | X) = \sigma_i^2 \quad (\text{varía con } i).$$
+La varianza depende de características observables o no observables.
+
+**(b) Impacto de heterocedasticidad:**
+
+- **¿Se sesga MCO?** No. Insesgamiento depende de S1 (linealidad) y S2 (exogeneidad $E[\varepsilon|X]=0$). Heterocedasticidad viola S4 pero no S2 → MCO sigue siendo insesgado.
+
+- **¿Se invalida la varianza clásica?** Sí. La verdadera varianza es
+$$\operatorname{Var}(\hat{\beta}|X) = (X'X)^{-1}X'\Omega X(X'X)^{-1},$$
+donde $\Omega = \operatorname{diag}(\sigma_1^2, \ldots, \sigma_n^2)$. La fórmula clásica $\sigma^2(X'X)^{-1}$ es incorrecta → errores estándar incorrectos → pruebas inválidas.
+
+**(c) Dos acciones:**
+
+1. **Errores estándar robustos (HC):** Estimar $\Omega$ directamente de los residuos sin asumir su forma. Los errores HC válidos proporcionan inferencia válida bajo cualquier patrón de heterocedasticidad.
+
+2. **Mínimos Cuadrados Generalizados (MCG):** Si se conoce (o estima) la estructura de heterocedasticidad, transformar el modelo mediante $\Omega^{-1/2}$ para obtener un modelo homocedástico. MCG es más eficiente que MCO cuando $\Omega$ es conocida.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Multicolinealidad.**
+
+**(a)** Defina multicolinealidad *imperfecta* usando la matriz $X'X$ y su relación con la correlación entre regresores.
+
+**(b)** ¿Sesga el estimador MCO si existe multicolinealidad imperfecta? Justifique.
+
+**(c)** ¿Cómo afecta al estimador la correlación alta entre regresores? Use la fórmula del Variance Inflation Factor (VIF).
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definición:**
+
+**Multicolinealidad imperfecta:** Alta correlación lineal entre regresores. Formalmente, $\operatorname{rank}(X) = k$ (rango completo, MCO existe) pero ciertos menores de $X'X$ son muy pequeños.
+
+Equivalentemente: un regresor $X_j$ tiene $R_j^2$ muy alto cuando se regresa sobre los demás, indicando que es *casi* una combinación lineal de otros regresores.
+
+**(b) ¿Sesga MCO?**
+
+No. Multicolinealidad imperfecta no viola S3 (rango completo), ni afecta S1–S2. Luego:
+$$E[\hat{\beta}|X] = \beta \quad \text{(insesgado)}.$$
+
+También es consistente bajo S1–S2.
+
+**(c) Efecto en varianza (VIF):**
+
+$$\operatorname{Var}(\hat{\beta}_j | X) = \frac{\sigma^2}{(1-R_j^2) \sum_i(X_{j,i} - \bar{X}_j)^2},$$
+
+donde $R_j^2$ es el $R^2$ de regresionar $X_j$ sobre los demás regresores.
+
+**Variance Inflation Factor:** $\text{VIF}_j = (1-R_j^2)^{-1}$.
+
+Si $R_j^2 \to 1$ (alta multicolinealidad), $\text{VIF}_j \to \infty$ → varianza se infla → intervalos de confianza muy amplios → estadísticos $t$ pequeños → dificultad para detectar significancia, aunque MCO es insesgado.
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Acciones para abordar ambos problemas.**
+
+Proponga **dos acciones distintas:**
+- Una para **heterocedasticidad** (distinta de errores HC).
+- Otra para **multicolinealidad** (distinta de recolectar más datos).
+
+Justifique brevemente por qué cada acción aborda el problema.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**Para heterocedasticidad:**
+
+1. **Transformación logarítmica de $Y$:** Si $\sigma_i \propto E[Y_i]$ (heterocedasticidad proporcional al nivel), transformar $\ln(Y)$ homogeniza la varianza. El modelo transformado $\ln(Y) = X\beta + \varepsilon'$ tiene $\operatorname{Var}(\varepsilon'|X)$ más cercana a constante.
+
+2. **Mínimos Cuadrados Ponderados (WLS):** Si se estima la estructura de heterocedasticidad (p.ej., $\sigma_i^2 \propto X_{j,i}^2$), usar pesos $w_i = 1/\sigma_i^2$ para downweight observaciones con mayor varianza. Formalmente:
+$$\hat{\beta}_{WLS} = (X'WX)^{-1}X'WY \quad \text{(más eficiente que MCO)}.$$
+
+**Para multicolinealidad:**
+
+1. **Selección de variables (eliminar regresores muy correlacionados):** Usar criterios de información (AIC, BIC) o stepwise selection para remover regresores que añaden poco poder explicativo y están altamente correlacionados. Sacrificamos insesgamiento potencial de un regresor omitido a cambio de precisión en los coeficientes restantes.
+
+2. **Regresión ridge (estimador regularizado):** Usar estimador regularizado $\hat{\beta}_{\text{ridge}} = (X'X + \lambda I)^{-1}X'Y$ ($\lambda > 0$). Acepta sesgo controlado a cambio de reducir varianza. Especialmente útil cuando el objetivo es predicción, no interpretación causal de coeficientes.
+
+</div></details>
+
+<hr>
+
+### Opcional 2 — Normalidad Asintótica y Pruebas de Hipótesis (3 pts) {.unnumbered}
+**(1) — 1 pt. Normalidad asintótica formal.**
+
+**(a)** Escriba la definición de normalidad asintótica del estimador MCO sin asumir que los errores son normales.
+
+**(b)** ¿Qué teorema econométrico fundamental la justifica? Explique brevemente el rol del supuesto S2 en su derivación.
+
+**(c)** ¿Es necesario el supuesto S6 (normalidad de $\varepsilon$) para normalidad asintótica de $\hat{\beta}$?
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Definición:**
+
+Bajo S1–S5 (sin S6), el estimador MCO satisface
+$$\sqrt{n}(\hat{\beta} - \beta) \xrightarrow{d} \mathcal{N}(0, \sigma^2 Q^{-1}),$$
+donde $Q = \lim_{n\to\infty} \frac{1}{n}X'X$.
+
+Equivalentemente: para grandes $n$, $\hat{\beta} \approx N(\beta, \sigma^2(X'X)^{-1})$ aproximadamente.
+
+**(b) Teorema fundamental:**
+
+El **Teorema Central del Límite (TCL)** para variables i.i.d. (o débilmente correlacionadas).
+
+Rol de S2: Bajo exogeneidad $E[\varepsilon|X]=0$, los regresores no están correlacionados con las perturbaciones. Esto permite aplicar TCL a sumas como $\frac{1}{n}X'\varepsilon$ sin sesgo inicial.
+
+**(c) ¿Necesario S6?**
+
+No. S6 (normalidad de $\varepsilon$) es *suficiente* para normalidad exacta en muestras finitas, pero no *necesario* para normalidad asintótica. El TCL solo requiere que los errores sean i.i.d. (u obedezcan condiciones de Lindeberg) e independientes de $X$, sin distribuirse normalmente.
+
+</div></details>
+
+<hr>
+
+**(2) — 1 pt. Test $t$ con ejemplo numérico.**
+
+Se estima el modelo $Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i$ con $n = 150$ observaciones. Se obtiene:
+$$\hat{\beta}_1 = 0.40, \quad \widehat{\operatorname{se}}(\hat{\beta}_1) = 0.20.$$
+
+Realice un test $t$ bilateral para $H_0: \beta_1 = 0$ vs. $H_1: \beta_1 \neq 0$ al nivel $\alpha = 0.05$.
+
+**(a)** Calcule el estadístico $t$.
+
+**(b)** Determine el valor crítico. ¿Rechaza o no rechaza $H_0$?
+
+**(c)** Interprete el resultado en términos del efecto causal de $X$ sobre $Y$.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Estadístico $t$:**
+
+$$t = \frac{\hat{\beta}_1 - 0}{\widehat{\operatorname{se}}(\hat{\beta}_1)} = \frac{0.40}{0.20} = 2.0.$$
+
+**(b) Valor crítico y decisión:**
+
+Para $n=150$, $n-k = 150 - 2 = 148$ grados de libertad. El valor crítico bilateral a $\alpha=0.05$ es aproximadamente $t_{0.025, 148} \approx 1.96$ (o más precisamente, $1.975$).
+
+Como $|t| = 2.0 > 1.96$, **rechazamos $H_0$ al 5%.**
+
+**(c) Interpretación:**
+
+Hay evidencia estadísticamente significativa (al 5%) de que $\beta_1 \neq 0$. El coeficiente estimado de 0.40 es significativamente distinto de cero: un cambio unitario en $X$ está asociado con un cambio de 0.40 unidades en $Y$, manteniendo lo demás constante.
+
+(Nota: significancia estadística no implica automáticamente importancia económica ni causalidad sin los supuestos de identificación.)
+
+</div></details>
+
+<hr>
+
+**(3) — 1 pt. Errores robustos y supuestos de inferencia.**
+
+**(a)** Bajo heterocedasticidad, explique por qué los errores estándar clásicos pueden ser **muy sesgados** pero los errores robustos (HC) siguen siendo válidos.
+
+**(b)** ¿Qué supuesto *no* se necesita para inferencia asintótica válida?
+- S2 (exogeneidad)
+- S4 (homocedasticidad)
+- S6 (normalidad de $\varepsilon$)
+
+Justifique.
+
+<details><summary>🔑 Ver solución</summary><div class="sol-box">
+
+**(a) Por qué errores clásicos fallan pero HC funciona:**
+
+Los errores estándar clásicos asuben $\operatorname{Var}(\varepsilon|X) = \sigma^2 I$. Con heterocedasticidad $\operatorname{Var}(\varepsilon|X) = \Omega \neq \sigma^2 I$, la fórmula clásica $\sigma^2(X'X)^{-1}$ no es correcta.
+
+Los errores HC estiman directamente:
+$$\widehat{\operatorname{Var}}_{HC}(\hat{\beta}) = (X'X)^{-1} X' \widehat{\Omega} X (X'X)^{-1},$$
+donde $\widehat{\Omega} = \operatorname{diag}(\hat{u}_i^2)$ (residuos al cuadrado en la diagonal). Esto no presupone ninguna forma de heterocedasticidad → válido bajo cualquier $\Omega$ diagonal.
+
+**(b) Supuesto no necesario:**
+
+**S6 (normalidad)** no es necesario para inferencia asintótica válida.
+
+Bajo S1–S5 (incluyendo S2: exogeneidad), el TCL garantiza normalidad asintótica de $\hat{\beta}$ sin importar la distribución de $\varepsilon$.
+
+- **S2 (exogeneidad) sí es necesario** para consistencia y para que la media asintótica sea correcta.
+- **S4 (homocedasticidad)** afecta la forma de la varianza asintótica, pero se puede reemplazar con varianza HC.
+- **S6** es innecesario asintóticamente.
+
+</div></details>
+
+<hr>
+
+<!--chapter:end:P2-Parcial2_2026-1.Rmd-->
 

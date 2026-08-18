@@ -12,6 +12,7 @@ fig:mini-contraste-linealidad-supuestos
 tab:datos-estimacion-practica
 fig:grafico-datos-estimacion
 tab:estimacion-lm-r
+tab:tabla-nubes-fwl
 tab:datos-fwl-practica
 fig:grafico-fwl-datos
 tab:estimacion-r-fwl
@@ -132,7 +133,11 @@ ejercicios-computacionales-estimacion
 fwl-teoria
 objetivos-fwl-teoria
 intuicion-fwl-teoria
+dos-nubes-fwl
 desarrollo-teorico-fwl
+el-vector-de-coeficientes-y-de-dónde-sale-m
+con-números-seis-personas
+y-ahora-con-las-90-personas
 paso-1-limpiar-y
 paso-2-limpiar-x_r
 paso-3-regresar-residuos-contra-residuos
@@ -155,10 +160,20 @@ ejercicios-computacionales-fwl
 propiedades-mco-teoria
 objetivos-propiedades-teoria
 intuicion-propiedades-teoria
+aspectos-algebraicos-mco
+residuos-y-ecuaciones-normales
+valores-ajustados-y-ortogonalidad
+descomposición-no-centrada
+descomposición-centrada-y-r2
+src-varianza-residual-y-error-estándar-de-la-regresión
+error-muestral-de-hatbeta
 desarrollo-teorico-propiedades
 insesgamiento
 varianza
-gauss-markov
+insesgamiento-de-hatsigma2
+linealidad-insesgamiento-y-eficiencia
+teorema-de-gauss-markov
+demostración
 supuestos-propiedades-propiedades
 errores-comunes-propiedades
 resumen-propiedades-teoria
@@ -388,3 +403,4 @@ variable-dependiente-binaria-en-r
 serie-ar1-en-r
 cierre-4
 parcial-1-2026-1
+parcial-2-2026-1

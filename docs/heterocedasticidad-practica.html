@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-08-11" />
+<meta name="date" content="2026-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -412,30 +412,30 @@ Figura 20.2: Residuos frente a valores ajustados bajo heterocedasticidad
 <div id="estimacion-stata-heterocedasticidad" class="section level2 hasAnchor" number="20.6">
 <h2><span class="header-section-number">20.6</span> Estimación en Stata<a href="heterocedasticidad-practica.html#estimacion-stata-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El mismo ejercicio puede reproducirse en Stata:</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb35-1"><a href="heterocedasticidad-practica.html#cb35-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb35-2"><a href="heterocedasticidad-practica.html#cb35-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 120</span>
-<span id="cb35-3"><a href="heterocedasticidad-practica.html#cb35-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
-<span id="cb35-4"><a href="heterocedasticidad-practica.html#cb35-4" tabindex="-1"></a><span class="kw">gen</span> ingreso = 1.5 + 0.07 * i</span>
-<span id="cb35-5"><a href="heterocedasticidad-practica.html#cb35-5" tabindex="-1"></a><span class="kw">gen</span> escala = 0.15 + 0.05 * ingreso</span>
-<span id="cb35-6"><a href="heterocedasticidad-practica.html#cb35-6" tabindex="-1"></a><span class="kw">gen</span> ruido = escala * <span class="fu">sin</span>(1.7 * i)</span>
-<span id="cb35-7"><a href="heterocedasticidad-practica.html#cb35-7" tabindex="-1"></a><span class="kw">gen</span> gasto = 0.8 + 0.42 * ingreso + ruido</span>
-<span id="cb35-8"><a href="heterocedasticidad-practica.html#cb35-8" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="heterocedasticidad-practica.html#cb35-9" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso</span>
-<span id="cb35-10"><a href="heterocedasticidad-practica.html#cb35-10" tabindex="-1"></a><span class="kw">predict</span> residuo, <span class="kw">resid</span></span>
-<span id="cb35-11"><a href="heterocedasticidad-practica.html#cb35-11" tabindex="-1"></a><span class="kw">predict</span> ajustado, <span class="kw">xb</span></span>
-<span id="cb35-12"><a href="heterocedasticidad-practica.html#cb35-12" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="heterocedasticidad-practica.html#cb35-13" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso, <span class="kw">robust</span></span>
-<span id="cb35-14"><a href="heterocedasticidad-practica.html#cb35-14" tabindex="-1"></a></span>
-<span id="cb35-15"><a href="heterocedasticidad-practica.html#cb35-15" tabindex="-1"></a><span class="kw">gen</span> residuo2 = residuo^2</span>
-<span id="cb35-16"><a href="heterocedasticidad-practica.html#cb35-16" tabindex="-1"></a><span class="kw">reg</span> residuo2 ingreso</span>
-<span id="cb35-17"><a href="heterocedasticidad-practica.html#cb35-17" tabindex="-1"></a><span class="kw">display</span> <span class="st">&quot;LM BP = &quot;</span> <span class="fu">e</span>(<span class="kw">N</span>) * <span class="fu">e</span>(r2)</span>
-<span id="cb35-18"><a href="heterocedasticidad-practica.html#cb35-18" tabindex="-1"></a></span>
-<span id="cb35-19"><a href="heterocedasticidad-practica.html#cb35-19" tabindex="-1"></a><span class="kw">gen</span> ajustado2 = ajustado^2</span>
-<span id="cb35-20"><a href="heterocedasticidad-practica.html#cb35-20" tabindex="-1"></a><span class="kw">reg</span> residuo2 ajustado ajustado2</span>
-<span id="cb35-21"><a href="heterocedasticidad-practica.html#cb35-21" tabindex="-1"></a><span class="kw">display</span> <span class="st">&quot;LM White = &quot;</span> <span class="fu">e</span>(<span class="kw">N</span>) * <span class="fu">e</span>(r2)</span>
-<span id="cb35-22"><a href="heterocedasticidad-practica.html#cb35-22" tabindex="-1"></a></span>
-<span id="cb35-23"><a href="heterocedasticidad-practica.html#cb35-23" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso [aw = 1/(escala^2)]</span>
-<span id="cb35-24"><a href="heterocedasticidad-practica.html#cb35-24" tabindex="-1"></a><span class="kw">scatter</span> residuo ajustado, <span class="kw">yline</span>(0)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb53-1"><a href="heterocedasticidad-practica.html#cb53-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb53-2"><a href="heterocedasticidad-practica.html#cb53-2" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 120</span>
+<span id="cb53-3"><a href="heterocedasticidad-practica.html#cb53-3" tabindex="-1"></a><span class="kw">gen</span> i = <span class="dt">_n</span></span>
+<span id="cb53-4"><a href="heterocedasticidad-practica.html#cb53-4" tabindex="-1"></a><span class="kw">gen</span> ingreso = 1.5 + 0.07 * i</span>
+<span id="cb53-5"><a href="heterocedasticidad-practica.html#cb53-5" tabindex="-1"></a><span class="kw">gen</span> escala = 0.15 + 0.05 * ingreso</span>
+<span id="cb53-6"><a href="heterocedasticidad-practica.html#cb53-6" tabindex="-1"></a><span class="kw">gen</span> ruido = escala * <span class="fu">sin</span>(1.7 * i)</span>
+<span id="cb53-7"><a href="heterocedasticidad-practica.html#cb53-7" tabindex="-1"></a><span class="kw">gen</span> gasto = 0.8 + 0.42 * ingreso + ruido</span>
+<span id="cb53-8"><a href="heterocedasticidad-practica.html#cb53-8" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="heterocedasticidad-practica.html#cb53-9" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso</span>
+<span id="cb53-10"><a href="heterocedasticidad-practica.html#cb53-10" tabindex="-1"></a><span class="kw">predict</span> residuo, <span class="kw">resid</span></span>
+<span id="cb53-11"><a href="heterocedasticidad-practica.html#cb53-11" tabindex="-1"></a><span class="kw">predict</span> ajustado, <span class="kw">xb</span></span>
+<span id="cb53-12"><a href="heterocedasticidad-practica.html#cb53-12" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="heterocedasticidad-practica.html#cb53-13" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso, <span class="kw">robust</span></span>
+<span id="cb53-14"><a href="heterocedasticidad-practica.html#cb53-14" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="heterocedasticidad-practica.html#cb53-15" tabindex="-1"></a><span class="kw">gen</span> residuo2 = residuo^2</span>
+<span id="cb53-16"><a href="heterocedasticidad-practica.html#cb53-16" tabindex="-1"></a><span class="kw">reg</span> residuo2 ingreso</span>
+<span id="cb53-17"><a href="heterocedasticidad-practica.html#cb53-17" tabindex="-1"></a><span class="kw">display</span> <span class="st">&quot;LM BP = &quot;</span> <span class="fu">e</span>(<span class="kw">N</span>) * <span class="fu">e</span>(r2)</span>
+<span id="cb53-18"><a href="heterocedasticidad-practica.html#cb53-18" tabindex="-1"></a></span>
+<span id="cb53-19"><a href="heterocedasticidad-practica.html#cb53-19" tabindex="-1"></a><span class="kw">gen</span> ajustado2 = ajustado^2</span>
+<span id="cb53-20"><a href="heterocedasticidad-practica.html#cb53-20" tabindex="-1"></a><span class="kw">reg</span> residuo2 ajustado ajustado2</span>
+<span id="cb53-21"><a href="heterocedasticidad-practica.html#cb53-21" tabindex="-1"></a><span class="kw">display</span> <span class="st">&quot;LM White = &quot;</span> <span class="fu">e</span>(<span class="kw">N</span>) * <span class="fu">e</span>(r2)</span>
+<span id="cb53-22"><a href="heterocedasticidad-practica.html#cb53-22" tabindex="-1"></a></span>
+<span id="cb53-23"><a href="heterocedasticidad-practica.html#cb53-23" tabindex="-1"></a><span class="kw">reg</span> gasto ingreso [aw = 1/(escala^2)]</span>
+<span id="cb53-24"><a href="heterocedasticidad-practica.html#cb53-24" tabindex="-1"></a><span class="kw">scatter</span> residuo ajustado, <span class="kw">yline</span>(0)</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Stata debe reproducir si usa la misma base y especificación:</p>
 <table>
 <colgroup>
@@ -477,30 +477,30 @@ Figura 20.2: Residuos frente a valores ajustados bajo heterocedasticidad
 <div id="estimacion-python-colab-heterocedasticidad" class="section level2 hasAnchor" number="20.7">
 <h2><span class="header-section-number">20.7</span> Estimación en Python y Google Colab<a href="heterocedasticidad-practica.html#estimacion-python-colab-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Para correr esta práctica en Google Colab, abre un cuaderno nuevo y ejecuta:</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb36-1"><a href="heterocedasticidad-practica.html#cb36-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb54-1"><a href="heterocedasticidad-practica.html#cb54-1" tabindex="-1"></a><span class="op">!</span>pip <span class="op">-</span>q install pandas numpy statsmodels matplotlib seaborn</span></code></pre></div>
 <p>Luego reproduce la base y estima:</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb37-1"><a href="heterocedasticidad-practica.html#cb37-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb37-2"><a href="heterocedasticidad-practica.html#cb37-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb37-3"><a href="heterocedasticidad-practica.html#cb37-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb37-4"><a href="heterocedasticidad-practica.html#cb37-4" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan, het_white</span>
-<span id="cb37-5"><a href="heterocedasticidad-practica.html#cb37-5" tabindex="-1"></a></span>
-<span id="cb37-6"><a href="heterocedasticidad-practica.html#cb37-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">121</span>)</span>
-<span id="cb37-7"><a href="heterocedasticidad-practica.html#cb37-7" tabindex="-1"></a>ingreso <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.07</span> <span class="op">*</span> i</span>
-<span id="cb37-8"><a href="heterocedasticidad-practica.html#cb37-8" tabindex="-1"></a>escala <span class="op">=</span> <span class="fl">0.15</span> <span class="op">+</span> <span class="fl">0.05</span> <span class="op">*</span> ingreso</span>
-<span id="cb37-9"><a href="heterocedasticidad-practica.html#cb37-9" tabindex="-1"></a>ruido <span class="op">=</span> escala <span class="op">*</span> np.sin(<span class="fl">1.7</span> <span class="op">*</span> i)</span>
-<span id="cb37-10"><a href="heterocedasticidad-practica.html#cb37-10" tabindex="-1"></a>gasto <span class="op">=</span> <span class="fl">0.8</span> <span class="op">+</span> <span class="fl">0.42</span> <span class="op">*</span> ingreso <span class="op">+</span> ruido</span>
-<span id="cb37-11"><a href="heterocedasticidad-practica.html#cb37-11" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;gasto&quot;</span>: gasto, <span class="st">&quot;ingreso&quot;</span>: ingreso, <span class="st">&quot;escala&quot;</span>: escala})</span>
-<span id="cb37-12"><a href="heterocedasticidad-practica.html#cb37-12" tabindex="-1"></a></span>
-<span id="cb37-13"><a href="heterocedasticidad-practica.html#cb37-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos[<span class="st">&quot;ingreso&quot;</span>])</span>
-<span id="cb37-14"><a href="heterocedasticidad-practica.html#cb37-14" tabindex="-1"></a>ols <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;gasto&quot;</span>], X).fit()</span>
-<span id="cb37-15"><a href="heterocedasticidad-practica.html#cb37-15" tabindex="-1"></a>rob <span class="op">=</span> ols.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&quot;HC1&quot;</span>)</span>
-<span id="cb37-16"><a href="heterocedasticidad-practica.html#cb37-16" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(datos[<span class="st">&quot;gasto&quot;</span>], X, weights<span class="op">=</span><span class="dv">1</span> <span class="op">/</span> datos[<span class="st">&quot;escala&quot;</span>]<span class="op">**</span><span class="dv">2</span>).fit()</span>
-<span id="cb37-17"><a href="heterocedasticidad-practica.html#cb37-17" tabindex="-1"></a></span>
-<span id="cb37-18"><a href="heterocedasticidad-practica.html#cb37-18" tabindex="-1"></a><span class="bu">print</span>(ols.summary())</span>
-<span id="cb37-19"><a href="heterocedasticidad-practica.html#cb37-19" tabindex="-1"></a><span class="bu">print</span>(rob.summary())</span>
-<span id="cb37-20"><a href="heterocedasticidad-practica.html#cb37-20" tabindex="-1"></a><span class="bu">print</span>(wls.summary())</span>
-<span id="cb37-21"><a href="heterocedasticidad-practica.html#cb37-21" tabindex="-1"></a><span class="bu">print</span>(het_breuschpagan(ols.resid, X))</span>
-<span id="cb37-22"><a href="heterocedasticidad-practica.html#cb37-22" tabindex="-1"></a><span class="bu">print</span>(het_white(ols.resid, X))</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb55-1"><a href="heterocedasticidad-practica.html#cb55-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb55-2"><a href="heterocedasticidad-practica.html#cb55-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb55-3"><a href="heterocedasticidad-practica.html#cb55-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb55-4"><a href="heterocedasticidad-practica.html#cb55-4" tabindex="-1"></a><span class="im">from</span> statsmodels.stats.diagnostic <span class="im">import</span> het_breuschpagan, het_white</span>
+<span id="cb55-5"><a href="heterocedasticidad-practica.html#cb55-5" tabindex="-1"></a></span>
+<span id="cb55-6"><a href="heterocedasticidad-practica.html#cb55-6" tabindex="-1"></a>i <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">121</span>)</span>
+<span id="cb55-7"><a href="heterocedasticidad-practica.html#cb55-7" tabindex="-1"></a>ingreso <span class="op">=</span> <span class="fl">1.5</span> <span class="op">+</span> <span class="fl">0.07</span> <span class="op">*</span> i</span>
+<span id="cb55-8"><a href="heterocedasticidad-practica.html#cb55-8" tabindex="-1"></a>escala <span class="op">=</span> <span class="fl">0.15</span> <span class="op">+</span> <span class="fl">0.05</span> <span class="op">*</span> ingreso</span>
+<span id="cb55-9"><a href="heterocedasticidad-practica.html#cb55-9" tabindex="-1"></a>ruido <span class="op">=</span> escala <span class="op">*</span> np.sin(<span class="fl">1.7</span> <span class="op">*</span> i)</span>
+<span id="cb55-10"><a href="heterocedasticidad-practica.html#cb55-10" tabindex="-1"></a>gasto <span class="op">=</span> <span class="fl">0.8</span> <span class="op">+</span> <span class="fl">0.42</span> <span class="op">*</span> ingreso <span class="op">+</span> ruido</span>
+<span id="cb55-11"><a href="heterocedasticidad-practica.html#cb55-11" tabindex="-1"></a>datos <span class="op">=</span> pd.DataFrame({<span class="st">&quot;gasto&quot;</span>: gasto, <span class="st">&quot;ingreso&quot;</span>: ingreso, <span class="st">&quot;escala&quot;</span>: escala})</span>
+<span id="cb55-12"><a href="heterocedasticidad-practica.html#cb55-12" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="heterocedasticidad-practica.html#cb55-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(datos[<span class="st">&quot;ingreso&quot;</span>])</span>
+<span id="cb55-14"><a href="heterocedasticidad-practica.html#cb55-14" tabindex="-1"></a>ols <span class="op">=</span> sm.OLS(datos[<span class="st">&quot;gasto&quot;</span>], X).fit()</span>
+<span id="cb55-15"><a href="heterocedasticidad-practica.html#cb55-15" tabindex="-1"></a>rob <span class="op">=</span> ols.get_robustcov_results(cov_type<span class="op">=</span><span class="st">&quot;HC1&quot;</span>)</span>
+<span id="cb55-16"><a href="heterocedasticidad-practica.html#cb55-16" tabindex="-1"></a>wls <span class="op">=</span> sm.WLS(datos[<span class="st">&quot;gasto&quot;</span>], X, weights<span class="op">=</span><span class="dv">1</span> <span class="op">/</span> datos[<span class="st">&quot;escala&quot;</span>]<span class="op">**</span><span class="dv">2</span>).fit()</span>
+<span id="cb55-17"><a href="heterocedasticidad-practica.html#cb55-17" tabindex="-1"></a></span>
+<span id="cb55-18"><a href="heterocedasticidad-practica.html#cb55-18" tabindex="-1"></a><span class="bu">print</span>(ols.summary())</span>
+<span id="cb55-19"><a href="heterocedasticidad-practica.html#cb55-19" tabindex="-1"></a><span class="bu">print</span>(rob.summary())</span>
+<span id="cb55-20"><a href="heterocedasticidad-practica.html#cb55-20" tabindex="-1"></a><span class="bu">print</span>(wls.summary())</span>
+<span id="cb55-21"><a href="heterocedasticidad-practica.html#cb55-21" tabindex="-1"></a><span class="bu">print</span>(het_breuschpagan(ols.resid, X))</span>
+<span id="cb55-22"><a href="heterocedasticidad-practica.html#cb55-22" tabindex="-1"></a><span class="bu">print</span>(het_white(ols.resid, X))</span></code></pre></div>
 <p>Los resultados esperados son los mismos coeficientes que Python debe reproducir si usa la misma base y especificación:</p>
 <table>
 <colgroup>

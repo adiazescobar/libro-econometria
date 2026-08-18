@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-08-11" />
+<meta name="date" content="2026-08-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -209,6 +209,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Explicar la intuición geométrica de una regresión múltiple.</li>
 <li>Enunciar y derivar el teorema de Frisch-Waugh-Lovell.</li>
 <li>Interpretar un coeficiente parcial como una relación entre residuos.</li>
+<li>Calcular el vector <span class="math inline">\(\hat{\beta}\)</span> y reconocer que <span class="math inline">\(My\)</span> es el vector de residuos de una regresión.</li>
+<li>Escribir <span class="math inline">\(P\)</span> y <span class="math inline">\(M\)</span> con números cuando los controles son variables indicadoras.</li>
 </ol>
 </div>
 <div id="intuicion-fwl-teoria" class="section level2 hasAnchor" number="9.2">
@@ -218,14 +220,318 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>El teorema de Frisch-Waugh-Lovell dice que controlar por variables equivale a limpiar tanto <span class="math inline">\(y\)</span> como la variable de interés <span class="math inline">\(X_r\)</span>, y luego estimar una regresión entre esas dos partes limpias.</p>
 </div>
 </div>
-<div id="desarrollo-teorico-fwl" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Desarrollo teórico<a href="fwl-teoria.html#desarrollo-teorico-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="dos-nubes-fwl" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Las dos nubes<a href="fwl-teoria.html#dos-nubes-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Antes de la primera matriz conviene ver qué es lo que se va a limpiar. La pregunta: <strong>¿ganan más las personas altas?</strong></p>
+<p>Estimamos tres cosas: la regresión cruda, la múltiple, y la regresión entre residuos.</p>
+<!-- Demo interactiva de FWL. Todo el CSS va prefijado con .fwl-w para no tocar
+     el estilo del libro; el bloque es autocontenido (sin dependencias). -->
+<div id="fwlDemo" class="fwl-w">
+<style>
+.fwl-w{--fw-ink:#17181A;--fw-muted:#6A6C70;--fw-line:#E7E7E3;--fw-soft:#F4F3EF;
+  --fw-a:#2f4858;--fw-b:#C0562F;--fw-naive:#9A9C9F;--fw-fit:#17181A;
+  border:1px solid var(--fw-line);border-radius:10px;background:#FFF;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);margin:1.6em 0;overflow:hidden;
+  font-family:"Hanken Grotesk",system-ui,-apple-system,sans-serif;color:var(--fw-ink);}
+.fwl-w *{box-sizing:border-box}
+.fwl-w .fw-top{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(215px,1fr)}
+@media (max-width:700px){.fwl-w .fw-top{grid-template-columns:1fr}}
+.fwl-w .fw-plot{padding:14px 10px 4px;min-width:0}
+.fwl-w .fw-plot svg{display:block;width:100%;height:auto}
+.fwl-w .fw-side{border-left:1px solid var(--fw-line);padding:18px 18px 20px;display:flex;flex-direction:column;gap:11px}
+@media (max-width:700px){.fwl-w .fw-side{border-left:none;border-top:1px solid var(--fw-line)}}
+.fwl-w .fw-no{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.66rem;letter-spacing:.09em;text-transform:uppercase;color:var(--fw-muted);font-weight:700;margin:0}
+.fwl-w .fw-ti{font-family:"Fraunces",Georgia,serif;font-size:1.15rem;line-height:1.2;margin:1px 0 0;font-weight:500}
+.fwl-w .fw-bo{font-size:.87rem;line-height:1.55;color:var(--fw-muted);margin:0}
+.fwl-w .fw-bo b{color:var(--fw-ink);font-weight:600}
+.fwl-w .fw-ask{margin-top:auto;border-top:1px dashed var(--fw-line);padding-top:11px;font-size:.85rem;line-height:1.5}
+.fwl-w .fw-ask em{display:block;font-family:"JetBrains Mono",ui-monospace,monospace;font-style:normal;font-size:.62rem;letter-spacing:.09em;text-transform:uppercase;color:var(--fw-b);font-weight:700;margin-bottom:4px}
+.fwl-w .fw-ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:11px 18px;border-top:1px solid var(--fw-line);background:var(--fw-soft)}
+.fwl-w button{font-family:inherit!important;font-size:.85rem!important;font-weight:500;color:var(--fw-ink)!important;
+  background:#FFF!important;border:1px solid var(--fw-line)!important;padding:5px 13px!important;border-radius:6px!important;cursor:pointer;line-height:1.4}
+.fwl-w button:hover:not(:disabled){border-color:var(--fw-muted)!important}
+.fwl-w button:disabled{opacity:.4;cursor:default}
+.fwl-w button.fw-pri{background:var(--fw-ink)!important;color:#FFF!important;border-color:var(--fw-ink)!important}
+.fwl-w button[aria-pressed="true"]{background:var(--fw-ink)!important;color:#FFF!important;border-color:var(--fw-ink)!important}
+.fwl-w button:focus-visible{outline:2px solid var(--fw-b);outline-offset:2px}
+.fwl-w .fw-dots{display:flex;gap:5px;margin-left:auto}
+.fwl-w .fw-dot{width:6px;height:6px;border-radius:50%;background:var(--fw-line)}
+.fwl-w .fw-dot.on{background:var(--fw-ink)}
+.fwl-w .fw-mat{border-top:1px solid var(--fw-line);padding:18px}
+.fwl-w .fw-mh{font-family:"Fraunces",Georgia,serif;font-size:1rem;margin:0 0 4px;font-weight:500}
+.fwl-w .fw-mp{font-size:.85rem;color:var(--fw-muted);margin:0 0 12px;line-height:1.55}
+.fwl-w .fw-tog{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.fwl-w .fw-hint{font-size:.78rem;color:var(--fw-muted);margin-left:auto}
+.fwl-w .fw-box{overflow-x:auto;display:flex;justify-content:center}
+.fwl-w .fw-row{display:flex;align-items:center;gap:11px;width:max-content;margin:0 auto}
+.fwl-w .fw-br{position:relative;padding:6px 9px}
+.fwl-w .fw-br::before,.fwl-w .fw-br::after{content:"";position:absolute;top:0;bottom:0;width:6px;border-top:1.5px solid var(--fw-muted);border-bottom:1.5px solid var(--fw-muted)}
+.fwl-w .fw-br::before{left:0;border-left:1.5px solid var(--fw-muted)}
+.fwl-w .fw-br::after{right:0;border-right:1.5px solid var(--fw-muted)}
+.fwl-w .fw-c{width:47px;height:28px;display:flex;align-items:center;justify-content:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:.76rem;border-radius:3px}
+.fwl-w .fw-c.z{color:#B8B9BB}
+.fwl-w .fw-c.a{color:var(--fw-a);font-weight:600}
+.fwl-w .fw-c.b{color:var(--fw-b);font-weight:600}
+.fwl-w .fw-c.v{width:50px;color:var(--fw-ink)}
+.fwl-w .fw-tr{display:flex;cursor:pointer;border-radius:4px}
+.fwl-w .fw-tr:hover,.fwl-w .fw-tr.on{background:var(--fw-soft)}
+.fwl-w .fw-c.on{background:var(--fw-soft)}
+.fwl-w .fw-lb{text-align:center;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--fw-muted);font-weight:700;margin-top:6px}
+.fwl-w .fw-op{font-family:"Fraunces",Georgia,serif;font-size:1.05rem;color:var(--fw-muted)}
+.fwl-w .fw-work{margin-top:13px;border-top:1px dashed var(--fw-line);padding-top:11px;font-size:.85rem;min-height:56px}
+.fwl-w .fw-work .l{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:.78rem;margin-bottom:5px;overflow-x:auto;white-space:nowrap}
+.fwl-w .fw-work .g{color:var(--fw-muted);line-height:1.55}
+.fwl-w .fw-work .g b{color:var(--fw-ink)}
+</style>
+<div class="fw-top">
+<div class="fw-plot">
+<svg id="fwViz" viewBox="0 0 700 440" role="img" aria-label="Salario contra altura, transformado en residuales">
+</svg>
+</div>
+<div class="fw-side">
+<pre><code>&lt;p class=&quot;fw-no&quot; id=&quot;fwNo&quot;&gt;&lt;/p&gt;
+&lt;p class=&quot;fw-ti&quot; id=&quot;fwTi&quot;&gt;&lt;/p&gt;
+&lt;p class=&quot;fw-bo&quot; id=&quot;fwBo&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;fw-ask&quot;&gt;&lt;em&gt;Pregunta&lt;/em&gt;&lt;span id=&quot;fwAsk&quot;&gt;&lt;/span&gt;&lt;/div&gt;</code></pre>
+</div>
+</div>
+<div class="fw-ctl">
+<button id="fwPrev">← Atrás</button>
+<button id="fwNext" class="fw-pri">Siguiente →</button>
+<button id="fwReset">Reiniciar</button>
+<div id="fwDots" class="fw-dots">
+
+</div>
+</div>
+<div class="fw-mat">
+<p class="fw-mh">
+La misma limpieza, escrita como matriz
+</p>
+<p class="fw-mp">
+Seis personas ordenadas por grupo: tres mujeres y tres hombres. Haz clic en una fila para ver qué hace con los datos.
+</p>
+<div class="fw-tog">
+<pre><code>&lt;button id=&quot;fwBtnM&quot; aria-pressed=&quot;true&quot;&gt;M &amp;mdash; lo que queda&lt;/button&gt;
+&lt;button id=&quot;fwBtnP&quot; aria-pressed=&quot;false&quot;&gt;P &amp;mdash; lo que el sexo predice&lt;/button&gt;
+&lt;span class=&quot;fw-hint&quot;&gt;Clic en una fila&lt;/span&gt;</code></pre>
+</div>
+<div class="fw-box">
+<div class="fw-row">
+<pre><code>&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwMat&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot; id=&quot;fwMatLb&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;span class=&quot;fw-op&quot;&gt;&amp;middot;&lt;/span&gt;
+&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwVecY&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot;&gt;y&lt;/div&gt;&lt;/div&gt;
+&lt;span class=&quot;fw-op&quot;&gt;=&lt;/span&gt;
+&lt;div&gt;&lt;div class=&quot;fw-br&quot;&gt;&lt;div id=&quot;fwVecR&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;fw-lb&quot; id=&quot;fwResLb&quot;&gt;&lt;/div&gt;&lt;/div&gt;</code></pre>
+</div>
+</div>
+<div id="fwWork" class="fw-work">
+
+</div>
+</div>
+</div>
+<script>
+(function(){
+  var R=document.getElementById("fwlDemo"); if(!R) return;
+  function mul(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+  var rnd=mul(90210);
+  function nm(){var u=0,v=0;while(u===0)u=rnd();while(v===0)v=rnd();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+  var pts=[];
+  for(var i=0;i<90;i++){var h=i>=45?1:0,a=(h?173:160)+nm()*6.5;pts.push({h:h,x:a,y:2+0.9*h+0.018*(a-165)+nm()*0.35});}
+  function mean(v){return v.reduce(function(s,q){return s+q},0)/v.length}
+  var gm=[0,1].map(function(g){var s=pts.filter(function(p){return p.h===g});
+    return {x:mean(s.map(function(p){return p.x})),y:mean(s.map(function(p){return p.y}))}});
+  var mx=mean(pts.map(function(p){return p.x})),my=mean(pts.map(function(p){return p.y})),md=mean(pts.map(function(p){return p.h}));
+  var Sxx=0,Sxd=0,Sdd=0,Sxy=0,Sdy=0;
+  pts.forEach(function(p){var a=p.x-mx,b=p.h-md,c=p.y-my;Sxx+=a*a;Sxd+=a*b;Sdd+=b*b;Sxy+=a*c;Sdy+=b*c;});
+  var bS=Sxy/Sxx,aS=my-bS*mx,dt=Sxx*Sdd-Sxd*Sxd,bM=(Sdd*Sxy-Sxd*Sdy)/dt,cM=(Sxx*Sdy-Sxd*Sxy)/dt,aM=my-bM*mx-cM*md;
+  function mil(b){return "$"+Math.round(b*1000).toLocaleString("en-US")+" mil/cm";}
+
+  var W=700,H=440,ML=58,MR=18,MT=16,MB=46,PW=W-ML-MR,PH=H-MT-MB,XW=54,YW=3.8;
+  var st={s:0,t:0},D;
+  function dom(){var cx=mx*(1-st.t),cy=my*(1-st.t);return{x0:cx-XW/2,x1:cx+XW/2,y0:cy-YW/2,y1:cy+YW/2}}
+  function sx(v){return ML+(v-D.x0)/(D.x1-D.x0)*PW}
+  function sy(v){return MT+PH-(v-D.y0)/(D.y1-D.y0)*PH}
+  var svg=document.getElementById("fwViz"),NS="http://www.w3.org/2000/svg";
+  function el(n,at){var e=document.createElementNS(NS,n);for(var k in at)e.setAttribute(k,at[k]);return e}
+  function tk(lo,hi,s){var o=[],v=Math.ceil(lo/s)*s;for(;v<hi;v+=s)o.push(Math.round(v*1e3)/1e3);return o}
+  function line(a,b){return{x1:sx(D.x0),y1:sy(a+b*D.x0),x2:sx(D.x1),y2:sy(a+b*D.x1)}}
+
+  var STEPS=[
+   {t:0,ti:"La correlación cruda",bo:"90 trabajadores. La recta dice que cada centímetro extra viene con <b>"+mil(bS).replace("/cm","")+" más al mes</b>.",ask:"¿Conviene invertir en zapatos de plataforma?"},
+   {t:0,ti:"Aparece el sexo",bo:"Los mismos puntos, coloreados. Los hombres están <b>a la derecha</b> y <b>arriba</b>. La recta atraviesa dos grupos distintos.",ask:"¿Cuánta de esa pendiente es altura y cuánta es sexo?"},
+   {t:0,ti:"Lo que el sexo predice",bo:"Las cruces son el promedio de cada grupo: toda la información que el sexo aporta. Las dos rectas paralelas son el ajuste de la múltiple, y cada una pasa por el promedio de su grupo.",ask:"Si le quitamos a cada persona lo que su sexo predice, ¿qué queda?"},
+   {t:1,ti:"Restar el promedio del grupo",bo:"Eso es residualizar. Cada nube se desliza al origen y <b>su forma interna no cambia</b>. Los ejes se leen como sorpresas.",ask:"¿Por qué las dos rectas terminan siendo una sola?"},
+   {t:1,ti:"Una sola pendiente",bo:"La pendiente que atraviesa la nube es <b>exactamente</b> el coeficiente de la múltiple. La punteada es la pendiente ingenua: la diferencia es el sesgo, dibujado.",ask:"¿Qué variación de la altura usa esta recta, y cuál se botó?"}
+  ];
+
+  function draw(){
+    D=dom(); while(svg.firstChild)svg.removeChild(svg.firstChild);
+    var s=st.s,t=st.t,gr=s>=1,mn=s>=2&&s<=3,par=s>=2,sim=s<=2,nres=s>=4;
+    tk(D.x0,D.x1,10).forEach(function(v){
+      svg.appendChild(el("line",{x1:sx(v),y1:MT,x2:sx(v),y2:MT+PH,stroke:"#EFEEEA","stroke-width":1}));
+      var l=el("text",{x:sx(v),y:MT+PH+19,"text-anchor":"middle","font-size":11.5,fill:"#6A6C70","font-family":"JetBrains Mono,monospace"});l.textContent=v;svg.appendChild(l);});
+    tk(D.y0,D.y1,1).forEach(function(v){
+      svg.appendChild(el("line",{x1:ML,y1:sy(v),x2:ML+PW,y2:sy(v),stroke:"#EFEEEA","stroke-width":1}));
+      var l=el("text",{x:ML-9,y:sy(v)+4,"text-anchor":"end","font-size":11.5,fill:"#6A6C70","font-family":"JetBrains Mono,monospace"});l.textContent=v.toFixed(1);svg.appendChild(l);});
+    if(t>0.02){
+      svg.appendChild(el("line",{x1:sx(0),y1:MT,x2:sx(0),y2:MT+PH,stroke:"#6A6C70","stroke-width":1,"stroke-dasharray":"2 3",opacity:t*.6}));
+      svg.appendChild(el("line",{x1:ML,y1:sy(0),x2:ML+PW,y2:sy(0),stroke:"#6A6C70","stroke-width":1,"stroke-dasharray":"2 3",opacity:t*.6}));}
+    svg.appendChild(el("line",{x1:ML,y1:MT+PH,x2:ML+PW,y2:MT+PH,stroke:"#E7E7E3","stroke-width":1.5}));
+    svg.appendChild(el("line",{x1:ML,y1:MT,x2:ML,y2:MT+PH,stroke:"#E7E7E3","stroke-width":1.5}));
+    function lab(x,y,tx,op,rot){var e=el("text",{x:x,y:y,"text-anchor":"middle","font-size":12,fill:"#17181A","font-weight":600,opacity:op});
+      if(rot)e.setAttribute("transform","rotate(-90 "+x+" "+y+")");e.textContent=tx;svg.appendChild(e);}
+    lab(ML+PW/2,H-10,"Altura (cm)",1-t,0); lab(ML+PW/2,H-10,"Altura residual (cm)",t,0);
+    lab(15,MT+PH/2,"Salario (millones $)",1-t,1); lab(15,MT+PH/2,"Salario residual",t,1);
+    if(sim){var L=line(aS,bS);svg.appendChild(el("line",{x1:L.x1,y1:L.y1,x2:L.x2,y2:L.y2,stroke:"#9A9C9F","stroke-width":2.2,"stroke-dasharray":"7 5",opacity:s===2?.28:1}));}
+    if(nres){var L2=line(0,bS);svg.appendChild(el("line",{x1:L2.x1,y1:L2.y1,x2:L2.x2,y2:L2.y2,stroke:"#9A9C9F","stroke-width":2.2,"stroke-dasharray":"7 5"}));}
+    if(par){[0,1].forEach(function(g){var a=aM+cM*g-st.t*(gm[g].y-bM*gm[g].x),L=line(a,bM);
+      svg.appendChild(el("line",{x1:L.x1,y1:L.y1,x2:L.x2,y2:L.y2,stroke:st.t>.92?"#17181A":(g?"#C0562F":"#2f4858"),"stroke-width":st.t>.92?2.8:2,"stroke-linecap":"round"}));});}
+    pts.forEach(function(p){svg.appendChild(el("circle",{cx:sx(p.x-st.t*gm[p.h].x),cy:sy(p.y-st.t*gm[p.h].y),r:4,
+      fill:gr?(p.h?"#C0562F":"#2f4858"):"#6A6C70",opacity:gr?.72:.55}));});
+    if(mn){[0,1].forEach(function(g){var X=sx(gm[g].x*(1-st.t)),Y=sy(gm[g].y*(1-st.t)),c=g?"#C0562F":"#2f4858";
+      svg.appendChild(el("line",{x1:X-10,y1:Y,x2:X+10,y2:Y,stroke:c,"stroke-width":2.4}));
+      svg.appendChild(el("line",{x1:X,y1:Y-10,x2:X,y2:Y+10,stroke:c,"stroke-width":2.4}));
+      svg.appendChild(el("circle",{cx:X,cy:Y,r:4.5,fill:"#FFF",stroke:c,"stroke-width":2.4}));});}
+    if(gr){[["Mujeres","#2f4858"],["Hombres","#C0562F"]].forEach(function(d,i){var y=MT+13+i*18;
+      svg.appendChild(el("circle",{cx:ML+13,cy:y-4,r:4.2,fill:d[1],opacity:.8}));
+      var t2=el("text",{x:ML+24,y:y,"font-size":11.5,fill:"#6A6C70"});t2.textContent=d[0];svg.appendChild(t2);});}
+    if(s===4){var lb=el("text",{x:ML+PW-6,y:MT+PH-12,"text-anchor":"end","font-size":12.5,fill:"#17181A","font-weight":700});
+      lb.textContent="β de la múltiple = "+mil(bM);svg.appendChild(lb);}
+  }
+
+  var red=window.matchMedia("(prefers-reduced-motion: reduce)").matches,raf=null;
+  function anim(g){if(raf)cancelAnimationFrame(raf);if(red){st.t=g;draw();return;}
+    var f=st.t,t0=performance.now();
+    (function tick(n){var k=Math.min(1,(n-t0)/1400),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+      st.t=f+(g-f)*e;draw();if(k<1)raf=requestAnimationFrame(tick);})(performance.now());}
+  var dots=document.getElementById("fwDots");
+  STEPS.forEach(function(){var d=document.createElement("div");d.className="fw-dot";dots.appendChild(d);});
+  function render(){var S=STEPS[st.s];
+    document.getElementById("fwNo").textContent="Paso "+(st.s+1)+" de "+STEPS.length;
+    document.getElementById("fwTi").textContent=S.ti;
+    document.getElementById("fwBo").innerHTML=S.bo;
+    document.getElementById("fwAsk").textContent=S.ask;
+    document.getElementById("fwPrev").disabled=st.s===0;
+    document.getElementById("fwNext").disabled=st.s===STEPS.length-1;
+    Array.prototype.forEach.call(dots.children,function(d,i){d.className="fw-dot"+(i<=st.s?" on":"")});
+    anim(S.t);}
+  document.getElementById("fwNext").onclick=function(){if(st.s<STEPS.length-1){st.s++;render();}};
+  document.getElementById("fwPrev").onclick=function(){if(st.s>0){st.s--;render();}};
+  document.getElementById("fwReset").onclick=function(){st.s=0;render();};
+  render();
+
+  // ---------- matriz 6x6 ----------
+  var Y=[1.80,2.00,2.20,2.90,3.10,3.30],G=[0,0,0,1,1,1],
+      NM=["Ana","Beatriz","Carla","Daniel","Esteban","Felipe"],GN=["las mujeres","los hombres"],
+      MU=[(1.8+2.0+2.2)/3,(2.9+3.1+3.3)/3],mode="M",sel=-1;
+  function cf(m,i,j){if(G[i]!==G[j])return 0;if(m==="P")return 1/3;return i===j?2/3:-1/3;}
+  // Nada de ⅔ ni ⅓: las fracciones vulgares se renderizan apiladas y diminutas.
+  function gl(m,i,j){var c=cf(m,i,j);if(c===0)return "0";if(m==="P")return "1/3";return i===j?"2/3":"-1/3";}
+  function ap(m,i){var s=0;for(var j=0;j<6;j++)s+=cf(m,i,j)*Y[j];return s;}
+  function fm(v){if(Math.abs(v)<1e-9)v=0;return (v<0?"−":"")+Math.abs(v).toFixed(2);}
+  var mat=document.getElementById("fwMat"),vy=document.getElementById("fwVecY"),vr=document.getElementById("fwVecR"),
+      wk=document.getElementById("fwWork"),mlb=document.getElementById("fwMatLb"),rlb=document.getElementById("fwResLb"),
+      bM2=document.getElementById("fwBtnM"),bP=document.getElementById("fwBtnP");
+  function build(){
+    mat.innerHTML="";vy.innerHTML="";vr.innerHTML="";
+    for(var i=0;i<6;i++){
+      var row=document.createElement("div");row.className="fw-tr"+(i===sel?" on":"");
+      row.setAttribute("role","button");row.setAttribute("tabindex","0");
+      row.setAttribute("aria-label","Fila "+(i+1)+", "+NM[i]);
+      (function(i){row.onclick=function(){sel=(sel===i?-1:i);build();};
+        row.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();sel=(sel===i?-1:i);build();}};})(i);
+      for(var j=0;j<6;j++){var c=document.createElement("div");
+        c.className="fw-c "+(cf(mode,i,j)===0?"z":(G[i]?"b":"a"));c.textContent=gl(mode,i,j);row.appendChild(c);}
+      mat.appendChild(row);
+      var cy=document.createElement("div");cy.className="fw-c v"+(sel>=0?" on":"");cy.textContent=Y[i].toFixed(2);vy.appendChild(cy);
+      var cr=document.createElement("div");cr.className="fw-c v"+(i===sel?" on":"");
+      cr.style.fontWeight=(i===sel?"700":"400");cr.textContent=fm(ap(mode,i));vr.appendChild(cr);
+    }
+    mlb.textContent=mode==="M"?"M (6x6)":"P (6x6)";
+    rlb.textContent=mode==="M"?"My = residuo":"Py = promedio";
+    bM2.setAttribute("aria-pressed",mode==="M");bP.setAttribute("aria-pressed",mode==="P");
+    work();
+  }
+  function work(){
+    if(sel<0){wk.innerHTML='<p class="g">Cada fila es una receta. Haz clic en una para ver qué hace con los datos.</p>';return;}
+    var i=sel,tm=[];
+    for(var j=0;j<6;j++){var c=cf(mode,i,j);if(c===0)continue;
+      var sg=(tm.length===0)?(c<0?"−":""):(c<0?" − ":" + ");
+      tm.push(sg+(mode==="P"?"1/3":(i===j?"2/3":"1/3"))+"("+Y[j].toFixed(2)+")");}
+    var g;
+    if(mode==="M"){g="= "+Y[i].toFixed(2)+" − "+MU[G[i]].toFixed(2)+"  →  el salario de <b>"+NM[i]+
+      "</b> menos el promedio de "+GN[G[i]]+". Los tres ceros dicen que "+(G[i]?"ninguna mujer":"ningún hombre")+" entra en su cálculo.";}
+    else{g="= "+MU[G[i]].toFixed(2)+"  →  el promedio de "+GN[G[i]]+
+      ". Es <b>todo lo que el sexo sabe</b> de "+NM[i]+".";}
+    wk.innerHTML='<div class="l">'+tm.join("")+" = <b>"+fm(ap(mode,i))+"</b></div><p class=\"g\">"+g+"</p>";
+  }
+  bM2.onclick=function(){mode="M";build();};
+  bP.onclick=function(){mode="P";build();};
+  build();
+})();
+</script>
+<p>Los hombres están a la derecha (más altos) <strong>y</strong> arriba (mejor pagados). La línea punteada atraviesa dos grupos distintos: su pendiente no mide altura, mide una mezcla de altura y sexo. Al restarle a cada persona el promedio de su propio sexo —en las dos variables— cada nube se desliza hasta el origen.</p>
+<p>Cada nube se deslizó hasta que su centro cayó en el origen, pero <strong>su forma interna no cambió</strong>: restar una constante mueve la nube, no la deforma. Las dos rectas paralelas terminaron encima una de la otra, y esa recta única es el coeficiente que buscábamos.</p>
+<table>
+<caption><span id="tab:tabla-nubes-fwl">Tabla 9.1: </span>El coeficiente crudo es varias veces el parcial. Los dos últimos coinciden hasta el último decimal.</caption>
+<thead>
+<tr class="header">
+<th align="left">Estimación</th>
+<th align="right">Pendiente sobre altura</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Regresión cruda</td>
+<td align="right">0.062285</td>
+</tr>
+<tr class="even">
+<td align="left">Regresión múltiple</td>
+<td align="right">0.025322</td>
+</tr>
+<tr class="odd">
+<td align="left">FWL: residuo contra residuo</td>
+<td align="right">0.025322</td>
+</tr>
+</tbody>
+</table>
+<div class="box-intuicion">
+<p>Cuando el único control es una variable indicadora, “limpiar” es literalmente <strong>restarle a cada observación el promedio de su grupo</strong>. Todo el resto del capítulo es escribir esa frase con matrices, para que funcione con cualquier conjunto de controles.</p>
+</div>
+</div>
+<div id="desarrollo-teorico-fwl" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Desarrollo teórico<a href="fwl-teoria.html#desarrollo-teorico-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Partimos del modelo:</p>
 <p><span class="math display">\[
 y=X_r\beta_r+X_s\beta_s+\epsilon,
 \]</span></p>
 <p>donde <span class="math inline">\(X_r\)</span> es la variable de interés y <span class="math inline">\(X_s\)</span> contiene los controles. La matriz de regresores completa es <span class="math inline">\(X=[X_r \; X_s]\)</span>.</p>
-<p>La matriz de proyección sobre el espacio columna de <span class="math inline">\(X_s\)</span> es:</p>
+<div id="el-vector-de-coeficientes-y-de-dónde-sale-m" class="section level3 hasAnchor" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> El vector de coeficientes, y de dónde sale <span class="math inline">\(M\)</span><a href="#el-vector-de-coeficientes-y-de-d%C3%B3nde-sale-m" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Antes de proyectar sobre los controles, conviene ver de dónde sale cualquier matriz de proyección. Estimamos por MCO la regresión de <span class="math inline">\(y\)</span> sobre toda la matriz de regresores <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y.
+\]</span></p>
+<p>Los valores ajustados se obtienen multiplicando esos coeficientes por los datos:</p>
+<p><span class="math display">\[
+\hat{y}=X\hat{\beta}=X(X&#39;X)^{-1}X&#39;y=P_X\,y,
+\qquad
+P_X=X(X&#39;X)^{-1}X&#39;.
+\]</span></p>
+<p>Y el vector de residuos es lo que sobra:</p>
+<p><span class="math display">\[
+\hat{e}=y-\hat{y}=(I-P_X)\,y=M_X\,y,
+\qquad
+M_X=I-P_X.
+\]</span></p>
+<div class="box-intuicion">
+<p>Esta es la bisagra de todo el capítulo: <strong><span class="math inline">\(M_X y\)</span> no es notación nueva, es el vector de residuos de la regresión de <span class="math inline">\(y\)</span> sobre <span class="math inline">\(X\)</span></strong>. Decir “corro la regresión y guardo los residuos” y escribir <span class="math inline">\(M_X y\)</span> son la misma operación. <span class="math inline">\(P_X\)</span> se queda con la parte explicada, <span class="math inline">\(M_X\)</span> con lo que sobra, y entre las dos reconstruyen el dato:</p>
+<p><span class="math display">\[
+y=P_X\,y+M_X\,y=\hat{y}+\hat{e}.
+\]</span></p>
+<p>Las dos son ortogonales, y por eso “limpiar” mueve la nube sin deformarla.</p>
+</div>
+<p>Todo lo anterior vale para cualquier matriz de regresores. En FWL lo aplicamos a un subconjunto: solo los controles <span class="math inline">\(X_s\)</span>. La matriz de proyección sobre el espacio columna de <span class="math inline">\(X_s\)</span> es:</p>
 <p><span class="math display">\[
 P_s=X_s(X_s&#39;X_s)^{-1}X_s&#39;.
 \]</span></p>
@@ -240,22 +546,99 @@ P_s&#39;=P_s, \quad P_s^2=P_s,
 <p><span class="math display">\[
 M_s&#39;=M_s, \quad M_s^2=M_s.
 \]</span></p>
-<div id="paso-1-limpiar-y" class="section level3 hasAnchor" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> Paso 1: limpiar <span class="math inline">\(y\)</span><a href="fwl-teoria.html#paso-1-limpiar-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="con-números-seis-personas" class="section level3 hasAnchor" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Con números: seis personas<a href="#con-n%C3%BAmeros-seis-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Nada de esto es abstracto si uno lo escribe con datos. Tomemos seis trabajadores —tres mujeres y tres hombres— y usemos como único control el sexo, de modo que <span class="math inline">\(X_s=[\iota \; d]\)</span> con <span class="math inline">\(\iota\)</span> la constante y <span class="math inline">\(d\)</span> la indicadora de hombre.</p>
+<p>Calculamos el vector de coeficientes pieza por pieza:</p>
+<pre><code>#&gt;           constante hombre
+#&gt; constante         6      3
+#&gt; hombre            3      3</code></pre>
+<pre><code>#&gt;           constante hombre
+#&gt; constante  1/3      -1/3  
+#&gt; hombre    -1/3       2/3</code></pre>
+<pre><code>#&gt;           [,1]
+#&gt; constante 15.3
+#&gt; hombre     9.3</code></pre>
+<pre><code>#&gt;           [,1]
+#&gt; constante  2.0
+#&gt; hombre     1.1</code></pre>
+<p>El resultado tiene una lectura directa: <span class="math inline">\(\hat{\beta}_0=2.0\)</span> es el salario promedio de las mujeres, y <span class="math inline">\(\hat{\beta}_1=1.1\)</span> es cuánto más ganan los hombres en promedio. <strong>Regresar contra un juego completo de indicadoras es sacar promedios de grupo</strong>, nada más.</p>
+<p>Ahora las dos matrices:</p>
+<pre><code>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
+#&gt; [1,] 1/3  1/3  1/3    0    0    0 
+#&gt; [2,] 1/3  1/3  1/3    0    0    0 
+#&gt; [3,] 1/3  1/3  1/3    0    0    0 
+#&gt; [4,]   0    0    0  1/3  1/3  1/3 
+#&gt; [5,]   0    0    0  1/3  1/3  1/3 
+#&gt; [6,]   0    0    0  1/3  1/3  1/3</code></pre>
+<pre><code>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6]
+#&gt; [1,]  2/3 -1/3 -1/3    0    0    0
+#&gt; [2,] -1/3  2/3 -1/3    0    0    0
+#&gt; [3,] -1/3 -1/3  2/3    0    0    0
+#&gt; [4,]    0    0    0  2/3 -1/3 -1/3
+#&gt; [5,]    0    0    0 -1/3  2/3 -1/3
+#&gt; [6,]    0    0    0 -1/3 -1/3  2/3</code></pre>
+<p>Mírenlas antes de seguir. Las dos están hechas de <strong>bloques</strong>: los ceros dicen que ninguna mujer entra en el cálculo de ningún hombre. Dentro del bloque, la fila de <span class="math inline">\(P\)</span> son puros <span class="math inline">\(1/3\)</span>, que es la receta de un promedio; por eso <span class="math inline">\(P y\)</span> devuelve la media del grupo repetida. Y cada fila de <span class="math inline">\(M\)</span> suma cero:</p>
+<pre><code>#&gt; [1] 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16 1.110223e-16
+#&gt; [6] 1.110223e-16</code></pre>
+<p>Una matriz cuyas filas suman cero no puede detectar niveles, solo desviaciones. Es la misma razón por la que un efecto fijo nunca identifica algo que no varía dentro del grupo.</p>
+<p>Finalmente, la igualdad que motiva todo el capítulo: <span class="math inline">\(M y\)</span> <strong>es</strong> el vector de residuos.</p>
+<pre><code>#&gt;     y y_ajustado P_por_y residuo M_por_y resid_lm
+#&gt; 1 1.8        2.0     2.0    -0.2    -0.2     -0.2
+#&gt; 2 2.0        2.0     2.0     0.0     0.0      0.0
+#&gt; 3 2.2        2.0     2.0     0.2     0.2      0.2
+#&gt; 4 2.9        3.1     3.1    -0.2    -0.2     -0.2
+#&gt; 5 3.1        3.1     3.1     0.0     0.0      0.0
+#&gt; 6 3.3        3.1     3.1     0.2     0.2      0.2</code></pre>
+<p>Las columnas coinciden de a pares: los ajustados son <span class="math inline">\(Py\)</span> —el promedio del grupo de cada quien— y los residuos son <span class="math inline">\(My\)</span>, idénticos a los que devuelve <code>lm()</code>.</p>
+<pre><code>#&gt; [1] TRUE</code></pre>
+<div class="box-ejemplo">
+<p>La primera persona gana 1.8 y sus compañeras ganan 2.0 en promedio, así que su residuo es <span class="math inline">\(-0.2\)</span>. Léanlo en la fila 1 de <span class="math inline">\(M\)</span>: <span class="math inline">\(\tfrac{2}{3}(1.8)-\tfrac{1}{3}(2.0)-\tfrac{1}{3}(2.2)=-0.2\)</span>. La matriz no está haciendo magia: está restando el promedio del grupo.</p>
+</div>
+</div>
+<div id="y-ahora-con-las-90-personas" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> Y ahora con las 90 personas<a href="fwl-teoria.html#y-ahora-con-las-90-personas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Con seis observaciones se puede imprimir <span class="math inline">\(M\)</span> completa. Con noventa no, pero la operación es exactamente la misma, y los coeficientes se calculan igual. Volvamos a los datos de la altura, con <span class="math inline">\(X_s=[\iota \; \text{hombre}]\)</span>.</p>
+<pre><code>#&gt;           salario   altura
+#&gt; constante  1.9405 160.7049
+#&gt; hombre     1.1660  12.4413</code></pre>
+<p>Los cuatro números tienen nombre. En la columna del salario, la constante es el salario promedio de las mujeres y el segundo coeficiente es cuánto más ganan los hombres. En la columna de la altura, la constante es la estatura promedio de las mujeres y el segundo coeficiente es cuánto más miden los hombres:</p>
+<pre><code>#&gt; salario_mujeres  brecha_salario  altura_mujeres   brecha_altura 
+#&gt;          1.9405          1.1660        160.7049         12.4413</code></pre>
+<p>Ahora construimos <span class="math inline">\(M\)</span> y comprobamos lo que anunciamos al principio: <strong><span class="math inline">\(M y\)</span> es el vector de residuos de la regresión de <span class="math inline">\(y\)</span> contra lo que está dentro de <span class="math inline">\(M\)</span></strong>.</p>
+<pre><code>#&gt; [1] TRUE</code></pre>
+<pre><code>#&gt; [1] TRUE</code></pre>
+<p>Las dos comprobaciones dan <code>TRUE</code>. Multiplicar por <span class="math inline">\(M\)</span> y correr la regresión guardando los residuos son la misma operación, y lo único que hay adentro de <span class="math inline">\(M\)</span> es la constante y el sexo. Vale la pena mirar las primeras filas para ver de dónde sale cada número:</p>
+<pre><code>#&gt;   hombre salario ajustado residuo
+#&gt; 1      0   1.961     1.94   0.021
+#&gt; 2      0   2.282     1.94   0.342
+#&gt; 3      0   1.967     1.94   0.027
+#&gt; 4      0   1.972     1.94   0.032</code></pre>
+<p>Los ajustados solo toman dos valores distintos —uno por grupo— porque es todo lo que el sexo puede predecir. El residuo es la desviación respecto a ese valor.</p>
+<p>Con los dos residuos en la mano, el último paso de FWL es una regresión simple sin constante:</p>
+<pre><code>#&gt;        fwl   multiple      cruda 
+#&gt; 0.02532153 0.02532153 0.06228507</code></pre>
+<div class="box-resumen">
+<p>El coeficiente de FWL y el de la regresión múltiple coinciden hasta el último decimal, y los dos son una fracción del coeficiente crudo. La diferencia entre el crudo y el parcial es el sesgo por variable omitida: lo que la regresión simple le atribuía a la altura y en realidad era diferencia entre hombres y mujeres.</p>
+</div>
+</div>
+<div id="paso-1-limpiar-y" class="section level3 hasAnchor" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> Paso 1: limpiar <span class="math inline">\(y\)</span><a href="fwl-teoria.html#paso-1-limpiar-y" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Regresamos <span class="math inline">\(y\)</span> sobre los controles <span class="math inline">\(X_s\)</span> y guardamos los residuos:</p>
 <p><span class="math display">\[
 y^\perp=M_s y.
 \]</span></p>
 </div>
-<div id="paso-2-limpiar-x_r" class="section level3 hasAnchor" number="9.3.2">
-<h3><span class="header-section-number">9.3.2</span> Paso 2: limpiar <span class="math inline">\(X_r\)</span><a href="fwl-teoria.html#paso-2-limpiar-x_r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="paso-2-limpiar-x_r" class="section level3 hasAnchor" number="9.4.5">
+<h3><span class="header-section-number">9.4.5</span> Paso 2: limpiar <span class="math inline">\(X_r\)</span><a href="fwl-teoria.html#paso-2-limpiar-x_r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Regresamos <span class="math inline">\(X_r\)</span> sobre los mismos controles y guardamos los residuos:</p>
 <p><span class="math display">\[
 X_r^\perp=M_s X_r.
 \]</span></p>
 </div>
-<div id="paso-3-regresar-residuos-contra-residuos" class="section level3 hasAnchor" number="9.3.3">
-<h3><span class="header-section-number">9.3.3</span> Paso 3: regresar residuos contra residuos<a href="fwl-teoria.html#paso-3-regresar-residuos-contra-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="paso-3-regresar-residuos-contra-residuos" class="section level3 hasAnchor" number="9.4.6">
+<h3><span class="header-section-number">9.4.6</span> Paso 3: regresar residuos contra residuos<a href="fwl-teoria.html#paso-3-regresar-residuos-contra-residuos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Estimamos:</p>
 <p><span class="math display">\[
 y^\perp=X_r^\perp\gamma+u.
@@ -276,8 +659,8 @@ y^\perp=X_r^\perp\gamma+u.
 </div>
 </div>
 </div>
-<div id="supuestos-propiedades-fwl" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Supuestos y propiedades<a href="fwl-teoria.html#supuestos-propiedades-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-propiedades-fwl" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Supuestos y propiedades<a href="fwl-teoria.html#supuestos-propiedades-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>FWL es un resultado algebraico. Para que el coeficiente tenga la interpretación econométrica usual, se requieren los supuestos del modelo lineal.</p>
 <table>
 <colgroup>
@@ -313,8 +696,8 @@ y^\perp=X_r^\perp\gamma+u.
 <p>FWL no cambia el estimador. Cambia la forma de verlo: una regresión múltiple puede entenderse como una regresión simple entre componentes ortogonales a los controles.</p>
 </div>
 </div>
-<div id="errores-comunes-fwl" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> Errores comunes y cuidados<a href="fwl-teoria.html#errores-comunes-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="errores-comunes-fwl" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Errores comunes y cuidados<a href="fwl-teoria.html#errores-comunes-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
 <p>No uses muestras diferentes en las regresiones auxiliares. Si una variable tiene valores faltantes y cambia el conjunto de observaciones, la igualdad de FWL puede romperse en la práctica.</p>
 </div>
@@ -322,23 +705,60 @@ y^\perp=X_r^\perp\gamma+u.
 <p>El intercepto debe tratarse de manera consistente. Si la regresión completa incluye constante, las regresiones auxiliares también deben incluirla.</p>
 </div>
 <div class="box-cuidado">
+<p>Lo que no puede quedar sin limpiar es <span class="math inline">\(X_r\)</span>. De las tres regresiones posibles, dos devuelven el coeficiente correcto y una no:</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Regresión</th>
+<th>¿Da <span class="math inline">\(\hat{\beta}_r\)</span>?</th>
+<th>Por qué</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(y^\perp\)</span> sobre <span class="math inline">\(X_r^\perp\)</span></td>
+<td>Sí</td>
+<td>el enunciado del teorema</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(y\)</span> sobre <span class="math inline">\(X_r^\perp\)</span></td>
+<td>Sí</td>
+<td><span class="math inline">\((X_r^\perp)&#39;y^\perp=X_r&#39;M_s&#39;M_sy=X_r&#39;M_sy=(X_r^\perp)&#39;y\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(y^\perp\)</span> sobre <span class="math inline">\(X_r\)</span></td>
+<td><strong>No</strong></td>
+<td>el denominador <span class="math inline">\((X_r&#39;X_r)^{-1}\)</span> quedó sin limpiar</td>
+</tr>
+</tbody>
+</table>
+<p>El error típico es residualizar solo <span class="math inline">\(y\)</span> y regresarlo contra la variable de interés en bruto. Que las dos primeras coincidan se debe a que <span class="math inline">\(M_s\)</span> es simétrica e idempotente.</p>
+</div>
+<div class="box-cuidado">
 <p>FWL no resuelve por sí mismo problemas de endogeneidad. Si <span class="math inline">\(\mathbb{E}[\epsilon\mid X]\neq 0\)</span>, residualizar controles no convierte automáticamente el coeficiente en causal.</p>
 </div>
 </div>
-<div id="resumen-fwl-teoria" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> Resumen<a href="fwl-teoria.html#resumen-fwl-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-fwl-teoria" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Resumen<a href="fwl-teoria.html#resumen-fwl-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
+<li><span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span>, <span class="math inline">\(\hat{y}=P_Xy\)</span> y <span class="math inline">\(\hat{e}=M_Xy\)</span>: multiplicar por <span class="math inline">\(M\)</span> es guardar los residuos de una regresión.</li>
 <li><span class="math inline">\(P_s\)</span> proyecta sobre el espacio generado por los controles.</li>
 <li><span class="math inline">\(M_s=I-P_s\)</span> remueve la parte explicada por los controles.</li>
 <li>FWL estima el coeficiente parcial regresando <span class="math inline">\(y^\perp=M_sy\)</span> sobre <span class="math inline">\(X_r^\perp=M_sX_r\)</span>.</li>
 <li>El coeficiente obtenido es igual al coeficiente de <span class="math inline">\(X_r\)</span> en la regresión múltiple completa.</li>
 <li>La igualdad es algebraica, pero la interpretación depende de los supuestos econométricos.</li>
+<li>Si los controles son indicadoras, <span class="math inline">\(P_s\)</span> saca el promedio de cada grupo y <span class="math inline">\(M_s\)</span> se lo resta: FWL solo usa la variación <strong>dentro</strong> del grupo.</li>
 </ul>
 </div>
 </div>
-<div id="ejercicios-conceptuales-fwl" class="section level2 hasAnchor" number="9.7">
-<h2><span class="header-section-number">9.7</span> Ejercicios conceptuales<a href="fwl-teoria.html#ejercicios-conceptuales-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-conceptuales-fwl" class="section level2 hasAnchor" number="9.8">
+<h2><span class="header-section-number">9.8</span> Ejercicios conceptuales<a href="fwl-teoria.html#ejercicios-conceptuales-fwl" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-ejercicios">
 <ol style="list-style-type: decimal">
 <li>Explica con tus palabras qué significa “limpiar” una variable de los controles.</li>
@@ -346,12 +766,15 @@ y^\perp=X_r^\perp\gamma+u.
 <li>¿Por qué <span class="math inline">\(M_s\)</span> se llama matriz de aniquilación?</li>
 <li>Da un ejemplo en el que el coeficiente simple de educación difiera del coeficiente controlando por experiencia.</li>
 <li>Explica por qué FWL exige usar la misma muestra en todas las regresiones.</li>
+<li>Con los seis datos de la sección numérica, calcula <span class="math inline">\(\hat{\beta}\)</span> a mano y verifica que <span class="math inline">\(\hat{\beta}_0\)</span> y <span class="math inline">\(\hat{\beta}_0+\hat{\beta}_1\)</span> son los dos promedios de grupo.</li>
+<li>Escribe la fila de <span class="math inline">\(M_s\)</span> que le corresponde a una persona de un grupo con <span class="math inline">\(n_g\)</span> observaciones. ¿Cuánto suma esa fila y por qué?</li>
+<li>Suponga que en un grupo todas las observaciones tienen el mismo valor de <span class="math inline">\(X_r\)</span>. ¿Cuánto aportan al numerador y al denominador de <span class="math inline">\(\hat{\beta}_r\)</span>?</li>
 <li>Para practicar FWL en un taller integrador, resuelve la parte A del <a href="problem-set-2.html#problem-set-2">Problem Set 2: FWL, propiedades e inferencia</a>.</li>
 </ol>
 </div>
 </div>
-<div id="referencias-fwl-teoria" class="section level2 hasAnchor" number="9.8">
-<h2><span class="header-section-number">9.8</span> Referencias<a href="fwl-teoria.html#referencias-fwl-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias-fwl-teoria" class="section level2 hasAnchor" number="9.9">
+<h2><span class="header-section-number">9.9</span> Referencias<a href="fwl-teoria.html#referencias-fwl-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Frisch, Ragnar y Frederick Waugh. “Partial Time Regressions as Compared with Individual Trends”, <em>Econometrica</em>, 1933.</li>
 <li>Lovell, Michael. “Seasonal Adjustment of Economic Time Series and Multiple Regression Analysis”, <em>Journal of the American Statistical Association</em>, 1963.</li>
