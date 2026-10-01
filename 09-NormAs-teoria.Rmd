@@ -16,192 +16,352 @@ knitr::opts_chunk$set(
 
 Al finalizar esta página podrás:
 
-1. Distinguir propiedades en muestras finitas de propiedades asintóticas.
-2. Explicar la consistencia de MCO usando leyes de grandes números.
-3. Explicar la normalidad asintótica de MCO usando el teorema central del límite.
-4. Construir pruebas tipo \(t\) y pruebas de Wald en muestras grandes.
-5. Reconocer el papel de Slutsky en la inferencia asintótica.
+1. Distinguir las propiedades de MCO en muestras finitas de sus propiedades asintóticas.
+2. Definir consistencia y demostrar que \(\hat{\beta}\) y \(\hat{\sigma}_\epsilon^2\) son consistentes.
+3. Usar el teorema central del límite y el teorema de Slutsky para derivar la normalidad asintótica de \(\hat{\beta}\).
+4. Construir la prueba \(t\) asintótica y la prueba de Wald, paso a paso.
 
-## Intuición y motivación {#intuicion-normas-teoria}
+## Punto de partida: lo que ya sabemos en muestras finitas {#repaso-finito-normas}
 
-En muestras pequeñas, las pruebas exactas \(t\) y \(F\) requieren normalidad de los errores. En muchas aplicaciones, ese supuesto es demasiado fuerte. La teoría asintótica permite justificar inferencia aproximada cuando la muestra es grande, aun si los errores no son normales.
+Bajo los supuestos A1 a A4 el estimador de MCO de \(\beta\) y \(\sigma_\epsilon^2\) es
+
+\[
+\hat{\beta}=(X'X)^{-1}X'y=\beta+(X'X)^{-1}X'\epsilon,
+\qquad
+\hat{\sigma}_\epsilon^2=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}.
+\]
+
+Estos estimadores tienen cuatro propiedades exactas, válidas para cualquier \(n\).
+
+1. \(\hat{\beta}\) es insesgado, \(\mathbb{E}[\hat{\beta}\mid X]=\beta\).
+2. Su varianza es \(\text{Var}[\hat{\beta}\mid X]=\sigma_\epsilon^2(X'X)^{-1}\).
+3. Por el teorema de Gauss-Markov, \(\hat{\beta}\) es el estimador lineal insesgado óptimo.
+4. \(\hat{\sigma}_\epsilon^2\) es insesgado, \(\mathbb{E}[\hat{\sigma}_\epsilon^2\mid X]=\sigma_\epsilon^2\).
+
+Ninguna de estas cuatro propiedades usa la normalidad de los errores (supuesto A6). La normalidad apareció solo cuando hicimos pruebas de hipótesis.
+
+1. Con A6, \(\hat{\beta}\mid X\sim\mathcal{N}\big(\beta,\sigma_\epsilon^2(X'X)^{-1}\big)\).
+2. Gracias a eso, \(t_k=\dfrac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}\sim t(n-K)\).
+3. Y el estadístico \(F\) para \(H_0:R\beta=r\) con \(q\) restricciones se distribuye \(F(q,n-K)\).
 
 ::: {.box-intuicion}
-La idea asintótica es estudiar qué ocurre con el estimador cuando \(n\) crece. La consistencia dice que \(\hat{\beta}\) se acerca a \(\beta\). La normalidad asintótica dice cómo se distribuye el error de estimación alrededor de \(\beta\) cuando lo escalamos por \(\sqrt{n}\).
+La pregunta de este capítulo es qué pasa con la inferencia si los errores **no** son normales. La respuesta es que, cuando \(n\) es grande, podemos seguir haciendo pruebas. Para llegar ahí cambiamos dos propiedades de muestras finitas por dos propiedades asintóticas. El insesgamiento se reemplaza por la **consistencia** y la distribución exacta se reemplaza por la **normalidad asintótica**.
 :::
 
-## Desarrollo teórico {#desarrollo-teorico-normas}
+## Consistencia (en lugar de insesgamiento) {#consistencia-normas-teoria}
 
-Partimos del modelo:
+### Definición
 
-\[
-y_i=x_i'\beta+\epsilon_i,
-\]
+La consistencia responde una pregunta. **¿Qué tan lejos es probable que esté el estimador \(W_n\) del parámetro verdadero \(\theta\) a medida que el tamaño de la muestra aumenta?**
 
-y del estimador:
+Sea \(W_n\) un estimador de \(\theta\) construido con una muestra \(Y_1,\dots,Y_n\) de tamaño \(n\). Decimos que \(W_n\) es **consistente** si, para todo \(\varepsilon>0\),
 
 \[
-\hat{\beta}
-=\left(X'X\right)^{-1}X'y
-=\beta+\left(X'X\right)^{-1}X'\epsilon.
+P\big(|W_n-\theta|>\varepsilon\big)\to 0 \quad \text{cuando } n\to\infty,
+\qquad\text{es decir,}\qquad
+\lim_{n\to\infty}P\big(|W_n-\theta|>\varepsilon\big)=0 .
 \]
 
-Multiplicando y dividiendo por \(n\):
-
-\[
-\hat{\beta}-\beta
-=\left(\frac{X'X}{n}\right)^{-1}
-\left(\frac{X'\epsilon}{n}\right).
-\]
-
-### Consistencia
-
-Si:
-
-\[
-\frac{X'X}{n}\xrightarrow{p}Q,
-\qquad
-\frac{X'\epsilon}{n}\xrightarrow{p}0,
-\]
-
-con \(Q\) definida positiva, entonces:
-
-\[
-\hat{\beta}\xrightarrow{p}\beta.
-\]
-
-La primera convergencia dice que la matriz de segundos momentos de los regresores se estabiliza. La segunda dice que los productos \(x_i\epsilon_i\) se promedian hacia cero por exogeneidad y ley de grandes números.
+En ese caso escribimos \(\text{plim}(W_n)=\theta\), o \(W_n\xrightarrow{p}\theta\).
 
 ::: {.box-ejemplo}
-Bajo \(\mathbb{E}[\epsilon_i\mid x_i]=0\), se cumple \(\mathbb{E}[x_i\epsilon_i]=0\). Si además hay momentos finitos y observaciones suficientemente regulares, el promedio \(\frac{1}{n}\sum_i x_i\epsilon_i\) converge a cero.
+Queremos estimar el ingreso promedio de los colombianos con una muestra aleatoria de 15 personas. Si por casualidad la muestra incluye a Julio Mario Santo Domingo, el promedio muestral queda muy por encima del promedio poblacional. Con \(n\) pequeño, la probabilidad de que la diferencia entre el promedio muestral y el poblacional supere un número positivo \(\varepsilon\) no es cero. A medida que la muestra crece (y el muestreo está bien hecho), una observación extrema pesa cada vez menos y esa probabilidad tiende a cero.
 :::
 
-### Normalidad asintótica
+En muestras finitas hablamos de estimadores insesgados. En grandes muestras hablamos de estimadores consistentes, que se acercan a \(\theta\) a medida que \(n\) aumenta.
 
-Para estudiar la distribución aproximada de \(\hat{\beta}\), escribimos:
+La herramienta para probar consistencia es la **ley (débil) de los grandes números**. Sea \(X\) una variable aleatoria con valor esperado \(\mathbb{E}[X]\) y sea \(\bar{X}_n=\frac{X_1+X_2+\dots+X_n}{n}\) el promedio muestral. A medida que \(n\) aumenta, \(\bar{X}_n\) se aproxima a \(\mathbb{E}[X]\). Formalmente, si \(X_1,\dots,X_n\) son realizaciones iid de \(X\) con \(\mathbb{E}[X_i]=\mu\) y varianza finita,
 
 \[
-\sqrt{n}(\hat{\beta}-\beta)
-=\left(\frac{X'X}{n}\right)^{-1}
-\left(\frac{X'\epsilon}{\sqrt{n}}\right).
+\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}X_i\right)=\mathbb{E}[X_i]=\mu .
 \]
 
-Si:
+### Consistencia de \(\hat{\beta}\)
+
+Partimos de \(\hat{\beta}=(X'X)^{-1}X'y\) y multiplicamos por \(\frac{n}{n}\), que es igual a uno,
 
 \[
-\frac{X'\epsilon}{\sqrt{n}}
-\xrightarrow{d}
-\mathcal{N}(0,\sigma^2 Q),
+\hat{\beta}=(X'X)^{-1}X'y\,\frac{n}{n}=\left(\frac{X'X}{n}\right)^{-1}\frac{X'y}{n}.
 \]
 
-y:
+Reemplazamos \(y=X\beta+\epsilon\),
 
 \[
-\frac{X'X}{n}\xrightarrow{p}Q,
+\begin{aligned}
+\hat{\beta}&=\left(\frac{X'X}{n}\right)^{-1}\frac{X'(X\beta+\epsilon)}{n}\\
+&=\underbrace{\left(\frac{X'X}{n}\right)^{-1}\left(\frac{X'X}{n}\right)}_{I}\beta+\left(\frac{X'X}{n}\right)^{-1}\frac{X'\epsilon}{n}\\
+&=\beta+\left(\frac{X'X}{n}\right)^{-1}\left(\frac{X'\epsilon}{n}\right).
+\end{aligned}
 \]
 
-entonces por Slutsky:
+Queremos saber qué pasa cuando \(n\) crece, así que tomamos \(\text{plim}\) a ambos lados,
 
 \[
-\sqrt{n}(\hat{\beta}-\beta)
-\xrightarrow{d}
-\mathcal{N}(0,\sigma^2 Q^{-1}).
+\text{plim}\,\hat{\beta}=\beta+\text{plim}\left(\frac{1}{n}X'X\right)^{-1}\text{plim}\left(\frac{1}{n}X'\epsilon\right).
 \]
 
-En la práctica estimamos la varianza de \(\hat{\beta}\) con:
+Cada término es un promedio, y por eso podemos aplicar la ley de los grandes números. Si \(x_i\) es el vector \(K\times 1\) de regresores de la observación \(i\),
 
 \[
-\widehat{\text{Var}}(\hat{\beta})
-=\hat{\sigma}^2(X'X)^{-1},
-\qquad
-\hat{\sigma}^2=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}.
+\text{plim}\left(\frac{1}{n}X'X\right)=\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}x_ix_i'\right)=\mathbb{E}[x_ix_i']=Q,
 \]
 
-### Prueba tipo \(t\) asintótica
-
-Para:
-
 \[
-H_0:\beta_k=\beta_k^0,
+\text{plim}\left(\frac{1}{n}X'\epsilon\right)=\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}x_i\epsilon_i\right)=\mathbb{E}[x_i\epsilon_i]=0 .
 \]
 
-usamos:
+\(Q^{-1}\) existe **gracias a A3** (rango completo), y \(\mathbb{E}[x_i\epsilon_i]=0\) **gracias a A2** (exogeneidad). Entonces
 
 \[
-t_k=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}
-\xrightarrow{d}\mathcal{N}(0,1).
+\text{plim}\,\hat{\beta}=\beta+Q^{-1}\cdot 0=\beta .
 \]
 
-La regla bilateral aproximada rechaza \(H_0\) si:
+Por lo tanto, \(\hat{\beta}\) es consistente.
+
+::: {.box-resumen}
+Con esto, \(\hat{\beta}=(X'X)^{-1}X'y\) cumple tres propiedades.
+
+1. \(\mathbb{E}[\hat{\beta}]=\beta\) (insesgado).
+2. \(\text{Var}[\hat{\beta}]=\sigma_\epsilon^2(X'X)^{-1}\).
+3. \(\text{plim}[\hat{\beta}]=\beta\) (consistente).
+
+Y \(\hat{\sigma}_\epsilon^2=\dfrac{\hat{\epsilon}'\hat{\epsilon}}{n-K}\) cumple dos, \(\mathbb{E}[\hat{\sigma}_\epsilon^2]=\sigma_\epsilon^2\) y \(\text{plim}[\hat{\sigma}_\epsilon^2]=\sigma_\epsilon^2\). La segunda la demostramos a continuación.
+:::
+
+### Consistencia de \(\hat{\sigma}_\epsilon^2\)
+
+Ahora queremos saber si \(\hat{\sigma}_\epsilon^2=\hat{\epsilon}'\hat{\epsilon}/(n-K)\) converge en probabilidad a \(\sigma_\epsilon^2\). Otra vez multiplicamos por \(\frac{n}{n}\),
 
 \[
-|t_k|\ge z_{1-\alpha/2}.
+\hat{\sigma}_\epsilon^2=\frac{\hat{\epsilon}'\hat{\epsilon}}{n-K}\cdot\frac{n}{n}=\frac{n}{n-K}\cdot\frac{\hat{\epsilon}'\hat{\epsilon}}{n},
 \]
 
-### Prueba de Wald
-
-Para \(q\) restricciones:
+y tomamos \(\text{plim}\),
 
 \[
-H_0:R\beta=r,
+\text{plim}\big(\hat{\sigma}_\epsilon^2\big)=\underbrace{\text{plim}\left(\frac{n}{n-K}\right)}_{\xrightarrow{p}\,1}\ \underbrace{\text{plim}\left(\frac{\hat{\epsilon}'\hat{\epsilon}}{n}\right)}_{\xrightarrow{p}\,\sigma_\epsilon^2\ ?} .
 \]
 
-el estadístico de Wald es:
+Falta mostrar que \(\frac{\hat{\epsilon}'\hat{\epsilon}}{n}\xrightarrow{p}\sigma_\epsilon^2\). Escribimos el residuo en términos del error,
 
 \[
-W=(R\hat{\beta}-r)'
-\left[R\widehat{\text{Var}}(\hat{\beta})R'\right]^{-1}
-(R\hat{\beta}-r).
+\hat{\epsilon}=y-X\hat{\beta}=X\beta+\epsilon-X\hat{\beta}=\epsilon+X(\beta-\hat{\beta}).
 \]
 
-Bajo \(H_0\):
+Entonces
 
 \[
-W\xrightarrow{d}\chi^2(q).
+\begin{aligned}
+\text{plim}\left(\frac{(y-\hat{y})'(y-\hat{y})}{n}\right)
+&=\text{plim}\left(\frac{\big(\epsilon+X(\beta-\hat{\beta})\big)'\big(\epsilon+X(\beta-\hat{\beta})\big)}{n}\right)\\
+&=\text{plim}\left(\frac{\epsilon'\epsilon+\epsilon'X(\beta-\hat{\beta})+(\beta-\hat{\beta})'X'\epsilon+(\beta-\hat{\beta})'X'X(\beta-\hat{\beta})}{n}\right).
+\end{aligned}
+\]
+
+Separamos en cuatro términos y vemos a dónde converge cada pieza.
+
+\[
+\begin{aligned}
+&=\underbrace{\text{plim}\left(\frac{\epsilon'\epsilon}{n}\right)}_{\xrightarrow{p}\,\mathbb{E}[\epsilon_i^2]=\sigma_\epsilon^2}
++\underbrace{\text{plim}\left(\frac{\epsilon'X}{n}\right)}_{\xrightarrow{p}\,\mathbb{E}[\epsilon_i x_i']=0\ \text{(A2)}}\underbrace{\text{plim}(\beta-\hat{\beta})}_{\xrightarrow{p}\,0}
++\underbrace{\text{plim}(\beta-\hat{\beta})'}_{\xrightarrow{p}\,0}\underbrace{\text{plim}\left(\frac{X'\epsilon}{n}\right)}_{\xrightarrow{p}\,0\ \text{(A2)}}\\
+&\quad+\underbrace{\text{plim}(\beta-\hat{\beta})'}_{\xrightarrow{p}\,0}\ \underbrace{\text{plim}\left(\frac{X'X}{n}\right)}_{\xrightarrow{p}\,Q}\ \underbrace{\text{plim}(\beta-\hat{\beta})}_{\xrightarrow{p}\,0}\\[4pt]
+&=\sigma_\epsilon^2 .
+\end{aligned}
+\]
+
+Los tres últimos términos se van a cero porque \(\hat{\beta}\) es consistente. Por lo tanto \(\text{plim}\big(\hat{\sigma}_\epsilon^2\big)=1\cdot\sigma_\epsilon^2=\sigma_\epsilon^2\), y \(\hat{\sigma}_\epsilon^2\) también es consistente.
+
+## Normalidad asintótica del estimador de MCO {#normalidad-asintotica-mco}
+
+### ¿Por qué no basta con la consistencia?
+
+Como dice Wooldridge, la consistencia es una propiedad importante pero por sí sola no permite hacer inferencia. Saber que \(\hat{\beta}\) se acerca a \(\beta\) cuando \(n\) crece no nos dice qué valores críticos usar en una prueba. Para eso necesitamos la **distribución muestral** de \(\hat{\beta}\).
+
+Con A1 a A6 esa distribución era normal, y sobre ella construimos las pruebas \(t\) y \(F\). Pero la normalidad de \(\hat{\beta}\) dependía de la normalidad de \(\epsilon\mid X\). Si los errores vienen de otra distribución, \(\hat{\beta}_k\) no es normal y los estadísticos \(t\) y \(F\) ya no siguen las distribuciones \(t\) y \(F\). Lo que sí podemos hacer es usar el **teorema central del límite** para mostrar que \(\hat{\beta}\) es **aproximadamente** normal cuando \(n\) es grande.
+
+En otras palabras, queremos cambiar un resultado por otro,
+
+\[
+\underbrace{\hat{\beta}\sim\mathcal{N}\big(\beta,\ \sigma_\epsilon^2(X'X)^{-1}\big)}_{\text{exacto, requiere A6: }\epsilon\mid X\sim\mathcal{N}(0,\sigma_\epsilon^2I_n)}
+\qquad\longrightarrow\qquad
+\underbrace{\sqrt{n}\,(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta})\big)}_{\text{asintótico, sin A6}} .
+\]
+
+### Las dos herramientas
+
+**Teorema de Slutsky.** Combina algo que converge en distribución con algo que converge en probabilidad. Si \(Z_n\xrightarrow{d}Z\) y \(A_n\xrightarrow{p}a\),
+
+1. \(Z_n+A_n\xrightarrow{d}Z+a\).
+2. Si \(a=0\), \(Z_nA_n\xrightarrow{p}0\).
+3. \(Z_nA_n\xrightarrow{d}Za\).
+
+En la versión que usaremos, con vectores y matrices, si \(Z_n\xrightarrow{d}\mathcal{N}(0,\Sigma)\) y \(A_n\xrightarrow{p}A\), entonces
+
+\[
+A_nZ_n\xrightarrow{d}\mathcal{N}\big(\mathbb{E}[A_nZ_n],\ \text{Var}[A_nZ_n]\big)=\mathcal{N}(0,\,A\Sigma A').
+\]
+
+**Teorema central del límite (Lindeberg-Lévy).** Sean \(X_1,\dots,X_n\) realizaciones iid de una variable aleatoria con \(\mathbb{E}[X_i]=\mu\) y \(\text{Var}(X_i)=\sigma_x^2<\infty\). Entonces, cuando \(n\to\infty\),
+
+\[
+\sqrt{n}\left(\frac{\bar{X}-\mu}{\sigma_x}\right)\xrightarrow{d}\mathcal{N}(0,1),
+\qquad\text{o equivalentemente}\qquad
+\sqrt{n}\,(\bar{X}-\mu)\xrightarrow{d}\mathcal{N}(0,\sigma_x^2).
 \]
 
 ::: {.box-cuidado}
-En muestras finitas, las distribuciones exactas dependen de supuestos más fuertes. En muestras grandes, la aproximación asintótica mejora, pero sigue siendo una aproximación.
+El TCL habla de \(\sqrt{n}(\bar{X}-\mu)\), centrado en \(\mu\). No escribas \(\sqrt{n}\,\bar{X}\xrightarrow{d}\mathcal{N}(\mu,\sigma_x^2)\), porque si \(\mu\neq 0\) esa expresión crece sin límite. Lo que sí se puede decir, como aproximación para \(n\) grande, es que \(\bar{X}\overset{a}{\sim}\mathcal{N}\big(\mu,\ \sigma_x^2/n\big)\).
+:::
+
+En versión vectorial, si los \(Z_i\) son iid con media cero y matriz de varianzas \(\Sigma\), entonces \(\frac{1}{\sqrt{n}}\sum_i Z_i\xrightarrow{d}\mathcal{N}(0,\Sigma)\).
+
+### Demostración
+
+Partimos otra vez de \(\hat{\beta}-\beta=(X'X)^{-1}X'\epsilon\), pero ahora multiplicamos por \(\sqrt{n}\) y repartimos las \(n\) de esta forma,
+
+\[
+\sqrt{n}\,(\hat{\beta}-\beta)=\underbrace{\left(\frac{1}{n}X'X\right)^{-1}}_{A_n}\ \underbrace{\left(\frac{1}{\sqrt{n}}X'\epsilon\right)}_{Z_n}.
+\]
+
+1. **El término \(A_n\).** Ya sabemos que \(\frac{1}{n}X'X\xrightarrow{p}Q\), así que \(A_n\xrightarrow{p}Q^{-1}\).
+2. **El término \(Z_n\).** \(Z_n=\frac{1}{\sqrt{n}}\sum_i x_i\epsilon_i\). Los vectores \(x_i\epsilon_i\) tienen media cero (ortogonalidad) y, con homocedasticidad, varianza \(\mathbb{E}[\epsilon_i^2x_ix_i']=\sigma_\epsilon^2\mathbb{E}[x_ix_i']=\sigma_\epsilon^2Q\). Por el teorema central del límite,
+\[
+Z_n\xrightarrow{d}\mathcal{N}(0,\ \sigma_\epsilon^2Q).
+\]
+3. **Slutsky.** Con \(A=Q^{-1}\) y \(\Sigma=\sigma_\epsilon^2Q\),
+\[
+A\Sigma A'=Q^{-1}(\sigma_\epsilon^2Q)Q^{-1}=\sigma_\epsilon^2Q^{-1}.
+\]
+
+Concluimos que
+
+\[
+\boxed{\ \sqrt{n}\,(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta})\big),\qquad \text{Avar}(\hat{\beta})=\sigma_\epsilon^2Q^{-1}\ }
+\]
+
+\(\text{Avar}(\hat{\beta})\) es la **varianza asintótica** de \(\hat{\beta}\). Se estima de forma consistente reemplazando \(\sigma_\epsilon^2\) por \(\hat{\sigma}_\epsilon^2\) y \(Q\) por \(\frac{1}{n}X'X\),
+
+\[
+\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2\left(\frac{1}{n}X'X\right)^{-1}.
+\]
+
+::: {.box-cuidado}
+**Ojo con la escala.** \(\text{Avar}\) es la varianza de \(\sqrt{n}(\hat{\beta}-\beta)\), no la de \(\hat{\beta}\). Para volver a la escala de \(\hat{\beta}\) dividimos por \(n\),
+\[
+\frac{1}{n}\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X'X)^{-1}.
+\]
+Esta es exactamente la matriz que reporta `reg y x` en Stata. Lo que cambia frente al capítulo anterior es **la justificación** (ya no necesitamos errores normales), no la fórmula.
+:::
+
+Este resultado dice que, si la muestra es grande, la normal es una buena aproximación de la distribución de \(\sqrt{n}(\hat{\beta}-\beta)\) aunque los errores no sean normales. Cuando los regresores son estocásticos pero no están relacionados con \(\epsilon\), los resultados clásicos de MCO se mantienen asintóticamente.
+
+::: {.box-cuidado}
+**¿Qué tan grande debe ser \(n\)?** No hay una regla general. Algunos econometristas dicen que \(n=30\) es suficiente, pero dependiendo de la distribución de \(\epsilon\) (colas pesadas, asimetría, observaciones extremas) pueden necesitarse muchas más observaciones para que el teorema central del límite haga efecto.
+:::
+
+## Pruebas de hipótesis en grandes muestras {#pruebas-asintoticas-normas}
+
+Sin normalidad de \(\epsilon\), los estadísticos \(t\) y \(F\) ya no tienen distribución \(t\) ni \(F\). Pero conocemos la distribución asintótica de \(\hat{\beta}\), y con ella construimos pruebas válidas en muestras grandes.
+
+### Prueba \(t\) asintótica
+
+Bajo \(H_0:\beta_k=\beta_k^0\), el elemento \(k\) del resultado anterior dice que
+
+\[
+\sqrt{n}\,(\hat{\beta}_k-\beta_k^0)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta}_k)\big),
+\]
+
+donde \(\text{Avar}(\hat{\beta}_k)\) es el elemento \((k,k)\) de \(\text{Avar}(\hat{\beta})\). Estandarizando,
+
+\[
+t_k=\frac{\sqrt{n}\,(\hat{\beta}_k-\beta_k^0)}{\sqrt{\widehat{\text{Avar}}(\hat{\beta}_k)}}
+=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}
+\xrightarrow{d}\mathcal{N}(0,1),
+\qquad
+EE(\hat{\beta}_k)=\sqrt{\tfrac{1}{n}\widehat{\text{Avar}}(\hat{\beta}_k)} .
+\]
+
+Para contrastar \(H_0\) con nivel de significancia \(\alpha\), seguimos tres pasos.
+
+1. **Paso 1.** Calcule \(t_k\).
+2. **Paso 2.** Busque en la tabla de la normal estándar el valor crítico \(z_{\alpha/2}\). Por ejemplo, si \(\alpha=5\%\), \(z_{\alpha/2}=1{,}96\).
+3. **Paso 3.** Rechace \(H_0\) si \(|t_k|\ge z_{\alpha/2}\). En caso contrario, no la rechace.
+
+### Prueba de Wald para restricciones múltiples
+
+Queremos contrastar \(q\) restricciones lineales, \(H_0:R\beta=r\). Sin normalidad de los errores, el estadístico
+
+\[
+F=\frac{(R\hat{\beta}-r)'\left[R(X'X)^{-1}R'\right]^{-1}(R\hat{\beta}-r)/q}{\hat{\sigma}_\epsilon^2}
+\]
+
+**no** se distribuye \(F(q,n-K)\). De hecho, para un \(n\) dado no sabemos cómo se distribuye.
+
+Sin embargo, como \(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\text{Avar}(\hat{\beta})\big)\), bajo \(H_0\) (donde \(R\beta=r\)) tenemos
+
+\[
+\sqrt{n}\,(R\hat{\beta}-r)=R\,\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ R\,\text{Avar}(\hat{\beta})\,R'\big).
+\]
+
+Una forma cuadrática de un vector normal de dimensión \(q\), estandarizada por su varianza, se distribuye \(\chi^2(q)\). Por eso
+
+\[
+\text{Wald}=n\,(R\hat{\beta}-r)'\left[R\,\widehat{\text{Avar}}(\hat{\beta})\,R'\right]^{-1}(R\hat{\beta}-r)\xrightarrow{d}\chi^2(q).
+\]
+
+Reemplazando \(\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X'X/n)^{-1}\), la \(n\) de afuera se cancela con la de adentro y queda
+
+\[
+\text{Wald}=\frac{(R\hat{\beta}-r)'\left[R(X'X)^{-1}R'\right]^{-1}(R\hat{\beta}-r)}{\hat{\sigma}_\epsilon^2}=q\cdot F .
+\]
+
+Para contrastar \(H_0\) con nivel de significancia \(\alpha\), seguimos tres pasos.
+
+1. **Paso 1.** Calcule el estadístico de Wald.
+2. **Paso 2.** Busque en la tabla de la \(\chi^2(q)\) el valor crítico \(\chi^2_{\alpha}(q)\).
+3. **Paso 3.** Rechace \(H_0\) si \(\text{Wald}\ge\chi^2_{\alpha}(q)\). En caso contrario, no la rechace.
+
+::: {.box-intuicion}
+El estadístico es el mismo que ya conocían, pero cambia la tabla donde se busca el valor crítico. Con errores normales se compara \(t_k\) con la \(t(n-K)\) y \(F\) con la \(F(q,n-K)\). En muestras grandes y sin normalidad, \(t_k\) se compara con la \(\mathcal{N}(0,1)\) y \(q\cdot F\) con la \(\chi^2(q)\). Cuando \(n\) es grande las dos tablas casi coinciden.
 :::
 
 ## Supuestos y propiedades {#supuestos-propiedades-normas}
 
-La teoría asintótica requiere condiciones de regularidad:
-
-| Condición | Papel |
+| Condición | Para qué se usa en la derivación |
 |---|---|
-| Exogeneidad | Garantiza que \(\mathbb{E}[x_i\epsilon_i]=0\). |
-| Momentos finitos | Permite aplicar leyes de grandes números y teoremas centrales del límite. |
-| No colinealidad asintótica | Asegura que \(Q\) sea definida positiva. |
-| Observaciones regulares | Evita que pocas observaciones dominen la muestra. |
-| Varianza estimable | Permite reemplazar cantidades poblacionales por estimadores consistentes. |
+| Exogeneidad, \(\mathbb{E}[x_i\epsilon_i]=0\) | \(\frac{1}{n}X'\epsilon\xrightarrow{p}0\) (consistencia) y \(Z_n\) con media cero (TCL). |
+| \(Q=\mathbb{E}[x_ix_i']\) invertible | Poder escribir \(Q^{-1}\), que es la versión asintótica de rango completo. |
+| Muestra iid y momentos finitos | Aplicar la ley de los grandes números y el teorema central del límite. |
+| Homocedasticidad | Que la varianza de \(x_i\epsilon_i\) sea \(\sigma_\epsilon^2Q\) y por eso \(\text{Avar}=\sigma_\epsilon^2Q^{-1}\). |
+| Normalidad de \(\epsilon\) | **No se necesita.** |
 
-::: {.box-resumen}
-La consistencia es una propiedad de localización: \(\hat{\beta}\) se acerca a \(\beta\). La normalidad asintótica es una propiedad de distribución: describe la incertidumbre alrededor de \(\beta\) cuando \(n\) es grande.
+::: {.box-cuidado}
+Si no hay homocedasticidad, la varianza de \(x_i\epsilon_i\) es \(\mathbb{E}[\epsilon_i^2x_ix_i']\neq\sigma_\epsilon^2Q\) y Slutsky entrega una varianza tipo "sándwich", \(Q^{-1}\,\mathbb{E}[\epsilon_i^2x_ix_i']\,Q^{-1}\). Ese es el punto de partida de los errores robustos de White que vemos en el capítulo de [heterocedasticidad](#heterocedasticidad-teoria).
 :::
 
 ## Errores comunes y cuidados {#errores-comunes-normas}
-
-::: {.box-cuidado}
-No interpretes "asintótico" como "automáticamente válido". Con muestras pequeñas, colas extremas, observaciones influyentes o mala especificación, la aproximación normal puede ser pobre.
-:::
 
 ::: {.box-cuidado}
 No confundas consistencia con insesgamiento. Un estimador puede ser sesgado en muestras finitas y aun así converger al parámetro cuando \(n\) crece.
 :::
 
 ::: {.box-cuidado}
-La inferencia robusta frente a heterocedasticidad se estudia en detalle más adelante. En este capítulo el objetivo es entender la lógica asintótica que permite construir pruebas aproximadas.
+No escribas \(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\sigma_\epsilon^2(X'X)^{-1}\big)\). La matriz \(\sigma_\epsilon^2(X'X)^{-1}\) se va a cero cuando \(n\) crece. La varianza del límite es \(\sigma_\epsilon^2Q^{-1}\), y \(\sigma_\epsilon^2(X'X)^{-1}\) es su versión dividida por \(n\).
+:::
+
+::: {.box-cuidado}
+No interpretes "asintótico" como "automáticamente válido". Con muestras pequeñas, colas pesadas u observaciones influyentes, la aproximación normal puede ser pobre.
 :::
 
 ## Resumen {#resumen-normas-teoria}
 
 ::: {.box-resumen}
-- La consistencia de MCO se obtiene si \(\frac{X'X}{n}\) converge a una matriz invertible y \(\frac{X'\epsilon}{n}\) converge a cero.
-- La normalidad asintótica surge del teorema central del límite aplicado a \(\frac{X'\epsilon}{\sqrt{n}}\).
-- Slutsky permite combinar convergencia en probabilidad y convergencia en distribución.
-- Las pruebas tipo \(t\) usan una aproximación normal estándar.
-- Las pruebas de Wald para restricciones múltiples usan una aproximación \(\chi^2\).
+- Sin normalidad de los errores, \(\hat{\beta}\) sigue siendo insesgado y MELI, pero los estadísticos \(t\) y \(F\) ya no tienen distribución exacta \(t\) y \(F\).
+- Por la ley de los grandes números, \(\hat{\beta}\) y \(\hat{\sigma}_\epsilon^2\) son consistentes.
+- Por el teorema central del límite y Slutsky, \(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,\sigma_\epsilon^2Q^{-1})\).
+- En la práctica, \(\widehat{\text{Var}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X'X)^{-1}\), la misma fórmula de siempre.
+- La prueba \(t\) se compara con la \(\mathcal{N}(0,1)\) y la de Wald, \(q\cdot F\), con la \(\chi^2(q)\).
 :::
 
 ## Ejercicios conceptuales {#ejercicios-conceptuales-normas}
@@ -209,14 +369,16 @@ La inferencia robusta frente a heterocedasticidad se estudia en detalle más ade
 ::: {.box-ejercicios}
 1. Explica la diferencia entre \(\hat{\beta}\xrightarrow{p}\beta\) y \(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,V)\).
 2. ¿Por qué la condición \(\mathbb{E}[\epsilon_i\mid x_i]=0\) ayuda a que \(\frac{1}{n}X'\epsilon\) converja a cero?
-3. Escribe una hipótesis lineal \(R\beta=r\) con dos restricciones y define el estadístico de Wald.
-4. Explica el papel de Slutsky en la derivación de la normalidad asintótica de MCO.
-5. Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.
-6. Para ver convergencia e incertidumbre en simulaciones, resuelve la parte D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
+3. Rehaz la demostración de consistencia de \(\hat{\sigma}_\epsilon^2\). ¿En qué paso se usa que \(\hat{\beta}\) es consistente?
+4. En la demostración de normalidad asintótica, identifica \(A_n\), \(Z_n\), \(A\) y \(\Sigma\), y verifica que \(A\Sigma A'=\sigma_\epsilon^2Q^{-1}\).
+5. Muestra que el estadístico de Wald con \(\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X'X/n)^{-1}\) es igual a \(q\cdot F\).
+6. Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.
+7. Para ver convergencia e incertidumbre en simulaciones, resuelve la parte D del [Problem Set 2: FWL, propiedades e inferencia](#problem-set-2).
 :::
 
 ## Referencias {#referencias-normas-teoria}
 
+- Wooldridge, Jeffrey. *Introducción a la econometría: un enfoque moderno*, capítulo 5.
 - Wooldridge, Jeffrey. *Econometric Analysis of Cross Section and Panel Data*, capítulos 4 y 5.
 - Hayashi, Fumio. *Econometrics*, capítulos 2 y 3.
 - Greene, William. *Econometric Analysis*, capítulos 4 y 5.

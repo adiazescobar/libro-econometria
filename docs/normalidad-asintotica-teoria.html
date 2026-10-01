@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-08-18" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,127 +205,263 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">15.1</span> Objetivos de aprendizaje<a href="normalidad-asintotica-teoria.html#objetivos-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Al finalizar esta página podrás:</p>
 <ol style="list-style-type: decimal">
-<li>Distinguir propiedades en muestras finitas de propiedades asintóticas.</li>
-<li>Explicar la consistencia de MCO usando leyes de grandes números.</li>
-<li>Explicar la normalidad asintótica de MCO usando el teorema central del límite.</li>
-<li>Construir pruebas tipo <span class="math inline">\(t\)</span> y pruebas de Wald en muestras grandes.</li>
-<li>Reconocer el papel de Slutsky en la inferencia asintótica.</li>
+<li>Distinguir las propiedades de MCO en muestras finitas de sus propiedades asintóticas.</li>
+<li>Definir consistencia y demostrar que <span class="math inline">\(\hat{\beta}\)</span> y <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span> son consistentes.</li>
+<li>Usar el teorema central del límite y el teorema de Slutsky para derivar la normalidad asintótica de <span class="math inline">\(\hat{\beta}\)</span>.</li>
+<li>Construir la prueba <span class="math inline">\(t\)</span> asintótica y la prueba de Wald, paso a paso.</li>
 </ol>
 </div>
-<div id="intuicion-normas-teoria" class="section level2 hasAnchor" number="15.2">
-<h2><span class="header-section-number">15.2</span> Intuición y motivación<a href="normalidad-asintotica-teoria.html#intuicion-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En muestras pequeñas, las pruebas exactas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> requieren normalidad de los errores. En muchas aplicaciones, ese supuesto es demasiado fuerte. La teoría asintótica permite justificar inferencia aproximada cuando la muestra es grande, aun si los errores no son normales.</p>
+<div id="repaso-finito-normas" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Punto de partida: lo que ya sabemos en muestras finitas<a href="normalidad-asintotica-teoria.html#repaso-finito-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bajo los supuestos A1 a A4 el estimador de MCO de <span class="math inline">\(\beta\)</span> y <span class="math inline">\(\sigma_\epsilon^2\)</span> es</p>
+<p><span class="math display">\[
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\epsilon,
+\qquad
+\hat{\sigma}_\epsilon^2=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}.
+\]</span></p>
+<p>Estos estimadores tienen cuatro propiedades exactas, válidas para cualquier <span class="math inline">\(n\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\hat{\beta}\)</span> es insesgado, <span class="math inline">\(\mathbb{E}[\hat{\beta}\mid X]=\beta\)</span>.</li>
+<li>Su varianza es <span class="math inline">\(\text{Var}[\hat{\beta}\mid X]=\sigma_\epsilon^2(X&#39;X)^{-1}\)</span>.</li>
+<li>Por el teorema de Gauss-Markov, <span class="math inline">\(\hat{\beta}\)</span> es el estimador lineal insesgado óptimo.</li>
+<li><span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span> es insesgado, <span class="math inline">\(\mathbb{E}[\hat{\sigma}_\epsilon^2\mid X]=\sigma_\epsilon^2\)</span>.</li>
+</ol>
+<p>Ninguna de estas cuatro propiedades usa la normalidad de los errores (supuesto A6). La normalidad apareció solo cuando hicimos pruebas de hipótesis.</p>
+<ol style="list-style-type: decimal">
+<li>Con A6, <span class="math inline">\(\hat{\beta}\mid X\sim\mathcal{N}\big(\beta,\sigma_\epsilon^2(X&#39;X)^{-1}\big)\)</span>.</li>
+<li>Gracias a eso, <span class="math inline">\(t_k=\dfrac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}\sim t(n-K)\)</span>.</li>
+<li>Y el estadístico <span class="math inline">\(F\)</span> para <span class="math inline">\(H_0:R\beta=r\)</span> con <span class="math inline">\(q\)</span> restricciones se distribuye <span class="math inline">\(F(q,n-K)\)</span>.</li>
+</ol>
 <div class="box-intuicion">
-<p>La idea asintótica es estudiar qué ocurre con el estimador cuando <span class="math inline">\(n\)</span> crece. La consistencia dice que <span class="math inline">\(\hat{\beta}\)</span> se acerca a <span class="math inline">\(\beta\)</span>. La normalidad asintótica dice cómo se distribuye el error de estimación alrededor de <span class="math inline">\(\beta\)</span> cuando lo escalamos por <span class="math inline">\(\sqrt{n}\)</span>.</p>
+<p>La pregunta de este capítulo es qué pasa con la inferencia si los errores <strong>no</strong> son normales. La respuesta es que, cuando <span class="math inline">\(n\)</span> es grande, podemos seguir haciendo pruebas. Para llegar ahí cambiamos dos propiedades de muestras finitas por dos propiedades asintóticas. El insesgamiento se reemplaza por la <strong>consistencia</strong> y la distribución exacta se reemplaza por la <strong>normalidad asintótica</strong>.</p>
 </div>
 </div>
-<div id="desarrollo-teorico-normas" class="section level2 hasAnchor" number="15.3">
-<h2><span class="header-section-number">15.3</span> Desarrollo teórico<a href="normalidad-asintotica-teoria.html#desarrollo-teorico-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Partimos del modelo:</p>
+<div id="consistencia-normas-teoria" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Consistencia (en lugar de insesgamiento)<a href="normalidad-asintotica-teoria.html#consistencia-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="definición" class="section level3 hasAnchor" number="15.3.1">
+<h3><span class="header-section-number">15.3.1</span> Definición<a href="#definici%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La consistencia responde una pregunta. <strong>¿Qué tan lejos es probable que esté el estimador <span class="math inline">\(W_n\)</span> del parámetro verdadero <span class="math inline">\(\theta\)</span> a medida que el tamaño de la muestra aumenta?</strong></p>
+<p>Sea <span class="math inline">\(W_n\)</span> un estimador de <span class="math inline">\(\theta\)</span> construido con una muestra <span class="math inline">\(Y_1,\dots,Y_n\)</span> de tamaño <span class="math inline">\(n\)</span>. Decimos que <span class="math inline">\(W_n\)</span> es <strong>consistente</strong> si, para todo <span class="math inline">\(\varepsilon&gt;0\)</span>,</p>
 <p><span class="math display">\[
-y_i=x_i&#39;\beta+\epsilon_i,
+P\big(|W_n-\theta|&gt;\varepsilon\big)\to 0 \quad \text{cuando } n\to\infty,
+\qquad\text{es decir,}\qquad
+\lim_{n\to\infty}P\big(|W_n-\theta|&gt;\varepsilon\big)=0 .
 \]</span></p>
-<p>y del estimador:</p>
-<p><span class="math display">\[
-\hat{\beta}
-=\left(X&#39;X\right)^{-1}X&#39;y
-=\beta+\left(X&#39;X\right)^{-1}X&#39;\epsilon.
-\]</span></p>
-<p>Multiplicando y dividiendo por <span class="math inline">\(n\)</span>:</p>
-<p><span class="math display">\[
-\hat{\beta}-\beta
-=\left(\frac{X&#39;X}{n}\right)^{-1}
-\left(\frac{X&#39;\epsilon}{n}\right).
-\]</span></p>
-<div id="consistencia" class="section level3 hasAnchor" number="15.3.1">
-<h3><span class="header-section-number">15.3.1</span> Consistencia<a href="normalidad-asintotica-teoria.html#consistencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Si:</p>
-<p><span class="math display">\[
-\frac{X&#39;X}{n}\xrightarrow{p}Q,
-\qquad
-\frac{X&#39;\epsilon}{n}\xrightarrow{p}0,
-\]</span></p>
-<p>con <span class="math inline">\(Q\)</span> definida positiva, entonces:</p>
-<p><span class="math display">\[
-\hat{\beta}\xrightarrow{p}\beta.
-\]</span></p>
-<p>La primera convergencia dice que la matriz de segundos momentos de los regresores se estabiliza. La segunda dice que los productos <span class="math inline">\(x_i\epsilon_i\)</span> se promedian hacia cero por exogeneidad y ley de grandes números.</p>
+<p>En ese caso escribimos <span class="math inline">\(\text{plim}(W_n)=\theta\)</span>, o <span class="math inline">\(W_n\xrightarrow{p}\theta\)</span>.</p>
 <div class="box-ejemplo">
-<p>Bajo <span class="math inline">\(\mathbb{E}[\epsilon_i\mid x_i]=0\)</span>, se cumple <span class="math inline">\(\mathbb{E}[x_i\epsilon_i]=0\)</span>. Si además hay momentos finitos y observaciones suficientemente regulares, el promedio <span class="math inline">\(\frac{1}{n}\sum_i x_i\epsilon_i\)</span> converge a cero.</p>
+<p>Queremos estimar el ingreso promedio de los colombianos con una muestra aleatoria de 15 personas. Si por casualidad la muestra incluye a Julio Mario Santo Domingo, el promedio muestral queda muy por encima del promedio poblacional. Con <span class="math inline">\(n\)</span> pequeño, la probabilidad de que la diferencia entre el promedio muestral y el poblacional supere un número positivo <span class="math inline">\(\varepsilon\)</span> no es cero. A medida que la muestra crece (y el muestreo está bien hecho), una observación extrema pesa cada vez menos y esa probabilidad tiende a cero.</p>
 </div>
-</div>
-<div id="normalidad-asintótica" class="section level3 hasAnchor" number="15.3.2">
-<h3><span class="header-section-number">15.3.2</span> Normalidad asintótica<a href="#normalidad-asint%C3%B3tica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Para estudiar la distribución aproximada de <span class="math inline">\(\hat{\beta}\)</span>, escribimos:</p>
+<p>En muestras finitas hablamos de estimadores insesgados. En grandes muestras hablamos de estimadores consistentes, que se acercan a <span class="math inline">\(\theta\)</span> a medida que <span class="math inline">\(n\)</span> aumenta.</p>
+<p>La herramienta para probar consistencia es la <strong>ley (débil) de los grandes números</strong>. Sea <span class="math inline">\(X\)</span> una variable aleatoria con valor esperado <span class="math inline">\(\mathbb{E}[X]\)</span> y sea <span class="math inline">\(\bar{X}_n=\frac{X_1+X_2+\dots+X_n}{n}\)</span> el promedio muestral. A medida que <span class="math inline">\(n\)</span> aumenta, <span class="math inline">\(\bar{X}_n\)</span> se aproxima a <span class="math inline">\(\mathbb{E}[X]\)</span>. Formalmente, si <span class="math inline">\(X_1,\dots,X_n\)</span> son realizaciones iid de <span class="math inline">\(X\)</span> con <span class="math inline">\(\mathbb{E}[X_i]=\mu\)</span> y varianza finita,</p>
 <p><span class="math display">\[
-\sqrt{n}(\hat{\beta}-\beta)
-=\left(\frac{X&#39;X}{n}\right)^{-1}
-\left(\frac{X&#39;\epsilon}{\sqrt{n}}\right).
-\]</span></p>
-<p>Si:</p>
-<p><span class="math display">\[
-\frac{X&#39;\epsilon}{\sqrt{n}}
-\xrightarrow{d}
-\mathcal{N}(0,\sigma^2 Q),
-\]</span></p>
-<p>y:</p>
-<p><span class="math display">\[
-\frac{X&#39;X}{n}\xrightarrow{p}Q,
-\]</span></p>
-<p>entonces por Slutsky:</p>
-<p><span class="math display">\[
-\sqrt{n}(\hat{\beta}-\beta)
-\xrightarrow{d}
-\mathcal{N}(0,\sigma^2 Q^{-1}).
-\]</span></p>
-<p>En la práctica estimamos la varianza de <span class="math inline">\(\hat{\beta}\)</span> con:</p>
-<p><span class="math display">\[
-\widehat{\text{Var}}(\hat{\beta})
-=\hat{\sigma}^2(X&#39;X)^{-1},
-\qquad
-\hat{\sigma}^2=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}.
+\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}X_i\right)=\mathbb{E}[X_i]=\mu .
 \]</span></p>
 </div>
-<div id="prueba-tipo-t-asintótica" class="section level3 hasAnchor" number="15.3.3">
-<h3><span class="header-section-number">15.3.3</span> Prueba tipo <span class="math inline">\(t\)</span> asintótica<a href="#prueba-tipo-t-asint%C3%B3tica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Para:</p>
+<div id="consistencia-de-hatbeta" class="section level3 hasAnchor" number="15.3.2">
+<h3><span class="header-section-number">15.3.2</span> Consistencia de <span class="math inline">\(\hat{\beta}\)</span><a href="normalidad-asintotica-teoria.html#consistencia-de-hatbeta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Partimos de <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span> y multiplicamos por <span class="math inline">\(\frac{n}{n}\)</span>, que es igual a uno,</p>
 <p><span class="math display">\[
-H_0:\beta_k=\beta_k^0,
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y\,\frac{n}{n}=\left(\frac{X&#39;X}{n}\right)^{-1}\frac{X&#39;y}{n}.
 \]</span></p>
-<p>usamos:</p>
+<p>Reemplazamos <span class="math inline">\(y=X\beta+\epsilon\)</span>,</p>
 <p><span class="math display">\[
-t_k=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}
-\xrightarrow{d}\mathcal{N}(0,1).
+\begin{aligned}
+\hat{\beta}&amp;=\left(\frac{X&#39;X}{n}\right)^{-1}\frac{X&#39;(X\beta+\epsilon)}{n}\\
+&amp;=\underbrace{\left(\frac{X&#39;X}{n}\right)^{-1}\left(\frac{X&#39;X}{n}\right)}_{I}\beta+\left(\frac{X&#39;X}{n}\right)^{-1}\frac{X&#39;\epsilon}{n}\\
+&amp;=\beta+\left(\frac{X&#39;X}{n}\right)^{-1}\left(\frac{X&#39;\epsilon}{n}\right).
+\end{aligned}
 \]</span></p>
-<p>La regla bilateral aproximada rechaza <span class="math inline">\(H_0\)</span> si:</p>
+<p>Queremos saber qué pasa cuando <span class="math inline">\(n\)</span> crece, así que tomamos <span class="math inline">\(\text{plim}\)</span> a ambos lados,</p>
 <p><span class="math display">\[
-|t_k|\ge z_{1-\alpha/2}.
+\text{plim}\,\hat{\beta}=\beta+\text{plim}\left(\frac{1}{n}X&#39;X\right)^{-1}\text{plim}\left(\frac{1}{n}X&#39;\epsilon\right).
+\]</span></p>
+<p>Cada término es un promedio, y por eso podemos aplicar la ley de los grandes números. Si <span class="math inline">\(x_i\)</span> es el vector <span class="math inline">\(K\times 1\)</span> de regresores de la observación <span class="math inline">\(i\)</span>,</p>
+<p><span class="math display">\[
+\text{plim}\left(\frac{1}{n}X&#39;X\right)=\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}x_ix_i&#39;\right)=\mathbb{E}[x_ix_i&#39;]=Q,
+\]</span></p>
+<p><span class="math display">\[
+\text{plim}\left(\frac{1}{n}X&#39;\epsilon\right)=\text{plim}\left(\frac{1}{n}\sum_{i=1}^{n}x_i\epsilon_i\right)=\mathbb{E}[x_i\epsilon_i]=0 .
+\]</span></p>
+<p><span class="math inline">\(Q^{-1}\)</span> existe <strong>gracias a A3</strong> (rango completo), y <span class="math inline">\(\mathbb{E}[x_i\epsilon_i]=0\)</span> <strong>gracias a A2</strong> (exogeneidad). Entonces</p>
+<p><span class="math display">\[
+\text{plim}\,\hat{\beta}=\beta+Q^{-1}\cdot 0=\beta .
+\]</span></p>
+<p>Por lo tanto, <span class="math inline">\(\hat{\beta}\)</span> es consistente.</p>
+<div class="box-resumen">
+<p>Con esto, <span class="math inline">\(\hat{\beta}=(X&#39;X)^{-1}X&#39;y\)</span> cumple tres propiedades.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbb{E}[\hat{\beta}]=\beta\)</span> (insesgado).</li>
+<li><span class="math inline">\(\text{Var}[\hat{\beta}]=\sigma_\epsilon^2(X&#39;X)^{-1}\)</span>.</li>
+<li><span class="math inline">\(\text{plim}[\hat{\beta}]=\beta\)</span> (consistente).</li>
+</ol>
+<p>Y <span class="math inline">\(\hat{\sigma}_\epsilon^2=\dfrac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}\)</span> cumple dos, <span class="math inline">\(\mathbb{E}[\hat{\sigma}_\epsilon^2]=\sigma_\epsilon^2\)</span> y <span class="math inline">\(\text{plim}[\hat{\sigma}_\epsilon^2]=\sigma_\epsilon^2\)</span>. La segunda la demostramos a continuación.</p>
+</div>
+</div>
+<div id="consistencia-de-hatsigma_epsilon2" class="section level3 hasAnchor" number="15.3.3">
+<h3><span class="header-section-number">15.3.3</span> Consistencia de <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span><a href="normalidad-asintotica-teoria.html#consistencia-de-hatsigma_epsilon2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ahora queremos saber si <span class="math inline">\(\hat{\sigma}_\epsilon^2=\hat{\epsilon}&#39;\hat{\epsilon}/(n-K)\)</span> converge en probabilidad a <span class="math inline">\(\sigma_\epsilon^2\)</span>. Otra vez multiplicamos por <span class="math inline">\(\frac{n}{n}\)</span>,</p>
+<p><span class="math display">\[
+\hat{\sigma}_\epsilon^2=\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n-K}\cdot\frac{n}{n}=\frac{n}{n-K}\cdot\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n},
+\]</span></p>
+<p>y tomamos <span class="math inline">\(\text{plim}\)</span>,</p>
+<p><span class="math display">\[
+\text{plim}\big(\hat{\sigma}_\epsilon^2\big)=\underbrace{\text{plim}\left(\frac{n}{n-K}\right)}_{\xrightarrow{p}\,1}\ \underbrace{\text{plim}\left(\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n}\right)}_{\xrightarrow{p}\,\sigma_\epsilon^2\ ?} .
+\]</span></p>
+<p>Falta mostrar que <span class="math inline">\(\frac{\hat{\epsilon}&#39;\hat{\epsilon}}{n}\xrightarrow{p}\sigma_\epsilon^2\)</span>. Escribimos el residuo en términos del error,</p>
+<p><span class="math display">\[
+\hat{\epsilon}=y-X\hat{\beta}=X\beta+\epsilon-X\hat{\beta}=\epsilon+X(\beta-\hat{\beta}).
+\]</span></p>
+<p>Entonces</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{plim}\left(\frac{(y-\hat{y})&#39;(y-\hat{y})}{n}\right)
+&amp;=\text{plim}\left(\frac{\big(\epsilon+X(\beta-\hat{\beta})\big)&#39;\big(\epsilon+X(\beta-\hat{\beta})\big)}{n}\right)\\
+&amp;=\text{plim}\left(\frac{\epsilon&#39;\epsilon+\epsilon&#39;X(\beta-\hat{\beta})+(\beta-\hat{\beta})&#39;X&#39;\epsilon+(\beta-\hat{\beta})&#39;X&#39;X(\beta-\hat{\beta})}{n}\right).
+\end{aligned}
+\]</span></p>
+<p>Separamos en cuatro términos y vemos a dónde converge cada pieza.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;=\underbrace{\text{plim}\left(\frac{\epsilon&#39;\epsilon}{n}\right)}_{\xrightarrow{p}\,\mathbb{E}[\epsilon_i^2]=\sigma_\epsilon^2}
++\underbrace{\text{plim}\left(\frac{\epsilon&#39;X}{n}\right)}_{\xrightarrow{p}\,\mathbb{E}[\epsilon_i x_i&#39;]=0\ \text{(A2)}}\underbrace{\text{plim}(\beta-\hat{\beta})}_{\xrightarrow{p}\,0}
++\underbrace{\text{plim}(\beta-\hat{\beta})&#39;}_{\xrightarrow{p}\,0}\underbrace{\text{plim}\left(\frac{X&#39;\epsilon}{n}\right)}_{\xrightarrow{p}\,0\ \text{(A2)}}\\
+&amp;\quad+\underbrace{\text{plim}(\beta-\hat{\beta})&#39;}_{\xrightarrow{p}\,0}\ \underbrace{\text{plim}\left(\frac{X&#39;X}{n}\right)}_{\xrightarrow{p}\,Q}\ \underbrace{\text{plim}(\beta-\hat{\beta})}_{\xrightarrow{p}\,0}\\[4pt]
+&amp;=\sigma_\epsilon^2 .
+\end{aligned}
+\]</span></p>
+<p>Los tres últimos términos se van a cero porque <span class="math inline">\(\hat{\beta}\)</span> es consistente. Por lo tanto <span class="math inline">\(\text{plim}\big(\hat{\sigma}_\epsilon^2\big)=1\cdot\sigma_\epsilon^2=\sigma_\epsilon^2\)</span>, y <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span> también es consistente.</p>
+</div>
+</div>
+<div id="normalidad-asintotica-mco" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> Normalidad asintótica del estimador de MCO<a href="normalidad-asintotica-teoria.html#normalidad-asintotica-mco" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="por-qué-no-basta-con-la-consistencia" class="section level3 hasAnchor" number="15.4.1">
+<h3><span class="header-section-number">15.4.1</span> ¿Por qué no basta con la consistencia?<a href="#por-qu%C3%A9-no-basta-con-la-consistencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Como dice Wooldridge, la consistencia es una propiedad importante pero por sí sola no permite hacer inferencia. Saber que <span class="math inline">\(\hat{\beta}\)</span> se acerca a <span class="math inline">\(\beta\)</span> cuando <span class="math inline">\(n\)</span> crece no nos dice qué valores críticos usar en una prueba. Para eso necesitamos la <strong>distribución muestral</strong> de <span class="math inline">\(\hat{\beta}\)</span>.</p>
+<p>Con A1 a A6 esa distribución era normal, y sobre ella construimos las pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>. Pero la normalidad de <span class="math inline">\(\hat{\beta}\)</span> dependía de la normalidad de <span class="math inline">\(\epsilon\mid X\)</span>. Si los errores vienen de otra distribución, <span class="math inline">\(\hat{\beta}_k\)</span> no es normal y los estadísticos <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> ya no siguen las distribuciones <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>. Lo que sí podemos hacer es usar el <strong>teorema central del límite</strong> para mostrar que <span class="math inline">\(\hat{\beta}\)</span> es <strong>aproximadamente</strong> normal cuando <span class="math inline">\(n\)</span> es grande.</p>
+<p>En otras palabras, queremos cambiar un resultado por otro,</p>
+<p><span class="math display">\[
+\underbrace{\hat{\beta}\sim\mathcal{N}\big(\beta,\ \sigma_\epsilon^2(X&#39;X)^{-1}\big)}_{\text{exacto, requiere A6: }\epsilon\mid X\sim\mathcal{N}(0,\sigma_\epsilon^2I_n)}
+\qquad\longrightarrow\qquad
+\underbrace{\sqrt{n}\,(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta})\big)}_{\text{asintótico, sin A6}} .
 \]</span></p>
 </div>
-<div id="prueba-de-wald" class="section level3 hasAnchor" number="15.3.4">
-<h3><span class="header-section-number">15.3.4</span> Prueba de Wald<a href="normalidad-asintotica-teoria.html#prueba-de-wald" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Para <span class="math inline">\(q\)</span> restricciones:</p>
+<div id="las-dos-herramientas" class="section level3 hasAnchor" number="15.4.2">
+<h3><span class="header-section-number">15.4.2</span> Las dos herramientas<a href="normalidad-asintotica-teoria.html#las-dos-herramientas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Teorema de Slutsky.</strong> Combina algo que converge en distribución con algo que converge en probabilidad. Si <span class="math inline">\(Z_n\xrightarrow{d}Z\)</span> y <span class="math inline">\(A_n\xrightarrow{p}a\)</span>,</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Z_n+A_n\xrightarrow{d}Z+a\)</span>.</li>
+<li>Si <span class="math inline">\(a=0\)</span>, <span class="math inline">\(Z_nA_n\xrightarrow{p}0\)</span>.</li>
+<li><span class="math inline">\(Z_nA_n\xrightarrow{d}Za\)</span>.</li>
+</ol>
+<p>En la versión que usaremos, con vectores y matrices, si <span class="math inline">\(Z_n\xrightarrow{d}\mathcal{N}(0,\Sigma)\)</span> y <span class="math inline">\(A_n\xrightarrow{p}A\)</span>, entonces</p>
 <p><span class="math display">\[
-H_0:R\beta=r,
+A_nZ_n\xrightarrow{d}\mathcal{N}\big(\mathbb{E}[A_nZ_n],\ \text{Var}[A_nZ_n]\big)=\mathcal{N}(0,\,A\Sigma A&#39;).
 \]</span></p>
-<p>el estadístico de Wald es:</p>
+<p><strong>Teorema central del límite (Lindeberg-Lévy).</strong> Sean <span class="math inline">\(X_1,\dots,X_n\)</span> realizaciones iid de una variable aleatoria con <span class="math inline">\(\mathbb{E}[X_i]=\mu\)</span> y <span class="math inline">\(\text{Var}(X_i)=\sigma_x^2&lt;\infty\)</span>. Entonces, cuando <span class="math inline">\(n\to\infty\)</span>,</p>
 <p><span class="math display">\[
-W=(R\hat{\beta}-r)&#39;
-\left[R\widehat{\text{Var}}(\hat{\beta})R&#39;\right]^{-1}
-(R\hat{\beta}-r).
-\]</span></p>
-<p>Bajo <span class="math inline">\(H_0\)</span>:</p>
-<p><span class="math display">\[
-W\xrightarrow{d}\chi^2(q).
+\sqrt{n}\left(\frac{\bar{X}-\mu}{\sigma_x}\right)\xrightarrow{d}\mathcal{N}(0,1),
+\qquad\text{o equivalentemente}\qquad
+\sqrt{n}\,(\bar{X}-\mu)\xrightarrow{d}\mathcal{N}(0,\sigma_x^2).
 \]</span></p>
 <div class="box-cuidado">
-<p>En muestras finitas, las distribuciones exactas dependen de supuestos más fuertes. En muestras grandes, la aproximación asintótica mejora, pero sigue siendo una aproximación.</p>
+<p>El TCL habla de <span class="math inline">\(\sqrt{n}(\bar{X}-\mu)\)</span>, centrado en <span class="math inline">\(\mu\)</span>. No escribas <span class="math inline">\(\sqrt{n}\,\bar{X}\xrightarrow{d}\mathcal{N}(\mu,\sigma_x^2)\)</span>, porque si <span class="math inline">\(\mu\neq 0\)</span> esa expresión crece sin límite. Lo que sí se puede decir, como aproximación para <span class="math inline">\(n\)</span> grande, es que <span class="math inline">\(\bar{X}\overset{a}{\sim}\mathcal{N}\big(\mu,\ \sigma_x^2/n\big)\)</span>.</p>
+</div>
+<p>En versión vectorial, si los <span class="math inline">\(Z_i\)</span> son iid con media cero y matriz de varianzas <span class="math inline">\(\Sigma\)</span>, entonces <span class="math inline">\(\frac{1}{\sqrt{n}}\sum_i Z_i\xrightarrow{d}\mathcal{N}(0,\Sigma)\)</span>.</p>
+</div>
+<div id="demostración-1" class="section level3 hasAnchor" number="15.4.3">
+<h3><span class="header-section-number">15.4.3</span> Demostración<a href="#demostraci%C3%B3n-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Partimos otra vez de <span class="math inline">\(\hat{\beta}-\beta=(X&#39;X)^{-1}X&#39;\epsilon\)</span>, pero ahora multiplicamos por <span class="math inline">\(\sqrt{n}\)</span> y repartimos las <span class="math inline">\(n\)</span> de esta forma,</p>
+<p><span class="math display">\[
+\sqrt{n}\,(\hat{\beta}-\beta)=\underbrace{\left(\frac{1}{n}X&#39;X\right)^{-1}}_{A_n}\ \underbrace{\left(\frac{1}{\sqrt{n}}X&#39;\epsilon\right)}_{Z_n}.
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li><strong>El término <span class="math inline">\(A_n\)</span>.</strong> Ya sabemos que <span class="math inline">\(\frac{1}{n}X&#39;X\xrightarrow{p}Q\)</span>, así que <span class="math inline">\(A_n\xrightarrow{p}Q^{-1}\)</span>.</li>
+<li><strong>El término <span class="math inline">\(Z_n\)</span>.</strong> <span class="math inline">\(Z_n=\frac{1}{\sqrt{n}}\sum_i x_i\epsilon_i\)</span>. Los vectores <span class="math inline">\(x_i\epsilon_i\)</span> tienen media cero (ortogonalidad) y, con homocedasticidad, varianza <span class="math inline">\(\mathbb{E}[\epsilon_i^2x_ix_i&#39;]=\sigma_\epsilon^2\mathbb{E}[x_ix_i&#39;]=\sigma_\epsilon^2Q\)</span>. Por el teorema central del límite,
+<span class="math display">\[
+Z_n\xrightarrow{d}\mathcal{N}(0,\ \sigma_\epsilon^2Q).
+\]</span></li>
+<li><strong>Slutsky.</strong> Con <span class="math inline">\(A=Q^{-1}\)</span> y <span class="math inline">\(\Sigma=\sigma_\epsilon^2Q\)</span>,
+<span class="math display">\[
+A\Sigma A&#39;=Q^{-1}(\sigma_\epsilon^2Q)Q^{-1}=\sigma_\epsilon^2Q^{-1}.
+\]</span></li>
+</ol>
+<p>Concluimos que</p>
+<p><span class="math display">\[
+\boxed{\ \sqrt{n}\,(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta})\big),\qquad \text{Avar}(\hat{\beta})=\sigma_\epsilon^2Q^{-1}\ }
+\]</span></p>
+<p><span class="math inline">\(\text{Avar}(\hat{\beta})\)</span> es la <strong>varianza asintótica</strong> de <span class="math inline">\(\hat{\beta}\)</span>. Se estima de forma consistente reemplazando <span class="math inline">\(\sigma_\epsilon^2\)</span> por <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span> y <span class="math inline">\(Q\)</span> por <span class="math inline">\(\frac{1}{n}X&#39;X\)</span>,</p>
+<p><span class="math display">\[
+\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2\left(\frac{1}{n}X&#39;X\right)^{-1}.
+\]</span></p>
+<div class="box-cuidado">
+<p><strong>Ojo con la escala.</strong> <span class="math inline">\(\text{Avar}\)</span> es la varianza de <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\)</span>, no la de <span class="math inline">\(\hat{\beta}\)</span>. Para volver a la escala de <span class="math inline">\(\hat{\beta}\)</span> dividimos por <span class="math inline">\(n\)</span>,
+<span class="math display">\[
+\frac{1}{n}\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X&#39;X)^{-1}.
+\]</span>
+Esta es exactamente la matriz que reporta <code>reg y x</code> en Stata. Lo que cambia frente al capítulo anterior es <strong>la justificación</strong> (ya no necesitamos errores normales), no la fórmula.</p>
+</div>
+<p>Este resultado dice que, si la muestra es grande, la normal es una buena aproximación de la distribución de <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\)</span> aunque los errores no sean normales. Cuando los regresores son estocásticos pero no están relacionados con <span class="math inline">\(\epsilon\)</span>, los resultados clásicos de MCO se mantienen asintóticamente.</p>
+<div class="box-cuidado">
+<p><strong>¿Qué tan grande debe ser <span class="math inline">\(n\)</span>?</strong> No hay una regla general. Algunos econometristas dicen que <span class="math inline">\(n=30\)</span> es suficiente, pero dependiendo de la distribución de <span class="math inline">\(\epsilon\)</span> (colas pesadas, asimetría, observaciones extremas) pueden necesitarse muchas más observaciones para que el teorema central del límite haga efecto.</p>
 </div>
 </div>
 </div>
-<div id="supuestos-propiedades-normas" class="section level2 hasAnchor" number="15.4">
-<h2><span class="header-section-number">15.4</span> Supuestos y propiedades<a href="normalidad-asintotica-teoria.html#supuestos-propiedades-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La teoría asintótica requiere condiciones de regularidad:</p>
+<div id="pruebas-asintoticas-normas" class="section level2 hasAnchor" number="15.5">
+<h2><span class="header-section-number">15.5</span> Pruebas de hipótesis en grandes muestras<a href="normalidad-asintotica-teoria.html#pruebas-asintoticas-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Sin normalidad de <span class="math inline">\(\epsilon\)</span>, los estadísticos <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> ya no tienen distribución <span class="math inline">\(t\)</span> ni <span class="math inline">\(F\)</span>. Pero conocemos la distribución asintótica de <span class="math inline">\(\hat{\beta}\)</span>, y con ella construimos pruebas válidas en muestras grandes.</p>
+<div id="prueba-t-asintótica" class="section level3 hasAnchor" number="15.5.1">
+<h3><span class="header-section-number">15.5.1</span> Prueba <span class="math inline">\(t\)</span> asintótica<a href="#prueba-t-asint%C3%B3tica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Bajo <span class="math inline">\(H_0:\beta_k=\beta_k^0\)</span>, el elemento <span class="math inline">\(k\)</span> del resultado anterior dice que</p>
+<p><span class="math display">\[
+\sqrt{n}\,(\hat{\beta}_k-\beta_k^0)\xrightarrow{d}\mathcal{N}\big(0,\ \text{Avar}(\hat{\beta}_k)\big),
+\]</span></p>
+<p>donde <span class="math inline">\(\text{Avar}(\hat{\beta}_k)\)</span> es el elemento <span class="math inline">\((k,k)\)</span> de <span class="math inline">\(\text{Avar}(\hat{\beta})\)</span>. Estandarizando,</p>
+<p><span class="math display">\[
+t_k=\frac{\sqrt{n}\,(\hat{\beta}_k-\beta_k^0)}{\sqrt{\widehat{\text{Avar}}(\hat{\beta}_k)}}
+=\frac{\hat{\beta}_k-\beta_k^0}{EE(\hat{\beta}_k)}
+\xrightarrow{d}\mathcal{N}(0,1),
+\qquad
+EE(\hat{\beta}_k)=\sqrt{\tfrac{1}{n}\widehat{\text{Avar}}(\hat{\beta}_k)} .
+\]</span></p>
+<p>Para contrastar <span class="math inline">\(H_0\)</span> con nivel de significancia <span class="math inline">\(\alpha\)</span>, seguimos tres pasos.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Calcule <span class="math inline">\(t_k\)</span>.</li>
+<li><strong>Paso 2.</strong> Busque en la tabla de la normal estándar el valor crítico <span class="math inline">\(z_{\alpha/2}\)</span>. Por ejemplo, si <span class="math inline">\(\alpha=5\%\)</span>, <span class="math inline">\(z_{\alpha/2}=1{,}96\)</span>.</li>
+<li><strong>Paso 3.</strong> Rechace <span class="math inline">\(H_0\)</span> si <span class="math inline">\(|t_k|\ge z_{\alpha/2}\)</span>. En caso contrario, no la rechace.</li>
+</ol>
+</div>
+<div id="prueba-de-wald-para-restricciones-múltiples" class="section level3 hasAnchor" number="15.5.2">
+<h3><span class="header-section-number">15.5.2</span> Prueba de Wald para restricciones múltiples<a href="#prueba-de-wald-para-restricciones-m%C3%BAltiples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Queremos contrastar <span class="math inline">\(q\)</span> restricciones lineales, <span class="math inline">\(H_0:R\beta=r\)</span>. Sin normalidad de los errores, el estadístico</p>
+<p><span class="math display">\[
+F=\frac{(R\hat{\beta}-r)&#39;\left[R(X&#39;X)^{-1}R&#39;\right]^{-1}(R\hat{\beta}-r)/q}{\hat{\sigma}_\epsilon^2}
+\]</span></p>
+<p><strong>no</strong> se distribuye <span class="math inline">\(F(q,n-K)\)</span>. De hecho, para un <span class="math inline">\(n\)</span> dado no sabemos cómo se distribuye.</p>
+<p>Sin embargo, como <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\text{Avar}(\hat{\beta})\big)\)</span>, bajo <span class="math inline">\(H_0\)</span> (donde <span class="math inline">\(R\beta=r\)</span>) tenemos</p>
+<p><span class="math display">\[
+\sqrt{n}\,(R\hat{\beta}-r)=R\,\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\ R\,\text{Avar}(\hat{\beta})\,R&#39;\big).
+\]</span></p>
+<p>Una forma cuadrática de un vector normal de dimensión <span class="math inline">\(q\)</span>, estandarizada por su varianza, se distribuye <span class="math inline">\(\chi^2(q)\)</span>. Por eso</p>
+<p><span class="math display">\[
+\text{Wald}=n\,(R\hat{\beta}-r)&#39;\left[R\,\widehat{\text{Avar}}(\hat{\beta})\,R&#39;\right]^{-1}(R\hat{\beta}-r)\xrightarrow{d}\chi^2(q).
+\]</span></p>
+<p>Reemplazando <span class="math inline">\(\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X&#39;X/n)^{-1}\)</span>, la <span class="math inline">\(n\)</span> de afuera se cancela con la de adentro y queda</p>
+<p><span class="math display">\[
+\text{Wald}=\frac{(R\hat{\beta}-r)&#39;\left[R(X&#39;X)^{-1}R&#39;\right]^{-1}(R\hat{\beta}-r)}{\hat{\sigma}_\epsilon^2}=q\cdot F .
+\]</span></p>
+<p>Para contrastar <span class="math inline">\(H_0\)</span> con nivel de significancia <span class="math inline">\(\alpha\)</span>, seguimos tres pasos.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Paso 1.</strong> Calcule el estadístico de Wald.</li>
+<li><strong>Paso 2.</strong> Busque en la tabla de la <span class="math inline">\(\chi^2(q)\)</span> el valor crítico <span class="math inline">\(\chi^2_{\alpha}(q)\)</span>.</li>
+<li><strong>Paso 3.</strong> Rechace <span class="math inline">\(H_0\)</span> si <span class="math inline">\(\text{Wald}\ge\chi^2_{\alpha}(q)\)</span>. En caso contrario, no la rechace.</li>
+</ol>
+<div class="box-intuicion">
+<p>El estadístico es el mismo que ya conocían, pero cambia la tabla donde se busca el valor crítico. Con errores normales se compara <span class="math inline">\(t_k\)</span> con la <span class="math inline">\(t(n-K)\)</span> y <span class="math inline">\(F\)</span> con la <span class="math inline">\(F(q,n-K)\)</span>. En muestras grandes y sin normalidad, <span class="math inline">\(t_k\)</span> se compara con la <span class="math inline">\(\mathcal{N}(0,1)\)</span> y <span class="math inline">\(q\cdot F\)</span> con la <span class="math inline">\(\chi^2(q)\)</span>. Cuando <span class="math inline">\(n\)</span> es grande las dos tablas casi coinciden.</p>
+</div>
+</div>
+</div>
+<div id="supuestos-propiedades-normas" class="section level2 hasAnchor" number="15.6">
+<h2><span class="header-section-number">15.6</span> Supuestos y propiedades<a href="normalidad-asintotica-teoria.html#supuestos-propiedades-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
 <col width="50%" />
@@ -334,76 +470,78 @@ W\xrightarrow{d}\chi^2(q).
 <thead>
 <tr class="header">
 <th>Condición</th>
-<th>Papel</th>
+<th>Para qué se usa en la derivación</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Exogeneidad</td>
-<td>Garantiza que <span class="math inline">\(\mathbb{E}[x_i\epsilon_i]=0\)</span>.</td>
+<td>Exogeneidad, <span class="math inline">\(\mathbb{E}[x_i\epsilon_i]=0\)</span></td>
+<td><span class="math inline">\(\frac{1}{n}X&#39;\epsilon\xrightarrow{p}0\)</span> (consistencia) y <span class="math inline">\(Z_n\)</span> con media cero (TCL).</td>
 </tr>
 <tr class="even">
-<td>Momentos finitos</td>
-<td>Permite aplicar leyes de grandes números y teoremas centrales del límite.</td>
+<td><span class="math inline">\(Q=\mathbb{E}[x_ix_i&#39;]\)</span> invertible</td>
+<td>Poder escribir <span class="math inline">\(Q^{-1}\)</span>, que es la versión asintótica de rango completo.</td>
 </tr>
 <tr class="odd">
-<td>No colinealidad asintótica</td>
-<td>Asegura que <span class="math inline">\(Q\)</span> sea definida positiva.</td>
+<td>Muestra iid y momentos finitos</td>
+<td>Aplicar la ley de los grandes números y el teorema central del límite.</td>
 </tr>
 <tr class="even">
-<td>Observaciones regulares</td>
-<td>Evita que pocas observaciones dominen la muestra.</td>
+<td>Homocedasticidad</td>
+<td>Que la varianza de <span class="math inline">\(x_i\epsilon_i\)</span> sea <span class="math inline">\(\sigma_\epsilon^2Q\)</span> y por eso <span class="math inline">\(\text{Avar}=\sigma_\epsilon^2Q^{-1}\)</span>.</td>
 </tr>
 <tr class="odd">
-<td>Varianza estimable</td>
-<td>Permite reemplazar cantidades poblacionales por estimadores consistentes.</td>
+<td>Normalidad de <span class="math inline">\(\epsilon\)</span></td>
+<td><strong>No se necesita.</strong></td>
 </tr>
 </tbody>
 </table>
-<div class="box-resumen">
-<p>La consistencia es una propiedad de localización: <span class="math inline">\(\hat{\beta}\)</span> se acerca a <span class="math inline">\(\beta\)</span>. La normalidad asintótica es una propiedad de distribución: describe la incertidumbre alrededor de <span class="math inline">\(\beta\)</span> cuando <span class="math inline">\(n\)</span> es grande.</p>
-</div>
-</div>
-<div id="errores-comunes-normas" class="section level2 hasAnchor" number="15.5">
-<h2><span class="header-section-number">15.5</span> Errores comunes y cuidados<a href="normalidad-asintotica-teoria.html#errores-comunes-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
-<p>No interpretes “asintótico” como “automáticamente válido”. Con muestras pequeñas, colas extremas, observaciones influyentes o mala especificación, la aproximación normal puede ser pobre.</p>
+<p>Si no hay homocedasticidad, la varianza de <span class="math inline">\(x_i\epsilon_i\)</span> es <span class="math inline">\(\mathbb{E}[\epsilon_i^2x_ix_i&#39;]\neq\sigma_\epsilon^2Q\)</span> y Slutsky entrega una varianza tipo “sándwich”, <span class="math inline">\(Q^{-1}\,\mathbb{E}[\epsilon_i^2x_ix_i&#39;]\,Q^{-1}\)</span>. Ese es el punto de partida de los errores robustos de White que vemos en el capítulo de <a href="heterocedasticidad-teoria.html#heterocedasticidad-teoria">heterocedasticidad</a>.</p>
 </div>
+</div>
+<div id="errores-comunes-normas" class="section level2 hasAnchor" number="15.7">
+<h2><span class="header-section-number">15.7</span> Errores comunes y cuidados<a href="normalidad-asintotica-teoria.html#errores-comunes-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
 <p>No confundas consistencia con insesgamiento. Un estimador puede ser sesgado en muestras finitas y aun así converger al parámetro cuando <span class="math inline">\(n\)</span> crece.</p>
 </div>
 <div class="box-cuidado">
-<p>La inferencia robusta frente a heterocedasticidad se estudia en detalle más adelante. En este capítulo el objetivo es entender la lógica asintótica que permite construir pruebas aproximadas.</p>
+<p>No escribas <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}\big(0,\sigma_\epsilon^2(X&#39;X)^{-1}\big)\)</span>. La matriz <span class="math inline">\(\sigma_\epsilon^2(X&#39;X)^{-1}\)</span> se va a cero cuando <span class="math inline">\(n\)</span> crece. La varianza del límite es <span class="math inline">\(\sigma_\epsilon^2Q^{-1}\)</span>, y <span class="math inline">\(\sigma_\epsilon^2(X&#39;X)^{-1}\)</span> es su versión dividida por <span class="math inline">\(n\)</span>.</p>
+</div>
+<div class="box-cuidado">
+<p>No interpretes “asintótico” como “automáticamente válido”. Con muestras pequeñas, colas pesadas u observaciones influyentes, la aproximación normal puede ser pobre.</p>
 </div>
 </div>
-<div id="resumen-normas-teoria" class="section level2 hasAnchor" number="15.6">
-<h2><span class="header-section-number">15.6</span> Resumen<a href="normalidad-asintotica-teoria.html#resumen-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-normas-teoria" class="section level2 hasAnchor" number="15.8">
+<h2><span class="header-section-number">15.8</span> Resumen<a href="normalidad-asintotica-teoria.html#resumen-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
-<li>La consistencia de MCO se obtiene si <span class="math inline">\(\frac{X&#39;X}{n}\)</span> converge a una matriz invertible y <span class="math inline">\(\frac{X&#39;\epsilon}{n}\)</span> converge a cero.</li>
-<li>La normalidad asintótica surge del teorema central del límite aplicado a <span class="math inline">\(\frac{X&#39;\epsilon}{\sqrt{n}}\)</span>.</li>
-<li>Slutsky permite combinar convergencia en probabilidad y convergencia en distribución.</li>
-<li>Las pruebas tipo <span class="math inline">\(t\)</span> usan una aproximación normal estándar.</li>
-<li>Las pruebas de Wald para restricciones múltiples usan una aproximación <span class="math inline">\(\chi^2\)</span>.</li>
+<li>Sin normalidad de los errores, <span class="math inline">\(\hat{\beta}\)</span> sigue siendo insesgado y MELI, pero los estadísticos <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> ya no tienen distribución exacta <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>.</li>
+<li>Por la ley de los grandes números, <span class="math inline">\(\hat{\beta}\)</span> y <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span> son consistentes.</li>
+<li>Por el teorema central del límite y Slutsky, <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,\sigma_\epsilon^2Q^{-1})\)</span>.</li>
+<li>En la práctica, <span class="math inline">\(\widehat{\text{Var}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X&#39;X)^{-1}\)</span>, la misma fórmula de siempre.</li>
+<li>La prueba <span class="math inline">\(t\)</span> se compara con la <span class="math inline">\(\mathcal{N}(0,1)\)</span> y la de Wald, <span class="math inline">\(q\cdot F\)</span>, con la <span class="math inline">\(\chi^2(q)\)</span>.</li>
 </ul>
 </div>
 </div>
-<div id="ejercicios-conceptuales-normas" class="section level2 hasAnchor" number="15.7">
-<h2><span class="header-section-number">15.7</span> Ejercicios conceptuales<a href="normalidad-asintotica-teoria.html#ejercicios-conceptuales-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-conceptuales-normas" class="section level2 hasAnchor" number="15.9">
+<h2><span class="header-section-number">15.9</span> Ejercicios conceptuales<a href="normalidad-asintotica-teoria.html#ejercicios-conceptuales-normas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-ejercicios">
 <ol style="list-style-type: decimal">
 <li>Explica la diferencia entre <span class="math inline">\(\hat{\beta}\xrightarrow{p}\beta\)</span> y <span class="math inline">\(\sqrt{n}(\hat{\beta}-\beta)\xrightarrow{d}\mathcal{N}(0,V)\)</span>.</li>
 <li>¿Por qué la condición <span class="math inline">\(\mathbb{E}[\epsilon_i\mid x_i]=0\)</span> ayuda a que <span class="math inline">\(\frac{1}{n}X&#39;\epsilon\)</span> converja a cero?</li>
-<li>Escribe una hipótesis lineal <span class="math inline">\(R\beta=r\)</span> con dos restricciones y define el estadístico de Wald.</li>
-<li>Explica el papel de Slutsky en la derivación de la normalidad asintótica de MCO.</li>
+<li>Rehaz la demostración de consistencia de <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span>. ¿En qué paso se usa que <span class="math inline">\(\hat{\beta}\)</span> es consistente?</li>
+<li>En la demostración de normalidad asintótica, identifica <span class="math inline">\(A_n\)</span>, <span class="math inline">\(Z_n\)</span>, <span class="math inline">\(A\)</span> y <span class="math inline">\(\Sigma\)</span>, y verifica que <span class="math inline">\(A\Sigma A&#39;=\sigma_\epsilon^2Q^{-1}\)</span>.</li>
+<li>Muestra que el estadístico de Wald con <span class="math inline">\(\widehat{\text{Avar}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X&#39;X/n)^{-1}\)</span> es igual a <span class="math inline">\(q\cdot F\)</span>.</li>
 <li>Da un ejemplo en el que la aproximación asintótica podría ser poco confiable.</li>
 <li>Para ver convergencia e incertidumbre en simulaciones, resuelve la parte D del <a href="problem-set-2.html#problem-set-2">Problem Set 2: FWL, propiedades e inferencia</a>.</li>
 </ol>
 </div>
 </div>
-<div id="referencias-normas-teoria" class="section level2 hasAnchor" number="15.8">
-<h2><span class="header-section-number">15.8</span> Referencias<a href="normalidad-asintotica-teoria.html#referencias-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias-normas-teoria" class="section level2 hasAnchor" number="15.10">
+<h2><span class="header-section-number">15.10</span> Referencias<a href="normalidad-asintotica-teoria.html#referencias-normas-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
+<li>Wooldridge, Jeffrey. <em>Introducción a la econometría: un enfoque moderno</em>, capítulo 5.</li>
 <li>Wooldridge, Jeffrey. <em>Econometric Analysis of Cross Section and Panel Data</em>, capítulos 4 y 5.</li>
 <li>Hayashi, Fumio. <em>Econometrics</em>, capítulos 2 y 3.</li>
 <li>Greene, William. <em>Econometric Analysis</em>, capítulos 4 y 5.</li>
