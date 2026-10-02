@@ -274,10 +274,13 @@ ejercicios-computacionales-multico
 heterocedasticidad-teoria
 objetivos-heterocedasticidad-teoria
 intuicion-heterocedasticidad-teoria
-desarrollo-teorico-heterocedasticidad
-heterocedasticidad-pura-e-impura
-pruebas-de-heterocedasticidad
-correcciones
+modelo-heterocedasticidad
+heterocedasticidad-pura
+heterocedasticidad-impura
+consecuencias-heterocedasticidad
+white-heterocedasticidad
+mcp-heterocedasticidad
+pruebas-heterocedasticidad
 supuestos-propiedades-heterocedasticidad
 errores-comunes-heterocedasticidad
 resumen-heterocedasticidad-teoria

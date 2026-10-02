@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-10-01" />
+<meta name="date" content="2026-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -314,56 +314,56 @@ y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
 </div>
 <div id="código-base-en-r-2" class="section level3 hasAnchor" number="30.6.2">
 <h3><span class="header-section-number">30.6.2</span> Código base en R<a href="#c%C3%B3digo-base-en-r-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="problem-set-3.html#cb107-1" tabindex="-1"></a>simular_multico <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">ruido =</span> <span class="fl">0.01</span>) {</span>
-<span id="cb107-2"><a href="problem-set-3.html#cb107-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb107-3"><a href="problem-set-3.html#cb107-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb107-4"><a href="problem-set-3.html#cb107-4" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> ruido)</span>
-<span id="cb107-5"><a href="problem-set-3.html#cb107-5" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
-<span id="cb107-6"><a href="problem-set-3.html#cb107-6" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">25</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">5</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">15</span> <span class="sc">*</span> x3 <span class="sc">+</span> epsilon</span>
-<span id="cb107-7"><a href="problem-set-3.html#cb107-7" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2, x3)</span>
-<span id="cb107-8"><a href="problem-set-3.html#cb107-8" tabindex="-1"></a>}</span>
-<span id="cb107-9"><a href="problem-set-3.html#cb107-9" tabindex="-1"></a></span>
-<span id="cb107-10"><a href="problem-set-3.html#cb107-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb107-11"><a href="problem-set-3.html#cb107-11" tabindex="-1"></a>datos_100 <span class="ot">&lt;-</span> <span class="fu">simular_multico</span>(<span class="dv">100</span>)</span>
-<span id="cb107-12"><a href="problem-set-3.html#cb107-12" tabindex="-1"></a>modelo_100 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> datos_100)</span>
-<span id="cb107-13"><a href="problem-set-3.html#cb107-13" tabindex="-1"></a><span class="fu">summary</span>(modelo_100)</span>
-<span id="cb107-14"><a href="problem-set-3.html#cb107-14" tabindex="-1"></a><span class="fu">cor</span>(datos_100[<span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)])</span>
-<span id="cb107-15"><a href="problem-set-3.html#cb107-15" tabindex="-1"></a></span>
-<span id="cb107-16"><a href="problem-set-3.html#cb107-16" tabindex="-1"></a>datos_10000 <span class="ot">&lt;-</span> <span class="fu">simular_multico</span>(<span class="dv">10000</span>)</span>
-<span id="cb107-17"><a href="problem-set-3.html#cb107-17" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> datos_10000))</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="problem-set-3.html#cb108-1" tabindex="-1"></a>simular_multico <span class="ot">&lt;-</span> <span class="cf">function</span>(n, <span class="at">ruido =</span> <span class="fl">0.01</span>) {</span>
+<span id="cb108-2"><a href="problem-set-3.html#cb108-2" tabindex="-1"></a>  x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb108-3"><a href="problem-set-3.html#cb108-3" tabindex="-1"></a>  x2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb108-4"><a href="problem-set-3.html#cb108-4" tabindex="-1"></a>  x3 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> ruido)</span>
+<span id="cb108-5"><a href="problem-set-3.html#cb108-5" tabindex="-1"></a>  epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb108-6"><a href="problem-set-3.html#cb108-6" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="sc">+</span> <span class="dv">25</span> <span class="sc">*</span> x1 <span class="sc">-</span> <span class="dv">5</span> <span class="sc">*</span> x2 <span class="sc">+</span> <span class="dv">15</span> <span class="sc">*</span> x3 <span class="sc">+</span> epsilon</span>
+<span id="cb108-7"><a href="problem-set-3.html#cb108-7" tabindex="-1"></a>  <span class="fu">data.frame</span>(y, x1, x2, x3)</span>
+<span id="cb108-8"><a href="problem-set-3.html#cb108-8" tabindex="-1"></a>}</span>
+<span id="cb108-9"><a href="problem-set-3.html#cb108-9" tabindex="-1"></a></span>
+<span id="cb108-10"><a href="problem-set-3.html#cb108-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb108-11"><a href="problem-set-3.html#cb108-11" tabindex="-1"></a>datos_100 <span class="ot">&lt;-</span> <span class="fu">simular_multico</span>(<span class="dv">100</span>)</span>
+<span id="cb108-12"><a href="problem-set-3.html#cb108-12" tabindex="-1"></a>modelo_100 <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> datos_100)</span>
+<span id="cb108-13"><a href="problem-set-3.html#cb108-13" tabindex="-1"></a><span class="fu">summary</span>(modelo_100)</span>
+<span id="cb108-14"><a href="problem-set-3.html#cb108-14" tabindex="-1"></a><span class="fu">cor</span>(datos_100[<span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>)])</span>
+<span id="cb108-15"><a href="problem-set-3.html#cb108-15" tabindex="-1"></a></span>
+<span id="cb108-16"><a href="problem-set-3.html#cb108-16" tabindex="-1"></a>datos_10000 <span class="ot">&lt;-</span> <span class="fu">simular_multico</span>(<span class="dv">10000</span>)</span>
+<span id="cb108-17"><a href="problem-set-3.html#cb108-17" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(y <span class="sc">~</span> x1 <span class="sc">+</span> x2 <span class="sc">+</span> x3, <span class="at">data =</span> datos_10000))</span></code></pre></div>
 </div>
 <div id="código-base-en-stata-2" class="section level3 hasAnchor" number="30.6.3">
 <h3><span class="header-section-number">30.6.3</span> Código base en Stata<a href="#c%C3%B3digo-base-en-stata-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb108"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb108-1"><a href="problem-set-3.html#cb108-1" tabindex="-1"></a><span class="kw">clear</span></span>
-<span id="cb108-2"><a href="problem-set-3.html#cb108-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
-<span id="cb108-3"><a href="problem-set-3.html#cb108-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 100</span>
-<span id="cb108-4"><a href="problem-set-3.html#cb108-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
-<span id="cb108-5"><a href="problem-set-3.html#cb108-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
-<span id="cb108-6"><a href="problem-set-3.html#cb108-6" tabindex="-1"></a><span class="kw">gen</span> x3 = x1 + <span class="kw">x2</span> + rnormal(0, 0.01)</span>
-<span id="cb108-7"><a href="problem-set-3.html#cb108-7" tabindex="-1"></a><span class="kw">gen</span> epsilon = rnormal()</span>
-<span id="cb108-8"><a href="problem-set-3.html#cb108-8" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 5 + 25*x1 - 5*<span class="kw">x2</span> + 15*x3 + epsilon</span>
-<span id="cb108-9"><a href="problem-set-3.html#cb108-9" tabindex="-1"></a></span>
-<span id="cb108-10"><a href="problem-set-3.html#cb108-10" tabindex="-1"></a><span class="kw">regress</span> <span class="fu">y</span> x1 <span class="kw">x2</span> x3</span>
-<span id="cb108-11"><a href="problem-set-3.html#cb108-11" tabindex="-1"></a>correlate x1 <span class="kw">x2</span> x3</span>
-<span id="cb108-12"><a href="problem-set-3.html#cb108-12" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vif</span></span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode stata"><code class="sourceCode stata"><span id="cb109-1"><a href="problem-set-3.html#cb109-1" tabindex="-1"></a><span class="kw">clear</span></span>
+<span id="cb109-2"><a href="problem-set-3.html#cb109-2" tabindex="-1"></a><span class="kw">set</span> <span class="dv">seed</span> 123</span>
+<span id="cb109-3"><a href="problem-set-3.html#cb109-3" tabindex="-1"></a><span class="kw">set</span> <span class="kw">obs</span> 100</span>
+<span id="cb109-4"><a href="problem-set-3.html#cb109-4" tabindex="-1"></a><span class="kw">gen</span> x1 = rnormal()</span>
+<span id="cb109-5"><a href="problem-set-3.html#cb109-5" tabindex="-1"></a><span class="kw">gen</span> <span class="kw">x2</span> = rnormal()</span>
+<span id="cb109-6"><a href="problem-set-3.html#cb109-6" tabindex="-1"></a><span class="kw">gen</span> x3 = x1 + <span class="kw">x2</span> + rnormal(0, 0.01)</span>
+<span id="cb109-7"><a href="problem-set-3.html#cb109-7" tabindex="-1"></a><span class="kw">gen</span> epsilon = rnormal()</span>
+<span id="cb109-8"><a href="problem-set-3.html#cb109-8" tabindex="-1"></a><span class="kw">gen</span> <span class="fu">y</span> = 5 + 25*x1 - 5*<span class="kw">x2</span> + 15*x3 + epsilon</span>
+<span id="cb109-9"><a href="problem-set-3.html#cb109-9" tabindex="-1"></a></span>
+<span id="cb109-10"><a href="problem-set-3.html#cb109-10" tabindex="-1"></a><span class="kw">regress</span> <span class="fu">y</span> x1 <span class="kw">x2</span> x3</span>
+<span id="cb109-11"><a href="problem-set-3.html#cb109-11" tabindex="-1"></a>correlate x1 <span class="kw">x2</span> x3</span>
+<span id="cb109-12"><a href="problem-set-3.html#cb109-12" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">vif</span></span></code></pre></div>
 </div>
 <div id="código-base-en-python-2" class="section level3 hasAnchor" number="30.6.4">
 <h3><span class="header-section-number">30.6.4</span> Código base en Python<a href="#c%C3%B3digo-base-en-python-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb109"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb109-1"><a href="problem-set-3.html#cb109-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb109-2"><a href="problem-set-3.html#cb109-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb109-3"><a href="problem-set-3.html#cb109-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
-<span id="cb109-4"><a href="problem-set-3.html#cb109-4" tabindex="-1"></a></span>
-<span id="cb109-5"><a href="problem-set-3.html#cb109-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
-<span id="cb109-6"><a href="problem-set-3.html#cb109-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb109-7"><a href="problem-set-3.html#cb109-7" tabindex="-1"></a>x1 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb109-8"><a href="problem-set-3.html#cb109-8" tabindex="-1"></a>x2 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb109-9"><a href="problem-set-3.html#cb109-9" tabindex="-1"></a>x3 <span class="op">=</span> x1 <span class="op">+</span> x2 <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.01</span>, size<span class="op">=</span>n)</span>
-<span id="cb109-10"><a href="problem-set-3.html#cb109-10" tabindex="-1"></a>epsilon <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb109-11"><a href="problem-set-3.html#cb109-11" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">25</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">5</span><span class="op">*</span>x2 <span class="op">+</span> <span class="dv">15</span><span class="op">*</span>x3 <span class="op">+</span> epsilon</span>
-<span id="cb109-12"><a href="problem-set-3.html#cb109-12" tabindex="-1"></a></span>
-<span id="cb109-13"><a href="problem-set-3.html#cb109-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(pd.DataFrame({<span class="st">&quot;x1&quot;</span>: x1, <span class="st">&quot;x2&quot;</span>: x2, <span class="st">&quot;x3&quot;</span>: x3}))</span>
-<span id="cb109-14"><a href="problem-set-3.html#cb109-14" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(y, X).fit()</span>
-<span id="cb109-15"><a href="problem-set-3.html#cb109-15" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span></code></pre></div>
+<div class="sourceCode" id="cb110"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb110-1"><a href="problem-set-3.html#cb110-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb110-2"><a href="problem-set-3.html#cb110-2" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb110-3"><a href="problem-set-3.html#cb110-3" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb110-4"><a href="problem-set-3.html#cb110-4" tabindex="-1"></a></span>
+<span id="cb110-5"><a href="problem-set-3.html#cb110-5" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">123</span>)</span>
+<span id="cb110-6"><a href="problem-set-3.html#cb110-6" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb110-7"><a href="problem-set-3.html#cb110-7" tabindex="-1"></a>x1 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb110-8"><a href="problem-set-3.html#cb110-8" tabindex="-1"></a>x2 <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb110-9"><a href="problem-set-3.html#cb110-9" tabindex="-1"></a>x3 <span class="op">=</span> x1 <span class="op">+</span> x2 <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.01</span>, size<span class="op">=</span>n)</span>
+<span id="cb110-10"><a href="problem-set-3.html#cb110-10" tabindex="-1"></a>epsilon <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb110-11"><a href="problem-set-3.html#cb110-11" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">5</span> <span class="op">+</span> <span class="dv">25</span><span class="op">*</span>x1 <span class="op">-</span> <span class="dv">5</span><span class="op">*</span>x2 <span class="op">+</span> <span class="dv">15</span><span class="op">*</span>x3 <span class="op">+</span> epsilon</span>
+<span id="cb110-12"><a href="problem-set-3.html#cb110-12" tabindex="-1"></a></span>
+<span id="cb110-13"><a href="problem-set-3.html#cb110-13" tabindex="-1"></a>X <span class="op">=</span> sm.add_constant(pd.DataFrame({<span class="st">&quot;x1&quot;</span>: x1, <span class="st">&quot;x2&quot;</span>: x2, <span class="st">&quot;x3&quot;</span>: x3}))</span>
+<span id="cb110-14"><a href="problem-set-3.html#cb110-14" tabindex="-1"></a>modelo <span class="op">=</span> sm.OLS(y, X).fit()</span>
+<span id="cb110-15"><a href="problem-set-3.html#cb110-15" tabindex="-1"></a><span class="bu">print</span>(modelo.summary())</span></code></pre></div>
 </div>
 </div>
 <div id="parte-e-simulación-de-heterocedasticidad" class="section level2 hasAnchor" number="30.7">
@@ -378,22 +378,22 @@ y_i=5+25X_{1i}-5X_{2i}+15X_{3i}+\epsilon_i,
 </div>
 <div id="código-base-en-r-3" class="section level3 hasAnchor" number="30.7.1">
 <h3><span class="header-section-number">30.7.1</span> Código base en R<a href="#c%C3%B3digo-base-en-r-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="problem-set-3.html#cb110-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb110-2"><a href="problem-set-3.html#cb110-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
-<span id="cb110-3"><a href="problem-set-3.html#cb110-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">1</span>, <span class="dv">10</span>)</span>
-<span id="cb110-4"><a href="problem-set-3.html#cb110-4" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> x</span>
-<span id="cb110-5"><a href="problem-set-3.html#cb110-5" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> sigma)</span>
-<span id="cb110-6"><a href="problem-set-3.html#cb110-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> epsilon</span>
-<span id="cb110-7"><a href="problem-set-3.html#cb110-7" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x, sigma)</span>
-<span id="cb110-8"><a href="problem-set-3.html#cb110-8" tabindex="-1"></a></span>
-<span id="cb110-9"><a href="problem-set-3.html#cb110-9" tabindex="-1"></a>mco <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos)</span>
-<span id="cb110-10"><a href="problem-set-3.html#cb110-10" tabindex="-1"></a>wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos, <span class="at">weights =</span> <span class="dv">1</span> <span class="sc">/</span> sigma<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb110-11"><a href="problem-set-3.html#cb110-11" tabindex="-1"></a></span>
-<span id="cb110-12"><a href="problem-set-3.html#cb110-12" tabindex="-1"></a><span class="fu">summary</span>(mco)</span>
-<span id="cb110-13"><a href="problem-set-3.html#cb110-13" tabindex="-1"></a><span class="fu">summary</span>(wls)</span>
-<span id="cb110-14"><a href="problem-set-3.html#cb110-14" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(mco), <span class="fu">resid</span>(mco),</span>
-<span id="cb110-15"><a href="problem-set-3.html#cb110-15" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Valores ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
-<span id="cb110-16"><a href="problem-set-3.html#cb110-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="problem-set-3.html#cb111-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb111-2"><a href="problem-set-3.html#cb111-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb111-3"><a href="problem-set-3.html#cb111-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(n, <span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb111-4"><a href="problem-set-3.html#cb111-4" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> x</span>
+<span id="cb111-5"><a href="problem-set-3.html#cb111-5" tabindex="-1"></a>epsilon <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">sd =</span> sigma)</span>
+<span id="cb111-6"><a href="problem-set-3.html#cb111-6" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> epsilon</span>
+<span id="cb111-7"><a href="problem-set-3.html#cb111-7" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, x, sigma)</span>
+<span id="cb111-8"><a href="problem-set-3.html#cb111-8" tabindex="-1"></a></span>
+<span id="cb111-9"><a href="problem-set-3.html#cb111-9" tabindex="-1"></a>mco <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos)</span>
+<span id="cb111-10"><a href="problem-set-3.html#cb111-10" tabindex="-1"></a>wls <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> datos, <span class="at">weights =</span> <span class="dv">1</span> <span class="sc">/</span> sigma<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb111-11"><a href="problem-set-3.html#cb111-11" tabindex="-1"></a></span>
+<span id="cb111-12"><a href="problem-set-3.html#cb111-12" tabindex="-1"></a><span class="fu">summary</span>(mco)</span>
+<span id="cb111-13"><a href="problem-set-3.html#cb111-13" tabindex="-1"></a><span class="fu">summary</span>(wls)</span>
+<span id="cb111-14"><a href="problem-set-3.html#cb111-14" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(mco), <span class="fu">resid</span>(mco),</span>
+<span id="cb111-15"><a href="problem-set-3.html#cb111-15" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Valores ajustados&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Residuos&quot;</span>)</span>
+<span id="cb111-16"><a href="problem-set-3.html#cb111-16" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;#C0562F&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="cierre-2" class="section level2 hasAnchor" number="30.8">

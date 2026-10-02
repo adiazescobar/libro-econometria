@@ -150,13 +150,13 @@ se_ing_wls_het <- tabla_wls_het["ingreso", "Std. Error"]
 
 kable(
   data.frame(
-    modelo = c("MCO clásico", "MCO con EE HC1", "WLS con pesos conocidos"),
+    modelo = c("MCO clásico", "MCO con EE HC1", "MCP (WLS) con pesos conocidos"),
     beta_ingreso = c(beta_ing_het, beta_ing_het, beta_ing_wls_het),
     error_estandar = c(se_ing_clasico_het, se_ing_hc1_het, se_ing_wls_het),
     t = c(t_ing_clasico_het, t_ing_hc1_het, beta_ing_wls_het / se_ing_wls_het)
   ),
   digits = 4,
-  caption = "Comparación entre MCO, errores robustos y WLS"
+  caption = "Comparación entre MCO, errores robustos y MCP (WLS)"
 )
 ```
 
@@ -178,7 +178,7 @@ La pendiente estimada de ingreso es `r sprintf("%.3f", beta_ing_het)`. Con error
 El estadístico LM de Breusch-Pagan es `r sprintf("%.3f", bp_lm)` y su \(p\)-valor es `r sprintf("%.3f", bp_p)`. El estadístico auxiliar de White es `r sprintf("%.3f", white_lm)` y su \(p\)-valor es `r sprintf("%.3f", white_p)`.
 
 ::: {.box-cuidado}
-En esta práctica conocemos la forma de la varianza porque la simulamos. En datos reales, WLS requiere justificar o estimar los pesos. Si no hay una forma clara de modelar \(\Omega\), reportar errores robustos suele ser una primera respuesta razonable.
+En esta práctica conocemos la forma de la varianza porque la simulamos. En datos reales, MCP (WLS en inglés) requiere justificar o estimar los pesos. Si no hay una forma clara de modelar \(\Psi\), reportar errores robustos suele ser una primera respuesta razonable.
 :::
 
 ## Estimación en Stata {#estimacion-stata-heterocedasticidad}
@@ -279,7 +279,7 @@ R, Stata y Python estiman los mismos coeficientes de MCO si usan la misma base. 
 
 ::: {.box-cuidado}
 - **Concluir causalidad por corregir errores estándar.** Los robustos corrigen inferencia bajo heterocedasticidad, no endogeneidad.
-- **Usar WLS sin justificar pesos.** Los pesos deben venir de una estructura de varianza defendible.
+- **Usar MCP sin justificar pesos.** Los pesos deben venir de una estructura de varianza defendible.
 - **Ignorar gráficos.** Las pruebas resumen patrones, pero el gráfico de residuos ayuda a ver la forma del problema.
 - **Comparar \(t\) clásicos y robustos como si fueran distintos coeficientes.** En MCO con robustos, el coeficiente no cambia; cambia su error estándar.
 :::

@@ -26,7 +26,7 @@ Cubre el modelo clásico de regresión lineal, sus supuestos, propiedades y exte
 <meta name="author" content="Ana María Díaz" />
 
 
-<meta name="date" content="2026-10-01" />
+<meta name="date" content="2026-10-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,144 +205,266 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">19.1</span> Objetivos de aprendizaje<a href="heterocedasticidad-teoria.html#objetivos-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Al finalizar esta página podrás:</p>
 <ol style="list-style-type: decimal">
-<li>Definir heterocedasticidad y distinguirla de homocedasticidad.</li>
-<li>Explicar por qué MCO puede seguir siendo insesgado pero perder eficiencia.</li>
-<li>Derivar la varianza de <span class="math inline">\(\hat{\beta}\)</span> cuando <span class="math inline">\(\text{Var}(\epsilon\mid X)=\Omega\)</span>.</li>
+<li>Escribir la heterocedasticidad como <span class="math inline">\(\text{Var}(\epsilon)=\sigma_\epsilon^2\Psi\)</span> y reconocer sus dos casos puros.</li>
+<li>Explicar por qué MCO sigue siendo insesgado y consistente, pero <code>reg y x</code> reporta mal la varianza.</li>
+<li>Derivar <span class="math inline">\(\text{Var}(\hat{\beta})=\sigma_\epsilon^2(X&#39;X)^{-1}X&#39;\Psi X(X&#39;X)^{-1}\)</span>.</li>
+<li>Calcular los errores robustos de White con la receta de cinco pasos.</li>
+<li>Derivar el estimador de MCO ponderados (MCP) y su varianza.</li>
 <li>Describir la lógica de las pruebas de White, Breusch-Pagan y Goldfeld-Quandt.</li>
-<li>Comparar errores estándar robustos, WLS, GLS y FGLS.</li>
 </ol>
 </div>
 <div id="intuicion-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.2">
 <h2><span class="header-section-number">19.2</span> Intuición y motivación<a href="heterocedasticidad-teoria.html#intuicion-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El supuesto clásico de homocedasticidad dice que la varianza del error es constante para todas las observaciones:</p>
+<p>El supuesto clásico de perturbaciones esféricas dice que todas las observaciones tienen la misma varianza del error,</p>
 <p><span class="math display">\[
-\text{Var}(\epsilon_i\mid X)=\sigma^2.
+\text{Var}(\epsilon)=\sigma_\epsilon^2I_n .
 \]</span></p>
-<p>La heterocedasticidad aparece cuando esa varianza cambia entre observaciones:</p>
-<p><span class="math display">\[
-\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
-\]</span></p>
+<p>Hay heterocedasticidad cuando esa varianza cambia de una observación a otra.</p>
 <div class="box-intuicion">
-<p>En un modelo de consumo e ingreso, los hogares de bajos ingresos suelen tener poca dispersión en consumo, mientras que los hogares de altos ingresos pueden diferir mucho entre sí. La recta puede seguir pasando por el centro de la nube, pero la incertidumbre alrededor de la recta no es igual en toda la muestra.</p>
+<p>Piensen en el gasto de los hogares contra su ingreso. Los hogares de ingreso bajo gastan más o menos lo mismo, porque no tienen mucho margen. Entre los hogares de ingreso alto hay de todo, algunos gastan mucho y otros ahorran mucho. La recta de MCO puede seguir pasando por el centro de la nube, pero la dispersión alrededor de la recta crece con el ingreso.</p>
 </div>
-<p>El problema principal no es necesariamente el coeficiente de MCO. Si se mantiene <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>, MCO sigue siendo insesgado y consistente. El problema es que la matriz clásica de varianzas:</p>
-<p><span class="math display">\[
-\hat{\sigma}^2(X&#39;X)^{-1}
-\]</span></p>
-<p>ya no estima correctamente la incertidumbre de <span class="math inline">\(\hat{\beta}\)</span>. Por eso las pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> clásicas pueden ser engañosas.</p>
 </div>
-<div id="desarrollo-teorico-heterocedasticidad" class="section level2 hasAnchor" number="19.3">
-<h2><span class="header-section-number">19.3</span> Desarrollo teórico<a href="heterocedasticidad-teoria.html#desarrollo-teorico-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Partimos del modelo lineal:</p>
+<div id="modelo-heterocedasticidad" class="section level2 hasAnchor" number="19.3">
+<h2><span class="header-section-number">19.3</span> El modelo con heterocedasticidad<a href="heterocedasticidad-teoria.html#modelo-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Partimos de</p>
 <p><span class="math display">\[
 y=X\beta+\epsilon,
 \qquad
 \mathbb{E}[\epsilon\mid X]=0,
 \qquad
-\text{Var}(\epsilon\mid X)=\Omega.
+\text{Var}(\epsilon)=\sigma_\epsilon^2\Psi ,
 \]</span></p>
-<p>El estimador MCO es:</p>
+<p>donde <span class="math inline">\(\Psi\)</span> es una matriz <span class="math inline">\(n\times n\)</span>. En el caso que estudiamos, <span class="math inline">\(\Psi\)</span> es diagonal,</p>
 <p><span class="math display">\[
-\hat{\beta}=(X&#39;X)^{-1}X&#39;y.
+\Psi=
+\begin{bmatrix}
+z_1 &amp; &amp; &amp; 0\\
+&amp; z_2 &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+0 &amp; &amp; &amp; z_n
+\end{bmatrix}_{n\times n},
 \]</span></p>
-<p>Sustituyendo el modelo:</p>
+<p>así que la observación <span class="math inline">\(i\)</span> tiene varianza <span class="math inline">\(\sigma_\epsilon^2z_i\)</span>. Si <span class="math inline">\(\Psi=I_n\)</span> volvemos al caso homocedástico.</p>
+<div id="heterocedasticidad-pura" class="section level3 hasAnchor" number="19.3.1">
+<h3><span class="header-section-number">19.3.1</span> Heterocedasticidad pura<a href="heterocedasticidad-teoria.html#heterocedasticidad-pura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La heterocedasticidad es <strong>pura</strong> cuando la varianza realmente cambia entre observaciones, aunque el modelo esté bien especificado. Vimos dos casos.</p>
+<p><strong>a. Datos agrupados.</strong> Muchas veces no observamos a las personas sino promedios por grupo (municipio, colegio, empresa). Si el grupo <span class="math inline">\(m\)</span> tiene <span class="math inline">\(N_m\)</span> personas y cada una tiene un error con varianza <span class="math inline">\(\sigma_u^2\)</span>, el error promedio del grupo tiene varianza <span class="math inline">\(\sigma_u^2/N_m\)</span>. Con <span class="math inline">\(J\)</span> grupos,</p>
 <p><span class="math display">\[
-\hat{\beta}
-= (X&#39;X)^{-1}X&#39;(X\beta+\epsilon)
-= \beta + (X&#39;X)^{-1}X&#39;\epsilon.
+\text{Var}(\bar{u}_m)=\sigma_u^2\Psi,
+\qquad
+\Psi=
+\begin{bmatrix}
+1/N_{m_1} &amp; &amp; &amp; 0\\
+&amp; 1/N_{m_2} &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+0 &amp; &amp; &amp; 1/N_{m_J}
+\end{bmatrix}_{J\times J}.
 \]</span></p>
-<p>Por tanto, si <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>,</p>
-<p><span class="math display">\[
-\mathbb{E}[\hat{\beta}\mid X]=\beta.
-\]</span></p>
-<p>La varianza condicional cambia:</p>
-<p><span class="math display">\[
-\text{Var}(\hat{\beta}\mid X)
-= (X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}.
-\]</span></p>
-<div class="box-cuidado">
-<p>La heterocedasticidad no viola automáticamente la exogeneidad. Si el error sigue teniendo media condicional cero, el problema clásico es de eficiencia e inferencia, no de sesgo.</p>
+<p>Los grupos grandes tienen promedios más precisos que los grupos pequeños.</p>
+<p><strong>b. Grupos de varianza local.</strong> Cada observación tiene su propia escala de dispersión <span class="math inline">\(z_i\)</span>, como en el ejemplo del gasto y el ingreso. Ahí <span class="math inline">\(\text{Var}(\epsilon)=\sigma_\epsilon^2\Psi\)</span> con <span class="math inline">\(\Psi=\text{diag}(z_1,\dots,z_n)\)</span>.</p>
 </div>
-<p>Cuando <span class="math inline">\(\Omega=\sigma^2I\)</span>, la expresión anterior se reduce a:</p>
+<div id="heterocedasticidad-impura" class="section level3 hasAnchor" number="19.3.2">
+<h3><span class="header-section-number">19.3.2</span> Heterocedasticidad impura<a href="heterocedasticidad-teoria.html#heterocedasticidad-impura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La heterocedasticidad <strong>impura</strong> es un síntoma de mala especificación. Si el modelo verdadero es</p>
 <p><span class="math display">\[
-\text{Var}(\hat{\beta}\mid X)=\sigma^2(X&#39;X)^{-1}.
+y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\epsilon_i
 \]</span></p>
-<p>Si <span class="math inline">\(\Omega\neq \sigma^2I\)</span>, usar <span class="math inline">\(\hat{\sigma}^2(X&#39;X)^{-1}\)</span> ignora la forma real de la dispersión.</p>
-<div id="heterocedasticidad-pura-e-impura" class="section level3 hasAnchor" number="19.3.1">
-<h3><span class="header-section-number">19.3.1</span> Heterocedasticidad pura e impura<a href="heterocedasticidad-teoria.html#heterocedasticidad-pura-e-impura" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La heterocedasticidad puede ser pura o impura.</p>
-<p>La heterocedasticidad pura ocurre cuando la varianza del error realmente cambia entre observaciones, aun con el modelo bien especificado:</p>
-<p><span class="math display">\[
-\text{Var}(\epsilon_i\mid X)=\sigma_i^2.
-\]</span></p>
-<p>La heterocedasticidad impura aparece como síntoma de mala especificación. Por ejemplo, si el verdadero modelo incluye <span class="math inline">\(X_3\)</span>:</p>
-<p><span class="math display">\[
-y_i=\beta_1+\beta_2X_{2i}+\beta_3X_{3i}+\epsilon_i,
-\]</span></p>
-<p>pero se estima:</p>
+<p>pero se estima</p>
 <p><span class="math display">\[
 y_i=\beta_1+\beta_2X_{2i}+u_i,
 \]</span></p>
-<p>entonces:</p>
-<p><span class="math display">\[
-u_i=\beta_3X_{3i}+\epsilon_i.
-\]</span></p>
-<p>Si <span class="math inline">\(X_3\)</span> cambia sistemáticamente con <span class="math inline">\(X_2\)</span>, la varianza del error compuesto también puede cambiar.</p>
+<p>entonces <span class="math inline">\(u_i=\beta_3X_{3i}+\epsilon_i\)</span>. Si <span class="math inline">\(X_3\)</span> cambia sistemáticamente con <span class="math inline">\(X_2\)</span>, la varianza del error compuesto también cambia. En este caso la solución no es corregir la varianza sino especificar bien el modelo.</p>
 </div>
-<div id="pruebas-de-heterocedasticidad" class="section level3 hasAnchor" number="19.3.2">
-<h3><span class="header-section-number">19.3.2</span> Pruebas de heterocedasticidad<a href="heterocedasticidad-teoria.html#pruebas-de-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las pruebas formales usan una idea común: si hay heterocedasticidad, los residuos al cuadrado deberían estar relacionados con variables observables.</p>
-<p>En la prueba de Breusch-Pagan se estima una regresión auxiliar:</p>
+</div>
+<div id="consecuencias-heterocedasticidad" class="section level2 hasAnchor" number="19.4">
+<h2><span class="header-section-number">19.4</span> Consecuencias para MCO<a href="heterocedasticidad-teoria.html#consecuencias-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El estimador sigue siendo el mismo,</p>
 <p><span class="math display">\[
-\hat{\epsilon}_i^2 = \alpha_0+\alpha_1z_{1i}+\cdots+\alpha_mz_{mi}+v_i.
+\hat{\beta}=(X&#39;X)^{-1}X&#39;y=\beta+(X&#39;X)^{-1}X&#39;\epsilon .
 \]</span></p>
-<p>El estadístico LM suele escribirse como:</p>
+<p><strong>Lo que se mantiene.</strong> Como <span class="math inline">\(\mathbb{E}[\epsilon\mid X]=0\)</span>,</p>
 <p><span class="math display">\[
-LM=nR^2_{\text{aux}}.
+\mathbb{E}[\hat{\beta}]=\beta \quad\text{(insesgado)},
+\qquad
+\text{plim}[\hat{\beta}]=\beta \quad\text{(consistente)}.
 \]</span></p>
-<p>Bajo la hipótesis nula de homocedasticidad:</p>
+<p>Ninguna de las dos demostraciones usó la varianza del error.</p>
+<p><strong>Lo que se rompe.</strong> Usando <span class="math inline">\(\text{Var}(A\epsilon)=A\,\text{Var}(\epsilon)\,A&#39;\)</span> con <span class="math inline">\(A=(X&#39;X)^{-1}X&#39;\)</span>,</p>
 <p><span class="math display">\[
-LM \overset{a}{\sim} \chi^2_m.
+\begin{aligned}
+\text{Var}[\hat{\beta}]
+&amp;=\text{Var}\big[\beta+(X&#39;X)^{-1}X&#39;\epsilon\big]\\
+&amp;=(X&#39;X)^{-1}X&#39;\,\underbrace{\text{Var}(\epsilon)}_{\sigma_\epsilon^2\Psi}\,X(X&#39;X)^{-1}\\
+&amp;=\sigma_\epsilon^2\,(X&#39;X)^{-1}X&#39;\Psi X(X&#39;X)^{-1}.
+\end{aligned}
 \]</span></p>
-<p>La prueba de White es más general: usa regresores, cuadrados y cruces en la regresión auxiliar. Es flexible, pero puede consumir muchos grados de libertad en muestras pequeñas.</p>
+<p>Revisemos las dimensiones para ver que el resultado es <span class="math inline">\(K\times K\)</span>,</p>
+<p><span class="math display">\[
+\underbrace{\sigma_\epsilon^2}_{1\times 1}\ \underbrace{(X&#39;X)^{-1}}_{K\times K}\ \underbrace{X&#39;}_{K\times n}\ \underbrace{\Psi}_{n\times n}\ \underbrace{X}_{n\times K}\ \underbrace{(X&#39;X)^{-1}}_{K\times K}.
+\]</span></p>
+<p>El problema es que <code>reg y x</code> no usa esta fórmula. Reporta</p>
+<p><span class="math display">\[
+\widehat{\text{Var}}(\hat{\beta})=\hat{\sigma}_\epsilon^2(X&#39;X)^{-1},
+\]</span></p>
+<p>que solo es correcta si <span class="math inline">\(\Psi=I_n\)</span>. Con heterocedasticidad, los errores estándar que reporta Stata por defecto están mal, y con ellos las pruebas <span class="math inline">\(t\)</span>, las <span class="math inline">\(F\)</span> y los intervalos de confianza.</p>
+<div class="box-cuidado">
+<p>La heterocedasticidad <strong>no</strong> sesga a MCO si se mantiene la exogeneidad. El problema es de inferencia (errores estándar equivocados) y de eficiencia (MCO deja de ser el estimador lineal insesgado de menor varianza), no de sesgo.</p>
+</div>
+</div>
+<div id="white-heterocedasticidad" class="section level2 hasAnchor" number="19.5">
+<h2><span class="header-section-number">19.5</span> Solución 1. Errores robustos de White<a href="heterocedasticidad-teoria.html#white-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La primera solución deja el estimador como está y solo corrige su varianza. En Stata es</p>
+<pre><code>reg y x, robust</code></pre>
+<p>La idea es reemplazar la matriz desconocida <span class="math inline">\(\sigma_\epsilon^2\Psi\)</span> por los residuos al cuadrado. La receta tiene cinco pasos.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Paso</th>
+<th>Qué se hace</th>
+<th>En Stata</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Estimar <span class="math inline">\(y=X\beta+\epsilon\)</span> por MCO</td>
+<td><code>reg y x</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Calcular los residuos <span class="math inline">\(\hat{\epsilon}=y-X\hat{\beta}\)</span></td>
+<td><code>predict res_hat, res</code></td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Elevarlos al cuadrado, <span class="math inline">\(\hat{\epsilon}_i^2=\hat{\epsilon}_i\times\hat{\epsilon}_i\)</span></td>
+<td><code>gen res_hat2 = res_hat^2</code></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Armar <span class="math inline">\(\hat{\Psi}=\text{diag}(\hat{\epsilon}_1^2,\hat{\epsilon}_2^2,\dots,\hat{\epsilon}_n^2)\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Calcular el sándwich</td>
+<td><code>reg y x, robust</code> hace todo</td>
+</tr>
+</tbody>
+</table>
+<p>En el paso 5,</p>
+<p><span class="math display">\[
+\widehat{\text{Var}}_{White}(\hat{\beta})=(X&#39;X)^{-1}X&#39;\hat{\Psi}X(X&#39;X)^{-1}
+=(X&#39;X)^{-1}\left(\sum_{i=1}^{n}\hat{\epsilon}_i^2\,x_ix_i&#39;\right)(X&#39;X)^{-1}.
+\]</span></p>
+<div class="box-cuidado">
+<p>En la fórmula de White <strong>no</strong> va <span class="math inline">\(\sigma_\epsilon^2\)</span> adelante. En la varianza poblacional, <span class="math inline">\(\sigma_\epsilon^2\)</span> multiplica a <span class="math inline">\(\Psi\)</span> porque la varianza de la observación <span class="math inline">\(i\)</span> es <span class="math inline">\(\sigma_\epsilon^2z_i\)</span>. En la versión estimada, cada <span class="math inline">\(\hat{\epsilon}_i^2\)</span> ya estima <span class="math inline">\(\sigma_\epsilon^2z_i\)</span> completo. Si además multiplicáramos por <span class="math inline">\(\hat{\sigma}_\epsilon^2\)</span>, contaríamos <span class="math inline">\(\sigma_\epsilon^2\)</span> dos veces.</p>
+</div>
+<p>Los errores robustos se justifican en muestras grandes, con la lógica del capítulo de <a href="normalidad-asintotica-teoria.html#normalidad-asintotica-teoria">normalidad asintótica</a>. Los coeficientes no cambian; solo cambian los errores estándar, las <span class="math inline">\(t\)</span>, los valores <span class="math inline">\(p\)</span> y los intervalos.</p>
+</div>
+<div id="mcp-heterocedasticidad" class="section level2 hasAnchor" number="19.6">
+<h2><span class="header-section-number">19.6</span> Solución 2. MCO ponderados<a href="heterocedasticidad-teoria.html#mcp-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La segunda solución cambia el estimador. Si conocemos <span class="math inline">\(\Psi\)</span>, transformamos el modelo para que el error vuelva a ser esférico, y después aplicamos MCO al modelo transformado.</p>
+<p><strong>La matriz de transformación.</strong> Como <span class="math inline">\(\Psi\)</span> es diagonal con elementos positivos, la podemos partir en dos,</p>
+<p><span class="math display">\[
+\Psi=
+\begin{bmatrix}
+z_1^{1/2}z_1^{1/2} &amp; &amp; 0\\
+&amp; \ddots &amp; \\
+0 &amp; &amp; z_n^{1/2}z_n^{1/2}
+\end{bmatrix}
+=\Psi^{1/2}\,\Psi^{1/2}.
+\]</span></p>
+<p>Definimos</p>
+<p><span class="math display">\[
+G=
+\begin{bmatrix}
+1/\sqrt{z_1} &amp; &amp; &amp; 0\\
+&amp; 1/\sqrt{z_2} &amp; &amp; \\
+&amp; &amp; \ddots &amp; \\
+0 &amp; &amp; &amp; 1/\sqrt{z_n}
+\end{bmatrix},
+\qquad
+G&#39;G=\Psi^{-1},
+\qquad
+(G&#39;G)^{-1}=\Psi .
+\]</span></p>
+<p><strong>El modelo transformado.</strong> Premultiplicamos todo el modelo por <span class="math inline">\(G\)</span>,</p>
+<p><span class="math display">\[
+Gy=GX\beta+G\epsilon,
+\qquad\text{que escribimos como}\qquad
+\ddot{y}=\ddot{X}\beta+\ddot{\epsilon}.
+\]</span></p>
+<p>Multiplicar por <span class="math inline">\(G\)</span> divide cada observación por <span class="math inline">\(\sqrt{z_i}\)</span>,</p>
+<p><span class="math display">\[
+G\epsilon=
+\begin{bmatrix}
+\epsilon_1/\sqrt{z_1}\\
+\epsilon_2/\sqrt{z_2}\\
+\vdots\\
+\epsilon_n/\sqrt{z_n}
+\end{bmatrix}_{n\times 1}.
+\]</span></p>
+<p><strong>El error transformado es esférico.</strong> Su media es <span class="math inline">\(\mathbb{E}[G\epsilon]=G\,\mathbb{E}[\epsilon]=0\)</span>. Su varianza, usando <span class="math inline">\(\text{Var}(AY)=A\,\text{Var}(Y)\,A&#39;\)</span> y <span class="math inline">\((AB)^{-1}=B^{-1}A^{-1}\)</span>, es</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Var}[G\epsilon]&amp;=G\,\text{Var}[\epsilon]\,G&#39;=\sigma_\epsilon^2\,G\Psi G&#39;\\
+&amp;=\sigma_\epsilon^2\,G(G&#39;G)^{-1}G&#39;\\
+&amp;=\sigma_\epsilon^2\,\underbrace{GG^{-1}}_{I_n}\,\underbrace{G&#39;^{-1}G&#39;}_{I_n}\\
+&amp;=\sigma_\epsilon^2I_n .
+\end{aligned}
+\]</span></p>
+<p>Entonces <span class="math inline">\(\ddot{\epsilon}\sim(0,\sigma_\epsilon^2I_n)\)</span>, y en el modelo transformado vuelven a valer todos los supuestos clásicos.</p>
+<p><strong>El estimador.</strong> Aplicamos MCO al modelo transformado,</p>
+<p><span class="math display">\[
+\begin{aligned}
+\hat{\beta}_{MCP}&amp;=(\ddot{X}&#39;\ddot{X})^{-1}\ddot{X}&#39;\ddot{y}\\
+&amp;=\big((GX)&#39;(GX)\big)^{-1}(GX)&#39;Gy\\
+&amp;=(X&#39;G&#39;GX)^{-1}X&#39;G&#39;Gy\\
+&amp;=(X&#39;\Psi^{-1}X)^{-1}X&#39;\Psi^{-1}y .
+\end{aligned}
+\]</span></p>
+<p>Este estimador también se llama de <strong>mínimos cuadrados generalizados (MCG)</strong>, que es el nombre que recibe cuando <span class="math inline">\(\Psi\)</span> no es necesariamente diagonal. Es insesgado y consistente, <span class="math inline">\(\mathbb{E}[\hat{\beta}_{MCP}]=\beta\)</span> y <span class="math inline">\(\text{plim}[\hat{\beta}_{MCP}]=\beta\)</span>.</p>
+<p><strong>Su varianza.</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Var}[\hat{\beta}_{MCP}]&amp;=\text{Var}\big[(\ddot{X}&#39;\ddot{X})^{-1}\ddot{X}&#39;(\ddot{X}\beta+\ddot{\epsilon})\big]
+=\text{Var}\big[\beta+(\ddot{X}&#39;\ddot{X})^{-1}\ddot{X}&#39;\ddot{\epsilon}\big]\\
+&amp;=(\ddot{X}&#39;\ddot{X})^{-1}\ddot{X}&#39;\,\underbrace{\text{Var}(\ddot{\epsilon})}_{\sigma_\epsilon^2I_n}\,\ddot{X}(\ddot{X}&#39;\ddot{X})^{-1}\\
+&amp;=\sigma_\epsilon^2(\ddot{X}&#39;\ddot{X})^{-1}
+=\sigma_\epsilon^2\big((GX)&#39;(GX)\big)^{-1}
+=\sigma_\epsilon^2(X&#39;G&#39;GX)^{-1}\\
+&amp;=\sigma_\epsilon^2(X&#39;\Psi^{-1}X)^{-1}.
+\end{aligned}
+\]</span></p>
+<div class="box-intuicion">
+<p>¿Por qué “ponderados”? Dividir la observación <span class="math inline">\(i\)</span> por <span class="math inline">\(\sqrt{z_i}\)</span> equivale a minimizar <span class="math inline">\(\sum_i w_i(y_i-x_i&#39;\beta)^2\)</span> con pesos <span class="math inline">\(w_i=1/z_i\)</span>. Las observaciones con mucha dispersión (los hogares de ingreso alto en el ejemplo) pesan menos, porque traen menos información sobre dónde está la recta. Por eso MCP gana eficiencia frente a MCO cuando <span class="math inline">\(\Psi\)</span> es la correcta.</p>
+</div>
+<div class="box-resumen">
+<p><strong>White frente a MCP.</strong> White deja <span class="math inline">\(\hat{\beta}\)</span> igual y solo corrige su varianza; no hace falta conocer <span class="math inline">\(\Psi\)</span>. MCP cambia el estimador y gana eficiencia, pero necesita conocer <span class="math inline">\(\Psi\)</span> (o estimarla, lo que se llama MCG factibles). Si <span class="math inline">\(\Psi\)</span> está mal especificada, MCP pierde su ventaja.</p>
+</div>
+</div>
+<div id="pruebas-heterocedasticidad" class="section level2 hasAnchor" number="19.7">
+<h2><span class="header-section-number">19.7</span> Pruebas de heterocedasticidad<a href="heterocedasticidad-teoria.html#pruebas-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Las pruebas formales usan una idea común. Si hay heterocedasticidad, los residuos al cuadrado deberían estar relacionados con variables observables.</p>
+<p>En la prueba de Breusch-Pagan se estima una regresión auxiliar,</p>
+<p><span class="math display">\[
+\hat{\epsilon}_i^2=\alpha_0+\alpha_1w_{1i}+\cdots+\alpha_mw_{mi}+v_i ,
+\]</span></p>
+<p>y se calcula <span class="math inline">\(LM=nR^2_{\text{aux}}\)</span>. Bajo la hipótesis nula de homocedasticidad, <span class="math inline">\(LM\overset{a}{\sim}\chi^2_m\)</span>.</p>
+<p>La prueba de White es más general. En la regresión auxiliar usa los regresores, sus cuadrados y sus productos cruzados. Es flexible, pero puede consumir muchos grados de libertad en muestras pequeñas.</p>
 <div class="box-ejemplo">
 <p>Si el modelo contiene <span class="math inline">\(x\)</span> y <span class="math inline">\(x^2\)</span>, la regresión auxiliar de White no debe duplicar mecánicamente términos idénticos. La idea es incluir las combinaciones relevantes sin crear colinealidad perfecta.</p>
 </div>
 <p>Goldfeld-Quandt es útil cuando se sospecha que la varianza cambia con una variable específica. Ordena la muestra por esa variable, compara grupos extremos y usa una razón de varianzas.</p>
 </div>
-<div id="correcciones" class="section level3 hasAnchor" number="19.3.3">
-<h3><span class="header-section-number">19.3.3</span> Correcciones<a href="heterocedasticidad-teoria.html#correcciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Hay dos familias de respuestas.</p>
-<p>La primera mantiene <span class="math inline">\(\hat{\beta}_{MCO}\)</span> y corrige la matriz de varianzas con errores estándar robustos tipo White/Huber:</p>
-<p><span class="math display">\[
-\widehat{\text{Var}}_{HC0}(\hat{\beta})
-= (X&#39;X)^{-1}
-\left(\sum_{i=1}^n x_ix_i&#39;\hat{\epsilon}_i^2\right)
-(X&#39;X)^{-1}.
-\]</span></p>
-<p>Equivalente, en forma matricial:</p>
-<p><span class="math display">\[
-\widehat{\text{Var}}_{HC0}(\hat{\beta})
-= (X&#39;X)^{-1}X&#39;\widehat{\Omega}X(X&#39;X)^{-1},
-\]</span></p>
-<p>donde:</p>
-<p><span class="math display">\[
-\widehat{\Omega}=\text{diag}(\hat{\epsilon}_1^2,\ldots,\hat{\epsilon}_n^2).
-\]</span></p>
-<p>La segunda familia cambia el estimador. Si conocemos <span class="math inline">\(\Omega\)</span>, el estimador GLS es:</p>
-<p><span class="math display">\[
-\hat{\beta}_{GLS}=(X&#39;\Omega^{-1}X)^{-1}X&#39;\Omega^{-1}y.
-\]</span></p>
-<p>Si <span class="math inline">\(\Omega\)</span> es diagonal y conocemos o estimamos <span class="math inline">\(\sigma_i^2\)</span>, usamos mínimos cuadrados ponderados:</p>
-<p><span class="math display">\[
-\min_\beta \sum_{i=1}^n w_i(y_i-x_i&#39;\beta)^2,
-\qquad
-w_i=\frac{1}{\sigma_i^2}.
-\]</span></p>
-</div>
-</div>
-<div id="supuestos-propiedades-heterocedasticidad" class="section level2 hasAnchor" number="19.4">
-<h2><span class="header-section-number">19.4</span> Supuestos y propiedades<a href="heterocedasticidad-teoria.html#supuestos-propiedades-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="supuestos-propiedades-heterocedasticidad" class="section level2 hasAnchor" number="19.8">
+<h2><span class="header-section-number">19.8</span> Supuestos y propiedades<a href="heterocedasticidad-teoria.html#supuestos-propiedades-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <colgroup>
 <col width="50%" />
@@ -360,66 +482,70 @@ w_i=\frac{1}{\sigma_i^2}.
 <td>MCO sigue siendo insesgado y consistente.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\Omega\neq\sigma^2I\)</span></td>
+<td><span class="math inline">\(\Psi\neq I_n\)</span></td>
 <td>MCO ya no es eficiente dentro de los estimadores lineales insesgados.</td>
 </tr>
 <tr class="odd">
-<td>Errores estándar clásicos bajo heterocedasticidad</td>
-<td>Pruebas <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> e intervalos clásicos pueden ser inválidos.</td>
+<td><code>reg y x</code> bajo heterocedasticidad</td>
+<td>Errores estándar, pruebas <span class="math inline">\(t\)</span>, <span class="math inline">\(F\)</span> e intervalos pueden ser inválidos.</td>
 </tr>
 <tr class="even">
-<td>Errores robustos HC</td>
-<td>Corrigen la inferencia asintótica sin cambiar los coeficientes.</td>
+<td><code>reg y x, robust</code> (White)</td>
+<td>Corrige la inferencia en muestras grandes sin cambiar los coeficientes.</td>
 </tr>
 <tr class="odd">
-<td>WLS/GLS bien especificado</td>
-<td>Puede mejorar eficiencia y cambiar los coeficientes.</td>
+<td>MCP/MCG con <span class="math inline">\(\Psi\)</span> correcta</td>
+<td>Cambia los coeficientes y gana eficiencia.</td>
 </tr>
 </tbody>
 </table>
 <div class="box-resumen">
-<p>La heterocedasticidad no destruye toda la regresión. Obliga a separar dos preguntas: si el coeficiente está centrado en el parámetro y si estamos midiendo bien su incertidumbre.</p>
+<p>La heterocedasticidad no destruye toda la regresión. Obliga a separar dos preguntas, si el coeficiente está centrado en el parámetro y si estamos midiendo bien su incertidumbre.</p>
 </div>
 </div>
-<div id="errores-comunes-heterocedasticidad" class="section level2 hasAnchor" number="19.5">
-<h2><span class="header-section-number">19.5</span> Errores comunes y cuidados<a href="heterocedasticidad-teoria.html#errores-comunes-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="errores-comunes-heterocedasticidad" class="section level2 hasAnchor" number="19.9">
+<h2><span class="header-section-number">19.9</span> Errores comunes y cuidados<a href="heterocedasticidad-teoria.html#errores-comunes-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-cuidado">
-<p>No digas que la heterocedasticidad sesga MCO si la exogeneidad se mantiene. El sesgo aparece por problemas como variables omitidas, simultaneidad o error de medición en regresores.</p>
+<p>No digas que la heterocedasticidad sesga MCO si la exogeneidad se mantiene. El sesgo aparece por problemas como variables omitidas, simultaneidad o error de medición en los regresores.</p>
 </div>
 <div class="box-cuidado">
-<p>No uses WLS solo porque una prueba rechaza homocedasticidad. Para ponderar necesitas una razón defendible para la forma de la varianza.</p>
+<p>No pongas <span class="math inline">\(\sigma_\epsilon^2\)</span> adelante de la fórmula de White cuando <span class="math inline">\(\hat{\Psi}\)</span> tiene los residuos al cuadrado. Ver la caja de la Solución 1.</p>
+</div>
+<div class="box-cuidado">
+<p>No uses MCP solo porque una prueba rechaza homocedasticidad. Para ponderar necesitas una razón defendible para la forma de <span class="math inline">\(\Psi\)</span>.</p>
 </div>
 <div class="box-cuidado">
 <p>Un gráfico de residuos no prueba formalmente heterocedasticidad, pero sí ayuda a detectar patrones que las pruebas pueden resumir.</p>
 </div>
 </div>
-<div id="resumen-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.6">
-<h2><span class="header-section-number">19.6</span> Resumen<a href="heterocedasticidad-teoria.html#resumen-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="resumen-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.10">
+<h2><span class="header-section-number">19.10</span> Resumen<a href="heterocedasticidad-teoria.html#resumen-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-resumen">
 <ul>
-<li>Hay heterocedasticidad cuando <span class="math inline">\(\text{Var}(\epsilon_i\mid X)\)</span> cambia entre observaciones.</li>
+<li>Hay heterocedasticidad cuando <span class="math inline">\(\text{Var}(\epsilon)=\sigma_\epsilon^2\Psi\)</span> con <span class="math inline">\(\Psi\neq I_n\)</span>.</li>
 <li>Con exogeneidad, MCO sigue siendo insesgado y consistente.</li>
-<li>La varianza correcta es <span class="math inline">\((X&#39;X)^{-1}X&#39;\Omega X(X&#39;X)^{-1}\)</span>.</li>
-<li>White y Breusch-Pagan evalúan si los residuos al cuadrado se relacionan con variables observables.</li>
-<li>Los errores robustos corrigen inferencia; WLS/GLS cambian el estimador.</li>
+<li>La varianza correcta es <span class="math inline">\(\sigma_\epsilon^2(X&#39;X)^{-1}X&#39;\Psi X(X&#39;X)^{-1}\)</span>; <code>reg y x</code> reporta <span class="math inline">\(\hat{\sigma}_\epsilon^2(X&#39;X)^{-1}\)</span>, que está mal.</li>
+<li>White estima la varianza con <span class="math inline">\((X&#39;X)^{-1}X&#39;\hat{\Psi}X(X&#39;X)^{-1}\)</span>, con <span class="math inline">\(\hat{\Psi}=\text{diag}(\hat{\epsilon}_i^2)\)</span>.</li>
+<li>MCP transforma el modelo con <span class="math inline">\(G\)</span> y da <span class="math inline">\(\hat{\beta}_{MCP}=(X&#39;\Psi^{-1}X)^{-1}X&#39;\Psi^{-1}y\)</span>, con varianza <span class="math inline">\(\sigma_\epsilon^2(X&#39;\Psi^{-1}X)^{-1}\)</span>.</li>
 </ul>
 </div>
 </div>
-<div id="ejercicios-conceptuales-heterocedasticidad" class="section level2 hasAnchor" number="19.7">
-<h2><span class="header-section-number">19.7</span> Ejercicios conceptuales<a href="heterocedasticidad-teoria.html#ejercicios-conceptuales-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-conceptuales-heterocedasticidad" class="section level2 hasAnchor" number="19.11">
+<h2><span class="header-section-number">19.11</span> Ejercicios conceptuales<a href="heterocedasticidad-teoria.html#ejercicios-conceptuales-heterocedasticidad" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="box-ejercicios">
 <ol style="list-style-type: decimal">
-<li>Explica por qué la heterocedasticidad invalida la matriz clásica de varianzas.</li>
-<li>Deriva <span class="math inline">\(\text{Var}(\hat{\beta}\mid X)\)</span> cuando <span class="math inline">\(\text{Var}(\epsilon\mid X)=\Omega\)</span>.</li>
+<li>Explica por qué la heterocedasticidad invalida la varianza que reporta <code>reg y x</code>.</li>
+<li>Deriva <span class="math inline">\(\text{Var}(\hat{\beta})\)</span> cuando <span class="math inline">\(\text{Var}(\epsilon)=\sigma_\epsilon^2\Psi\)</span> y verifica que es <span class="math inline">\(K\times K\)</span>.</li>
+<li>Con datos agrupados por municipio, escribe <span class="math inline">\(\Psi\)</span> y explica qué observaciones son más precisas.</li>
+<li>Muestra que <span class="math inline">\(\text{Var}(G\epsilon)=\sigma_\epsilon^2I_n\)</span> y deriva <span class="math inline">\(\hat{\beta}_{MCP}\)</span>.</li>
+<li>Explica por qué en la fórmula de White no va <span class="math inline">\(\sigma_\epsilon^2\)</span> adelante.</li>
 <li>Compara White y Breusch-Pagan: ¿cuándo preferirías cada prueba?</li>
-<li>Da un ejemplo de heterocedasticidad pura y uno de heterocedasticidad impura.</li>
-<li>Explica cuándo usarías errores robustos y cuándo WLS.</li>
 <li>Para practicar estos diagnósticos junto con multicolinealidad, resuelve las partes B, C y E del <a href="problem-set-3.html#problem-set-3">Problem Set 3: Multicolinealidad y heterocedasticidad</a>.</li>
 </ol>
 </div>
 </div>
-<div id="referencias-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.8">
-<h2><span class="header-section-number">19.8</span> Referencias<a href="heterocedasticidad-teoria.html#referencias-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="referencias-heterocedasticidad-teoria" class="section level2 hasAnchor" number="19.12">
+<h2><span class="header-section-number">19.12</span> Referencias<a href="heterocedasticidad-teoria.html#referencias-heterocedasticidad-teoria" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>White, Halbert. “A Heteroskedasticity-Consistent Covariance Matrix Estimator and a Direct Test for Heteroskedasticity”, <em>Econometrica</em>, 1980.</li>
 <li>Breusch, Trevor y Adrian Pagan. “A Simple Test for Heteroscedasticity and Random Coefficient Variation”, <em>Econometrica</em>, 1979.</li>
